@@ -1,0 +1,59 @@
+{
+  "name": "cozyhouzz-web",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./bin/www.js",
+  "description": "This is a NodeJS Firebase based VR Media Service Web Project.",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "app-root-path": "^2.0.1",
+    "body-parser": "^1.13.3",
+    "compression": "^1.5.2",
+    "cookie-parser": "^1.3.3",
+    "ejs": "^2.3.1",
+    "enum": "^2.3.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.13.3",
+    "mkdir-promise": "^1.0.0",
+    "morgan": "^1.6.1",
+    "multer": "^1.2.1",
+    "node-md5": "0.0.1",
+    "serve-favicon": "^2.3.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "debug": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-env": "^0.4.0",
+    "gulp-less": "^3.0.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.2",
+    "gulp-plumber": "^1.0.0",
+    "gulp-util": "^3.0.8",
+    "mocha": "^3.0.2",
+    "nyc": "^10.0.0",
+    "pump": "^1.0.2",
+    "supertest": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kincjf/cozyhouzz-web.git"
+  },
+  "contributors": [
+    "Seonho Kim <sinho0689@gmail.com>"
+  ],
+  "keywords": [
+    "vr",
+    "firebase",
+    "express"
+  ],
+  "author": "Seonho Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kincjf/cozyhouzz-web/issues"
+  },
+  "homepage": "http://cozyhouzz.co.kr"
+}

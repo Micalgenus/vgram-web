@@ -1,0 +1,12 @@
+{
+  "name": "cozyhouzz-web",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "firebase": "^3.6.4"
+  }
+}

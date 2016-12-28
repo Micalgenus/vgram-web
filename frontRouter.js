@@ -1,0 +1,247 @@
+/**
+ * Created by KIMSEONHO on 2016-08-16.
+ */
+const express = require('express'),
+  multer = require('multer'),
+
+  multerConfig = require('./config/multer'),
+  // PublicController = require('./controllers/public'),
+  // AuthController = require('./controllers/authentication'),
+  // UserController = require('./controllers/user'),
+  // ConsultController = require('./controllers/consult'),
+  // BuildCaseController = require('./controllers/build-case'),
+  // BizStoreController = require('./controllers/biz-store'),
+  // RoomInfoController = require('./controllers/room-info'),
+
+  quoter  = require('./tests/quoter');    // test route
+
+var env = process.env.NODE_ENV || "development";
+var config = require('./config/main');
+const value = require('./utils/staticValue');
+
+
+const buildCaseImageUpload = multer({ storage: multerConfig.buildCaseInfoStorage }).fields([
+  { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
+
+const roomInfoImageUpload = multer({ storage: multerConfig.roomInfoStorage }).fields([
+  { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
+
+const editorImageUpload = multer({ storage: multerConfig.editorImageStorage })
+  .array(value.fieldName.EDITOR_IMAGE, 10);
+
+const bizImageUpload = multer({ storage: multerConfig.bizMemberInfoStorage }).fields([
+  { name: value.fieldName.LOGO_IMAGE, maxCount: 1 }, { name: value.fieldName.INTRO_IMAGE, maxCount: 1 }]);
+
+var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
+
+
+module.exports = function(app) {
+  // Initializing route groups
+  var routes = express.Router(),
+    publicRoutes = express.Router(),
+    authRoutes = express.Router(),
+    userRoutes = express.Router(),
+    consultRoutes = express.Router(),
+    buildCaseRoutes = express.Router(),
+    bizStoreRoutes = express.Router(),
+    roomInfoRoutes = express.Router();
+
+  // chatRoutes = express.Router(),
+  // payRoutes = express.Router(),
+  // communicationRoutes = express.Router();
+
+   //=========================
+   // Default Routes
+   //=========================
+
+   // Test normal route
+   routes.get('/', function(req, res) {
+      res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+  //=========================
+  // Test Routes
+  //=========================
+
+  // Test normal route
+  routes.get('/test', function(req, res) {
+    // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
+    res.status(200).json({ quote: quoter.getRandomOne() });
+  });
+
+  // Test protected route, 회원 id를 포함한 정보는 jwt값으로 인코딩해서 보내야 함.
+  // apiRoutes.get('/protected', requireAuth, function(req, res) {
+  //   res.status(200).json({ content: 'The protected test route is functional!'});
+  // });
+
+  //=========================
+  // public Routes
+  //=========================
+
+  // Set public routes as subgroup/middleware to apiRoutes
+  // apiRoutes.use('/public', publicRoutes);
+
+  // upload Image and return path when try to attaching device image
+  // publicRoutes.post('/image', requireAuth, editorImageUpload, PublicController.uploadEditorImage);
+
+  // test - upload file and return path when try to attaching device file
+  // publicRoutes.post('/file/test', testFileUpload, PublicController.uploadFileTest);
+
+  //=========================
+  // Auth Routes
+  //=========================
+
+  // Set auth routes as subgroup/middleware to apiRoutes
+  // apiRoutes.use('/auth', authRoutes);
+
+  // Registration route
+  // authRoutes.post('/register', AuthController.register);
+
+  // Login route
+  // authRoutes.post('/login', requireLogin, AuthController.login);
+
+  // Password reset request route (generate/send token)
+  // authRoutes.post('/forgot-password', AuthController.forgotPassword);
+
+  // authRoutes.post('/reset-password/:token', AuthController.verifyToken);
+
+  //=========================
+  // Member Routes
+  //=========================
+
+  // Set user routes as a subgroup/middleware to apiRoutes
+  // apiRoutes.use('/user', userRoutes);
+
+  // View public user profile route
+  // userRoutes.get('/:memberIdx', requireAuth, UserController.viewProfile);
+
+  // Update user profile route
+  // userRoutes.put('/:memberIdx', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
+
+  // View business user profile route
+  // userRoutes.get('/biz/:memberIdx', requireAuth, UserController.viewBizProfile);
+
+  // update business user profile route - 이미지 업로드 기능을 추가해야함.
+  // userRoutes.put('/biz/:memberIdx', requireAuth, bizImageUpload, UserController.updateBizProfile);
+
+
+  //=========================
+  // Build Case Routes
+  //=========================
+
+  // Set BuildCase routes as a subgroup/middleware to apiRoutes
+  // apiRoutes.use('/build-case', buildCaseRoutes);
+
+  // View Build Case List from authenticated user(must get query(?pageSize={}&pageStartIndex={}) param)
+  // buildCaseRoutes.get('/', BuildCaseController.viewBuildCaseList);
+
+  // View Build Case Info
+  // buildCaseRoutes.get('/:buildCaseIdx', BuildCaseController.viewBuildCase);
+
+  // create new Build Case Info from authenticated user
+  // buildCaseRoutes.post('/', requireAuth,  testImageUpload, BuildCaseController.createBuildCaseAndVRPano);
+
+  // create new Build Case Info from authenticated user
+  // buildCaseRoutes.post('/', requireAuth, buildCaseImageUpload, BuildCaseController.createBuildCaseAndVRPano);
+
+  // update Build Case Info from authenticated user
+  // buildCaseRoutes.put('/:buildCaseIdx', requireAuth, buildCaseImageUpload, BuildCaseController.updateBuildCase);
+
+  // delete Build Case Info from authenticated user
+  // buildCaseRoutes.delete('/:buildCaseIdx', requireAuth, BuildCaseController.deleteBuildCase);
+
+  // search Build Case Info (must get query(?query={}) param)
+  // buildCaseRoutes.get('/search', BuildCaseController.searchBuildCase);
+
+  //=========================
+  // Biz Store Route - 업체 목록 조회
+  //=========================
+
+  // Set chat routes as a subgroup/middleware to apiRoutes
+  // apiRoutes.use('/biz-store', bizStoreRoutes);
+
+  // View business user profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
+  // bizStoreRoutes.get('/', BizStoreController.viewBizProfileList);
+
+  // View business user profile to customer route
+  // bizStoreRoutes.get('/:memberIdx', BizStoreController.viewBizProfile);
+
+
+  //=========================
+  // Payment Routes
+  //=========================
+  // apiRoutes.use('/pay', payRoutes);
+
+  // Webhook endpoint for Stripe
+  // payRoutes.post('/webhook-notify', StripeController.webhook);
+
+  // Create customer and subscription
+  // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
+
+  // Update customer object and billing information
+  // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
+
+  // Delete subscription from customer
+  // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
+
+  // Upgrade or downgrade subscription
+  // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
+
+  // Fetch customer information
+  // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
+
+  //=========================
+  // Communication Routes
+  //=========================
+  // apiRoutes.use('/communication', communicationRoutes);
+
+  // Send email from contact form
+  // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
+
+  //=========================
+  // Consult Routes
+  //=========================
+  // apiRoutes.use('/consult', consultRoutes);
+
+  // insert consulting information
+  // consultRoutes.post('/', requireAuth, ConsultController.consultingCounsel);
+
+  // consulting information list
+  // consultRoutes.get('/', ConsultController.consultingList);
+
+  // consulting information list
+  // consultRoutes.get('/my/', requireAuth, ConsultController.consultingMyList);
+
+  // consulting information detail
+  // consultRoutes.get('/:consultDataIdx', requireAuth, ConsultController.consultingDetail);
+
+  // modify consulting information
+  // consultRoutes.put('/:consultDataIdx', requireAuth, ConsultController.consultingModify);
+
+  // delete consulting information
+  // consultRoutes.delete('/:consultDataIdx', requireAuth, ConsultController.consultingDelete);
+
+  //=========================
+  // Room Info Routes
+  //=========================
+  // apiRoutes.use('/room', roomInfoRoutes);
+  //
+  // roomInfoRoutes.get('/', RoomInfoController.viewRoomInfoList);
+
+  // create new Room Info from authenticated user
+  //roomInfoRoutes.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+
+  // update Room Info Info from authenticated user
+
+  // roomInfoRoutes.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
+  //
+  // roomInfoRoutes.delete('/:roomInfoIdx', requireAuth, RoomInfoController.deleteRoomInfo);
+  //
+  // roomInfoRoutes.get('/:roomInfoIdx', RoomInfoController.viewRoomInfoDetail);
+  //
+  // roomInfoRoutes.get('/search', RoomInfoController.searchRoomInfoList);
+
+  // Set url for API group routes
+  app.use('/', routes);
+};

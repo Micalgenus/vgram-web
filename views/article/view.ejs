@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]> <html class="ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="" lang="kr"> <!--<![endif]-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+	<!-- facebook -->
+  <meta property="og:title" content="<%=account%>" />
+  <meta property="og:site_name" content="bingle.pastelplus.com"/>
+  <meta property="og:description" content="<%=comment%>" />
+  <meta property="fb:app_id" content="966242223397117" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="http://bingle.pastelplus.com/<%=photo_url_preview%>"/>
+
+	<meta property="article:author" content="http://113.198.39.114/" />
+	<meta property="article:publisher" content="http://113.198.39.114/" />
+
+	<!-- Google -->
+	<meta itemprop="description" content="<%=comment%>">
+	<meta itemprop="image" content="http://bingle.pastelplus.com/<%=photo_url_preview%>">
+
+	<!-- 트위터 -->
+	<meta name="twitter:card"           content="photo">
+	<meta name="twitter:site"           content="bingle.pastelplus.com">
+	<meta name="twitter:creator"        content="<%=account%>">
+	<meta name="twitter:image"          content="http://bingle.pastelplus.com/<%=photo_url_preview%>">
+	<meta name="twitter:description"    content="<%=comment%>">
+
+    <%include ../static/css.html%>
+
+    <title>Bingle+</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/view.css">
+</head>
+<body class="single-post" ng-app="bingle" ng-controller="root">
+		<!-- PRELOADER -->
+		<%include ../addon/header.ejs%>
+
+		<!-- END / PRELOADER -->
+
+		<!-- PAGE WRAP -->
+		<div id="page-wrap" ng-controller="article-view"  ng-init="pid=<%=pid%>">
+
+
+            <!-- BLOG MAIN CONTENT -->
+			<section class="blog-content blog-standard">
+				<div class="container">
+					<div class="row">
+						<!-- CONTENT -->
+						<div class="col-md-12">
+							<div class="content">
+                                <img class="none" src="/<%=photo_url%>.jpg" alt="">
+
+								<!-- POST -->
+								<div class="post">
+									<div class="post-media">
+										<div id="pano" class="image-wrap" style="width:100%;height:600px;">
+											<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+
+										</div>
+
+									</div>
+									<div class="post-meta">
+										<div class="post-format">
+											<a href="#"><i class="fa fa-image"></i></a>
+										</div>
+										<div class="post-date">
+											<span class="year">2015</span>
+											<span class="month">Mar</span>
+											<span class="day">14</span>
+										</div>
+										<div class="post-comment">
+											<i class="fa fa-comment"></i>
+											<a href="#">105</a>
+										</div>
+									</div>
+									<!-- ABOUT AUTHOR -->
+									<div class="about-author">
+										<div class="image-thumb fl">
+											<img src="/lib/template/images/about/profile1_140.png" alt="">
+										</div>
+										<div class="author-info">
+											<div class="author-name">
+												<h4 class="text-uppercase"><%=account%></h4>
+											</div>
+											<div class="author-content">
+                                                <p ng-bind="comment"></p>
+											</div>
+											<div class="author-social">
+												<a href="" ng-click="share_facebook()"><i class="fa fa-facebook"></i> 공유하기</a>
+												<a href="#"><i class="fa fa-twitter"></i></a>		<!-- not supported -->
+												<a href="#"><i class="fa fa-dribbble"></i></a>		<!-- not supported -->
+												<a href="#"><i class="fa fa-google-plus"></i></a>		<!-- not supported -->
+												<a href data-idx="<%=pid%>" data-toggle="modal" data-target="#clipboardModal"><i class="fa fa-sticky-note">embed</i></a>
+											</div>
+										</div>
+									</div>
+									<!-- END / ABOUT AUTHOR -->
+
+									<!--<div class="post-body">-->
+										<!--<div class="post-title">-->
+										<!--</div>-->
+
+										<!--<div class="post-entry">-->
+										<!--</div>-->
+
+									<!--</div>-->
+									<!-- END / POST -->
+								</div>
+								<!-- COMMENTS -->
+								<div id="comments" style="margin: 0 auto; text-align: center;">
+									<div class="fb-comments" data-numposts="5" data-width="600"></div>
+								</div>
+								<!-- END / COMMENTS -->
+							</div>
+							<!-- END / CONTENT -->
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- BLOG MAIN CONTENT -->
+
+		</div>
+		<!-- END / PAGE WRAP -->
+
+		<!-- LOAD JQUERY -->
+<%include ../static/js.html%>
+
+<%include ../addon/component.html%>
+<%include ../addon/footer.html%>
+		<div id="fb-root"></div>
+		<script>
+			// facebook comment api
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.5&appId=1418643838390630";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+</body>
+</html>

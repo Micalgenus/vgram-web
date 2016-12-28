@@ -1,0 +1,52 @@
+<header id="header" class="header">
+    <div class="container">
+        <!-- LOGO -->
+        <div class="logo text-center">
+            <a href="/"><h1 style="font-size: 50px">BINGLE<span style="color: #E15D5D">+</span></h1></a>
+        </div>
+        <!-- END / LOGO -->
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="pi-navigation" data-menu-responsive="1200">
+        <div class="container">
+            <div class="open-menu">
+                <span class="item item-1"></span>
+                <span class="item item-2"></span>
+                <span class="item item-3"></span>
+            </div>
+            <div class="close-menu"></div>
+            <ul class="navlist">
+                <li class="menu-item-has-children current-menu-parent">
+                    <a href="/">Home</a>
+
+                </li>
+                <li><a href="/">About</a></li>
+                <li><a href="/">Category</a></li>
+                <li><a href="/p/upload">Upload</a></li>
+
+            </ul>
+
+            <div class="search-box">
+                    <span class="icon-search">
+                        <i class="fa fa-search"></i>
+                    </span>
+                <form action="GET">
+                    <input type="search" value="Search and hit enter">
+                </form>
+            </div>
+            <div class="share-box">
+
+                <a href=""><div ng-click="click_facebook_login()" class="fb-login-button" ><strong>로그인하기</strong></div></a>
+                <form id="fb_form" ng-submit="fb_login()" class="none" method="post" action="/">
+                    <input ng-bind="fb_email" value="{{fb_email}}" name="email" type="text">
+                    <button type="submit"></button>
+                </form>
+
+                <a href="" ng-click="logout()"><span><strong>김선호님 환영합니다.</strong></span></a>
+            </div>
+        </div>
+    </nav>
+    <!-- END / NAVIGATION -->
+
+</header>

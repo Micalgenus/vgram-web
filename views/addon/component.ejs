@@ -1,0 +1,76 @@
+<!-- clipboard Model -->
+<div class="modal fade bd-example-modal-sm" id="clipboardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Embed Share</h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="embed-data" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Copy Code</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var modal = $('#clipboardModal').on('hidden.bs.modal', function (e) {
+        $(this).find("#embed-data").text("");
+    });
+
+    var reposition = function() {
+        var modal = $(this),
+                dialog = modal.find('.modal-dialog');
+        modal.css('display', 'block');
+
+        // Dividing by two centers the modal exactly, but dividing by three
+        // or four works better for larger screens.
+        dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+    }
+    // Reposition when a modal is shown
+
+    var shareEmbed = function(pid) {
+        var iframe = $("<iframe/>", {
+            src: 'http://bingle.pastelplus.com/export/' + pid,
+            width: 800,
+            height: 600,
+            frameborder: 0,
+            bgcolor: "#000000",
+            target: "_blank",
+            allowfullscreen: true,
+            webkitallowfullscreen: true,
+            mozallowfullscreen: true
+        });
+
+        modal.find("#embed-data").text(iframe.prop('outerHTML'));
+    }
+
+    modal.on('show.bs.modal', reposition);
+
+    modal.on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var idx = button.data('idx') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        shareEmbed(idx)
+    })
+
+    var embedData = modal.find("#embed-data");
+    modal.find(".btn.btn-primary").click(function(e) {
+        clipboard.copy(embedData.text());
+        alert('Copied! Ready to Ctrl+V');
+    });
+
+    // Reposition when the window is resized
+    $(window).on('resize', function() {
+        $('.modal:visible').each(reposition);
+    });
+</script>

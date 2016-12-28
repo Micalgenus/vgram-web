@@ -1,0 +1,133 @@
+
+@gray : #9B9EA3;
+@red : #e74c3c;
+@green : #1abc9c;
+@blue : #2980b9;
+@white-light: #FFF6EE;
+@white: #FFFFFF;
+
+/**
+background color*/
+.bg-gray{
+  background: @gray;
+}
+.bg-white-light{
+  background: @white-light;
+}
+.bg-white{
+  background: @white;
+}
+.bg-blue{
+  &:hover{
+    background: @blue !important;
+
+  }
+  background: @blue;
+}
+
+
+/**
+text color
+*/
+
+.text-gray{
+  color: @gray;
+}
+.text-red{
+  color: @red;
+}
+.text-green{
+  color: @green;
+}
+
+.text-white-light{
+  color: @white-light;
+}
+
+.text-white{
+  color: @white;
+  &:hover{
+    color: @white;
+
+  }
+}
+.text-black{color: #000000}
+
+
+//align
+.text-center{
+  text-align: center;
+}
+.ellipsis {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+/**
+display
+*/
+
+//visibility
+.transparent{
+  opacity: 0;
+}
+
+.opaque{
+  opacity: 1;
+}
+.none{
+  display: none !important;
+}
+
+//margin
+.margin-zero{
+  margin: 0;
+}
+.margin-zero-left{
+  margin-left: 0;
+}
+.margin-zero-right{
+  margin-right: 0;
+}
+.margin-zero-top{
+  margin-top: 0!important;
+}
+
+.margin-center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+//padding
+.padding-zero{
+  padding: 0;
+}
+.padding-zero-left{
+  padding-left: 0 !important;
+}
+.padding-zero-right{
+  padding-right: 0 !important;
+}
+
+.text-left{
+  text-align: left !important;
+}
+
+.cover-img{
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+#embed-data {
+  font-size: 14px;
+  line-height: 17px;
+  height: 34px;
+  resize: none;
+  white-space: nowrap;
+  margin: 0 auto;
+  display: block;
+}

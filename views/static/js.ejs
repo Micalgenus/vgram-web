@@ -1,0 +1,33 @@
+<script type="text/javascript" src="/lib/template/lib/jquery-1.11.1.min.js"></script>
+
+<script src="/lib/bootstrap-4.0.0-alpha/dist/js/bootstrap.min.js"></script>
+
+<!--angular-->
+<script src="/lib/angular-1.4.5/angular.min.js"></script>
+<script type='text/javascript' src='/lib/ng-infinite-scroll.min.js'></script>
+
+<script type="text/javascript" src="/lib/template/lib/jquery.owl.carousel.js"></script>
+<script type="text/javascript" src="/lib/template/lib/jquery.tweet.min.js"></script>
+<script type="text/javascript" src="/lib/template/lib/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="/lib/template/lib/retina.min.js"></script>
+<script type="text/javascript" src="/lib/template/min/scripts.min.js"></script>
+
+<script type="text/javascript" src="/lib/clipboard.min.js"></script>
+
+<!--pano-->
+<script type="text/javascript" src="/lib/krpano-1.18.5-viewer/krpano.js"></script>
+
+<!--facebook-->
+<script src="http://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.5&appId=1418643838390630"></script>
+
+<% if (ENV === 'production') { %>
+<!-- production -->
+  <script src="/reload/reload.min.js"></script>
+<% } else { %>
+  <script src="/reload/reload.js"></script>
+<% } %>
+
+<script src="/js/myapp.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/upload.js"></script>
+<script src="/js/view.js"></script>
