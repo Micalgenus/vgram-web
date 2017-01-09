@@ -1,24 +1,30 @@
 /**
  * Created by KIMSEONHO on 2016-08-16.
  */
-const express = require('express'),
+const passport = require('passport'),
+  express = require('express'),
   multer = require('multer'),
-
-  multerConfig = require('./config/multer'),
-  // PublicController = require('./controllers/public'),
-  // AuthController = require('./controllers/authentication'),
-  // UserController = require('./controllers/user'),
-  // ConsultController = require('./controllers/consult'),
-  // BuildCaseController = require('./controllers/build-case'),
-  // BizStoreController = require('./controllers/biz-store'),
-  // RoomInfoController = require('./controllers/room-info'),
-
   quoter  = require('./tests/quoter');    // test route
 
+  multerConfig = require('./config/multer'),
+  PublicController = require('./controllers/public'),
+  AuthController = require('./controllers/authentication'),
+  UserController = require('./controllers/user'),
+  ConsultController = require('./controllers/consult'),
+  BuildCaseController = require('./controllers/build-case'),
+  BizStoreController = require('./controllers/biz-store'),
+  RoomInfoController = require('./controllers/room-info');
+
+
+// Middleware to require login/auth
+const requireAuth = passport.authenticate('jwt', { session: false });
+const requireLogin = passport.authenticate('local', { session: false });
+
+
 var env = process.env.NODE_ENV || "development";
+
 var config = require('./config/main');
 const value = require('./utils/staticValue');
-
 
 const buildCaseImageUpload = multer({ storage: multerConfig.buildCaseInfoStorage }).fields([
   { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
@@ -38,6 +44,7 @@ var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
 module.exports = function(app) {
   // Initializing route groups
   var routes = express.Router(),
+     apiRoutes = express.Router(),
     publicRoutes = express.Router(),
     authRoutes = express.Router(),
     userRoutes = express.Router(),
@@ -64,16 +71,22 @@ module.exports = function(app) {
   // Test Routes
   //=========================
 
-  // Test normal route
-  routes.get('/test', function(req, res) {
+  // Test view route
+   routes.get('/test/view', function(req, res) {
+      res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // Test API route
+   routes.get('/test/api', function(req, res) {
     // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
     res.status(200).json({ quote: quoter.getRandomOne() });
   });
 
   // Test protected route, 회원 id를 포함한 정보는 jwt값으로 인코딩해서 보내야 함.
-  // apiRoutes.get('/protected', requireAuth, function(req, res) {
-  //   res.status(200).json({ content: 'The protected test route is functional!'});
-  // });
+  apiRoutes.get('/test/api/protected', requireAuth, function(req, res) {
+    res.status(200).json({ content: 'The protected test route is functional!'});
+  });
 
   //=========================
   // public Routes

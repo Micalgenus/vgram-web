@@ -5,6 +5,7 @@ var morgan = require('morgan'),
   path = require('path'),
   express = require('express'),
   errorhandler = require('errorhandler'),
+  dotenv          = require('dotenv'),
   bodyParser = require('body-parser'),
   compress = require('compression'),
   favicon = require('serve-favicon'),
@@ -12,6 +13,8 @@ var morgan = require('morgan'),
   router = require('./frontRouter');
 
 var app = express();
+dotenv.load();    // loading .env and write to process.env
+
 var env = process.env.NODE_ENV || "development";
 app.locals.ENV = env;
 

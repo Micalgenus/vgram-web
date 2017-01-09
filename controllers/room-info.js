@@ -9,7 +9,7 @@ const moment = require("moment");
 
 
 var env = process.env.NODE_ENV || "development";
-var config = require("../config/main")[env];
+var config = require("../config/main");
 
 var log = require('console-log-level')({
   prefix: function () {

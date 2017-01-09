@@ -11,6 +11,9 @@ const VTOUR_CONFIG_PATH = "templates/vtour-normal-custom.config";
 const PANOTOUR_PATH = path.join("vtour", "panos");
 
 var config = {
+   // Secret key for JWT signing and encryption
+   "secret": "cozyhouzz by moblab",
+
   "development": {
     root: rootPath,
     app: {
@@ -50,6 +53,17 @@ var config = {
     app: {
       name: 'cozyhouzz-web'
     },
+     "username": "root",
+     "password": "hitit113112",
+     "database": "cozyhouzz",
+     "host": "api.cozyhouzz.co.kr",    // for init sequellize
+     "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting
+     "dialect": "mysql",
+     "pool": {
+        "max": 50,
+        "min": 10,
+        "idle": 10000
+     },
     "krpano": {
       win: KRPANO_WIN_PATH,
       linux: KRPANO_LINUX_PATH,

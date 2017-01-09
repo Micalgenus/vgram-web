@@ -2,20 +2,46 @@
 
 var debug = require('debug')('app');
 var app = require('../app');
+var models = require("../models");
 
 var env = process.env.NODE_ENV || "development";
 var config = require('../config/main');
 
+var setTestDatabase = require('../modules/setTestDatabase');
+var testDB = require('../tests/testDB');
+
+var server;
+var overwrite = (env == "development");
 app.set('port', normalizePort(process.env.PORT || config.port));
 
-var server = app.listen(app.get('port'), function (err) {
-  debug('Express server listening on port ' + server.address().port);
+// If force: true it will first drop tables before recreating them.
+models.sequelize.sync({ logging: console.log, force: overwrite }).then(function () {
+   /**
+    * Listen on provided port, on all network interfaces.
+    */
+   // server = http.createServer(app).listen(app.get('port'), function (err) {
+   //  debug('Express server listening on port ' + server.address().port);
+   // });
+
+   server = app.listen(app.get('port'), function (err) {
+      debug('Express server listening on port ' + server.address().port);
+   });
+
+   server.on('error', onError);
+   server.on('listening', onListening);
+
+   server.on('error', onError);
+   server.on('listening', onListening);
+
+   debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
+
+   if (env === 'development') {
+      return setTestDatabase(testDB);    // test DB
+   }
+}).catch(function(err) {
+   console.error(err + ' on sequelize.sync error');
+   process.exit(1);
 });
-
-server.on('error', onError);
-server.on('listening', onListening);
-
-debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
 
 /**
  * Normalize a port into a number, string, or false.

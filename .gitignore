@@ -39,7 +39,11 @@ public/components
 dist
 public/__build__/**
 .webpack.json
-
-
 build/
+
+
+# Development Resource #
 resources/
+db.development.sqlite
+/remote-models
+/references
