@@ -1,5 +1,4 @@
 /**
- * Example Code
  * Created by KIMSEONHO on 2016-09-02.
  */
 "use strict";

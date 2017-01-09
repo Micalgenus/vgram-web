@@ -43,15 +43,22 @@ var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
 
 module.exports = function(app) {
   // Initializing route groups
-  var routes = express.Router(),
+  var viewRoutes = express.Router(),
      apiRoutes = express.Router(),
-    publicRoutes = express.Router(),
-    authRoutes = express.Router(),
-    userRoutes = express.Router(),
-    consultRoutes = express.Router(),
-    buildCaseRoutes = express.Router(),
-    bizStoreRoutes = express.Router(),
-    roomInfoRoutes = express.Router();
+
+     publicAPI = express.Router(),
+    authAPI = express.Router(),
+    userAPI = express.Router(),
+    consultAPI = express.Router(),
+    bizStoreAPI = express.Router(),
+    roomInfoAPI = express.Router(),
+
+   publicView = express.Router(),
+      authView = express.Router(),
+      userView = express.Router(),
+      consultView = express.Router(),
+      bizStoreView = express.Router(),
+      roomInfoView = express.Router();
 
   // chatRoutes = express.Router(),
   // payRoutes = express.Router(),
@@ -62,7 +69,7 @@ module.exports = function(app) {
    //=========================
 
    // Test normal route
-   routes.get('/', function(req, res) {
+   viewRoutes.get('/', function(req, res) {
       res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
@@ -72,19 +79,19 @@ module.exports = function(app) {
   //=========================
 
   // Test view route
-   routes.get('/test/view', function(req, res) {
+   viewRoutes.get('/test/view', function(req, res) {
       res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
    // Test API route
-   routes.get('/test/api', function(req, res) {
+   apiRoutes.get('/test', function(req, res) {
     // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
     res.status(200).json({ quote: quoter.getRandomOne() });
   });
 
   // Test protected route, 회원 id를 포함한 정보는 jwt값으로 인코딩해서 보내야 함.
-  apiRoutes.get('/test/api/protected', requireAuth, function(req, res) {
+  apiRoutes.get('/test/protected', requireAuth, function(req, res) {
     res.status(200).json({ content: 'The protected test route is functional!'});
   });
 
@@ -93,44 +100,53 @@ module.exports = function(app) {
   //=========================
 
   // Set public routes as subgroup/middleware to apiRoutes
-  // apiRoutes.use('/public', publicRoutes);
+  apiRoutes.use('/public', publicAPI);
 
   // upload Image and return path when try to attaching device image
-  // publicRoutes.post('/image', requireAuth, editorImageUpload, PublicController.uploadEditorImage);
+  publicAPI.post('/image', requireAuth, editorImageUpload, PublicController.uploadEditorImage);
 
   // test - upload file and return path when try to attaching device file
-  // publicRoutes.post('/file/test', testFileUpload, PublicController.uploadFileTest);
+   publicAPI.post('/file/test', testFileUpload, PublicController.uploadFileTest);
 
   //=========================
   // Auth Routes
   //=========================
 
   // Set auth routes as subgroup/middleware to apiRoutes
-  // apiRoutes.use('/auth', authRoutes);
+  apiRoutes.use('/auth', authAPI);
+  viewRoutes.use('/', authView);
 
   // Registration route
-  // authRoutes.post('/register', AuthController.register);
+  authAPI.post('/register', AuthController.register);
+  authView.get('/register', AuthController.register);
 
-  // Login route
-  // authRoutes.post('/login', requireLogin, AuthController.login);
+   // Login route
+   authAPI.post('/login', requireLogin, AuthController.login);
+  authView.get('/login', AuthController.login);
 
   // Password reset request route (generate/send token)
-  // authRoutes.post('/forgot-password', AuthController.forgotPassword);
+   authAPI.post('/forgot-password', AuthController.forgotPassword);
+  authView.get('/forgot-password', AuthController.register);
 
-  // authRoutes.post('/reset-password/:token', AuthController.verifyToken);
 
-  //=========================
+   authAPI.post('/reset-password/:token', AuthController.verifyToken);
+  authView.get('/reset-password/:token', AuthController.verifyToken);
+
+   //=========================
   // Member Routes
   //=========================
 
   // Set user routes as a subgroup/middleware to apiRoutes
-  // apiRoutes.use('/user', userRoutes);
+  apiRoutes.use('/user', userAPI);
+   viewRoutes.use('/user', userView);
 
   // View public user profile route
-  // userRoutes.get('/:memberIdx', requireAuth, UserController.viewProfile);
+  userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+   userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
 
-  // Update user profile route
-  // userRoutes.put('/:memberIdx', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
+  // Update user profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
+  userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
+   userView.get('/update/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile);
 
   // View business user profile route
   // userRoutes.get('/biz/:memberIdx', requireAuth, UserController.viewBizProfile);
@@ -140,121 +156,113 @@ module.exports = function(app) {
 
 
   //=========================
-  // Build Case Routes
-  //=========================
-
-  // Set BuildCase routes as a subgroup/middleware to apiRoutes
-  // apiRoutes.use('/build-case', buildCaseRoutes);
-
-  // View Build Case List from authenticated user(must get query(?pageSize={}&pageStartIndex={}) param)
-  // buildCaseRoutes.get('/', BuildCaseController.viewBuildCaseList);
-
-  // View Build Case Info
-  // buildCaseRoutes.get('/:buildCaseIdx', BuildCaseController.viewBuildCase);
-
-  // create new Build Case Info from authenticated user
-  // buildCaseRoutes.post('/', requireAuth,  testImageUpload, BuildCaseController.createBuildCaseAndVRPano);
-
-  // create new Build Case Info from authenticated user
-  // buildCaseRoutes.post('/', requireAuth, buildCaseImageUpload, BuildCaseController.createBuildCaseAndVRPano);
-
-  // update Build Case Info from authenticated user
-  // buildCaseRoutes.put('/:buildCaseIdx', requireAuth, buildCaseImageUpload, BuildCaseController.updateBuildCase);
-
-  // delete Build Case Info from authenticated user
-  // buildCaseRoutes.delete('/:buildCaseIdx', requireAuth, BuildCaseController.deleteBuildCase);
-
-  // search Build Case Info (must get query(?query={}) param)
-  // buildCaseRoutes.get('/search', BuildCaseController.searchBuildCase);
-
-  //=========================
   // Biz Store Route - 업체 목록 조회
   //=========================
 
   // Set chat routes as a subgroup/middleware to apiRoutes
-  // apiRoutes.use('/biz-store', bizStoreRoutes);
+  apiRoutes.use('/biz-store', bizStoreAPI);
+   viewRoutes.use('/biz-store', bizStoreView);
 
   // View business user profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
-  // bizStoreRoutes.get('/', BizStoreController.viewBizProfileList);
+   bizStoreAPI.get('/', BizStoreController.viewBizProfileList);
+   bizStoreView.get('/list', BizStoreController.viewBizProfileList);
 
   // View business user profile to customer route
-  // bizStoreRoutes.get('/:memberIdx', BizStoreController.viewBizProfile);
+  bizStoreAPI.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
+   bizStoreView.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
 
 
   //=========================
-  // Payment Routes
+  // API -  Payment Routes
   //=========================
   // apiRoutes.use('/pay', payRoutes);
 
-  // Webhook endpoint for Stripe
-  // payRoutes.post('/webhook-notify', StripeController.webhook);
+   // Webhook endpoint for Stripe
+   // payRoutes.post('/webhook-notify', StripeController.webhook);
 
-  // Create customer and subscription
-  // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
+   // Create customer and subscription
+   // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
 
-  // Update customer object and billing information
-  // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
+   // Update customer object and billing information
+   // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
 
-  // Delete subscription from customer
-  // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
+   // Delete subscription from customer
+   // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
 
-  // Upgrade or downgrade subscription
-  // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
+   // Upgrade or downgrade subscription
+   // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
 
-  // Fetch customer information
-  // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
+   // Fetch customer information
+   // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
+
+   //=========================
+   // Communication Routes
+   //=========================
+   // apiRoutes.use('/communication', communicationRoutes);
+
+   // Send email from contact form
+   // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
   //=========================
-  // Communication Routes
+  // API - Consult Routes
   //=========================
-  // apiRoutes.use('/communication', communicationRoutes);
-
-  // Send email from contact form
-  // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
-
-  //=========================
-  // Consult Routes
-  //=========================
-  // apiRoutes.use('/consult', consultRoutes);
+  apiRoutes.use('/consult', consultAPI);
+  viewRoutes.use('/consult', consultView);
 
   // insert consulting information
-  // consultRoutes.post('/', requireAuth, ConsultController.consultingCounsel);
+  consultAPI.post('/', requireAuth, ConsultController.consultingCounsel);
+   consultView.get('/create', requireAuth, ConsultController.consultingCounsel);
 
   // consulting information list
-  // consultRoutes.get('/', ConsultController.consultingList);
+   consultAPI.get('/', ConsultController.consultingList);
+   consultView.get('/list', RoomInfoController.viewRoomInfoList);
 
-  // consulting information list
-  // consultRoutes.get('/my/', requireAuth, ConsultController.consultingMyList);
+  // my consulting information list
+  consultAPI.get('/my/', requireAuth, ConsultController.consultingMyList);
+   consultView.get('/my/list', requireAuth, ConsultController.consultingMyList);
 
   // consulting information detail
-  // consultRoutes.get('/:consultDataIdx', requireAuth, ConsultController.consultingDetail);
+   consultAPI.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
+   consultView.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
 
   // modify consulting information
-  // consultRoutes.put('/:consultDataIdx', requireAuth, ConsultController.consultingModify);
+  consultAPI.put('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
+   consultView.get('/update/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
 
   // delete consulting information
-  // consultRoutes.delete('/:consultDataIdx', requireAuth, ConsultController.consultingDelete);
+   consultAPI.delete('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDelete);
 
+   // search consulting information list
+   apiRoutes.get('/search/consult', RoomInfoController.searchRoomInfoList);
+
+
+   //=========================
+  // API - Room Info Routes
   //=========================
-  // Room Info Routes
-  //=========================
-  // apiRoutes.use('/room', roomInfoRoutes);
-  //
-  // roomInfoRoutes.get('/', RoomInfoController.viewRoomInfoList);
+  apiRoutes.use('/room', roomInfoAPI);
+   viewRoutes.use('/room', roomInfoView);
+
+   roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
+   roomInfoView.get('/list', RoomInfoController.viewRoomInfoList);
 
   // create new Room Info from authenticated user
-  //roomInfoRoutes.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+  roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+   roomInfoView.get('/create', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
 
   // update Room Info Info from authenticated user
+  roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
+   roomInfoView.get('/update/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
 
-  // roomInfoRoutes.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-  //
-  // roomInfoRoutes.delete('/:roomInfoIdx', requireAuth, RoomInfoController.deleteRoomInfo);
-  //
-  // roomInfoRoutes.get('/:roomInfoIdx', RoomInfoController.viewRoomInfoDetail);
-  //
-  // roomInfoRoutes.get('/search', RoomInfoController.searchRoomInfoList);
+   // delete Room Info Info from authenticated user
+   roomInfoAPI.delete('/:roomInfoIdx([0-9]+)', requireAuth, RoomInfoController.deleteRoomInfo);
 
-  // Set url for API group routes
-  app.use('/', routes);
+   // get Room Info Info from authenticated user
+  roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
+   roomInfoView.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
+
+  apiRoutes.get('/search/room', RoomInfoController.searchRoomInfoList);
+
+  // Set url for View, API group routes
+  app.use('/', viewRoutes);
+  app.use('/api', apiRoutes);
 };

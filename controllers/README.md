@@ -1,5 +1,4 @@
-# Custom Module
-- convert-vrpano : krpano tool을 이용해서 spherical image를
- cubical type로 변환함(resource/[id]/[timestamp])
-
-- make-resource-folder : 폴더 생성 (mkdir -p)
+# Controllers
+- api : return as RESTful style
+- core : 핵심 로직
+- view : return as ejs(html) style

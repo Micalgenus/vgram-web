@@ -1,6 +1,4 @@
-/**
- * Example Code
- */
+
 "use strict";
 
 const models = require('../models');
@@ -58,14 +56,14 @@ exports.consultingCounsel = function(req, res) {
   if (!expectBuildTotalArea) return res.status(400).send("평수를 선택해 주세요.");
   if (expectBuildStartDate == "Invalid date") return res.status(400).send("공사예정일을 선택해 주세요.");
   if (expectConsultDate == "Invalid date") return res.status(400).send("상담희망일을 선택해 주세요.");
-  if (!reqContents) return res.status(400).send("공사요청사항을 입력해 주세요.");
+  if (!reqContents) return res.status(400).send("공사요청사항을 입력해 주세요."); 
 
   // 값이 올바른 형식인지 체크 (정규표현식 이용)
 
   // 연락처
-  if (!telephone.match(/^\d{3}-\d{3,4}-\d{4}$/)) return res.status(400).send("올바른 연락처를 입력해 주세요.");
+  if (!telephone.match(/^\d{3}-\d{3,4}-\d{4}$/)) return res.status(400).send("올바른 연락처를 입력해 주세요."); 
   // 이메일
-  if (!email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) return res.status(400).send("올바른 이메일을 입력해 주세요.");
+  if (!email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) return res.status(400).send("올바른 이메일을 입력해 주세요."); 
   // 예산
   if (!expectBuildPrice.match(/^[0-9]+$/)) return res.status(400).send("올바른 예산을 입력해 주세요.");
   // 평수
@@ -124,9 +122,9 @@ exports.consultingModify = function(req, res) {
   // 값이 존재할 경우 올바른 형식인지 체크 (정규표현식 이용)
 
   // 연락처
-  if (telephone && !telephone.match(/^\d{3}-\d{3,4}-\d{4}$/)) return res.status(400).send("올바른 연락처를 입력해 주세요.");
+  if (telephone && !telephone.match(/^\d{3}-\d{3,4}-\d{4}$/)) return res.status(400).send("올바른 연락처를 입력해 주세요."); 
   // 이메일
-  if (email.split("@")[0] != "" && !email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) return res.status(400).send("올바른 이메일을 입력해 주세요.");
+  if (email.split("@")[0] != "" && !email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) return res.status(400).send("올바른 이메일을 입력해 주세요."); 
   // 예산
   if (expectBuildPrice && !expectBuildPrice.match(/^[0-9]+$/)) return res.status(400).send("올바른 예산을 입력해 주세요.");
   // 평수
@@ -281,7 +279,7 @@ exports.consultingDetail = function(req, res) {
 exports.consultingDelete = function(req, res) {
 
   const consultDataIdx = req.params.consultDataIdx;
-
+  
   return Consult.findOne({
     where: {
       idx: consultDataIdx
