@@ -1,7 +1,9 @@
 /**
  * Created by KIMSEONHO on 2017-01-10.
  */
-const auth = require('../authentication');
+"use strict";
+
+const auth = require('../core/authentication');
 
 /**
  * passport의 LocalStrategy(ID, Password)를 이용함

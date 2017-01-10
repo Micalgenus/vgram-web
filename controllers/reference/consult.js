@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const models = require('../models');
+const models = require('../../models/index');
 const Consult = models.UserConsultInfoBoard;
 const _ = require('lodash');
 

@@ -12,7 +12,7 @@ const Promise = require("bluebird");
 const moment = require("moment");
 
 var env = process.env.NODE_ENV || "development";
-var config = require("../config/main");
+var config = require("../../config/main");
 
 var log = require('console-log-level')({
   prefix: function () {
@@ -21,9 +21,9 @@ var log = require('console-log-level')({
   level: config.logLevel
 });
 
-const value = require('../utils/staticValue');
-const models = require('../models');
-const vrpanoPromise = require('../modules/convert-vrpano-promise');
+const value = require('../../utils/staticValue');
+const models = require('../../models/index');
+const vrpanoPromise = require('../../modules/convert-vrpano-promise');
 
 const BuildCaseInfoBoard = models.BuildCaseInfoBoard;
 
