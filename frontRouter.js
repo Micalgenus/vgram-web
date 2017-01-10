@@ -7,14 +7,18 @@ const passport = require('passport'),
   quoter  = require('./tests/quoter');    // test route
 
   multerConfig = require('./config/multer'),
-  PublicController = require('./controllers/public'),
-  AuthController = require('./controllers/authentication'),
-  UserController = require('./controllers/user'),
-  ConsultController = require('./controllers/consult'),
-  BuildCaseController = require('./controllers/build-case'),
-  BizStoreController = require('./controllers/biz-store'),
-  RoomInfoController = require('./controllers/room-info');
+  PublicController = require('./controllers/reference/public'),
+  AuthController = require('./controllers/reference/authentication'),
+  UserController = require('./controllers/reference/user'),
+  ConsultController = require('./controllers/reference/consult'),
+  BuildCaseController = require('./controllers/reference/build-case'),
+  BizStoreController = require('./controllers/reference/biz-store'),
+  RoomInfoController = require('./controllers/reference/room-info');
 
+  const AuthAPIController = require('./controllers/api/rest-auth'),
+     AuthViewController = require('./controllers/view/view-auth');
+
+ const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -113,7 +117,7 @@ module.exports = function(app) {
   //=========================
 
   // Set auth routes as subgroup/middleware to apiRoutes
-  apiRoutes.use('/auth', authAPI);
+  apiRoutes.use('/', authAPI);
   viewRoutes.use('/', authView);
 
   // Registration route
@@ -121,8 +125,8 @@ module.exports = function(app) {
   authView.get('/register', AuthController.register);
 
    // Login route
-   authAPI.post('/login', requireLogin, AuthController.login);
-  authView.get('/login', AuthController.login);
+   authAPI.post('/login', requireLogin, AuthAPIController.login);
+   authView.get('/login', AuthViewController.login);
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);

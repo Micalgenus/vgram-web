@@ -11,11 +11,9 @@ const VTOUR_CONFIG_PATH = "templates/vtour-normal-custom.config";
 const PANOTOUR_PATH = path.join("vtour", "panos");
 
 var config = {
-   // Secret key for JWT signing and encryption
-   "secret": "cozyhouzz by moblab",
-
   "development": {
-    root: rootPath,
+     "secret": "cozyhouzz by moblab",  // Secret key for JWT signing and encryption
+     root: rootPath,
     app: {
       name: 'cozyhouzz-web'
     },
@@ -34,7 +32,8 @@ var config = {
   },
 
   "test": {
-    root: rootPath,
+     "secret": "cozyhouzz by moblab",
+     root: rootPath,
     app: {
       name: 'cozyhouzz-web'
     },
@@ -49,7 +48,8 @@ var config = {
   },
 
   "production": {
-    root: rootPath,
+     "secret": "cozyhouzz by moblab",
+     root: rootPath,
     app: {
       name: 'cozyhouzz-web'
     },

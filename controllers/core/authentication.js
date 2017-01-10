@@ -5,15 +5,15 @@
 
 const crypto = require('crypto'),
    _ = require('lodash'),
-   models = require('../models'),
+   models = require('../../models'),
    Member = models.Member,
    BusinessMember = models.BusinessMember,
-   mailgun = require('../config/mailgun'),
-   mailchimp = require('../config/mailchimp'),
-   config = require('../config/main'),
+   mailgun = require('../../config/mailgun'),
+   mailchimp = require('../../config/mailchimp'),
+   config = require('../../config/main'),
 
-   genToken = require("../utils/genToken"),
-   value = require("../utils/staticValue");
+   genToken = require("../../utils/genToken"),
+   value = require("../../utils/staticValue");
 
 // statusCode나 memberType을 enum으로 처리하자
 

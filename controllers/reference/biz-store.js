@@ -3,9 +3,9 @@
  * Created by KIMSEONHO on 2016-09-02.
  */
 const _ = require('lodash');
-const genToken = require('../utils/genToken');
+const genToken = require('../../utils/genToken');
 
-const models = require('../models');
+const models = require('../../models/index');
 const BusinessMember = models.BusinessMember;
 
 /**

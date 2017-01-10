@@ -4,14 +4,14 @@
  */
 "use strict";
 const _ = require('lodash');
-const genToken = require('../utils/genToken');
+const genToken = require('../../utils/genToken');
 
-const models = require('../models');
+const models = require('../../models/index');
 const Member = models.Member;
 const BusinessMember = models.BusinessMember;
 
 // statusCode, memberType, uploadPath등
-const value = require('../utils/staticValue');
+const value = require('../../utils/staticValue');
 
 //========================================
 // Member Routes

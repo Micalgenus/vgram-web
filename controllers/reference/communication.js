@@ -2,7 +2,7 @@
  * Example Code
  * Created by KIMSEONHO on 2016-08-16.
  */
-const mailgun = require('../config/mailgun');
+const mailgun = require('../../config/mailgun');
 
 exports.sendContactForm = function(req, res, next) {
   const fromText = req.body.firstName + ' ' + req.body.lastName + ' ' +

@@ -14,7 +14,7 @@ const _ = require('lodash');
 const path = require('path');
 
 var env       = process.env.NODE_ENV || "development";
-var config    = require("../config/main")[env];
+var config    = require("../../config/main")[env];
 
 // req.files["fieldname"[i] - structure example
 // { fieldname: 'myfile',

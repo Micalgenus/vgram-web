@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const models = require('../models');
+const models = require('../../models/index');
 const RoomInfoBoard = models.RoomInfoBoard;
 const _ = require('lodash');
 const Promise = require("bluebird");
@@ -11,7 +11,7 @@ const moment = require("moment");
 
 
 var env = process.env.NODE_ENV || "development";
-var config = require("../config/main");
+var config = require("../../config/main");
 
 var log = require('console-log-level')({
   prefix: function () {
@@ -20,9 +20,9 @@ var log = require('console-log-level')({
   level: config.logLevel
 });
 
-const value = require('../utils/staticValue');
-const vrpanoPromise = require('../modules/convert-vrpano-promise');
-const moveImagePromise = require('../modules/move-image-promise');
+const value = require('../../utils/staticValue');
+const vrpanoPromise = require('../../modules/convert-vrpano-promise');
+const moveImagePromise = require('../../modules/move-image-promise');
 
 
 exports.viewRoomInfoList = function(req, res) {
