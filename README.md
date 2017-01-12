@@ -42,3 +42,7 @@ If you want, you can run this server for YOUR Auth0 account. For that, you just 
 AUTH0_CLIENT_ID=YourClientId
 AUTH0_CLIENT_SECRET=YourClientSecret
 ````
+
+## Next Plan
+* Central Event Hub를 기점으로 여러가지 클라우드 서비스를 조합하여
+이용하면 가격, 성능, 확장성을 고려할 수 있음
