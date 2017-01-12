@@ -37,16 +37,18 @@
             </div>
             <div class="share-box">
 
-                <a href=""><div ng-click="click_facebook_login()" class="fb-login-button" ><strong>로그인하기</strong></div></a>
+                <!--<a href=""><div ng-click="click_facebook_login()" class="fb-login-button" ><strong>로그인하기</strong></div></a>-->
+                <a href="" data-toggle="modal" data-target="#myModal"><strong>로그인하기</strong></a>
                 <form id="fb_form" ng-submit="fb_login()" class="none" method="post" action="/">
                     <input ng-bind="fb_email" value="{{fb_email}}" name="email" type="text">
                     <button type="submit"></button>
                 </form>
 
-                <a href="" ng-click="logout()"><span><strong>김선호님 환영합니다.</strong></span></a>
+                <a href="" ng-click="logout()"><strong>김선호님 환영합니다.</strong></a>
+
             </div>
         </div>
-    </nav>
-    <!-- END / NAVIGATION -->
+      </nav>
+  <!-- END / NAVIGATION -->
 
 </header>

@@ -5,9 +5,9 @@ var app = angular.module("bingle", ['infinite-scroll']);
 
 var api={};
 var ajax;
+
 app.controller("root", function ($rootScope, $scope, $http) {
 
-    var facebookAppId = 1418643838390630;
 
     $rootScope.user_idx=0;
     $rootScope.user_name="";
@@ -45,6 +45,10 @@ app.controller("root", function ($rootScope, $scope, $http) {
 
     api.user.info = ajax("get","http://113.198.39.114/i/user");
 
+    $scope.login = function() {
+      alert(1);
+    }
+
     $scope.click_facebook_login = function () {
         FB.init({
             appId      : facebookAppId,
@@ -81,7 +85,7 @@ app.controller("root", function ($rootScope, $scope, $http) {
     };
 
     $scope.logout = function () {
-        location.href = '/logout';
+        location.href = '/test';
     }
 
     $scope.share_facebook = function (comment, url, picture) {       // index와 view에서 동시에 사용하기 때문에 전역으로 옮김
@@ -122,4 +126,3 @@ app.controller("root", function ($rootScope, $scope, $http) {
 
     }
 });
-
