@@ -11,6 +11,5 @@
  */
 exports.login = function(req, res, next) {
    // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인);
-
    return res.render("login");
 }

@@ -12,13 +12,14 @@ const crypto = require('crypto'),
    mailchimp = require('../../config/mailchimp'),
    config = require('../../config/main'),
 
-   genToken = require("../../utils/genToken"),
-   value = require("../../utils/staticValue");
+   genToken = require("../../utils/genToken");
+   //value = require("../../utils/staticValue");
 
 // statusCode나 memberType을 enum으로 처리하자
 
+//로그인
 exports.login = function(req, res) {
-
+   console.log("Login");
    req.user.passwordOrigin = req.body.password;
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
@@ -26,5 +27,7 @@ exports.login = function(req, res) {
       id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
       user: userInfo,    // password가 hash로 오기 때문에,
       statusCode: 1
+      //statusCode
    };
 }
+

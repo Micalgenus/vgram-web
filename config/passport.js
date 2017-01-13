@@ -4,7 +4,9 @@
 // Importing Passport, strategies, and config
 const passport = require('passport'),
    models = require('../models'),
-   Member = models.Member,
+   //2017.1.13 이정현 주석 처리
+   //Member = models.Member,
+   Users = models.Users,
    config = require('./main.js'),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,
@@ -18,7 +20,9 @@ const localOptions = {
 
 // Setting up local login strategy
 const localLogin = new LocalStrategy(localOptions, function (email, password, done) {
-   Member.findOne({where: {email: email}}).then(function (user) {
+   //2017.1.13 이정현 주석 처리
+   //Member.findOne({where: {email: email}}).then(function (user) {
+   Users.findOne({where: {email: email}}).then(function (user) {
       if (!user) {
          return done(null, false, {
             errorMsg: 'Your login details could not be verified. Please try again.',
