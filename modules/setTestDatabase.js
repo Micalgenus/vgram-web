@@ -16,25 +16,27 @@ module.exports = function(testDB) {
   if (testDB) {
     log.debug('Create Member Test Database');
 
-    return models.Member.bulkCreate(testDB.member).then(function () {
-      log.debug('Create BusinessMember Test Database');
-      return models.BusinessMember.bulkCreate(testDB.businessMember);
-    }).then(function () {
-      log.debug('Create BusinessMember Test Database');
-      return models.BuildCaseInfoBoard.bulkCreate(testDB.buildCaseInfoBoard);
-    }).then(function () {
-      log.debug('Create UserConsultInfoBoard Test Database');
-      return models.UserConsultInfoBoard.bulkCreate(testDB.userConsultInfoBoard);
-    }).then(function () {
-      log.debug('Create RoomInfoBoard Test Database');
-      return models.RoomInfoBoard.bulkCreate(testDB.roomInfoBoard);
-    }).then(function () {
-      log.debug('Complete create Test Database');
-      return models.sequelize.Promise.resolve('Complete create Test Database');
-    }).catch(function (err) {
-      log.debug('create Test Database Error ' + err);
-      return models.sequelize.Promise.reject(err);
-    });
+    // 아직 testDB가 새로운 Table 형식에 맞게 셋팅되지 않음
+
+    // return models.Member.bulkCreate(testDB.member).then(function () {
+    //   log.debug('Create BusinessMember Test Database');
+    //   return models.BusinessMember.bulkCreate(testDB.businessMember);
+    // }).then(function () {
+    //   log.debug('Create BusinessMember Test Database');
+    //   return models.BuildCaseInfoBoard.bulkCreate(testDB.buildCaseInfoBoard);
+    // }).then(function () {
+    //   log.debug('Create UserConsultInfoBoard Test Database');
+    //   return models.UserConsultInfoBoard.bulkCreate(testDB.userConsultInfoBoard);
+    // }).then(function () {
+    //   log.debug('Create RoomInfoBoard Test Database');
+    //   return models.RoomInfoBoard.bulkCreate(testDB.roomInfoBoard);
+    // }).then(function () {
+    //   log.debug('Complete create Test Database');
+    //   return models.sequelize.Promise.resolve('Complete create Test Database');
+    // }).catch(function (err) {
+    //   log.debug('create Test Database Error ' + err);
+    //   return models.sequelize.Promise.reject(err);
+    // });
   } else {
     return models.sequelize.Promise.reject('no testDB is found');
   }
