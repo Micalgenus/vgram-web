@@ -40,7 +40,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'ko_KR'
-    }
+    },
+     post_image_path: {
+        type: DataTypes.STRING,
+        allowNull: true
+     }
   }, {
     tableName: 'users'
   });

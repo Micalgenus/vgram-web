@@ -26,9 +26,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     telephone: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
+        type: DataTypes.STRING,
+        allowNull: true
+     },
+     meta_value: {
+        type: DataTypes.STRING,
+        allowNull: true
+     }
   }, {
     tableName: 'consulting'
   });
