@@ -4,7 +4,7 @@
 var moment = require('moment');
 
 module.exports = {
-   Users: [
+   users: [
     {
        id: 1,
        email: "kcmin08@naver.com",    // 일반 회원
@@ -68,18 +68,18 @@ module.exports = {
       member_type: "BUSINESS",
        registered_date: "2017-01-13"
     }],
-   UserMetas: [
+   user_metas: [
       {
          id: 1,
-         user_id: "kcmin08@naver.com",    // 일반 회원
-         meta_key: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-         meta_value: "PUBLIC"
+         user_id: "1",    // 일반 회원
+         meta_key: "안녕하세요",   // 11112222
+         meta_value: "123"
       },
       {
          id: 2,
-         user_id: "kcmin08@naver.com",    // 일반 회원
-         meta_key: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-         meta_value: "PUBLIC"
+         user_id: "2",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
       },
      ],
    //2017.1.13

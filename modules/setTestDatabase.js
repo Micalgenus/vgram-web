@@ -15,11 +15,10 @@ var models = require("../models");
 module.exports = function(testDB) {
   if (testDB) {
     log.debug('---1--- Create Users Test Database');
-     //2017.1.13 이정현 주석처리
 
-    return models.Users.bulkCreate(testDB.Users).then(function () {
+    return models.users.bulkCreate(testDB.users).then(function () {
        log.debug('---2--- Create UserMetas Test Database');
-       return models.UserMetas.bulkCreate(testDB.UserMetas);
+       return models.user_metas.bulkCreate(testDB.user_metas);
     });
      //2017.1.13 이정현 주석처리
      //return models.Member.bulkCreate(testDB.member).then(function () {
