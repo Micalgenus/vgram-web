@@ -88,6 +88,24 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
+   // Test view route
+   viewRoutes.get('/login', function(req, res) {
+      res.render('login', { ENV: env, title: 'Express', msg: 'login page test!' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // Test view route
+   viewRoutes.get('/signup', function(req, res) {
+      res.render('signup', { ENV: env, title: 'Express', msg: 'signup test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // Test view route
+   viewRoutes.get('/change', function(req, res) {
+      res.render('change', { ENV: env, title: 'Express', msg: 'change test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
    // Test API route
    apiRoutes.get('/test', function(req, res) {
     // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
