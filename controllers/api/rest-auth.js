@@ -12,6 +12,7 @@ const auth = require('../core/authentication');
  * @param next
  * @returns {*}
  */
+//로그인
 exports.login = function(req, res, next) {
    let result = auth.login(req, res);
 
@@ -21,4 +22,8 @@ exports.login = function(req, res, next) {
       user: result.user,    // password가 hash로 오기 때문에,
       statusCode: result.statusCode
    });
+}
+
+exports.register = function(req, res, next) {
+
 }
