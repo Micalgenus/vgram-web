@@ -83,7 +83,8 @@ module.exports = {
       },
      ],
    //2017.1.13
-  /* member: [
+  /*
+  member: [
       {
          idx: 1,
          email: "kcmin08@naver.com",    // 일반 회원
@@ -137,7 +138,7 @@ module.exports = {
          email: "membertype3@gmail.com",       // 임대업체 회원
          password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
          memberType: "3"
-      }],*/
+      }],
   businessMember: [
     {
       memberIdx: 5,
@@ -209,7 +210,7 @@ module.exports = {
       companyLogo: "tests/images/testLogo.jpg",
       companyIntroImage: "tests/images/testCompanyIntroImage1.png"
     }],
-
+*/
   buildCaseInfoBoard: [
     {
       idx: 1,

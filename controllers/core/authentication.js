@@ -6,8 +6,8 @@
 const crypto = require('crypto'),
    _ = require('lodash'),
    models = require('../../models'),
-   Member = models.Member,
-   BusinessMember = models.BusinessMember,
+   users = models.users,
+   //   BusinessMember = models.BusinessMember,
    mailgun = require('../../config/mailgun'),
    mailchimp = require('../../config/mailchimp'),
    config = require('../../config/main'),
@@ -17,9 +17,11 @@ const crypto = require('crypto'),
 
 // statusCode나 memberType을 enum으로 처리하자
 
-//로그인
+//========================================
+// login Route
+//========================================
 exports.login = function(req, res) {
-   console.log("Login");
+
    req.user.passwordOrigin = req.body.password;
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
@@ -31,3 +33,11 @@ exports.login = function(req, res) {
    };
 }
 
+//========================================
+// Logout Route : JWT이기 때문에 서버에는 값이 남아있지않음
+//========================================
+
+
+exports.register = function (req, res, next) {
+
+}

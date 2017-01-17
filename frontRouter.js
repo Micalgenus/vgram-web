@@ -15,10 +15,12 @@ const passport = require('passport'),
   BizStoreController = require('./controllers/reference/biz-store'),
   RoomInfoController = require('./controllers/reference/room-info');
 
+  const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
+  //이정현 추가
+  //로그인 부분
   const AuthAPIController = require('./controllers/api/rest-auth'),
      AuthViewController = require('./controllers/view/view-auth');
 
- const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -120,13 +122,16 @@ module.exports = function(app) {
   apiRoutes.use('/', authAPI);
   viewRoutes.use('/', authView);
 
-  // Registration route
-  authAPI.post('/register', AuthController.register);
-  authView.get('/register', AuthController.register);
-
    // Login route
    authAPI.post('/login', requireLogin, AuthAPIController.login);
    authView.get('/login', AuthViewController.login);
+
+  // Registration route
+  //authAPI.post('/register', AuthController.register);
+  //authView.get('/register', AuthController.register);
+   authAPI.post('/register', AuthAPIController.register);
+   authView.get('/register', AuthViewController.register);
+
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);

@@ -30,7 +30,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     registered_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     display_name: {
       type: DataTypes.STRING(45),
@@ -46,7 +47,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false,
       defaultValue: 'ko_KR'
-    }
+    },
+     post_image_path: {
+        type: DataTypes.STRING,
+        allowNull: true
+     }
   }, {
     tableName: 'users',
      instanceMethods: {

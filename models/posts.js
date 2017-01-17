@@ -68,7 +68,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'ko_KR'
-    }
+    },
+     meta_value: {
+        type: DataTypes.STRING,
+        allowNull: true
+     }
   }, {
     tableName: 'posts'
   });
