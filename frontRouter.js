@@ -90,21 +90,27 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
-   // Test view route
+    // login view route,로그인
    viewRoutes.get('/login', function(req, res) {
       res.render('login', { ENV: env, title: 'Express', msg: 'login page test!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
-   // Test view route
+   // signup view route,회원가입
    viewRoutes.get('/signup', function(req, res) {
       res.render('signup', { ENV: env, title: 'Express', msg: 'signup test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
-   // Test view route
+   // change view route,회원정보 수정
    viewRoutes.get('/change', function(req, res) {
       res.render('change', { ENV: env, title: 'Express', msg: 'change test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // consultingCounsel view route,컨설팅 정보 입력
+   viewRoutes.get('/consultingCounsel', function(req, res) {
+      res.render('conconsultingCounsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
