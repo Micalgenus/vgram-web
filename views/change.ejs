@@ -70,11 +70,21 @@
 
             <div class="clear"></div>
 
-            <div class="col_two_third col_last">
+            <div class="col_one_third">
               <label for="member-change-subject">휴대전화</label>
               <input type="text" #telephone id="member-change-subject" name="member-change-subject" value="{{telephones}}" class="sm-form-control" placeholder="012-3456-7890" />
             </div>
-            
+                
+            <div class="col_one_third">
+              <label for="member-change-subject">이름</label>
+              <input type="text" #name id="member-change-subject" name="member-change-subject" value="{{telephones}}" class="sm-form-control" placeholder="012-3456-7890" />
+            </div>
+
+            <div class="col_one_third col_last">
+              <label for="member-change-subject">프로필사진</label>
+              <input type="text" #profilePicture id="member-change-subject" name="member-change-subject" value="{{telephones}}" class="sm-form-control" placeholder="012-3456-7890" />
+            </div>
+
             <div class="clear"></div>
 
             <section [ngClass]="{'hidden': memberType != 2}">
@@ -84,53 +94,31 @@
               <div class="clear"></div>
 
               <div class="col_one_third">
-                <label for="member-change-company">업체명</label>
+                <label for="member-change-company">업종</label>
                 <input type="text" #companyName id="member-change-company" name="member-change-company" value="{{companyNames}}" class="sm-form-control" />
               </div>
               
               <div class="col_one_third">
-                <label for="member-change-owner">대표명</label>
-                <input type="text" #ownerName id="member-change-owner" name="member-change-owner" value="{{ownerNames}}" class="sm-form-control" />
-              </div>
-                 
-              <div class="col_one_third col_last">
                 <label for="member-change-bizno">사업자등록번호</label>
                 <input type="text" #bizRegNo id="member-change-bizno" name="member-change-bizno" value="{{bizRegNos}}" class="sm-form-control" />
               </div>
 
-              <div class="clear"></div>
-
-              <div class="col_one_third">
-                <label for="member-change-contact">사업용 연락처</label>
-                <input type="text" #contact id="member-change-contact" name="member-change-contact" value="{{contacts}}" class="sm-form-control" />
-              </div>
-              
-              <div class="col_one_third">
-                <label for="member-change-place">사업장위치</label>
-                <input type="text" #workPlace id="member-change-place" name="member-change-place" value="{{workPlaces}}" class="sm-form-control" />
-              </div>
-
               <div class="col_one_third col_last">
-                <label for="member-change-field">주요시공분야</label>
-                <input type="text" #mainWorkField id="member-change-field" name="member-change-field" value="{{mainWorkFields}}" class="sm-form-control" />
-              </div>
-              
-              <div class="clear"></div>
-
-              <div class="col_one_third">
-                <label for="member-change-area">시공지역</label>
-                <input type="text" #mainWorkArea id="member-change-area" name="member-change-area" value="{{mainWorkAreas}}" class="sm-form-control" />
-              </div>
-              
-              <div class="col_two_third col_last">
-                <label for="member-change-short">요약글</label>
-                <input type="text" id="member-change-short" name="member-change-short" class="sm-form-control" />
+                <label for="member-change-owner">대표명</label>
+                <input type="text" #ownerName id="member-change-owner" name="member-change-owner" value="{{ownerNames}}" class="sm-form-control" />
               </div>
 
               <div class="clear"></div>
               
               <div class="col_full col_last">
-                <label for="member-change-full">상세글</label>
+                <label for="member-change-place">업체 주소</label>
+                <input type="text" #workPlace id="member-change-place" name="member-change-place" value="{{workPlaces}}" class="sm-form-control" />
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="col_full col_last">
+                <label for="member-change-full">소개글</label>
                 <input type="text" id="member-change-full" name="member-change-full" class="sm-form-control" />
               </div>
 
