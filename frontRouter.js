@@ -114,6 +114,12 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
+   // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+   viewRoutes.get('/roomInfoVR', function(req, res) {
+      res.render('iframe/krpano', { ENV: env, title: 'Express', msg: 'krpano test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
    // Test API route
    apiRoutes.get('/test', function(req, res) {
     // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
