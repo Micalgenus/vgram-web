@@ -7,15 +7,21 @@ const passport = require('passport'),
   quoter  = require('./tests/quoter');    // test route
 
   multerConfig = require('./config/multer'),
+
+
   PublicController = require('./controllers/reference/public'),
   AuthController = require('./controllers/reference/authentication'),
   UserController = require('./controllers/reference/user'),
   ConsultController = require('./controllers/reference/consult'),
   BuildCaseController = require('./controllers/reference/build-case'),
   BizStoreController = require('./controllers/reference/biz-store'),
-  RoomInfoController = require('./controllers/reference/room-info');
+  RoomInfoController = require('./controllers/reference/room-info'),
 
-  const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
+
+   redirectViewController = require('./controllers/view/redirect');
+
+
+const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
   //이정현 추가
   //로그인 부분
   const AuthAPIController = require('./controllers/api/rest-auth'),
@@ -124,7 +130,7 @@ module.exports = function(app) {
 
    // Login route
    authAPI.post('/login', requireLogin, AuthAPIController.login);
-   authView.get('/login', AuthViewController.login);
+   authView.get('/login', AuthViewController.login, requireLogin, redirectViewController.redirectMain);
 
   // Registration route
   //authAPI.post('/register', AuthController.register);
@@ -132,6 +138,9 @@ module.exports = function(app) {
    authAPI.post('/register', AuthAPIController.register);
    authView.get('/register', AuthViewController.register);
 
+   //탈퇴 라우터
+   // authAPI.post('/register', AuthAPIController.quit);
+   // authView.get('/register', AuthViewController.quit);
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);
