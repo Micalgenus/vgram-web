@@ -25,7 +25,9 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
   //이정현 추가
   //로그인 부분
   const AuthAPIController = require('./controllers/api/rest-auth'),
-     AuthViewController = require('./controllers/view/view-auth');
+
+    AuthViewController = require('./controllers/view/view-auth'),
+    UserViewController = require('./controllers/view/view-user');
 
 
 // Middleware to require login/auth
@@ -198,7 +200,8 @@ module.exports = function(app) {
 
   // View public user profile route
   userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
-   userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  //userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  userView.get('/:memberIdx([0-9]+)', UserViewController.viewProfile);
 
   // Update user profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
   userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
