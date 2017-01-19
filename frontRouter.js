@@ -120,6 +120,13 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
+   // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+   viewRoutes.get('/roomInfoVR/:id', function(req, res) {
+      //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
+      res.render('iframe/krpano', { ENV: env, title: 'Express', msg: 'krpano test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
    // Test API route
    apiRoutes.get('/test', function(req, res) {
     // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
