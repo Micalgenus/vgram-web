@@ -90,6 +90,10 @@ module.exports = function(app) {
   // Test Routes
   //=========================
 
+
+  /*이 route 주소들을 나중에 app.js에서 app.use를 사용하여 라우팅 해주는
+  방식으로 고치는 것이 좋을것 같음, 지금은 빠르게 ui를 확인하려고 res.render로
+  바로 확인하였음*/
   // Test view route
    viewRoutes.get('/test/view', function(req, res) {
       res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
@@ -117,12 +121,6 @@ module.exports = function(app) {
    // consultingCounsel view route,컨설팅 정보 입력
    viewRoutes.get('/consultingCounsel', function(req, res) {
       res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
-
-   // roomdetail view route,컨설팅 정보 입력
-   viewRoutes.get('/roomdetail', function(req, res) {
-      res.render('roomInfo/detail', { ENV: env, title: 'Express', msg: 'roomdetail test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
