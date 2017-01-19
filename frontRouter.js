@@ -98,25 +98,31 @@ module.exports = function(app) {
 
     // login view route,로그인
    viewRoutes.get('/login', function(req, res) {
-      res.render('login', { ENV: env, title: 'Express', msg: 'login page test!' });
+      res.render('login/login', { ENV: env, title: 'Express', msg: 'login page test!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
    // signup view route,회원가입
    viewRoutes.get('/signup', function(req, res) {
-      res.render('signup', { ENV: env, title: 'Express', msg: 'signup test' });
+      res.render('member/signup', { ENV: env, title: 'Express', msg: 'signup test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
    // change view route,회원정보 수정
    viewRoutes.get('/change', function(req, res) {
-      res.render('change', { ENV: env, title: 'Express', msg: 'change test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
+      res.render('member/change', { ENV: env, title: 'Express', msg: 'change test' });
+      // res.status(200).json({ quote: qSuoter.getRandomOne() });
    });
 
    // consultingCounsel view route,컨설팅 정보 입력
    viewRoutes.get('/consultingCounsel', function(req, res) {
-      res.render('conconsultingCounsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
+      res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // roomdetail view route,컨설팅 정보 입력
+   viewRoutes.get('/roomdetail', function(req, res) {
+      res.render('roomInfo/detail', { ENV: env, title: 'Express', msg: 'roomdetail test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 

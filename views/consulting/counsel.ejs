@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]> <html class="ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="" lang="en"> <!--<![endif]-->
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta name="format-detection" content="telephone=no">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+
+   <%include ../static/css.ejs%>
+   <title>Bingle+</title>
+
+
+</head>
+<body ng-app="bingle" ng-controller="root">
+
+<!-- PRELOADER -->
+<div id="preloader">
+   <div class="tb-cell">
+      <div class="page-loading">
+         <div class="item-icon"></div>
+      </div>
+   </div>
+</div>
+<!-- END / PRELOADER -->
+
+<!-- PAGE WRAP -->
+<div id="page-wrap" ng-controller="index">
+   <!-- HEADER -->
+   <%include ../addon/header.ejs%>
+</div>
+<!-- END / PAGE WRAP -->
+
+
+<!-- Page Title
+		============================================= -->
+<section id="page-title" class="page-title-mini">
+
+  <div class="container clearfix">
+    <h1>컨설팅 상담</h1>
+    <span>컨설팅 상담을 통해 여러업체들과 상담을 받을수 있습니다.</span>
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="/consultingMyListInfo">내 컨설팅 목록</a></li>
+      <li class="active">컨설팅 상담</li>
+    </ol>
+  </div>
+
+</section><!-- #page-title end -->
+
+<!-- Contact Form & Map Overlay Section
+    ============================================= -->
+<section id="map-overlay">
+
+  <div class="container clearfix">
+
+    <!-- Contact Form Overlay
+            ============================================= -->
+    <div id="contact-form-overlay" class="clearfix">
+
+      <div class="fancy-title title-dotted-border">
+        <h3>컨설팅 상담</h3>
+      </div>
+
+      <div class="contact-widget">
+
+        <div class="contact-form-result"></div>
+
+        <!-- Contact Form
+                    ============================================= -->
+        <form (submit)="consultingRegister($event, title.value, buildType.value, userName.value, telephone.value, email.value, expectBuildPrice.value, buildPlace.value, buildPostCode.value, buildPlaceDetail.value, expectBuildTotalArea.value, expectBuildStartDate.value, expectConsultDate.value, reqContents.value)">
+
+          <!--제목-->
+          <div class="col_full">
+            <label for="template-contactform-subject">제목 <small>*</small></label>
+            <input type="text" #title id="template-contactform-subject" name="template-contactform-subject" value="" class="required sm-form-control" />
+          </div>
+
+          <!--선호업체(ngIf)-->
+          <div *ngIf="havePrefBizMember == true">
+            <div class="col_half col_last" >
+              <label for="template-contactform-prefBizMember">선호업체<small>*</small></label>
+              <input type="text" id="template-contactform-prefBizMember" name="template-contactform-prefBizMember" value="" class="required email sm-form-control" />
+            </div>
+            <div class="col_half col_last" >
+            </div>
+          </div>
+
+
+          <div class="clear"></div>
+
+          <!--이름-->
+          <div class="col_half">
+            <label for="template-contactform-name">이름 <small>*</small></label>
+            <input type="text" #userName id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control required" />
+          </div>
+
+          <!--이메일-->
+          <div class="col_half col_last">
+            <label for="template-contactform-email">Email <small>*</small></label>
+            <input type="email" #email id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
+          </div>
+
+          <div class="clear"></div>
+
+          <!--연락처-->
+          <div class="col_half">
+            <label for="template-contactform-phone">연락처</label>
+            <input type="text" #telephone id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
+          </div>
+
+          <!--공사구분-->
+          <div class="col_half col_last">
+            <label for="template-contactform-service">공사구분</label>
+            <select #buildType id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+              <option value="주거공간">주거공간</option>
+              <option value="상업공간">상업공간</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+
+          <div class="clear"></div>
+
+          <!--공사예산-->
+          <div class="col_half">
+            <label for="template-contactform-budget">공사예산</label>
+            <input type="number" #expectBuildPrice id="template-contactform-budget" name="template-contactform-budget" value="" class="sm-form-control" />
+          </div>
+
+          <div class="col_half col_last">
+            <p></p>
+            <p>만원</p>
+          </div>
+
+          <div class="clear"></div>
+
+
+          <!--공사지 주소-->
+          <div>
+            <label for="postcode">공사지주소</label>
+            <div>
+              <div class="col_one_fourth">
+                <input type="text" #buildPostCode class="sm-form-control postcodify_postcode5" id="postcode" placeholder="우편번호" readonly>
+              </div>
+
+              <div class="col_one_fourth">
+                <button class="button button-border button-rounded button-amber" type="button" name="search" id="postcodify_search_button" value="검색">검색</button><br />
+              </div>
+
+              <div class="clear"></div>
+
+              <div class="col_half">
+                <input class="sm-form-control postcodify_address" type="text" #buildPlace id="address" placeholder="주소" readonly>
+              </div>
+              <div class="col_half col_last">
+                <input class="sm-form-control postcodify_details" type="text" #buildPlaceDetail id="details" placeholder="상세주소">
+              </div>
+              <div class="col_half col_last">
+                <input class="sm-form-control postcodify_extra_info" type="text" #buildPlaceDetail id="extraInfo" placeholder="참고항목">
+              </div>
+            </div>
+          </div>
+
+          <div class="clear"></div>
+
+          <!--거주/비거주-->
+          <div class="col_half">
+            <label>거주여부</label>
+            <form>
+              <div class="col_one_fourth">
+                <div class="radio">
+                  <input type="radio" name="optionsRadios"  id="radio-1" value="0" checked>
+                  <label for="radio-1">거주 </label>
+                </div>
+              </div>
+              <div class="col_one_fourth">
+                <div class="radio">
+                  <input type="radio" name="optionsRadios"  id="radio-2" value="1">
+                  <label for="radio-2"> 비거주 </label>
+                </div>
+              </div>
+            </form>
+
+          </div>
+
+          <!--평수입력-->
+          <div class="col_half col_last">
+            <label for="template-contactform-phone">평수입력</label>
+            <input type="number" #expectBuildTotalArea id="template-contactform-totalArea" name="template-contactform-budget" value="" class="sm-form-control" />
+          </div>
+
+          <div class="clear"></div>
+
+          <!--공사예정일-->
+          <div class="col_half">
+            <label for="template-contactform-phone">공사예정일</label>
+            <input type="date" #expectBuildStartDate id="template-contactform-startDate" name="template-contactform-budget" value="" class="sm-form-control" />
+          </div>
+
+          <!--상담희망일-->
+          <div class="col_half col_last">
+            <label for="template-contactform-consultDate">상담희망일</label>
+            <input type="date" #expectConsultDate id="template-contactform-consultDate" name="template-contactform-budget" value="" class="sm-form-control" />
+          </div>
+
+          <!--공사요청사항-->
+          <div class="col_full">
+            <label for="template-contactform-reqContents">공사요청사항 <small>*</small></label>
+            <textarea class="required sm-form-control" #reqContents id="template-contactform-reqContents" name="template-contactform-message" rows="6" cols="30"></textarea>
+          </div>
+
+          <div class="col_full hidden">
+            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+          </div>
+
+          <!--확인버튼-->
+          <div class="col_full">
+            <button class="button button-3d nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" data-style="expand-right" data-size="1">확인</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div><!-- Contact Form Overlay End -->
+
+  </div>
+
+  <section id="google-map" class="gmap" style="overflow: hidden;">
+    <div style="height: 100%; width: 100%; position: absolute; background-color: rgb(229, 227, 223);"></div>
+  </section>
+
+</section><!-- Contact Form & Map Overlay Section End -->
+
+
+<!--footer-->
+<%include ../addon/footer.ejs%>
+
+<!-- LOAD JQUERY -->
+<%include ../static/js.ejs%>
+
+<%include ../addon/component.ejs%>
+</body>
+</html>
