@@ -49,8 +49,14 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'ko_KR'
     },
      profile_image_path: {
-        type: DataTypes.STRING,
-        allowNull: true
+       type: DataTypes.STRING(255),
+       allowNull: true,
+       defaultValue: null
+     },
+     req_drop_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null
      }
   }, {
     tableName: 'users',

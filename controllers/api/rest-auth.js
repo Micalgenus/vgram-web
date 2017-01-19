@@ -22,7 +22,7 @@ exports.info = function(req, res, next) {
    });
 
    return res.status(201).json({
-     user_info: result.user_info,
+      user_info: result.user_info,
       status: result.status
    });
 }
@@ -37,6 +37,7 @@ exports.login = function(req, res, next) {
    res.cookie('Authorization', result.id_token);
 
    return res.status(201).json({
+      id_token: result.id_token,
       user: result.user,    // password가 hash로 오기 때문에,
       statusCode: result.statusCode
    });

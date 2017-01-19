@@ -99,6 +99,7 @@ exports.register = function (req, res, next) {
          statusCode: -1
       });
    }
+
    // Return error if no telephone provided
     if (member_type ==='BUSINESS' && !telephone) {
        return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
@@ -150,8 +151,8 @@ exports.register = function (req, res, next) {
 //========================================
 // 탈퇴 Route
 //========================================
-// exports.quit = function (req, res, next){
-//
-// }
+exports.quit = function (req, res, next){
+
+}
 
 
