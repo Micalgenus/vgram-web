@@ -6,19 +6,54 @@
 const crypto = require('crypto'),
    models = require('../../models'),
    users = models.users,
-
+   //user_metas = models.user_metas,
    mailgun = require('../../config/mailgun'),
    mailchimp = require('../../config/mailchimp'),
    config = require('../../config/main'),
    genToken = require("../../utils/genToken");
 
+//이메일을 받으면 정보와 메타데이터를 전송 하는 api
+exports.info = function(req, res, callback) {
+
+   const email = req.body.email;
+
+   // Return error if no email provided
+   if (!email) {
+      return res.status(400).send({
+         errorMsg: 'You must enter an email address.',
+         statusCode: -1
+      });
+   }
+
+   models.sequelize.query("select * from users,user_metas where users.email = ? and users.ID = user_metas.user_id",
+      { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
+   .then(function (data) {
+
+      if(data.length <= 0){   // not exist user
+         //console.log("hearsad123");
+         return res.status(400).send({
+            errorMsg: 'Email do not exist DB',
+            statusCode: 2
+         });
+      }else{                  // exist user
+         console.log(data);
+         callback({
+            user_info: data,
+            status: 1
+         });
+      }
+   }).catch(function (err) {    // end select
+      if (err) {
+         return err;
+      }
+   });
+}
 
 //========================================
 // login Route
 //========================================
 exports.login = function(req, res) {
 
-   req.user.passwordOrigin = req.body.password;
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
    return {
@@ -37,11 +72,12 @@ exports.login = function(req, res) {
 // Registration Route
 //========================================
 exports.register = function (req, res, next) {
+
    // Check for registration errors
    const email = req.body.email;
    const password = req.body.password;
    const member_type = req.body.member_type;
-   //const telephone = req.body.telephone;
+   const telephone = req.body.telephone;
 
    // Return error if no email provided
    if (!email) {
@@ -55,10 +91,18 @@ exports.register = function (req, res, next) {
    if (!password) {
       return res.status(400).send({errorMsg: 'You must enter a password.', statusCode: -1});
    }
+
+   // Return error if no member_type provided
+   if (!member_type) {
+      return res.status(400).send({
+         errorMsg: 'You must enter an member_type.',
+         statusCode: -1
+      });
+   }
    // Return error if no telephone provided
-   // if (!telephone) {
-   //    return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
-   // }
+    if (member_type ==='BUSINESS' && !telephone) {
+       return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
+    }
 
    return users.findOne({
       where: {
@@ -74,8 +118,8 @@ exports.register = function (req, res, next) {
          let user = {
             email: email,
             password: password,
-            member_type: member_type
-            //,telephone: telephone
+            member_type: member_type,
+            telephone: telephone
          };
 
          // 회원 가입시

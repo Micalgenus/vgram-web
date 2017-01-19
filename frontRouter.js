@@ -152,9 +152,12 @@ module.exports = function(app) {
   apiRoutes.use('/', authAPI);
   viewRoutes.use('/', authView);
 
+  //호세요청 api
+   authAPI.post('/info', AuthAPIController.info);
+
    // Login route
    authAPI.post('/login', requireLogin, AuthAPIController.login);
-   authView.get('/login', AuthViewController.login, requireLogin, redirectViewController.redirectMain);
+   authView.get('/login', AuthViewController.login);//, requireLogin);//, redirectViewController.redirectMain);
 
   // Registration route
   //authAPI.post('/register', AuthController.register);
