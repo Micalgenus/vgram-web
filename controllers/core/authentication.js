@@ -7,6 +7,8 @@ const crypto = require('crypto'),
    models = require('../../models'),
    users = models.users,
    //user_metas = models.user_metas,
+   moment = require("moment"),
+   _ = require('lodash'),
    mailgun = require('../../config/mailgun'),
    mailchimp = require('../../config/mailchimp'),
    config = require('../../config/main'),
@@ -30,13 +32,11 @@ exports.info = function(req, res, callback) {
    .then(function (data) {
 
       if(data.length <= 0){   // not exist user
-         //console.log("hearsad123");
-         return res.status(400).send({
+         return res.status(401).send({
             errorMsg: 'Email do not exist DB',
             statusCode: 2
          });
       }else{                  // exist user
-         console.log(data);
          callback({
             user_info: data,
             status: 1
@@ -125,7 +125,6 @@ exports.register = function (req, res, next) {
 
          // 회원 가입시
          users.create(user).then(function (newUser) {
-
             // Respond with JWT if user was created
             let userInfo = genToken.setUserInfo(newUser);
             let token = 'Bearer ' + genToken.generateUserToken(userInfo);
@@ -149,10 +148,28 @@ exports.register = function (req, res, next) {
 }
 
 //========================================
-// 탈퇴 Route
+// quit Route
 //========================================
 exports.quit = function (req, res, next){
+   //탈퇴버튼 누를시 req_drop_data에 현재 시간을 넣어줌.
+   const email = req.body.email;
 
+  /* return users.update({
+      req_drop_date: date
+   }, {where: { email: email }}).then(function(user) {
+      console.log(user);
+      //  res.status(200).json({ bizUserInfo: user, statusCode: 1 });
+      //return next();
+   }).catch(function(err) {
+      if (err) {
+         res.status(400).json({
+            errorMsg: 'No user could be found for this ID.',
+            statusCode: 2
+         });
+         return next(err);
+      }
+   });
+*/
 }
 
 

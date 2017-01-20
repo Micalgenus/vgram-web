@@ -16,15 +16,16 @@ const auth = require('../core/authentication');
 exports.info = function(req, res, next) {
 
    let result;
+   //콜백함수에서 데이터 반환
    auth.info(req, res, function(data) {
       result = data;
-      //console.log(result);
+
+      return res.status(201).json({
+         user_info: result.user_info,
+         status: result.status
+      });
    });
 
-   return res.status(201).json({
-      user_info: result.user_info,
-      status: result.status
-   });
 }
 
 // 로그인
@@ -44,13 +45,12 @@ exports.login = function(req, res, next) {
 }
 
 //회원가입
-//사업자는 전화번호 필수로
 exports.register = function(req, res, next) {
-   //let result =
+   //사업자는 전화번호 필수로
    auth.register(req, res, next);
 }
 
 //탈퇴
-// exports.quit = function (req, res, next) {
-//
-// }
+exports.quit = function (req, res, next) {
+   auth.quit(req, res, next);
+}

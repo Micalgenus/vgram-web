@@ -173,8 +173,8 @@ module.exports = function(app) {
    authView.get('/register', AuthViewController.register);
 
    //탈퇴 라우터
-   // authAPI.post('/register', AuthAPIController.quit);
-   // authView.get('/register', AuthViewController.quit);
+   authAPI.post('/quit', AuthAPIController.quit);
+   authView.get('/quit', AuthViewController.quit);
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);

@@ -63,10 +63,11 @@ module.exports = {
     },
     {
       id: 9,
-      email: "membertype3@gmail.com",       // 사업주회원
+      email: "9999@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
       member_type: "BUSINESS",
-       registered_date: "2017-01-13"
+       registered_date: "2017-01-13",
+       req_drop_date: "2017-01-13"
     }],
    user_metas: [
       {
@@ -78,6 +79,18 @@ module.exports = {
       {
          id: 2,
          user_id: "2",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
+      },
+      {
+         id: 3,
+         user_id: "3",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
+      },
+      {
+         id: 4,
+         user_id: "4",    // 일반 회원
          meta_key: "안녕하세요안녕하세요",   // 11112222
          meta_value: "1234"
       },

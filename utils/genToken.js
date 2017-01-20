@@ -37,7 +37,9 @@ exports.setUserInfo = function(request) {
       registered_date:request.registered_date,
       display_name:request.display_name,
       activation_key:request.activation_key,
-      local: request.local
+      local: request.local,
+      profile_image_path: request.profile_image_path,
+      req_drop_date: request.req_drop_date
       //passwordOrigin: request.passwordOrigin    // 인코딩 전의 패스워드도 저장해놓자.
    };
 
