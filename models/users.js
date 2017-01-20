@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 'ko_KR'
     },
-     post_image_path: {
+     profile_image_path: {
         type: DataTypes.STRING,
         allowNull: true
      }
