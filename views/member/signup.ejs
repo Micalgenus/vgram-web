@@ -53,12 +53,12 @@
 
                <div class="col_full">
                   <input type="radio" id="normal-form-member" name="type-form-member" value="1" class="hidden" checked="checked"/>
-                  <label for="normal-form-member" class="button btn-default btn-block text-center">일반 회원</label>
+                  <label for="normal-form-member" class="button btn-default btn-block text-center" onclick="div_show(false,'phone_number')">일반 회원</label>
                </div>
 
                <div class="col_full">
                   <input type="radio" id="business-form-member" name="type-form-member" value="2" class="hidden" />
-                  <label for="business-form-member" class="button btn-default btn-block text-center">사업자 회원</label>
+                  <label for="business-form-member" class="button btn-default btn-block text-center" onclick="div_show(true,'phone_number')">사업자 회원</label>
                </div>
 
             </div>
@@ -87,6 +87,13 @@
                <div class="col_full col_last">
                   <label for="register-form-repassword">비밀번호 확인:</label>
                   <input #password_ok type="password" id="register-form-repassword" name="register-form-repassword" value="" class="form-control" />
+               </div>
+
+               <div class="clear"></div>
+
+               <div class="col_full col_last" id="phone_number" style="display:none;">
+                  <label for="register-form-phone">전화번호:</label>
+                  <input #phone type="password" id="register-form-phone" name="register-form-phone" value="" class="form-control" />
                </div>
 
                <div class="clear"></div>
@@ -131,6 +138,21 @@
       </div>
    </div>
 </section>
+
+<!--사업자 회원일때 전화번호 입력창 뜨게 하기-->
+<script>
+    function div_show(bool,target_div){
+      console.log(bool);
+      console.log(target_div);
+      if(bool == true){
+        document.getElementById(target_div).style.display = "";
+      }
+      else{
+        document.getElementById(target_div).style.display = "none";
+      }
+    }
+</script>
+
 
 <!--footer-->
 <%include ../addon/footer.ejs%>
