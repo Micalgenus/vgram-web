@@ -23,16 +23,15 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
    //2017.1.13 이정현 주석 처리
    //Member.findOne({where: {email: email}}).then(function (user) {
    users.findOne({where: {email: email}}).then(function (user) {
-      console.log(user);
-      console.log(user.req_drop_date);
+
       if (!user) {
          return done(null, false, {
             errorMsg: 'Your login details could not be verified. Please try again.',
             statusCode: 0
          });
       }
-
-      if(user.req_drop_date != null) {
+      //유저상태가 1이 아니면 활성화 되어있는게 아님(탈퇴되었거나 휴면계정)
+      if(user.user_status != 1) {
          return done(null, false, {
             errorMsg: 'quit user',
             statusCode: 3

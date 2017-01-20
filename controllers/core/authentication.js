@@ -40,6 +40,7 @@ exports.register = function (req, res, next) {
    const email = req.body.email;
    const password = req.body.password;
    const member_type = req.body.member_type;
+   //사업자는 전화번호 필수로
    const telephone = req.body.telephone;
 
    // Return error if no email provided
@@ -115,34 +116,8 @@ exports.register = function (req, res, next) {
 exports.quit = function (req, res, next){
    //탈퇴버튼 누를시 req_drop_data에 현재 시간을 넣어줌.
    const email = req.body.email;
+   const day = new Date();
 
-  /* console.log(models.sequelize.fn('NOW'));
-    return users.findOne({
-       where: { email: email }
-    }).then(function(result) {
-         console.log(result);
-       return result.updateAttributes({req_drop_date: models.sequelize.fn('NOW')});
-    }).then(function (hi) {
-       console.log(hi);
-    }).catch(function(err) {
-      if (err) {
-         res.status(400).json({
-         errorMsg: 'No user could be found for this ID.',
-         statusCode: 2
-         });
-       return next(err);
-      }
-    });*/
-}
-
-//========================================
-//이메일을 받으면 user 정보와 메타데이터를 전송 하는 api
-//========================================
-exports.info = function(req, res, callback) {
-
-   const email = req.body.email;
-
-   // Return error if no email provided
    if (!email) {
       return res.status(400).send({
          errorMsg: 'You must enter an email address.',
@@ -150,24 +125,59 @@ exports.info = function(req, res, callback) {
       });
    }
 
-   models.sequelize.query("select * from users,user_metas where users.email = ? and users.ID = user_metas.user_id",
-      { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
-   .then(function (data) {
-
-      if(data.length <= 0){   // not exist user
-         return res.status(401).send({
-            errorMsg: 'Email do not exist DB',
+   return models.sequelize.query("update users set user_status = 0, updated_date = ? where email = ?",
+   {
+      replacements: [day,email]
+   }).then(function (result){
+      //console.log(metadata);
+      return res.status(200).json({
+         msg: 'Clear update user quit',
+         statusCode: 1
+      });
+   }).catch(function(err) {
+      if (err) {
+         return res.status(400).json({
+            errorMsg: 'DB error.',
             statusCode: 2
          });
-      }else{                  // exist user
-         callback({
-            user_info: data,
-            status: 1
-         });
-      }
-   }).catch(function (err) {    // end select
-      if (err) {
-         return err;
+         //return next(err);
       }
    });
 }
+
+//========================================
+//이메일을 받으면 user 정보와 메타데이터를 전송 하는 api
+//========================================
+   exports.info = function(req, res, callback) {
+
+      const email = req.body.email;
+
+      // Return error if no email provided
+      if (!email) {
+         return res.status(400).send({
+            errorMsg: 'You must enter an email address.',
+            statusCode: -1
+         });
+      }
+
+      models.sequelize.query("select * from users,user_metas where users.email = ? and users.ID = user_metas.user_id",
+         { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
+         .then(function (data) {
+
+            if(data.length <= 0){   // not exist user
+               return res.status(401).send({
+                  errorMsg: 'Email do not exist DB',
+                  statusCode: 2
+               });
+            }else{                  // exist user
+               callback({
+                  user_info: data,
+                  status: 1
+               });
+            }
+         }).catch(function (err) {    // end select
+         if (err) {
+            return err;
+         }
+      });
+   }
