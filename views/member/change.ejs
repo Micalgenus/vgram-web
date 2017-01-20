@@ -11,7 +11,7 @@
 
 
 
-   <%include static/css.ejs%>
+   <%include ../static/css.ejs%>
    <title>Bingle+</title>
 
 
@@ -31,7 +31,7 @@
 <!-- PAGE WRAP -->
 <div id="page-wrap" ng-controller="index">
    <!-- HEADER -->
-   <%include addon/header.ejs%>
+   <%include ../addon/header.ejs%>
 </div>
 <!-- END / PAGE WRAP -->
 
@@ -55,7 +55,7 @@
 
             <div class="col_one_third">
               <label for="member-change-email">이메일 주소 <small>*</small></label>
-              <input type="text" required #username id="member-change-email" name="member-change-email" value="{{email}}" class="email sm-form-control required" />
+              <input type="text" required #username id="member-change-email" name="member-change-email" value="<%= user.email %>" class="email sm-form-control required" />
             </div>
 
             <div class="col_one_third">
@@ -203,11 +203,11 @@
 </section><!-- #content end -->
 
 <!--footer-->
-<%include addon/footer.ejs%>
+<%include ../addon/footer.ejs%>
 
 <!-- LOAD JQUERY -->
-<%include static/js.ejs%>
+<%include ../static/js.ejs%>
 
-<%include addon/component.ejs%>
+<%include ../addon/component.ejs%>
 </body>
 </html>

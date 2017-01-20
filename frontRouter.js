@@ -25,7 +25,9 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
   //이정현 추가
   //로그인 부분
   const AuthAPIController = require('./controllers/api/rest-auth'),
-     AuthViewController = require('./controllers/view/view-auth');
+
+    AuthViewController = require('./controllers/view/view-auth'),
+    UserViewController = require('./controllers/view/view-user');
 
 
 // Middleware to require login/auth
@@ -90,6 +92,10 @@ module.exports = function(app) {
   // Test Routes
   //=========================
 
+
+  /*이 route 주소들을 나중에 app.js에서 app.use를 사용하여 라우팅 해주는
+  방식으로 고치는 것이 좋을것 같음, 지금은 빠르게 ui를 확인하려고 res.render로
+  바로 확인하였음*/
   // Test view route
    viewRoutes.get('/test/view', function(req, res) {
       res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
@@ -98,25 +104,25 @@ module.exports = function(app) {
 
     // login view route,로그인
    viewRoutes.get('/login', function(req, res) {
-      res.render('login', { ENV: env, title: 'Express', msg: 'login page test!' });
+      res.render('login/login', { ENV: env, title: 'Express', msg: 'login page test!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
    // signup view route,회원가입
    viewRoutes.get('/signup', function(req, res) {
-      res.render('signup', { ENV: env, title: 'Express', msg: 'signup test' });
+      res.render('member/signup', { ENV: env, title: 'Express', msg: 'signup test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
    // change view route,회원정보 수정
    viewRoutes.get('/change', function(req, res) {
-      res.render('change', { ENV: env, title: 'Express', msg: 'change test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
+      res.render('member/change', { ENV: env, title: 'Express', msg: 'change test' });
+      // res.status(200).json({ quote: qSuoter.getRandomOne() });
    });
 
    // consultingCounsel view route,컨설팅 정보 입력
    viewRoutes.get('/consultingCounsel', function(req, res) {
-      res.render('conconsultingCounsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
+      res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
@@ -194,7 +200,8 @@ module.exports = function(app) {
 
   // View public user profile route
   userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
-   userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  //userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  userView.get('/:memberIdx([0-9]+)', UserViewController.viewProfile);
 
   // Update user profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
   userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
