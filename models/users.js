@@ -53,10 +53,15 @@ module.exports = function(sequelize, DataTypes) {
        allowNull: true,
        defaultValue: null
      },
-     req_drop_date: {
+     updated_date: {
         type: DataTypes.DATE,
         allowNull: true,
         defaultValue: null
+     },
+     user_status: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: 1
      }
   }, {
     tableName: 'users',

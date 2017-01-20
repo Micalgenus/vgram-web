@@ -115,11 +115,15 @@ exports.register = function (req, res, next) {
 exports.quit = function (req, res, next){
    //탈퇴버튼 누를시 req_drop_data에 현재 시간을 넣어줌.
    const email = req.body.email;
-/*
-    return users.update(
-       { req_drop_date: models.sequelize.NOW },
-       { where: { email: email } }).then(function(result) {
+
+  /* console.log(models.sequelize.fn('NOW'));
+    return users.findOne({
+       where: { email: email }
+    }).then(function(result) {
          console.log(result);
+       return result.updateAttributes({req_drop_date: models.sequelize.fn('NOW')});
+    }).then(function (hi) {
+       console.log(hi);
     }).catch(function(err) {
       if (err) {
          res.status(400).json({
