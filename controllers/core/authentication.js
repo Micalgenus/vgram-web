@@ -14,41 +14,6 @@ const crypto = require('crypto'),
    config = require('../../config/main'),
    genToken = require("../../utils/genToken");
 
-//이메일을 받으면 정보와 메타데이터를 전송 하는 api
-exports.info = function(req, res, callback) {
-
-   const email = req.body.email;
-
-   // Return error if no email provided
-   if (!email) {
-      return res.status(400).send({
-         errorMsg: 'You must enter an email address.',
-         statusCode: -1
-      });
-   }
-
-   models.sequelize.query("select * from users,user_metas where users.email = ? and users.ID = user_metas.user_id",
-      { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
-   .then(function (data) {
-
-      if(data.length <= 0){   // not exist user
-         return res.status(401).send({
-            errorMsg: 'Email do not exist DB',
-            statusCode: 2
-         });
-      }else{                  // exist user
-         callback({
-            user_info: data,
-            status: 1
-         });
-      }
-   }).catch(function (err) {    // end select
-      if (err) {
-         return err;
-      }
-   });
-}
-
 //========================================
 // login Route
 //========================================
@@ -62,11 +27,9 @@ exports.login = function(req, res) {
       statusCode: 1
    };
 }
-
 //========================================
 // Logout Route : JWT이기 때문에 서버에는 값이 남아있지않음
 //========================================
-
 
 //========================================
 // Registration Route
@@ -101,9 +64,9 @@ exports.register = function (req, res, next) {
    }
 
    // Return error if no telephone provided
-    if (member_type ==='BUSINESS' && !telephone) {
-       return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
-    }
+   if (member_type ==='BUSINESS' && !telephone) {
+      return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
+   }
 
    return users.findOne({
       where: {
@@ -146,30 +109,61 @@ exports.register = function (req, res, next) {
       }
    });
 }
-
 //========================================
 // quit Route
 //========================================
 exports.quit = function (req, res, next){
    //탈퇴버튼 누를시 req_drop_data에 현재 시간을 넣어줌.
    const email = req.body.email;
-
-  /* return users.update({
-      req_drop_date: date
-   }, {where: { email: email }}).then(function(user) {
-      console.log(user);
-      //  res.status(200).json({ bizUserInfo: user, statusCode: 1 });
-      //return next();
-   }).catch(function(err) {
+/*
+    return users.update(
+       { req_drop_date: models.sequelize.NOW },
+       { where: { email: email } }).then(function(result) {
+         console.log(result);
+    }).catch(function(err) {
       if (err) {
          res.status(400).json({
-            errorMsg: 'No user could be found for this ID.',
-            statusCode: 2
+         errorMsg: 'No user could be found for this ID.',
+         statusCode: 2
          });
-         return next(err);
+       return next(err);
       }
-   });
-*/
+    });*/
 }
 
+//========================================
+//이메일을 받으면 user 정보와 메타데이터를 전송 하는 api
+//========================================
+exports.info = function(req, res, callback) {
 
+   const email = req.body.email;
+
+   // Return error if no email provided
+   if (!email) {
+      return res.status(400).send({
+         errorMsg: 'You must enter an email address.',
+         statusCode: -1
+      });
+   }
+
+   models.sequelize.query("select * from users,user_metas where users.email = ? and users.ID = user_metas.user_id",
+      { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
+   .then(function (data) {
+
+      if(data.length <= 0){   // not exist user
+         return res.status(401).send({
+            errorMsg: 'Email do not exist DB',
+            statusCode: 2
+         });
+      }else{                  // exist user
+         callback({
+            user_info: data,
+            status: 1
+         });
+      }
+   }).catch(function (err) {    // end select
+      if (err) {
+         return err;
+      }
+   });
+}
