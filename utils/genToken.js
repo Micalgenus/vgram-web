@@ -31,7 +31,7 @@ exports.setUserInfo = function(request) {
    let getUserInfo = {
       id: request.id,
       email: request.email,
-      password: request.password,
+//      password: request.password,
       member_type: request.member_type,
       telephone:request.telephone,
       registered_date:request.registered_date,
