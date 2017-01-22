@@ -129,7 +129,6 @@ exports.quit = function (req, res, next){
    {
       replacements: [day,email]
    }).then(function (result){
-      //console.log(metadata);
       return res.status(200).json({
          msg: 'Clear update user quit',
          statusCode: 1
@@ -141,6 +140,117 @@ exports.quit = function (req, res, next){
             statusCode: 2
          });
          //return next(err);
+      }
+   });
+}
+//========================================
+// find email Route
+//========================================
+exports.findEmail = function (req, res, next) {
+   const email = req.body.email;
+
+   return users.findOne({where: {email: email}}).then(function (existingUser) {
+      // If user is not found, return error
+      if (existingUser == null) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(new Error("not matching, please check again."));
+      }
+
+      // If user is found, generate and save resetToken
+
+      // Generate a token with Crypto
+      crypto.randomBytes(48, function (err, buffer) {
+         const resetToken = buffer.toString('hex');
+         if (err) {
+            return next(err);
+         }
+
+         existingUser.resetPasswordToken = resetToken;
+         existingUser.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+         existingUser.save().then(function (user) {
+
+            const message = {
+               subject: 'Reset Password',
+               text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+               'http://' + req.headers.host + '/reset-password/' + resetToken + '\n\n' +
+               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            }
+
+            // Otherwise, send user email via Mailgun
+            mailgun.sendEmail(existingUser.email, message);
+
+            res.status(200).json({message: 'Please check your email for the link to reset your password.'});
+            next();
+         }).catch(function (err) {
+            // If error in saving token, return it
+            if (err) {
+               return next(err);
+            }
+         });
+      });
+   }).catch(function (err) {    //end Member.findOne
+      // If user is not found, return error
+      if (err) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(err);
+      }
+   });
+}
+
+//========================================
+// find Password Route
+//========================================
+exports.findPassword = function (req, res, next) {
+   const email = req.body.email;
+
+   return users.findOne({where: {email: email}}).then(function (existingUser) {
+      // If user is not found, return error
+      if (existingUser == null) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(new Error("not matching, please check again."));
+      }
+
+      // If user is found, generate and save resetToken
+
+      // Generate a token with Crypto
+      crypto.randomBytes(48, function (err, buffer) {
+         const resetToken = buffer.toString('hex');
+         if (err) {
+            return next(err);
+         }
+
+         existingUser.resetPasswordToken = resetToken;
+         existingUser.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+         existingUser.save().then(function (user) {
+
+            const message = {
+               subject: 'Reset Password',
+               text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+               'http://' + req.headers.host + '/reset-password/' + resetToken + '\n\n' +
+               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            }
+
+            // Otherwise, send user email via Mailgun
+            mailgun.sendEmail(existingUser.email, message);
+
+            res.status(200).json({message: 'Please check your email for the link to reset your password.'});
+            next();
+         }).catch(function (err) {
+            // If error in saving token, return it
+            if (err) {
+               return next(err);
+            }
+         });
+      });
+   }).catch(function (err) {    //end Member.findOne
+      // If user is not found, return error
+      if (err) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(err);
       }
    });
 }
