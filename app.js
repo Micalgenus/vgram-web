@@ -10,6 +10,10 @@ var morgan = require('morgan'),
   compress = require('compression'),
   favicon = require('serve-favicon'),
 
+  flash = require('express-flash'),
+  cookieParser = require('cookie-parser'),
+  session = require('express-session'),
+
   router = require('./frontRouter');
 
 
@@ -22,12 +26,20 @@ app.locals.ENV = env;
 var config = require("./config/main");
 
 //2017.1.17 이정현 쿠키파서 추가
-var cookieParser = require('cookie-parser');
+//ar cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// session 추가
+app.use(session({
+  secret: 'cozyhouzz secrets',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
 
 // Parsers
 // old version of line

@@ -3,19 +3,9 @@
 <!--[if IE 8 ]> <html class="ie ie8"> <![endif]-->
 <!--[if IE 9 ]> <html class="ie ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="" lang="en"> <!--<![endif]-->
-<head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <meta name="format-detection" content="telephone=no">
-   <meta name="apple-mobile-web-app-capable" content="yes">
 
+<%include ../static/html_header.ejs%>
 
-
-   <%include ../static/css.ejs%>
-   <title>Bingle+</title>
-
-
-</head>
 <body ng-app="bingle" ng-controller="root">
 
 <!-- PRELOADER -->
@@ -47,15 +37,19 @@
             <div class="tab-content clearfix" id="tab-login">
                <div class="panel panel-default nobottommargin">
                   <div class="panel-body" style="padding: 40px;">
-                     <form id="login-form" name="login-form" class="nobottommargin" role="form" (submit)="login($event, username.value, password.value)">
+                     <form action="/auth/login" method="post">
                         <h3>로그인</h3>
                         <div class="col_full">
                            <label for="login-form-username">이메일:</label>
-                           <input type="text" #username id="login-form-username" name="login-form-username" value="" class="form-control" />
+                           <% if (email && email != "") { %>
+                             <input type="text" id="login-form-username" name="email" value="<%= email %>" class="form-control" />
+                           <% } else { %>
+                             <input type="text" id="login-form-username" name="email" value="" class="form-control" />
+                           <% } %>
                         </div>
                         <div class="col_full">
                            <label for="login-form-password">비밀번호:</label>
-                           <input type="password" #password id="login-form-password" name="login-form-password" value="" class="form-control" />
+                           <input type="password" id="login-form-password" name="password" value="" class="form-control" />
                         </div>
                         <div class="col_full nobottommargin">
                            <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">로그인</button>

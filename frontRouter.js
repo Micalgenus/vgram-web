@@ -8,7 +8,6 @@ const passport = require('passport'),
 
   multerConfig = require('./config/multer'),
 
-
   PublicController = require('./controllers/reference/public'),
   AuthController = require('./controllers/reference/authentication'),
   UserController = require('./controllers/reference/user'),
@@ -17,23 +16,39 @@ const passport = require('passport'),
   BizStoreController = require('./controllers/reference/biz-store'),
   RoomInfoController = require('./controllers/reference/room-info'),
 
+  redirectViewController = require('./controllers/view/redirect'),
 
-   redirectViewController = require('./controllers/view/redirect');
-
+  // web
+  AuthViewController = require('./controllers/view/auth'),
+  UserViewController = require('./controllers/view/view-user');
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
-  //이정현 추가
-  //로그인 부분
-  const AuthAPIController = require('./controllers/api/rest-auth'),
 
-    AuthViewController = require('./controllers/view/view-auth'),
-    UserViewController = require('./controllers/view/view-user');
-
+//이정현 추가
+//로그인 부분
+const AuthAPIController = require('./controllers/api/rest-auth');
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
+// Web 용 local passport Login
+const requireViewLogin = function(req, res, next) {
+  return passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err); // will generate a 500 error
+    }
+
+    if (! user) {
+      req.flash('email', req.body.email);
+      req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
+      return res.redirect('/login');
+    }
+
+    req.user = user;
+    return next();
+  }) (req, res, next);
+};
 
 var env = process.env.NODE_ENV || "development";
 
@@ -58,35 +73,41 @@ var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
 module.exports = function(app) {
   // Initializing route groups
   var viewRoutes = express.Router(),
-     apiRoutes = express.Router(),
+    apiRoutes = express.Router(),
 
-     publicAPI = express.Router(),
+    publicAPI = express.Router(),
     authAPI = express.Router(),
     userAPI = express.Router(),
     consultAPI = express.Router(),
     bizStoreAPI = express.Router(),
     roomInfoAPI = express.Router(),
 
-   publicView = express.Router(),
-      authView = express.Router(),
-      userView = express.Router(),
-      consultView = express.Router(),
-      bizStoreView = express.Router(),
-      roomInfoView = express.Router();
+    publicView = express.Router(),
+    authView = express.Router(),
+    userView = express.Router(),
+    consultView = express.Router(),
+    bizStoreView = express.Router(),
+    roomInfoView = express.Router();
 
   // chatRoutes = express.Router(),
   // payRoutes = express.Router(),
   // communicationRoutes = express.Router();
 
-   //=========================
-   // Default Routes
-   //=========================
+  //=========================
+  // Default Routes
+  //=========================
 
-   // Test normal route
-   viewRoutes.get('/', function(req, res) {
-      res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
+  // Test normal route
+  viewRoutes.get('/', AuthViewController.init, function(req, res) {
+    var msg = req.flash('msg');
+    
+    res.render('index', {
+      ENV: env,
+      logined: req.logined,
+      title: 'Cozyhouzz',
+      msg: msg
+    });
+  });
 
   //=========================
   // Test Routes
@@ -102,11 +123,8 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
-    // login view route,로그인
-   viewRoutes.get('/login', function(req, res) {
-      res.render('login/login', { ENV: env, title: 'Express', msg: 'login page test!' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
+  // login view route,로그인
+  viewRoutes.get('/login', AuthViewController.init, UserViewController.login);
 
    // signup view route,회원가입
    viewRoutes.get('/signup', function(req, res) {
@@ -114,11 +132,8 @@ module.exports = function(app) {
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
-   // change view route,회원정보 수정
-   viewRoutes.get('/change', function(req, res) {
-      res.render('member/change', { ENV: env, title: 'Express', msg: 'change test' });
-      // res.status(200).json({ quote: qSuoter.getRandomOne() });
-   });
+  // change view route,회원정보 수정
+  viewRoutes.get('/change', requireAuth, AuthViewController.init, UserViewController.viewProfile);
 
    // consultingCounsel view route,컨설팅 정보 입력
    viewRoutes.get('/consultingCounsel', function(req, res) {
@@ -163,20 +178,23 @@ module.exports = function(app) {
 
   // Set auth routes as subgroup/middleware to apiRoutes
   apiRoutes.use('/', authAPI);
-  viewRoutes.use('/', authView);
+  viewRoutes.use('/auth', authView);
 
   //호세요청 api
-   authAPI.post('/info', AuthAPIController.info);
+  authAPI.post('/info', AuthAPIController.info);
 
-   // Login route
-   authAPI.post('/login', requireLogin, AuthAPIController.login);
-   authView.get('/login', AuthViewController.login);//, requireLogin);//, redirectViewController.redirectMain);
+  // Login route
+  authAPI.post('/login', requireLogin, AuthAPIController.login);
+  authView.post('/login', AuthViewController.login, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
+
+  // Logout route
+  authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
 
   // Registration route
   //authAPI.post('/register', AuthController.register);
   //authView.get('/register', AuthController.register);
-   authAPI.post('/register', AuthAPIController.register);
-   authView.get('/register', AuthViewController.register);
+  authAPI.post('/register', AuthAPIController.register);
+  authView.get('/register', AuthViewController.register);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
