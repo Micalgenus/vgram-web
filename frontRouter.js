@@ -100,7 +100,7 @@ module.exports = function(app) {
   // Test normal route
   viewRoutes.get('/', AuthViewController.init, function(req, res) {
     var msg = req.flash('msg');
-    
+
     res.render('index', {
       ENV: env,
       logined: req.logined,
@@ -181,7 +181,7 @@ module.exports = function(app) {
   viewRoutes.use('/auth', authView);
 
   //호세요청 api
-  authAPI.post('/info', AuthAPIController.info);
+  authAPI.post('/info', requireLogin, AuthAPIController.info);
 
   // Login route
   authAPI.post('/login', requireLogin, AuthAPIController.login);

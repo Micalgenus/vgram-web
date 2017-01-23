@@ -2,6 +2,7 @@
  * Created by KIMSEONHO on 2017-01-10.
  */
 "use strict";
+
 const crypto = require('crypto'),
    models = require('../../models'),
    users = models.users,
@@ -24,7 +25,7 @@ const crypto = require('crypto'),
 
 // 로그인
 exports.login = function(req, res, next) {
-
+   console.log(req);
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
    res.append('Authorization', 'Bearer ' + genToken.generateUserToken(userInfo));
@@ -118,33 +119,53 @@ exports.register = function(req, res, next) {
 
 //탈퇴
 exports.quit = function (req, res, next) {
-   //auth.quit(req, res, next);
-   //탈퇴버튼 누를시 req_drop_data에 현재 시간을 넣어줌.
+
+   //탈퇴버튼 누를시 req_drop_data에 현재 시간과 user_status에 0을 넣음
    const email = req.body.email;
    const day = new Date();
+   let token = req.headers['authorization'];
 
-   if (!email) {
-      return res.status(400).send({
-         errorMsg: 'You must enter an email address.',
+   if(!token){
+      return res.status(400).json({
+         errorMsg: 'Do not have a token',
          statusCode: -1
       });
    }
 
-   return models.sequelize.query("update users set user_status = 0, updated_date = ? where email = ?",
-      {
-         replacements: [day,email]
-      }).then(function (result){
-      return res.status(200).json({
-         msg: 'Clear update user quit',
-         statusCode: 1
+   if (!email) {
+      return res.status(400).send({
+         errorMsg: 'You must enter an email address.',
+         statusCode: -2
       });
-   }).catch(function(err) {
-      if (err) {
-         return res.status(400).json({
-            errorMsg: 'DB error.',
-            statusCode: 2
+   }
+   //이메일과 user상태가 1(활성화된 사람)을 찾아서 update문을 날림.
+   return users.findOne({
+      where: {
+         email: email,
+         user_status: 1
+      }
+   }).then(function (existingUser) {
+      if (existingUser) {  // If user is not unique, return error
+         models.sequelize.query("update users set user_status = 0, updated_date = ?  where email = ?", {
+               replacements: [day, email]
+         }).then(function (result) {
+            return res.status(200).json({
+               msg: 'Clear update user quit',
+               statusCode: 1
+            });
+         }).catch(function(err) {
+            if (err) {
+               return res.status(401).json({
+                  errorMsg: 'DB error.',
+                  statusCode: 9
+               });
+            }
          });
-         //return next(err);
+      } else {     // If email is unique and password was provided, create account
+         return res.status(401).json({
+            errorMsg: 'do not have user in DB.',
+            statusCode: -2
+         });
       }
    });
 }
@@ -153,6 +174,8 @@ exports.quit = function (req, res, next) {
 exports.info = function(req, res, next) {
    const email = req.body.email;
 
+   let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
+
    // Return error if no email provided
    if (!email) {
       return res.status(400).json({
@@ -160,17 +183,8 @@ exports.info = function(req, res, next) {
          statusCode: -1
       });
    }
-   console.log(req.headers);
-   // let token = req.headers['Authorization'];
-   // console.log(token);
-   // if(!token){
-   //    return res.status(400).json({
-   //       errorMsg: 'Do not have a token',
-   //       statusCode: -1
-   //    });
-   // }
 
-   models.sequelize.query("select a.ID, a.email, a.member_type, a.telephone, " +
+   models.sequelize.query("select a.ID, a.email, a.password, a.member_type, a.telephone, " +
       "a.registered_date, a.display_name, a.activation_key, a.locale, a.profile_image_path, " +
       "a.updated_date, a.user_status, b.meta_key, b.meta_value " +
       "from users as a, user_metas as b where a.email = (?) and a.ID = b.user_id",
@@ -184,6 +198,7 @@ exports.info = function(req, res, next) {
             });
          }else{                  // exist user
             return res.status(201).json({
+               id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
                user_info: data,
                status: 1
             });
@@ -195,71 +210,92 @@ exports.info = function(req, res, next) {
    });
 }
 
-exports.modifyInfo = function(req, res, next){
-   // const email = req.body.email;
-   // const password = req.body.password;
-   // const telephone = req.body.telephone;
-   // const display_name = req.body.display_name;
-   // const profile_image_path = req.body.profile_image_path;
-   // const day = new Date();
-   //
-   // // let token = req.headers['Authorization'];
-   // // if(!token){
-   // //    return res.status(400).josn({
-   // //       errorMsg: 'Do not have a token',
-   // //       statusCode: -1;
-   // //    })
-   // // }
-   //
-   // if (!email) {
-   //    return res.status(400).json({
-   //       errorMsg: 'You must enter an email address.',
-   //       statusCode: -1
-   //    });
-   // }
-   // console.log(email);
-   // console.log(password);
-   // console.log(telephone);
-   // console.log(display_name);
-   // console.log(profile_image_path);
-   // console.log(password.length);
-   // if(password){
-   //    users.update(
-   //       {  password: password,
-   //          telephone: telephone,
-   //          display_name: display_name,
-   //          profile_image_path: profile_image_path,
-   //          updated_date: day
-   //       },
-   //       {where: {email: email}}
-   //    ).then(function(result) {
-   //       res.json(result[1][0]);
-   //    }).catch(function(err) {
-   //       if(err){
-   //          console.log(err);
-   //          return res.status(401).json({
-   //             errorMsg: 'DB error',
-   //             statusCode: -2
-   //          })
-   //       }
-   //    });
-   // }else{
-   //    users.update(
-   //       {  telephone: telephone,
-   //          display_name: display_name,
-   //          profile_image_path: profile_image_path,
-   //          updated_date: day
-   //       },
-   //       {where: {email: email}}
-   //    ).then(function(result) {
-   //       res.json(result[1][0]);
-   //    }).catch(function(err) {
-   //       if(err){
-   //          return res.status(401).json({
-   //             errorMsg: 'DB error',
-   //             statusCode: -2
-   //          })
-   //       }
-   //    });
-   // }
+//회원정보 수정
+exports.modifyInfo = function(req, res, next) {
+
+   const email = req.body.email;
+   const password = req.body.password;
+   let telephone = req.body.telephone;
+   let display_name = req.body.display_name;
+   let profile_image_path = req.body.profile_image_path;
+   let user_info = {};
+
+   let token = req.headers['authorization'];
+
+   if (!token) {
+      return res.status(400).json({
+         errorMsg: 'Do not have a token',
+         statusCode: -1
+      })
+   }
+
+   if (!email) {
+      return res.status(400).json({
+         errorMsg: 'You must enter an email address.',
+         statusCode: -1
+      });
+   }
+   //없을때 null로 초기화
+   if (telephone === undefined) {
+      telephone = null;
+   }
+   if (display_name === undefined) {
+      display_name = null;
+   }
+   if (profile_image_path === undefined) {
+      profile_image_path = null;
+   }
+
+   if (password === undefined || password === null || password.length <= 0) {
+      user_info = {
+         telephone: telephone,
+         display_name: display_name,
+         profile_image_path: profile_image_path
+      }
+   } else {
+      user_info = {
+         password: password,
+         telephone: telephone,
+         display_name: display_name,
+         profile_image_path: profile_image_path
+      }
+   }
+
+   return users.findOne({
+      where: {
+         email: email,
+         user_status: 1
+      }
+   }).then(function (existingUser) {
+      if(existingUser) {
+         users.update(
+            user_info,
+            {where: {email: email, user_status: 1}}
+         ).then(function (result) {
+            return res.status(200).json({
+               msg: 'update success',
+               statusCode: 1
+            })
+         }).catch(function (err) {
+            if (err) {
+               return res.status(401).json({
+                  errorMsg: 'DB error',
+                  statusCode: -2
+               })
+            }
+         });
+      }else {
+         return res.status(402).json({
+            msg: 'do not user in DB or quit user',
+            statusCode: -3
+         });
+      }
+   }).catch(function (err) {
+      if (err) {
+         return res.status(401).json({
+            errorMsg: 'DB error',
+            statusCode: -2
+         })
+      }
+   });
 }

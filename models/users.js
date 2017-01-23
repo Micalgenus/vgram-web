@@ -93,10 +93,11 @@ module.exports = function(sequelize, DataTypes) {
      hooks: {
         beforeValidate: function(member, options) {
            const SALT_FACTOR = 5;
-
-           if (!member.changed('password')) {
-              return sequelize.Promise.reject("not modified");
-           }
+            //비밀번호 변경되야지만 update되서 주석처리해놓음
+           //2017.1.23 이정현 주석처리
+           // if (!member.changed('password')) {
+           //    return sequelize.Promise.reject("not modified");
+           // }
 
            // bcrypt가 async이기 때문에 promise
            return bcrypt.genSaltAsync(SALT_FACTOR).then(function(salt) {
