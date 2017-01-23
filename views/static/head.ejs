@@ -1,0 +1,26 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="google-signin-client_id" content="922421781014-uksng1ff329h5mf41d0ns2hmal94u726.apps.googleusercontent.com">
+ 
+  <!-- Load CSS -->
+  <%include css.ejs%>
+  <!-- //Load CSS -->
+
+  <!-- Title -->
+  <% if (typeof title != 'undefined' && title != "") { %>
+    <title><%= title %></title>
+  <% } else { %>
+    <title>cozyhouzz</title>
+  <% } %>
+  <!-- //Title -->
+
+  <!-- Alert Message -->
+  <% if (typeof msg != 'undefined'  && msg != "") { %>
+    <script>alert('<%= msg %>');</script>
+  <% } %>
+  <!-- //Alert Message -->
+
+</head>

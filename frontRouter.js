@@ -29,7 +29,7 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
 const AuthAPIController = require('./controllers/api/rest-auth');
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false });
+const requireAuth = passport.authenticate('jwt', { session: false }); 
 const requireLogin = passport.authenticate('local', { session: false });
 
 // Web 용 local passport Login
@@ -109,6 +109,15 @@ module.exports = function(app) {
     });
   });
 
+  // 로그인
+  viewRoutes.get('/login', AuthViewController.init, UserViewController.login);
+
+  // 회원정보 조회 및 수정
+  viewRoutes.get('/change', requireAuth, AuthViewController.init, UserViewController.viewProfile);
+
+  // 회원가입
+  viewRoutes.get('/signup', AuthViewController.init, UserViewController.signup);
+
   //=========================
   // Test Routes
   //=========================
@@ -122,18 +131,6 @@ module.exports = function(app) {
       res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
-
-  // login view route,로그인
-  viewRoutes.get('/login', AuthViewController.init, UserViewController.login);
-
-   // signup view route,회원가입
-   viewRoutes.get('/signup', function(req, res) {
-      res.render('member/signup', { ENV: env, title: 'Express', msg: 'signup test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
-
-  // change view route,회원정보 수정
-  viewRoutes.get('/change', requireAuth, AuthViewController.init, UserViewController.viewProfile);
 
    // consultingCounsel view route,컨설팅 정보 입력
    viewRoutes.get('/consultingCounsel', function(req, res) {
