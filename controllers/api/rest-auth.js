@@ -160,15 +160,15 @@ exports.info = function(req, res, next) {
          statusCode: -1
       });
    }
-
-   let token = req.headers['Authorization'];
-   console.log(token);
-   if(!token){
-      return res.status(400).json({
-         errorMsg: 'Do not have a token',
-         statusCode: -1
-      });
-   }
+   console.log(req.headers)
+   // let token = req.headers['Authorization'];
+   // console.log(token);
+   // if(!token){
+   //    return res.status(400).json({
+   //       errorMsg: 'Do not have a token',
+   //       statusCode: -1
+   //    });
+   // }
 
    models.sequelize.query("select a.ID, a.email, a.member_type, a.telephone, " +
       "a.registered_date, a.display_name, a.activation_key, a.locale, a.profile_image_path, " +
