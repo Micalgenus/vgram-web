@@ -22,8 +22,10 @@ var cookieExtractor = function(req) {
   var token = null;
   if (req && req.cookies) {
     token = req.cookies['Authorization'];
+    token = token.replace('Bearer ', '');
   }
 
+  console.log(token);
   return token;
 };
 
@@ -70,16 +72,19 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
 // Setting JWT strategy options
 const jwtOptions = {
   // Telling Passport to check authorization headers for JWT
-   jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  // jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  jwtFromRequest: cookieExtractor,
   // Telling Passport where to find the secret
-  secretOrKey: config.secret
+  secretOrKey: config.secret,
+  // auth_token: 'JWT'
 
   // TO-DO: Add issuer and audience checks
 };
 
 // Setting up JWT login strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-  users.findOne({where: {email: payload.email, password: payload.password}}).then(function (user) {
+  console.log(payload);
+  users.findOne({where: {email: payload.email}}).then(function (user) {
     if (user) {
       done(null, user);   // localStrategy와 같다.
     } else {
