@@ -160,7 +160,7 @@ exports.info = function(req, res, next) {
          statusCode: -1
       });
    }
-   console.log(req.headers)
+   console.log(req.headers);
    // let token = req.headers['Authorization'];
    // console.log(token);
    // if(!token){
