@@ -14,7 +14,7 @@ const redirect = require('./redirect.js');
 // Login & Logout
 //========================================
 
-exports.login = function(req, res, next) {
+exports.login = function(req, res) {
 
   // 로그인 체크
   if (req.logined) {
@@ -35,32 +35,32 @@ exports.login = function(req, res, next) {
   });
 }
 
-exports.logout = function(req, res, next) {
-
+exports.signup = function(req, res) {
+  return res.render('member/signup', {
+    ENV: req.env,
+    logined: req.logined,
+    title: '회원가입'
+  });
 }
+
 //========================================
 // User Routes
 //========================================
 // 회원 정보 조회
 
 exports.viewProfile = function (req, res) {
-  //console.log(req.user);
-  const userId = req.user.email;
-  //const userId = _.toNumber(req.params.memberIdx);
-/*
-  if (req.user.idx != userId) {
-    return res.status(401).json({
-      errorMsg: 'You are not authorized to view this user profile.',
-      statusCode: 2
-    });
-  }
-*/
-  return Users.findById(userId).then(function(user) {
+  const userEmail = req.user.email;
+
+  return Users.findOne({
+    where: {
+      email: userEmail
+    }
+  }).then(function(user) {
     return res.render('member/change', {
       ENV: req.env,
       logined: req.logined,
       title: '정보조회',
-      user: user
+      user: user,
     });
   }).catch(function(err) {
     if (err) {
