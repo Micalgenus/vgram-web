@@ -200,6 +200,9 @@ module.exports = function(app) {
    authAPI.post('/quit', AuthAPIController.quit);
    authView.get('/quit', AuthViewController.quit);
 
+   //회원정보 수정
+   authAPI.post('/modifyInfo', AuthAPIController.modifyInfo);
+
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);
   authView.get('/forgot-password', AuthController.register);

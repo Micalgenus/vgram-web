@@ -12,7 +12,7 @@ const crypto = require('crypto'),
    mailchimp = require('../../config/mailchimp'),
    config = require('../../config/main'),
    genToken = require("../../utils/genToken");
-//const auth = require('../core/authentication');
+
 
 /**
  * passport의 LocalStrategy(ID, Password)를 이용함
@@ -155,8 +155,16 @@ exports.info = function(req, res, next) {
 
    // Return error if no email provided
    if (!email) {
-      return res.status(400).send({
+      return res.status(400).json({
          errorMsg: 'You must enter an email address.',
+         statusCode: -1
+      });
+   }
+
+   let token = req.headers['Authorization'];
+   if(!token){
+      return res.status(400).json({
+         errorMsg: 'Do not have a token',
          statusCode: -1
       });
    }
@@ -184,14 +192,73 @@ exports.info = function(req, res, next) {
          return err;
       }
    });
-   /*let result;
-   //콜백함수에서 데이터 반환
-   auth.info(req, res, function(data) {
-      result = data;
+}
 
-      return res.status(201).json({
-         user_info: result.user_info,
-         status: result.status
+exports.modifyInfo = function(req, res, next){
+   const email = req.body.email;
+   const password = req.body.password;
+   const telephone = req.body.telephone;
+   const display_name = req.body.display_name;
+   const profile_image_path = req.body.profile_image_path;
+   const day = new Date();
+
+   // let token = req.headers['Authorization'];
+   // if(!token){
+   //    return res.status(400).josn({
+   //       errorMsg: 'Do not have a token',
+   //       statusCode: -1;
+   //    })
+   // }
+
+   if (!email) {
+      return res.status(400).json({
+         errorMsg: 'You must enter an email address.',
+         statusCode: -1
       });
-   });*/
+   }
+   console.log(email);
+   console.log(password);
+   console.log(telephone);
+   console.log(display_name);
+   console.log(profile_image_path);
+   console.log(password.length);
+   if(password){
+      users.update(
+         {  password: password,
+            telephone: telephone,
+            display_name: display_name,
+            profile_image_path: profile_image_path,
+            updated_date: day
+         },
+         {where: {email: email}}
+      ).then(function(result) {
+         res.json(result[1][0]);
+      }).catch(function(err) {
+         if(err){
+            console.log(err);
+            return res.status(401).json({
+               errorMsg: 'DB error',
+               statusCode: -2
+            })
+         }
+      });
+   }else{
+      users.update(
+         {  telephone: telephone,
+            display_name: display_name,
+            profile_image_path: profile_image_path,
+            updated_date: day
+         },
+         {where: {email: email}}
+      ).then(function(result) {
+         res.json(result[1][0]);
+      }).catch(function(err) {
+         if(err){
+            return res.status(401).json({
+               errorMsg: 'DB error',
+               statusCode: -2
+            })
+         }
+      });
+   }
 }
