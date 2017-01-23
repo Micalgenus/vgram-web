@@ -162,6 +162,7 @@ exports.info = function(req, res, next) {
    }
 
    let token = req.headers['Authorization'];
+   console.log(token);
    if(!token){
       return res.status(400).json({
          errorMsg: 'Do not have a token',
@@ -195,70 +196,70 @@ exports.info = function(req, res, next) {
 }
 
 exports.modifyInfo = function(req, res, next){
-   const email = req.body.email;
-   const password = req.body.password;
-   const telephone = req.body.telephone;
-   const display_name = req.body.display_name;
-   const profile_image_path = req.body.profile_image_path;
-   const day = new Date();
-
-   // let token = req.headers['Authorization'];
-   // if(!token){
-   //    return res.status(400).josn({
-   //       errorMsg: 'Do not have a token',
-   //       statusCode: -1;
-   //    })
+   // const email = req.body.email;
+   // const password = req.body.password;
+   // const telephone = req.body.telephone;
+   // const display_name = req.body.display_name;
+   // const profile_image_path = req.body.profile_image_path;
+   // const day = new Date();
+   //
+   // // let token = req.headers['Authorization'];
+   // // if(!token){
+   // //    return res.status(400).josn({
+   // //       errorMsg: 'Do not have a token',
+   // //       statusCode: -1;
+   // //    })
+   // // }
+   //
+   // if (!email) {
+   //    return res.status(400).json({
+   //       errorMsg: 'You must enter an email address.',
+   //       statusCode: -1
+   //    });
    // }
-
-   if (!email) {
-      return res.status(400).json({
-         errorMsg: 'You must enter an email address.',
-         statusCode: -1
-      });
-   }
-   console.log(email);
-   console.log(password);
-   console.log(telephone);
-   console.log(display_name);
-   console.log(profile_image_path);
-   console.log(password.length);
-   if(password){
-      users.update(
-         {  password: password,
-            telephone: telephone,
-            display_name: display_name,
-            profile_image_path: profile_image_path,
-            updated_date: day
-         },
-         {where: {email: email}}
-      ).then(function(result) {
-         res.json(result[1][0]);
-      }).catch(function(err) {
-         if(err){
-            console.log(err);
-            return res.status(401).json({
-               errorMsg: 'DB error',
-               statusCode: -2
-            })
-         }
-      });
-   }else{
-      users.update(
-         {  telephone: telephone,
-            display_name: display_name,
-            profile_image_path: profile_image_path,
-            updated_date: day
-         },
-         {where: {email: email}}
-      ).then(function(result) {
-         res.json(result[1][0]);
-      }).catch(function(err) {
-         if(err){
-            return res.status(401).json({
-               errorMsg: 'DB error',
-               statusCode: -2
-            })
-         }
-      });
-   }
+   // console.log(email);
+   // console.log(password);
+   // console.log(telephone);
+   // console.log(display_name);
+   // console.log(profile_image_path);
+   // console.log(password.length);
+   // if(password){
+   //    users.update(
+   //       {  password: password,
+   //          telephone: telephone,
+   //          display_name: display_name,
+   //          profile_image_path: profile_image_path,
+   //          updated_date: day
+   //       },
+   //       {where: {email: email}}
+   //    ).then(function(result) {
+   //       res.json(result[1][0]);
+   //    }).catch(function(err) {
+   //       if(err){
+   //          console.log(err);
+   //          return res.status(401).json({
+   //             errorMsg: 'DB error',
+   //             statusCode: -2
+   //          })
+   //       }
+   //    });
+   // }else{
+   //    users.update(
+   //       {  telephone: telephone,
+   //          display_name: display_name,
+   //          profile_image_path: profile_image_path,
+   //          updated_date: day
+   //       },
+   //       {where: {email: email}}
+   //    ).then(function(result) {
+   //       res.json(result[1][0]);
+   //    }).catch(function(err) {
+   //       if(err){
+   //          return res.status(401).json({
+   //             errorMsg: 'DB error',
+   //             statusCode: -2
+   //          })
+   //       }
+   //    });
+   // }
 }
