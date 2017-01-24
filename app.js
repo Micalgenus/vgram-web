@@ -12,6 +12,7 @@ var morgan = require('morgan'),
 
   router = require('./frontRouter');
 
+
 var app = express();
 dotenv.load();    // loading .env and write to process.env
 
@@ -20,6 +21,9 @@ app.locals.ENV = env;
 
 var config = require("./config/main");
 
+//2017.1.17 이정현 쿠키파서 추가
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

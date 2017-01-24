@@ -4,62 +4,154 @@
 var moment = require('moment');
 
 module.exports = {
-  member: [
+   users: [
     {
-      idx: 1,
-      email: "kcmin08@naver.com",    // 일반 회원
-      password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "1"
+       id: 1,
+       email: "kcmin08@naver.com",    // 일반 회원
+       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+       member_type: "PUBLIC",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 2,
-      email: "pastelbook89@gmail.com",    // 일반 회원
-      password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "1"
+       id: 2,
+       email: "pastelbook89@gmail.com",    // 일반 회원
+       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+       member_type: "PUBLIC",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 3,
+      id: 3,
       email: "3333@gmail.com",    // 일반 회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "1"
+      member_type: "PUBLIC",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 4,
+      id: 4,
       email: "4444@gmail.com",    // 일반 회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "1"
+      member_type: "PUBLIC",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 5,
-      email: "sinho0689@gmail.com",       // 시공업체 회원
+      id: 5,
+      email: "sinho0689@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "2"
+      member_type: "BUSINESS",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 6,
-      email: "6666@gmail.com",       // 시공업체 회원
+      id: 6,
+      email: "6666@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "2"
+      member_type: "BUSINESS",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 7,
-      email: "7777@gmail.com",       // 시공업체 회원
+      id: 7,
+      email: "7777@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "2"
+      member_type: "BUSINESS",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 8,
-      email: "8888@gmail.com",       // 시공업체 회원
+      id: 8,
+      email: "8888@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "2"
+      member_type: "BUSINESS",
+       registered_date: "2017-01-13"
     },
     {
-      idx: 9,
-      email: "membertype3@gmail.com",       // 임대업체 회원
+      id: 9,
+      email: "9999@gmail.com",       // 사업주회원
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
-      memberType: "3"
+      member_type: "BUSINESS",
+       registered_date: "2017-01-13",
+       req_drop_date: "2017-01-13"
     }],
-
+   user_metas: [
+      {
+         id: 1,
+         user_id: "1",    // 일반 회원
+         meta_key: "안녕하세요",   // 11112222
+         meta_value: "123"
+      },
+      {
+         id: 2,
+         user_id: "2",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
+      },
+      {
+         id: 3,
+         user_id: "3",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
+      },
+      {
+         id: 4,
+         user_id: "4",    // 일반 회원
+         meta_key: "안녕하세요안녕하세요",   // 11112222
+         meta_value: "1234"
+      },
+     ],
+   //2017.1.13
+  /*
+  member: [
+      {
+         idx: 1,
+         email: "kcmin08@naver.com",    // 일반 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "1"
+      },
+      {
+         idx: 2,
+         email: "pastelbook89@gmail.com",    // 일반 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "1"
+      },
+      {
+         idx: 3,
+         email: "3333@gmail.com",    // 일반 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "1"
+      },
+      {
+         idx: 4,
+         email: "4444@gmail.com",    // 일반 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "1"
+      },
+      {
+         idx: 5,
+         email: "sinho0689@gmail.com",       // 시공업체 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "2"
+      },
+      {
+         idx: 6,
+         email: "6666@gmail.com",       // 시공업체 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "2"
+      },
+      {
+         idx: 7,
+         email: "7777@gmail.com",       // 시공업체 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "2"
+      },
+      {
+         idx: 8,
+         email: "8888@gmail.com",       // 시공업체 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "2"
+      },
+      {
+         idx: 9,
+         email: "membertype3@gmail.com",       // 임대업체 회원
+         password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
+         memberType: "3"
+      }],
   businessMember: [
     {
       memberIdx: 5,
@@ -131,7 +223,7 @@ module.exports = {
       companyLogo: "tests/images/testLogo.jpg",
       companyIntroImage: "tests/images/testCompanyIntroImage1.png"
     }],
-
+*/
   buildCaseInfoBoard: [
     {
       idx: 1,

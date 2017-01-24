@@ -7,18 +7,28 @@ const passport = require('passport'),
   quoter  = require('./tests/quoter');    // test route
 
   multerConfig = require('./config/multer'),
+
+
   PublicController = require('./controllers/reference/public'),
   AuthController = require('./controllers/reference/authentication'),
   UserController = require('./controllers/reference/user'),
   ConsultController = require('./controllers/reference/consult'),
   BuildCaseController = require('./controllers/reference/build-case'),
   BizStoreController = require('./controllers/reference/biz-store'),
-  RoomInfoController = require('./controllers/reference/room-info');
+  RoomInfoController = require('./controllers/reference/room-info'),
 
+
+   redirectViewController = require('./controllers/view/redirect');
+
+
+const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
+  //이정현 추가
+  //로그인 부분
   const AuthAPIController = require('./controllers/api/rest-auth'),
-     AuthViewController = require('./controllers/view/view-auth');
 
- const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
+    AuthViewController = require('./controllers/view/view-auth'),
+    UserViewController = require('./controllers/view/view-user');
+
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -82,9 +92,44 @@ module.exports = function(app) {
   // Test Routes
   //=========================
 
+
+  /*이 route 주소들을 나중에 app.js에서 app.use를 사용하여 라우팅 해주는
+  방식으로 고치는 것이 좋을것 같음, 지금은 빠르게 ui를 확인하려고 res.render로
+  바로 확인하였음*/
   // Test view route
    viewRoutes.get('/test/view', function(req, res) {
       res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+    // login view route,로그인
+   viewRoutes.get('/login', function(req, res) {
+      res.render('login/login', { ENV: env, title: 'Express', msg: 'login page test!' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // signup view route,회원가입
+   viewRoutes.get('/signup', function(req, res) {
+      res.render('member/signup', { ENV: env, title: 'Express', msg: 'signup test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // change view route,회원정보 수정
+   viewRoutes.get('/change', function(req, res) {
+      res.render('member/change', { ENV: env, title: 'Express', msg: 'change test' });
+      // res.status(200).json({ quote: qSuoter.getRandomOne() });
+   });
+
+   // consultingCounsel view route,컨설팅 정보 입력
+   viewRoutes.get('/consultingCounsel', function(req, res) {
+      res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+   viewRoutes.get('/roomInfoVR/:id', function(req, res) {
+      //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
+      res.render('iframe/krpano', { ENV: env, title: 'Express', msg: 'krpano test' });
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
@@ -120,13 +165,22 @@ module.exports = function(app) {
   apiRoutes.use('/', authAPI);
   viewRoutes.use('/', authView);
 
-  // Registration route
-  authAPI.post('/register', AuthController.register);
-  authView.get('/register', AuthController.register);
+  //호세요청 api
+   authAPI.post('/info', AuthAPIController.info);
 
    // Login route
    authAPI.post('/login', requireLogin, AuthAPIController.login);
-   authView.get('/login', AuthViewController.login);
+   authView.get('/login', AuthViewController.login);//, requireLogin);//, redirectViewController.redirectMain);
+
+  // Registration route
+  //authAPI.post('/register', AuthController.register);
+  //authView.get('/register', AuthController.register);
+   authAPI.post('/register', AuthAPIController.register);
+   authView.get('/register', AuthViewController.register);
+
+   //탈퇴 라우터
+   authAPI.post('/quit', AuthAPIController.quit);
+   authView.get('/quit', AuthViewController.quit);
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);
@@ -146,7 +200,8 @@ module.exports = function(app) {
 
   // View public user profile route
   userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
-   userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  //userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  userView.get('/:memberIdx([0-9]+)', UserViewController.viewProfile);
 
   // Update user profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
   userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);

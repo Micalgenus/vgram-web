@@ -15,6 +15,7 @@ exports.generateUserToken = function(user) {
 }
 
 // Set user info from request
+/* 2017.1.13 이정현 주석처리
 exports.setUserInfo = function(request) {
   let getUserInfo = {
     idx: request.idx,
@@ -25,4 +26,22 @@ exports.setUserInfo = function(request) {
   };
 
   return getUserInfo;
+}*/
+exports.setUserInfo = function(request) {
+   let getUserInfo = {
+      id: request.id,
+      email: request.email,
+      password: request.password,
+      member_type: request.member_type,
+      telephone:request.telephone,
+      registered_date:request.registered_date,
+      display_name:request.display_name,
+      activation_key:request.activation_key,
+      local: request.local,
+      profile_image_path: request.profile_image_path,
+      req_drop_date: request.req_drop_date
+      //passwordOrigin: request.passwordOrigin    // 인코딩 전의 패스워드도 저장해놓자.
+   };
+
+   return getUserInfo;
 }

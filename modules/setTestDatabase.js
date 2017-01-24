@@ -14,13 +14,25 @@ var models = require("../models");
 
 module.exports = function(testDB) {
   if (testDB) {
-    log.debug('Create Member Test Database');
+    log.debug('---1--- Create Users Test Database');
+
+
+    return models.users.bulkCreate(testDB.users).then(function () {
+       log.debug('---2--- Create UserMetas Test Database');
+       return models.user_metas.bulkCreate(testDB.user_metas);
+    });
+     //2017.1.13 이정현 주석처리
+     //return models.Member.bulkCreate(testDB.member).then(function () {
+      //     log.debug('---2--- Create BusinessMember Test Database');
+      //    return models.BusinessMember.bulkCreate(testDB.businessMember);
+      // });
 
     // 아직 testDB가 새로운 Table 형식에 맞게 셋팅되지 않음
 
     // return models.Member.bulkCreate(testDB.member).then(function () {
     //   log.debug('Create BusinessMember Test Database');
     //   return models.BusinessMember.bulkCreate(testDB.businessMember);
+
     // }).then(function () {
     //   log.debug('Create BusinessMember Test Database');
     //   return models.BuildCaseInfoBoard.bulkCreate(testDB.buildCaseInfoBoard);

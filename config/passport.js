@@ -4,7 +4,9 @@
 // Importing Passport, strategies, and config
 const passport = require('passport'),
    models = require('../models'),
-   Member = models.Member,
+   //2017.1.13 이정현 주석 처리
+   //Member = models.Member,
+   users = models.users,
    config = require('./main.js'),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,
@@ -18,11 +20,22 @@ const localOptions = {
 
 // Setting up local login strategy
 const localLogin = new LocalStrategy(localOptions, function (email, password, done) {
-   Member.findOne({where: {email: email}}).then(function (user) {
+   //2017.1.13 이정현 주석 처리
+   //Member.findOne({where: {email: email}}).then(function (user) {
+   users.findOne({where: {email: email}}).then(function (user) {
+      console.log(user);
+      console.log(user.req_drop_date);
       if (!user) {
          return done(null, false, {
             errorMsg: 'Your login details could not be verified. Please try again.',
             statusCode: 0
+         });
+      }
+
+      if(user.req_drop_date != null) {
+         return done(null, false, {
+            errorMsg: 'quit user',
+            statusCode: 3
          });
       }
 
@@ -58,7 +71,7 @@ const jwtOptions = {
 
 // Setting up JWT login strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-   Member.findOne({where: {email: payload.email, password: payload.password}}).then(function (user) {
+   users.findOne({where: {email: payload.email, password: payload.password}}).then(function (user) {
       if (user) {
          done(null, user);   // localStrategy와 같다.
       } else {
