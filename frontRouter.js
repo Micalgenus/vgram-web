@@ -27,9 +27,10 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
 //이정현 추가
 //로그인 부분
 const AuthAPIController = require('./controllers/api/rest-auth');
+const RoomAPIController = require('./controllers/reference/room-info');
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', { session: false }); 
+const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
 // Web 용 local passport Login
@@ -178,7 +179,7 @@ module.exports = function(app) {
   viewRoutes.use('/auth', authView);
 
   //호세요청 api
-  authAPI.post('/info', requireLogin, AuthAPIController.info);
+  authAPI.post('/info', AuthAPIController.info);
 
   // Login route
   authAPI.post('/login', requireLogin, AuthAPIController.login);
@@ -198,7 +199,7 @@ module.exports = function(app) {
    authView.get('/quit', AuthViewController.quit);
 
    //회원정보 수정
-   authAPI.post('/modifyInfo', AuthAPIController.modifyInfo);
+   authAPI.post('/modifyInfo', requireLogin, AuthAPIController.modifyInfo);
 
   // Password reset request route (generate/send token)
    authAPI.post('/forgot-password', AuthController.forgotPassword);
@@ -319,7 +320,9 @@ module.exports = function(app) {
   apiRoutes.use('/room', roomInfoAPI);
    viewRoutes.use('/room', roomInfoView);
 
-   roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
+ //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
+   // 이정현 수정중
+   roomInfoAPI.get('/', RoomAPIController.viewRoomInfoList);
    roomInfoView.get('/list', RoomInfoController.viewRoomInfoList);
 
   // create new Room Info from authenticated user

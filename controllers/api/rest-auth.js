@@ -25,7 +25,7 @@ const crypto = require('crypto'),
 
 // 로그인
 exports.login = function(req, res, next) {
-   console.log(req);
+   //console.log(req);
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
    res.append('Authorization', 'Bearer ' + genToken.generateUserToken(userInfo));
@@ -173,8 +173,8 @@ exports.quit = function (req, res, next) {
 //이메일을 받으면 정보와 메타데이터를 전송 하는 api
 exports.info = function(req, res, next) {
    const email = req.body.email;
-
-   let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
+   //여기서는 client -> server 토근 나려줌
+   //server- >client로는 토큰 X
 
    // Return error if no email provided
    if (!email) {
@@ -198,7 +198,6 @@ exports.info = function(req, res, next) {
             });
          }else{                  // exist user
             return res.status(201).json({
-               id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
                user_info: data,
                status: 1
             });
@@ -212,9 +211,12 @@ exports.info = function(req, res, next) {
 
 //회원정보 수정
 exports.modifyInfo = function(req, res, next) {
-
+   //회원정보 수정 되면 server -> client 토큰 필요
+   // 비밀번호 바뀌면 새로운 패스워드(new_password)로  토큰 만듬
+   // 비밀번호 안바뀌면 이전에 있던걸(password)로 토큰 만듬
    const email = req.body.email;
-   const password = req.body.password;
+   const password = req.body.password;             //이전의 패스워드
+   const new_password = req.body.new_password;        //새로운 패스워드
    let telephone = req.body.telephone;
    let display_name = req.body.display_name;
    let profile_image_path = req.body.profile_image_path;
@@ -245,55 +247,75 @@ exports.modifyInfo = function(req, res, next) {
    if (profile_image_path === undefined) {
       profile_image_path = null;
    }
-
-   if (password === undefined || password === null || password.length <= 0) {
+   //새로운 패스워드가 없으면 비밀번호는 변경하지 않는다.
+   if (new_password === undefined || new_password === null || new_password.length <= 0) {
       user_info = {
          telephone: telephone,
          display_name: display_name,
          profile_image_path: profile_image_path
       }
-   } else {
+   } else {    //비밀번호도 같이 변경
       user_info = {
-         password: password,
+         password: new_password,
          telephone: telephone,
          display_name: display_name,
          profile_image_path: profile_image_path
       }
    }
-
+   //활성화가 되어있는 유저를 찾음
    return users.findOne({
       where: {
          email: email,
          user_status: 1
       }
    }).then(function (existingUser) {
+      //찾은경우에는 업데이트 실행
       if(existingUser) {
          users.update(
             user_info,
             {where: {email: email, user_status: 1}}
          ).then(function (result) {
-            return res.status(200).json({
-               msg: 'update success',
-               statusCode: 1
+            // passport에서 받은 object
+            return users.findOne({
+               where: {
+                  email: email,
+                  user_status: 1
+               }
+            }).then(function (data){
+               let userInfo = genToken.setUserInfo(data);   // passport에서 받은 object
+
+               return res.status(200).json({
+                  id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
+                  msg: 'update success',
+                  statusCode: 1
+               });
+            }).catch(function (err) {
+               if (err) {
+                  return res.status(401).json({
+                     errorMsg: 'DB select error',
+                     statusCode: -2
+                  });
+               }
             })
          }).catch(function (err) {
             if (err) {
                return res.status(401).json({
-                  errorMsg: 'DB error',
+                  errorMsg: 'DB update error',
                   statusCode: -2
                })
             }
-         });
+         })
       }else {
+         //아닌경우 유저가 없을경우
          return res.status(402).json({
-            msg: 'do not user in DB or quit user',
+            errorMsg: 'do not user in DB or quit user',
             statusCode: -3
          });
       }
    }).catch(function (err) {
       if (err) {
          return res.status(401).json({
-            errorMsg: 'DB error',
+            errorMsg: 'DB first select error',
             statusCode: -2
          })
       }
