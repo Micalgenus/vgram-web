@@ -67,7 +67,8 @@ module.exports = {
       password: "$2a$05$Ak0Z3z7ntwuAAGwr75XoiO2aYO.d1CRbkT37tOYamWXtflgk4TPO6",   // 11112222
       member_type: "BUSINESS",
        registered_date: "2017-01-13",
-       req_drop_date: "2017-01-13"
+       req_drop_date: "2017-01-13",
+       user_status:"0"
     }],
    user_metas: [
       {
