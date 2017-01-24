@@ -1,59 +1,3 @@
-<!--<header id="header" class="header">-->
-    <!--<div class="container">-->
-        <!--&lt;!&ndash; LOGO &ndash;&gt;-->
-        <!--<div class="logo text-center">-->
-            <!--<a href="/"><h1 style="font-size: 50px">BINGLE<span style="color: #E15D5D">+</span></h1></a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; END / LOGO &ndash;&gt;-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash; NAVIGATION &ndash;&gt;-->
-    <!--<nav class="pi-navigation" data-menu-responsive="1200">-->
-        <!--<div class="container">-->
-            <!--<div class="open-menu">-->
-                <!--<span class="item item-1"></span>-->
-                <!--<span class="item item-2"></span>-->
-                <!--<span class="item item-3"></span>-->
-            <!--</div>-->
-            <!--<div class="close-menu"></div>-->
-            <!--<ul class="navlist">-->
-                <!--<li class="menu-item-has-children current-menu-parent">-->
-                    <!--<a href="/">Home</a>-->
-
-                <!--</li>-->
-                <!--<li><a href="/">About</a></li>-->
-                <!--<li><a href="/">Category</a></li>-->
-                <!--<li><a href="/p/upload">Upload</a></li>-->
-
-            <!--</ul>-->
-
-            <!--<div class="search-box">-->
-                    <!--<span class="icon-search">-->
-                        <!--<i class="fa fa-search"></i>-->
-                    <!--</span>-->
-                <!--<form action="GET">-->
-                    <!--<input type="search" value="Search and hit enter">-->
-                <!--</form>-->
-            <!--</div>-->
-            <!--<div class="share-box">-->
-
-                <!--&lt;!&ndash;<a href=""><div ng-click="click_facebook_login()" class="fb-login-button" ><strong>로그인하기</strong></div></a>&ndash;&gt;-->
-                <!--<a href="" data-toggle="modal" data-target="#myModal"><strong>로그인하기</strong></a>-->
-                <!--<form id="fb_form" ng-submit="fb_login()" class="none" method="post" action="/">-->
-                    <!--<input ng-bind="fb_email" value="{{fb_email}}" name="email" type="text">-->
-                    <!--<button type="submit"></button>-->
-                <!--</form>-->
-
-                <!--<a href="" ng-click="logout()"><strong>김선호님 환영합니다.</strong></a>-->
-
-            <!--</div>-->
-        <!--</div>-->
-      <!--</nav>-->
-  <!--&lt;!&ndash; END / NAVIGATION &ndash;&gt;-->
-
-<!--</header>-->
-<!-- Header
-		============================================= -->
 <div id="top-bar">
 
   <div class="container clearfix">
@@ -64,14 +8,16 @@
                 ============================================= -->
       <div class="top-links">
         <ul>
-<!--          <li *ngIf="!logined"><a href="/login"><strong>로그인/회원가입</strong></a></li>-->
-          <li ><a href="/login"><strong>로그인/회원가입</strong></a></li>
-          <li *ngIf="logined"><a href="/change"><strong>내 정보수정</strong></a></li>
-          <!--<li *ngIf="logined"><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>-->
-          <!--<li *ngIf="logined"><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>-->
-          <li *ngIf="logined"><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
-          <!--<li *ngIf="logined"><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>-->
-          <li *ngIf="logined"><a (click)="logout()"><strong>로그아웃</strong></a></li>
+          <% if (logined) { %>
+            <li><a href="/change"><strong>내 정보수정</strong></a></li>
+            <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
+            <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
+            <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
+            <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>
+            <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
+          <% } else { %>
+            <li><a href="/login"><strong>로그인/회원가입</strong></a></li>
+          <% } %>
         </ul>
       </div><!-- .top-links end -->
 
@@ -147,5 +93,6 @@
     </nav><!-- #primary-menu end -->
 
   </div>
+
 
 </header><!-- #header end -->

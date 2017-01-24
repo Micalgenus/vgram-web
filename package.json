@@ -64,7 +64,10 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "cookie-parser": "^1.4.3",
     "debug": "^2.2.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.14.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.3.2",
     "gulp-env": "^0.4.0",

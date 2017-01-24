@@ -18,21 +18,31 @@ const localOptions = {
    passwordField: 'password'
 }
 
+var cookieExtractor = function(req) {
+  var token = null;
+  if (req && req.cookies) {
+    token = req.cookies['Authorization'];
+    token = token.replace('Bearer ', '');
+  }
+
+  console.log(token);
+  return token;
+};
+
 // Setting up local login strategy
 const localLogin = new LocalStrategy(localOptions, function (email, password, done) {
    //2017.1.13 이정현 주석 처리
    //Member.findOne({where: {email: email}}).then(function (user) {
    users.findOne({where: {email: email}}).then(function (user) {
-      console.log(user);
-      console.log(user.req_drop_date);
+
       if (!user) {
          return done(null, false, {
             errorMsg: 'Your login details could not be verified. Please try again.',
             statusCode: 0
          });
       }
-
-      if(user.req_drop_date != null) {
+      //유저상태가 1이 아니면 활성화 되어있는게 아님(탈퇴되었거나 휴면계정)
+      if(user.user_status != 1) {
          return done(null, false, {
             errorMsg: 'quit user',
             statusCode: 3
@@ -61,37 +71,40 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
 
 // Setting JWT strategy options
 const jwtOptions = {
-   // Telling Passport to check authorization headers for JWT
-   jwtFromRequest: ExtractJwt.fromAuthHeader(),
-   // Telling Passport where to find the secret
-   secretOrKey: config.secret
+  // Telling Passport to check authorization headers for JWT
+  // jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  jwtFromRequest: cookieExtractor,
+  // Telling Passport where to find the secret
+  secretOrKey: config.secret,
+  // auth_token: 'JWT'
 
-   // TO-DO: Add issuer and audience checks
+  // TO-DO: Add issuer and audience checks
 };
 
 // Setting up JWT login strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-   users.findOne({where: {email: payload.email, password: payload.password}}).then(function (user) {
-      if (user) {
-         done(null, user);   // localStrategy와 같다.
-      } else {
-         done(null, false);
-      }
-   }).catch(function (err) {
-      if (err) {
-         return done(err, false);
-      }
-   });
-   //
-   // Member.findById(payload.idx).then(function(user) {
-   //   if (user) {
-   //     done(null, user);   // localStrategy와 같다.
-   //   } else {
-   //     done(null, false);
-   //   }
-   // }).catch(function(err) {
-   //   if (err) { return done(err, false); }
-   // });
+  console.log(payload);
+  users.findOne({where: {email: payload.email}}).then(function (user) {
+    if (user) {
+      done(null, user);   // localStrategy와 같다.
+    } else {
+      done(null, false);
+    }
+  }).catch(function (err) {
+    if (err) {
+      return done(err, false);
+    }
+  });
+  //
+  // Member.findById(payload.idx).then(function(user) {
+  //   if (user) {
+  //     done(null, user);   // localStrategy와 같다.
+  //   } else {
+  //     done(null, false);
+  //   }
+  // }).catch(function(err) {
+  //   if (err) { return done(err, false); }
+  // });
 });
 
 passport.use(jwtLogin);
