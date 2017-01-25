@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const models = require('../../models/index');
+const models = require('../../models');
 const posts = models.posts;
 const _ = require('lodash');
 const Promise = require("bluebird");
@@ -23,13 +23,10 @@ exports.viewNotice = function(req, res) {
       pageStartIndex = _.toNumber(req.query.pageStartIndex);
    }
 
-   return posts.findAll({
-      limit: pageSize,
-      offset: pageStartIndex,
-      where:{
-         post_type: 'notice'
-      }
-   }).then(function(noticeList) {
+   return models.sequelize.query("select users.email, users.display_name, b.* "+
+      "from users as users, posts as b where users.ID = b.user_id and b.post_type = 'notice' limit ?,?",
+      { replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT }
+   ).then(function(noticeList) {
       if(noticeList.length == 0){
          return res.status(400).json({
             errorMsg: '정보 없음',
