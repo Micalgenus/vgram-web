@@ -72,7 +72,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 'ko_KR'
     },
      meta_value: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.STRING(255),
         allowNull: true
      }
   }, {

@@ -21,8 +21,8 @@ module.exports = function(testDB) {
        log.debug('---2--- \n Create UserMetas Test Database');
        return models.user_metas.bulkCreate(testDB.user_metas);
     }).then(function () {
-         // log.debug('---3---- \n Create BusinessMember Test Database');
-         // return models.rooms.bulkCreate(testDB.rooms);
+       log.debug('---3---- \n Create posts Test Database');
+       return models.posts.bulkCreate(testDB.posts);
     })
 
 

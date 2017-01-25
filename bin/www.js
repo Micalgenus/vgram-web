@@ -30,9 +30,6 @@ models.sequelize.sync({ logging: console.log, force: overwrite }).then(function 
    server.on('error', onError);
    server.on('listening', onListening);
 
-   server.on('error', onError);
-   server.on('listening', onListening);
-
    debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
 
    if (env === 'development') {
