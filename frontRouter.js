@@ -202,7 +202,7 @@ module.exports = function(app) {
    authAPI.post('/modifyInfo', requireLogin, AuthAPIController.modifyInfo);
 
   // Password reset request route (generate/send token)
-   authAPI.post('/forgot-password', AuthController.forgotPassword);
+   authAPI.post('/forgot-password', AuthAPIController.forgotPassword);
   authView.get('/forgot-password', AuthController.register);
 
 

@@ -6,7 +6,6 @@
 const crypto = require('crypto'),
    models = require('../../models'),
    users = models.users,
-   //user_metas = models.user_metas,
    moment = require("moment"),
    _ = require('lodash'),
    mailgun = require('../../config/mailgun'),
@@ -23,9 +22,11 @@ const crypto = require('crypto'),
  * @returns {*}
  */
 
-// 로그인
+//------------------------------------------
+//  로그인
+//------------------------------------------
 exports.login = function(req, res, next) {
-   //console.log(req);
+
    let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
    res.append('Authorization', 'Bearer ' + genToken.generateUserToken(userInfo));
@@ -38,9 +39,11 @@ exports.login = function(req, res, next) {
    });
 }
 
-//회원가입
+//------------------------------------------
+// 회원가입
+//------------------------------------------
 exports.register = function(req, res, next) {
-   //auth.register(req, res, next);
+
    // Check for registration errors
    const email = req.body.email;
    const password = req.body.password;
@@ -117,7 +120,9 @@ exports.register = function(req, res, next) {
    });
 }
 
-//탈퇴
+//------------------------------------------
+//  탈퇴
+//------------------------------------------
 exports.quit = function (req, res, next) {
 
    //탈퇴버튼 누를시 req_drop_data에 현재 시간과 user_status에 0을 넣음
@@ -167,10 +172,19 @@ exports.quit = function (req, res, next) {
             statusCode: -2
          });
       }
+   }).catch(function (err) {
+      if (err) {
+         return res.status(401).json({
+            errorMsg: 'DB error.',
+            statusCode: 9
+         });
+      }
    });
 }
 
+//------------------------------------------
 //이메일을 받으면 정보와 메타데이터를 전송 하는 api
+//------------------------------------------
 exports.info = function(req, res, next) {
    const email = req.body.email;
    //여기서는 client -> server 토근 나려줌
@@ -190,7 +204,6 @@ exports.info = function(req, res, next) {
       "from users as a, user_metas as b where a.email = (?) and a.ID = b.user_id",
       { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
       .then(function (data) {
-
          if(data.length <= 0){   // not exist user
             return res.status(401).json({
                errorMsg: 'Email do not exist DB',
@@ -204,12 +217,17 @@ exports.info = function(req, res, next) {
          }
       }).catch(function (err) {    // end select
       if (err) {
-         return err;
+         return res.status(401).json({
+            errorMsg: 'DB error.',
+            statusCode: 9
+         });
       }
    });
 }
 
-//회원정보 수정
+//------------------------------------------
+//  회원정보 수정
+//------------------------------------------
 exports.modifyInfo = function(req, res, next) {
    //회원정보 수정 되면 server -> client 토큰 필요
    // 비밀번호 바뀌면 새로운 패스워드(new_password)로  토큰 만듬
@@ -271,7 +289,7 @@ exports.modifyInfo = function(req, res, next) {
    }).then(function (existingUser) {
       //찾은경우에는 업데이트 실행
       if(existingUser) {
-         users.update(
+         return users.update(
             user_info,
             {where: {email: email, user_status: 1}}
          ).then(function (result) {
@@ -301,7 +319,7 @@ exports.modifyInfo = function(req, res, next) {
             if (err) {
                return res.status(401).json({
                   errorMsg: 'DB update error',
-                  statusCode: -2
+                  statusCode: -3
                })
             }
          })
@@ -309,7 +327,7 @@ exports.modifyInfo = function(req, res, next) {
          //아닌경우 유저가 없을경우
          return res.status(402).json({
             errorMsg: 'do not user in DB or quit user',
-            statusCode: -3
+            statusCode: -4
          });
       }
    }).catch(function (err) {
@@ -327,54 +345,54 @@ exports.modifyInfo = function(req, res, next) {
 // Forgot Password Route
 //========================================
 exports.forgotPassword = function (req, res, next) {
-   // const email = req.body.email;
-   //
-   // return users.findOne({where: {email: email}}).then(function (existingUser) {
-   //    // If user is not found, return error
-   //    if (existingUser == null) {
-   //       res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
-   //       return next(new Error("not matching, please check again."));
-   //    }
-   //
-   //    // If user is found, generate and save resetToken
-   //
-   //    // Generate a token with Crypto
-   //    crypto.randomBytes(48, function (err, buffer) {
-   //       const resetToken = buffer.toString('hex');
-   //       if (err) {
-   //          return next(err);
-   //       }
-   //
-   //       existingUser.resetPasswordToken = resetToken;
-   //       existingUser.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-   //
-   //       existingUser.save().then(function (user) {
-   //
-   //          const message = {
-   //             subject: 'Reset Password',
-   //             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-   //             'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-   //             'http://' + req.headers.host + '/reset-password/' + resetToken + '\n\n' +
-   //             'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-   //          }
-   //
-   //          // Otherwise, send user email via Mailgun
-   //          mailgun.sendEmail(existingUser.email, message);
-   //
-   //          res.status(200).json({message: 'Please check your email for the link to reset your password.'});
-   //          next();
-   //       }).catch(function (err) {
-   //          // If error in saving token, return it
-   //          if (err) {
-   //             return next(err);
-   //          }
-   //       });
-   //    });
-   // }).catch(function (err) {    //end Member.findOne
-   //    // If user is not found, return error
-   //    if (err) {
-   //       res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
-   //       return next(err);
-   //    }
-   // });
+   const email = req.body.email;
+
+   return users.findOne({where: {email: email}}).then(function (existingUser) {
+      // If user is not found, return error
+      if (existingUser == null) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(new Error("not matching, please check again."));
+      }
+
+      // If user is found, generate and save resetToken
+
+      // Generate a token with Crypto
+      crypto.randomBytes(48, function (err, buffer) {
+         const resetToken = buffer.toString('hex');
+         if (err) {
+            return next(err);
+         }
+
+         existingUser.resetPasswordToken = resetToken;
+         existingUser.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+         existingUser.save().then(function (user) {
+
+            const message = {
+               subject: 'Reset Password',
+               text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+               'http://' + req.headers.host + '/reset-password/' + resetToken + '\n\n' +
+               'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            }
+
+            // Otherwise, send user email via Mailgun
+            mailgun.sendEmail(existingUser.email, message);
+
+            res.status(200).json({message: 'Please check your email for the link to reset your password.'});
+            next();
+         }).catch(function (err) {
+            // If error in saving token, return it
+            if (err) {
+               return next(err);
+            }
+         });
+      });
+   }).catch(function (err) {    //end Member.findOne
+      // If user is not found, return error
+      if (err) {
+         res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});
+         return next(err);
+      }
+   });
 }

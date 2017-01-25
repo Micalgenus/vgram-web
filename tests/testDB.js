@@ -4,6 +4,9 @@
 var moment = require('moment');
 
 module.exports = {
+   //------------------------------------------
+   // users data
+   //------------------------------------------
    users: [
     {
        id: 1,
@@ -70,32 +73,89 @@ module.exports = {
        req_drop_date: "2017-01-13",
        user_status:"0"
     }],
+
+   //------------------------------------------
+   // users_metas data
+   //------------------------------------------
    user_metas: [
       {
          id: 1,
-         user_id: "1",    // 일반 회원
-         meta_key: "안녕하세요",   // 11112222
+         user_id: "1",
+         meta_key: "안녕하세요 1번 회원 입니다",
          meta_value: "123"
       },
       {
          id: 2,
-         user_id: "2",    // 일반 회원
-         meta_key: "안녕하세요안녕하세요",   // 11112222
+         user_id: "2",
+         meta_key: "안녕하세요 2번 회원 입니다",
          meta_value: "1234"
       },
       {
          id: 3,
-         user_id: "3",    // 일반 회원
-         meta_key: "안녕하세요안녕하세요",   // 11112222
+         user_id: "3",
+         meta_key: "안녕하세요 3번 회원 입니다",
          meta_value: "1234"
       },
       {
          id: 4,
-         user_id: "4",    // 일반 회원
-         meta_key: "안녕하세요안녕하세요",   // 11112222
+         user_id: "4",
+         meta_key: "안녕하세요 4번 회원 입니다",
+         meta_value: "1234"
+      },
+      {
+         id: 5,
+         user_id: "5",
+         meta_key: "안녕하세요 4번 회원 입니다",
+         meta_value: "1234"
+      },
+      {
+         id: 6,
+         user_id: "6",
+         meta_key: "안녕하세요 4번 회원 입니다",
+         meta_value: "1234"
+      },
+      {
+         id: 7,
+         user_id: "7",
+         meta_key: "안녕하세요 7번 회원 입니다",
+         meta_value: "1234"
+      },
+      {
+         id: 8,
+         user_id: "8",
+         meta_key: "안녕하세요 8번 회원 입니다",
+         meta_value: "1234"
+      },
+      {
+         id: 9,
+         user_id: "9",
+         meta_key: "안녕하세요 9번 회원 입니다",
          meta_value: "1234"
       },
      ],
+
+   //------------------------------------------
+   // posts data
+   //------------------------------------------
+   posts: [
+      {
+         id: 1,
+         user_id: "1",
+         post_init_date:'2017-01-25 00:00:00',
+         post_init_date_gmt:'2017-01-25 03:00:00',
+         content: ,
+         title:'1번 user 게시물',
+         post_status:'publish' ,
+         post_modified_date: '2017-01-25 00:00:00',
+         post_modified_date_gmt:'2017-01-25 03:00:00',
+         post_type:'room',
+         read_count: 0,
+         like: 0,
+         unlike:0,
+         locale:'ko_KR',
+         meta_value: ' '
+      },
+   ],
    roomInfoBoard: [
       {
          idx: 1,
