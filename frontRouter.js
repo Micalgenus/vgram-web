@@ -16,10 +16,11 @@ const passport = require('passport'),
   BizStoreController = require('./controllers/reference/biz-store'),
   RoomInfoController = require('./controllers/reference/room-info'),
 
+  // web
   redirectViewController = require('./controllers/view/redirect'),
 
-  // web
   AuthViewController = require('./controllers/view/auth'),
+  BizViewController = require('./controllers/view/view-biz'),
   UserViewController = require('./controllers/view/view-user');
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
@@ -114,10 +115,13 @@ module.exports = function(app) {
   viewRoutes.get('/login', AuthViewController.init, UserViewController.login);
 
   // 회원정보 조회 및 수정
-  viewRoutes.get('/change', requireAuth, AuthViewController.init, UserViewController.viewProfile);
+  viewRoutes.get('/change', AuthViewController.init, requireAuth, UserViewController.viewProfile);
 
   // 회원가입
   viewRoutes.get('/signup', AuthViewController.init, UserViewController.signup);
+
+  // 리스트 출력
+  viewRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
 
   //=========================
   // Test Routes
