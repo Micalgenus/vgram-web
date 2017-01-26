@@ -158,7 +158,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 1번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/360x240_201606281846.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'1번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -176,7 +176,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 2번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/건축분쟁_201701254601136.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'2번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -194,7 +194,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 3번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/1975-20150311114607.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'3번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -212,7 +212,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 4번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/건축분쟁_201701254601136.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'4번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -230,7 +230,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 5번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/1975-20150311114607.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'5번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -248,7 +248,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 6번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/360x240_201606281846.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'6번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -266,7 +266,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 7번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/건축분쟁_201701254601136.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'7번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -284,7 +284,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 8번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/360x240_201606281846.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'8번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -302,7 +302,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 9번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/1975-20150311114607.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'9번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -320,7 +320,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 10번 유저</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/건축분쟁_201701254601136.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'10번 user 게시물입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -338,7 +338,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 공지사항1</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/건축분쟁_201701254601136.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'공지사항 1입니다',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -356,7 +356,7 @@ module.exports = {
          post_init_date:'2017-01-25 00:00:00',
          post_init_date_gmt:'2017-01-25 03:00:00',
          content: '<p style="text-align: center; ">Hi, HTML Text 공지사항2</p><p style="text-align: center; ">' +
-         '<img style="width: 411px;" src="medias/images/360x240_201606281846.jpg" ><br></p>',
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
          title:'공지사항2',
          post_status:'publish' ,
          post_modified_date: '2017-01-25 00:00:00',
@@ -368,7 +368,6 @@ module.exports = {
          locale:'ko_KR',
          meta_value: JSON.stringify(["writeDevice: web"])
       }
-
    ],
    roomInfoBoard: [
       {
