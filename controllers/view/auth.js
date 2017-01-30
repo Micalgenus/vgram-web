@@ -5,6 +5,10 @@
 "use strict";
 
 const auth = require('../core/authentication');
+
+const models = require('../../models');
+const Users = models.users;
+
 /**
  * show login view if not login(no sessio
  * @param req
@@ -62,14 +66,18 @@ exports.signup = function (req, res, next) {
   }
 
   let type = req.body.member_type;
+  let email = req.body.email;
+  let phone = req.body.phone;
+
+  req.flash('check', type);
+  req.flash('email', email);
+  req.flash('phone', phone);
+
   if (type != "PUBLIC" && type != "BUSINESS") {
     req.flash('msg', '잘못된 유형의 회원입니다.');
     return res.redirect('/signup');
   }
 
-  req.flash('check', type);
-
-  let email = req.body.email;
   if (!email) {
     req.flash('msg', '이메일을 입력해 주십시오.');
     return res.redirect('/signup');
@@ -79,8 +87,6 @@ exports.signup = function (req, res, next) {
     req.flash('msg', '올바른 이메일 형식을 사용해 주시길 바랍니다.');
     return res.redirect('/signup');
   }
-
-  req.flash('email', email);
 
   let password = req.body.password;
   let repassword = req.body.repassword;
@@ -202,6 +208,43 @@ exports.register = function(req, res, next) {
   });
 }
 */
+
+exports.change = function(req, res, next) {
+  const email = req.user.email;
+  if (req.body.email && req.user.email != req.body.email) {
+    req.flash('msg', 'test');
+    return res.redirect('/change');
+  }
+
+  return Users.update({
+    telephone: req.body.phone,
+    display_name: req.body.name
+  }, {
+    where: {
+      email: email
+    }
+  }).then(function(array) {
+    if (array[0] == 1) {
+
+      return Users.findOne({
+        where: {
+          email: email
+        }
+      }).then(function(user) {
+        req.user = user.dataValues;
+        return next();
+      }).catch(function(err) {
+        return res.send(err);
+      });
+    } else {
+      req.flash('msg', '변경에 실패하였습니다.');
+      return res.redirect('/change');
+    }
+  }).catch(function(err) {
+    return res.send(err);
+  });
+}
+
 exports.quit = function (req, res, next){
 
 }

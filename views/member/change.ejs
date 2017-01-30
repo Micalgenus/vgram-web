@@ -38,33 +38,33 @@
 
           <div class="contact-form-result"></div>
 
-          <form class="nobottommargin" #f="ngForm" (ngSubmit)="signupchange($event, username.value, password.value, password_ok.value, telephone.value, companyName.value, ownerName.value, bizRegNo.value, contact.value, workPlace.value, mainWorkField.value, mainWorkArea.value)">
+          <form class="nobottommargin" action="/user/change" method="POST">
 
             <div class="col_one_third">
               <label for="member-change-email">이메일 주소 <small>*</small></label>
-              <input type="text" required #username id="member-change-email" name="member-change-email" value="<%= user.email %>" class="email sm-form-control required" />
+              <input type="text" id="member-change-email" name="email" value="<%= email %>" class="email sm-form-control" disabled/>
             </div>
 
             <div class="col_one_third">
-              <label for="member-change-password">비밀번호 <small>*</small></label>
-              <input type="password" required #password id="member-change-password" name="member-change-password" value="" class="required sm-form-control" />
+              <label for="member-change-password">비밀번호 </label>
+              <input type="password" id="member-change-password" name="password" value="" class="sm-form-control" />
             </div>
 
             <div class="col_one_third col_last">
-              <label for="member-change-password-ok">비밀번호 확인 <small>*</small></label>
-              <input type="password" required #password_ok id="member-change-password-ok" name="member-change-password-ok" value="" class="required sm-form-control" />
+              <label for="member-change-password-ok">비밀번호 확인 </label>
+              <input type="password" id="member-change-password-ok" name="repassword" value="" class="sm-form-control" />
             </div>
 
             <div class="clear"></div>
 
             <div class="col_one_third">
-              <label for="member-change-subject">휴대전화</label>
-              <input type="text" #telephone id="member-change-subject" name="member-change-subject" value="{{telephones}}" class="sm-form-control" placeholder="012-3456-7890" />
+              <label for="member-change-phone">휴대전화</label>
+              <input type="text" id="member-change-phone" name="phone" value="<%= phone %>" class="sm-form-control" placeholder="012-3456-7890" />
             </div>
                 
             <div class="col_one_third">
-              <label for="member-change-subject">이름</label>
-              <input type="text" #name id="member-change-subject" name="member-change-subject" value="{{telephones}}" class="sm-form-control" placeholder="012-3456-7890" />
+              <label for="member-change-name">이름</label>
+              <input type="text" id="member-change-name" name="name" value="<%= name %>" class="sm-form-control" placeholder="홍길동" />
             </div>
 
             <div class="col_one_third col_last">
@@ -74,42 +74,44 @@
 
             <div class="clear"></div>
 
-            <section [ngClass]="{'hidden': memberType != 2}">
-            
-              <h4>사업주 정보</h4>
-
-              <div class="clear"></div>
-
-              <div class="col_one_third">
-                <label for="member-change-company">업종</label>
-                <input type="text" #companyName id="member-change-company" name="member-change-company" value="{{companyNames}}" class="sm-form-control" />
-              </div>
+            <% if (member_type != 'PUBLIC') { %>
+              <section>
               
-              <div class="col_one_third">
-                <label for="member-change-bizno">사업자등록번호</label>
-                <input type="text" #bizRegNo id="member-change-bizno" name="member-change-bizno" value="{{bizRegNos}}" class="sm-form-control" />
-              </div>
+                <h4>사업주 정보</h4>
 
-              <div class="col_one_third col_last">
-                <label for="member-change-owner">대표명</label>
-                <input type="text" #ownerName id="member-change-owner" name="member-change-owner" value="{{ownerNames}}" class="sm-form-control" />
-              </div>
+                <div class="clear"></div>
 
-              <div class="clear"></div>
-              
-              <div class="col_full col_last">
-                <label for="member-change-place">업체 주소</label>
-                <input type="text" #workPlace id="member-change-place" name="member-change-place" value="{{workPlaces}}" class="sm-form-control" />
-              </div>
+                <div class="col_one_third">
+                  <label for="member-change-company">업종</label>
+                  <input type="text" #companyName id="member-change-company" name="member-change-company" value="{{companyNames}}" class="sm-form-control" />
+                </div>
+                
+                <div class="col_one_third">
+                  <label for="member-change-bizno">사업자등록번호</label>
+                  <input type="text" #bizRegNo id="member-change-bizno" name="member-change-bizno" value="{{bizRegNos}}" class="sm-form-control" />
+                </div>
 
-              <div class="clear"></div>
+                <div class="col_one_third col_last">
+                  <label for="member-change-owner">대표명</label>
+                  <input type="text" #ownerName id="member-change-owner" name="member-change-owner" value="{{ownerNames}}" class="sm-form-control" />
+                </div>
 
-              <div class="col_full col_last">
-                <label for="member-change-full">소개글</label>
-                <input type="text" id="member-change-full" name="member-change-full" class="sm-form-control" />
-              </div>
+                <div class="clear"></div>
+                
+                <div class="col_full col_last">
+                  <label for="member-change-place">업체 주소</label>
+                  <input type="text" #workPlace id="member-change-place" name="member-change-place" value="{{workPlaces}}" class="sm-form-control" />
+                </div>
 
-            </section>
+                <div class="clear"></div>
+
+                <div class="col_full col_last">
+                  <label for="member-change-full">소개글</label>
+                  <input type="text" id="member-change-full" name="member-change-full" class="sm-form-control" />
+                </div>
+
+              </section>
+            <% } %>
 
             <div class="col_full">
               <!--<button class="button button-3d nomargin" type="cancel" id="member-change-submit" name="member-change-submit" value="submit">취소</button>-->
