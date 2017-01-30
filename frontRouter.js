@@ -194,10 +194,8 @@ module.exports = function(app) {
   authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
 
   // Registration route
-  //authAPI.post('/register', AuthController.register);
-  //authView.get('/register', AuthController.register);
   authAPI.post('/register', AuthAPIController.register);
-  authView.get('/register', AuthViewController.register);
+  authView.post('/signup', AuthViewController.signup);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
@@ -213,6 +211,7 @@ module.exports = function(app) {
 
    authAPI.post('/reset-password/:token', AuthController.verifyToken);
   authView.get('/reset-password/:token', AuthController.verifyToken);
+
    //=========================
    // 이정현 API 구현 Routes
    //=========================
