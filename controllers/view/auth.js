@@ -51,6 +51,161 @@ exports.logout = function(req, res, next) {
   return next();
 }
 
+exports.signup = function (req, res, next) {
+
+  // 로그인이 되어있으면 회원가입 하지 않고 redirect 시킴(jwt 확인)
+  let token = req.cookies.Authorization;
+
+  if (token) {
+    req.flash('msg', '이미 로그인 하셨습니다.');
+    return res.redirect('/');
+  }
+
+  let type = req.body.member_type;
+  if (type != "PUBLIC" && type != "BUSINESS") {
+    req.flash('msg', '잘못된 유형의 회원입니다.');
+    return res.redirect('/signup');
+  }
+
+  req.flash('check', type);
+
+  let email = req.body.email;
+  if (!email) {
+    req.flash('msg', '이메일을 입력해 주십시오.');
+    return res.redirect('/signup');
+  }
+
+  if (!email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) {
+    req.flash('msg', '올바른 이메일 형식을 사용해 주시길 바랍니다.');
+    return res.redirect('/signup');
+  }
+
+  req.flash('email', email);
+
+  let password = req.body.password;
+  let repassword = req.body.repassword;
+  if (!password || !repassword) {
+    req.flash('msg', '비밀번호를 입력해 주시길 바랍니다.');
+    return res.redirect('/signup');
+  }
+
+  if (password != repassword) {
+    req.flash('msg', '비밀번호가 일치하지 않습니다.');
+    return res.redirect('/signup');
+  }
+
+  if (type == "BUSINESS") {
+    let phone = req.body.phone;
+    if (!phone) {
+      req.flash('msg', '전화번호를 입력해 주십시오.');
+      return res.redirect('/signup');
+    }
+  }
+
+  return res.send(req.body);
+}
+
+/*
+exports.register = function(req, res, next) {
+  // Check for registration errors
+  const email = req.body.email;
+  const password = req.body.password;
+  const memberType = _.toNumber(req.body.memberType);
+
+  // Return error if no email provided
+  if (!email) {
+    return res.status(400).send({
+      errorMsg: 'You must enter an email address.',
+      statusCode: -1
+    });
+  }
+
+  // Return error if no password provided
+  if (!password) {
+    return res.status(400).send({ errorMsg: 'You must enter a password.', statusCode: -1 });
+  }
+
+  return Member.findOne({
+    where: {
+      email: email
+    }
+  }).then(function(existingUser) {
+    // If user is not unique, return error
+    if (existingUser) {   // 현 확인방법이 맞는지 확인해야함.
+      return res.status(400).send({
+        errorMsg: 'That email address is already in use.',
+        statusCode: 2
+      });
+    }
+
+    // If email is unique and password was provided, create account
+    let user = {
+      email: email,
+      password: password,
+      memberType: memberType
+    };
+
+    if (_.eq(memberType, BIZMEMBER) || _.eq(memberType, value.memberType.LEASE_MEMBER)) {    // biz회원 가입시, transaction 때문에 나눠놨음
+      return models.sequelize.transaction(function (t) {
+        return Member.create(user, {transaction: t}).then(function(newUser) {
+          // Subscribe member to Mailchimp list
+          // mailchimp.subscribeToNewsletter(user.email);
+
+          // Respond with JWT if user was created
+          newUser.passwordOrigin = password;    // 인코딩 전의 패스워드 저장
+          let userInfo = genToken.setUserInfo(newUser);
+
+          let bizMember = {
+            memberIdx: newUser.idx
+          };
+
+          return BusinessMember.create(bizMember, {transaction: t}).then(function(user) {
+            return models.sequelize.Promise.resolve(userInfo);
+          });
+        })
+      }).then(function(userInfo) {    // commit구간
+        return res.status(201).json({
+          id_token: 'JWT ' + genToken.generateUserToken(userInfo),
+          user: userInfo,
+          status: 1
+        });
+      }).catch(function(err) {    // end sequelize.transaction, rollback구간
+        if (err) {
+          res.status(422).json({ errorMsg: 'Internal Error', statusCode: 9 });
+          return next(err);
+        }
+      });
+    } else {    // 일반 회원 가입시
+      Member.create(user).then(function(newUser) {
+        // Subscribe member to Mailchimp list
+        // mailchimp.subscribeToNewsletter(user.email);
+
+        // Respond with JWT if user was created
+        newUser.passwordOrigin = password;    // 인코딩 전의 패스워드 저장
+        let userInfo = genToken.setUserInfo(newUser);
+
+        return res.status(201).json({
+          id_token: 'JWT ' + genToken.generateUserToken(userInfo),
+          user: userInfo,
+          status: 1
+        });
+
+      }).catch(function(err) {    // end Member.create
+        if (err) {
+          res.status(422).json({ errorMsg: 'Internal Error', statusCode: 9 });
+          return next(err);
+        }
+      });
+    }
+  }).catch(function(err) {    // end Member.findOne
+    if (err) { return next(err); }
+  });
+}
+*/
+exports.quit = function (req, res, next){
+
+}
+
 exports.setToken = function(req, res, next) {
 
   let result = auth.login(req, res);
@@ -67,12 +222,4 @@ exports.init = function(req, res, next) {
   req.logined = (req.cookies.Authorization ? true : false);
 
   return next();
-}
-
-exports.register = function (req, res, next) {
-
-}
-
-exports.quit = function (req, res, next){
-
 }

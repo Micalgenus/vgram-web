@@ -16,10 +16,11 @@ const passport = require('passport'),
   BizStoreController = require('./controllers/reference/biz-store'),
   RoomInfoController = require('./controllers/reference/room-info'),
 
+  // web
   redirectViewController = require('./controllers/view/redirect'),
 
-  // web
   AuthViewController = require('./controllers/view/auth'),
+  BizViewController = require('./controllers/view/view-biz'),
   UserViewController = require('./controllers/view/view-user');
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
@@ -28,6 +29,7 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
 //로그인 부분
 const AuthAPIController = require('./controllers/api/rest-auth');
 const RoomAPIController = require('./controllers/reference/room-info');
+const postsAPIController = require('./controllers/api/posts');
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -114,10 +116,13 @@ module.exports = function(app) {
   viewRoutes.get('/login', AuthViewController.init, UserViewController.login);
 
   // 회원정보 조회 및 수정
-  viewRoutes.get('/change', requireAuth, AuthViewController.init, UserViewController.viewProfile);
+  viewRoutes.get('/change', AuthViewController.init, requireAuth, UserViewController.viewProfile);
 
   // 회원가입
   viewRoutes.get('/signup', AuthViewController.init, UserViewController.signup);
+
+  // 리스트 출력
+  viewRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
 
   //=========================
   // Test Routes
@@ -189,10 +194,8 @@ module.exports = function(app) {
   authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
 
   // Registration route
-  //authAPI.post('/register', AuthController.register);
-  //authView.get('/register', AuthController.register);
   authAPI.post('/register', AuthAPIController.register);
-  authView.get('/register', AuthViewController.register);
+  authView.post('/signup', AuthViewController.signup);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
@@ -202,12 +205,18 @@ module.exports = function(app) {
    authAPI.post('/modifyInfo', requireLogin, AuthAPIController.modifyInfo);
 
   // Password reset request route (generate/send token)
-   authAPI.post('/forgot-password', AuthController.forgotPassword);
+   authAPI.post('/forgot-password', AuthAPIController.forgotPassword);
   authView.get('/forgot-password', AuthController.register);
 
 
    authAPI.post('/reset-password/:token', AuthController.verifyToken);
   authView.get('/reset-password/:token', AuthController.verifyToken);
+
+   //=========================
+   // 이정현 API 구현 Routes
+   //=========================
+   //공지사항 출력
+   authAPI.get('/notice', postsAPIController.viewNotice);
 
    //=========================
   // Member Routes

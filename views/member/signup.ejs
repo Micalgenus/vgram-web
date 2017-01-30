@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<!--[if IE 7 ]> <html class="ie ie7"> <![endif]-->
-<!--[if IE 8 ]> <html class="ie ie8"> <![endif]-->
-<!--[if IE 9 ]> <html class="ie ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="" lang="en"> <!--<![endif]-->
-
-<%include ../static/html_header.ejs%>
-
+<html lang="ko">
+<head>
+   <% include ../static/head.ejs %>
+</head>
 <body ng-app="bingle" ng-controller="root">
 
 <!-- PRELOADER -->
@@ -25,122 +22,119 @@
 </div>
 <!-- END / PAGE WRAP -->
 
-<section id="content">
-   <div class="content-wrap">
-      <div class="container clearfix">
-         <div class="col_full">
-            <ul class="tab-nav tab-nav2 center clearfix">
-               <li class="inline-block"><a href="/login">로그인</a></li>
-               <li class="inline-block ui-state-active"><a href="#" onclick="return false;">회원가입</a></li>
-            </ul>
-         </div>
+  <!-- CONTENT -->
+  <section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+          <div class="col_full">
+              <ul class="tab-nav tab-nav2 center clearfix">
+                <li class="inline-block"><a href="/login">로그인</a></li>
+                <li class="inline-block ui-state-active"><a href="#" onclick="return false;">회원가입</a></li>
+              </ul>
+          </div>
 
-         <div class="col_one_third nobottommargin">
+          <form action="/auth/signup" method="post">
+            <div class="col_one_third nobottommargin">
 
-            <div class="well well-lg nobottommargin" id="member-type-select">
+                <div class="well well-lg nobottommargin" id="member-type-select">
 
-               <h3>계정 유형</h3>
+                  <h3>계정 유형</h3>
 
-               <div class="col_full">
-                  <input type="radio" id="normal-form-member" name="type-form-member" value="1" class="hidden" checked="checked"/>
-                  <label for="normal-form-member" class="button btn-default btn-block text-center" onclick="div_show(false,'phone_number')">일반 회원</label>
-               </div>
+                  <div class="col_full">
+                      <input type="radio" id="normal-form-member" name="member_type" value="PUBLIC" class="hidden" <%= normal_check %>/>
+                      <label for="normal-form-member" class="button btn-default btn-block text-center">일반 회원</label>
+                  </div>
 
-               <div class="col_full">
-                  <input type="radio" id="business-form-member" name="type-form-member" value="2" class="hidden" />
-                  <label for="business-form-member" class="button btn-default btn-block text-center" onclick="div_show(true,'phone_number')">사업자 회원</label>
-               </div>
+                  <div class="col_full">
+                      <input type="radio" id="business-form-member" name="member_type" value="BUSINESS" class="hidden" <%= business_check %>/>
+                      <label for="business-form-member" class="button btn-default btn-block text-center">사업자 회원</label>
+                  </div>
+
+                </div>
+            </div>
+
+            <div class="col_one_third nobottommargin">
+                <h3>아직 계정이 없으신가요?</h3>
+
+                <div class="col_full col_last">
+                    <label for="register-form-name">이메일:</label>
+                    <input type="text" id="register-form-name" name="email" value="<%= email %>" class="form-control" />
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="col_full col_last">
+                    <label for="register-form-password">비밀번호:</label>
+                    <input type="password" id="register-form-password" name="password" value="" class="form-control" />
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="col_full col_last">
+                    <label for="register-form-repassword">비밀번호 확인:</label>
+                    <input type="password" id="register-form-repassword" name="repassword" value="" class="form-control" />
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="col_full col_last" id="phone_number" <% if (normal_check) { %>style="display:none;"<% } %>>
+                    <label for="register-form-phone">전화번호:</label>
+                    <input type="text" id="register-form-phone" name="phone" value="" class="form-control" />
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="col_full nobottommargin">
+                    <button class="button button-3d button-black nomargin">가입하기</button>
+                </div>
 
             </div>
-         </div>
+          </form>
 
-         <div class="col_one_third nobottommargin">
-            <h3>아직 계정이 없으신가요?</h3>
+          <div class="col_one_third col_last nobottommargin" id="social_login">
 
-            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vel odio non dicta provident sint ex autem mollitia dolorem illum repellat ipsum aliquid illo similique sapiente fugiat minus ratione.</p>-->
-            <form id="register-form" name="register-form" class="nobottommargin" role="form" (submit)="signup($event, username.value, password.value,password_ok.value)">
-
-               <div class="col_full col_last">
-                  <label for="register-form-name">이메일:</label>
-                  <input #username type="text" id="register-form-name" name="register-form-name" value="" class="form-control" />
-               </div>
-
-               <div class="clear"></div>
-
-               <div class="col_full col_last">
-                  <label for="register-form-password">비밀번호:</label>
-                  <input #password type="password" id="register-form-password" name="register-form-password" value="" class="form-control" />
-               </div>
-
-               <div class="clear"></div>
-
-               <div class="col_full col_last">
-                  <label for="register-form-repassword">비밀번호 확인:</label>
-                  <input #password_ok type="password" id="register-form-repassword" name="register-form-repassword" value="" class="form-control" />
-               </div>
-
-               <div class="clear"></div>
-
-               <div class="col_full col_last" id="phone_number" style="display:none;">
-                  <label for="register-form-phone">전화번호:</label>
-                  <input #phone type="text" id="register-form-phone" name="register-form-phone" value="" class="form-control" />
-               </div>
-
-               <div class="clear"></div>
-
-               <div class="col_full nobottommargin">
-                  <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">가입하기</button>
-               </div>
-
-            </form>
-         </div>
-         <div class="col_one_third col_last nobottommargin" id="social_login">
             <div class="col_full col_last"></div>
+
             <div class="btn btn-primary col_half col_last" (click)="social()">
-          <span class="ts-icon">
-            <i class="xi-facebook"></i>
-          </span>
-               <strong class="ts-text">Facebook</strong>
+              <span class="ts-icon">
+                <i class="xi-facebook"></i>
+              </span>
+              <strong class="ts-text">Facebook</strong>
             </div>
+
             <div class="clear"></div>
+
             <div class="btn btn-danger col_half col_last" (click)="social()">
-          <span class="ts-icon">
-            <i class="xi-google"></i>
-          </span>
-               <strong class="ts-text">Google</strong>
+              <span class="ts-icon">
+                <i class="xi-google"></i>
+              </span>
+              <strong class="ts-text">Google</strong>
             </div>
+
             <div class="clear"></div>
+
             <div class="btn btn-success col_half col_last" (click)="social()">
-          <span class="ts-icon">
-            <i class="xi-naver"></i>
-          </span>
-               <strong class="ts-text">NAVER</strong>
+              <span class="ts-icon">
+                <i class="xi-naver"></i>
+              </span>
+              <strong class="ts-text">NAVER</strong>
             </div>
+
             <div class="clear"></div>
+
             <div class="btn btn-warning col_half col_last" (click)="social()">
-          <span class="ts-icon">
-            <i class="xi-kakao"></i>
-          </span>
-               <strong class="ts-text">Kakao</strong>
+              <span class="ts-icon">
+                <i class="xi-kakao"></i>
+              </span>
+              <strong class="ts-text">Kakao</strong>
             </div>
             <div class="clear"></div>
-         </div>
-      </div>
-   </div>
-</section>
+          </div>
+        </div>
+    </div>
+  </section>
 
-<!--사업자 회원일때 전화번호 입력창 뜨게 하기-->
-<script>
-  function div_show(bool, target_div) {
-    if(bool == true){
-      document.getElementById(target_div).style.display = "";
-    }
-    else{
-      document.getElementById(target_div).style.display = "none";
-    }
-  }
-</script>
-
+  <!-- END / CONTENT -->
 
 <!--footer-->
 <%include ../addon/footer.ejs%>
@@ -148,6 +142,19 @@
 <!-- LOAD JQUERY -->
 <%include ../static/js.ejs%>
 
-<%include ../addon/component.ejs%>
+<!--사업자 회원일때 전화번호 입력창 뜨게 하기-->
+<script>
+  
+  $("#normal-form-member").click(function() {
+    $("#phone_number").hide();
+  });
+
+  $("#business-form-member").click(function() {
+    $("#phone_number").show();
+  });
+  
+</script>
+
+<% //include ../addon/component.ejs%>
 </body>
 </html>

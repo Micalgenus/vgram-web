@@ -1,76 +1,53 @@
 <!DOCTYPE html>
-<!--[if IE 7 ]> <html class="ie ie7"> <![endif]-->
-<!--[if IE 8 ]> <html class="ie ie8"> <![endif]-->
-<!--[if IE 9 ]> <html class="ie ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="" lang="en"> <!--<![endif]-->
+<html lang="ko">
+<head>
+   <% include ../static/head.ejs %>
+</head>
 
-<%include ../static/head.ejs%>
+<body class="stretched">
+  <!-- HEADER -->
+  <% include ../addon/header.ejs %>
 
-<body ng-app="bingle" ng-controller="root">
+  <!-- CONTENT -->
+  <div class="content-wrap">
+    <div class="container clearfix">
+        <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+          <ul class="tab-nav tab-nav2 center clearfix">
+              <li class="inline-block ui-state-active"><a href="#tab-login" onclick="return false;">로그인</a></li>
+              <li class="inline-block"><a href="/signup">회원가입</a></li>
+          </ul>
+          <div class="tab-container">
+              <div class="tab-content clearfix" id="tab-login">
+                <div class="panel panel-default nobottommargin">
+                    <div class="panel-body" style="padding: 40px;">
+                      <form action="/auth/login" method="post">
+                          <h3>로그인</h3>
+                          <div class="col_full">
+                            <label for="login-form-username">이메일:</label>
+                            <input type="text" id="login-form-username" name="email" value="<%= email %>" class="form-control" />
+                          </div>
+                          <div class="col_full">
+                            <label for="login-form-password">비밀번호:</label>
+                            <input type="password" id="login-form-password" name="password" value="" class="form-control" />
+                          </div>
+                          <div class="col_full nobottommargin">
+                            <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">로그인</button>
+                            <a href="#" class="fright">비밀번호찾기</a>
+                          </div>
+                      </form>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- END / CONTENT -->
 
-<!-- PRELOADER -->
-<div id="preloader">
-   <div class="tb-cell">
-      <div class="page-loading">
-         <div class="item-icon"></div>
-      </div>
-   </div>
-</div>
-<!-- END / PRELOADER -->
+  <!-- FOOTER -->
+  <% include ../addon/footer.ejs %>
 
-<!-- PAGE WRAP -->
-<div id="page-wrap" ng-controller="index">
-   <!-- HEADER -->
-   <%include ../addon/header.ejs%>
-</div>
-<!-- END / PAGE WRAP -->
-
-<!-- CONTENT -->
-<div class="content-wrap">
-   <div class="container clearfix">
-      <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
-         <ul class="tab-nav tab-nav2 center clearfix">
-            <li class="inline-block ui-state-active"><a href="#tab-login" onclick="return false;">로그인</a></li>
-            <li class="inline-block"><a href="/signup">회원가입</a></li>
-         </ul>
-         <div class="tab-container">
-            <div class="tab-content clearfix" id="tab-login">
-               <div class="panel panel-default nobottommargin">
-                  <div class="panel-body" style="padding: 40px;">
-                     <form action="/auth/login" method="post">
-                        <h3>로그인</h3>
-                        <div class="col_full">
-                           <label for="login-form-username">이메일:</label>
-                           <% if (email && email != "") { %>
-                             <input type="text" id="login-form-username" name="email" value="<%= email %>" class="form-control" />
-                           <% } else { %>
-                             <input type="text" id="login-form-username" name="email" value="" class="form-control" />
-                           <% } %>
-                        </div>
-                        <div class="col_full">
-                           <label for="login-form-password">비밀번호:</label>
-                           <input type="password" id="login-form-password" name="password" value="" class="form-control" />
-                        </div>
-                        <div class="col_full nobottommargin">
-                           <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">로그인</button>
-                           <a href="#" class="fright">비밀번호찾기</a>
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- END / CONTENT -->
-
-<!--footer-->
-<%include ../addon/footer.ejs%>
-
-<!-- LOAD JQUERY -->
-<%include ../static/js.ejs%>
-
-<%include ../addon/component.ejs%>
+   <!-- LOAD JAVASCRIPT -->
+   <% include ../static/js.ejs %>
 </body>
 </html>

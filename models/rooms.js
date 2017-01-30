@@ -20,9 +20,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false
     },
-    addr_post_code: {
+    post_code: {
       type: DataTypes.STRING(45),
-      allowNull: false
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING(255),
@@ -42,12 +42,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    thumbnail_file_name: {
-      type: DataTypes.STRING(127),
-      allowNull: false
-    },
-    thumbnail_file_path: {
-      type: DataTypes.STRING(127),
+    thumbnail_image_path: {
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     thumbnail_media_id: {
