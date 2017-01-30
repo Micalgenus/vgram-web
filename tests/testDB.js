@@ -1,7 +1,8 @@
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
-var moment = require('moment').locale("ko");
+var moment = require('moment');
+moment.locale("ko");
 
 module.exports = {
    //------------------------------------------
@@ -84,15 +85,15 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-08-80915",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한집"
-            }),
+            },
             level: 2
-         })
+         }
       },
       {
          ID: 6,
@@ -108,11 +109,11 @@ module.exports = {
          user_status: 1,
          meta_value: JSON.stringify({
             registered_number: "418-86-95742",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
-            }),
+            },
             level: 2
          })
       },
@@ -130,11 +131,11 @@ module.exports = {
          user_status: 1,
          meta_value: JSON.stringify({
             registered_number: "418-86-95742",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
-            }),
+            },
             level: 3
          })
       },
@@ -152,11 +153,11 @@ module.exports = {
          user_status: 0,      // 휴면계정
          meta_value: JSON.stringify({
             registered_number: "418-86-95742",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
-            }),
+            },
             level: 4
          })
       },
@@ -174,11 +175,11 @@ module.exports = {
          user_status: -1,     // 탈퇴요청
          meta_value: JSON.stringify({
             registered_number: "418-86-95742",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
-            }),
+            },
             level: 5
          })
       },
@@ -196,11 +197,11 @@ module.exports = {
          user_status: 1,
          meta_value: JSON.stringify({
             registered_number: "999-99-99999",
-            address: JSON.stringify({
+            address: {
                post_code: "54869",
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 모빌리티랩"
-            }),
+            },
             level: 999
          })
       }
@@ -521,6 +522,13 @@ module.exports = {
    ],
 
    //------------------------------------------
+   // post_metas table
+   //------------------------------------------
+   post_metas: [
+
+   ],
+
+   //------------------------------------------
    // rooms table
    //------------------------------------------
    rooms: [
@@ -548,7 +556,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -575,7 +583,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -602,7 +610,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -629,7 +637,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -656,7 +664,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -683,7 +691,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -710,7 +718,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -737,7 +745,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -764,7 +772,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       },
       {
@@ -791,7 +799,7 @@ module.exports = {
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
          meta_value: JSON.stringify({
-            options: ["심야전기1"]
+            options: ["심야전기"]
          })
       }
    ],
@@ -808,7 +816,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "addrlinkSample_2017012612.zip",
-         meta_value: JSON.Stringify({})
+         meta_value: JSON.stringify({})
       },
       {
          ID: 2,
@@ -817,7 +825,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "jeonju_song_201701261354.wma",
-         meta_value: JSON.Stringify({})
+         meta_value: JSON.stringify({})
       },
       {
          ID: 3,
@@ -826,7 +834,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "wordpress-dberdiagram.png",
-         meta_value: JSON.Stringify({})
+         meta_value: JSON.stringify({})
       },
       {
          ID: 4,
@@ -835,14 +843,14 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "연수과정안내_2017012316.pdf",
-         meta_value: JSON.Stringify({})
+         meta_value: JSON.stringify({})
       }
    ],
 
    //------------------------------------------
-   // post_attached_relationship table
+   // post_attached_relationships table
    //------------------------------------------
-   post_attached_relationship: [
+   post_attached_relationships: [
       {
          post_id: 1,
          attached_id: 1
@@ -872,7 +880,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "360x240_201606281846.jpg",    // 원본 이미지 경로
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
             // thumb: "360x240_201606281846_thumb.jpg"
          })
@@ -884,7 +892,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "1975-20150311114607.jpg",    // 원본 이미지 경로
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -895,7 +903,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "건축분쟁_201701254601136.jpg",    // 원본 이미지 경로
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -906,7 +914,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0008.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -917,7 +925,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0009.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -928,7 +936,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0073.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -939,7 +947,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0074.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -950,7 +958,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0075.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
          })
       },
@@ -961,7 +969,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vtours/1474243481136",
          file_name: "tour.html",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             jsName: "tour.js",      // html과 같은 폴더내 있음
             originalImage: [4, 5],     // medias.ID
             statusCode: 1,        // 변환 완료여부
@@ -983,7 +991,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vtours/1474866921708",
          file_name: "tour.html",    // 원본 이미지가 저장된다
-         meta_value: JSON.Stringify({     // thumb,
+         meta_value: JSON.stringify({     // thumb,
             jsName: "tour.js",      // html과 같은 폴더내 있음
             originalImage: [6, 7, 8],     // medias.ID
             statusCode: 1,    // 변환 완료여부
@@ -1004,9 +1012,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // post_media_relationship table
+   // post_media_relationships table
    //------------------------------------------
-   post_media_relationship: [
+   post_media_relationships: [
       {
          post_id: 1,
          media_id: 9

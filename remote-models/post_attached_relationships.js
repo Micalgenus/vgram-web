@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_attached_relationship', {
+  return sequelize.define('post_attached_relationships', {
     post_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -19,6 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   }, {
-    tableName: 'post_attached_relationship'
+    tableName: 'post_attached_relationships'
   });
 };

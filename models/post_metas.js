@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     meta_value: {
-      type: DataTypes.Text,
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {
