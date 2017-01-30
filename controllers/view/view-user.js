@@ -3,13 +3,10 @@
  */
 
 "use strict";
-const _ = require('lodash');
 
 const models = require('../../models');
 const Users = models.users;
 
-const redirect = require('./redirect.js');
- 
 //========================================
 // Login & Logout
 //========================================
@@ -45,8 +42,9 @@ exports.signup = function(req, res) {
 
   // 변수 확인
   var msg = req.flash('msg');
-  var email = req.flash('email');
   var check = req.flash('check');
+  var email = req.flash('email');
+  var phone = req.flash('phone');
   var normal_check, business_check;
 
   check = check != "" ? check : "PUBLIC";
@@ -65,6 +63,7 @@ exports.signup = function(req, res) {
     title: '회원가입',
     msg: msg,
     email: email,
+    phone: phone,
     normal_check: normal_check,
     business_check: business_check,
   });
@@ -76,6 +75,17 @@ exports.signup = function(req, res) {
 // 회원 정보 조회
 
 exports.viewProfile = function (req, res) {
+  return res.render('member/change', {
+    ENV: req.env,
+    logined: req.logined,
+    title: '정보조회',
+    member_type: req.user.member_type,
+    email: req.user.email,
+    phone: req.user.telephone,
+    name: req.user.display_name,
+    user: req.user,
+  });
+/*
   const userEmail = req.user.email;
 
   return Users.findOne({
@@ -87,6 +97,10 @@ exports.viewProfile = function (req, res) {
       ENV: req.env,
       logined: req.logined,
       title: '정보조회',
+      member_type: user.member_type,
+      email: user.email,
+      phone: user.phone,
+      name: user.name,
       user: user,
     });
   }).catch(function(err) {
@@ -98,4 +112,10 @@ exports.viewProfile = function (req, res) {
       return next(err);
     }
   });
+*/
 }
+
+/*
+Authorization	Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjMzMzNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMDUkQWswWjN6N250d3VBQUd3cjc1WG9pTzJhWU8uZDFDUmJrVDM3dE9ZYW1XWHRmbGdrNFRQTzYiLCJtZW1iZXJfdHlwZSI6IlBVQkxJQyIsInRlbGVwaG9uZSI6bnVsbCwicmVnaXN0ZXJlZF9kYXRlIjoiMjAxNy0wMS0xM1QwMDowMDowMC4wMDBaIiwiZGlzcGxheV9uYW1lIjpudWxsLCJhY3RpdmF0aW9uX2tleSI6bnVsbCwicHJvZmlsZV9pbWFnZV9wYXRoIjpudWxsLCJ1cGRhdGVkX2RhdGUiOm51bGwsInVzZXJfc3RhdHVzIjoxLCJpYXQiOjE0ODU3ODAzMjksImV4cCI6MTQ4NTc5MDQwOX0.gAuB0FPKAuR5E9nN0LLcNTZbyho740P8wFlJr-Rpxvg	localhost	/	세션	534B		
+
+*/

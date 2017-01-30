@@ -224,7 +224,9 @@ module.exports = function(app) {
 
   // Set user routes as a subgroup/middleware to apiRoutes
   apiRoutes.use('/user', userAPI);
-   viewRoutes.use('/user', userView);
+  viewRoutes.use('/user', userView);
+
+  userView.post('/change', requireAuth, AuthViewController.change, AuthViewController.setToken, redirectViewController.redirectChange);
 
   // View public user profile route
   userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
