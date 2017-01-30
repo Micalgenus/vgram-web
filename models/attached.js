@@ -1,20 +1,20 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_attached', {
+  return sequelize.define('attached', {
     ID: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    post_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'posts',
-        key: 'ID'
-      }
+    group: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     date: {
       type: DataTypes.DATE,
@@ -33,6 +33,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'post_attached'
+    tableName: 'attached'
   });
 };

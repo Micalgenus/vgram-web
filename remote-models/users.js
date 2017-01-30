@@ -40,7 +40,25 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'ko_KR'
-    }
+    },
+    profile_image_path: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    updated_date: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    user_status: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '1'
+    },
+     meta_value: {
+       type: DataTypes.String(511),
+        allowNull: true,
+        defaultValue: null
+     }
   }, {
     tableName: 'users'
   });
