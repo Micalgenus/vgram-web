@@ -83,28 +83,31 @@ exports.viewPosts = function(req, res) {
    });
 }
 
-//게시글 클릭시 룸 세부정보 볼수있게 만듬
-// exports.viewRoomDetail = function(req, res) {
-//
-//    return models.sequelize.query("select users.email, users.display_name, b.* "+
-//       "from users as users, posts as b where users.ID = b.user_id and b.post_type = 'room' limit ?,?",
-//       { replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT }
-//    ).then(function(postList) {
-//       if(postList.length == 0){
-//          return res.status(400).json({
-//             errorMsg: '정보 없음',
-//             statusCode: -1
-//          });
-//       }else{
-//          return res.status(200).json({
-//             postList: postList,
-//             statusCode: 1
-//          });
-//       }
-//    }).catch(function(err) {
-//       return res.status(400).json({
-//          errorMsg: 'DB select error',
-//          statusCode: -2
-//       });
-//    });
-// }
+//게시글 클릭시 룸 세부정보 볼수있게 하는 API
+exports.viewRoomDetail = function(req, res) {
+
+   const roomInfoIdx = req.params.roomInfoIdx;
+
+   return models.sequelize.query("select a.email, a.display_name, a.telephone, b.*, c.* " +
+      "from users as a, posts as b, rooms as c " +
+      "where a.ID = b.user_id and b.id = c.post_id and b.id = (?) and b.post_type = 'room'",
+      { replacements: [roomInfoIdx], type: models.sequelize.QueryTypes.SELECT }
+   ).then(function(detailList) {
+      if(detailList.length == 0){
+         return res.status(400).json({
+            errorMsg: '정보 없음',
+            statusCode: -1
+         });
+      }else{
+         return res.status(200).json({
+            detailList: detailList,
+            statusCode: 1
+         });
+      }
+   }).catch(function(err) {
+      return res.status(400).json({
+         errorMsg: 'DB select error',
+         statusCode: -2
+      });
+   });
+}
