@@ -19,7 +19,7 @@ module.exports = {
          display_name: "김창민",
          locale: "ko_KR",
          profile_image_path: "users/profile1_20170125150101.jpg",
-         updated_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: JSON.stringify({
             level: 1
@@ -35,7 +35,7 @@ module.exports = {
          display_name: "모빌리티랩",
          locale: "ko_KR",
          profile_image_path: "users/profile2_20170125150101.jpg",
-         updated_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: JSON.stringify({
             level: 2
@@ -51,7 +51,7 @@ module.exports = {
          display_name: "조영현",
          locale: "ko_KR",
          profile_image_path: "users/profile3_20170125150101.jpg",
-         updated_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: JSON.stringify({
             level: 3
@@ -85,7 +85,7 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: {
+         meta_value: JSON.stringify({
             registered_number: "418-08-80915",
             address: {
                post_code: "54869",
@@ -93,7 +93,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한집"
             },
             level: 2
-         }
+         })
       },
       {
          ID: 6,
