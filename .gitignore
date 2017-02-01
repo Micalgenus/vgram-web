@@ -45,5 +45,5 @@ build/
 # Development Resource #
 #resources/
 db.development.sqlite
-#/remote-models
 #/references
+/remote-models
