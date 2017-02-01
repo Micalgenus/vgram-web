@@ -49,7 +49,12 @@ exports.register = function(req, res, next) {
    const password = req.body.password;
    const member_type = req.body.member_type;
    //사업자는 전화번호 필수로
-   const telephone = req.body.telephone;
+   let telephone = req.body.telephone;
+
+   //init
+   if(telephone === undefined ){
+      telephone = '';
+   }
 
    // Return error if no email provided
    if (!email) {

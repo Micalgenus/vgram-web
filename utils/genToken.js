@@ -40,7 +40,8 @@ exports.setUserInfo = function(request) {
       local: request.local,
       profile_image_path: request.profile_image_path,
       updated_date: request.updated_date,
-      user_status: request.user_status
+      user_status: request.user_status,
+      meta_value: request.meta_value
    };
 
    return getUserInfo;
