@@ -64,7 +64,7 @@ module.exports = function(sequelize, DataTypes) {
         defaultValue: 1
      },
      meta_value:{
-        type: DataTypes.STRING(511),
+        type: DataTypes.JSON,
         allowNull: true,
         defaultValue: null
      }

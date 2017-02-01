@@ -21,9 +21,9 @@ module.exports = {
          profile_image_path: "users/profile1_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             level: 1
-         })
+         }
       },
       {
          ID: 2,
@@ -37,9 +37,9 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             level: 2
-         })
+         }
       },
       {
          ID: 3,
@@ -53,9 +53,9 @@ module.exports = {
          profile_image_path: "users/profile3_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             level: 3
-         })
+         }
       },
       {
          ID: 4,
@@ -69,9 +69,9 @@ module.exports = {
          profile_image_path: "users/profile1_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             level: 4
-         })
+         }
       },
       {
          ID: 5,
@@ -85,7 +85,7 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-08-80915",
             address: {
                post_code: "54869",
@@ -93,7 +93,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한집"
             },
             level: 2
-         })
+         }
       },
       {
          ID: 6,
@@ -107,7 +107,7 @@ module.exports = {
          profile_image_path: "users/profile3_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-86-95742",
             address: {
                post_code: "54869",
@@ -115,7 +115,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
             level: 2
-         })
+         }
       },
       {
          ID: 7,
@@ -129,7 +129,7 @@ module.exports = {
          profile_image_path: "users/profile1_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-86-95742",
             address: {
                post_code: "54869",
@@ -137,7 +137,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
             level: 3
-         })
+         }
       },
       {
          ID: 8,
@@ -151,7 +151,7 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 0,      // 휴면계정
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-86-95742",
             address: {
                post_code: "54869",
@@ -159,7 +159,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
             level: 4
-         })
+         }
       },
       {
          ID: 9,
@@ -173,7 +173,7 @@ module.exports = {
          profile_image_path: "users/profile3_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: -1,     // 탈퇴요청
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "418-86-95742",
             address: {
                post_code: "54869",
@@ -181,7 +181,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
             level: 5
-         })
+         }
       },
       {
          ID: 10,
@@ -195,7 +195,7 @@ module.exports = {
          profile_image_path: "users/profile1_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: JSON.stringify({
+         meta_value: {
             registered_number: "999-99-99999",
             address: {
                post_code: "54869",
@@ -203,7 +203,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 모빌리티랩"
             },
             level: 999
-         })
+         }
       }
    ],
 
@@ -295,9 +295,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 2,
@@ -315,9 +315,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 3,
@@ -335,9 +335,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 4,
@@ -355,9 +355,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 5,
@@ -375,9 +375,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "mobile"      // 모바일 환경에서 작성함
-         })
+         }
       },
       {
          id: 6,
@@ -395,9 +395,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "mobile"      // 모바일 환경에서 작성함
-         })
+         }
       },
       {
          id: 7,
@@ -415,9 +415,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 8,
@@ -435,9 +435,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 9,
@@ -455,9 +455,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 10,
@@ -475,9 +475,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 11,
@@ -495,9 +495,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       },
       {
          id: 12,
@@ -515,9 +515,9 @@ module.exports = {
          like: 0,
          unlike: 0,
          locale: 'ko_KR',
-         meta_value: JSON.stringify({
+         meta_value: {
             written_device: "web"
-         })
+         }
       }
    ],
 
@@ -537,270 +537,270 @@ module.exports = {
          post_id: 1,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 2,
          post_id: 2,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 3,
          post_id: 3,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 4,
          post_id: 4,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 5,
          post_id: 5,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 6,
          post_id: 6,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 7,
          post_id: 7,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 8,
          post_id: 8,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0074.tiles/thumb.jpg",
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 9,
          post_id: 9,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       },
       {
          ID: 10,
          post_id: 10,
          room_type: "ONE_ROOM",
          post_code: "54922",
-         address: JSON.stringify({
+         address: {
             addr1: "전북 전주시 덕진구 백제대로 567",
             addr2: "전북대학교 창업동아리 아늑한집"
-         }),
-         old_address: JSON.stringify({
+         },
+         old_address: {
             addr1: "전라북도 전주시 덕진구 금암동 1587-31",
             addr2: "전북대학교 구주소입니당"
-         }),
+         },
          old_address_dong: "금암동",
-         coordinate: JSON.stringify({
+         coordinate: {
             lat: 35.8598743,
             lng: 127.1117673
-         }),
+         },
          thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg",    // fullpath(file_path + tiles[x].dir + thumbnail)
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
          area_size: 10,    // 평
-         meta_value: JSON.stringify({
+         meta_value: {
             options: ["심야전기"]
-         })
+         }
       }
    ],
 
@@ -816,7 +816,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "addrlinkSample_2017012612.zip",
-         meta_value: JSON.stringify({})
+         meta_value: {}
       },
       {
          ID: 2,
@@ -825,7 +825,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "jeonju_song_201701261354.wma",
-         meta_value: JSON.stringify({})
+         meta_value: {}
       },
       {
          ID: 3,
@@ -834,7 +834,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "wordpress-dberdiagram.png",
-         meta_value: JSON.stringify({})
+         meta_value: {}
       },
       {
          ID: 4,
@@ -843,7 +843,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "attached",
          file_name: "연수과정안내_2017012316.pdf",
-         meta_value: JSON.stringify({})
+         meta_value: {}
       }
    ],
 
@@ -880,10 +880,10 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "360x240_201606281846.jpg",    // 원본 이미지 경로
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 2,
@@ -892,9 +892,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "1975-20150311114607.jpg",    // 원본 이미지 경로
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 3,
@@ -903,9 +903,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/images",
          file_name: "건축분쟁_201701254601136.jpg",    // 원본 이미지 경로
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 4,
@@ -914,9 +914,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0008.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 5,
@@ -925,9 +925,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0009.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 6,
@@ -936,9 +936,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0073.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 7,
@@ -947,9 +947,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0074.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 8,
@@ -958,9 +958,9 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vrimages",
          file_name: "SAM_100_0075.jpg",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             // thumb: "360x240_201606281846_thumb.jpg"
-         })
+         }
       },
       {
          ID: 9,
@@ -969,7 +969,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vtours/1474243481136",
          file_name: "tour.html",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             jsName: "tour.js",      // html과 같은 폴더내 있음
             originalImage: [4, 5],     // medias.ID
             statusCode: 1,        // 변환 완료여부
@@ -982,7 +982,7 @@ module.exports = {
                thumbnail: "thumb.jpg"
             }],
             xmlName: "tour.xml",      // html과 같은 폴더내 있음
-         })
+         }
       },
       {
          ID: 10,
@@ -991,7 +991,7 @@ module.exports = {
          date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          file_path: "medias/vtours/1474866921708",
          file_name: "tour.html",    // 원본 이미지가 저장된다
-         meta_value: JSON.stringify({     // thumb,
+         meta_value: {     // thumb,
             jsName: "tour.js",      // html과 같은 폴더내 있음
             originalImage: [6, 7, 8],     // medias.ID
             statusCode: 1,    // 변환 완료여부
@@ -1007,7 +1007,7 @@ module.exports = {
                thumbnail: "thumb.jpg"
             }],
             xmlName: "tour.xml",      // html과 같은 폴더내 있음
-         })
+         }
       }
    ],
 
