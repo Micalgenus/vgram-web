@@ -25,18 +25,19 @@
 
          <!-- Google Map
               ============================================= -->
-         <%include ../models/users.js%>
+
 
 
          <div class="col-md-6 bottommargin">
 
             <!--<section id="google-map"  class="gmap" style="height: 240px;">-->
             <section style="height:240px;">
-            <%=users.profile_image_path%>
+
+
             </section>
 
             <!-- 업종 -->
-            <%=view-user.business_type%><br>
+            <br>
 
          </div><!-- Google Map End -->
 
@@ -45,14 +46,14 @@
             <!-- Contact Info
                   ============================================= -->
             <div class="col_two_fifth">
-               <%include ../controllers/view/view-user.js%>
+
                <address>
                   <!--업체명-->
-                  <strong> <%=users.display_name%></strong><br>
+                  <strong> <%=display%></strong><br>
 
                </address>
                <!--소개글-->
-               <abbr title="Phone Number"><strong>Phone:</strong></abbr> <%=view-user.intro_comment%><br>   <br>
+               <abbr title="Phone Number"><strong>Phone:</strong></abbr> <br>   <br>
                <!--<abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br>-->
                <!--<abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com-->
 

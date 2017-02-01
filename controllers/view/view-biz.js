@@ -9,6 +9,9 @@ exports.bizList = function(req, res, next) {
     ENV: req.env,
     logined: req.logined,
     title: '로그인',
-    test: "TestTest123123"
+    display: "display_Test1",
+    preview: "preview_image_test2",
+    intro_test: "intro_test"
+
   });
 }

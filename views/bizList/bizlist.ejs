@@ -5,12 +5,26 @@
 <script type="text/javascript" src="path_to/jquery.simplePagination.js"></script>
 <link type="text/css" rel="stylesheet" href="path_to/simplePagination.css"/>
 
-<% //include ../static/css.html%>
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="css/dark.css" type="text/css" />
+<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+<link rel="stylesheet" href="css/animate.css" type="text/css" />
+<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<%include ../static/css.ejs%>
 
 
 <%include ../addon/header.ejs%>
 
-<%= test %>
+
+
+
 <!-- Document Wrapper
 ============================================= -->
 <div class="clearfix">
@@ -50,10 +64,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="<% //=users.profile_image_path%>" alt="Standard Post with Image"></a>
+                        <img class="image_fade" src="" alt="<%=preview%>"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><% //=users.display_name%></a></h2>
+                     <h2><a href="blog-single.html"><%=display%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -63,7 +77,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> 설명 </p>
+                     <p> <%=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -72,10 +86,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="<% //=users.profile_image_path%>" alt="Standard Post with Image"></a>
+                        <img class="image_fade" src="<%=preview%>" alt="<%=preview%>"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><% //=users.display_name%></a></h2>
+                     <h2><a href="blog-single.html"><%=display%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -85,7 +99,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> 설명 </p>
+                     <p> <%=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -95,10 +109,11 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="<% //=users.profile_image_path%>" alt="Standard Post with Image"></a>
+                        <img class="image_fade" src="<%=preview%>" alt="<%=preview%>"></a>
+
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><% //=users.display_name%></a></h2>
+                     <h2><a href="blog-single.html"><%=display%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -108,7 +123,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> 설명 </p>
+                     <p> <%=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
