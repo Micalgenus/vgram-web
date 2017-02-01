@@ -218,8 +218,10 @@ module.exports = function(app) {
    //공지사항 출력
    authAPI.get('/notice', postsAPIController.viewNotice);
 
-   //공지사항 출력
+   //게시글 출력
    authAPI.get('/posts', postsAPIController.viewPosts);
+
+   //authAPI.get('/room/:idx', viewRoomDetail);
    //=========================
   // Member Routes
   //=========================
