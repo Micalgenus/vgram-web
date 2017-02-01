@@ -85,7 +85,7 @@ module.exports = {
          profile_image_path: "users/profile2_20170125150101.jpg",
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
-         meta_value: {
+         meta_value: JSON.stringify({
             registered_number: "418-08-80915",
             address: {
                post_code: "54869",
@@ -93,7 +93,7 @@ module.exports = {
                addr2: "전북대학교 창업동아리 아늑한집"
             },
             level: 2
-         }
+         })
       },
       {
          ID: 6,

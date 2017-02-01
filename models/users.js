@@ -62,6 +62,11 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(11),
         allowNull: false,
         defaultValue: 1
+     },
+     meta_value:{
+        type: DataTypes.STRING(511),
+        allowNull: false,
+        defaultValue: null
      }
   }, {
     tableName: 'users',
