@@ -164,15 +164,24 @@ exports.register = function(req, res, next) {
 
 exports.change = function(req, res, next) {
   const email = req.user.email;
-  if (req.body.email && req.user.email != req.body.email) {
-    req.flash('msg', 'test');
+  const password = req.body.password;
+  const repassword = req.body.repassword;
+
+  if (password != repassword) {
+    req.flash('msg', '비밀번호가 일치하지 않습니다.');
     return res.redirect('/change');
   }
 
-  return Users.update({
+  var userData = {
     telephone: req.body.phone,
     display_name: req.body.name
-  }, {
+  };
+
+  if (password) {
+    userData.password = password;
+  }
+
+  return Users.update(userData, {
     where: {
       email: email
     }

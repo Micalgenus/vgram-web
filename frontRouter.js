@@ -195,7 +195,7 @@ module.exports = function(app) {
 
   // Registration route
   authAPI.post('/register', AuthAPIController.register);
-  authView.post('/signup', AuthViewController.signup, AuthViewController.register, AuthViewController.login, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
+  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);

@@ -86,36 +86,8 @@ exports.viewProfile = function (req, res) {
     phone: req.user.telephone,
     name: req.user.display_name,
     profilePicture: req.user.profile_image_path,
-    user: req.user,
+    //user: req.user,
   });
-/*
-  const userEmail = req.user.email;
-
-  return Users.findOne({
-    where: {
-      email: userEmail
-    }
-  }).then(function(user) {
-    return res.render('member/change', {
-      ENV: req.env,
-      logined: req.logined,
-      title: '정보조회',
-      member_type: user.member_type,
-      email: user.email,
-      phone: user.phone,
-      name: user.name,
-      user: user,
-    });
-  }).catch(function(err) {
-    if (err) {
-      res.status(400).json({
-        errorMsg: 'No user could be found for this ID.',
-        statusCode: 2
-      });
-      return next(err);
-    }
-  });
-*/
 }
 
 /*
