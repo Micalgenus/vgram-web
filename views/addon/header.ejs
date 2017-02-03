@@ -1,98 +1,125 @@
 <div id="top-bar">
 
-  <div class="container clearfix">
-
-    <div class="col_half nobottommargin">
-
-      <!-- Top Links
-                ============================================= -->
-      <div class="top-links">
-        <ul>
-          <% if (logined) { %>
-            <li><a href="/change"><strong>내 정보수정</strong></a></li>
-            <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
-            <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
-            <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
-            <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>
-            <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
-          <% } else { %>
-            <li><a href="/login"><strong>로그인/회원가입</strong></a></li>
-          <% } %>
-        </ul>
-      </div><!-- .top-links end -->
-
-    </div>
-
-    <div class="col_half fright col_last nobottommargin">
-
-      <!-- Top Social
-                ============================================= -->
-      <div id="top-social">
-        <ul>
-          <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-          <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
-          <li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span class="ts-text">Dribbble</span></a></li>
-          <li><a href="#" class="si-github"><span class="ts-icon"><i class="icon-github-circled"></i></span><span class="ts-text">Github</span></a></li>
-          <li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
-          <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-          <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-          <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">kcmin@naver.com</span></a></li>
-        </ul>
-      </div><!-- #top-social end -->
-
-    </div>
-
-  </div>
-
-    </div><!-- #top-bar end -->
-    <!-- Header
-          ============================================= -->
-    <header id="header" class="full-header">
-
       <div class="container clearfix">
-          <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-        <!-- Logo
-                ============================================= -->
-        <div id="logo" ronterLink="/">
-          <a ronterLink="/" hrefActive="active" class="standard-logo"><img src="images/construction/logo_cozyhouzz2.png" alt="cozy Logo"></a>
-          <a ronterLink="/" hrefActive="active" class="retina-logo"><img src="images/construction/logo_cozyhouzz@2x.png" alt="cozyhouzz Logo"></a>
-        </div>
 
-    <nav id="primary-menu" class="mobile-menu-off-canvas dark">
+         <div class="col_half nobottommargin">
 
-        <ul>
-          <li><a href="/" hrefActive="active"><div>Home</div></a></li>
-<!--          <li><a href="/buildcaselist"><div>시공사례</div></a>
-            <ul>
-              <li><a href="/buildcaseinput"><div><i class="icon-stack"></i>시공사례입력</div></a></li>
-              <li><a href="/buildcaselist"><div><i class="icon-gift"></i>시공사례조회</div></a></li>
-            </ul>
-          </li>-->
-          <li><a href="/consultingListInfo"><div>컨설팅</div></a>
-            <ul>
-              <li><a href="/consultingCounsel"><div><i class="icon-stack"></i>상담 받기</div></a></li>
-              <li><a href="/consultingListInfo"><div><i class="icon-gift"></i>컨설팅 정보 조회</div></a></li>
-            </ul>
-          </li>
-          <!--<li><a href="/bizList"><div>등록업체정보</div></a>
-          <ul>
-            <li><a href="/bizList"><div><i class="icon-stack"></i>업체 목록</div></a></li>
-          </ul>
-        </li>-->
-          <li><a href="/list/room"><div>방 정보 홍보 보기</div></a>
-            <ul>
-              <li><a href="/create/room"><div><i class="icon-stack"></i>방 등록</div></a></li>
-              <li><a href="/list/room"><div><i class="icon-stack"></i>방 정보 목록조회</div></a></li>
-            </ul>
-          </li>
-        </ul>
+            <!-- Top Links
+                      ============================================= -->
+            <div class="top-links">
+               <ul>
+                  <% if (logined) { %>
+                  <li><a href="/change"><strong>내 정보수정</strong></a></li>
+                  <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
+                  <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
+                  <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
+                  <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>
+                  <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
+                  <% } else { %>
+                  <li><a href="/login"><strong>로그인/회원가입</strong></a></li>
+                  <% } %>
+               </ul>
+            </div><!-- .top-links end -->
 
+         </div>
 
+         <div class="col_half fright col_last nobottommargin">
 
+            <!-- Top Social
+                      ============================================= -->
+            <div id="top-social">
+               <ul>
+                  <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span
+                           class="ts-text">Facebook</span></a></li>
+                  <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span
+                           class="ts-text">Twitter</span></a></li>
+                  <li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span
+                           class="ts-text">Dribbble</span></a></li>
+                  <li><a href="#" class="si-github"><span class="ts-icon"><i
+                              class="icon-github-circled"></i></span><span
+                           class="ts-text">Github</span></a></li>
+                  <li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span
+                           class="ts-text">Pinterest</span></a></li>
+                  <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span
+                           class="ts-text">Instagram</span></a></li>
+                  <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i
+                              class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
+                  <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i
+                              class="icon-email3"></i></span><span
+                           class="ts-text">kcmin@naver.com</span></a></li>
+               </ul>
+            </div><!-- #top-social end -->
 
-    </nav><!-- #primary-menu end -->
+         </div>
 
-  </div>
+      </div>
 
+   </div><!-- #top-bar end -->
 
-</header><!-- #header end -->
+   <!-- Header
+         ============================================= -->
+   <header id="header">
+
+      <div id="header-wrap">
+
+         <div class="container clearfix">
+
+            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+            <!-- Logo
+                    ============================================= -->
+            <div id="logo" ronterLink="/">
+               <a ronterLink="/" hrefActive="active" class="standard-logo"><img
+                     src="lib/js-canvas/images/construction/logo_cozyhouzz2.png" alt="cozy Logo"></a>
+               <a ronterLink="/" hrefActive="active" class="retina-logo"><img
+                     src="lib/js-canvas/images/construction/logo_cozyhouzz@2x.png" alt="cozyhouzz Logo"></a>
+            </div>
+
+            <!-- Primary Navigation
+                 ============================================= -->
+            <nav id="primary-menu" class="mobile-menu-off-canvas da">
+               <ul>
+                  <li><a href="/" hrefActive="active">
+                        <div>Home</div>
+                     </a></li>
+                  <!--          <li><a href="/buildcaselist"><div>시공사례</div></a>
+                              <ul>
+                                <li><a href="/buildcaseinput"><div><i class="icon-stack"></i>시공사례입력</div></a></li>
+                                <li><a href="/buildcaselist"><div><i class="icon-gift"></i>시공사례조회</div></a></li>
+                              </ul>
+                            </li>-->
+                  <li><a href="/consultingListInfo">
+                        <div>컨설팅</div>
+                     </a>
+                     <ul>
+                        <li><a href="/consultingCounsel">
+                              <div><i class="icon-stack"></i>상담 받기</div>
+                           </a></li>
+                        <li><a href="/consultingListInfo">
+                              <div><i class="icon-gift"></i>컨설팅 정보 조회</div>
+                           </a></li>
+                     </ul>
+                  </li>
+                  <!--<li><a href="/bizList"><div>등록업체정보</div></a>
+                  <ul>
+                    <li><a href="/bizList"><div><i class="icon-stack"></i>업체 목록</div></a></li>
+                  </ul>
+                </li>-->
+                  <li><a href="/list/room">
+                        <div>방 정보 홍보 보기</div>
+                     </a>
+                     <ul>
+                        <li><a href="/create/room">
+                              <div><i class="icon-stack"></i>방 등록</div>
+                           </a></li>
+                        <li><a href="/list/room">
+                              <div><i class="icon-stack"></i>방 정보 목록조회</div>
+                           </a></li>
+                     </ul>
+                  </li>
+               </ul>
+            </nav><!-- #primary-menu end -->
+         </div>
+      </div>
+   </header><!-- #header end -->
+
