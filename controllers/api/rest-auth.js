@@ -193,7 +193,7 @@ exports.quit = function (req, res, next) {
 exports.info = function(req, res, next) {
 
    const email = req.body.email;
-   //여기서는 client -> server 토근 나려줌
+   //여기서는 client -> server 토근 날려줌
    //server- >client로는 토큰 X
 
    // Return error if no email provided
@@ -232,7 +232,7 @@ exports.info = function(req, res, next) {
 //  회원정보 수정
 //------------------------------------------
 exports.modifyInfo = function(req, res, next) {
-   //회원정보 수정 되면 server -> client 토큰 필요
+   // 회원정보 수정 되면 server -> client 토큰 필요
    // 비밀번호 바뀌면 새로운 패스워드(new_password)로  토큰 만듬
    // 비밀번호 안바뀌면 이전에 있던걸(password)로 토큰 만듬
    const email = req.body.email;

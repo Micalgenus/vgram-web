@@ -6,7 +6,6 @@
 const models = require('../../models');
 const posts = models.posts;
 const _ = require('lodash');
-const Promise = require("bluebird");
 const moment = require("moment");
 
 //공지사항 출력
