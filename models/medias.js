@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     meta_value: {
-      type: DataTypes.STRING(511),
+      type: DataTypes.JSON,
       allowNull: true
     }
   }, {

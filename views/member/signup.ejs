@@ -77,12 +77,19 @@
 
                 <div class="clear"></div>
 
-                <div class="col_full col_last" id="phone_number" <% if (normal_check) { %>style="display:none;"<% } %>>
-                    <label for="register-form-phone">전화번호:</label>
-                    <input type="text" id="register-form-phone" name="phone" value="<%= phone %>" class="form-control" />
-                </div>
+                <section id="business-input" <% if (normal_check) { %>style="display:none;"<% } %>>
+                  <div class="col_full col_last">
+                      <label for="register-form-name">이름:</label>
+                      <input type="text" id="register-form-name" name="name" value="<%= name %>" class="form-control" />
+                  </div>
 
-                <div class="clear"></div>
+                  <div class="clear"></div>
+
+                  <div class="col_full col_last">
+                      <label for="register-form-phone">전화번호:</label>
+                      <input type="text" id="register-form-phone" name="phone" value="<%= phone %>" class="form-control" />
+                  </div>
+                </section>
 
                 <div class="col_full nobottommargin">
                     <button class="button button-3d button-black nomargin">가입하기</button>
@@ -146,11 +153,11 @@
 <script>
   
   $("#normal-form-member").click(function() {
-    $("#phone_number").hide();
+    $("#business-input").hide();
   });
 
   $("#business-form-member").click(function() {
-    $("#phone_number").show();
+    $("#business-input").show();
   });
   
 </script>

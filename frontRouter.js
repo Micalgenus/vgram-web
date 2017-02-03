@@ -195,7 +195,7 @@ module.exports = function(app) {
 
   // Registration route
   authAPI.post('/register', AuthAPIController.register);
-  authView.post('/signup', AuthViewController.signup);
+  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
@@ -218,6 +218,11 @@ module.exports = function(app) {
    //공지사항 출력
    authAPI.get('/notice', postsAPIController.viewNotice);
 
+   //방 게시글 출력
+   authAPI.get('/posts', postsAPIController.viewPosts);
+
+   //룸세부정보 출력
+   authAPI.get('/room/:roomInfoIdx', postsAPIController.viewRoomDetail);
    //=========================
   // Member Routes
   //=========================

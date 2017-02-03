@@ -25,11 +25,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     address: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.JSON,
       allowNull: false
     },
     old_address: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.JSON,
       allowNull: true,
       defaultValue: null
     },
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: null
     },
     coordinate: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.JSON,
       allowNull: false
     },
     thumbnail_image_path: {
@@ -70,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: null
     },
     meta_value: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSON,
       allowNull: true,
       defaultValue: null
     }

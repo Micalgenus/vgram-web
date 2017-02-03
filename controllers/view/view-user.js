@@ -44,6 +44,7 @@ exports.signup = function(req, res) {
   var msg = req.flash('msg');
   var check = req.flash('check');
   var email = req.flash('email');
+  var name = req.flash('name');
   var phone = req.flash('phone');
   var normal_check, business_check;
 
@@ -63,6 +64,7 @@ exports.signup = function(req, res) {
     title: '회원가입',
     msg: msg,
     email: email,
+    name: name,
     phone: phone,
     normal_check: normal_check,
     business_check: business_check,
@@ -83,36 +85,9 @@ exports.viewProfile = function (req, res) {
     email: req.user.email,
     phone: req.user.telephone,
     name: req.user.display_name,
-    user: req.user,
+    profilePicture: req.user.profile_image_path,
+    //user: req.user,
   });
-/*
-  const userEmail = req.user.email;
-
-  return Users.findOne({
-    where: {
-      email: userEmail
-    }
-  }).then(function(user) {
-    return res.render('member/change', {
-      ENV: req.env,
-      logined: req.logined,
-      title: '정보조회',
-      member_type: user.member_type,
-      email: user.email,
-      phone: user.phone,
-      name: user.name,
-      user: user,
-    });
-  }).catch(function(err) {
-    if (err) {
-      res.status(400).json({
-        errorMsg: 'No user could be found for this ID.',
-        statusCode: 2
-      });
-      return next(err);
-    }
-  });
-*/
 }
 
 /*
