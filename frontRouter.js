@@ -124,7 +124,7 @@ module.exports = function(app) {
 
   // 리스트 출력
   viewRoutes.get('/biz', redirectViewController.redirectBizList);
-  viewRoutes.get('/biz/:page([0-9]+)', AuthViewController.init, requireAuth, BizViewController.bizList);
+  viewRoutes.get('/biz/:page([0-9]+)', AuthViewController.init, BizViewController.bizList);
   viewRoutes.get('/bizdetail', AuthViewController.init, BizdetailViewController.bizDetail);
 
   //=========================

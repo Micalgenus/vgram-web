@@ -181,6 +181,18 @@ exports.change = function(req, res, next) {
     userData.password = password;
   }
 
+  if (req.user.member_type != "PUBLIC") {
+    var meta = JSON.parse(req.user.meta_value);
+
+    meta.company_name = req.body.company_name;
+    meta.registered_number = req.body.registered_number;
+    meta.owner_name = req.body.owner_name;
+    // meta.address = req.body.address;
+    meta.intro_comment = req.body.intro_comment;
+    
+    userData.meta_value = meta;
+  }
+
   return Users.update(userData, {
     where: {
       email: email

@@ -25,6 +25,7 @@ exports.bizList = function(req, res, next) {
 
       tmpUser['name'] = user.display_name;
       tmpUser['image'] = image;
+      tmpUser['intro'] = JSON.parse(user.meta_value).intro_comment;
 
       bizUser.push(tmpUser);
     });
@@ -41,5 +42,3 @@ exports.bizList = function(req, res, next) {
 
   
 }
-
-
