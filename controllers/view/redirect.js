@@ -8,6 +8,10 @@ const auth = require('../core/authentication');
 
 exports.redirectMain = function(req, res) {
   // Main으로 Redirect
-
   return res.redirect('/');
+}
+
+exports.redirectChange = function(req, res) {
+  // Change페이지로 Redirect
+  return res.redirect('/change');
 }

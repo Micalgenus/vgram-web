@@ -5,3 +5,4 @@
 - videos : 일반 비디오첨부파일(현재는 사용하지 않음)
 - vrimages : VR image(XMP 검사 필요)
 - vrvideos : vrvideo 설정파일(XMP 검사 필요)
+- vtours: tour형 VR Viewer 패키지 파일

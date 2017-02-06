@@ -11,78 +11,105 @@ const VTOUR_CONFIG_PATH = "templates/vtour-normal-custom.config";
 const PANOTOUR_PATH = path.join("vtour", "panos");
 
 var config = {
-  "development": {
-     "secret": "cozyhouzz by moblab",  // Secret key for JWT signing and encryption
-     root: rootPath,
-    app: {
-      name: 'cozyhouzz-web'
-    },
-    "hostName": "localhost",    // actual hostname for resource hosting
-    "dialect": "sqlite",
-    "storage": "./db.development.sqlite",
-    "port": process.env.PORT || 3000,
-    "krpano": {
-      win: KRPANO_WIN_PATH,
-      linux: KRPANO_LINUX_PATH,
-      vtour_config: VTOUR_CONFIG_PATH,
-      panotour_path: PANOTOUR_PATH
-    },
-    logLevel: "debug",
-    resourcePath: "resources"   // 현재는 상대경로로만 작성해야함.(DB내 정보 삽입때문에)
-  },
+   "development": {
+      "secret": "cozyhouzz by moblab",  // Secret key for JWT signing and encryption
+      root: rootPath,
+      app: {
+         name: 'cozyhouzz-web'
+      },
+      "hostName": "localhost",    // actual hostname for resource hosting
+      "dialect": "sqlite",
+      "storage": "./db.development.sqlite",
+      "port": process.env.PORT || 3000,
+      "krpano": {
+         win: KRPANO_WIN_PATH,
+         linux: KRPANO_LINUX_PATH,
+         vtour_config: VTOUR_CONFIG_PATH,
+         panotour_path: PANOTOUR_PATH
+      },
+      logLevel: "debug",
+      resourcePath: "resources",   // 현재는 상대경로로만 작성해야함.(DB내 정보 삽입때문에)
+      attachedDir: "attached",
+      mediasDir: "medias",
+      imagesDir: "images",
+      videosDir: "videos",
+      vrImagesDir: "vrImages",
+      vtourDir: "vtours",
+      vrvideosDir: "vrvideos",
+      postsDir: "posts",
+      usersDir: "users"
+   },
 
-  "test": {
-     "secret": "cozyhouzz by moblab",
-     root: rootPath,
-    app: {
-      name: 'cozyhouzz-web'
-    },
-    "krpano": {
-      win: KRPANO_WIN_PATH,
-      linux: KRPANO_LINUX_PATH,
-      vtour_config: VTOUR_CONFIG_PATH,
-      panotour_path: PANOTOUR_PATH
-    },
-    port: process.env.PORT || 3000,
-    resourcePath: "resources"
-  },
+   "test": {
+      "secret": "cozyhouzz by moblab",
+      root: rootPath,
+      app: {
+         name: 'cozyhouzz-web'
+      },
+      "krpano": {
+         win: KRPANO_WIN_PATH,
+         linux: KRPANO_LINUX_PATH,
+         vtour_config: VTOUR_CONFIG_PATH,
+         panotour_path: PANOTOUR_PATH
+      },
+      port: process.env.PORT || 3000,
+      resourcePath: "resources",
+      attachedDir: "attached",
+      mediasDir: "medias",
+      imagesDir: "images",
+      videosDir: "videos",
+      vrImagesDir: "vrImages",
+      vtourDir: "vtours",
+      vrvideosDir: "vrvideos",
+      postsDir: "posts",
+      usersDir: "users"
+   },
 
-  "production": {
-     "secret": "cozyhouzz by moblab",
-     root: rootPath,
-    app: {
-      name: 'cozyhouzz-web'
-    },
-     "username": "root",
-     "password": "hitit113112",
-     "database": "cozyhouzz",
-     "host": "api.cozyhouzz.co.kr",    // for init sequellize
-     "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting
-     "dialect": "mysql",
-     "pool": {
-        "max": 50,
-        "min": 10,
-        "idle": 10000
-     },
-    "krpano": {
-      win: KRPANO_WIN_PATH,
-      linux: KRPANO_LINUX_PATH,
-      vtour_config: VTOUR_CONFIG_PATH,
-      panotour_path: PANOTOUR_PATH
-    },
-    logLevel: "info",
-    // Setting port for server
-    "port": process.env.PORT || 3000,
-    resourcePath: "resources",
-    // Configuring Mailgun API for sending transactional email
-    "mailgun_priv_key": "mailgun private key here",
-    // Configuring Mailgun domain for sending transactional email
-    "mailgun_domain": "mailgun domain here",
-    // Mailchimp API key
-    "mailchimpApiKey": "mailchimp api key here",
-    // Stripe API key
-    "stripeApiKey": "stripe api key goes here"
-  }
+   "production": {
+      "secret": "cozyhouzz by moblab",
+      root: rootPath,
+      app: {
+         name: 'cozyhouzz-web'
+      },
+      "username": "root",
+      "password": "hitit113112",
+      "database": "cozyhouzz",
+      "host": "api.cozyhouzz.co.kr",    // for init sequellize
+      "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting
+      "dialect": "mysql",
+      "pool": {
+         "max": 50,
+         "min": 10,
+         "idle": 10000
+      },
+      "krpano": {
+         win: KRPANO_WIN_PATH,
+         linux: KRPANO_LINUX_PATH,
+         vtour_config: VTOUR_CONFIG_PATH,
+         panotour_path: PANOTOUR_PATH
+      },
+      logLevel: "info",
+      // Setting port for server
+      "port": process.env.PORT || 3000,
+      resourcePath: "resources",
+      attachedDir: "attached",
+      mediasDir: "medias",
+      imagesDir: "images",
+      videosDir: "videos",
+      vrImagesDir: "vrImages",
+      vtourDir: "vtours",
+      vrvideosDir: "vrvideos",
+      postsDir: "posts",
+      usersDir: "users",
+      // Configuring Mailgun API for sending transactional email
+      "mailgun_priv_key": "mailgun private key here",
+      // Configuring Mailgun domain for sending transactional email
+      "mailgun_domain": "mailgun domain here",
+      // Mailchimp API key
+      "mailchimpApiKey": "mailchimp api key here",
+      // Stripe API key
+      "stripeApiKey": "stripe api key goes here"
+   }
 }
 
 module.exports = config[env];

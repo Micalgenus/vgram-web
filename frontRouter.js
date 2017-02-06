@@ -194,10 +194,8 @@ module.exports = function(app) {
   authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
 
   // Registration route
-  //authAPI.post('/register', AuthController.register);
-  //authView.get('/register', AuthController.register);
   authAPI.post('/register', AuthAPIController.register);
-  authView.get('/register', AuthViewController.register);
+  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
@@ -213,19 +211,27 @@ module.exports = function(app) {
 
    authAPI.post('/reset-password/:token', AuthController.verifyToken);
   authView.get('/reset-password/:token', AuthController.verifyToken);
+
    //=========================
    // 이정현 API 구현 Routes
    //=========================
    //공지사항 출력
    authAPI.get('/notice', postsAPIController.viewNotice);
 
+   //방 게시글 출력
+   authAPI.get('/posts', postsAPIController.viewPosts);
+
+   //룸세부정보 출력
+   authAPI.get('/room/:roomInfoIdx', postsAPIController.viewRoomDetail);
    //=========================
   // Member Routes
   //=========================
 
   // Set user routes as a subgroup/middleware to apiRoutes
   apiRoutes.use('/user', userAPI);
-   viewRoutes.use('/user', userView);
+  viewRoutes.use('/user', userView);
+
+  userView.post('/change', requireAuth, AuthViewController.change, AuthViewController.setToken, redirectViewController.redirectChange);
 
   // View public user profile route
   userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);

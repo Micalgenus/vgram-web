@@ -49,7 +49,12 @@ exports.register = function(req, res, next) {
    const password = req.body.password;
    const member_type = req.body.member_type;
    //사업자는 전화번호 필수로
-   const telephone = req.body.telephone;
+   let telephone = req.body.telephone;
+
+   //init
+   if(telephone === undefined ){
+      telephone = '';
+   }
 
    // Return error if no email provided
    if (!email) {
@@ -127,7 +132,7 @@ exports.quit = function (req, res, next) {
 
    //탈퇴버튼 누를시 req_drop_data에 현재 시간과 user_status에 0을 넣음
    const email = req.body.email;
-   const day = new Date();
+   const day = moment.utc().format('YYYY-MM-DD HH:mm:ss');
    let token = req.headers['authorization'];
 
    if(!token){
@@ -151,7 +156,7 @@ exports.quit = function (req, res, next) {
       }
    }).then(function (existingUser) {
       if (existingUser) {  // If user is not unique, return error
-         models.sequelize.query("update users set user_status = 0, updated_date = ?  where email = ?", {
+         models.sequelize.query("update users set user_status = -1, updated_date = ?  where email = ?", {
                replacements: [day, email]
          }).then(function (result) {
             return res.status(200).json({
@@ -186,8 +191,9 @@ exports.quit = function (req, res, next) {
 //이메일을 받으면 정보와 메타데이터를 전송 하는 api
 //------------------------------------------
 exports.info = function(req, res, next) {
+
    const email = req.body.email;
-   //여기서는 client -> server 토근 나려줌
+   //여기서는 client -> server 토근 날려줌
    //server- >client로는 토큰 X
 
    // Return error if no email provided
@@ -198,12 +204,9 @@ exports.info = function(req, res, next) {
       });
    }
 
-   models.sequelize.query("select a.ID, a.email, a.password, a.member_type, a.telephone, " +
-      "a.registered_date, a.display_name, a.activation_key, a.locale, a.profile_image_path, " +
-      "a.updated_date, a.user_status, b.meta_key, b.meta_value " +
-      "from users as a, user_metas as b where a.email = (?) and a.ID = b.user_id",
+   return models.sequelize.query("select * from users where email = (?)",
       { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
-      .then(function (data) {
+   .then(function (data) {
          if(data.length <= 0){   // not exist user
             return res.status(401).json({
                errorMsg: 'Email do not exist DB',
@@ -229,7 +232,7 @@ exports.info = function(req, res, next) {
 //  회원정보 수정
 //------------------------------------------
 exports.modifyInfo = function(req, res, next) {
-   //회원정보 수정 되면 server -> client 토큰 필요
+   // 회원정보 수정 되면 server -> client 토큰 필요
    // 비밀번호 바뀌면 새로운 패스워드(new_password)로  토큰 만듬
    // 비밀번호 안바뀌면 이전에 있던걸(password)로 토큰 만듬
    const email = req.body.email;

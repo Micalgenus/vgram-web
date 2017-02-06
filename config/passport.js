@@ -22,10 +22,9 @@ var cookieExtractor = function(req) {
   var token = null;
   if (req && req.cookies) {
     token = req.cookies['Authorization'];
-    token = token.replace('Bearer ', '');
+    if (token) token = token.replace('Bearer ', '');
   }
 
-  console.log(token);
   return token;
 };
 

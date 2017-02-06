@@ -19,13 +19,13 @@ const crypto = require('crypto'),
 //========================================
 exports.login = function(req, res) {
 
-   let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
+  let userInfo = genToken.setUserInfo(req.user);   // passport에서 받은 object
 
-   return {
-      id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
-      user: userInfo,    // password가 hash로 오기 때문에,
-      statusCode: 1
-   };
+  return {
+    id_token: 'Bearer ' + genToken.generateUserToken(userInfo),
+    user: userInfo,    // password가 hash로 오기 때문에,
+    statusCode: 1
+  };
 }
 //========================================
 // Logout Route : JWT이기 때문에 서버에는 값이 남아있지않음

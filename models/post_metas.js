@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     meta_value: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSON,
       allowNull: false
     }
   }, {

@@ -14,43 +14,46 @@ var models = require("../models");
 
 module.exports = function(testDB) {
   if (testDB) {
-    log.debug('---1--- \n Create Users Test Database');
+    log.debug('---1--- \n Create Test Database : users');
 
-     // 아직 testDB가 새로운 Table 형식에 맞게 셋팅되지 않음
     return models.users.bulkCreate(testDB.users).then(function () {
-       log.debug('---2--- \n Create UserMetas Test Database');
+       log.debug('---2--- \n Create Test Database : user_metas ');
        return models.user_metas.bulkCreate(testDB.user_metas);
     }).then(function () {
-       log.debug('---3---- \n Create posts Test Database');
+       log.debug('---3---- \n Create Test Database : posts');
        return models.posts.bulkCreate(testDB.posts);
-    })
+    }).then(function () {
+       log.debug('---4---- \n Create Test Database : post_metas');
+       return models.post_metas.bulkCreate(testDB.post_metas);
+    }).then(function () {
+       log.debug('---5---- \n Create Test Database : attached');
+       return models.attached.bulkCreate(testDB.attached);
+    }).then(function () {
+       log.debug('---6---- \n Create Test Database : medias');
+       return models.medias.bulkCreate(testDB.medias);
+    }).then(function () {
+       log.debug('---7---- \n Create Test Database : rooms');
+       return models.rooms.bulkCreate(testDB.rooms);
+    }).then(function () {
+       log.debug('---8---- \n Create Test Database : post_media_relationships');
+       return models.post_media_relationships.bulkCreate(testDB.post_media_relationships);
+    }).then(function () {
+       log.debug('---9---- \n Create Test Database : post_attached_relationships');
+       return models.post_attached_relationships.bulkCreate(testDB.post_attached_relationships);
+    }).then(function () {
+       log.debug('---10---- \n Create Test Database : user_post_relationships');
+       return models.user_post_relationships.bulkCreate(testDB.user_post_relationships);
+    }).then(function () {
+       log.debug('---11---- \n Create Test Database : hash_table');
+       return models.hash_table.bulkCreate(testDB.hash_table);
+    }).then(function () {
+       log.debug('Complete create Test Database');
+       return models.sequelize.Promise.resolve('Complete create Test Database');
+    }).catch(function (err) {
+       log.debug('create Test Database Error ' + err);
+       return models.sequelize.Promise.reject(err);
+    });
 
-
-
-     //2017.1.13 이정현 주석처리
-     //return models.Member.bulkCreate(testDB.member).then(function () {
-      //     log.debug('---2--- Create BusinessMember Test Database');
-      //    return models.BusinessMember.bulkCreate(testDB.businessMember);
-      // });
-    // return models.Member.bulkCreate(testDB.member).then(function () {
-    //   log.debug('Create BusinessMember Test Database');
-    //   return models.BusinessMember.bulkCreate(testDB.businessMember);
-    // }).then(function () {
-    //   log.debug('Create BusinessMember Test Database');
-    //   return models.BuildCaseInfoBoard.bulkCreate(testDB.buildCaseInfoBoard);
-    // }).then(function () {
-    //   log.debug('Create UserConsultInfoBoard Test Database');
-    //   return models.UserConsultInfoBoard.bulkCreate(testDB.userConsultInfoBoard);
-    // }).then(function () {
-    //   log.debug('Create RoomInfoBoard Test Database');
-    //   return models.RoomInfoBoard.bulkCreate(testDB.roomInfoBoard);
-    // }).then(function () {
-    //   log.debug('Complete create Test Database');
-    //   return models.sequelize.Promise.resolve('Complete create Test Database');
-    // }).catch(function (err) {
-    //   log.debug('create Test Database Error ' + err);
-    //   return models.sequelize.Promise.reject(err);
-    // });
   } else {
     return models.sequelize.Promise.reject('no testDB is found');
   }
