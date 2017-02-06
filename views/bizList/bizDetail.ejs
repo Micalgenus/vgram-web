@@ -1,3 +1,10 @@
+
+<%include ../static/css.ejs%>
+
+
+<%include ../addon/header.ejs%>
+
+
 <!-- Page Title
     ============================================= -->
 <section id="page-title" class="page-title-mini">
@@ -8,7 +15,7 @@
       <ol class="breadcrumb">
          <li><a href="#">Home</a></li>
          <li><a href="/bizList">업체목록</a></li>
-         <li class="active">{{companyName}}</li>
+         <li class="active"><!--{{companyName}}--></li>
       </ol>
    </div>
 
@@ -32,7 +39,10 @@
 
             <!--<section id="google-map"  class="gmap" style="height: 240px;">-->
             <section style="height:240px;">
-
+               <div class="entry-image">
+                  <a href="images/blog/full/17.jpg" data-lightbox="image">
+                     <img class="image_fade" src="" alt="<%=preview%>"></a>
+               </div>
 
             </section>
 
@@ -45,38 +55,38 @@
 
             <!-- Contact Info
                   ============================================= -->
-            <div class="col_two_fifth">
+            <div class="col_md-6 bottommargin">
 
                <address>
                   <!--업체명-->
-                  <strong> <%=display%></strong><br>
+                  <strong> 업체 명:</strong> <%=display_title%> <br>
 
                </address>
                <!--소개글-->
-               <abbr title="Phone Number"><strong>Phone:</strong></abbr> <br>   <br>
-               <!--<abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br>-->
+               <abbr><strong>업체 설명:</strong> <%=business_type%>  </abbr> <br>   <br>
+               <abbr><strong>시공 분야:</strong> <%=build_type%></abbr> <br>
                <!--<abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com-->
 
             </div><!-- Contact Info End -->
 
             <!-- Testimonials
                   ============================================= -->
-            <div class="col_three_fifth col_last">
+            <!--<div class="col_three_fifth col_last">-->
 
-               <div class="widget notoppadding noborder">
+               <!--<div class="widget notoppadding noborder">-->
 
-                  <!--<div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">-->
-                     <!--<i class="i-plain i-small color icon-twitter nobottommargin" style="margin-right: 15px;"></i>-->
-                     <!--<div class="flexslider" style="width: auto;">-->
-                        <!--<div class="slider-wrap">-->
-                           <!--<div class="slide"></div>-->
-                        <!--</div>-->
-                     <!--</div>-->
-                  <!--</div>-->
+                  <!--&lt;!&ndash;<div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">&ndash;&gt;-->
+                     <!--&lt;!&ndash;<i class="i-plain i-small color icon-twitter nobottommargin" style="margin-right: 15px;"></i>&ndash;&gt;-->
+                     <!--&lt;!&ndash;<div class="flexslider" style="width: auto;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="slider-wrap">&ndash;&gt;-->
+                           <!--&lt;!&ndash;<div class="slide"></div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                     <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-               </div>
+               <!--</div>-->
 
-            </div><!-- Testimonial End -->
+            <!--</div>&lt;!&ndash; Testimonial End &ndash;&gt;-->
 
             <div class="clear"></div>
 
@@ -170,7 +180,7 @@
 
 </section><!-- #content end -->
 
-
+<% include ../addon/footer.ejs%>
 
 
 
