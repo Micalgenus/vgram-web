@@ -7,25 +7,39 @@
 const models = require('../../models');
 const Users = models.users;
 
-
 exports.bizList = function(req, res, next) {
-   console.log(req.user);
-   console.log(typeof models.users);
 
-  return res.render('bizList/bizlist', {
-    ENV: req.env,
-    logined: req.logined,
-    title: '로그인',
-     //
-     // id: req.user.ID,
-     // name: req.user.display_name,
-     // email: req.user.email,
-     // phone: req.user.telephone,
-     // image: req.user.profile_image_path,
-     // register: req.user.registered_date
-     // 경수야 여기좀 ㅋㅋㅋㅋㅋ
+  return Users.findAll({
+    where: {
+      member_type: "BUSINESS"
+    }
+  }).then(function(users) {
+    var bizUser = [];
+    users.forEach(function(user) {
+      var tmpUser = {};
 
+      let image = user.profile_image_path;
+      if (!image.match(/^https?:\/\//)) {
+        image = "http://localhost:3000/" + image;
+      }
+
+      tmpUser['name'] = user.display_name;
+      tmpUser['image'] = image;
+
+      bizUser.push(tmpUser);
+    });
+
+    return res.render('bizList/bizlist', {
+      ENV: req.env,
+      logined: req.logined,
+      title: '업체 목록 조회',
+      users: bizUser,
+    });
+  }).catch(function(err) {
+    return next(err);
   });
+
+  
 }
 
 

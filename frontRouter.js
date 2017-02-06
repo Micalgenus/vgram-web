@@ -123,8 +123,10 @@ module.exports = function(app) {
   viewRoutes.get('/signup', AuthViewController.init, UserViewController.signup);
 
   // 리스트 출력
-  viewRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
-   viewRoutes.get('/bizdetail', AuthViewController.init, BizdetailViewController.bizDetail);
+  viewRoutes.get('/biz', redirectViewController.redirectBizList);
+  viewRoutes.get('/biz/:page([0-9]+)', AuthViewController.init, requireAuth, BizViewController.bizList);
+  viewRoutes.get('/bizdetail', AuthViewController.init, BizdetailViewController.bizDetail);
+
   //=========================
   // Test Routes
   //=========================
@@ -272,31 +274,31 @@ module.exports = function(app) {
   //=========================
   // apiRoutes.use('/pay', payRoutes);
 
-   // Webhook endpoint for Stripe
-   // payRoutes.post('/webhook-notify', StripeController.webhook);
+  // Webhook endpoint for Stripe
+  // payRoutes.post('/webhook-notify', StripeController.webhook);
 
-   // Create customer and subscription
-   // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
+  // Create customer and subscription
+  // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
 
-   // Update customer object and billing information
-   // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
+  // Update customer object and billing information
+  // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
 
-   // Delete subscription from customer
-   // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
+  // Delete subscription from customer
+  // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
 
-   // Upgrade or downgrade subscription
-   // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
+  // Upgrade or downgrade subscription
+  // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
 
-   // Fetch customer information
-   // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
+  // Fetch customer information
+  // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
 
-   //=========================
-   // Communication Routes
-   //=========================
-   // apiRoutes.use('/communication', communicationRoutes);
+  //=========================
+  // Communication Routes
+  //=========================
+  // apiRoutes.use('/communication', communicationRoutes);
 
-   // Send email from contact form
-   // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
+  // Send email from contact form
+  // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
   //=========================
   // API - Consult Routes

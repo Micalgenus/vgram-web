@@ -15,3 +15,7 @@ exports.redirectChange = function(req, res) {
   // Change페이지로 Redirect
   return res.redirect('/change');
 }
+
+exports.redirectBizList = function(req, res) {
+  return res.redirect('/biz/1');
+}
