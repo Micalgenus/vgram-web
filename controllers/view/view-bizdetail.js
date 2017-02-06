@@ -20,7 +20,7 @@
 
 "use strict";
 
-exports.bizdetail = function(req, res, next) {
+exports.bizDetail = function(req, res, next) {
    return res.render('bizList/bizDetail', {
       ENV: req.env,
       logined: req.logined,

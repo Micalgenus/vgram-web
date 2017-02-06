@@ -21,6 +21,7 @@ const passport = require('passport'),
 
   AuthViewController = require('./controllers/view/auth'),
   BizViewController = require('./controllers/view/view-biz'),
+  BizdetailViewController= require('./controllers/view/view-bizdetail'),
   UserViewController = require('./controllers/view/view-user');
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
@@ -123,7 +124,7 @@ module.exports = function(app) {
 
   // 리스트 출력
   viewRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
-
+   viewRoutes.get('/bizdetail', AuthViewController.init, BizdetailViewController.bizDetail);
   //=========================
   // Test Routes
   //=========================
