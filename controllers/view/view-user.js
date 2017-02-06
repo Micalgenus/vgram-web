@@ -77,6 +77,20 @@ exports.signup = function(req, res) {
 // 회원 정보 조회
 
 exports.viewProfile = function (req, res) {
+
+  var business_type,
+    business_reg_no,
+    owner_name,
+    company_address,
+    intro_comment;
+
+  let meta = JSON.parse(req.user.meta_value);
+  if (meta.business_type) business_type = meta.business_type;
+  if (meta.business_reg_no) business_reg_no = meta.business_reg_no;
+  if (meta.owner_name) owner_name = meta.owner_name;
+  if (meta.company_address) company_address = meta.company_address;
+  if (meta.intro_comment) intro_comment = meta.intro_comment;
+
   return res.render('member/change', {
     ENV: req.env,
     logined: req.logined,
@@ -85,12 +99,13 @@ exports.viewProfile = function (req, res) {
     email: req.user.email,
     phone: req.user.telephone,
     name: req.user.display_name,
-    profilePicture: req.user.profile_image_path,
-    //user: req.user,
+    profile_image_path: req.user.profile_image_path,
+    business_type: business_type,
+    business_reg_no: business_reg_no,
+    owner_name: owner_name,
+    company_address: company_address,
+    intro_comment: intro_comment,
   });
 }
 
-/*
-Authorization	Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjMzMzNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMDUkQWswWjN6N250d3VBQUd3cjc1WG9pTzJhWU8uZDFDUmJrVDM3dE9ZYW1XWHRmbGdrNFRQTzYiLCJtZW1iZXJfdHlwZSI6IlBVQkxJQyIsInRlbGVwaG9uZSI6bnVsbCwicmVnaXN0ZXJlZF9kYXRlIjoiMjAxNy0wMS0xM1QwMDowMDowMC4wMDBaIiwiZGlzcGxheV9uYW1lIjpudWxsLCJhY3RpdmF0aW9uX2tleSI6bnVsbCwicHJvZmlsZV9pbWFnZV9wYXRoIjpudWxsLCJ1cGRhdGVkX2RhdGUiOm51bGwsInVzZXJfc3RhdHVzIjoxLCJpYXQiOjE0ODU3ODAzMjksImV4cCI6MTQ4NTc5MDQwOX0.gAuB0FPKAuR5E9nN0LLcNTZbyho740P8wFlJr-Rpxvg	localhost	/	세션	534B		
-
-*/
+//{"registered_number":"418-86-95742","address":{"post_code":"54869","addr1":"전북 전주시 덕진구 백제대로 567","addr2":"전북대학교 창업동아리 아늑한친구들"},"level":4}

@@ -1,60 +1,37 @@
-
 <!DOCTYPE html>
-<!-- pagination -->
-<script type="text/javascript" src="path_to/jquery.js"></script>
-<script type="text/javascript" src="path_to/jquery.simplePagination.js"></script>
-<link type="text/css" rel="stylesheet" href="path_to/simplePagination.css"/>
+<html lang="ko">
+<head>
+   <% include ../static/head.ejs %>
+</head>
 
-<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-<link rel="stylesheet" href="style.css" type="text/css" />
-<link rel="stylesheet" href="css/dark.css" type="text/css" />
-<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
-<link rel="stylesheet" href="css/animate.css" type="text/css" />
-<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+<body class="stretched">
+  <!-- HEADER -->
+  <% include ../addon/header.ejs %>
 
-<link rel="stylesheet" href="css/responsive.css" type="text/css" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
-<%include ../static/css.ejs%>
-
-
-<%include ../addon/header.ejs%>
-
-
-
-
-<!-- Document Wrapper
-============================================= -->
-<div class="clearfix">
-
-    <!-- Page Title
-    ============================================= -->
-    <section id="page-title" class="page-title-mini">
-
-        <div class="container clearfix">
-            <h1>업체목록 조회</h1>
-            <span>여러 업체들의 소개를 한눈에 살펴볼수있습니다.</span>
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">업체목록</li>
-            </ol>
-        </div>
-
-    </section><!-- #page-title end -->
-
-
-
-
-   <!-- Content      New
-		============================================= -->
+  <!-- Content
+	============================================= -->
 
    <section id="content">
 
       <div class="content-wrap">
 
          <div class="container clearfix">
+            <div class="post-grid grid-container clearfix" data-layout="fitRows" id="posts">
+                <% for (var i = 0; i < users.length; i++) { %>
+                    <div class="entry clearfix">
+                        <div class="portfolio-image">
+                            <a href="#"><img alt="Open Imagination" src="<%= users[i].image %>"></a>
+                        </div>
+                        <div class="entry-title">
+                            <h2><a href="#"><%= users[i].name %></a></h2>
+                        </div>
+                        <div class="entry-content">
+                            <p><%= users[i].intro %></p>
+                            <a class="more-link" href="#">Read More</a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
 
             <!-- Posts
                  ============================================= -->
@@ -63,10 +40,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="" alt="%image%"></a>
+                        <img class="image_fade" src="" alt="< %=image%>"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html">%DUMP name%</a></h2>
+                     <h2><a href="blog-single.html">< %=name%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -76,7 +53,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> %intro_test%> </p>
+                     <p> < %=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -85,10 +62,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="" alt="preview"></a>
+                        <img class="image_fade" src="< %=preview%>" alt="< %=preview%>"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html">%display%</a></h2>
+                     <h2><a href="blog-single.html">< %=display%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -98,7 +75,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> %intro_test% </p>
+                     <p> < %=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -108,11 +85,11 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="%preview%" alt="%preview%"></a>
+                        <img class="image_fade" src="< %=preview%>" alt="< %=preview%>"></a>
 
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html">%display%</a></h2>
+                     <h2><a href="blog-single.html">< %=display%></a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -122,7 +99,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> %intro_test% </p>
+                     <p> < %=intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -276,20 +253,20 @@
                 ============================================= -->
                 <!--post-grid grid-container clearfix data-layout="fitRows"-->
                 <div id="posts" class="post-grid grid-container clearfix" data-layout="fitRows">
-                  <!-- //for(var i=0; i<returnedDatas.length; i++) { -->
-                    <!--<div class="entry clearfix">-->
-                        <!--<div class="portfolio-image">-->
-                            <!--<a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx "><img src="{{serverHost}}/ //= returnedDatas[i].companyLogo " alt="Open Imagination"></a>-->
-                        <!--</div>-->
-                        <!--<div class="entry-title">-->
-                            <!--<h2><a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx ">{{bizUserInfo.companyName}}</a></h2>-->
-                        <!--</div>-->
-                        <!--<div class="entry-content">-->
-                            <!--<p><bizUserInfo.aboutCompanyShort}}</p>-->
-                            <!--<a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx " class="more-link">Read More</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                   <!-- } -->
+                  <% //for(var i=0; i<returnedDatas.length; i++) { %>
+                    <div class="entry clearfix">
+                        <div class="portfolio-image">
+                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>"><img src="{{serverHost}}/<% //= returnedDatas[i].companyLogo %>" alt="Open Imagination"></a>
+                        </div>
+                        <div class="entry-title">
+                            <h2><a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>">{{bizUserInfo.companyName}}</a></h2>
+                        </div>
+                        <div class="entry-content">
+                            <p><bizUserInfo.aboutCompanyShort}}</p>
+                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>" class="more-link">Read More</a>
+                        </div>
+                    </div>
+                  <% //} %>
                 </div>
 
 
@@ -377,6 +354,10 @@
 //
   </script>
 
+  <!-- FOOTER -->
+  <% include ../addon/footer.ejs %>
 
-    <% //include ../static/js.html%>
-<% include ../addon/footer.ejs%>
+   <!-- LOAD JAVASCRIPT -->
+   <% include ../static/js.ejs %>
+</body>
+</html>

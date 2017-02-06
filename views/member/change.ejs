@@ -55,7 +55,7 @@
 
               <div class="col_one_third col_last">
                 <label for="member-change-subject">프로필사진</label>
-                <img src="<%= profilePicture %>" />
+                <img src="<%= profile_image_path %>" />
                 <input type="file" id="member-change-subject" name="profilePicture" class="sm-form-control" />
               </div>
 
@@ -70,17 +70,17 @@
 
                   <div class="col_one_third">
                     <label for="member-change-company">업종</label>
-                    <input type="text" #companyName id="member-change-company" name="member-change-company" value="{{companyNames}}" class="sm-form-control" />
+                    <input type="text" id="member-change-company" name="business_type" value="<%= business_type %>" class="sm-form-control" />
                   </div>
                   
                   <div class="col_one_third">
                     <label for="member-change-bizno">사업자등록번호</label>
-                    <input type="text" #bizRegNo id="member-change-bizno" name="member-change-bizno" value="{{bizRegNos}}" class="sm-form-control" />
+                    <input type="text" id="member-change-bizno" name="business_reg_no" value="<%= business_reg_no %>" class="sm-form-control" />
                   </div>
 
                   <div class="col_one_third col_last">
                     <label for="member-change-owner">대표명</label>
-                    <input type="text" #ownerName id="member-change-owner" name="member-change-owner" value="{{ownerNames}}" class="sm-form-control" />
+                    <input type="text" id="member-change-owner" name="owner_name" value="<%= owner_name %>" class="sm-form-control" />
                   </div>
 
                   <div class="clear"></div>
@@ -94,7 +94,7 @@
 
                   <div class="col_full col_last">
                     <label for="member-change-full">소개글</label>
-                    <input type="text" id="member-change-full" name="member-change-full" class="sm-form-control" />
+                    <input type="text" id="member-change-full" name="intro_comment" value="<%= intro_comment %>" class="sm-form-control" />
                   </div>
 
                 </section>
@@ -102,7 +102,7 @@
 
               <div class="col_full">
                 <!--<button class="button button-3d nomargin" type="cancel" id="member-change-submit" name="member-change-submit" value="submit">취소</button>-->
-                <button class="button button-3d nomargin" type="submit" id="member-change-submit" name="member-change-submit" value="submit">정보수정</button>
+                <button class="button button-3d nomargin" type="submit">정보수정</button>
               </div>
 
             </form>
