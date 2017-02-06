@@ -63,10 +63,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="" alt="<%=image%>"></a>
+                        <img class="image_fade" src="" alt="%image%"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><%=name%></a></h2>
+                     <h2><a href="blog-single.html">%DUMP name%</a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -76,7 +76,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> <%=intro_test%> </p>
+                     <p> %intro_test%> </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -85,10 +85,10 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="<%=preview%>" alt="<%=preview%>"></a>
+                        <img class="image_fade" src="" alt="preview"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><%=display%></a></h2>
+                     <h2><a href="blog-single.html">%display%</a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -98,7 +98,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> <%=intro_test%> </p>
+                     <p> %intro_test% </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -108,11 +108,11 @@
                <div class="entry clearfix">
                   <div class="entry-image">
                      <a href="images/blog/full/17.jpg" data-lightbox="image">
-                        <img class="image_fade" src="<%=preview%>" alt="<%=preview%>"></a>
+                        <img class="image_fade" src="%preview%" alt="%preview%"></a>
 
                   </div>
                   <div class="entry-title">
-                     <h2><a href="blog-single.html"><%=display%></a></h2>
+                     <h2><a href="blog-single.html">%display%</a></h2>
                   </div>
 
                   <!--<ul class="entry-meta clearfix">-->
@@ -122,7 +122,7 @@
                   <!--</ul>-->
 
                   <div class="entry-content">
-                     <p> <%=intro_test%> </p>
+                     <p> %intro_test% </p>
                      <a href="blog-single.html"class="more-link">Read More</a>
                   </div>
                </div>
@@ -276,20 +276,20 @@
                 ============================================= -->
                 <!--post-grid grid-container clearfix data-layout="fitRows"-->
                 <div id="posts" class="post-grid grid-container clearfix" data-layout="fitRows">
-                  <% //for(var i=0; i<returnedDatas.length; i++) { %>
-                    <div class="entry clearfix">
-                        <div class="portfolio-image">
-                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>"><img src="{{serverHost}}/<% //= returnedDatas[i].companyLogo %>" alt="Open Imagination"></a>
-                        </div>
-                        <div class="entry-title">
-                            <h2><a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>">{{bizUserInfo.companyName}}</a></h2>
-                        </div>
-                        <div class="entry-content">
-                            <p><bizUserInfo.aboutCompanyShort}}</p>
-                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>" class="more-link">Read More</a>
-                        </div>
-                    </div>
-                  <% //} %>
+                  <!-- //for(var i=0; i<returnedDatas.length; i++) { -->
+                    <!--<div class="entry clearfix">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx "><img src="{{serverHost}}/ //= returnedDatas[i].companyLogo " alt="Open Imagination"></a>-->
+                        <!--</div>-->
+                        <!--<div class="entry-title">-->
+                            <!--<h2><a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx ">{{bizUserInfo.companyName}}</a></h2>-->
+                        <!--</div>-->
+                        <!--<div class="entry-content">-->
+                            <!--<p><bizUserInfo.aboutCompanyShort}}</p>-->
+                            <!--<a routerLink="/bizListDetail/ //= returnedDatas[i].memberIdx " class="more-link">Read More</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                   <!-- } -->
                 </div>
 
 

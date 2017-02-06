@@ -4,6 +4,8 @@
 var moment = require('moment');
 moment.locale("ko");
 
+var value = require("../utils/staticValue");
+
 module.exports = {
    //------------------------------------------
    // users table
@@ -92,7 +94,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한집"
             },
-            level: 2
+            level: 2,
+            owner_name: "김선호",
+            business_type: value.businessType.LANDLORD,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -114,7 +119,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 2
+            level: 2,
+            owner_name: "김선호1",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -136,7 +144,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 3
+            level: 3,
+            owner_name: "김선호1",
+            business_type: value.businessType.LANDLORD,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -158,7 +169,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 4
+            level: 4,
+            owner_name: "김선호1",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -180,7 +194,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 5
+            level: 5,
+            owner_name: "김선호2",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -296,7 +313,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글0"
          }
       },
       {
@@ -316,7 +334,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글1"
          }
       },
       {
@@ -336,7 +355,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글2"
          }
       },
       {
@@ -356,7 +376,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글3"
          }
       },
       {
@@ -376,7 +397,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "mobile"      // 모바일 환경에서 작성함
+            written_device: "mobile",      // 모바일 환경에서 작성함
+            secret_note: "비밀메모글4"
          }
       },
       {
@@ -396,7 +418,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "mobile"      // 모바일 환경에서 작성함
+            written_device: "mobile",      // 모바일 환경에서 작성함
+            secret_note: "비밀메모글5"
          }
       },
       {
@@ -416,7 +439,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글7"
          }
       },
       {
@@ -436,7 +460,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글9"
          }
       },
       {
@@ -456,7 +481,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글9"
          }
       },
       {
