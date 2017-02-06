@@ -78,17 +78,17 @@ exports.signup = function(req, res) {
 
 exports.viewProfile = function (req, res) {
 
-  var company_name,
-    registered_number,
+  var business_type,
+    business_reg_no,
     owner_name,
-    address,
+    company_address,
     intro_comment;
 
   let meta = JSON.parse(req.user.meta_value);
-  if (meta.company_name) company_name = meta.company_name;
-  if (meta.registered_number) registered_number = meta.registered_number;
+  if (meta.business_type) business_type = meta.business_type;
+  if (meta.business_reg_no) business_reg_no = meta.business_reg_no;
   if (meta.owner_name) owner_name = meta.owner_name;
-  if (meta.address) address = meta.address;
+  if (meta.company_address) company_address = meta.company_address;
   if (meta.intro_comment) intro_comment = meta.intro_comment;
 
   return res.render('member/change', {
@@ -100,10 +100,10 @@ exports.viewProfile = function (req, res) {
     phone: req.user.telephone,
     name: req.user.display_name,
     profile_image_path: req.user.profile_image_path,
-    company_name: company_name,
-    registered_number: registered_number,
+    business_type: business_type,
+    business_reg_no: business_reg_no,
     owner_name: owner_name,
-    address: address,
+    company_address: company_address,
     intro_comment: intro_comment,
   });
 }
