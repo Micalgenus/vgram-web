@@ -21,7 +21,6 @@ const passport = require('passport'),
 
   AuthViewController = require('./controllers/view/auth'),
   BizViewController = require('./controllers/view/view-biz'),
-  BizdetailViewController= require('./controllers/view/view-bizdetail'),
   UserViewController = require('./controllers/view/view-user');
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
@@ -125,7 +124,8 @@ module.exports = function(app) {
   // 리스트 출력
   viewRoutes.get('/biz', redirectViewController.redirectBizList);
   viewRoutes.get('/biz/:page([0-9]+)', AuthViewController.init, BizViewController.bizList);
-  viewRoutes.get('/bizdetail', AuthViewController.init, BizdetailViewController.bizDetail);
+  viewRoutes.get('/bizdetail', redirectViewController.redirectBizList);
+  viewRoutes.get('/bizdetail/:idx([0-9]+)', AuthViewController.init, BizViewController.bizDetail);
 
   //=========================
   // Test Routes

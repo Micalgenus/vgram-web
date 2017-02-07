@@ -185,7 +185,7 @@ exports.change = function(req, res, next) {
     var meta = JSON.parse(req.user.meta_value);
 
     meta.business_type = req.body.business_type;
-    meta.business_reg_no = req.body.business_reg_no;
+    meta.registered_number = req.body.registered_number;
     meta.owner_name = req.body.owner_name;
     // meta.company_address = req.body.company_address;
     meta.intro_comment = req.body.intro_comment;
