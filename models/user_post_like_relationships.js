@@ -1,7 +1,16 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_attached_relationships', {
+  return sequelize.define('user_post_like_relationships', {
+    user_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+       primaryKey: true,
+       references: {
+        model: 'users',
+        key: 'ID'
+      }
+    },
     post_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -10,17 +19,8 @@ module.exports = function(sequelize, DataTypes) {
         model: 'posts',
         key: 'ID'
       }
-    },
-    attached_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-       primaryKey: true,
-       references: {
-        model: 'attached',
-        key: 'ID'
-      }
     }
   }, {
-    tableName: 'post_attached_relationships'
+    tableName: 'user_post_like_relationships'
   });
 };

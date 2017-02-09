@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     user_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
+       primaryKey: true,
+       references: {
         model: 'users',
         key: 'ID'
       }
@@ -13,7 +14,8 @@ module.exports = function(sequelize, DataTypes) {
     post_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      references: {
+       primaryKey: true,
+       references: {
         model: 'posts',
         key: 'ID'
       }
