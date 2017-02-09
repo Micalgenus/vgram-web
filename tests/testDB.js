@@ -24,8 +24,7 @@ module.exports = {
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: {
-            level: 1,
-            like_user: []
+            level: 1
          }
       },
       {
@@ -41,8 +40,7 @@ module.exports = {
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: {
-            level: 2,
-            like_user: []
+            level: 2
          }
       },
       {
@@ -58,8 +56,7 @@ module.exports = {
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: {
-            level: 3,
-            like_user: []
+            level: 3
          }
       },
       {
@@ -75,8 +72,7 @@ module.exports = {
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: {
-            level: 4,
-            like_user: []
+            level: 4
          }
       },
       {
@@ -201,8 +197,7 @@ module.exports = {
             level: 5,
             owner_name: "김선호2",
             business_type: value.businessType.ESTATE_AGENT,
-            intro_comment: "환영합니다 ^^",
-            like_user: []
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
