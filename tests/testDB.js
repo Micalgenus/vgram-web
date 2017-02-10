@@ -24,8 +24,7 @@ module.exports = {
          updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          user_status: 1,
          meta_value: {
-            level: 1,
-            like: [1,2,23,4]
+            level: 1
          }
       },
       {
