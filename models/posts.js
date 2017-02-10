@@ -61,11 +61,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: '0'
     },
-    unlike: {
-      type: DataTypes.INTEGER(10).UNSIGNED,
-      allowNull: true,
-      defaultValue: '0'
-    },
     locale: {
       type: DataTypes.STRING(45),
       allowNull: false,
