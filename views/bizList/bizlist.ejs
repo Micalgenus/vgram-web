@@ -27,7 +27,7 @@
                         </div>
                         <div class="entry-content">
                             <p><%= users[i].intro %></p>
-                            <a class="more-link" href="#">Read More</a>
+                            <a class="more-link" href="/bizdetail/<%= users[i].id %>">Read More</a>
                         </div>
                     </div>
                 <% } %>
@@ -105,133 +105,25 @@
                </div>
 
 
-
-
-               <div class="entry clearfix">
-                  <div class="entry-image clearfix">
-                     <div class="fslider" data-animation="fade" data-pagi="false" data-lightbox="gallery">
-                        <div class="flexslider">
-                           <div class="slider-wrap">
-                              <div class="slide"><a href="images/blog/full/2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/grid/2.jpg" alt="Standard Post with Gallery"></a></div>
-                              <div class="slide"><a href="images/blog/full/3.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/grid/3.jpg" alt="Standard Post with Gallery"></a></div>
-                              <div class="slide"><a href="images/blog/full/12.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/grid/12.jpg" alt="Standard Post with Gallery"></a></div>
-                              <div class="slide"><a href="images/blog/full/13.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/blog/grid/13.jpg" alt="Standard Post with Gallery"></a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single-thumbs.html">This is a Standard post with Fade Gallery</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 3rd Mar 2014</li>
-                     <li><a href="blog-single-thumbs.html#comments"><i class="icon-comments"></i> 21</a></li>
-                     <li><a href="#"><i class="icon-picture"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single-thumbs.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
-               <div class="entry clearfix">
-                  <div class="entry-image clearfix">
-                     <iframe width="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/115823769&amp;auto_play=false&amp;hide_related=true&amp;visual=true"></iframe>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single.html">This is an Embedded Audio Post</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 28th Apr 2014</li>
-                     <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 16</a></li>
-                     <li><a href="#"><i class="icon-music2"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
-               <div class="entry clearfix">
-                  <div class="entry-image">
-                     <iframe width="560" height="315" src="http://www.youtube.com/embed/SZEflIVnhH8" frameborder="0" allowfullscreen></iframe>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single-full.html">This is a Standard post with a Youtube Video</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 30th Apr 2014</li>
-                     <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 34</a></li>
-                     <li><a href="#"><i class="icon-film"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single-full.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
-               <div class="entry clearfix">
-                  <div class="entry-image">
-                     <a href="images/blog/full/1.jpg" data-lightbox="image"><img class="image_fade" src="images/blog/grid/1.jpg" alt="Standard Post with Image"></a>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single.html">This is a Standard post with another Preview Image</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 5th May 2014</li>
-                     <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 6</a></li>
-                     <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
-               <div class="entry clearfix">
-                  <div class="entry-image">
-                     <iframe frameborder="0" width="480" height="270" src="http://www.dailymotion.com/embed/video/x18murk" allowfullscreen></iframe>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single-full.html">This is a Standard post with a Dailymotion Video</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 11th May 2014</li>
-                     <li><a href="blog-single-full.html#comments"><i class="icon-comments"></i> 9</a></li>
-                     <li><a href="#"><i class="icon-film"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single-full.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
-               <div class="entry clearfix">
-                  <div class="entry-image clearfix">
-                     <iframe width="100%" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/17521446&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="blog-single.html">This is another Embedded Audio Post</a></h2>
-                  </div>
-                  <ul class="entry-meta clearfix">
-                     <li><i class="icon-calendar3"></i> 15th May 2014</li>
-                     <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 2</a></li>
-                     <li><a href="#"><i class="icon-music2"></i></a></li>
-                  </ul>
-                  <div class="entry-content">
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, voluptatem, dolorem animi nisi autem blanditiis enim culpa reiciendis et explicabo tenetur!</p>
-                     <a href="blog-single.html"class="more-link">Read More</a>
-                  </div>
-               </div>
-
             </div><!-- #posts end -->
 
             <!-- Pagination
                  ============================================= -->
-            <ul class="pager nomargin">
-               <li class="previous"><a href="#">&larr; Older</a></li>
-               <li class="next"><a href="#">Newer &rarr;</a></li>
-            </ul><!-- .pager end -->
+            <!-- 지금 유저가 5명 밖에 음슴. 12페이지까지 거는 조건문 추가-->
+            <ul class="pagination">
+               <li><a href="#">&laquo;</a></li>
+               <% for (var i = 0; i < users.length; i++) { %>
+               <li><a href="#"><%=[i+1]%></a></li>
+               <% } %>
+               <li><a href="#">&raquo;</a></li>
+            </ul>
+
+
+
+            <!--<ul class="pager nomargin">-->
+               <!--<li class="previous"><a href="#">&larr; Older</a></li>-->
+               <!--<li class="next"><a href="#">Newer &rarr;</a></li>-->
+            <!--</ul>&lt;!&ndash; .pager end &ndash;&gt;-->
 
          </div>
 
@@ -241,87 +133,87 @@
 
 
 
-    <!-- Content before
-    ============================================= -->
-    <section id="content">
+    <!--&lt;!&ndash; Content before-->
+    <!--============================================= &ndash;&gt;-->
+    <!--<section id="content">-->
 
-        <div class="content-wrap">
+        <!--<div class="content-wrap">-->
 
-            <div class="container clearfix">
+            <!--<div class="container clearfix">-->
 
-                <!-- Posts
-                ============================================= -->
-                <!--post-grid grid-container clearfix data-layout="fitRows"-->
-                <div id="posts" class="post-grid grid-container clearfix" data-layout="fitRows">
-                  <% //for(var i=0; i<returnedDatas.length; i++) { %>
-                    <div class="entry clearfix">
-                        <div class="portfolio-image">
-                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>"><img src="{{serverHost}}/<% //= returnedDatas[i].companyLogo %>" alt="Open Imagination"></a>
-                        </div>
-                        <div class="entry-title">
-                            <h2><a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>">{{bizUserInfo.companyName}}</a></h2>
-                        </div>
-                        <div class="entry-content">
-                            <p><bizUserInfo.aboutCompanyShort}}</p>
-                            <a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>" class="more-link">Read More</a>
-                        </div>
-                    </div>
-                  <% //} %>
-                </div>
-
-
-
-               <!-- 페이지네이션 -->
-
-               <!--<ul id="pagination-demo" class>="pagination-sm"></ul>-->
-               <!--<script>-->
-                  <!--$('#pagination-demo').twbsPagination({-->
-                     <!--totalPages: 35,-->
-                     <!--visiblePages: 7,-->
-                     <!--onPageClick: function (event, page) {-->
-                        <!--$('#page-content').text('Page ' + page);-->
-                     <!--}-->
-                  <!--});-->
-               <!--</script>-->
+                <!--&lt;!&ndash; Posts-->
+                <!--============================================= &ndash;&gt;-->
+                <!--&lt;!&ndash;post-grid grid-container clearfix data-layout="fitRows"&ndash;&gt;-->
+                <!--<div id="posts" class="post-grid grid-container clearfix" data-layout="fitRows">-->
+                  <!--<% //for(var i=0; i<returnedDatas.length; i++) { %>-->
+                    <!--<div class="entry clearfix">-->
+                        <!--<div class="portfolio-image">-->
+                            <!--<a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>"><img src="{{serverHost}}/<% //= returnedDatas[i].companyLogo %>" alt="Open Imagination"></a>-->
+                        <!--</div>-->
+                        <!--<div class="entry-title">-->
+                            <!--<h2><a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>">{{bizUserInfo.companyName}}</a></h2>-->
+                        <!--</div>-->
+                        <!--<div class="entry-content">-->
+                            <!--<p><bizUserInfo.aboutCompanyShort}}</p>-->
+                            <!--<a routerLink="/bizListDetail/<% //= returnedDatas[i].memberIdx %>" class="more-link">Read More</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                  <!--<% //} %>-->
+                <!--</div>-->
 
 
-                <!--페이지 1~10 까지 확인 가능 disable이나 현재 들어와 있는 페이지 active같은 기능을 추가해주어야함-->
-                <div id="pagination">
-                    <ul class="pagination nobottommargin">
-                        <li (click)="beforePageButton()"><a>&laquo;</a></li>
+
+               <!--&lt;!&ndash; 페이지네이션 &ndash;&gt;-->
+
+               <!--&lt;!&ndash;<ul id="pagination-demo" class>="pagination-sm"></ul>&ndash;&gt;-->
+               <!--&lt;!&ndash;<script>&ndash;&gt;-->
+                  <!--&lt;!&ndash;$('#pagination-demo').twbsPagination({&ndash;&gt;-->
+                     <!--&lt;!&ndash;totalPages: 35,&ndash;&gt;-->
+                     <!--&lt;!&ndash;visiblePages: 7,&ndash;&gt;-->
+                     <!--&lt;!&ndash;onPageClick: function (event, page) {&ndash;&gt;-->
+                        <!--&lt;!&ndash;$('#page-content').text('Page ' + page);&ndash;&gt;-->
+                     <!--&lt;!&ndash;}&ndash;&gt;-->
+                  <!--&lt;!&ndash;});&ndash;&gt;-->
+               <!--&lt;!&ndash;</script>&ndash;&gt;-->
 
 
-                        <li (click)="pageNumberButton(1)" [ngClass]="{'active': currentPageNumber == 1}"><a>1</a>
-                        </li>
-                        <li (click)="pageNumberButton(2)" [ngClass]="{'active': currentPageNumber == 2}"><a>2</a>
-                        </li>
-                        <li (click)="pageNumberButton(3)" [ngClass]="{'active': currentPageNumber == 3}"><a>3</a>
-                        </li>
-                        <li (click)="pageNumberButton(4)" [ngClass]="{'active': currentPageNumber == 4}"><a>4</a>
-                        </li>
-                        <li (click)="pageNumberButton(5)" [ngClass]="{'active': currentPageNumber == 5}"><a>5</a>
-                        </li>
-                        <li (click)="pageNumberButton(6)" [ngClass]="{'active': currentPageNumber == 6}"><a>6</a>
-                        </li>
-                        <li (click)="pageNumberButton(7)" [ngClass]="{'active': currentPageNumber == 7}"><a>7</a>
-                        </li>
-                        <li (click)="pageNumberButton(8)" [ngClass]="{'active': currentPageNumber == 8}"><a>8</a>
-                        </li>
-                        <li (click)="pageNumberButton(9)" [ngClass]="{'active': currentPageNumber == 9}"><a>9</a>
-                        </li>
-                        <li (click)="pageNumberButton(10)" [ngClass]="{'active': currentPageNumber == 10}"><a>10</a>
-                        </li>
+                <!--&lt;!&ndash;페이지 1~10 까지 확인 가능 disable이나 현재 들어와 있는 페이지 active같은 기능을 추가해주어야함&ndash;&gt;-->
+                <!--<div id="pagination">-->
+                    <!--<ul class="pagination nobottommargin">-->
+                        <!--<li (click)="beforePageButton()"><a>&laquo;</a></li>-->
 
-                        <li (click)="nextPageButton()"><a>&raquo;</a></li>
-                    </ul>
-                </div>
 
-            </div>
+                        <!--<li (click)="pageNumberButton(1)" [ngClass]="{'active': currentPageNumber == 1}"><a>1</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(2)" [ngClass]="{'active': currentPageNumber == 2}"><a>2</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(3)" [ngClass]="{'active': currentPageNumber == 3}"><a>3</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(4)" [ngClass]="{'active': currentPageNumber == 4}"><a>4</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(5)" [ngClass]="{'active': currentPageNumber == 5}"><a>5</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(6)" [ngClass]="{'active': currentPageNumber == 6}"><a>6</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(7)" [ngClass]="{'active': currentPageNumber == 7}"><a>7</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(8)" [ngClass]="{'active': currentPageNumber == 8}"><a>8</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(9)" [ngClass]="{'active': currentPageNumber == 9}"><a>9</a>-->
+                        <!--</li>-->
+                        <!--<li (click)="pageNumberButton(10)" [ngClass]="{'active': currentPageNumber == 10}"><a>10</a>-->
+                        <!--</li>-->
 
-        </div>
+                        <!--<li (click)="nextPageButton()"><a>&raquo;</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
 
-    </section><!-- #content end -->
-  </div><!-- #wrapper end -->
+            <!--</div>-->
+
+        <!--</div>-->
+
+    <!--</section>&lt;!&ndash; #content end &ndash;&gt;-->
+  <!--</div>&lt;!&ndash; #wrapper end &ndash;&gt;-->
 
   <!-- function pagination  http://flaviusmatis.github.io/simplePagination.js/  -->
   <script>

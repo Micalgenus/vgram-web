@@ -279,6 +279,116 @@ module.exports = {
       }
    ],
 
+
+   //------------------------------------------
+   // user_post_like_relationships table
+   //------------------------------------------
+   user_post_like_relationships: [
+      {
+         user_id: 1,
+         post_id: 1
+      },
+      {
+         user_id: 2,
+         post_id: 1
+      },
+      {
+         user_id: 3,
+         post_id: 1
+      },
+      {
+         user_id: 4,
+         post_id: 1
+      },
+      {
+         user_id: 5,
+         post_id: 1
+      },
+      {
+         user_id: 6,
+         post_id: 1
+      },
+      {
+         user_id: 7,
+         post_id: 1
+      },
+      {
+         user_id: 8,
+         post_id: 1
+      },
+      {
+         user_id: 9,
+         post_id: 1
+      },
+      {
+         user_id: 10,
+         post_id: 1
+      },
+      {
+         user_id: 1,
+         post_id: 2
+      },
+      {
+         user_id: 1,
+         post_id: 3
+      }
+   ],
+
+
+   //------------------------------------------
+   // user_user_relationships table
+   //------------------------------------------
+   user_user_relationships: [
+      {
+         user_id: 1,
+         user_target_id: 2
+      },
+      {
+         user_id: 1,
+         user_target_id: 3
+      },
+      {
+         user_id: 1,
+         user_target_id: 4
+      },
+      {
+         user_id: 2,
+         user_target_id: 1
+      },
+      {
+         user_id: 2,
+         user_target_id: 3
+      },
+      {
+         user_id: 3,
+         user_target_id: 4
+      },
+      {
+         user_id: 4,
+         user_target_id: 5
+      },
+      {
+         user_id: 4,
+         user_target_id: 6
+      },
+      {
+         user_id: 4,
+         user_target_id: 7
+      },
+      {
+         user_id: 5,
+         user_target_id: 7
+      },
+      {
+         user_id: 6,
+         user_target_id: 1
+      },
+      {
+         user_id: 7,
+         user_target_id: 2
+      }
+   ],
+
    //------------------------------------------
    // users_metas table
    //------------------------------------------
@@ -543,6 +653,50 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
+            written_device: "web"
+         }
+      },
+      {
+         id: 13,
+         user_id: 10,      // 관리자 작성
+         post_init_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         content: '<p style="text-align: center; ">Hi, HTML Text 이벤트2</p><p style="text-align: center; ">' +
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
+         title: '이벤트1',
+         post_status: 'publish',
+         post_modified_date: '2017-01-25 00:00:00',
+         post_modified_date_gmt: '2017-01-25 03:00:00',
+         post_type: 'event',     // 공지사항
+         read_count: 0,
+         like: 0,
+         unlike: 0,
+         locale: 'ko_KR',
+         meta_value: {
+            thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+            thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
+            written_device: "web"
+         }
+      },
+      {
+         id: 14,
+         user_id: 10,      // 관리자 작성
+         post_init_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         content: '<p style="text-align: center; ">Hi, HTML Text 이벤트2</p><p style="text-align: center; ">' +
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
+         title: '이벤트2',
+         post_status: 'publish',
+         post_modified_date: '2017-01-25 00:00:00',
+         post_modified_date_gmt: '2017-01-25 03:00:00',
+         post_type: 'event',     // 공지사항
+         read_count: 0,
+         like: 0,
+         unlike: 0,
+         locale: 'ko_KR',
+         meta_value: {
+            thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+            thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
             written_device: "web"
          }
       }
