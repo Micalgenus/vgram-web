@@ -218,6 +218,7 @@ module.exports = function(app) {
    //=========================
    // 이정현 API 구현 Routes
    //=========================
+
    //공지사항 출력
    authAPI.get('/notice', postsAPIController.viewNotice);
 
@@ -226,6 +227,7 @@ module.exports = function(app) {
 
    //룸세부정보 출력
    authAPI.get('/room/:roomInfoIdx', postsAPIController.viewRoomDetail);
+
    //=========================
   // Member Routes
   //=========================
