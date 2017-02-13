@@ -7,20 +7,20 @@ module.exports = function(sequelize, DataTypes) {
     ID: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
+       primaryKey: true,
+       autoIncrement: true
     },
-    email: {
-      type: DataTypes.STRING(200),
-      allowNull: false,
-      unique: true
-    },
-    password: {
-      type: DataTypes.STRING(200),
-      allowNull: false
-    },
-    member_type: {
-      type: DataTypes.STRING(45),
+     email: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+        unique: true
+     },
+     password: {
+        type: DataTypes.STRING(200),
+        allowNull: false
+     },
+     member_type: {
+        type: DataTypes.STRING(45),
       allowNull: false
     },
     telephone: {

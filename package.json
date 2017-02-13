@@ -5,7 +5,7 @@
   "main": "./bin/www.js",
   "description": "This is a NodeJS Express Sequelize based VR Media Service Web Project.",
   "scripts": {
-    "server:dev": "npm i && node ./bin/www.js",
+    "server:dev": "gulp",
     "server:dev:debug": "npm i && node --debug-brk ./bin/www.js",
     "server:prod": "npm i && NODE_ENV=production forever start ./bin/www.js",
     "server:prod:debug": "npm i && NODE_ENV=production node --debug-brk ./bin/www.js",

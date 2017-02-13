@@ -4,6 +4,8 @@
 var moment = require('moment');
 moment.locale("ko");
 
+var value = require("../utils/staticValue");
+
 module.exports = {
    //------------------------------------------
    // users table
@@ -92,7 +94,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한집"
             },
-            level: 2
+            level: 2,
+            owner_name: "김선호",
+            business_type: value.businessType.LANDLORD,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -114,7 +119,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 2
+            level: 2,
+            owner_name: "김선호1",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -136,7 +144,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 3
+            level: 3,
+            owner_name: "김선호1",
+            business_type: value.businessType.LANDLORD,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -158,7 +169,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 4
+            level: 4,
+            owner_name: "김선호1",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -180,7 +194,10 @@ module.exports = {
                addr1: "전북 전주시 덕진구 백제대로 567",
                addr2: "전북대학교 창업동아리 아늑한친구들"
             },
-            level: 5
+            level: 5,
+            owner_name: "김선호2",
+            business_type: value.businessType.ESTATE_AGENT,
+            intro_comment: "환영합니다 ^^"
          }
       },
       {
@@ -261,6 +278,116 @@ module.exports = {
       }
    ],
 
+
+   //------------------------------------------
+   // user_post_like_relationships table
+   //------------------------------------------
+   user_post_like_relationships: [
+      {
+         user_id: 1,
+         post_id: 1
+      },
+      {
+         user_id: 2,
+         post_id: 1
+      },
+      {
+         user_id: 3,
+         post_id: 1
+      },
+      {
+         user_id: 4,
+         post_id: 1
+      },
+      {
+         user_id: 5,
+         post_id: 1
+      },
+      {
+         user_id: 6,
+         post_id: 1
+      },
+      {
+         user_id: 7,
+         post_id: 1
+      },
+      {
+         user_id: 8,
+         post_id: 1
+      },
+      {
+         user_id: 9,
+         post_id: 1
+      },
+      {
+         user_id: 10,
+         post_id: 1
+      },
+      {
+         user_id: 1,
+         post_id: 2
+      },
+      {
+         user_id: 1,
+         post_id: 3
+      }
+   ],
+
+
+   //------------------------------------------
+   // user_user_relationships table
+   //------------------------------------------
+   user_user_relationships: [
+      {
+         user_id: 1,
+         user_target_id: 2
+      },
+      {
+         user_id: 1,
+         user_target_id: 3
+      },
+      {
+         user_id: 1,
+         user_target_id: 4
+      },
+      {
+         user_id: 2,
+         user_target_id: 1
+      },
+      {
+         user_id: 2,
+         user_target_id: 3
+      },
+      {
+         user_id: 3,
+         user_target_id: 4
+      },
+      {
+         user_id: 4,
+         user_target_id: 5
+      },
+      {
+         user_id: 4,
+         user_target_id: 6
+      },
+      {
+         user_id: 4,
+         user_target_id: 7
+      },
+      {
+         user_id: 5,
+         user_target_id: 7
+      },
+      {
+         user_id: 6,
+         user_target_id: 1
+      },
+      {
+         user_id: 7,
+         user_target_id: 2
+      }
+   ],
+
    //------------------------------------------
    // users_metas table
    //------------------------------------------
@@ -296,7 +423,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글0"
          }
       },
       {
@@ -316,7 +444,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글1"
          }
       },
       {
@@ -336,7 +465,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글2"
          }
       },
       {
@@ -356,7 +486,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글3"
          }
       },
       {
@@ -376,7 +507,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "mobile"      // 모바일 환경에서 작성함
+            written_device: "mobile",      // 모바일 환경에서 작성함
+            secret_note: "비밀메모글4"
          }
       },
       {
@@ -396,7 +528,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "mobile"      // 모바일 환경에서 작성함
+            written_device: "mobile",      // 모바일 환경에서 작성함
+            secret_note: "비밀메모글5"
          }
       },
       {
@@ -416,7 +549,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글7"
          }
       },
       {
@@ -436,7 +570,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글9"
          }
       },
       {
@@ -456,7 +591,8 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
-            written_device: "web"
+            written_device: "web",
+            secret_note: "비밀메모글9"
          }
       },
       {
@@ -516,6 +652,50 @@ module.exports = {
          unlike: 0,
          locale: 'ko_KR',
          meta_value: {
+            written_device: "web"
+         }
+      },
+      {
+         id: 13,
+         user_id: 10,      // 관리자 작성
+         post_init_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         content: '<p style="text-align: center; ">Hi, HTML Text 이벤트2</p><p style="text-align: center; ">' +
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
+         title: '이벤트1',
+         post_status: 'publish',
+         post_modified_date: '2017-01-25 00:00:00',
+         post_modified_date_gmt: '2017-01-25 03:00:00',
+         post_type: 'event',     // 공지사항
+         read_count: 0,
+         like: 0,
+         unlike: 0,
+         locale: 'ko_KR',
+         meta_value: {
+            thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+            thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
+            written_device: "web"
+         }
+      },
+      {
+         id: 14,
+         user_id: 10,      // 관리자 작성
+         post_init_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         content: '<p style="text-align: center; ">Hi, HTML Text 이벤트2</p><p style="text-align: center; ">' +
+         'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>',
+         title: '이벤트2',
+         post_status: 'publish',
+         post_modified_date: '2017-01-25 00:00:00',
+         post_modified_date_gmt: '2017-01-25 03:00:00',
+         post_type: 'event',     // 공지사항
+         read_count: 0,
+         like: 0,
+         unlike: 0,
+         locale: 'ko_KR',
+         meta_value: {
+            thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+            thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
             written_device: "web"
          }
       }

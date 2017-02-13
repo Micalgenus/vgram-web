@@ -44,7 +44,13 @@ module.exports = function(testDB) {
        log.debug('---10---- \n Create Test Database : user_post_relationships');
        return models.user_post_relationships.bulkCreate(testDB.user_post_relationships);
     }).then(function () {
-       log.debug('---11---- \n Create Test Database : hash_table');
+       log.debug('---11---- \n Create Test Database : user_user_relationships');
+       return models.user_user_relationships.bulkCreate(testDB.user_user_relationships);
+    }).then(function () {
+       log.debug('---12---- \n Create Test Database : user_post_like_relationships');
+       return models.user_post_like_relationships.bulkCreate(testDB.user_post_like_relationships);
+    }).then(function () {
+       log.debug('---13---- \n Create Test Database : hash_table');
        return models.hash_table.bulkCreate(testDB.hash_table);
     }).then(function () {
        log.debug('Complete create Test Database');
