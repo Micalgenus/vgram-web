@@ -22,7 +22,7 @@ exports.viewNotice = function (req, res) {
       pageSize = _.toNumber(req.query.pageSize);
       pageStartIndex = _.toNumber(req.query.pageStartIndex);
    }
-
+   //공지사항 조회
    return models.sequelize.query("select u.email, u.display_name, p.* " +
       "from users as u, posts as p where u.ID = p.user_id and p.post_type = 'notice' limit ?,?",
       {replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT}

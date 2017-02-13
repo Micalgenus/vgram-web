@@ -191,7 +191,7 @@ module.exports = function(app) {
   apiRoutes.use('/', authAPI);
   webRoutes.use('/auth', authView);
 
-  //호세요청 api
+  //유저 모든정보 출력 api
   authAPI.post('/info', AuthAPIController.info);
 
   // Login route

@@ -81,7 +81,7 @@ exports.register = function(req, res, next) {
    if (member_type ==='BUSINESS' && !telephone) {
       return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
    }
-
+   //이메일로 조회
    return users.findOne({
       where: {
          email: email
@@ -244,20 +244,21 @@ exports.modifyInfo = function(req, res, next) {
    let user_info = {};
 
    let token = req.headers['authorization'];
-
+   //토큰 확인
    if (!token) {
       return res.status(400).json({
          errorMsg: 'Do not have a token',
          statusCode: -1
       })
    }
-
+   //이메일 확인
    if (!email) {
       return res.status(400).json({
          errorMsg: 'You must enter an email address.',
          statusCode: -1
       });
    }
+
    //없을때 null로 초기화
    if (telephone === undefined) {
       telephone = null;
@@ -268,6 +269,7 @@ exports.modifyInfo = function(req, res, next) {
    if (profile_image_path === undefined) {
       profile_image_path = null;
    }
+
    //새로운 패스워드가 없으면 비밀번호는 변경하지 않는다.
    if (new_password === undefined || new_password === null || new_password.length <= 0) {
       user_info = {
@@ -345,7 +347,7 @@ exports.modifyInfo = function(req, res, next) {
 
 
 //========================================
-// Forgot Password Route
+// Forgot Password Route   - 예전에 있던거 가져옴
 //========================================
 exports.forgotPassword = function (req, res, next) {
    const email = req.body.email;
