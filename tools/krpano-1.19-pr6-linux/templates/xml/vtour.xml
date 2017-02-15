@@ -1,6 +1,6 @@
 ﻿<krpano version="1.19" title="Virtual Tour">
   <security>
-    <crossdomainxml url="http://localhost:3001/config/crossdomain.xml" />
+    <crossdomainxml url="config/crossdomain.xml" />
     <allowdomain domain="*" />
   </security>
 
