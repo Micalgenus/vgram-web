@@ -4,6 +4,8 @@ var gulp = require('gulp'),
   plumber = require('gulp-plumber'),
   livereload = require('gulp-livereload'),
   env = require('gulp-env'),
+  rename = require("gulp-rename"),
+  uglify = require('gulp-uglify'),
 
 //   sass = require('gulp-sass'),
   less = require('gulp-less'),
@@ -37,7 +39,7 @@ gulp.task('minify-less', function () {
       console.log(details.name + ': ' + details.stats.originalSize);
       console.log(details.name + ': ' + details.stats.minifiedSize);
     }))
-    .rename({suffix: '.min'})
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('./public/css'));
 });
 

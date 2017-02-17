@@ -99,8 +99,6 @@ if (app.get('env') === 'development') {
   // app.use(express.logger('dev'));    // 3.X 버전에서만 실행되고 4.X 버전에서는 에러 발생.
   app.use(morgan('dev'));   // 고로, 4.X 버전에서는 morgan을 사용해야 함. logger와 같은 역할
   app.use(errorhandler());
-
-  app.use('/tests/images', express.static(__dirname + '/tests/images'));
 }
 
 // Import routes to be served
