@@ -3,7 +3,7 @@
 <head>
    <% include ../static/head.ejs %>
 </head>
-<body ng-app="bingle" ng-controller="root">
+<body>
 
 <!-- PRELOADER -->
 <div id="preloader">
@@ -16,7 +16,7 @@
 <!-- END / PRELOADER -->
 
 <!-- PAGE WRAP -->
-<div id="page-wrap" ng-controller="index">
+<div id="page-wrap">
    <!-- HEADER -->
    <%include ../addon/header.ejs%>
 </div>
@@ -151,7 +151,7 @@
 
 <!--사업자 회원일때 전화번호 입력창 뜨게 하기-->
 <script>
-  
+
   $("#normal-form-member").click(function() {
     $("#business-input").hide();
   });
@@ -159,7 +159,7 @@
   $("#business-form-member").click(function() {
     $("#business-input").show();
   });
-  
+
 </script>
 
 <% //include ../addon/component.ejs%>

@@ -34,10 +34,13 @@ frond-end 패키지 추가 할 때 : bower install [package-name] [--save|--save
 ###2. Image Server 부팅(리사이징)
 `https://github.com/tripviss/image-resizer`
 
-개발시 : cd image-resizer -> npm install & npm run start 
+개발시 : npm install --global --production windows-build-tools -> cd image-resizer -> npm install & npm run start 
+
 배포시 : forever나 pm2 이용 --type prod production
 
 `port : 3003번, file path : /resources, ".env"를 통하여 각종 설정을 바꿀 수 있음(image-resizer github 참고)`
+
+설치 에러 발생시(error C2373) : https://github.com/nodejs/node-gyp/issues/972 ->  참고('npm -g install npm@next')
 
 
 **주의사항 : media 파일만 가져올 수 있다, attached, vtour형식의 파일은 Main Server에서 로딩해야 한다**
