@@ -1029,7 +1029,9 @@ var SEMICOLON = SEMICOLON || {};
 
 			if( !$body.hasClass('sticky-footer') && $footer.length > 0 && $wrapper.has('#footer') ) {
 				if( windowH > wrapperH ) {
-					$footer.css({ 'margin-top': ( windowH - wrapperH ) });
+				   /*
+				   * footer 수정 17.2.13*/
+					//$footer.css({ 'margin-top': ( windowH - wrapperH ) });
 				}
 			}
 		},

@@ -2,415 +2,312 @@
 <html lang="ko">
 
 
-
 <head>
    <% include ../static/head.ejs %>
 </head>
 
+<body>
 
+<% include ../addon/header.ejs %>
 
-<body class="stretched">
-<div id="wrapper" class="clearfix">
+<section id="content">
+   <div class="content-wrap">
+      <div class="container clearfix">
 
-
-
-   <header>
-      <!-- HEADER -->
-      <% include ../addon/header.ejs %>
-
-      <!-- slider
-             ============================================= -->
-      <section id="slider" class="slider-parallax swiper_wrapper clearfix">
-         <div class="slider-parallax-inner">
-            <div class="swiper-container swiper-parent">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide dark"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/1.jpg');">
-                     <div class="container clearfix">
-                        <div class="slider-caption slider-caption-center">
-                           <h2 data-caption-animate="fadeInUp">Welcome to Cozyhouzz</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">아늑한 집 &amp; 360vr을 통한 강력한 홍보</p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="swiper-slide dark"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/1.jpg');">
-                     <div class="container clearfix">
-                        <div class="slider-caption slider-caption-center">
-                           <h2 data-caption-animate="fadeInUp">Beautifully Flexible</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">Looks beautiful &amp; ultra-sharp
-                              on
-                              Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted
-                              to
-                              any
-                              screen size.</p>
-                        </div>
-                     </div>
-                     <!--<div class="video-wrap">
-                        <video poster="images/videos/explore.jpg" preload="auto" loop autoplay muted>
-                           <source src='images/videos/explore.mp4' type='video/mp4' />
-                           <source src='images/videos/explore.webm' type='video/webm' />
-                        </video>
-                        <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>-->
-                  </div>
-                  <div class="swiper-slide"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/3.jpg'); background-position: center top;">
-                     <div class="container clearfix">
-                        <div class="slider-caption">
-                           <h2 data-caption-animate="fadeInUp">Great Performance</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">You'll be surprised to see the
-                              Final
-                              Results of your Creation &amp; would crave for more.</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
-               <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
-               <div id="slide-number">
-                  <div id="slide-number-current"></div>
-                  <span>/</span>
-                  <div id="slide-number-total"></div>
-               </div>
-            </div>
-         </div>
-      </section>  <!-- slider -->
-   </header>
-
-
-
-   <!-- Content
+         <!-- Contact Form Overlay
          ============================================= -->
-   <section id="content">
+         <div id="contact-form-ove\rlay" class="clearfix">
 
-      <div class="content-wrap">
-         <div class="promo promo-light promo-full bottommargin-lg header-stick notopborder">
-            <div class="container clearfix">
-               <h3>아늑한 집을 통해 <span>안락하고 편한 자신만의</span> 집을 구하세요. <span>1:1 상담가능</span></h3>
-               <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
-               <a href="#" class="button button-dark button-xlarge button-rounded">Start</a>
+            <div class="fancy-title title-dotted-border">
+               <h3>방정보 입력</h3>
+               <!--   <small> *는 필수입력 입니다.</small>-->
             </div>
-         </div>
-      </div>
 
+            <div class="contact-widiget">
 
-      <!--<div class="promo parallax promo-full bottommargin-lg" style="background-image: url('images/parallax/3.jpg');"
-           data-stellar-background-ratio="0.4">
-         <div class="container clearfix">
-            <h3>여러분의 <span>일상과 안식처</span>를 위해 노력하겠습니다. <span>아늑한집(cozyhouzz)</span></h3>
-            <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
-            &lt;!&ndash;<a routerLink="/consultingCounsel" class="button button-3d button-xlarge button-rounded button-amber">무료상담
-               바로가기</a>&ndash;&gt;
-         </div>
-      </div>
-      <div class="clear"></div>-->
+               <div class="contact-form-result"></div>
 
+               <!-- Contact Form
+               ============================================= -->
+               <form (submit)="addRoomInfo($event, title.value, deposit.value, roomType.value, monthlyRentFee.value,
+                previewImage, VRImage,
+                 floor.value, manageExpense.value, manageService.value, areaSize.value, actualSize.value, parking.value, elevator.value,
+                      supplyOption.value, HTMLText.value, addressPostCode.value, address.value, addressDetail.value, addressExtraInfo.value, locationInfo.value, regionCategory.value)"
+                     class="nobottommargin" id="roominfo-inputform" name="roominfo-inputform" method="post"
+                     enctype="multipart/form-data">
+                  <!--제목-->
 
-
-      <!-- roominfo
-    ============================================= -->
-      <div class="promo nopadding promo-center bottommargin-sm">
-         <div class="container clearfix">
-            <h3>아늑한 집은<span>전라북도 지역중심으로</span>서비스 진행중입니다.<span>support@canvas.com</span></h3>
-            <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
-         </div>
-      </div>
-
-      <div class="content-wrap">
-         <div class="container clearfix">
-
-            <div class="col_one_third bottommargin-lg">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/군산.jpg" alt="Image">
+                  <div class="col_full">
+                     <label for="roominfo-title">제목
+                        <small>*</small>
+                     </label>
+                     <input type="text" #title id="roominfo-title" name="roominfo-title" value=""
+                            class="sm-form-control"
+                            required/>
                   </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
 
-            <div class="col_one_third bottommargin-lg">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/전주.jpg" alt="Image">
-                  </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
+                  <div class="clear"></div>
 
-            <div class="col_one_third bottommargin-lg col_last">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/익산.jpg" alt="Image">
-                  </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
+                  <!--방 주소-->
 
-            <div class="col_one_third bottommargin-lg">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/군산.jpg" alt="Image">
-                  </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
+                  <div>
+                     <label for="postcode">
+                        <small>*</small>
+                        주소</label>
+                     <div>
+                        <div class="col_one_fourth">
+                           <input type="text" #addressPostCode class="sm-form-control postcodify_postcode5"
+                                  id="postcode"
+                                  placeholder="우편번호" required readonly>
+                        </div>
 
-            <div class="col_one_third bottommargin-lg">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/전주.jpg" alt="Image">
-                  </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
+                        <div class="col_one_fourth">
+                           <button class="button button-border button-rounded button-amber" type="button" name="search"
+                                   id="postcodify_search_button" value="검색">검색
+                           </button>
+                           <br/>
+                        </div>
 
-            <div class="col_one_third bottommargin-lg col_last">
-               <div class="feature-box center media-box fbox-bg">
-                  <div class="fbox-media">
-                     <img src="../../../assets/images/shop/banners/익산.jpg" alt="Image">
-                  </div>
-                  <div class="fbox-desc">
-                     <p><a (click)="gotCity(3)" class="button button-large button-rounded">방 구하기</a></p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div> <!-- roominfo -->
+                        <div class="clear"></div>
 
-
-
-      <!-- Portfolio Items
-          ============================================= -->
-      <div class="section notopmargin noborder nobottommargin">
-         <div class="container clearfix">
-            <div class="heading-block center nobottommargin">
-               <h2>Our Awesome Works</h2>
-               <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, earum!</span>
-            </div>
-         </div>
-      </div>
-
-      <div id="portfolio" class="portfolio grid-container portfolio-nomargin portfolio-notitle portfolio-full clearfix">
-
-         <article class="portfolio-item pf-media pf-icons">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/1.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-               <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-            </div>
-         </article>
-
-         <article class="portfolio-item pf-illustrations">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/2.jpg" alt="Locked Steel Gate">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/2.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-               <span><a href="#">Illustrations</a></span>
-            </div>
-         </article>
-
-         <article class="portfolio-item pf-graphics pf-uielements">
-            <div class="portfolio-image">
-               <a href="#">
-                  <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="http://vimeo.com/89396394" class="left-icon" data-lightbox="iframe"><i
-                        class="icon-line-play"></i></a>
-                  <a href="portfolio-single-video.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
-               <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
-            </div>
-         </article>
-
-         <article class="portfolio-item pf-icons pf-illustrations">
-            <div class="portfolio-image">
-               <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
-                  <div class="flexslider">
-                     <div class="slider-wrap">
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/4.jpg"
-                                                                                        alt="Morning Dew"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/4-1.jpg"
-                                                                                        alt="Morning Dew"></a></div>
+                        <div class="col_half">
+                           <input class="sm-form-control postcodify_address" type="text" #address id="address"
+                                  placeholder="주소" readonly required>
+                        </div>
+                        <div class="col_half col_last">
+                           <input class="sm-form-control postcodify_details" type="text" #addressDetail id="details"
+                                  placeholder="상세주소">
+                        </div>
+                        <div class="col_half col_last">
+                           <input class="sm-form-control postcodify_extra_info" type="text" #addressExtraInfo
+                                  id="extraInfo" placeholder="참고항목">
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="portfolio-overlay" data-lightbox="gallery">
-                  <a href="images/portfolio/full/4.jpg" class="left-icon" data-lightbox="gallery-item"><i
-                        class="icon-line-stack-2"></i></a>
-                  <a href="images/portfolio/full/4-1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="portfolio-single-gallery.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-gallery.html">Morning Dew</a></h3>
-               <span><a href="#"><a href="#">Icons</a>, <a href="#">Illustrations</a></span>
-            </div>
-         </article>
 
-         <article class="portfolio-item pf-uielements pf-media">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/5.jpg" alt="Console Activity">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/5.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Console Activity</a></h3>
-               <span><a href="#">UI Elements</a>, <a href="#">Media</a></span>
-            </div>
-         </article>
+                  <div class="clear"></div>
 
-         <article class="portfolio-item pf-graphics pf-illustrations">
-            <div class="portfolio-image">
-               <div class="fslider" data-arrows="false">
-                  <div class="flexslider">
-                     <div class="slider-wrap">
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-1.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-2.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-3.jpg"
-                                                                                        alt="Shake It"></a></div>
+                  <!--방구조-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-service">
+                        <small>*</small>
+                        방구조</label>
+                     <select #roomType id="template-contactform-service" name="roomType" class="sm-form-control"
+                             required>
+                        <option *ngFor="let item of roomTypes | keys" [value]="item.value.number">{{item.value.name}}
+                        </option>
+                     </select>
+                  </div>
+
+                  <div class="clear"></div>
+
+
+                  <!--VR 이미지 / 대표 이미지-->
+                  <div class="col_full">
+                     <label for="roomInfoInput-mainPreviewImage">미리보기 이미지
+                        <small>*</small>
+                     </label>
+                     <input type="file" #previewImage id="roomInfoInput-mainPreviewImage"
+                            name="roomInfoInput-mainPreviewImage" value="" class="required sm-form-control" required/>
+
+                     <label for="roomInfoInput-VRImages">VR 이미지
+                        <small>*</small>
+                     </label>
+                     <input type="file" #VRImage id="roomInfoInput-VRImages" name="roomInfoInput-VRImages" value=""
+                            class="required sm-form-control" multiple required/>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--보증금-->
+                  <div class="col_half">
+                     <label for="template-contactform-deposit">보증금</label>
+                     <div class="input-group">
+                        <input type="number" #deposit id="template-contactform-deposit"
+                               name="template-contactform-deposit"
+                               value="" placeholder="만원" class="sm-form-control"/>
+                        <span class="input-group-addon">만원</span>
                      </div>
                   </div>
-               </div>
-               <div class="portfolio-overlay" data-lightbox="gallery">
-                  <a href="images/portfolio/full/6.jpg" class="left-icon" data-lightbox="gallery-item"><i
-                        class="icon-line-stack-2"></i></a>
-                  <a href="images/portfolio/full/6-1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="images/portfolio/full/6-2.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="images/portfolio/full/6-3.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="portfolio-single-gallery.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
+
+                  <div class="clear"></div>
+
+                  <!--월세-->
+                  <div class="col_half">
+                     <label for="template-contactform-monthlyRentFee">월세</label>
+                     <div class="input-group">
+                        <input type="number" #monthlyRentFee id="template-contactform-monthlyRentFee"
+                               name="template-contactform-monthlyRentFee" value="" placeholder="만원"
+                               class="sm-form-control"/>
+                        <span class="input-group-addon">만원</span>
+                     </div>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--관리비-->
+                  <div class="col_half">
+                     <label for="template-contactform-manageExpense">관리비</label>
+                     <div class="input-group">
+                        <input type="number" #manageExpense id="template-contactform-manageExpense"
+                               name="template-contactform-manageExpense" value="" placeholder="만원"
+                               class="sm-form-control"/>
+                        <span class="input-group-addon">만원</span>
+                     </div>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--관리비 포함항목-->
+
+                  <div class="col_full">
+                     <label for="template-contactform-manageService">관리비 포함항목</label>
+                     <input type="text" #manageService id="template-contactform-manageService"
+                            name="template-contactform-manageService" value="" class="sm-form-control"/>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--크기-->
+
+                  <div class="col_half">
+                     <label for="template-contactform-areaSize">방 크기</label>
+                     <div class="input-group">
+                        <input type="number" #areaSize id="template-contactform-areaSize"
+                               name="template-contactform-areaSize" value="" class="sm-form-control"/>
+                        <span class="input-group-addon">평</span>
+                     </div>
+                  </div>
+
+                  <!--실제 크기-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-actualSize">실제 크기</label>
+                     <div class="input-group">
+                        <input type="number" #actualSize id="template-contactform-actualSize"
+                               name="template-contactform-actualSize" value="" class="sm-form-control"/>
+                        <span class="input-group-addon">평</span>
+                     </div>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--주차-->
+                  <div class="col_half">
+                     <label for="template-contactform-service">주차장 여부</label>
+                     <select #parking id="template-contactform-service" name="buildType" class="sm-form-control">
+                        <option *ngFor="let item of existed | enumKeys" [value]="item.key">{ &>
+                           <& {item.value} &>
+                           <& } &>
+                        </option>
+                     </select>
+                  </div>
+
+                  <!--엘레베이터-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-service">엘리베이터 여부</label>
+                     <select #elevator id="template-contactform-service" name="buildType" class="sm-form-control">
+                        <option ngFor="let item of existed | enumKeys" [value]="item.key">{{item.value}}</option>
+                     </select>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--층수-->
+                  <div class="col_half">
+                     <label for="template-contactform-floor">층수</label>
+                     <input type="number" #floor id="template-contactform-floor" name="template-contactform-floor"
+                            value="{{currentFloor}}" class="sm-form-control"/>
+                  </div>
+
+                  <!--지역 태그-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-tag">지역 태그</label>
+                     <input type="text" #regionCategory id="template-contactform-tag" name="template-contactform-tag"
+                            class="sm-form-control"/>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--옵션-->
+
+                  <div class="col_full">
+                     <label for="template-contactform-supplyOption">옵션</label>
+                     <input type="text" #supplyOption id="template-contactform-supplyOption"
+                            name="template-contactform-supplyOption" placeholder="ex. 에어컨, 침대" value=""
+                            class="sm-form-control"/>
+                  </div>
+
+                  <div class="clear"></div>
+
+
+                  <!--건물정보-->
+
+                  <div class="col_full">
+                     <label for="template-contactform-locationInfo">건물정보
+                        <small>*</small>
+                     </label>
+                     <input type="text" #locationInfo id="template-contactform-locationInfo"
+                            name="template-contactform-locationInfo" value="" class="required sm-form-control"/>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--입주 가능일-->
+
+                  <div class="col_half">
+                     <label for="template-contactform-availableDate">입주 가능일</label>
+                     <input type="date" #availableDate id="template-contactform-availableDate"
+                            name="template-contactform-availableDate" value="" class="sm-form-control"/>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <!--상세설명-->
+
+                  <div class="col_full">
+                     <!-- summernote -->
+                     <div class="col_full">
+                        <label for="template-contactform">상세설명 </label>
+                        <div class="summernote-theme-1" rows="6" cols="30">
+                           <div #HTMLText class="summernote"></div>
+                        </div>
+                        <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
+                     </div>
+                     <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
+                  </div>
+
+                  <div class="col_full hidden">
+                     <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value=""
+                            class="sm-form-control"/>
+                  </div>
+
+                  <div class="col_full">
+                     <recaptcha required (resolved)="resolvedCaptcha($event)"
+                                siteKey="6LcLPwsUAAAAAOqysXiEPmdSpjwTDUUCmL6LiJez"></recaptcha>
+                  </div>
+
+                  <div class="col_full">
+                     <button class="button button-3d nomargin" type="submit" id="template-contactform-submit"
+                             name="template-contactform-submit" value="submit">확인
+                     </button>
+                     <button type="reset" class="button button-3d nomargin">취소</button>
+                  </div>
+               </form>
             </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-gallery.html">Shake It!</a></h3>
-               <span><a href="#">Illustrations</a>, <a href="#">Graphics</a></span>
-            </div>
-         </article>
-
-         <article class="portfolio-item pf-uielements pf-icons">
-            <div class="portfolio-image">
-               <a href="portfolio-single-video.html">
-                  <img src="images/portfolio/4/7.jpg" alt="Backpack Contents">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="http://www.youtube.com/watch?v=kuceVNBTJio" class="left-icon" data-lightbox="iframe"><i
-                        class="icon-line-play"></i></a>
-                  <a href="portfolio-single-video.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-video.html">Backpack Contents</a></h3>
-               <span><a href="#">UI Elements</a>, <a href="#">Icons</a></span>
-            </div>
-         </article>
-
-         <article class="portfolio-item pf-graphics">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/8.jpg" alt="Sunset Bulb Glow">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/8.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Sunset Bulb Glow</a></h3>
-               <span><a href="#">Graphics</a></span>
-            </div>
-         </article>
-
-      </div> <!-- portfolio -->
+            <div class="line"></div>
+         </div><!-- Contact Form Overlay End -->
+      </div>
+   </div>
+</section>
 
 
-
-      <!-- app advertisement
-             ============================================= -->
-      <div class="section notopmargin nobottommargin">
-         <div class="container clearfix">
-
-            <div class="col_half nobottommargin topmargin-lg">
-
-               <img src="images/appshowcase/iphone-solid.png" alt="Image" class="center-block">
-
-            </div>
-
-            <div class="col_half nobottommargin topmargin-lg col_last">
-
-               <div class="heading-block topmargin-lg">
-                  <h2>Typically Responsive</h2>
-                  <span>Our App scales beautifully to different Devices.</span>
-               </div>
-
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet cumque, perferendis accusamus porro
-                  illo exercitationem molestias, inventore obcaecati ut omnis voluptatibus ratione odio amet magnam
-                  quidem tempore necessitatibus quaerat, voluptates excepturi voluptatem, veritatis qui temporibus.</p>
-
-               <a href="#" class="button button-border button-rounded button-large button-dark noleftmargin">View
-                  Gallery</a>
-            </div>
-         </div>
-      </div> <!-- advertisement -->
-
-
-
-   </section>  <!-- content section -->
-</div>  <!-- wrapper.clearfix -->
-
-
-
-
-<footer>
-   <!-- FOOTER -->
-   <% include ../addon/footer.ejs %>
-</footer>
-
+<!-- FOOTER -->
+<% include ../addon/footer.ejs %>
 
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
 
 <div id="gotoTop" class="icon-angle-up"></div>
-
 
 
 </body>

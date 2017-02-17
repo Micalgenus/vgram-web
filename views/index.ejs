@@ -9,73 +9,216 @@
 
 
 
-<body class="stretched">
+<body class="stretched side-push-panel">
+
+
 <div id="wrapper" class="clearfix">
 
 
 
-   <header>
       <!-- HEADER -->
-      <% include addon/header.ejs %>
+    <!--  <% include addon/header.ejs %>-->
 
-      <!-- slider
-             ============================================= -->
-      <section id="slider" class="slider-parallax swiper_wrapper clearfix">
-         <div class="slider-parallax-inner">
-            <div class="swiper-container swiper-parent">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide dark"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/1.jpg');">
-                     <div class="container clearfix">
-                        <div class="slider-caption slider-caption-center">
-                           <h2 data-caption-animate="fadeInUp">Welcome to Cozyhouzz</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">아늑한 집 &amp; 360vr을 통한 강력한 홍보</p>
+
+      <!-- Slider
+		============================================= -->
+   <section id="slider" class="force-full-screen full-screen dark clearfix">
+
+      <div class="force-full-screen full-screen">
+         <div class="fslider" data-speed="3000" data-pause="7500" data-animation="fade" data-arrows="false"
+              data-pagi="false"
+              style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: #333; z-index: 1;">
+            <div class="flexslider" style="height: 100% !important;">
+               <div class="slider-wrap" style="height: inherit;">
+                  <div class="slide" style="background: url('/lib/js-canvas/demos/real-estate/images/hero/3.jpg') center center; background-size: cover; height: 100% !important;"></div>
+                  <div class="slide" style="background: url('/lib/js-canvas/demos/real-estate/images/hero/4.jpg') center center; background-size: cover; height: 100% !important;"></div>
+                  <div class="slide" style="background: url('/lib/js-canvas/demos/real-estate/images/hero/5.jpg') center center; background-size: cover; height: 100% !important;"></div>
+                  <div id="side-panel">
+                     <div id="side-panel-trigger-close" class="side-panel-trigger"><a href="#"><i class="icon-line-cross"></i></a></div>
+                     <div class="side-panel-wrap">
+                        <div class="widget clearfix">
+                           <h4 class="t400">Login with Social Profiles</h4>
+                           <a href="#" class="button button-rounded t400 btn-block center si-colored noleftmargin si-facebook">Facebook</a>
+                           <a href="#" class="button button-rounded t400 btn-block center si-colored noleftmargin si-gplus">Google</a>
+                           <div class="line"></div>
+                           <h4 class="t400">Existing Account?</h4>
+                           <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+                              <div class="col_full">
+                                 <label for="login-form-username" class="t400">Username:</label>
+                                 <input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"/>
+                              </div>
+                              <div class="col_full">
+                                 <label for="login-form-password" class="t400">Password:</label>
+                                 <input type="password" id="login-form-password" name="login-form-password" value="" class="form-control"/>
+                              </div>
+                              <div class="col_full nobottommargin">
+                                 <button class="button button-rounded t400 nomargin" id="login-form-submit" name="login-form-submit" value="login">Login
+                                 </button>
+                                 <a href="#" class="fright">Forgot Password?</a>
+                              </div>
+                           </form>
                         </div>
                      </div>
                   </div>
-                  <div class="swiper-slide dark"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/1.jpg');">
-                     <div class="container clearfix">
-                        <div class="slider-caption slider-caption-center">
-                           <h2 data-caption-animate="fadeInUp">Beautifully Flexible</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">Looks beautiful &amp; ultra-sharp
-                              on
-                              Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted
-                              to
-                              any
-                              screen size.</p>
-                        </div>
-                     </div>
-                     <!--<div class="video-wrap">
-                        <video poster="images/videos/explore.jpg" preload="auto" loop autoplay muted>
-                           <source src='images/videos/explore.mp4' type='video/mp4' />
-                           <source src='images/videos/explore.webm' type='video/webm' />
-                        </video>
-                        <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>-->
-                  </div>
-                  <div class="swiper-slide"
-                       style="background-image: url('lib/js-canvas/images/slider/swiper/3.jpg'); background-position: center top;">
-                     <div class="container clearfix">
-                        <div class="slider-caption">
-                           <h2 data-caption-animate="fadeInUp">Great Performance</h2>
-                           <p data-caption-animate="fadeInUp" data-caption-delay="200">You'll be surprised to see the
-                              Final
-                              Results of your Creation &amp; would crave for more.</p>
-                        </div>
-                     </div>
+                  <div class="slide" style="background: url('lib/js-canvas/demos/real-estate/images/hero/5.jpg') center center; background-size: cover; height: 100% !important;"></div>
+               </div>
+            </div>
+            <div class="vertical-middle" style="z-index: 3;">
+               <div class="container center clearfix">
+                  <div class="emphasis-title nomargin">
+                     <h1>Your Dream Home.</h1>
+                     <span class="t300 uppercase"
+                           style="font-size: 18px; letter-spacing: 10px; color: rgba(255,255,255,0.9);">A Few Clicks Away.</span>
                   </div>
                </div>
-               <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
-               <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
-               <div id="slide-number">
-                  <div id="slide-number-current"></div>
-                  <span>/</span>
-                  <div id="slide-number-total"></div>
+            </div>
+            <div class="video-wrap" style="position: absolute; top: 0; left: 0; height: 100%; z-index:1;">
+               <div class="video-overlay real-estate-video-overlay" style="z-index: 1;"></div>
+            </div>
+         </div>
+      </div>
+   </section><!-- #slider end -->
+
+
+      <div class="tabs advanced-real-estate-tabs clearfix">
+
+         <div class="container clearfix">
+            <ul class="tab-nav clearfix">
+               <li><a href="#tab-properties" data-scrollto="#tab-properties" data-offset="133">Search Properties</a></li>
+            </ul>
+         </div>
+
+         <div class="tab-container">
+            <div class="container clearfix">
+               <div class="tab-content clearfix" id="tab-properties">
+                  <form action="#" method="post" class="nobottommargin">
+                     <div class="row">
+                        <div class="col-md-2 col-sm-12 bottommargin-sm">
+                           <label for="" style="display:block;">Type</label>
+                           <input class="bt-switch" type="checkbox" checked data-on-text="Buy" data-off-text="Rent" data-on-color="themecolor" data-off-color="themecolor">
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                           <label for="">Choose Locations</label>
+                           <select class="selectpicker form-control" multiple data-live-search="true" data-size="6" style="width:100%;">
+                              <optgroup label="Alaskan/Hawaiian Time Zone">
+                                 <option value="AK">Alaska</option>
+                                 <option value="HI">Hawaii</option>
+                              </optgroup>
+                              <optgroup label="Pacific Time Zone">
+                                 <option value="CA">California</option>
+                                 <option value="NV">Nevada</option>
+                                 <option value="OR">Oregon</option>
+                                 <option value="WA">Washington</option>
+                              </optgroup>
+                              <optgroup label="Mountain Time Zone">
+                                 <option value="AZ">Arizona</option>
+                                 <option value="CO">Colorado</option>
+                                 <option value="ID">Idaho</option>
+                                 <option value="MT">Montana</option>
+                                 <option value="NE">Nebraska</option>
+                                 <option value="NM">New Mexico</option>
+                                 <option value="ND">North Dakota</option>
+                                 <option value="UT">Utah</option>
+                                 <option value="WY">Wyoming</option>
+                              </optgroup>
+                              <optgroup label="Central Time Zone">
+                                 <option value="AL">Alabama</option>
+                                 <option value="AR">Arkansas</option>
+                                 <option value="IL">Illinois</option>
+                                 <option value="IA">Iowa</option>
+                                 <option value="KS">Kansas</option>
+                                 <option value="KY">Kentucky</option>
+                                 <option value="LA">Louisiana</option>
+                                 <option value="MN">Minnesota</option>
+                                 <option value="MS">Mississippi</option>
+                                 <option value="MO">Missouri</option>
+                                 <option value="OK">Oklahoma</option>
+                                 <option value="SD">South Dakota</option>
+                                 <option value="TX">Texas</option>
+                                 <option value="TN">Tennessee</option>
+                                 <option value="WI">Wisconsin</option>
+                              </optgroup>
+                              <optgroup label="Eastern Time Zone">
+                                 <option value="CT">Connecticut</option>
+                                 <option value="DE">Delaware</option>
+                                 <option value="FL">Florida</option>
+                                 <option value="GA">Georgia</option>
+                                 <option value="IN">Indiana</option>
+                                 <option value="ME">Maine</option>
+                                 <option value="MD">Maryland</option>
+                                 <option value="MA">Massachusetts</option>
+                                 <option value="MI">Michigan</option>
+                                 <option value="NH">New Hampshire</option>
+                                 <option value="NJ">New Jersey</option>
+                                 <option value="NY">New York</option>
+                                 <option value="NC">North Carolina</option>
+                                 <option value="OH">Ohio</option>
+                                 <option value="PA">Pennsylvania</option>
+                                 <option value="RI">Rhode Island</option>
+                                 <option value="SC">South Carolina</option>
+                                 <option value="VT">Vermont</option>
+                                 <option value="VA">Virginia</option>
+                                 <option value="WV">West Virginia</option>
+                              </optgroup>
+                           </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                           <label for="">Property Type</label>
+                           <select class="selectpicker form-control" data-size="6" style="width:100%; line-height: 30px;">
+                              <option value="Any">Any</option>
+                              <optgroup label="Residential">
+                                 <option value="Apartment">Apartment</option>
+                                 <option value="Condo">Condo</option>
+                                 <option value="Villa">Villa</option>
+                                 <option value="Building">Building</option>
+                              </optgroup>
+                              <optgroup label="Commercial">
+                                 <option value="Shop">Shop</option>
+                                 <option value="Office">Office</option>
+                                 <option value="Warehouse">Warehouse</option>
+                              </optgroup>
+                           </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">
+                           <label for="">Beds</label>
+                           <select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5+">5+</option>
+                           </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">
+                           <label for="">Baths</label>
+                           <select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5+">5+</option>
+                           </select>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                           <label for="" style="margin-bottom: 20px !important;">Price Range</label>
+                           <input class="price-range-slider" />
+                        </div>
+                        <div class="clear visible-xs bottommargin-sm"></div>
+                        <div class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+                           <label for="" style="margin-bottom: 20px !important;">Property Area</label>
+                           <input class="area-range-slider" />
+                        </div>
+                        <div class="col-md-offset-1 col-md-2 col-sm-12 clearfix">
+                           <button class="button button-dark button-large button-rounded" style="margin-top: 35px !important;">Search</button>
+                        </div>
+                     </div>
+                  </form>
                </div>
             </div>
          </div>
-      </section>  <!-- slider -->
-   </header>
+      </div>
+
 
 
 
@@ -86,33 +229,87 @@
       <div class="content-wrap">
          <div class="promo promo-light promo-full bottommargin-lg header-stick notopborder">
             <div class="container clearfix">
-               <h3>아늑한 집을 통해 <span>안락하고 편한 자신만의</span> 집을 구하세요. <span>1:1 상담가능</span></h3>
-               <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
-               <a href="#" class="button button-dark button-xlarge button-rounded">Start</a>
+               <h3>청년이 꿈꾸는 집을 통해 <span>안락하고 편한 자신만의</span> 집을 구하세요. <span>1:1 상담가능</span></h3>
+               <span>여러분의 일상과 안식처를 위한 모든 과정 청년이 꿈꾸는 집이 파트너로서 함께 합니다. </span>
+               <a href="#" class="button button-dark button-large button-rounded">Start</a>
             </div>
          </div>
       </div>
+      <div class="clear"></div>
 
-
-      <!--<div class="promo parallax promo-full bottommargin-lg" style="background-image: url('images/parallax/3.jpg');"
-           data-stellar-background-ratio="0.4">
-         <div class="container clearfix">
-            <h3>여러분의 <span>일상과 안식처</span>를 위해 노력하겠습니다. <span>아늑한집(cozyhouzz)</span></h3>
-            <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
-            &lt;!&ndash;<a routerLink="/consultingCounsel" class="button button-3d button-xlarge button-rounded button-amber">무료상담
-               바로가기</a>&ndash;&gt;
-         </div>
-      </div>
-      <div class="clear"></div>-->
+ <div class="container clearfix">
 
 
 
       <!-- roominfo
     ============================================= -->
-      <div class="promo nopadding promo-center bottommargin-sm">
+         <div class="promo promo-dark promo-flat bottommargin-lg">
+                   <h3 class="t400 ls1">Special Offers on Villa Long Term Rentals &amp; Lease Agreements</h3>
+                  <a href="#" class="button button-dark button-large button-rounded">Contact Now</a>
+         </div>
+
+      <div class="row real-estate-properties clearfix">
+
+<!--         <div class="col-md-7">
+            <a href="#" style="background: url('/lib/js-canvas/demos/real-estate/images/cities/4.jpg') no-repeat bottom center; background-size: cover;">
+               <div class="vertical-middle dark center">
+                  <div class="heading-block nomargin noborder">
+                     <h3 class="capitalize t500">California</h3>
+                     <span style="margin-top: 5px; font-size: 17px;">23 Properties</span>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <div class="col-md-5">
+            <a href="#" style="background: url('/lib/js-canvas/demos/real-estate/images/cities/2.jpg') no-repeat center center; background-size: cover;">
+               <div class="vertical-middle dark center">
+                  <div class="heading-block nomargin noborder">
+                     <h3 class="capitalize t500">New York</h3>
+                     <span style="margin-top: 5px; font-size: 17px;">12 Properties</span>
+                  </div>
+               </div>
+            </a>
+         </div>-->
+
+         <div class="col-md-4">
+            <a href="#" style="background: url('/lib/js-canvas/demos/real-estate/images/cities/JJJ.png') no-repeat center center; background-size: cover;">
+               <div class="vertical-middle dark center">
+                  <div class="heading-block nomargin noborder">
+                     <!--<h3 class="capitalize t500">San Francisco</h3>-->
+                    <!-- <span style="margin-top: 5px; font-size: 17px;">8 Properties</span>-->
+                  </div>
+               </div>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <a href="#" style="background: url('/lib/js-canvas/demos/real-estate/images/cities/GGG.png') no-repeat center center; background-size: cover;">
+               <div class="vertical-middle dark center">
+                  <div class="heading-block nomargin noborder">
+                   <!--  <h3 class="capitalize t500">Texas</h3>-->
+                   <!--  <span style="margin-top: 5px; font-size: 17px;">31 Properties</span>-->
+                  </div>
+               </div>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <a href="#" style="background: url('/lib/js-canvas/demos/real-estate/images/cities/KKK.png') no-repeat center center; background-size: cover;">
+               <div class="vertical-middle dark center">
+                  <div class="heading-block nomargin noborder">
+                    <!-- <h3 class="capitalize t500">New Orleans</h3>
+                     <span style="margin-top: 5px; font-size: 17px;">19 Properties</span>-->
+                  </div>
+               </div>
+            </a>
+         </div>
+
+      </div>  <!-- roominfo -->
+    <div class="clear"></div>
+      <!-- roominfo
+    ============================================= -->
+<!--      <div class="promo nopadding promo-center bottommargin-sm">
          <div class="container clearfix">
-            <h3>아늑한 집은<span>전라북도 지역중심으로</span>서비스 진행중입니다.<span>support@canvas.com</span></h3>
-            <span>여러분의 일상과 안식처를 위한 모든 과정 아늑한 집이 파트너로서 함께 합니다. </span>
+            <h3>청년이 꿈꾸는 집은<span>전라북도 지역중심으로</span>서비스 진행중입니다.<span>support@canvas.com</span></h3>
+            <span>여러분의 일상과 안식처를 위한 모든 과정 청년이 꿈꾸는 집이 파트너로서 함께 합니다. </span>
          </div>
       </div>++
 
@@ -185,182 +382,205 @@
                </div>
             </div>
          </div>
-      </div> <!-- roominfo -->
+      </div> --><!-- roominfo -->
 
 
 
-      <!-- Portfolio Items
-          ============================================= -->
-      <div class="section notopmargin noborder nobottommargin">
-         <div class="container clearfix">
-            <div class="heading-block center nobottommargin">
-               <h2>Our Awesome Works</h2>
-               <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, earum!</span>
+      <!-- roominfo
+    ============================================= -->
+
+      <!-- roominfo -->
+
+
+      <!-- portfolio-content
+         ============================================= -->
+    <div class="content-wrap">
+
+      <div class="col_one_third">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-my-house"></i></a>
             </div>
+            <h3 class="t400">Hassle Free</h3>
+            <p>Canvas provides support for Native HTML5 Videos that can be added to a Full Width Background.</p>
          </div>
       </div>
 
-      <div id="portfolio" class="portfolio grid-container portfolio-nomargin portfolio-notitle portfolio-full clearfix">
+      <div class="col_one_third">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-hammer"></i></a>
+            </div>
+            <h3 class="t400">Well Constructed</h3>
+            <p>Display your Content attractively using Parallax Sections that have unlimited customizable areas.</p>
+         </div>
+      </div>
 
-         <article class="portfolio-item pf-media pf-icons">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/1.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
+      <div class="col_one_third col_last">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-garage"></i></a>
             </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-               <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-            </div>
-         </article>
+            <h3 class="t400">Free Utilites</h3>
+            <p>You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+         </div>
+      </div>
 
-         <article class="portfolio-item pf-illustrations">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/2.jpg" alt="Locked Steel Gate">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/2.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Locked Steel Gate</a></h3>
-               <span><a href="#">Illustrations</a></span>
-            </div>
-         </article>
+      <div class="clear"></div>
 
-         <article class="portfolio-item pf-graphics pf-uielements">
-            <div class="portfolio-image">
-               <a href="#">
-                  <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="http://vimeo.com/89396394" class="left-icon" data-lightbox="iframe"><i
-                        class="icon-line-play"></i></a>
-                  <a href="portfolio-single-video.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
+      <div class="col_one_third">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-rent"></i></a>
             </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
-               <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
-            </div>
-         </article>
+            <h3 class="t400">Flexible Rentals</h3>
+            <p>Canvas provides support for Native HTML5 Videos that can be added to a Full Width Background.</p>
+         </div>
+      </div>
 
-         <article class="portfolio-item pf-icons pf-illustrations">
-            <div class="portfolio-image">
-               <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
-                  <div class="flexslider">
-                     <div class="slider-wrap">
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/4.jpg"
-                                                                                        alt="Morning Dew"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/4-1.jpg"
-                                                                                        alt="Morning Dew"></a></div>
+      <div class="col_one_third">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-credit"></i></a>
+            </div>
+            <h3 class="t400">Easy Financing</h3>
+            <p>Display your Content attractively using Parallax Sections that have unlimited customizable areas.</p>
+         </div>
+      </div>
+
+      <div class="col_one_third col_last">
+         <div class="feature-box fbox-plain">
+            <div class="fbox-icon">
+               <a href="#"><i class="icon-realestate-doc"></i></a>
+            </div>
+            <h3 class="t400">Solid Paperwork</h3>
+            <p>You have complete easy control on each &amp; every element that provides endless customization possibilities.</p>
+         </div>
+      </div>
+    </div>
+
+      <div class="clear"></div><div class="line topmargin-sm bottommargin-lg"></div>
+
+      <div style="position: relative;">
+         <div class="heading-block nobottomborder">
+            <h3>Featured Properties</h3>
+         </div>
+
+         <a href="#" class="button button-small button-rounded button-border button-border-thin t500 nomargin" style="position: absolute; top: 7px; right: 0;">Check All</a>
+
+         <div class="real-estate owl-carousel image-carousel carousel-widget bottommargin-lg" data-margin="10" data-nav="true" data-loop="true" data-pagi="false" data-items-xxs="1" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-lg="3">
+
+            <div class="oc-item">
+               <div class="real-estate-item">
+                  <div class="real-estate-item-image">
+                     <div class="label label-danger bgcolor-2">For Sale</div>
+                     <a href="#">
+                        <img src="/lib/js-canvas/demos/real-estate/images/items/11.png" alt="Image 1">
+                     </a>
+                     <div class="real-estate-item-price">
+                        $1.2m<span>Leasehold</span>
+                     </div>
+                     <div class="real-estate-item-info clearfix">
+                        <a href="#"><i class="icon-line-stack-2"></i></a>
+                        <a href="#"><i class="icon-line-heart"></i></a>
+                     </div>
+                  </div>
+
+                  <div class="real-estate-item-desc">
+                     <h3><a href="#">3 Bedroom Villa</a></h3>
+                     <span>Seminyak Area</span>
+
+                     <a href="#" class="real-estate-item-link"><i class="icon-info"></i></a>
+
+                     <div class="line" style="margin-top: 15px; margin-bottom: 15px;"></div>
+
+                     <div class="real-estate-item-features t500 font-primary clearfix">
+                        <div class="col-md-4 nopadding">Beds: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Baths: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Area: <span class="color">150 sqm</span></div>
+                        <div class="col-md-4 nopadding">Pool: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Internet: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Cleaning: <span class="text-danger"><i class="icon-minus-sign-alt"></i></span></div>
                      </div>
                   </div>
                </div>
-               <div class="portfolio-overlay" data-lightbox="gallery">
-                  <a href="images/portfolio/full/4.jpg" class="left-icon" data-lightbox="gallery-item"><i
-                        class="icon-line-stack-2"></i></a>
-                  <a href="images/portfolio/full/4-1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="portfolio-single-gallery.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
             </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-gallery.html">Morning Dew</a></h3>
-               <span><a href="#"><a href="#">Icons</a>, <a href="#">Illustrations</a></span>
-            </div>
-         </article>
+            <div class="oc-item">
+               <div class="real-estate-item">
+                  <div class="real-estate-item-image">
+                     <div class="label label-success">Hot Deal</div>
+                     <a href="#">
+                        <img src="/lib/js-canvas/demos/real-estate/images/items/22.png" alt="Image 2">
+                     </a>
+                     <div class="real-estate-item-price">
+                        $200,000<span>bi-annually</span>
+                     </div>
+                     <div class="real-estate-item-info clearfix">
+                        <a href="#"><i class="icon-line-stack-2"></i></a>
+                        <a href="#"><i class="icon-line-heart"></i></a>
+                     </div>
+                  </div>
 
-         <article class="portfolio-item pf-uielements pf-media">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/5.jpg" alt="Console Activity">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/5.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Console Activity</a></h3>
-               <span><a href="#">UI Elements</a>, <a href="#">Media</a></span>
-            </div>
-         </article>
+                  <div class="real-estate-item-desc">
+                     <h3><a href="#">3 Bedroom Villa</a></h3>
+                     <span>Seminyak Area</span>
 
-         <article class="portfolio-item pf-graphics pf-illustrations">
-            <div class="portfolio-image">
-               <div class="fslider" data-arrows="false">
-                  <div class="flexslider">
-                     <div class="slider-wrap">
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-1.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-2.jpg"
-                                                                                        alt="Shake It"></a></div>
-                        <div class="slide"><a href="portfolio-single-gallery.html"><img src="images/portfolio/4/6-3.jpg"
-                                                                                        alt="Shake It"></a></div>
+                     <a href="#" class="real-estate-item-link"><i class="icon-info"></i></a>
+
+                     <div class="line" style="margin-top: 15px; margin-bottom: 15px;"></div>
+
+                     <div class="real-estate-item-features t500 clearfix">
+                        <div class="col-md-4 nopadding">Beds: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Baths: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Area: <span class="color">150 sqm</span></div>
+                        <div class="col-md-4 nopadding">Pool: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Internet: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Cleaning: <span class="text-success"><i class="icon-check-sign"></i></span></div>
                      </div>
                   </div>
                </div>
-               <div class="portfolio-overlay" data-lightbox="gallery">
-                  <a href="images/portfolio/full/6.jpg" class="left-icon" data-lightbox="gallery-item"><i
-                        class="icon-line-stack-2"></i></a>
-                  <a href="images/portfolio/full/6-1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="images/portfolio/full/6-2.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="images/portfolio/full/6-3.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                  <a href="portfolio-single-gallery.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
+            </div>
+            <div class="oc-item">
+               <div class="real-estate-item">
+                  <div class="real-estate-item-image">
+                     <div class="label label-danger">Long Term Rental</div>
+                     <a href="#">
+                        <img src="/lib/js-canvas/demos/real-estate/images/items/44.png" alt="Image 3">
+                     </a>
+                     <div class="real-estate-item-price">
+                        $1600<span>per month</span>
+                     </div>
+                     <div class="real-estate-item-info clearfix">
+                        <a href="#"><i class="icon-line-stack-2"></i></a>
+                        <a href="#"><i class="icon-line-heart"></i></a>
+                     </div>
+                  </div>
+
+                  <div class="real-estate-item-desc">
+                     <h3><a href="#">3 Bedroom Villa</a></h3>
+                     <span>Seminyak Area</span>
+
+                     <a href="#" class="real-estate-item-link"><i class="icon-info"></i></a>
+
+                     <div class="line" style="margin-top: 15px; margin-bottom: 15px;"></div>
+
+                     <div class="real-estate-item-features t500 clearfix">
+                        <div class="col-md-4 nopadding">Beds: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Baths: <span class="color">3</span></div>
+                        <div class="col-md-4 nopadding">Area: <span class="color">150 sqm</span></div>
+                        <div class="col-md-4 nopadding">Pool: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Internet: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                        <div class="col-md-4 nopadding">Cleaning: <span class="text-success"><i class="icon-check-sign"></i></span></div>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-gallery.html">Shake It!</a></h3>
-               <span><a href="#">Illustrations</a>, <a href="#">Graphics</a></span>
-            </div>
-         </article>
 
-         <article class="portfolio-item pf-uielements pf-icons">
-            <div class="portfolio-image">
-               <a href="portfolio-single-video.html">
-                  <img src="images/portfolio/4/7.jpg" alt="Backpack Contents">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="http://www.youtube.com/watch?v=kuceVNBTJio" class="left-icon" data-lightbox="iframe"><i
-                        class="icon-line-play"></i></a>
-                  <a href="portfolio-single-video.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single-video.html">Backpack Contents</a></h3>
-               <span><a href="#">UI Elements</a>, <a href="#">Icons</a></span>
-            </div>
-         </article>
+         </div>
+      </div>
 
-         <article class="portfolio-item pf-graphics">
-            <div class="portfolio-image">
-               <a href="portfolio-single.html">
-                  <img src="images/portfolio/4/8.jpg" alt="Sunset Bulb Glow">
-               </a>
-               <div class="portfolio-overlay">
-                  <a href="images/portfolio/full/8.jpg" class="left-icon" data-lightbox="image"><i
-                        class="icon-line-plus"></i></a>
-                  <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-               </div>
-            </div>
-            <div class="portfolio-desc">
-               <h3><a href="portfolio-single.html">Sunset Bulb Glow</a></h3>
-               <span><a href="#">Graphics</a></span>
-            </div>
-         </article>
-
-      </div> <!-- portfolio -->
+      <div class="clear"></div>    <!-- portfolio-content -->
+</div>
 
 
 
@@ -371,7 +591,7 @@
 
             <div class="col_half nobottommargin topmargin-lg">
 
-               <img src="images/appshowcase/iphone-solid.png" alt="Image" class="center-block">
+               <img src="/lib/js-canvas/images/landing.png" alt="Image" class="center-block">
 
             </div>
 
@@ -391,9 +611,6 @@
             </div>
          </div>
       </div> <!-- advertisement -->
-
-
-
    </section>  <!-- content section -->
 </div>  <!-- wrapper.clearfix -->
 
