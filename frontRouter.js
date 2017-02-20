@@ -103,13 +103,11 @@ module.exports = function(app) {
 
   // Test normal route
   webRoutes.get('/', AuthViewController.init, function(req, res) {
-    var msg = req.flash('msg');
-
     res.render('index', {
       ENV: env,
       logined: req.logined,
       title: 'Cozyhouzz',
-      msg: msg
+      msg: req.msg
     });
   });
 
@@ -127,8 +125,7 @@ module.exports = function(app) {
   //=========================
   // Web : Biz Route - 업체 목록 조회(사용X)
   //=========================
-  webRoutes.get('/biz', redirectViewController.redirectBizList);
-  webRoutes.get('/biz/:page([0-9]+)', AuthViewController.init, BizViewController.bizList);
+  webRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
   webRoutes.get('/bizdetail', redirectViewController.redirectBizList);
   webRoutes.get('/bizdetail/:idx([0-9]+)', AuthViewController.init, BizViewController.bizDetail);
 
