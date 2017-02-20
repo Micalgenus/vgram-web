@@ -1,11 +1,14 @@
-<div id="top-bar">
+<!-- Top Bar
+		============================================= -->
+<div id="top-bar" class="transparent-topbar">
 
    <div class="container clearfix">
 
-      <div class="col_half nobottommargin">
+      <div class="col_half nobottommargin clearfix">
 
          <!-- Top Links
-                   ============================================= -->
+              ============================================= -->
+
          <div class="top-links">
             <ul>
                <% if (logined) { %>
@@ -22,44 +25,37 @@
             </ul>
          </div><!-- .top-links end -->
 
+
       </div>
 
-      <div class="col_half fright col_last nobottommargin">
+<!--
+      <div class="col_half fright col_last clearfix nobottommargin">
 
-         <!-- Top Social
-                   ============================================= -->
-         <div id="top-social">
+         &lt;!&ndash; Top Links
+              ============================================= &ndash;&gt;
+         <div class="top-links">
             <ul>
-               <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span
-                        class="ts-text">Facebook</span></a></li>
-               <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span
-                        class="ts-text">Twitter</span></a></li>
-               <li><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span
-                        class="ts-text">Dribbble</span></a></li>
-               <li><a href="#" class="si-github"><span class="ts-icon"><i
-                           class="icon-github-circled"></i></span><span
-                        class="ts-text">Github</span></a></li>
-               <li><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span
-                        class="ts-text">Pinterest</span></a></li>
-               <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span
-                        class="ts-text">Instagram</span></a></li>
-               <li><a href="tel:+91.11.85412542" class="si-call"><span class="ts-icon"><i
-                           class="icon-call"></i></span><span class="ts-text">+91.11.85412542</span></a></li>
-               <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i
-                           class="icon-email3"></i></span><span
-                        class="ts-text">kcmin@naver.com</span></a></li>
+               <li class="hidden-sm"><a href="#"><i class="icon-call"></i> +1800-123-7890</a></li>
+               <li><a href="#"><i class="icon-download-alt"></i> Download App</a></li>
+               <li class="top-bar-highlight"><a href="#">Sell/Rent your Property</a>
+                  <div class="top-link-section" style="font-size: 14px;">
+                     Genuine Clients, 100% Trust Assurance and Lowest Fees on the Market. <a href="#" class="more-link font-secondary" style="border-bottom-style: dotted;">Learn More &rarr;</a>
+                  </div>
+               </li>
+               <li><a href="#" class="side-panel-trigger">Login/Register</a></li>
             </ul>
-         </div><!-- #top-social end -->
+         </div>&lt;!&ndash; .top-links end &ndash;&gt;
 
       </div>
+-->
 
    </div>
 
 </div><!-- #top-bar end -->
 
 <!-- Header
-      ============================================= -->
-<header id="header">
+  ============================================= -->
+<header id="header" class="static-sticky transparent-header dark">
 
    <div id="header-wrap">
 
@@ -68,15 +64,17 @@
          <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
 
          <!-- Logo
-                 ============================================= -->
+              ============================================= -->
          <div id="logo" ronterLink="/">
-            <a ronterLink="/" hrefActive="active" class="standard-logo"><img src="lib/js-canvas/images/cozylogo3.png" alt="cozy Logo"></a>
-            <a ronterLink="/" hrefActive="active" class="retina-logo"><img src="lib/js-canvas/images/cozylogo3@.png" alt="cozyhouzz Logo"></a>
+            <a ronterLink="/" hrefActive="active" class="standard-logo"><img src="lib/js-canvas/images/cozylogo4@.png" alt="cozy Logo"></a>
+            <a ronterLink="/" hrefActive="active" class="retina-logo"><img src="lib/js-canvas/images/cozylogo4.png" alt="cozyhouzz Logo"></a>
          </div>
+         <!-- #logo end -->
 
          <!-- Primary Navigation
               ============================================= -->
-         <nav id="primary-menu" class="mobile-menu-off-canvas da">
+         <nav id="primary-menu" class="with-arrows">
+
             <ul>
                <li><a href="/" hrefActive="active">
                      <div>Home</div>
@@ -117,7 +115,11 @@
                   </ul>
                </li>
             </ul>
+
          </nav><!-- #primary-menu end -->
+
       </div>
+
    </div>
+
 </header><!-- #header end -->
