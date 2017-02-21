@@ -16,18 +16,18 @@ exports.login = function(req, res) {
   // 로그인 체크
   if (req.logined) {
     req.flash('msg', '이미 로그인 하셧습니다.');
+    console.log("error");
     return res.redirect('/');
   }
 
   // 변수 확인
-  var msg = req.flash('msg');
   var email = req.flash('email');
 
   return res.render('login/login', {
     ENV: req.env,
     logined: req.logined,
     title: '로그인',
-    msg: msg,
+    msg: req.msg,
     email: email
   });
 }
@@ -41,7 +41,6 @@ exports.signup = function(req, res) {
   }
 
   // 변수 확인
-  var msg = req.flash('msg');
   var check = req.flash('check');
   var email = req.flash('email');
   var name = req.flash('name');
@@ -62,7 +61,7 @@ exports.signup = function(req, res) {
     ENV: req.env,
     logined: req.logined,
     title: '회원가입',
-    msg: msg,
+    msg: req.msg,
     email: email,
     name: name,
     phone: phone,

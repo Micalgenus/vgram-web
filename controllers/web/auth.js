@@ -235,6 +235,7 @@ exports.setToken = function(req, res, next) {
 }
 
 exports.init = function(req, res, next) {
+  req.msg = req.flash('msg');
   req.env = process.env.NODE_ENV || "development";
   req.logined = (req.cookies.Authorization ? true : false);
 
