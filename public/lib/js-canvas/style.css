@@ -270,7 +270,11 @@ span.middot {
 	margin: 0 5px;
 }
 
-.double-line { border-top: 3px double #E5E5E5; }
+.double-line { border-top: 3px double #1a2c51; }
+
+.line-room-new { border-top: 4px double #1a2c51;
+                 border-width: thick;
+}
 
 .emptydiv {
 	display: block !important;
@@ -629,8 +633,8 @@ body.stretched .container-fullwidth {
 .sidebar.col_last { float: right; }
 
 .col_last {
-	margin-right: 0 !important;
-	clear: right;
+margin-right: 0 !important;
+clear: right;
 }
 
 
@@ -3514,6 +3518,11 @@ body.stretched .container-fullwidth .breadcrumb { right: 60px !important; }
 .content-wrap {
 	position: relative;
 	padding: 80px 0;
+}
+
+.content-wrap-room-new {
+   position: relative;
+   padding: 5px 0;
 }
 
 #content .container { position: relative; }
@@ -11105,6 +11114,12 @@ input[type=checkbox]:not(:checked) + label.error { display: block !important; }
 	padding: 2px 0 3px 20px;
 	border-left: 7px solid #1ABC9C;
 	margin-bottom: 30px;
+}
+
+.title-block-room-new {
+   padding: 2px 0 3px 20px;
+   border-left: 7px solid #1693A5;
+   margin-bottom: 30px;
 }
 
 .title-block-right {
