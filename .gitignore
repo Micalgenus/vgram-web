@@ -47,3 +47,5 @@ build/
 db.development.sqlite
 #/references
 /remote-models
+
+.vscode/tasks.json
