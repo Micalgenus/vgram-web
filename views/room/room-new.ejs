@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-
+//room-new style.css 맞춤
 
 <head>
    <% include ../static/head.ejs %>
@@ -101,7 +101,6 @@
                <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
                   <h3>기본정보</h3></li>
                <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
-
                <!-- 방 구조 -->
                <div class="col_half">
                   <label for="template-contactform-service">
@@ -119,6 +118,7 @@
                   </div>
                </div>
                <div class="clear"></div>
+
                <!--보증금-->
                <div class="col_half">
                   <label for="template-contactform-deposit">보증금</label>
@@ -138,6 +138,8 @@
                      </select>
                   </div>
                </div>
+               <div class="clear"></div>
+
                <!--월세-->
                <div class="col_half">
                   <label for="template-contactform-monthlyRentFee">월세</label>
@@ -155,6 +157,7 @@
                   </div>
                </div>
                <div class="clear"></div>
+
                <!--해당층수-->
                <div class="col_half">
                   <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
@@ -280,7 +283,7 @@
                            <label for="checkbox-12" class="checkbox-style-3-label">없음</label>
                         </div>
                         <div class="col-md-4">
-                           <select class="select-hide form-control bottommargin-sm" 난방종류선택>
+                           <select class="select-hide form-control col_half" 난방종류선택>
                               <option>심야전기</option>
                               <option>도시가스</option>
                            </select>
