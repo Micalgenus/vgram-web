@@ -20,6 +20,7 @@ location.href=”tel:”+num;
 }
 </script>
 
+
    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
    <script type="text/javascript">
       // 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -77,6 +78,8 @@ location.href=”tel:”+num;
          }
       }
    </script>
+
+
 
 </head>
 
@@ -154,25 +157,25 @@ location.href=”tel:”+num;
                            <div class="slider-wrap">
                               <div class="slide">
                                  <a href="#">
-                                    <img src="C:\Users\insu\Desktop\moblab\cozyhouzz-web\views\room\img\1.jpg" alt="Slide 2">
+                                    <img src="http://localhost:3003/w500//tests/images/1.jpg" alt="Slide 2">
                                     <div class="flex-caption slider-caption-bg">Responsive Ready Design</div>
                                  </a>
                               </div>
-                              <div class="slide" data-thumb="images/slider/boxed/thumbs/3.jpg">
+                              <div class="slide" data-thumb="/tests/images/2.jpg">
                                  <a href="#">
-                                    <img src="img/2.jpg" alt="Slide 3">
+                                    <img src="/tests/images/2.jpg" alt="Slide 3">
                                     <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-top-left">Retina Graphics Display</div>
                                  </a>
                               </div>
-                              <div class="slide" data-thumb="images/slider/boxed/thumbs/4.jpg">
+                              <div class="slide" data-thumb="/tests/images/3.jpg">
                                  <a href="#">
-                                    <img src="img/3.jpg" alt="Slide 4">
+                                    <img src="/w500//tests/images/3.jpg" alt="Slide 4">
                                     <div class="flex-caption slider-caption-bg slider-caption-top-right">Bootstrap 3+ Compatible</div>
                                  </a>
                               </div>
-                              <div class="slide" data-thumb="images/slider/boxed/thumbs/5.jpg">
+                              <div class="slide" data-thumb="">
                                  <a href="#">
-                                    <img src="img/4.jpg" alt="Slide 5">
+                                    <img src="" alt="Slide 5">
                                     <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-bottom-right">eCommerce Design Included</div>
                                  </a>
                               </div>
@@ -199,10 +202,58 @@ location.href=”tel:”+num;
                <div class="tab-container">
                   <div class="tab-content clearfix" id="tabs-38">
                      <div class="col_half">
-                        <div style="background-color: red">지도 자리</div>
+                        <div id="daum_map">
+                           <div id="map" style="width:450px;height:400px;"></div>
+                              <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
+                           <!--다음 지도-->
+                           <script>
+                              var container = document.getElementById('map');
+                              var options = {
+                                 center: new daum.maps.LatLng(35.840716, 127.131531),
+//                                 휠 작동 안되게 함 (draggable)
+                                 draggable:false,
+                                 level: 3
+                              };
+                              var map = new daum.maps.Map(container, options);
+
+
+                              var markerPosition  = new daum.maps.LatLng(35.840716, 127.131531);
+
+                              var marker = new daum.maps.Marker({
+                                 position: markerPosition
+                              });
+                              marker.setMap(map);
+
+
+                              var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                                 iwPosition = new daum.maps.LatLng(35.840716, 127.131531); //인포윈도우 표시 위치입니다
+
+                              var infowindow = new daum.maps.InfoWindow({
+                                 position : iwPosition,
+                                 content : iwContent
+                              });
+                              infowindow.open(map, marker);
+
+                           </script>
+                        </div>
                      </div>
                      <div class="col_half col_last">
-                        <div style="background-color: yellow">로드 자리</div>
+                        <div id="daum_rView">
+                           <div id="roadview" style="width:450px;height:400px;"></div>
+                           <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
+                           <script>
+                              var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+                              var roadview = new daum.maps.Roadview(roadviewContainer); //로드뷰 객체
+                              var roadviewClient = new daum.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+                              var position = new daum.maps.LatLng(35.840716, 127.131531);
+
+                              // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+                              roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+                              });
+                           </script>
+                        </div>
                      </div>
                   </div>
                   <div class="tab-content clearfix" id="tabs-39">
@@ -299,6 +350,37 @@ location.href=”tel:”+num;
                </div>
             </div>
 
+            <div class="clear"></div>
+
+            <div class="col-md-3 col-sm-6 bottommargin clearfix">
+               <div class="feature-box fbox-bg fbox-plain">
+                  <div class="fbox-icon">
+                     <a href="#"> <i class="i-plain icon-thumbs-up" ></i></a>
+                  </div>
+                  <h3><span class="subtitle">몇개</span></h3>
+               </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 bottommargin clearfix">
+               <div class="feature-box fbox-bg fbox-plain">
+                  <div class="fbox-icon">
+                     <a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-meh" ></i></a>
+                  </div>
+                  <h3><span class="subtitle">몇개</span></h3>
+               </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 bottommargin clearfix">
+               <div class="feature-box fbox-bg fbox-plain">
+                  <div class="fbox-icon">
+                    <a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-unlink" ></i></a>
+                  </div>
+                  <h3><span class="subtitle">몇개</span></h3>
+               </div>
+            </div>
+
+            <div class="clear"></div>
+
             <!--SNS 공유-->
             <div class="sns_wrap">
                <p>SNS 공유하기</p>
@@ -306,7 +388,7 @@ location.href=”tel:”+num;
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
                   <div class="feature-box fbox-center fbox-bg fbox-plain">
                      <div class="fbox-icon">
-                        <ul>
+                        <ul style="margin-bottom: 0px;">
                            <div class="name" align="right">
                               <!--<a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="tests/images/book.JPG"/></a>-->
                               <a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"
@@ -322,7 +404,7 @@ location.href=”tel:”+num;
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
                   <div class="feature-box fbox-center fbox-bg fbox-plain">
                      <div class="fbox-icon">
-                        <ul>
+                        <ul style="margin-bottom: 0px;">
                            <div class="name" align="right">
                               <a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="/tests/images/line.JPG"/></a>
                            </div>
@@ -335,7 +417,7 @@ location.href=”tel:”+num;
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
                   <div class="feature-box fbox-center fbox-bg fbox-plain">
                      <div class="fbox-icon">
-                        <ul>
+                        <ul style="margin-bottom: 0px;">
                            <div class="name" align="right">
                               <a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="/tests/images/katalk.jpg"/></a>
                            </div>
@@ -348,7 +430,7 @@ location.href=”tel:”+num;
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
                   <div class="feature-box fbox-center fbox-bg fbox-plain">
                      <div class="fbox-icon">
-                        <ul>
+                        <ul style="margin-bottom: 0px;">
                            <div class="name" align="right">
                               <a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="/tests/images/blog.jpg"/></a>
                            </div>
@@ -376,11 +458,20 @@ location.href=”tel:”+num;
                <!--</ul>-->
                </div>
 
+
+            <!--수정,삭제   // 내가 쓴거 조건문 추가-->
+
+            <a href="#" class="button button-3d  button-rounded button-green">수정</a>
+            <a href="#" class="button button-3d  button-rounded button-green">삭제</a>
+            <a href="#" class="button button-3d  button-rounded button-green">재등록</a>
+
+
             <div class="col_full">
                <label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>
                <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
             </div>
 
+            <div class="clear"></div>
 
                <!--목록가기-->
             <div class="col_full">

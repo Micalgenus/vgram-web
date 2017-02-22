@@ -26,25 +26,45 @@
 
 
       <div class="col_half">
-         <div style="background-color: red">
+         <div>
 
             <div class="post-grid grid-container clearfix" data-layout="fitRows" id="posts">
                <!--for문 2번 조건 수정해야함 -->
                <% for (var i = 0; i < 5; i++) { %>
-               <div class="entry clearfix">
+               <div>
                   <div class="portfolio-image">
                      <!--img태그 src수정-->
                      <a href="#"><img alt="Open Imagination" src="/tests/images/blog.JPG"></a>
                   </div>
                   <div class="entry-title">
-                     <h2><a href="#">유저네임</a></h2>
+                     <h2><a href="#">제목</a></h2>
                   </div>
                   <div class="entry-content">
-                     <p>설명자리</p>
+                     <p>주소</p>
                      <a class="more-link">href="/bizdetail/   >>ejs users[i].id " a태그 안에 있던 자리</a>
                   </div>
-               </div>
-               <% } %>
+
+                  <a href="" class="button button-circle button-3d button-light button-white">방종류</a>
+                  <a href="" class="button button-circle button-3d button-light button-white">보증금</a>
+                  <a href="" class="button button-circle button-3d button-light button-white">월세</a>
+
+                  <div class="clear"></div>
+
+
+                     <a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-thumbs-up"></i>
+                        <span>따봉몇개</span></a>
+
+
+                     <a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-meh"></i>
+                        <span>싫어요</span></a>
+
+                     <a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-unlink"></i>
+                        <span>찜콩</span></a>
+
+
+                  </div>
+                  <% } %>
+
             </div>
 
          </div>
