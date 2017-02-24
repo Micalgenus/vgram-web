@@ -344,7 +344,7 @@ module.exports = function(app) {
    webRoutes.use('/room', Web.roomInfo);
 
    //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-   Web.roomInfo.get('/', Web.RoomController.roomInfoListView);
+   Web.roomInfo.get('/', AuthViewController.init, Web.RoomController.roomInfoListView);
 
   // create new Room Info from authenticated user
   // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);

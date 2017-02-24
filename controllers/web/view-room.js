@@ -23,41 +23,60 @@ const moveImagePromise = require('../../modules/move-image-promise');
 
 
 exports.roomInfoListView = function(req, res) {
-  // let pageSize, pageStartIndex;
-  //
-  // // 페이지 정보 확인
-  // if (!req.query.pageSize || !req.query.pageStartIndex) {
-  //   // query가 제대로 오지 않으면 초기값으로 보낸다.
-  //   pageSize = 10;
-  //   pageStartIndex = 0;
-  // } else {
-  //   pageSize = _.toNumber(req.query.pageSize);
-  //   pageStartIndex = _.toNumber(req.query.pageStartIndex);
-  // }
-  //
-  // RoomInfoBoard.findAll({
-  //   limit: pageSize,
-  //   offset: pageStartIndex
-  // }).then(function(roomInfoList) {
-  //   return res.status(200).json({
-  //     roomInfo: roomInfoList,
-  //     statusCode: 1
-  //   });
-  // }).catch(function(err) {
-  //   return res.status(400).json({
-  //     errorMsg: '정보 없음',
-  //     statusCode: -1
-  //   });
-  // });
-   return res.render('room/room-list', {
-      ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
-      email: "123@123.com"
-   });
-}
+  let page = (req.query.page ? req.query.page : 1);
 
+  return Rooms.count()
+  .then(function(roomCount) {
+
+    let count = (req.query.pageSize ? req.query.pageSize : 20);
+    let lastPage = parseInt(roomCount / count) + 1;
+    var index = (count * (page - 1));
+    
+    // 잘못된 요청일 경우 넘어감
+    if (page > lastPage) {
+      let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
+      return res.redirect('/room?page=' + lastPage.toString() + size);
+    }
+    if (page < 1) {
+      let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
+      return res.redirect('/room' + size);
+    }
+
+    return Rooms.findAll({
+      limit: count,
+      offset: index,
+      order: '`ID` DESC'
+    }).then(function(rooms) {
+      var roomInfo = [];
+      rooms.forEach(function(room) {
+        var tmpRoom = {};
+
+        // 임시
+        let image = room.thumbnail_image_path;
+        if (!image.match(/^https?:\/\//)) {
+          image = "http://localhost:3000/" + image;
+        }
+
+        tmpRoom['id'] = room.ID;
+        tmpRoom['image'] = image;
+        var address = JSON.parse(room.address);
+        tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
+
+        roomInfo.push(tmpRoom);
+      });
+
+      return res.render('room/room-list', {
+          ENV: req.env,
+          logined: req.logined,
+          title: '방 정보 목록',
+          msg: req.msg,
+          nowPage: page,
+          lastPage: lastPage,
+          rooms: roomInfo
+      });
+    });
+  });
+}
 
 /**
  * 시공사례입력(use vrpano-promise)

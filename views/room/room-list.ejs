@@ -30,18 +30,18 @@
 
             <div class="post-grid grid-container clearfix" data-layout="fitRows" id="posts">
                <!--for문 2번 조건 수정해야함 -->
-               <% for (var i = 0; i < 5; i++) { %>
+               <% for (var i = 0; i < rooms.length; i++) { %>
                <div>
                   <div class="portfolio-image">
                      <!--img태그 src수정-->
-                     <a href="#"><img alt="Open Imagination" src="/tests/images/blog.JPG"></a>
+                     <a href="#"><img alt="Open Imagination" src="<%= rooms[i].image %>"></a>
                   </div>
                   <div class="entry-title">
                      <h2><a href="#">제목</a></h2>
                   </div>
                   <div class="entry-content">
-                     <p>주소</p>
-                     <a class="more-link">href="/bizdetail/   >>ejs users[i].id " a태그 안에 있던 자리</a>
+                     <p><%= rooms[i].address %></p>
+                     <a class="more-link" href="/room/<%= rooms[i].id %>">more</a>
                   </div>
 
                   <a href="" class="button button-circle button-3d button-light button-white">방종류</a>
