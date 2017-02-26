@@ -364,7 +364,7 @@ module.exports = function(app) {
 
    // get Room Info Info from authenticated user
   // roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   Web.roomInfo.get('/:roomInfoIdx([0-9]+)', Web.RoomController.roomInfoDetailView);
+   Web.roomInfo.get('/:roomInfoIdx([0-9]+)', AuthViewController.init, Web.RoomController.roomInfoDetailView);
 
    Web.search.get('/room', Web.RoomController.searchRoomListView);
 };
