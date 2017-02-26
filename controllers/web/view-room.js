@@ -2,10 +2,10 @@
 
 const models = require('../../models');
 const Rooms = models.rooms;
+const Posts = models.posts;
 const _ = require('lodash');
 const Promise = require("bluebird");
 const moment = require("moment");
-
 
 var env = process.env.NODE_ENV || "development";
 var config = require("../../config/main");
@@ -20,7 +20,6 @@ var log = require('console-log-level')({
 const value = require('../../utils/staticValue');
 const vrpanoPromise = require('../../modules/convert-vrpano-promise');
 const moveImagePromise = require('../../modules/move-image-promise');
-
 
 exports.roomInfoListView = function(req, res) {
   let page = (req.query.page ? req.query.page : 1);
@@ -42,10 +41,18 @@ exports.roomInfoListView = function(req, res) {
       return res.redirect('/room' + size);
     }
 
+    Posts.hasOne(Rooms, {
+     foreignKey: 'post_id', 
+    });
+    Rooms.belongsTo(Posts, {
+     foreignKey: 'ID', 
+    });
+
     return Rooms.findAll({
+      include: [ { model: Posts } ],
       limit: count,
       offset: index,
-      order: '`ID` DESC'
+      order: '`rooms`.`ID` DESC'
     }).then(function(rooms) {
       var roomInfo = [];
       rooms.forEach(function(room) {
@@ -56,11 +63,13 @@ exports.roomInfoListView = function(req, res) {
         if (!image.match(/^https?:\/\//)) {
           image = "http://localhost:3000/" + image;
         }
+        
+        let address = JSON.parse(room.address);
 
         tmpRoom['id'] = room.ID;
         tmpRoom['image'] = image;
-        var address = JSON.parse(room.address);
         tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
+        tmpRoom['title'] = room.post.title;
 
         roomInfo.push(tmpRoom);
       });

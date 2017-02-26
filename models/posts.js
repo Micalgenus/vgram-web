@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
+"use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('posts', {
+  var posts = sequelize.define('posts', {
     ID: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
@@ -73,4 +74,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'posts'
   });
+
+  return posts;
 };
