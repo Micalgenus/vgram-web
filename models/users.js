@@ -3,7 +3,7 @@ const Promise = require("bluebird");
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  var user = sequelize.define('user', {
     ID: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
         defaultValue: null
      }
   }, {
-    tableName: 'users',
+    tableName: 'user',
      instanceMethods: {
         // Method to compare password for login
         // instance level에서 접근을 해야 this 사용이 가능함.
@@ -113,7 +113,69 @@ module.exports = function(sequelize, DataTypes) {
               return sequelize.Promise.reject(err);
            });
         }
+     },
+     classMethods: {
+        associate: function(models) {
+
+           user.belongsToMany(user, {
+              // constraints: false,
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              as: "Tasks",
+              through: models.user_user_relationship,
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              },
+              otherKey: {
+                 name: 'user_target_id',
+                 allowNull: false
+              }
+           });
+
+           user.hasOne(models.user_meta, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              },
+              sourceKey: "ID"
+           });
+
+           // This will add methods getPosts, setProjects, addProject, and addProjects to User.
+           // and getProjects, setProjects, addProject, and addProjects to User.
+           user.belongsToMany(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              through: models.user_post_like_relationship,
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              }
+           });
+
+           user.belongsToMany(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              through: models.user_post_relationship,
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              }
+           });
+
+           user.hasMany(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              },
+              sourceKey: "ID"
+           });
+        }
      }
   });
-   return users;
+   return user;
 };

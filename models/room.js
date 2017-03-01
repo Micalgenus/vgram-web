@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('rooms', {
+  var room = sequelize.define('room', {
     ID: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       references: {
-        model: 'posts',
+        model: 'post',
         key: 'ID'
       }
     },
@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       references: {
-        model: 'medias',
+        model: 'media',
         key: 'ID'
       }
     },
@@ -75,6 +75,33 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: null
     }
   }, {
-    tableName: 'rooms'
+    tableName: 'room',
+     classMethods: {
+        associate: function(models) {
+
+           room.belongsTo(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              foreignKey: {
+                 name: 'post_id',
+                 allowNull: false
+              },
+              targetKey: "ID"
+           });
+
+           room.belongsTo(models.media, {
+              onUpdate: "CASCADE",
+              onDelete: "NO ACTION",      // media삭제시 trigger를 부여해서 다른 thumbnail 이미지로 교체하자
+              foreignKey: {
+                 name: 'thumbnail_media_id',
+                 allowNull: false
+              },
+              targetKey: "ID"
+           });
+
+        }
+     }
   });
+
+   return room;
 };

@@ -1,20 +1,20 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  var attached = sequelize.define('attached', {
+  var media = sequelize.define('media', {
     ID: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    group: {
+    media_group: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    type: {
+    media_type: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     date: {
       type: DataTypes.DATE,
@@ -33,23 +33,33 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'attached',
+    tableName: 'media',
      classMethods: {
         associate: function(models) {
 
-           attached.belongsToMany(models.post, {
+           media.belongsToMany(models.post, {
               onUpdate: "CASCADE",
               onDelete: "CASCADE",
-              through: models.post_attached_relationship,
+              through: models.post_media_relationship,
               foreignKey: {
-                 name: 'attached_id',
+                 name: 'media_id',
                  allowNull: false
               }
+           });
+
+           media.hasOne(models.room, {
+              onUpdate: "CASCADE",
+              onDelete: "NO ACTION",
+              foreignKey: {
+                 name: 'thumbnail_media_id',
+                 allowNull: false
+              },
+              sourceKey: "ID"
            });
 
         }
      }
   });
 
-   return attached;
+   return media;
 };
