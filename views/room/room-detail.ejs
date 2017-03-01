@@ -209,7 +209,7 @@ location.href=”tel:”+num;
                            <script>
                               var container = document.getElementById('map');
                               var options = {
-                                 center: new daum.maps.LatLng(35.840716, 127.131531),
+                                 center: new daum.maps.LatLng(<%=lat%>, <%=lng%>),
 //                                 휠 작동 안되게 함 (draggable)
                                  draggable:false,
                                  level: 3
@@ -217,7 +217,7 @@ location.href=”tel:”+num;
                               var map = new daum.maps.Map(container, options);
 
 
-                              var markerPosition  = new daum.maps.LatLng(35.840716, 127.131531);
+                              var markerPosition  = new daum.maps.LatLng(<%=lat%>, <%=lng%>);
 
                               var marker = new daum.maps.Marker({
                                  position: markerPosition
@@ -225,8 +225,8 @@ location.href=”tel:”+num;
                               marker.setMap(map);
 
 
-                              var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                                 iwPosition = new daum.maps.LatLng(35.840716, 127.131531); //인포윈도우 표시 위치입니다
+                              var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,<%=lat%>, <%=lng%>" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,<%=lat%>, <=%lng%>" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                                 iwPosition = new daum.maps.LatLng(<%=lat%>, <%=lng%>); //인포윈도우 표시 위치입니다
 
                               var infowindow = new daum.maps.InfoWindow({
                                  position : iwPosition,
@@ -246,7 +246,7 @@ location.href=”tel:”+num;
                               var roadview = new daum.maps.Roadview(roadviewContainer); //로드뷰 객체
                               var roadviewClient = new daum.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
-                              var position = new daum.maps.LatLng(35.840716, 127.131531);
+                              var position = new daum.maps.LatLng(<%=lat%>, <%=lng%>);
 
                               // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
                               roadviewClient.getNearestPanoId(position, 50, function(panoId) {

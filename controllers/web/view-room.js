@@ -654,6 +654,9 @@ exports.roomInfoDetailView = function(req, res) {
   }).then(function(room) {
 
     var type = room.room_type;
+    var position = JSON.parse(room.coordinate);
+    let lat = position.lat;
+    let lng = position.lng;
     switch (type) {
       case "APARTMENT":       type = "아파트"; break;
       case "VILLA":           type = "빌라"; break;
@@ -674,15 +677,22 @@ exports.roomInfoDetailView = function(req, res) {
       logined: req.logined,
       msg: req.msg,
       title: '방 정보 상세보기',
+
+      // 기본 정보
       postTitle: room.post.title,
       read: room.post.read_count,
       createdAt: room.createdAt,
 
+      // 위치정보
+      lat: lat,
+      lng: lng,
+
+      // 방정보
       deposit: room.deposit,
       monthlyRentFee: room.monthly_rent_fee,
-
       roomType: type,
 
+      // 연락
       email: room.post.user.email,
       phone: room.post.user.telephone,
 
