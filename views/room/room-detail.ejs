@@ -113,13 +113,13 @@ location.href=”tel:”+num;
 
             <div class="col_two_third">
                <label for="template-jobform-fname">title </label>
-               <a>타이틀자리</a>
+               <a><%=postTitle%></a>
                <!--<input type="text" id="template-jobform-fname" name="template-jobform-fname" value="" class="sm-form-control required" />-->
             </div>
 
             <div class="col_one_third col_last">
                <label for="template-jobform-lname">조회수 / 등록일자 </label>
-               <a>자리</a>
+               <a><%=read%> / <%=createdAt%></a>
                <!--<input type="text" id="template-jobform-lname" name="template-jobform-lname" value="" class="sm-form-control required" />-->
             </div>
 
@@ -259,12 +259,12 @@ location.href=”tel:”+num;
                   <div class="tab-content clearfix" id="tabs-39">
                      <div class="col_half">
                         <label for="template-jobform-fname">보증금/월세 <small>*</small></label>
-                        <a>뿌리자</a>
+                        <a><%=deposit%> / <%=monthlyRentFee%></a>
                      </div>
 
                      <div class="col_half col_last">
                         <label for="template-jobform-lname">방 종류 <small>*</small></label>
-                        <a>원룸</a>
+                        <a><%=roomType%></a>
                      </div>
 
                      <div class="col_half">
@@ -314,7 +314,7 @@ location.href=”tel:”+num;
                      <!-- 버튼 안에 class="close" 삭제-->
                      <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target="#contactFormModal"><i class="icon-email2" ></i></a></button>
                   </div>
-                  <h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle">Email</span></h3>
+                  <h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle"><%=email%></span></h3>
                </div>
             </div>
 
@@ -328,7 +328,7 @@ location.href=”tel:”+num;
                         </div>
                      </ul>
                   </div>
-                  <h3>Call<span class="subtitle">(010) 1111 2222</span></h3>
+                  <h3>Call<span class="subtitle"><%=phone%></span></h3>
                </div>
             </div>
 

@@ -3,6 +3,7 @@
 const models = require('../../models');
 const Rooms = models.rooms;
 const Posts = models.posts;
+const Users = models.users;
 const _ = require('lodash');
 const Promise = require("bluebird");
 const moment = require("moment");
@@ -637,17 +638,55 @@ exports.roomInfoDetailView = function(req, res) {
   Posts.hasOne(Rooms, { foreignKey: 'post_id' });
   Rooms.belongsTo(Posts, { foreignKey: 'ID' });
 
+  Users.hasOne(Posts, { foreignKey: 'user_id' });
+  Posts.belongsTo(Users, { foreignKey: 'ID' });
+
   return Rooms.findOne({
-    include: [ { model: Posts } ],
+    include: [ {
+      model: Posts,
+      include: [ {
+        model: Users
+      } ]
+    } ],
     where: {
       ID: idx
     }
   }).then(function(room) {
+
+    var type = room.room_type;
+    switch (type) {
+      case "APARTMENT":       type = "아파트"; break;
+      case "VILLA":           type = "빌라"; break;
+      case "DETACHED_HOUSE":  type = "주택"; break;
+      case "ONE_ROOM":        type = "원룸"; break;
+      case "TWO_ROOM":        type = "투룸"; break;
+      case "THREE_ROOM":      type = "쓰리룸"; break;
+      case "OFFICETEL":       type = "오피스텔"; break;
+      case "OFFICE":          type = "사무실"; break;
+      case "SHOPPING":        type = "상가, 매장"; break;
+      case "CAFE_RESTAURANT": type = "카페, 식당"; break;
+      case "ACADEMY":         type = "학원, 교육관련"; break;
+      case "HOSPITAL":        type = "병원"; break;
+    }
+
     return res.render('room/room-detail', {
       ENV: req.env,
       logined: req.logined,
       msg: req.msg,
       title: '방 정보 상세보기',
+      postTitle: room.post.title,
+      read: room.post.read_count,
+      createdAt: room.createdAt,
+
+      deposit: room.deposit,
+      monthlyRentFee: room.monthly_rent_fee,
+
+      roomType: type,
+
+      email: room.post.user.email,
+      phone: room.post.user.telephone,
+
+      
       //{"ID":10,"post_id":10,"room_type":"ONE_ROOM","post_code":"54922","address":"{\"addr1\":\"전북 전주시 덕진구 백제대로 567\",\"addr2\":\"전북대학교 창업동아리 아늑한집\"}","old_address":"{\"addr1\":\"전라북도 전주시 덕진구 금암동 1587-31\",\"addr2\":\"전북대학교 구주소입니당\"}","old_address_dong":"금암동","coordinate":"{\"lat\":35.8598743,\"lng\":127.1117673}","thumbnail_image_path":"medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg","thumbnail_media_id":10,"deposit":100,"monthly_rent_fee":25,"area_size":10,"meta_value":"{\"options\":[\"심야전기\"]}","createdAt":"2017-02-26T12:03:57.615Z","updatedAt":"2017-02-26T12:03:57.615Z","post":{"ID":10,"user_id":10,"post_init_date":"2017-02-26T12:03:54.000Z","post_init_date_gmt":"2017-02-26T03:03:54.000Z","content":"<p style=\"text-align: center; \">Hi, HTML Text 10번 유저</p><p style=\"text-align: center; \">ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>","title":"10번 user 게시물입니다","post_status":"publish","post_modified_date":"2017-01-24T15:00:00.000Z","post_modified_date_gmt":"2017-01-24T18:00:00.000Z","post_type":"room","read_count":0,"like":0,"locale":"ko_KR","meta_value":"{\"written_device\":\"web\"}","createdAt":"2017-02-26T12:03:57.342Z","updatedAt":"2017-02-26T12:03:57.342Z"}}
       room: room
     });
