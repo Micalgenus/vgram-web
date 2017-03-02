@@ -7,7 +7,7 @@
 const auth = require('../core/authentication');
 
 const models = require('../../models');
-const Users = models.users;
+const Users = models.user;
 
 var moment = require('moment');
 moment.locale("ko");

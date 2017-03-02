@@ -1,9 +1,9 @@
 "use strict";
 
 const models = require('../../models');
-const Rooms = models.rooms;
-const Posts = models.posts;
-const Users = models.users;
+const Rooms = models.room;
+const Posts = models.post;
+const Users = models.user;
 const _ = require('lodash');
 const Promise = require("bluebird");
 const moment = require("moment");
@@ -42,14 +42,11 @@ exports.roomInfoListView = function(req, res) {
       return res.redirect('/room' + size);
     }
 
-    Posts.hasOne(Rooms, { foreignKey: 'post_id' });
-    Rooms.belongsTo(Posts, { foreignKey: 'ID' });
-
     return Rooms.findAll({
       include: [ { model: Posts } ],
       limit: count,
       offset: index,
-      order: '`rooms`.`ID` DESC'
+      order: '`room`.`ID` DESC'
     }).then(function(rooms) {
       var roomInfo = [];
       rooms.forEach(function(room) {
@@ -634,12 +631,6 @@ exports.deleteRoomInfo = function(req, res) {
 exports.roomInfoDetailView = function(req, res) {
 
   let idx = req.params.roomInfoIdx;
-
-  Posts.hasOne(Rooms, { foreignKey: 'post_id' });
-  Rooms.belongsTo(Posts, { foreignKey: 'ID' });
-
-  Users.hasOne(Posts, { foreignKey: 'user_id' });
-  Posts.belongsTo(Users, { foreignKey: 'ID' });
 
   return Rooms.findOne({
     include: [ {

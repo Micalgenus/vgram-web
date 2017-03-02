@@ -5,7 +5,7 @@
 "use strict";
 
 const models = require('../../models');
-const Users = models.users;
+const Users = models.user;
 
 //========================================
 // Login & Logout

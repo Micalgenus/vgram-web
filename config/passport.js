@@ -6,7 +6,7 @@ const passport = require('passport'),
    models = require('../models'),
    //2017.1.13 이정현 주석 처리
    //Member = models.Member,
-   users = models.users,
+   users = models.user,
    config = require('./main.js'),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,

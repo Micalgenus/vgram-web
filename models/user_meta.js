@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('user_metas', {
+  var user_meta = sequelize.define('user_meta', {
     ID: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       references: {
-        model: 'users',
+        model: 'user',
         key: 'ID'
       }
     },
@@ -25,6 +25,21 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'user_metas'
+    tableName: 'user_meta',
+     classMethods: {
+        associate: function(models) {
+           user_meta.belongsTo(models.user, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              foreignKey: {
+                 name: 'user_id',
+                 allowNull: false
+              },
+              targetKey: "ID"
+           });
+        }
+     }
   });
+
+   return user_meta;
 };

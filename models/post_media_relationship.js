@@ -1,26 +1,26 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_attached_relationships', {
+  return sequelize.define('post_media_relationship', {
     post_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
        primaryKey: true,
        references: {
-        model: 'posts',
+        model: 'post',
         key: 'ID'
       }
     },
-    attached_id: {
+    media_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
        primaryKey: true,
        references: {
-        model: 'attached',
+        model: 'media',
         key: 'ID'
       }
     }
   }, {
-    tableName: 'post_attached_relationships'
+    tableName: 'post_media_relationship'
   });
 };
