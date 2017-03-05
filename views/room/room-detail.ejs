@@ -113,13 +113,13 @@ location.href=”tel:”+num;
 
             <div class="col_two_third">
                <label for="template-jobform-fname">title </label>
-               <a>타이틀자리</a>
+               <a><%=postTitle%></a>
                <!--<input type="text" id="template-jobform-fname" name="template-jobform-fname" value="" class="sm-form-control required" />-->
             </div>
 
             <div class="col_one_third col_last">
                <label for="template-jobform-lname">조회수 / 등록일자 </label>
-               <a>자리</a>
+               <a><%=read%> / <%=createdAt%></a>
                <!--<input type="text" id="template-jobform-lname" name="template-jobform-lname" value="" class="sm-form-control required" />-->
             </div>
 
@@ -157,19 +157,19 @@ location.href=”tel:”+num;
                            <div class="slider-wrap">
                               <div class="slide">
                                  <a href="#">
-                                    <img src="http://localhost:3003/w500//tests/images/1.jpg" alt="Slide 2">
+                                    <img src="http://localhost:3003/s300/tests/images/1.jpg" alt="Slide 2">
                                     <div class="flex-caption slider-caption-bg">Responsive Ready Design</div>
                                  </a>
                               </div>
                               <div class="slide" data-thumb="/tests/images/2.jpg">
                                  <a href="#">
-                                    <img src="/tests/images/2.jpg" alt="Slide 3">
+                                    <img src="http://localhost:3003/s300/tests/images/2.jpg" alt="Slide 3">
                                     <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-top-left">Retina Graphics Display</div>
                                  </a>
                               </div>
                               <div class="slide" data-thumb="/tests/images/3.jpg">
                                  <a href="#">
-                                    <img src="/w500//tests/images/3.jpg" alt="Slide 4">
+                                    <img src="http://localhost:3003/s300/tests/images/3.jpg" alt="Slide 4">
                                     <div class="flex-caption slider-caption-bg slider-caption-top-right">Bootstrap 3+ Compatible</div>
                                  </a>
                               </div>
@@ -209,7 +209,7 @@ location.href=”tel:”+num;
                            <script>
                               var container = document.getElementById('map');
                               var options = {
-                                 center: new daum.maps.LatLng(35.840716, 127.131531),
+                                 center: new daum.maps.LatLng(<%=lat%>, <%=lng%>),
 //                                 휠 작동 안되게 함 (draggable)
                                  draggable:false,
                                  level: 3
@@ -217,7 +217,7 @@ location.href=”tel:”+num;
                               var map = new daum.maps.Map(container, options);
 
 
-                              var markerPosition  = new daum.maps.LatLng(35.840716, 127.131531);
+                              var markerPosition  = new daum.maps.LatLng(<%=lat%>, <%=lng%>);
 
                               var marker = new daum.maps.Marker({
                                  position: markerPosition
@@ -225,8 +225,8 @@ location.href=”tel:”+num;
                               marker.setMap(map);
 
 
-                              var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,35.840716, 127.131531" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                                 iwPosition = new daum.maps.LatLng(35.840716, 127.131531); //인포윈도우 표시 위치입니다
+                              var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,<%=lat%>, <%=lng%>" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,<%=lat%>, <=%lng%>" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                                 iwPosition = new daum.maps.LatLng(<%=lat%>, <%=lng%>); //인포윈도우 표시 위치입니다
 
                               var infowindow = new daum.maps.InfoWindow({
                                  position : iwPosition,
@@ -246,7 +246,7 @@ location.href=”tel:”+num;
                               var roadview = new daum.maps.Roadview(roadviewContainer); //로드뷰 객체
                               var roadviewClient = new daum.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
-                              var position = new daum.maps.LatLng(35.840716, 127.131531);
+                              var position = new daum.maps.LatLng(<%=lat%>, <%=lng%>);
 
                               // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
                               roadviewClient.getNearestPanoId(position, 50, function(panoId) {
@@ -259,12 +259,12 @@ location.href=”tel:”+num;
                   <div class="tab-content clearfix" id="tabs-39">
                      <div class="col_half">
                         <label for="template-jobform-fname">보증금/월세 <small>*</small></label>
-                        <a>뿌리자</a>
+                        <a><%=deposit%> / <%=monthlyRentFee%></a>
                      </div>
 
                      <div class="col_half col_last">
                         <label for="template-jobform-lname">방 종류 <small>*</small></label>
-                        <a>원룸</a>
+                        <a><%=roomType%></a>
                      </div>
 
                      <div class="col_half">
@@ -292,7 +292,7 @@ location.href=”tel:”+num;
 
             <!--textarea 태그 수정-->
             <div class="col_full">
-               <label for="template-jobform-application">추가설명 영역 (textarea 태그임)</label>
+               <label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>
                <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
             </div>
 
@@ -314,7 +314,7 @@ location.href=”tel:”+num;
                      <!-- 버튼 안에 class="close" 삭제-->
                      <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target="#contactFormModal"><i class="icon-email2" ></i></a></button>
                   </div>
-                  <h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle">Email</span></h3>
+                  <h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle"><%=email%></span></h3>
                </div>
             </div>
 
@@ -328,7 +328,7 @@ location.href=”tel:”+num;
                         </div>
                      </ul>
                   </div>
-                  <h3>Call<span class="subtitle">(010) 1111 2222</span></h3>
+                  <h3>Call<span class="subtitle"><%=phone%></span></h3>
                </div>
             </div>
 
@@ -352,38 +352,67 @@ location.href=”tel:”+num;
 
             <div class="clear"></div>
 
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <a href="#"> <i class="i-plain icon-thumbs-up" ></i></a>
-                  </div>
-                  <h3><span class="subtitle">몇개</span></h3>
-               </div>
+            <div class="counter counter-small">
+
+               <table class="table">
+                  <thead></thead>
+                  <tbody>
+                  <tr>
+                     <td>#</td>
+                     <th>
+                        <i class="i-plain icon-thumbs-up"></i>
+                        <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
+                     </th>
+
+                     <th>
+                        <i class="i-plain icon-meh"></i>
+                        <span data-from="0" data-to="65" data-refresh-interval="100" data-speed="3000"></span>
+                     </th>
+
+                     <th>
+                        <i class="i-plain icon-unlink"></i>
+                        <span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>
+                     </th>
+                     <td>#</td>
+                  </tr>
+                  </tbody>
+               </table>
+
             </div>
 
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-meh" ></i></a>
-                  </div>
-                  <h3><span class="subtitle">몇개</span></h3>
-               </div>
-            </div>
 
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                    <a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-unlink" ></i></a>
-                  </div>
-                  <h3><span class="subtitle">몇개</span></h3>
-               </div>
-            </div>
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--<a href="#"> <i class="i-plain icon-thumbs-up" ></i></a>-->
+                  <!--</div>-->
+                  <!--<h3><span class="subtitle">몇개</span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--<a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-meh" ></i></a>-->
+                  <!--</div>-->
+                  <!--<h3><span class="subtitle">몇개</span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                    <!--<a href="#" data-toggle="modal" data-target=""><i class="i-plain icon-unlink" ></i></a>-->
+                  <!--</div>-->
+                  <!--<h3><span class="subtitle">몇개</span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
 
             <div class="clear"></div>
 
             <!--SNS 공유-->
             <div class="sns_wrap">
-               <p>SNS 공유하기</p>
+               <!--<p>SNS 공유하기</p>-->
 
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
                   <div class="feature-box fbox-center fbox-bg fbox-plain">
@@ -460,11 +489,11 @@ location.href=”tel:”+num;
 
 
             <!--수정,삭제   // 내가 쓴거 조건문 추가-->
-
-            <a href="#" class="button button-3d  button-rounded button-green">수정</a>
-            <a href="#" class="button button-3d  button-rounded button-green">삭제</a>
-            <a href="#" class="button button-3d  button-rounded button-green">재등록</a>
-
+            <div style="float:right">
+            <a href="#" class="button button-3d  button-rounded button-blue">수정</a>
+            <a href="#" class="button button-3d  button-rounded button-blue">삭제</a>
+            <a href="#" class="button button-3d  button-rounded button-blue">재등록</a>
+            </div>
 
             <div class="col_full">
                <label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>
@@ -475,7 +504,7 @@ location.href=”tel:”+num;
 
                <!--목록가기-->
             <div class="col_full">
-               <a href="#" onclick="goRoom('/room')" class="button button-3d nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>
+               <a href="#" onclick="goRoom('/room')" class="button button-3d button-blue nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>
             </div>
 
          </form>

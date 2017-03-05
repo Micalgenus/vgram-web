@@ -71,7 +71,7 @@ gulp.task('nodemon', function (debug) {
   }
 
    var execDebugMap = {
-        js: 'node-inspector & node --debug'
+        js: 'node --debug-brk'
      }
 
   nodemon({
@@ -81,7 +81,7 @@ gulp.task('nodemon', function (debug) {
     env: {'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development'},
     stdout: false,
      ignore: ['.idea/*', 'node_modules/*', '.sqlite', '.sqlite-journal'],
-     tasks: ['lint'],
+     // tasks: ['lint'],
      verbose: true
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {

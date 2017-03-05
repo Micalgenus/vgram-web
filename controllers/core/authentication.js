@@ -5,7 +5,7 @@
 
 const crypto = require('crypto'),
    models = require('../../models'),
-   users = models.users,
+   users = models.user,
    //user_metas = models.user_metas,
    moment = require("moment"),
    _ = require('lodash'),
