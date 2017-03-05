@@ -5,13 +5,13 @@
 "use strict";
 
 const models = require('../../models');
-const Users = models.users;
+const User = models.user;
 
 exports.bizList = function(req, res, next) {
 
   let page = (req.query.page ? req.query.page : 1);
 
-  return Users.count({
+  return User.count({
     where: {
       member_type: "BUSINESS"
     }
@@ -20,7 +20,7 @@ exports.bizList = function(req, res, next) {
     let count = (req.query.pageSize ? req.query.pageSize : 20);
     let last_page = parseInt(member_count / count) + 1;
     var index = (count * (page - 1));
-    
+
     // 잘못된 요청일 경우 넘어감
     if (page > last_page) {
       let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
@@ -31,7 +31,7 @@ exports.bizList = function(req, res, next) {
       return res.redirect('/biz' + size);
     }
 
-    return Users.findAll({
+    return User.findAll({
       where: {
         member_type: "BUSINESS"
       },
@@ -74,7 +74,7 @@ exports.bizList = function(req, res, next) {
 
 exports.bizDetail = function(req, res, next) {
 
-  return Users.findOne({
+  return User.findOne({
     where: {
       ID: req.params.idx,
       member_type: "BUSINESS"

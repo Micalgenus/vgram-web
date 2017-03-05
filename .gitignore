@@ -44,8 +44,10 @@ build/
 
 # Development Resource #
 #resources/
-db.development.sqlite
+*.sqlite
+*.sqlite-journal
 #/references
 /remote-models
 
 .vscode/tasks.json
+/.vscode

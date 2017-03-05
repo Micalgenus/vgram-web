@@ -3,9 +3,16 @@
  */
 
 "use strict";
+const multer = require('multer');
 
 const models = require('../../models');
-const Users = models.users;
+const User = models.user;
+const multerConfig = require('../../config/multer');
+const value = require('../../utils/staticValue');
+
+// for file download
+const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields([
+  { name: value.fieldName.PROFILE_IMAGE, maxCount: 1 }]);
 
 //========================================
 // Login & Logout

@@ -1,76 +1,19 @@
 const path = require('path');
-const rootPath = path.normalize(__dirname + '/..');
-const appRoot = require('app-root-path');
-const env = process.env.NODE_ENV || 'development';
-
-// root project path 찾는 방법에 대해서는 여러가지 방법이 구현되어 있으나,
-// 현재는 이 방법을 사용한다.
-const KRPANO_WIN_PATH = path.join(appRoot.toString(), "\\tools\\krpano-1.19-pr6-win");
-const KRPANO_LINUX_PATH = path.join(appRoot.toString(), "/tools/krpano-1.19-pr6-linux");
-const VTOUR_CONFIG_PATH = "templates/vtour-normal-custom.config";
-const PANOTOUR_PATH = path.join("vtour", "panos");
+const rootPath = require('app-root-path');      // path.normalize(__dirname + '/..');
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const env_var = require("./environment_vars");
 
 var config = {
    "development": {
-      "secret": "cozyhouzz by moblab",  // Secret key for JWT signing and encryption
-      root: rootPath,
-      app: {
-         name: 'cozyhouzz-web'
-      },
       "hostName": "localhost",    // actual hostname for resource hosting
       "dialect": "sqlite",
-      "storage": "./db.development.sqlite",
-      "port": process.env.PORT || 3000,
-      "krpano": {
-         win: KRPANO_WIN_PATH,
-         linux: KRPANO_LINUX_PATH,
-         vtour_config: VTOUR_CONFIG_PATH,
-         panotour_path: PANOTOUR_PATH
-      },
-      logLevel: "debug",
-      resourcePath: "resources",   // 현재는 상대경로로만 작성해야함.(DB내 정보 삽입때문에)
-      attachedDir: "attached",
-      mediasDir: "medias",
-      imagesDir: "images",
-      videosDir: "videos",
-      vrImagesDir: "vrImages",
-      vtourDir: "vtours",
-      vrvideosDir: "vrvideos",
-      postsDir: "posts",
-      usersDir: "users"
+      "storage": "./db.development.sqlite"
    },
 
    "test": {
-      "secret": "cozyhouzz by moblab",
-      root: rootPath,
-      app: {
-         name: 'cozyhouzz-web'
-      },
-      "krpano": {
-         win: KRPANO_WIN_PATH,
-         linux: KRPANO_LINUX_PATH,
-         vtour_config: VTOUR_CONFIG_PATH,
-         panotour_path: PANOTOUR_PATH
-      },
-      port: process.env.PORT || 3000,
-      resourcePath: "resources",
-      attachedDir: "attached",
-      mediasDir: "medias",
-      imagesDir: "images",
-      videosDir: "videos",
-      vrImagesDir: "vrImages",
-      vtourDir: "vtours",
-      vrvideosDir: "vrvideos",
-      postsDir: "posts",
-      usersDir: "users"
    },
 
    "production": {
-      "secret": "cozyhouzz by moblab",
-      root: rootPath,
-      app: {
-         name: 'cozyhouzz-web'
-      },
       "username": "root",
       "password": "hitit113112",
       "database": "cozyhouzz",
@@ -82,25 +25,6 @@ var config = {
          "min": 10,
          "idle": 10000
       },
-      "krpano": {
-         win: KRPANO_WIN_PATH,
-         linux: KRPANO_LINUX_PATH,
-         vtour_config: VTOUR_CONFIG_PATH,
-         panotour_path: PANOTOUR_PATH
-      },
-      logLevel: "info",
-      // Setting port for server
-      "port": process.env.PORT || 3000,
-      resourcePath: "resources",
-      attachedDir: "attached",
-      mediasDir: "medias",
-      imagesDir: "images",
-      videosDir: "videos",
-      vrImagesDir: "vrImages",
-      vtourDir: "vtours",
-      vrvideosDir: "vrvideos",
-      postsDir: "posts",
-      usersDir: "users",
       // Configuring Mailgun API for sending transactional email
       "mailgun_priv_key": "mailgun private key here",
       // Configuring Mailgun domain for sending transactional email
@@ -112,4 +36,30 @@ var config = {
    }
 }
 
-module.exports = config[env];
+config[NODE_ENV].secret = "cozyhouzz by moblab";  // Secret key for JWT signing and encryption
+config[NODE_ENV].root = rootPath;
+config[NODE_ENV].app = {
+   name: 'cozyhouzz-web'
+};
+
+config[NODE_ENV].krpano = {
+   WIN_PATH: env_var.KRPANO_WIN_PATH,
+   LINUX_PATH: env_var.KRPANO_LINUX_PATH,
+   VTOUR_CONFIG_PATH: env_var.VTOUR_CONFIG_PATH,
+   PANOTOUR_PATH: env_var.PANOTOUR_PATH
+}
+
+config[NODE_ENV].resource = {
+   DIR: env_var.RESOURCE_DIR,
+   ATTACHED_DIR: env_var.ATTACHED_DIR,
+   MEDIAS_DIR: env_var.MEDIAS_DIR,
+   IMAGES_DIR: env_var.IMAGES_DIR,
+   VIDEOS_DIR: env_var.VIDEOS_DIR,
+   VRIMAGES_DIR: env_var.VRIMAGES_DIR,
+   VTOURS_DIR: env_var.VTOURS_DIR,
+   POSTS_DIR: env_var.POSTS_DIR,
+   USERS_DIR: env_var.USERS_DIR,
+   TEMP_DIR: env_var.TEMP_DIR,
+}
+
+module.exports = config[NODE_ENV];

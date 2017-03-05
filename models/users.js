@@ -121,7 +121,6 @@ module.exports = function(sequelize, DataTypes) {
               // constraints: false,
               onUpdate: "CASCADE",
               onDelete: "CASCADE",
-              as: "Tasks",
               through: models.user_user_relationship,
               foreignKey: {
                  name: 'user_id',
@@ -130,7 +129,8 @@ module.exports = function(sequelize, DataTypes) {
               otherKey: {
                  name: 'user_target_id',
                  allowNull: false
-              }
+              },
+              as: "Subscribes"
            });
 
            user.hasOne(models.user_meta, {
@@ -152,7 +152,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'user_id',
                  allowNull: false
-              }
+              },
+              as: "LikePosts"
            });
 
            user.belongsToMany(models.post, {
@@ -162,7 +163,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'user_id',
                  allowNull: false
-              }
+              },
+              as: "WishPosts"
            });
 
            user.hasMany(models.post, {
@@ -172,7 +174,8 @@ module.exports = function(sequelize, DataTypes) {
                  name: 'user_id',
                  allowNull: false
               },
-              sourceKey: "ID"
+              sourceKey: "ID",
+              as: "Posts"
            });
         }
      }

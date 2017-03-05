@@ -8,9 +8,9 @@ var value = require("../utils/staticValue");
 
 module.exports = {
    //------------------------------------------
-   // users table
+   // user table
    //------------------------------------------
-   users: [
+   user: [
       {
          ID: 1,
          email: "kcmin08@naver.com",    // 일반 회원
@@ -225,9 +225,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // user_post_relationships table
+   // user_post_relationship table
    //------------------------------------------
-   user_post_relationships: [
+   user_post_relationship: [
       {
          user_id: 1,
          post_id: 1
@@ -280,9 +280,9 @@ module.exports = {
 
 
    //------------------------------------------
-   // user_post_like_relationships table
+   // user_post_like_relationship table
    //------------------------------------------
-   user_post_like_relationships: [
+   user_post_like_relationship: [
       {
          user_id: 1,
          post_id: 1
@@ -335,9 +335,9 @@ module.exports = {
 
 
    //------------------------------------------
-   // user_user_relationships table
+   // user_user_relationship table
    //------------------------------------------
-   user_user_relationships: [
+   user_user_relationship: [
       {
          user_id: 1,
          user_target_id: 2
@@ -389,9 +389,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // users_metas table
+   // users_meta table
    //------------------------------------------
-   user_metas: [
+   user_meta: [
       {
          ID: 1,
          user_id: 5,    // 일반 회원
@@ -403,9 +403,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // posts table
+   // post table
    //------------------------------------------
-   posts: [
+   post: [
       {
          id: 1,
          user_id: 1,
@@ -702,16 +702,16 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // post_metas table
+   // post_meta table
    //------------------------------------------
-   post_metas: [
+   post_meta: [
 
    ],
 
    //------------------------------------------
-   // rooms table
+   // room table
    //------------------------------------------
-   rooms: [
+   room: [
       {
          ID: 1,
          post_id: 1,
@@ -730,7 +730,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -757,7 +757,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -784,7 +784,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -811,7 +811,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -838,7 +838,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -865,7 +865,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -892,7 +892,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -919,7 +919,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0074.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0074.tiles/thumb.jpg"],
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -946,7 +946,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg",
+         thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
          thumbnail_media_id: 9,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -973,7 +973,7 @@ module.exports = {
             lat: 35.8598743,
             lng: 127.1117673
          },
-         thumbnail_image_path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg",    // fullpath(file_path + tiles[x].dir + thumbnail)
+         thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"],    // fullpath(file_path + tiles[x].dir + thumbnail)
          thumbnail_media_id: 10,     // thumbnail과 연결된 media.ID
          deposit: 100,     // 만원
          monthly_rent_fee: 25,      // 만원
@@ -1028,9 +1028,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // post_attached_relationships table
+   // post_attached_relationship table
    //------------------------------------------
-   post_attached_relationships: [
+   post_attached_relationship: [
       {
          post_id: 1,
          attached_id: 1
@@ -1050,9 +1050,21 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // medias table
+   // media table
    //------------------------------------------
-   medias: [
+   media: [
+      {
+         ID: 0,
+         media_group: "4s9df41a3z97dt",
+         media_type: "png",   // 일단 확장자명으로 구분하자
+         date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         file_path: "medias/images",
+         file_name: "progressing.png",    // 원본 이미지 경로
+         meta_value: {     // thumb,
+            // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+            // thumb: "360x240_201606281846_thumb.jpg"
+         }
+      },
       {
          ID: 1,
          media_group: "4s9df41a3z97dt",
@@ -1192,9 +1204,9 @@ module.exports = {
    ],
 
    //------------------------------------------
-   // post_media_relationships table
+   // post_media_relationship table
    //------------------------------------------
-   post_media_relationships: [
+   post_media_relationship: [
       {
          post_id: 1,
          media_id: 9

@@ -12,9 +12,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       references: {
-        model: 'post',
-        key: 'ID'
-      }
+          model: 'post',
+          key: 'ID'
+       }
     },
     room_type: {
       type: DataTypes.STRING(45),
@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     thumbnail_image_path: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.JSON,
       allowNull: false
     },
     thumbnail_media_id: {
@@ -96,7 +96,8 @@ module.exports = function(sequelize, DataTypes) {
                  name: 'thumbnail_media_id',
                  allowNull: false
               },
-              targetKey: "ID"
+              targetKey: "ID",
+              as: "ThumbImage"
            });
 
         }

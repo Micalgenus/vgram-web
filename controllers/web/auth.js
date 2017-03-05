@@ -7,7 +7,7 @@
 const auth = require('../core/authentication');
 
 const models = require('../../models');
-const Users = models.users;
+const User = models.user;
 
 var moment = require('moment');
 moment.locale("ko");
@@ -52,7 +52,7 @@ exports.logout = function(req, res, next) {
     req.flash('msg', '로그인을 해주십시오.');
     return res.redirect('/login');
   }
-  
+
   res.clearCookie('Authorization');
 
   return next();
@@ -129,7 +129,7 @@ exports.register = function(req, res, next) {
   let phone = req.body.phone;
   let name = req.body.name;
 
-  return Users.findOne({
+  return User.findOne({
     where: {
       email: email
     }
@@ -139,7 +139,7 @@ exports.register = function(req, res, next) {
       return res.redirect('/signup');
     }
 
-    return Users.create({
+    return User.create({
       email: email,
       password: password,
       member_type: type,
@@ -189,18 +189,18 @@ exports.change = function(req, res, next) {
     meta.owner_name = req.body.owner_name;
     // meta.company_address = req.body.company_address;
     meta.intro_comment = req.body.intro_comment;
-    
+
     userData.meta_value = meta;
   }
 
-  return Users.update(userData, {
+  return User.update(userData, {
     where: {
       email: email
     }
   }).then(function(array) {
     if (array[0] == 1) {
 
-      return Users.findOne({
+      return User.findOne({
         where: {
           email: email
         }

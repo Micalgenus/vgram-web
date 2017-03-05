@@ -44,7 +44,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'media_id',
                  allowNull: false
-              }
+              },
+              as: "UseCases"
            });
 
            media.hasOne(models.room, {
@@ -54,7 +55,8 @@ module.exports = function(sequelize, DataTypes) {
                  name: 'thumbnail_media_id',
                  allowNull: false
               },
-              sourceKey: "ID"
+              sourceKey: "ID",
+              as: "ThumbImage"
            });
 
         }

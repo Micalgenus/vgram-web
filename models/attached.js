@@ -44,7 +44,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'attached_id',
                  allowNull: false
-              }
+              },
+              as: "UseCases"
            });
 
         }

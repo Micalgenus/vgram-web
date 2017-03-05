@@ -4,8 +4,9 @@ var morgan = require('morgan'),
   cors = require('cors'),
   path = require('path'),
   express = require('express'),
+   i18n = require('i18n'),
+
   errorhandler = require('errorhandler'),
-  dotenv          = require('dotenv'),
   bodyParser = require('body-parser'),
   compress = require('compression'),
   favicon = require('serve-favicon'),
@@ -13,28 +14,34 @@ var morgan = require('morgan'),
   flash = require('express-flash'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
-
-  router = require('./frontRouter');
-
+   device = require('express-device');
 
 var app = express();
-dotenv.load();    // loading .env and write to process.env
 
 var env = process.env.NODE_ENV || "development";
 app.locals.ENV = env;
 
 var config = require("./config/main");
 
-//2017.1.17 이정현 쿠키파서 추가
-app.use(cookieParser());
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+i18n.configure({
+   locales: ['en', 'ko'],
+   cookie: 'lang',      //
+   directory: __dirname + '/locales',
+   defaultLocale: 'ko',
+   extension: '.js',
+   api: {
+      '__': 'i18n',  //now req.__ becomes req.t
+      '__n': 'i18n_n' //and req.__n can be called as req.tn
+   }
+});
+
 // session 추가
 app.use(session({
-  secret: 'cozyhouzz secrets',
+  secret: config.secret,
   resave: false,
   saveUninitialized: true
 }));
@@ -49,12 +56,17 @@ app.use(flash());
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(compress());
+app.use(device.capture());
+
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(express.static(__dirname + "/" + config.resourcePath));
+app.use(express.static(__dirname + "/" + config.resource.DIR));
 app.use('/config', express.static(__dirname + '/config/publish'));
 app.use(express.static(config.root + '/public'));
 
+//2017.1.17 이정현 쿠키파서 추가
+app.use(cookieParser());
+app.use(i18n.init);
 
 app.options("*", cors());
 app.use(cors({
@@ -65,31 +77,30 @@ app.use(cors({
   "preflightContinue": true
 }));    // 왜 안먹는거지?
 
-// You can explicitly set the path, using the environmental variable APP_ROOT_PATH or by calling
-require('app-root-path').setPath(__dirname);
 
 // catch 404 and forward to error handler
 app.use(function (err, req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error(res.i18n('404 page not found'));
   err.status = 404;
   next(err);
 });
 
 // error handler
 // no stacktraces leaked to user unless in development environment
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500).json({
-    message: err.message,
-    error: (app.get('env') === 'development') ? err : {},
-    title: "error"
-  });
-});
+if (app.get('env') === 'production') {
+   app.use(function (err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+         message: res.i18n("trouble in server message") || err.message,
+         title: res.i18n("trouble in server title")
+      });
+   });
+}
 
 
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res.status(err.status || 500).json({
       message: err.message,
       error: err,
       title: 'error'
@@ -100,6 +111,8 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'));   // 고로, 4.X 버전에서는 morgan을 사용해야 함. logger와 같은 역할
   app.use(errorhandler());
 }
+
+const router = require('./frontRouter');
 
 // Import routes to be served
 router(app);

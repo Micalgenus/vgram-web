@@ -4,8 +4,8 @@
 "use strict";
 
 const models = require('../../models');
-const posts = models.posts;
-const rooms = models.rooms;
+const post = models.post;
+const room = models.room;
 const _ = require('lodash');
 const moment = require("moment");
 
@@ -24,7 +24,7 @@ exports.viewNotice = function (req, res) {
    }
    //공지사항 조회
    return models.sequelize.query("select u.email, u.display_name, p.* " +
-      "from users as u, posts as p where u.ID = p.user_id and p.post_type = 'notice' limit ?,?",
+      "from users as u, post as p where u.ID = p.user_id and p.post_type = 'notice' limit ?,?",
       {replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT}
    ).then(function (noticeList) {
       if (noticeList.length == 0) {
@@ -63,7 +63,7 @@ exports.viewPosts = function (req, res) {
    }
 
    //post리스트를 조회
-   return models.sequelize.query("select u.email, u.display_name, p.*, r.* from users as u, posts as p, rooms as r " +
+   return models.sequelize.query("select u.email, u.display_name, p.*, r.* from users as u, post as p, room as r " +
       "where u.ID = p.user_id and p.id = r.post_id and p.post_type = 'room' limit ?,?",
       {replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT}
    ).then(function (postList) {
@@ -134,7 +134,7 @@ exports.viewRoomDetail = function (req, res) {
 
    //룸 세부정보 조회
    return models.sequelize.query("select u.email, u.display_name, u.telephone, p.*, r.* " +
-      "from users as u, posts as p, rooms as r " +
+      "from users as u, post as p, room as r " +
       "where u.ID = p.user_id and p.id = r.post_id and p.id = (?) and p.post_type = 'room'",
       {replacements: [roomInfoIdx], type: models.sequelize.QueryTypes.SELECT}
    ).then(function (detailList) {
@@ -194,7 +194,7 @@ exports.viewRoomDetail = function (req, res) {
             }
          }).catch(function (err) {
             return res.status(400).json({
-               errorMsg: 'DB select posts error',
+               errorMsg: 'DB select post error',
                statusCode: -2
             });
          });

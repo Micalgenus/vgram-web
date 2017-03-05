@@ -92,7 +92,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'post_id',
                  allowNull: false
-              }
+              },
+              as: "LikeUsers"
            });
 
            post.belongsToMany(models.user, {
@@ -102,7 +103,8 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                  name: 'post_id',
                  allowNull: false
-              }
+              },
+              as: "WishUsers"
            });
 
            post.belongsTo(models.user, {
@@ -112,7 +114,8 @@ module.exports = function(sequelize, DataTypes) {
                  name: 'user_id',
                  allowNull: false
               },
-              targetKey: "ID"
+              targetKey: "ID",
+              as: "Author"
            });
 
            post.belongsToMany(models.attached, {
