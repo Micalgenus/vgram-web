@@ -432,7 +432,7 @@ exports.roomInfoDetailView = function(req, res) {
       include: [ {
          model: Post,
          include: [ {
-            model: User
+            model: User    // as 옵션을 어떻게 쓰는거지??
          } ]
       } ],
       where: {
