@@ -6,8 +6,6 @@ const passport = require('passport'),
   multer = require('multer'),
   quoter  = require('./tests/quoter');    // test route
 
-  multerConfig = require('./config/multer');
-
   // web
 const Web = {
    RoomController: require('./controllers/web/view-room')
@@ -29,8 +27,8 @@ const postsAPIController = require('./controllers/api/posts');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
 
-// Web 용 local passport Login
-const requireViewLogin = function(req, res, next) {
+// Web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
+const requireWebLogin = function(req, res, next) {
   return passport.authenticate('local', function(err, user, info) {
     if (err) {
       return next(err); // will generate a 500 error
@@ -52,20 +50,19 @@ var env = process.env.NODE_ENV || "development";
 var config = require('./config/main');
 const value = require('./utils/staticValue');
 
-const buildCaseImageUpload = multer({ storage: multerConfig.buildCaseInfoStorage }).fields([
-  { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
-
-const roomInfoImageUpload = multer({ storage: multerConfig.roomInfoStorage }).fields([
-  { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
-
-const editorImageUpload = multer({ storage: multerConfig.editorImageStorage })
-  .array(value.fieldName.EDITOR_IMAGE, 10);
-
-const bizImageUpload = multer({ storage: multerConfig.bizMemberInfoStorage }).fields([
-  { name: value.fieldName.LOGO_IMAGE, maxCount: 1 }, { name: value.fieldName.INTRO_IMAGE, maxCount: 1 }]);
-
-var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
-
+// const buildCaseImageUpload = multer({ storage: multerConfig.buildCaseInfoStorage }).fields([
+//   { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
+//
+// const roomInfoImageUpload = multer({ storage: multerConfig.roomInfoStorage }).fields([
+//   { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
+//
+// const editorImageUpload = multer({ storage: multerConfig.editorImageStorage })
+//   .array(value.fieldName.EDITOR_IMAGE, 10);
+//
+// const bizImageUpload = multer({ storage: multerConfig.bizMemberInfoStorage }).fields([
+//   { name: value.fieldName.LOGO_IMAGE, maxCount: 1 }, { name: value.fieldName.INTRO_IMAGE, maxCount: 1 }]);
+//
+// var testFileUpload = multer({ dest: config.resourcePath + '/tests' }).any();
 
 module.exports = function(app) {
   // Initializing route groups
@@ -193,14 +190,14 @@ module.exports = function(app) {
 
   // Login route
   authAPI.post('/login', requireLogin, AuthAPIController.login);
-  authView.post('/login', AuthViewController.login, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
+  authView.post('/login', AuthViewController.login, requireWebLogin, AuthViewController.setToken, redirectViewController.redirectMain);
 
   // Logout route
   authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
 
   // Registration route
   authAPI.post('/register', AuthAPIController.register);
-  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireViewLogin, AuthViewController.setToken, redirectViewController.redirectMain);
+  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireWebLogin, AuthViewController.setToken, redirectViewController.redirectMain);
 
    //탈퇴 라우터
    authAPI.post('/quit', AuthAPIController.quit);
@@ -344,27 +341,27 @@ module.exports = function(app) {
    webRoutes.use('/room', Web.roomInfo);
 
    //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-   Web.roomInfo.get('/', Web.RoomController.roomInfoListView);
+   Web.roomInfo.get('/', AuthViewController.init, Web.RoomController.roomInfoListView);
 
   // create new Room Info from authenticated user
   // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
    // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
    Web.roomInfo.get('/new', Web.RoomController.createRoomInfoView);
-   Web.roomInfo.post('/', requireAuth, roomInfoImageUpload, Web.RoomController.createRoomInfoAndVRPano);
+   Web.roomInfo.post('/', requireAuth, Web.RoomController.createRoomInfo);
 
 
   // update Room Info Info from authenticated user
   // roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
    Web.roomInfo.get('/change/:roomInfoIdx([0-9]+)', Web.RoomController.changeRoomInfoView);
-   Web.roomInfo.put('/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, Web.RoomController.updateRoomInfo);
+   Web.roomInfo.put('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.updateRoomInfo);
 
    // delete Room Info Info from authenticated user
    roomInfoAPI.delete('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.deleteRoomInfo);
 
    // get Room Info Info from authenticated user
   // roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   Web.roomInfo.get('/:roomInfoIdx([0-9]+)', Web.RoomController.roomInfoDetailView);
+   Web.roomInfo.get('/:roomInfoIdx([0-9]+)', AuthViewController.init, Web.RoomController.roomInfoDetailView);
 
    Web.search.get('/room', Web.RoomController.searchRoomListView);
 };

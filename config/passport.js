@@ -6,7 +6,7 @@ const passport = require('passport'),
    models = require('../models'),
    //2017.1.13 이정현 주석 처리
    //Member = models.Member,
-   users = models.users,
+   users = models.user,
    config = require('./main.js'),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,
@@ -18,7 +18,8 @@ const localOptions = {
    passwordField: 'password'
 }
 
-var cookieExtractor = function(req) {
+// Custom extractor function for passport-jwt
+const cookieExtractor = function(req) {
   var token = null;
   if (req && req.cookies) {
     token = req.cookies['Authorization'];
@@ -26,6 +27,17 @@ var cookieExtractor = function(req) {
   }
 
   return token;
+};
+
+// Custom extractor function for passport-jwt
+const nullExtractor = function(req) {
+   var token = null;
+   if (req && req.cookies) {
+      token = req.cookies['Authorization'];
+      if (token) token = token.replace('Bearer ', '');
+   }
+
+   return token;
 };
 
 // Setting up local login strategy
@@ -72,7 +84,7 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
 const jwtOptions = {
   // Telling Passport to check authorization headers for JWT
   // jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  jwtFromRequest: cookieExtractor,
+  jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeader(), cookieExtractor, nullExtractor]),
   // Telling Passport where to find the secret
   secretOrKey: config.secret,
   // auth_token: 'JWT'
@@ -83,6 +95,8 @@ const jwtOptions = {
 // Setting up JWT login strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
   console.log(payload);
+
+   // login이 안되있으면 error를 출력하기 말고, user 값을 null로 설정하기
   users.findOne({where: {email: payload.email}}).then(function (user) {
     if (user) {
       done(null, user);   // localStrategy와 같다.

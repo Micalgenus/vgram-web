@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+var gulp = require('gulp-param')(require('gulp'), process.argv),
   gutil = require('gulp-util'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
@@ -6,6 +6,8 @@ var gulp = require('gulp'),
   env = require('gulp-env'),
   rename = require("gulp-rename"),
   uglify = require('gulp-uglify'),
+   jshint = require('gulp-jshint');
+
 
 //   sass = require('gulp-sass'),
   less = require('gulp-less'),
@@ -22,6 +24,11 @@ var gulp = require('gulp'),
 
 gutil.env.type === 'prod' ? env.set({NODE_ENV: "production"}) : env.set({NODE_ENV: "development"});
 gutil.log('taskmode : ' + process.env.NODE_ENV);
+
+gulp.task('lint', function () {
+   gulp.src('./**/*.js')
+      .pipe(jshint())
+})
 
 gulp.task('less', function () {
   gulp.src('./public/less/*.less')
@@ -54,16 +61,28 @@ gulp.task('watch', function () {
   gulp.watch('./public/less/*.less', ['less']);
 });
 
-gulp.task('nodemon', function () {
+gulp.task('nodemon', function (debug) {
   if (process.env.NODE_ENV === 'development') {
     livereload.listen();
   }
 
+  if(debug) {
+     gutil.log('nodemon - ' + gutil.colors.magenta('debug mode'));
+  }
+
+   var execDebugMap = {
+        js: 'node --debug-brk'
+     }
+
   nodemon({
+     execMap: debug ? execDebugMap : {},
     script: './bin/www.js',
     ext: 'js coffee ejs',
     env: {'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development'},
-    stdout: false
+    stdout: false,
+     ignore: ['.idea/*', 'node_modules/*', '.sqlite', '.sqlite-journal'],
+     // tasks: ['lint'],
+     verbose: true
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {
       if (/^Express server listening on port/.test(chunk)) {
@@ -79,6 +98,12 @@ gulp.task('default', [
   'less',
   'nodemon',
   'watch'
+]);
+
+gulp.task('debug', [
+   'less',
+   'nodemon',
+   'watch'
 ]);
 
 gulp.task('production', [

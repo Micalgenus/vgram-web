@@ -9,15 +9,10 @@ const statusCode = new Enum({
   'RequestActionCompleted_20x': 1
 });
 
-const memberType = new Enum({
-  'Admin': 0,
-  'PublicMember': 1,    // 일반 회원
-  BusinessMember: 2,    //  시공업체, 나중에 바꾸자(buildingMember)
-  LEASE_MEMBER: 3    // 임대업체
-});
-
-const uploadPath = {
-
+const memberType = {
+  ADMIN: "ADMIN",
+  PUBLIC: "PUBLIC",    // 일반 회원
+  BUSINESS: "BUSINESS"    //  사업주 회원
 };
 
 const businessType = {
@@ -136,26 +131,28 @@ const CLIENT_COMMENT = [      // What Client Says
 ]
 
 const fieldName = {
-   prevImg: "previewImage",
-   vrImg: "vrImage",
-   EDITOR_IMAGE: "editorImage",
-   LOGO_IMAGE: "logoImage",
-   INTRO_IMAGE: "introImage"
+   NORMAL_IMAGE: "NORMAL_IMAGE",
+   VR_IMAGE: "VR_IMAGE",
+   PROFILE_IMAGE: "PROFILE_IMAGE",
+   ATTACHED_FILE: "ATTACHED_FILE"
 }
 
-const dirName = {
-  EDITOR_IMAGE: "editor",
-  BUILD_CASE_INFO: "buildCaseInfo",
-  ROOM_INFO: "roomInfo",
-  BIZ_MEMBER: "bizMember"
+const mediaType = {
+   NORMAL_IMAGE: "NORMAL_IMAGE",
+   VR_IMAGE: "VR_IMAGE",
+   VTOUR_IMAGE: "VTOUR_IMAGE"
 }
+
+// attached - 첨부파일
+// medias - 이미지/동영상/VR이미지/VR동영상등
+// posts - post 설정파일(현재는 사용하지 않음)
+// users - user 설정파일(현재는 profile 저장하는 용도로만 사용)
 
 module.exports = {
   statusCode,
   memberType,
-  uploadPath,
   fieldName,
-  dirName,
+   mediaType,
   PlaceType,
   businessType
 };

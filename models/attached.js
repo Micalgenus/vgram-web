@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('attached', {
+  var attached = sequelize.define('attached', {
     ID: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -33,6 +33,24 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
-    tableName: 'attached'
+    tableName: 'attached',
+     classMethods: {
+        associate: function(models) {
+
+           attached.belongsToMany(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              through: models.post_attached_relationship,
+              foreignKey: {
+                 name: 'attached_id',
+                 allowNull: false
+              },
+              as: "UseCases"
+           });
+
+        }
+     }
   });
+
+   return attached;
 };

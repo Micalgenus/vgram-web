@@ -5,7 +5,7 @@
 
 const crypto = require('crypto'),
    models = require('../../models'),
-   users = models.users,
+   user = models.user,
    moment = require("moment"),
    _ = require('lodash'),
    mailgun = require('../../config/mailgun'),
@@ -82,7 +82,7 @@ exports.register = function(req, res, next) {
       return res.status(400).send({errorMsg: 'You must enter a telephone.', statusCode: -1});
    }
    //이메일로 조회
-   return users.findOne({
+   return user.findOne({
       where: {
          email: email
       }
@@ -101,7 +101,7 @@ exports.register = function(req, res, next) {
          };
 
          // 회원 가입시
-         users.create(user).then(function (newUser) {
+         user.create(user).then(function (newUser) {
             // Respond with JWT if user was created
             let userInfo = genToken.setUserInfo(newUser);
             let token = 'Bearer ' + genToken.generateUserToken(userInfo);
@@ -149,14 +149,14 @@ exports.quit = function (req, res, next) {
       });
    }
    //이메일과 user상태가 1(활성화된 사람)을 찾아서 update문을 날림.
-   return users.findOne({
+   return user.findOne({
       where: {
          email: email,
          user_status: 1
       }
    }).then(function (existingUser) {
       if (existingUser) {  // If user is not unique, return error
-         models.sequelize.query("update users set user_status = -1, updated_date = ?  where email = ?", {
+         models.sequelize.query("update user set user_status = -1, updated_date = ?  where email = ?", {
                replacements: [day, email]
          }).then(function (result) {
             return res.status(200).json({
@@ -204,7 +204,7 @@ exports.info = function(req, res, next) {
       });
    }
 
-   return models.sequelize.query("select * from users where email = (?)",
+   return models.sequelize.query("select * from user where email = (?)",
       { replacements: [email],type: models.sequelize.QueryTypes.SELECT})
    .then(function (data) {
          if(data.length <= 0){   // not exist user
@@ -286,7 +286,7 @@ exports.modifyInfo = function(req, res, next) {
       }
    }
    //활성화가 되어있는 유저를 찾음
-   return users.findOne({
+   return user.findOne({
       where: {
          email: email,
          user_status: 1
@@ -294,12 +294,12 @@ exports.modifyInfo = function(req, res, next) {
    }).then(function (existingUser) {
       //찾은경우에는 업데이트 실행
       if(existingUser) {
-         return users.update(
+         return user.update(
             user_info,
             {where: {email: email, user_status: 1}}
          ).then(function (result) {
             // passport에서 받은 object
-            return users.findOne({
+            return user.findOne({
                where: {
                   email: email,
                   user_status: 1
@@ -352,7 +352,7 @@ exports.modifyInfo = function(req, res, next) {
 exports.forgotPassword = function (req, res, next) {
    const email = req.body.email;
 
-   return users.findOne({where: {email: email}}).then(function (existingUser) {
+   return user.findOne({where: {email: email}}).then(function (existingUser) {
       // If user is not found, return error
       if (existingUser == null) {
          res.status(422).json({errorMsg: 'Your request could not be processed as entered. Please try again.'});

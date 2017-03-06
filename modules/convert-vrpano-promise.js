@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-08.
  */
@@ -16,26 +18,26 @@ var log = require('console-log-level')({
    prefix: function () {
       return new Date().toISOString()
    },
-   level: config.logLevel
+   level: process.env.logLevel
 })
 
 var platform = os.platform();
 var arch = os.arch();
 
-var shell, scriptFile, vtourConfig, toolPath;
+var shell, scriptFile, vtourConfig;
 
 if (platform === 'linux') {
 // HACK: to make our calls to exec() testable,
 // support using a mock shell instead of a real shell
    shell = process.env.SHELL || 'sh';
-   addToPath(config.krpano.linux);
+   addToPath(config.krpano.LINUX_PATH);
    scriptFile = "krpanotools";
 
 }
 else if (platform === 'win32' && process.env.SHELL === undefined) {
    // support for Win32 outside Cygwin
    shell = process.env.COMSPEC || 'cmd.exe';
-   addToPath(config.krpano.win);
+   addToPath(config.krpano.WIN_PATH);
 
    if (arch == 'x64') {
       scriptFile = "krpanotools64.exe";
@@ -46,7 +48,7 @@ else if (platform === 'win32' && process.env.SHELL === undefined) {
    }
 }
 
-vtourConfig = config.krpano.vtour_config;
+vtourConfig = config.krpano.VTOUR_CONFIG_PATH;
 
 /**
  * Convert spherical image to cubical image and save converted info to DB
@@ -56,7 +58,7 @@ vtourConfig = config.krpano.vtour_config;
  * @param folderName
  * @returns {number}
  */
-module.exports = function (imagePaths, folderName) {
+exports.convertVRPano = function (imagePaths, folderName) {
    if (!scriptFile) {
       return Promise.reject("not compatible with machine OS :  " + arch);
    }
@@ -70,15 +72,15 @@ module.exports = function (imagePaths, folderName) {
    }
 
    const configArgs = "-config=" + vtourConfig;
-   const folderPath = ["../", config.vtourDir, folderName].join("/");
+   const folderPath = path.posix.join(config.root, config.resource.VTOURS_DIR, folderName);
 
    // @link https://krpano.com/tools/kmakemultires/config/
-   const tilePath = "-tilepath=%INPUTPATH%/" + folderPath + "/panos/%BASENAME%.tiles/pano[_c].jpg";
-   const customImagePath = "-customimage[mobile].path=%INPUTPATH%/" + folderPath + "/panos/%BASENAME%.tiles/mobile/pano_%s.jpg";
-   const thumbPath = "-thumbpath=%INPUTPATH%/" + folderPath + "/panos/%BASENAME%.tiles/thumb.jpg";
-   const xmlPath = "-xmlpath=%INPUTPATH%/" + folderPath + "/tour.xml";
-   const htmlPath = "-htmlpath=%INPUTPATH%/" + folderPath + "/tour.html";
-   const previewPath = "previewpath=%INPUTPATH%/" + folderPath + "/panos/%BASENAME%.tiles/preview.jpg";
+   const tilePath = "-tilepath=" + folderPath + "/panos/%BASENAME%.tiles/pano[_c].jpg";
+   const customImagePath = "-customimage[mobile].path=" + folderPath + "/panos/%BASENAME%.tiles/mobile/pano_%s.jpg";
+   const thumbPath = "-thumbpath=" + folderPath + "/panos/%BASENAME%.tiles/thumb.jpg";
+   const xmlPath = "-xmlpath=" + folderPath + "/tour.xml";
+   const htmlPath = "-htmlpath=" + folderPath + "/tour.html";
+   const previewPath = "previewpath=" + folderPath + "/panos/%BASENAME%.tiles/preview.jpg";
    const previewArgs = "-preview=true";
 
    const makepanoArgs = _.concat(["makepano", configArgs], imagePaths,
@@ -114,3 +116,46 @@ module.exports = function (imagePaths, folderName) {
 
    return promise;
 }
+
+/**
+ * vtour 관련 변수 셋팅
+ * @param folderName
+ * @param vrImages
+ * @return {*}
+ */
+exports.setVTourInfo = function (folderName, vrImageInstances) {
+
+   if (folderName && vrImageInstances) {
+      let vtourInfo = {
+         media_type: value.mediaType.VTOUR_IMAGE,
+         date: moment.utc().format('YYYYMMDDHHmmssSS'),
+         file_path: path.posix.join(config.resource.VTOURS_DIR, folderName),     // DB저장용, root경로는 저장하지 않음
+         file_name: "tour",     // vtour의 경우에는 파일명 기본을 하자
+         meta_value: {
+            html_name: "tour.html",
+            js_name: "tour.js",
+            swf_name: "tour.swf",
+            xml_name: "tour.xml",
+            editor_name: "tour_editor.html",
+            thumbnail_image_name: "thumb.jpg",
+            tile_dir_name: [],
+            original_media_id: []
+         }
+      }
+
+      vtourInfo.meta_value.tile_dir_name = _.map(vrImageInstances, function(vrImage) {
+         let extension = path.extname(vrImage.file_name);    // imagefile name의 확장자부분만 추출
+         let imageName = path.basename(vrImage.file_name, extension);      // imagefile name의 파일 이름만 추출
+
+         return "panos/" + imageName + ".tiles"
+      })
+
+      vtourInfo.meta_value.original_media_id = _.map(vrImageInstances, (vrImage) => {
+         return vrImage.ID;
+      });
+
+      return vtourInfo;
+   } else {
+      return new Error("fail to setVTourInfo, check folderName AND vrImages");
+   }
+};

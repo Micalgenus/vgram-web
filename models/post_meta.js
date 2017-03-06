@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_metas', {
+  var post_meta = sequelize.define('post_meta', {
     ID: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'posts',
+        model: 'post',
         key: 'ID'
       }
     },
@@ -25,6 +25,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   }, {
-    tableName: 'post_metas'
+    tableName: 'post_meta',
+     classMethods: {
+        associate: function(models) {
+
+           post_meta.belongsTo(models.post, {
+              onUpdate: "CASCADE",
+              onDelete: "CASCADE",
+              foreignKey: {
+                 name: 'post_id',
+                 allowNull: false
+              },
+              targetKey: "ID"
+           });
+
+        }
+     }
   });
+
+   return post_meta
 };

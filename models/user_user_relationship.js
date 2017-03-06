@@ -1,26 +1,26 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_media_relationships', {
-    post_id: {
+  return sequelize.define('user_user_relationship', {
+    user_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-       primaryKey: true,
-       references: {
-        model: 'posts',
+      primaryKey: true,
+      references: {
+        model: 'user',
         key: 'ID'
       }
     },
-    media_id: {
+    user_target_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
        primaryKey: true,
        references: {
-        model: 'medias',
+        model: 'user',
         key: 'ID'
       }
     }
   }, {
-    tableName: 'post_media_relationships'
+    tableName: 'user_user_relationship'
   });
 };

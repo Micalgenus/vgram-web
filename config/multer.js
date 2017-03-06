@@ -4,11 +4,12 @@
 "use strict";
 
 const multer = require('multer');
-const md5 = require('node-md5');
+// const md5 = require('node-md5');
 const path = require('path');
 const _ = require('lodash');
+const moment = require('moment');
 
-var env = process.env.NODE_ENV || "development";
+// var env = process.env.NODE_ENV || "development";
 var config = require("../config/main");
 var value = require("../utils/staticValue");
 
@@ -18,142 +19,102 @@ const log = require('console-log-level')({
   prefix: function () {
     return new Date().toISOString()
   },
-  level: 'debug'
+  level: process.env.LOG_LEVEL
 });
 
-const ROOT_IMAGE_DIR = "./" + config.resourcePath + "/images";
+// attached - 첨부파일
+// medias - 이미지/동영상/VR이미지/VR동영상등
+// posts - post 설정파일(현재는 사용하지 않음)
+// users - user 설정파일(현재는 profile 저장하는 용도로만 사용)
+// let bizMemberPath = path.join(ROOT_IMAGE_DIR, value.dirName.ATTACHED);
+// let buildCaseInfoPath = path.join(ROOT_IMAGE_DIR, value.dirName.MEDIAS);
+// let roomInfoPath = path.join(ROOT_IMAGE_DIR, value.dirName.POSTS);
+// let editorImagePath = path.join(ROOT_IMAGE_DIR, value.dirName.USERS);
 
-let bizMemberPath = path.join(ROOT_IMAGE_DIR, value.dirName.BIZ_MEMBER);
-let buildCaseInfoPath = path.join(ROOT_IMAGE_DIR, value.dirName.BUILD_CASE_INFO);
-let roomInfoPath = path.join(ROOT_IMAGE_DIR, value.dirName.ROOM_INFO);
-let editorImagePath = path.join(ROOT_IMAGE_DIR, value.dirName.EDITOR_IMAGE);
+_.forEach(config.resource, function(value, key) {
+   mkdirp(path.join(value)).then(() => {
+      log.debug(key + ' created : ' + value);
+   }, err => {
+      if (err) {
+         log.error(key + ' mkdirp error : ' + err);
+      }
+   });
 
-
-mkdirp(buildCaseInfoPath).then(() => {
-  log.debug('buildCaseInfoPath create newPath : ' + buildCaseInfoPath);
-}, err => {
-  if (err) {
-    log.error('buildCaseInfoPath mkdirp error : ' + err);
-  }
 });
 
-mkdirp(roomInfoPath).then(() => {
-  log.debug('roomInfoPath create newPath : ' + roomInfoPath);
-}, err => {
-  if (err) {
-    log.error('roomInfoPath mkdirp error : ' + err);
-  }
-});
-
-mkdirp(editorImagePath).then(() => {
-  log.debug('editorImagePath create newPath : ' + editorImagePath);
-}, err => {
-  if (err) {
-    log.error('editorImagePath mkdirp error : ' + err);
-  }
-});
-
-mkdirp(bizMemberPath).then(() => {
-  log.debug('bizMemberImagePath create newPath : ' + bizMemberPath);
-}, err => {
-  if (err) {
-    log.error('bizMemberImagePath mkdirp error : ' + err);
-  }
-});
 
 // Setting file upload to save file
 // error 반환(서버 이상시 httpCode = 422, statusCode = 9)
 // 수정시 중복체크를 할 수 있도록 fileFilter를 구현하기
 // 파일 갯수마다 호출이 된다.
-
-var bizMemberInfoStorage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    let newPath = path.join(ROOT_IMAGE_DIR, value.dirName.BIZ_MEMBER, req.user.email);
-
-    mkdirp(newPath).then(() => {
-      log.debug('bizMemberInfoStorage create newPath : ' + newPath);
-
-      callback(null, newPath);
-    }, err => {
-      if (err) {
-        log.error('bizMemberInfoStorage mkdirp error : ' + err);
-      }
-    });
-
-  },
-  filename: function (req, file, callback) {
-    callback(null, _.toString(Date.now()) + '-' +  file.originalname);
-  }
-});
-
-var buildCaseInfoStorage = multer.diskStorage({
+var postInfoStorage = multer.diskStorage({
   // fieldname == vrImage, previewImage
   destination: function (req, file, callback) {
-    let newPath = path.join(ROOT_IMAGE_DIR, value.dirName.BUILD_CASE_INFO, req.user.email);
+     let newPath = config.resource.TEMP_DIR;
 
-    mkdirp(newPath).then(() => {
-      log.debug('buildCaseInfoStorage create newPath : ' + newPath);
+     if (file.fieldname == value.fieldName.NORMAL_IMAGE) {
+        newPath = config.resource.IMAGES_DIR;
+        file.mediaType = value.mediaType.NORMAL_IMAGE;
 
-      callback(null, newPath);   // unix time으로 나옴
-    }, err => {
-      if (err) {
-        log.error('buildCaseInfoStorage mkdirp error : ' + err);
-      }
-    });
+     } else if (file.fieldname == value.fieldName.VR_IMAGE) {
+        newPath = config.resource.VRIMAGES_DIR;
+        file.mediaType = value.mediaType.VR_IMAGE;
+
+     } else if (file.fieldname == value.fieldName.ATTACHED_FILE) {
+        newPath = config.resource.ATTACHED_DIR;
+     }
+
+     file.saveDir = newPath;
+
+    return callback(null, path.join(config.root, newPath));
   },
-  // 겹치면 Date.now, md5로 감싸자
   filename: function (req, file, callback) {
-    callback(null, file.originalname);
+     return callback(null, moment.utc().format('YYYYMMDDHHmmssSS') + '-' +  file.originalname);
   }
 });
 
-var roomInfoStorage = multer.diskStorage({
-  // fieldname == vrImage, previewImage
+var userInfoStorage = multer.diskStorage({
   destination: function (req, file, callback) {
-    let newPath = path.join(ROOT_IMAGE_DIR, value.dirName.ROOM_INFO, req.user.email);
-
-    mkdirp(newPath).then(() => {
-      log.debug('roomInfoStorage create newPath : ' + newPath);
-
-      callback(null, newPath);   // unix time으로 나옴
-    }, err => {
-      if (err) {
-        log.error('roomInfoStorage mkdirp error : ' + err);
-      }
-    });
+    let newPath = path.join(config.resource.USERS_DIR);     // 현재는 profile_image만 저장함
+     callback(null, newPath);
   },
-  // 겹치면 Date.now, md5로 감싸자
   filename: function (req, file, callback) {
-    callback(null, file.originalname);
+     callback(null, moment.utc().format('YYYYMMDDHHmmssSS') + '-' +  file.originalname);
   }
 });
 
-var editorImageStorage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    let newPath = path.join(ROOT_IMAGE_DIR, value.dirName.EDITOR_IMAGE, req.user.email);
+var filter = {
+   duplicateFilter : function(req, file, cb) {
+      // 1. Client - onChange 이벤트를 이용하여 변경된 파일을 req에 추가함
+      // 2. Client - 변경되지 않은 기존 업로드된 파일에는 magicByte를 표기함
 
-    mkdirp(newPath).then(() => {
-      log.debug('editorImageStorage create newPath : ' + newPath);
+      // Server
+      // 3. magicByte 표기가 되어있으면 업로드를 하지 않음.
+      // 4. post.setAttacheds, post.setMedias를 이용하여 사용되지 않는 ID는 지우고,
+      // 업로드가 완료된 첨부파일/이미지는 DB에 추가 후 관계를 정의한다.
+      // 5. [image]의 배열 순서가 변경되었으면, meta.image_slide_order 값을 변경한다.
+      // 6. [vr_image]의 배열 순서가 변경되었으면 다시 변환후 관련 DB를 업데이트한다.
 
-      callback(null, newPath);
-    }, err => {
-      if (err) {
-        log.error('editorImagePath mkdirp error : ' + err);
-      }
-    });
 
-  },
-  filename: function (req, file, callback) {
-    callback(null, _.toString(Date.now()) + '-' +  file.originalname);
-  }
-});
+   // The function should call `cb` with a boolean
+   // to indicate if the file should be accepted
+
+   // To reject this file pass `false`, like so:
+   cb(null, false)
+
+   // To accept the file pass `true`, like so:
+   cb(null, true)
+
+   // You can always pass an error if something goes wrong:
+   cb(new Error('I don\'t have a clue!'))
+   }
+}
 
 /**
  * multer setting 관련
  */
 module.exports = {
-  bizMemberInfoStorage: bizMemberInfoStorage,
-  buildCaseInfoStorage: buildCaseInfoStorage,
-  roomInfoStorage: roomInfoStorage,
-  editorImageStorage: editorImageStorage
+  postInfoStorage: postInfoStorage,
+  userInfoStorage: userInfoStorage,
+   filter: filter
 }
