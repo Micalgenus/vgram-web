@@ -6,7 +6,7 @@
 
 <body class="stretched">
   <!-- HEADER -->
-  <% include ../addon/header.ejs %>
+  <% include ../addon/header2.ejs %>
 
   <section id="content">
 
@@ -47,7 +47,7 @@
                 <label for="member-change-phone">휴대전화</label>
                 <input type="text" id="member-change-phone" name="phone" value="<%= phone %>" class="sm-form-control" placeholder="012-3456-7890" />
               </div>
-                  
+
               <div class="col_one_third">
                 <label for="member-change-name">이름</label>
                 <input type="text" id="member-change-name" name="name" value="<%= name %>" class="sm-form-control" placeholder="홍길동" />
@@ -63,7 +63,7 @@
 
               <% if (member_type != 'PUBLIC') { %>
                 <section>
-                
+
                   <h4>사업주 정보</h4>
 
                   <div class="clear"></div>
@@ -72,7 +72,7 @@
                     <label for="member-change-company">업종</label>
                     <input type="text" id="member-change-company" name="business_type" value="<%= business_type %>" class="sm-form-control" />
                   </div>
-                  
+
                   <div class="col_one_third">
                     <label for="member-change-bizno">사업자등록번호</label>
                     <input type="text" id="member-change-bizno" name="registered_number" value="<%= registered_number %>" class="sm-form-control" />
@@ -84,7 +84,7 @@
                   </div>
 
                   <div class="clear"></div>
-                  
+
                   <div class="col_full col_last">
                     <label for="member-change-place">업체 주소</label>
                     <input type="text" #workPlace id="member-change-place" name="member-change-place" value="{{workPlaces}}" class="sm-form-control" />

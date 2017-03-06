@@ -1,28 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
-
-
-
+<html>
 <head>
-   <% include ../static/head.ejs %>
-</head>
-
-
-
-
-
-
-   <header>
-      <!-- HEADER -->
-      <% include ../addon/header.ejs %>
-
-   </header>
-
    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+   <meta charset="utf-8">
+   <title>Marker Clustering</title>
    <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
+         position: fixed !important;
+         width:50%;
+         right:0;
+         top:50px;
          height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
@@ -32,13 +21,12 @@
          padding: 0;
       }
    </style>
-
+   <% include ../static/head.ejs %>
+</head>
+<% include ../addon/header.ejs %>
 <body class="stretched">
 <div id="wrapper" class="clearfix">
    <div class="container clearfix">
-
-
-
 
       <div class="col_half">
          <div>
@@ -60,9 +48,9 @@
                   </div>
 
                   <div class="tagcloud">
-                      <a href=""> 방종류 </a>
-                      <a href=""> 보증금 </a>
-                      <a href=""> 월세 </a>
+                     <a href=""> 방종류 </a>
+                     <a href=""> 보증금 </a>
+                     <a href=""> 월세 </a>
                   </div>
 
                   <!--<a href="" class="button button-circle button-3d button-light button-white">방종류</a>-->
@@ -77,10 +65,10 @@
                      <table class="table">
                         <thead></thead>
                         <tbody>
-                         <tr>
+                        <tr>
                            <th>
                               <i class="i-plain icon-thumbs-up"></i>
-                                 <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
+                              <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
                            </th>
 
                            <th>
@@ -92,7 +80,7 @@
                               <i class="i-plain icon-unlink"></i>
                               <span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>
                            </th>
-                         </tr>
+                        </tr>
                         </tbody>
                      </table>
 
@@ -100,55 +88,31 @@
 
 
 
-                     <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-thumbs-up"></i>-->
-                        <!--<span>따봉몇개</span></a>-->
+                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-thumbs-up"></i>-->
+                  <!--<span>따봉몇개</span></a>-->
 
 
-                     <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-meh"></i>-->
-                        <!--<span>싫어요</span></a>-->
+                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-meh"></i>-->
+                  <!--<span>싫어요</span></a>-->
 
-                     <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-unlink"></i>-->
-                        <!--<span>찜콩</span></a>-->
+                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-unlink"></i>-->
+                  <!--<span>찜콩</span></a>-->
 
 
-                  </div>
-                  <% } %>
+               </div>
+               <% } %>
 
             </div>
 
          </div>
       </div>
-
-
-<!--구분선  -->
-
-
-      <div class="col_half col_last">
-         <div style="background-color: yellow">
-            <div id="map"></div>
-         </div>
-      </div>
-
-
-
-</div>  <!-- wrapper.clearfix -->
-</div> <!--container clearfix-->
-
-
-
-
-
-<footer>
-   <!-- FOOTER -->
-   <% include ../addon/footer.ejs %>
-</footer>
-
+   </div>
+</div>
 
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
 
-
-
+<div id="map"></div>
 <script>
 
    function initMap() {
@@ -208,9 +172,9 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap">
 </script>
 
-<div id="gotoTop" class="icon-angle-up"></div>
-
-
-
+<footer>
+   <!-- FOOTER -->
+   <% include ../addon/footer.ejs %>
+</footer>
 </body>
 </html>
