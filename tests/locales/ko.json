@@ -1,0 +1,57 @@
+{
+	"app": {
+		"name": "아늑한집"
+	},
+	"404 page not found": "페이지를 찾을 수 없습니다.",
+	"post create completed": "글 작성이 성공하였습니다.",
+	"fail to create post": "글 작성이 실패하였습니다.",
+	"trouble in server message": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
+	"trouble in server title": "에러메시지 알림",
+	"require login": "로그인 정보가 없습니다. 글을 작성하기 위해서는 로그인해주세요.",
+	"title": {
+		"createRoomInfoView": "방정보입력"
+	},
+	"placeType": {
+		"APARTMENT": "아파트",
+		"VILLA": "빌라",
+		"DETACHED_HOUSE": "주택",
+		"ONE_ROOM": "원룸",
+		"TWO_ROOM": "투룸",
+		"THREE_ROOM": "쓰리룸",
+		"OFFICETEL": "오피스텔",
+		"OFFICE": "사무실",
+		"SHOPPING": "상가",
+		"CAFE_RESTAURANT": "카페/식당",
+		"WEDDING": "웨딩",
+		"ACADEMY": "교육장소",
+		"HOSPITAL": "병원"
+	},
+	"businessType": {
+		"HOTEL": "호텔",
+		"ESTATE_AGENT": "공인중개사",
+		"LANDLORD": "건물주"
+	},
+	"roomContractCondition": {
+		"MONTHLY": "월세",
+		"ANNUALLY": "연세",
+		"LEASE": "전세"
+	},
+	"floors": {
+		"Bx": "지하",
+		"1F": "1층",
+		"2F": "2층",
+		"3F": "3층",
+		"4F": "4층",
+		"5F": "5층",
+		"6xF": "6층 이상"
+	},
+	"postStatus": {
+		"PUBLISH": "검색시 공개",
+		"PRIVATE": "비공개"
+	},
+	"lang": {
+		"ko": "한국어",
+		"en": "비공개"
+	},
+	"postType": "postType"
+}

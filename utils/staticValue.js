@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-08-27.
  */
@@ -16,71 +18,44 @@ const memberType = {
 };
 
 const businessType = {
-   HOTEL: "호텔",
-   ESTATE_AGENT: "공인중개사",
-   LANDLORD: "건물주"
-};
-
-// i18n lib - https://github.com/ocombe/ng2-translate
-// i18n 방식으로 바꿔야될듯
-const PlaceType = {
-   "APARTMENT": {
-      name: "아파트",
-      number: 1
-   },
-   "VILLA": {
-      name: "빌라",
-      number: 2
-   },
-   "DETACHED_HOUSE": {
-      name: "주택",
-      number: 3
-   },
-   "ONE_ROOM": {
-      name: "원룸",
-      number: 4
-   },
-   "TWO_ROOM": {
-      name: "투룸",
-      number: 5
-   },
-   "THREE_ROOM": {
-      name: "쓰리룸",
-      number: 6
-   },
-   "OFFICETEL": {
-      name: "오피스텔",
-      number: 7
-   },
-
-   "OFFICE": {
-      name: "사무실",
-      number: 100
-   },
-   "SHOPPING": {
-      name: "상가, 매장",
-      number: 101
-   },
-   "CAFE_RESTAURANT": {
-      name: "카페, 식장",
-      number: 102
-   },
-   "ACADEMY": {
-      name: "학원, 교육관련",
-      number: 103
-   },
-   "HOSPITAL": {
-      name: "병원",
-      number: 104
-   }
+   HOTEL: "HOTEL",      // 호텔
+   ESTATE_AGENT: "ESTATE_AGENT",    // 공인중개사
+   LANDLORD: "LANDLORD"    // 건물주
 }
 
-/**
- * 인테리어, 임대업 : 1
- * 매장 홍보 : 2
- * 홈페이지, 마케팅 : 3
- * 기타 콘텐츠 활용 : 4
- */
+
+const placeType = {
+   ONE_ROOM: "ONE_ROOM",
+   TWO_ROOM: "TWO_ROOM",
+   THREE_ROOM: "THREE_ROOM",
+   APARTMENT: "APARTMENT",
+   VILLA: "VILLA",
+   DETACHED_HOUSE: "DETACHED_HOUSE",
+   OFFICETEL: "OFFICETEL",
+   OFFICE: "OFFICE",
+   SHOPPING: "SHOPPING",
+   CAFE_RESTAURANT: "CAFE_RESTAURANT",
+   WEDDING: "WEDDING",
+   ACADEMY: "ACADEMY",
+   HOSPITAL: "HOSPITAL"
+}
+
+const roomContractCondition = {
+   MONTHLY: "MONTHLY",
+   ANNUALLY: "ANNUALLY",
+   LEASE: "LEASE"
+}
+
+const floors = {
+   "Bx": "Bx",    // 지하
+   "1F": "1F",    // 1층
+   "2F": "2F",    // 2층
+   "3F": "3F",    // 3층
+   "4F": "4F",    // 4층
+   "5F": "5F",    // 5층
+   "6xF": "6xF"    // 6층 이상
+}
+
 const PARTNETS_HOUSE = [        // 주거시설
    "가람원룸", "경성하우스", "공주원룸", "글로리아", "기라성원룸", "김홍식원룸", "노벨빌리지", "다모야A", "다모야B",
    "다솜원룸", "다연원룸", "대영빌", "대학원룸", "동경빌", "로뎀나무", "론즈빌", "마로니에빌", "명인하우스", "미소빌",
@@ -143,16 +118,74 @@ const mediaType = {
    VTOUR_IMAGE: "VTOUR_IMAGE"
 }
 
+const postStatus = {
+   PUBLISH: "PUBLISH",
+   PRIVATE: "PRIVATE"
+}
+
+const postType = {
+   ROOM: "ROOM",
+   NOTICE: "NOTICE"
+}
+
+// 향후 글 작성시 다양한 언어로 작성할 수 있음
+const langCode = {
+   "ko-kr": {     // 한국어
+      codes: ["ko", "ko-kr", "ko-KR"]
+   },
+   "en-us": {     // 미국
+      codes: ["en", "en-us", "en-US"],
+      alias_codes: [
+         "en-au", "en-AU",
+         "en-ca", "en-CA",
+         "en-gb", "en-GB",
+         "en-in", "en-IN",
+         "en-my", "en-MY",
+         "en-nz", "en-NZ",
+         "en-xa", "en-XA",
+         "en-sg", "en-SG",
+         "en-za", "en-ZA"
+      ]
+   },
+   "zh-cn": {      // 중국(중국어 간체)
+      codes: ["zh-cn", "zh-CN"],
+      alias_codes: [
+         "zh-hk", "zh-HK",
+         "zh-tw", "zh-TW"
+      ]
+   },
+   "zh-hk": {      // 홍콩(중국어 번체)
+      codes: ["zh-hk", "zh-HK"],
+      alias_codes: [
+         "zh-tw", "zh-TW",
+         "zh-cn", "zh-CN"
+      ]
+   },
+   "zh-tw": {      // 대만(중국어 번체)
+      codes: ["zh-tw", "zh-TW"],
+      alias_codes: [
+         "zh-hk", "zh-HK",
+         "zh-cn", "zh-cn"
+      ]
+   },
+}
+
 // attached - 첨부파일
 // medias - 이미지/동영상/VR이미지/VR동영상등
 // posts - post 설정파일(현재는 사용하지 않음)
 // users - user 설정파일(현재는 profile 저장하는 용도로만 사용)
 
+// locales.*.js와 동일한 구조로 만들어야 i18n 적용이 쉽다.
 module.exports = {
   statusCode,
   memberType,
   fieldName,
    mediaType,
-  PlaceType,
-  businessType
+  placeType,
+  businessType,
+   roomContractCondition,
+   floors,
+   postStatus,
+   postType,
+   langCode
 };

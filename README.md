@@ -67,4 +67,7 @@ AUTH0_CLIENT_SECRET=YourClientSecret
 ````
 
 ## Next Plan
-* Central Event Hub를 기점으로 여러가지 클라우드 서비스를 조합하여 이용하면 가격, 성능, 확장성을 고려할 수 있음
+* Central Event Hub를 기점으정로 여러가지 클라우드 서비스를 조합하여 이용하면 가격, 성능, 확장성을 고려할 수 있음
+* 다국어 서비스를 위한 view부분의 i18n 모듈 적용이 필요함
+* 언어 번역 => 언어별 글꼴설정 => 언어별 레이아웃 설정
+* DB Modeling 상의 설정과 sequelize상 설정을 일치시키기(index설정등)

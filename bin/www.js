@@ -8,14 +8,21 @@ var env = process.env.NODE_ENV || "development";
 var config = require('../config/main');
 
 var setTestDatabase = require('../modules/setTestDatabase');
-var testDB = require('../tests/testDB');
+var testDB = require('../tests/data');
 
 var server;
 var overwrite = (env == "development");
 app.set('port', normalizePort(process.env.PORT));
 
+const log = require('console-log-level')({
+   prefix: function () {
+      return new Date().toISOString()
+   },
+   level: 'debug'
+});
+
 // If force: true it will first drop tables before recreating them.
-models.sequelize.sync({ logging: console.log, force: overwrite }).then(function () {
+models.sequelize.sync({ logging: log.debug, force: overwrite }).then(function () {
    /**
     * Listen on provided port, on all network interfaces.
     */

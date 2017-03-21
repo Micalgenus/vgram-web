@@ -16,6 +16,32 @@ module.exports = function(sequelize, DataTypes) {
             key: 'ID'
          }
       },
+      title: {
+         type: DataTypes.TEXT,
+         allowNull: true,
+         defaultValue: null
+      },
+      content: {
+         type: DataTypes.TEXT,
+         allowNull: true,
+         defaultValue: null
+      },
+
+      post_status: {
+         type: DataTypes.CHAR(20),
+         allowNull: false,
+         defaultValue: 'private'
+      },
+      post_type: {
+         type: DataTypes.STRING(45),
+         allowNull: false
+      },
+      locale: {
+         type: DataTypes.STRING(45),
+         allowNull: false,
+         defaultValue: 'ko_KR'
+      },
+
       post_init_date: {
          type: DataTypes.DATE,
          allowNull: false
@@ -23,21 +49,6 @@ module.exports = function(sequelize, DataTypes) {
       post_init_date_gmt: {
          type: DataTypes.DATE,
          allowNull: false
-      },
-      content: {
-         type: DataTypes.TEXT,
-         allowNull: true,
-         defaultValue: null
-      },
-      title: {
-         type: DataTypes.TEXT,
-         allowNull: true,
-         defaultValue: null
-      },
-      post_status: {
-         type: DataTypes.CHAR(20),
-         allowNull: false,
-         defaultValue: 'private'
       },
       post_modified_date: {
          type: DataTypes.DATE,
@@ -47,24 +58,16 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.DATE,
          allowNull: false
       },
-      post_type: {
-         type: DataTypes.STRING(45),
-         allowNull: false
-      },
-      read_count: {
-         type: DataTypes.INTEGER(10).UNSIGNED,
-         allowNull: true,
-         defaultValue: '0'
-      },
+
       like: {
          type: DataTypes.INTEGER(10).UNSIGNED,
          allowNull: true,
          defaultValue: '0'
       },
-      locale: {
-         type: DataTypes.STRING(45),
-         allowNull: false,
-         defaultValue: 'ko_KR'
+      read_count: {
+         type: DataTypes.INTEGER(10).UNSIGNED,
+         allowNull: true,
+         defaultValue: '0'
       },
       meta_value: {
          type: DataTypes.JSON,
@@ -142,6 +145,26 @@ module.exports = function(sequelize, DataTypes) {
                onDelete: "CASCADE",
                foreignKey: {
                   name: 'post_id',
+                  allowNull: false
+               },
+               sourceKey: "ID"
+            });
+
+            post.belongsToMany(models.tag, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               through: models.tag_relationship,
+               foreignKey: {
+                  name: 'post_id',
+                  allowNull: false
+               }
+            });
+
+            post.hasOne(models.icl_translation, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'element_id',
                   allowNull: false
                },
                sourceKey: "ID"

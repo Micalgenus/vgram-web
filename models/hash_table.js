@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
      },
      value: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
      }
   }, {
     tableName: 'hash_table'

@@ -8,6 +8,7 @@ const passport = require('passport'),
 
   // web
 const Web = {
+   AuthController: require('./controllers/web/auth'),
    RoomController: require('./controllers/web/view-room')
 };
 
@@ -346,7 +347,7 @@ module.exports = function(app) {
   // create new Room Info from authenticated user
   // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
    // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   Web.roomInfo.get('/new', Web.RoomController.createRoomInfoView);
+   Web.roomInfo.get('/new', Web.AuthController.init, requireAuth, Web.RoomController.createRoomInfoView);
    Web.roomInfo.post('/', requireAuth, Web.RoomController.createRoomInfo);
 
 

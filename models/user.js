@@ -23,6 +23,17 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.STRING(45),
          allowNull: false
       },
+      display_name: {
+         type: DataTypes.STRING(45),
+         allowNull: true,
+         defaultValue: null
+      },
+      user_status: {
+         type: DataTypes.INTEGER(11),
+         allowNull: false,
+         defaultValue: 1
+      },
+
       telephone: {
          type: DataTypes.STRING(45),
          allowNull: true,
@@ -32,11 +43,6 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.DATE,
          allowNull: false,
          defaultValue: DataTypes.NOW
-      },
-      display_name: {
-         type: DataTypes.STRING(45),
-         allowNull: true,
-         defaultValue: null
       },
       activation_key: {
          type: DataTypes.STRING(127),
@@ -58,11 +64,7 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: true,
          defaultValue: null
       },
-      user_status: {
-         type: DataTypes.INTEGER(11),
-         allowNull: false,
-         defaultValue: 1
-      },
+
       meta_value:{
          type: DataTypes.JSON,
          allowNull: true,

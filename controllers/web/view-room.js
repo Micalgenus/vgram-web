@@ -1,6 +1,5 @@
 "use strict";
 
-const i18n = require('i18n');
 const models = require('../../models');
 
 const Room = models.room;
@@ -25,6 +24,7 @@ var log = require('console-log-level')({
 
 const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
+const i18nConverter = require('../../utils/i18n-converter');
 
 exports.roomInfoListView = function(req, res) {
    let page = (req.query.page ? req.query.page : 1);
@@ -93,13 +93,32 @@ exports.roomInfoListView = function(req, res) {
  */
 exports.createRoomInfoView = function (req, res, next) {
 
+   if (!req.user.logined) {
+      req.flash('msg', req.i18n("require login"));
+      return res.redirect('/room');
+   }
+
+   // 방타입, 전월세여부, 층수에 대한 name-value 추출
+   var pairs = i18nConverter.getLangPair(
+      {
+         placeType: value.placeType,
+         roomContractCondition: value.roomContractCondition,
+         floors: value.floors,
+         postStatus: value.postStatus,
+         postType: value.postType
+      }, req);
+
+   // 기본적으로 user의 기본언어 선택사항을 따라가고,
+   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
+   pairs.lang = req.user.locale || req.getLocale();
+
    return res.render('room/room-new', {
       ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
-      email: "123@123.com",
-      update: false
+      logined: req.logined,
+      title: req.i18n("title")["createRoomInfoView"] + req.i18n("app")["name"],
+      msg: req.msg,
+      update: false,
+      value: pairs
    });
 }
 

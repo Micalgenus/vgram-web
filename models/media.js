@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
 
             media.hasOne(models.room, {
                onUpdate: "CASCADE",
-               onDelete: "NO ACTION",
+               onDelete: "RESTRICT",
                foreignKey: {
                   name: 'thumbnail_media_id',
                   allowNull: false

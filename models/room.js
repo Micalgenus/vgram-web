@@ -20,40 +20,6 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.STRING(45),
          allowNull: false
       },
-      post_code: {
-         type: DataTypes.STRING(45),
-         allowNull: false,
-      },
-      address: {
-         type: DataTypes.JSON,
-         allowNull: false
-      },
-      old_address: {
-         type: DataTypes.JSON,
-         allowNull: true,
-         defaultValue: null
-      },
-      old_address_dong: {
-         type: DataTypes.STRING(255),
-         allowNull: true,
-         defaultValue: null
-      },
-      coordinate: {
-         type: DataTypes.JSON,
-         allowNull: false
-      },
-      thumbnail_image_path: {
-         type: DataTypes.JSON,
-         allowNull: false
-      },
-      thumbnail_media_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
-         allowNull: false,
-         references: {
-            model: 'media',
-            key: 'ID'
-         }
-      },
       deposit: {
          type: DataTypes.INTEGER(10).UNSIGNED,
          allowNull: true,
@@ -73,6 +39,18 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.JSON,
          allowNull: true,
          defaultValue: null
+      },
+      thumbnail_image_path: {
+         type: DataTypes.JSON,
+         allowNull: false
+      },
+      thumbnail_media_id: {
+         type: DataTypes.INTEGER(11).UNSIGNED,
+         allowNull: false,
+         references: {
+            model: 'media',
+            key: 'ID'
+         }
       }
    }, {
       tableName: 'room',
@@ -91,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
 
             room.belongsTo(models.media, {
                onUpdate: "CASCADE",
-               onDelete: "NO ACTION",      // media삭제시 trigger를 부여해서 다른 thumbnail 이미지로 교체하자
+               onDelete: "RESTRICT",      // media삭제시 trigger를 부여해서 다른 thumbnail 이미지로 교체하자
                foreignKey: {
                   name: 'thumbnail_media_id',
                   allowNull: false

@@ -39,7 +39,7 @@ var config = {
 config[NODE_ENV].secret = "cozyhouzz by moblab";  // Secret key for JWT signing and encryption
 config[NODE_ENV].root = rootPath;
 config[NODE_ENV].app = {
-   name: 'cozyhouzz-web'
+   name: 'cozyhouzz'
 };
 
 config[NODE_ENV].krpano = {

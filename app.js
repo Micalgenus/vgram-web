@@ -28,13 +28,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 i18n.configure({
-   locales: ['en', 'ko'],
+   locales: ['ko-kr', 'en-us'],
    cookie: 'lang',      //
    directory: __dirname + '/locales',
-   defaultLocale: 'ko',
-   extension: '.js',
+   defaultLocale: 'ko-kr',
+   queryParameter: 'lang',
+   preserveLegacyCase: true,
    api: {
-      '__': 'i18n',  //now req.__ becomes req.t
+      '__': 'i18n',  //now req.__ becomes req.t,
       '__n': 'i18n_n' //and req.__n can be called as req.tn
    }
 });

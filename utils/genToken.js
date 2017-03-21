@@ -37,7 +37,7 @@ exports.setUserInfo = function(request) {
       registered_date:request.registered_date,
       display_name:request.display_name,
       activation_key:request.activation_key,
-      local: request.local,
+      locale: request.getLocale(),
       profile_image_path: request.profile_image_path,
       updated_date: request.updated_date,
       user_status: request.user_status,

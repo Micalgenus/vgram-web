@@ -80,8 +80,7 @@ gulp.task('nodemon', function (debug) {
     ext: 'js coffee ejs',
     env: {'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development'},
     stdout: false,
-     ignore: ['.idea/*', 'node_modules/*', '.sqlite', '.sqlite-journal'],
-     // tasks: ['lint'],
+     tasks: ['lint'],
      verbose: true
   }).on('readable', function () {
     this.stdout.on('data', function (chunk) {
