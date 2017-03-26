@@ -5,6 +5,8 @@ const models = require('../../models');
 const Room = models.room;
 const Post = models.post;
 const User = models.user;
+const Translation = models.icl_translation;
+const Coordinate = models.coordinate;
 
 const _ = require('lodash');
 const Promise = require("bluebird");
@@ -47,7 +49,10 @@ exports.roomInfoListView = function(req, res) {
          }
 
          return Room.findAll({
-            include: [ { model: Post } ],
+            include: [ {
+              model: Post,
+              attributes: ['ID']
+            } ],
             limit: count,
             offset: index,
             order: '`room`.`ID` DESC'
@@ -62,11 +67,11 @@ exports.roomInfoListView = function(req, res) {
                   image = "http://localhost:3000/" + image;
                }
 
-               let address = JSON.parse(room.address);
+            //    let address = JSON.parse(room.address);
 
                tmpRoom['id'] = room.ID;
                tmpRoom['image'] = image;
-               tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
+            //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
                tmpRoom['title'] = room.post.title;
 
                roomInfo.push(tmpRoom);
@@ -448,19 +453,33 @@ exports.roomInfoDetailView = function(req, res) {
    let idx = req.params.roomInfoIdx;
 
    return Room.findOne({
-      include: [ {
-         model: Post,
+     include: [ {
+       model: Post,
+       attributes: ['ID', 'title', 'read_count'],
+       include: [ {
+         model: User,    // as 옵션을 어떻게 쓰는거지??
+         attributes: ['email', 'telephone'],
+       }, {
+         model: Translation,
+         attributes: ['group_id'],
          include: [ {
-            model: User    // as 옵션을 어떻게 쓰는거지??
+           model: Coordinate,
+           attributes: ['lat', 'lng']
          } ]
-      } ],
-      where: {
-         ID: idx
-      }
+       } ],
+     } ],
+     where: {
+       ID: idx
+     },
+     attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
    }).then(function(room) {
 
       var type = room.room_type;
-      var position = JSON.parse(room.coordinate);
+      // var position = JSON.parse(room.coordinate);
+
+      // return res.send();
+      let position = room.post.icl_translation.coordinates[0];
+
       let lat = position.lat;
       let lng = position.lng;
       switch (type) {
@@ -501,10 +520,6 @@ exports.roomInfoDetailView = function(req, res) {
          // 연락
          email: room.post.user.email,
          phone: room.post.user.telephone,
-
-
-         //{"ID":10,"post_id":10,"room_type":"ONE_ROOM","post_code":"54922","address":"{\"addr1\":\"전북 전주시 덕진구 백제대로 567\",\"addr2\":\"전북대학교 창업동아리 아늑한집\"}","old_address":"{\"addr1\":\"전라북도 전주시 덕진구 금암동 1587-31\",\"addr2\":\"전북대학교 구주소입니당\"}","old_address_dong":"금암동","coordinate":"{\"lat\":35.8598743,\"lng\":127.1117673}","thumbnail_image_path":"medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg","thumbnail_media_id":10,"deposit":100,"monthly_rent_fee":25,"area_size":10,"meta_value":"{\"options\":[\"심야전기\"]}","createdAt":"2017-02-26T12:03:57.615Z","updatedAt":"2017-02-26T12:03:57.615Z","post":{"ID":10,"user_id":10,"post_init_date":"2017-02-26T12:03:54.000Z","post_init_date_gmt":"2017-02-26T03:03:54.000Z","content":"<p style=\"text-align: center; \">Hi, HTML Text 10번 유저</p><p style=\"text-align: center; \">ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p>","title":"10번 user 게시물입니다","post_status":"publish","post_modified_date":"2017-01-24T15:00:00.000Z","post_modified_date_gmt":"2017-01-24T18:00:00.000Z","post_type":"room","read_count":0,"like":0,"locale":"ko_KR","meta_value":"{\"written_device\":\"web\"}","createdAt":"2017-02-26T12:03:57.342Z","updatedAt":"2017-02-26T12:03:57.342Z"}}
-         room: room
       });
    });
 }
