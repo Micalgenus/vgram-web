@@ -8,8 +8,9 @@ const passport = require('passport'),
 
   // web
 const Web = {
-   AuthController: require('./controllers/web/auth'),
-   RoomController: require('./controllers/web/view-room')
+  AuthController: require('./controllers/web/auth'),
+  RoomController: require('./controllers/web/view-room'),
+  MapController: require('./controllers/web/view-map')
 };
 
 const redirectViewController = require('./controllers/web/redirect'),
@@ -85,6 +86,7 @@ module.exports = function(app) {
 
     Web.roomInfo = express.Router();
     Web.search = express.Router();
+    Web.map = express.Router();
 
    // Set url for View, API group routes
    app.use('/', webRoutes);
@@ -335,34 +337,40 @@ module.exports = function(app) {
    // apiRoutes.get('/search/consult', RoomInfoController.searchRoomInfoList);
 
 
-   //=========================
+  //=========================
   // API - Room Info Routes
   //=========================
   apiRoutes.use('/room', roomInfoAPI);
-   webRoutes.use('/room', Web.roomInfo);
+  webRoutes.use('/room', Web.roomInfo);
 
-   //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-   Web.roomInfo.get('/', AuthViewController.init, Web.RoomController.roomInfoListView);
+  //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
+  Web.roomInfo.get('/', AuthViewController.init, Web.RoomController.roomInfoListView);
 
   // create new Room Info from authenticated user
   // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   Web.roomInfo.get('/new', Web.AuthController.init, requireAuth, Web.RoomController.createRoomInfoView);
-   Web.roomInfo.post('/', requireAuth, Web.RoomController.createRoomInfo);
+  // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+  Web.roomInfo.get('/new', Web.AuthController.init, requireAuth, Web.RoomController.createRoomInfoView);
+  Web.roomInfo.post('/', requireAuth, Web.RoomController.createRoomInfo);
 
 
   // update Room Info Info from authenticated user
   // roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-   // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-   Web.roomInfo.get('/change/:roomInfoIdx([0-9]+)', Web.RoomController.changeRoomInfoView);
-   Web.roomInfo.put('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.updateRoomInfo);
+  // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
+  Web.roomInfo.get('/change/:roomInfoIdx([0-9]+)', Web.RoomController.changeRoomInfoView);
+  Web.roomInfo.put('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.updateRoomInfo);
 
-   // delete Room Info Info from authenticated user
-   roomInfoAPI.delete('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.deleteRoomInfo);
+  // delete Room Info Info from authenticated user
+  roomInfoAPI.delete('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.deleteRoomInfo);
 
-   // get Room Info Info from authenticated user
+  // get Room Info Info from authenticated user
   // roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   Web.roomInfo.get('/:roomInfoIdx([0-9]+)', AuthViewController.init, Web.RoomController.roomInfoDetailView);
+  Web.roomInfo.get('/:roomInfoIdx([0-9]+)', AuthViewController.init, Web.RoomController.roomInfoDetailView);
 
-   Web.search.get('/room', Web.RoomController.searchRoomListView);
+  Web.roomInfo.get('/search', Web.RoomController.searchRoomListView);
+
+  //=========================
+  // API - Map Info Routes
+  //=========================
+  webRoutes.use('/map', Web.map);
+  Web.map.get('/room/locations/:east/:west/:south/:north', Web.MapController.getRoomLocations);
 };

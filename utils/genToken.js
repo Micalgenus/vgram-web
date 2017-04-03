@@ -27,21 +27,21 @@ exports.setUserInfo = function(request) {
 
   return getUserInfo;
 }*/
-exports.setUserInfo = function(request) {
+exports.setUserInfo = function(user) {
    let getUserInfo = {
-      id: request.id,
-      email: request.email,
-      password: request.password,
-      member_type: request.member_type,
-      telephone:request.telephone,
-      registered_date:request.registered_date,
-      display_name:request.display_name,
-      activation_key:request.activation_key,
-      locale: request.getLocale(),
-      profile_image_path: request.profile_image_path,
-      updated_date: request.updated_date,
-      user_status: request.user_status,
-      meta_value: request.meta_value
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      member_type: user.member_type,
+      telephone:user.telephone,
+      registered_date:user.registered_date,
+      display_name:user.display_name,
+      activation_key:user.activation_key,
+      locale: user.locale,
+      profile_image_path: user.profile_image_path,
+      updated_date: user.updated_date,
+      user_status: user.user_status,
+      meta_value: user.meta_value
    };
 
    return getUserInfo;

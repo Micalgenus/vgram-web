@@ -128,6 +128,11 @@ const postType = {
    NOTICE: "NOTICE"
 }
 
+const mapLocationCenter = {
+  lat: 35.8598743,
+  lng: 127.1117673
+}
+
 // 향후 글 작성시 다양한 언어로 작성할 수 있음
 const langCode = {
    "ko-kr": {     // 한국어
@@ -187,5 +192,6 @@ module.exports = {
    floors,
    postStatus,
    postType,
-   langCode
+   langCode,
+   mapLocationCenter
 };
