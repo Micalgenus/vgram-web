@@ -576,3 +576,87 @@ exports.searchRoomListView = function(req, res) {
       search: true
    });
 }
+
+exports.roomInfoDetailJson = function(req, res) {
+  let idx = req.params.roomInfoIdx;
+
+  return Room.findOne({
+    where: {
+      ID: idx
+    },
+    // attributes: [],
+  }).then(function(room) {
+    var result = room;
+    result.test = 'test';
+    return res.send(result);
+  });
+}
+
+// exports.roomInfoListJson = function(req, res) {
+//   let list = JSON.parse(req.params.roomIdxList);
+//   var data = [];
+//   var p = [];
+
+
+//   if (list.length == 0) return res.send([]);
+
+//   for (var i in list) {
+//     var idx = list[i];
+//     p.push(Room.findOne({
+//       where: {
+//         ID: idx
+//       }
+//     }).then(function(room) {
+//       var r = room.dataValues;
+//       r.address = JSON.parse(r.address);
+      
+//       data.push(room.dataValues);
+//     }));
+//   }
+
+//   waitPromise(p);
+
+//   function waitPromise(p) {
+//     setTimeout(function() {
+//       // console.log(list.length, data.length);
+//       // console.log(list, data);
+//       if (list.length == data.length) return promiseReturn(p);
+//       else return waitPromise(p);
+//     }, 100);
+//   }
+
+//   // return promiseReturn(p);
+
+//   function promiseReturn(promiseArray) {
+//     let nowPromise = promiseArray.pop();
+//     // console.log(nowPromise);
+//     return nowPromise.then(function() {
+//       if (promiseArray.length > 1) {
+//         return promiseReturn(promiseArray);
+//       } else {
+//         return res.send(data);
+//       }
+//     }).catch(function(error) {
+//       return res.send([]);
+//     });
+//   };
+// }
+
+exports.roomInfoListJson = function(req, res) {
+  let list = JSON.parse(req.params.roomIdxList);
+
+  if (list.length == 0) return res.send([]);
+
+  return Room.findAll({
+    include: [ {
+      model: Post
+    } ],
+    where: {
+      ID: {
+        $in: list
+      }
+    }
+  }).then(function(room) {
+    return res.send(room);
+  });
+}

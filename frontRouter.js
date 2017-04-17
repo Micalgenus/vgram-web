@@ -368,9 +368,13 @@ module.exports = function(app) {
 
   Web.roomInfo.get('/search', Web.RoomController.searchRoomListView);
 
+  Web.roomInfo.get('/json/:roomInfoIdx([0-9]+)', Web.RoomController.roomInfoDetailJson);
+  Web.roomInfo.get('/json/list/:roomIdxList(\[[0-9,]+\])', Web.RoomController.roomInfoListJson);
+
   //=========================
   // API - Map Info Routes
   //=========================
   webRoutes.use('/map', Web.map);
   Web.map.get('/room/locations/:east/:west/:south/:north', Web.MapController.getRoomLocations);
+
 };

@@ -24,149 +24,17 @@
   <% include ../static/head.ejs %>
 </head>
 
-<!-- Header
-  ============================================= -->
-<header id="header" class="static-sticky transparent-header dark" style="z-index:9;">
-
-  <div id="header-wrap" style="background:#000;">
-
-    <div class="container clearfix">
-
-      <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-      <!-- Logo
-          ============================================= -->
-      <div id="logo" ronterLink="/">
-        <a ronterLink="/auth" hrefActive="active" class="standard-logo"><img src="lib/js-canvas/images/cozylogo4@.png" alt="cozy Logo"></a>
-        <a ronterLink="/auth" hrefActive="active" class="retina-logo"><img src="lib/js-canvas/images/cozylogo4.png" alt="cozyhouzz Logo"></a>
-      </div>
-      <!-- #logo end -->
-
-      <!-- Primary Navigation
-          ============================================= -->
-      <nav id="primary-menu" class="mobile-menu-off-canvas dark">
-
-        <ul>
-          <li><a href="/" hrefActive="active">
-            <div>Home</div>
-          </a></li>
-          <li>
-            <a href="/consultingListInfo">
-              <div>컨설팅</div>
-            </a>
-            <ul>
-                <li><a href="/consultingCounsel">
-                  <div><i class="icon-stack"></i>상담 받기</div>
-                </a></li>
-                <li><a href="/consultingListInfo">
-                  <div><i class="icon-gift"></i>컨설팅 정보 조회</div>
-                </a></li>
-              </ul>
-          </li>
-          <li>
-            <a href="/list/room">
-              <div>방 정보 홍보 보기</div>
-            </a>
-            <ul>
-              <li><a href="/create/room">
-                <div><i class="icon-stack"></i>방 등록</div>
-              </a></li>
-              <li><a href="/list/room">
-              <div><i class="icon-stack"></i>방 정보 목록조회</div>
-              </a></li>
-            </ul>
-          </li>
-        </ul>
-
-      </nav><!-- #primary-menu end -->
-
-    </div>
-
-  </div>
-
-</header><!-- #header end -->
+<% include ../addon/room-list-header.ejs %>
 
 <body class="stretched">
 <div id="wrapper" class="clearfix">
    <div class="container clearfix">
-
       <div class="col_half">
          <div>
-
             <div class="post-grid grid-container clearfix" data-layout="fitRows" id="posts">
-               <!--for문 2번 조건 수정해야함 -->
-               <% for (var i = 0; i < 10; i++) { %>
-               <div>
-                  <div class="portfolio-image">
-                     <!--img태그 src수정-->
-                     <a href="#"><img alt="Open Imagination" src="#"></a>
-                  </div>
-                  <div class="entry-title">
-                     <h2><a href="#">title</a></h2>
-                  </div>
-                  <div class="entry-content">
-                     <p>address</p>
-                     <a class="more-link" href="/room/">more[number]</a>
-                  </div>
-
-                  <div class="tagcloud">
-                     <a href=""> 방종류 </a>
-                     <a href=""> 보증금 </a>
-                     <a href=""> 월세 </a>
-                  </div>
-
-                  <!--<a href="" class="button button-circle button-3d button-light button-white">방종류</a>-->
-                  <!--<h3> "방종류" </h3>-->
-                  <!--<a href="" class="button button-circle button-3d button-light button-white">보증금</a>-->
-                  <!--<a href="" class="button button-circle button-3d button-light button-white">월세</a>-->
-
-                  <div class="clear"></div>
-
-                  <div class="counter counter-small">
-
-                     <table class="table">
-                        <thead></thead>
-                        <tbody>
-                        <tr>
-                           <th>
-                              <i class="i-plain icon-thumbs-up"></i>
-                              <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
-                           </th>
-
-                           <th>
-                              <i class="i-plain icon-meh"></i>
-                              <span data-from="0" data-to="65" data-refresh-interval="100" data-speed="3000"></span>
-                           </th>
-
-                           <th>
-                              <i class="i-plain icon-unlink"></i>
-                              <span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>
-                           </th>
-                        </tr>
-                        </tbody>
-                     </table>
-
-                  </div>
-
-
-
-                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-thumbs-up"></i>-->
-                  <!--<span>따봉몇개</span></a>-->
-
-
-                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-meh"></i>-->
-                  <!--<span>싫어요</span></a>-->
-
-                  <!--<a href="#" class="button button-rounded button-reveal button-white button-light tright"><i class="i-plain icon-unlink"></i>-->
-                  <!--<span>찜콩</span></a>-->
-
-
-               </div>
-               <% } %>
-
             </div>
-
          </div>
+         <ul id="pagination" class="pagination-sm"></ul>
       </div>
    </div>
 </div>
@@ -177,126 +45,20 @@
   <div id="map"></div>
   <script type="text/javascript">
 
-    var roomData = {
-
-    }
-  
-    var dataMap = {
-      markerCluster: null,
-      t: null,
-
-      locations: {
-        makeMapLocations: function(data) {
-          locations = [];
-          data.forEach(function(v) {
-            var l = {lat: v.lat, lng: v.lng};
-            locations.push(l);
-          });
-          return locations;
-        },
-        
-        makeLocations: function(e, w, s, n) {
-          $.ajax({
-            url: "/map/room/locations/" + e + "/" + w + "/" + s + "/" + n,
-            success: function(data) {
-              if (data) {
-                var locations = dataMap.locations.makeMapLocations(data);
-                dataMap.loadMap(locations);
-                // roomListReload(locations);
-              } else {
-                alert("Load Error !!");
-              }
-            }
-          });
-        },
-      },
-
-      event: {
-        timer: function(e, w, s, n) {
-          t = setTimeout(function() {
-            clearTimeout(t);
-            dataMap.locations.makeLocations(e, w, s, n);
-          }, 500);
-        }
-      },
-
-      marker: {
-        makeMarker: function(locations) {
-          var labels = '1';
-
-          return locations.map(function(location, i) {
-            return new google.maps.Marker({
-              position: location,
-              label: labels[i % labels.length]
-            });
-          });
-        },
-      },
-
-      initMap: function(ID, lat, lng) {
-        return new google.maps.Map(document.getElementById(ID), {
-          zoom: 15,
-          center: {lat: lat, lng: lng}
-        });
-      },
-
-      drawMap: function(lat, lng) {
-        var map = dataMap.initMap('map', lat, lng);
-
-        map.addListener('dragend', function() {
-          var bounds = map.getBounds();
-          dataMap.mapReloadByBounds(bounds);
-        });
-
-        map.addListener('zoom_changed', function() {
-          var bounds = map.getBounds();
-          dataMap.mapReloadByBounds(bounds);
-        });
-
-        // Init Map
-        map.addListener('projection_changed', function() {
-          var bounds = map.getBounds();
-          dataMap.mapReloadByBounds(bounds);
-        });
-
-        // Add a marker clusterer to manage the markers.
-        markerCluster = new MarkerClusterer(map, dataMap.marker.makeMarker([]),
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      },
-
-      loadMap: function(locations) {
-        var newmarkers = dataMap.marker.makeMarker(locations);
-
-        markerCluster.clearMarkers();
-        markerCluster.addMarkers(newmarkers, true);
-        markerCluster.redraw();
-      },
-
-      mapReloadByBounds: function(bounds) {
-        var n = bounds.getNorthEast().lat();
-        var e = bounds.getNorthEast().lng();
-        var s = bounds.getSouthWest().lat();
-        var w = bounds.getSouthWest().lng();
-
-        var ew = (e - w) / 10;
-        var ns = (n - s) / 10;
-
-        dataMap.event.timer(e + ew, w - ew, s - ns, n + ns);
-      }
-    }
-
     function initMap() {
       var lat, lng;
-      if (navigator.geolocation) {
+      var is_safari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && navigator.userAgent && !navigator.userAgent.match('CriOS');
+
+      if (!is_safari && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
           lat = position.coords.latitude;
           lng = position.coords.longitude;
-          dataMap.drawMap(lat, lng);
+          dataMap.map.roomMap(lat, lng);
         });
       } else {
         lat = <%= lat %>;
         lng = <%= lng %>;
-        dataMap.drawMap(lat, lng);
+        dataMap.map.roomMap(lat, lng);
       }
     }
 
