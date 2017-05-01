@@ -47,18 +47,21 @@
 
     function initMap() {
       var lat, lng;
-      var is_safari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && navigator.userAgent && !navigator.userAgent.match('CriOS');
+      var is_safari = navigator.vendor && 
+                      navigator.vendor.indexOf('Apple') > -1 &&
+                      navigator.userAgent && 
+                      !navigator.userAgent.match('CriOS');
 
       if (!is_safari && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
           lat = position.coords.latitude;
           lng = position.coords.longitude;
-          dataMap.map.roomMap(lat, lng);
+          roomList.drawRoom(lat, lng);
         });
       } else {
         lat = <%= lat %>;
         lng = <%= lng %>;
-        dataMap.map.roomMap(lat, lng);
+        roomList.drawRoom(lat, lng);
       }
     }
 
