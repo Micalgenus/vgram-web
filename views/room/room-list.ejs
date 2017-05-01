@@ -11,8 +11,8 @@
       position: fixed !important;
       width:50%;
       right:0;
-      top:80px;
-      height: calc(100% - 80px);
+      top:280px;
+      height: calc(100% - 280px);
     }
     /* Optional: Makes the sample page fill the window. */
     html, body {
@@ -25,6 +25,206 @@
 </head>
 
 <% include ../addon/room-list-header.ejs %>
+
+<div class="tabs advanced-real-estate-tabs clearfix">
+
+  <div class="container clearfix">
+      <ul class="tab-nav clearfix">
+        <li><a href="#tab-properties" data-scrollto="#tab-properties" data-offset="133">Search Properties</a></li>
+      </ul>
+  </div>
+
+  <div class="tab-container">
+      <div class="container clearfix">
+        <div class="tab-content clearfix" id="tab-properties">
+            <form action="#" method="post" class="nobottommargin">
+              <div class="row">
+
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">Search</label>
+                    <select class="selectpicker" multiple data-live-search="true" id="address">
+                        <!--<select class="selectpicker form-control" multiple data-live-search="true" data-size="6" style="width:100%; line-height: 30px;">-->
+
+                        <!--<optgroup multiple data-live-search="true" class="bs-searchbox">-->
+                        <optgroup label="대한민국">
+
+                          <option value="duck1">전라북도 전주시 덕진구 덕진동1가</option>
+                          <option value="jung1">전라북도 전주시 완산구 중화산동1가</option>
+                          <option value="woo1">전라북도 전주시 덕진구 우아동1가</option>
+                        </optgroup>
+                    </select>
+                  </div>
+
+                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">-->
+                  <!--<label for="">Search</label>-->
+                  <!--<div id="top-search">-->
+                  <!--<a href="#" id="top-search-trigger">-->
+                  <!--<i class="icon-search3"></i>-->
+                  <!--<i class="icon-line-cross"></i>-->
+                  <!--</a>-->
+                  <!--<form action="search.html" method="get">-->
+                  <!--<input type="text" name="q" class="form-control" value placeholder="search">-->
+                  <!--</form>-->
+                  <!--<optgroup label="대한민국">-->
+
+                  <!--<option value="duck1">전라북도 전주시 덕진구 덕진동1가</option>-->
+                  <!--<option value="jung1">전라북도 전주시 완산구 중화산동1가</option>-->
+                  <!--<option value="woo1">전라북도 전주시 덕진구 우아동1가</option>-->
+                  <!--</optgroup>-->
+
+                  <!--</div>-->
+                  <!--</div>-->
+
+                  <div class="col-md-1 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">방종류</label>
+                    <select class="selectpicker form-control" data-size="6" style="width:100%; line-height: 30px;">
+                        <!--<option value="Any">Any</option>-->
+                        <optgroup label="시">
+                          <option value="oneroom">원룸</option>
+                          <option value="tworoom">투룸</option>
+                          <!--<option value="Villa">Villa</option>-->
+                          <!--<option value="Building">Building</option>-->
+                        </optgroup>
+                        <!--<optgroup label="Commercial">-->
+                        <!--<option value="Shop">Shop</option>-->
+                        <!--<option value="Office">Office</option>-->
+                        <!--<option value="Warehouse">Warehouse</option>-->
+                        <!--</optgroup>-->
+                    </select>
+                  </div>
+
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">보증금</label>
+                    <select class="selectpicker" multiple data-size="6" style="width:100%; line-height: 30px;">
+                        <!--<option value="Any">Any</option>-->
+                        <optgroup label="보증금">
+                          <option value="">~1000만원</option>
+                          <option value="">~2000만원</option>
+                          <option value="">~3000만원</option>
+
+                          <!--<option value="Villa">Villa</option>-->
+                          <!--<option value="Building">Building</option>-->
+                        </optgroup>
+                        <!--<optgroup label="Commercial">-->
+                        <!--<option value="Shop">Shop</option>-->
+                        <!--<option value="Office">Office</option>-->
+                        <!--<option value="Warehouse">Warehouse</option>-->
+                        <!--</optgroup>-->
+                    </select>
+                  </div>
+
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">추가옵션</label>
+                    <select class="selectpicker" multiple data-size="6" style="width:100%; line-height: 30px;">
+                        <!--<option value="Any">Any</option>-->
+                        <optgroup label="보증금">
+                          <option value="">세탁기</option>
+                          <option value="">에어컨</option>
+                          <option value="">냉장고</option>
+
+                          <!--<option value="Villa">Villa</option>-->
+                          <!--<option value="Building">Building</option>-->
+                        </optgroup>
+                        <!--<optgroup label="Commercial">-->
+                        <!--<option value="Shop">Shop</option>-->
+                        <!--<option value="Office">Office</option>-->
+                        <!--<option value="Warehouse">Warehouse</option>-->
+                        <!--</optgroup>-->
+                    </select>
+                  </div>
+
+                  <div class="col-md-2 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">선택</label><br>
+                    <input class="bt-switch" type="checkbox" checked data-on-text="지도" data-off-text="리스트" data-on-color="white" data-off-color="black">
+                  </div>
+
+
+                  <!--<div class="col-md-2 col-sm-12 bottommargin-sm">-->
+                  <!--<label for="" style="display:block;">지도</label>-->
+                  <!--<input class="bt-switch" type="checkbox" checked data-on-text="Buy" data-off-text="Rent" data-on-color="themecolor" data-off-color="themecolor">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-2 col-sm-12 bottommargin-sm">-->
+                  <!--<label for="" style="display:block;">리스트</label>-->
+                  <!--<input class="bt-switch" type="checkbox" checked data-on-text="Buy" data-off-text="Rent" data-on-color="themecolor" data-off-color="themecolor">-->
+                  <!--</div>-->
+                  <!--<div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">-->
+                  <!--<label for="">방종류</label>-->
+                  <!--<select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">-->
+                  <!--<option value="1">원룸</option>-->
+                  <!--<option value="2">고시룸</option>-->
+                  <!--<option value="3">룸</option>-->
+                  <!--&lt;!&ndash;<option value="4">4</option>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<option value="5+">5+</option>&ndash;&gt;-->
+                  <!--</select>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">-->
+                  <!--<label for="">Baths</label>-->
+                  <!--<select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">-->
+                  <!--<option value="1">1</option>-->
+                  <!--<option value="2">2</option>-->
+                  <!--<option value="3">3</option>-->
+                  <!--<option value="4">4</option>-->
+                  <!--<option value="5+">5+</option>-->
+                  <!--</select>-->
+                  <!--</div>-->
+
+
+                  <!--<div class="sidebar nobottommargin">-->
+                  <!--<div class="sidebar-widgets-wrap">-->
+
+                  <!--<div class="widget widget-filter-links clearfix">-->
+
+                  <!--<h4>Select Category</h4>-->
+                  <!--<ul class="custom-filter" data-container="#shop" data-active-class="active-filter">-->
+                  <!--<li class="widget-filter-reset active-filter"><a href="#" data-filter="*">Clear</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-dress">Dress</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-tshirt">Tshirts</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-pant">Pants</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-sunglass">Sunglasses</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-shoes">Shoes</a></li>-->
+                  <!--<li><a href="#" data-filter=".sf-watch">Watches</a></li>-->
+                  <!--</ul>-->
+
+                  <!--</div>-->
+
+                  <!--<div class="widget widget-filter-links clearfix">-->
+
+                  <!--<h4>Sort By</h4>-->
+                  <!--<ul class="shop-sorting">-->
+                  <!--<li class="widget-filter-reset active-filter"><a href="#" data-sort-by="original-order">Clear</a></li>-->
+                  <!--<li><a href="#" data-sort-by="name">Name</a></li>-->
+                  <!--<li><a href="#" data-sort-by="price_lh">Price: Low to High</a></li>-->
+                  <!--<li><a href="#" data-sort-by="price_hl">Price: High to Low</a></li>-->
+                  <!--</ul>-->
+
+                  <!--</div>-->
+
+                  <!--</div>-->
+                  <!--</div>&lt;!&ndash; .sidebar end &ndash;&gt;-->
+
+
+                  <div class="clear"></div>
+                  <!--<div class="col-md-4 col-sm-6 col-xs-12">-->
+                  <!--<label for="" style="margin-bottom: 20px !important;">Price Range</label>-->
+                  <!--<input class="price-range-slider" />-->
+                  <!--</div>-->
+                  <!--<div class="clear visible-xs bottommargin-sm"></div>-->
+                  <!--<div class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">-->
+                  <!--<label for="" style="margin-bottom: 20px !important;">Property Area</label>-->
+                  <!--<input class="area-range-slider" />-->
+                  <!--</div>-->
+                  <!--<div class="col-md-offset-1 col-md-2 col-sm-12 clearfix">-->
+                  <!--<button class="button button-dark button-large button-rounded" style="margin-top: 35px !important;">Search</button>-->
+                  <!--</div>-->
+
+
+
+              </div>
+            </form>
+        </div>
+      </div>
+  </div>
+</div>
 
 <body class="stretched">
 <div id="wrapper" class="clearfix">

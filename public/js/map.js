@@ -1,3 +1,22 @@
+var filter = (function() {
+  var address = (function() {
+    var $root = $('select#address');
+
+    function push($data) {
+      $root.append('<option>' + $data + '</option>')
+           .selectpicker('refresh');
+    };
+
+    return {
+      push: push
+    }
+  })();
+
+  return {
+    push: address.push
+  }
+})();
+
 //////////////////////////////
 /**
  * @desc 출력될 리스트 데이터
@@ -15,7 +34,7 @@ var ListData = (function() {
   var display = (function() {
 
     /**
-     * @desc 출력을 위한 
+     * @desc 보여질 데이터 관리 및 출력
      */
     var list = (function() {
       var displayArray = [];
@@ -30,6 +49,10 @@ var ListData = (function() {
         root.html('');
       };
 
+      /**
+       * @desc  리스트를 출력
+       * @param {method} make 출력 포멧으로 변환 함수
+       */
       function show(make) {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
@@ -41,6 +64,9 @@ var ListData = (function() {
         root.append($items).isotope('appended', $items).isotope('layout');
       };
       
+      /**
+       * @desc 데이터 관리
+       */
       var displayList = (function() {
 
         function push(data) {
@@ -153,7 +179,7 @@ var ListData = (function() {
     })(); /* ListData.display.template */
 
     return {
-      displayReload: display.displayReload,
+      displayReload: list.displayReload,
       template: template,
       pagination: pagination
     }
@@ -189,6 +215,7 @@ var ListData = (function() {
     function push(list) {
       for (var i in list) {
         dataArray.push(list[i]);
+        console.log(list[i]);
       }
     }
 

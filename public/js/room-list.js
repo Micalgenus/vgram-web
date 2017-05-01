@@ -29,16 +29,6 @@ var roomList = (function() {
 
   var list = (function() {
 
-    function makeRoomList(data) {
-      $list = [];
-      data.forEach(function(v) {
-        let room_id = v.icl_translation.post.room.ID;
-        $list.push(room_id);
-      });
-
-      return ListData.data.makeList($list);
-    };
-
     function roomDataReload(data) {
       let init = getRoomList(data);
 
@@ -50,8 +40,19 @@ var roomList = (function() {
       return ListData.data.getList(url, makeRoomList($list));
     }
 
+    function makeRoomList(data) {
+      $list = [];
+      data.forEach(function(v) {
+        let room_id = v.icl_translation.post.room.ID;
+        $list.push(room_id);
+
+        filter.push(room_id);
+      });
+
+      return ListData.data.makeList($list);
+    };
+
     function makeRoom(data) {
-      // console.log(data);
       return ListData.template.makeTemplate('/template/room-data.ejs', {
         image_path: JSON.parse(data.thumbnail_image_path),
         deposit: data.deposit,
@@ -59,10 +60,6 @@ var roomList = (function() {
         title: data.post.title
       });
     };
-
-    function displayRoom(displayList) {
-      show(displayList, template.makeRoom);
-    }
 
     /**
      * @desc  room에서 방 번호로 정렬 room list를 정렬하기 위한 함수
