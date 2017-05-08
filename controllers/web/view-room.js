@@ -195,116 +195,32 @@ exports.createRoomInfo = function (req, res, next) {
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.changeRoomInfoView = function(req, res, next) {
-   // if (!req.params.roomInfoIdx) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required param! please check :roomInfoIdx',
-   //     statusCode: -1
-   //   });
-   // }
-   // const roomInfoIdx = _.toNumber(req.params.roomInfoIdx);
-   //
-   // if (req.user.memberType != value.memberType.LEASE_MEMBER) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You are not authorized to create roominfo case.',
-   //     statusCode: 2
-   //   });
-   // }
-   //
-   // if (!req.body.title) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check title',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.roomType) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check roomType',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.address) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check address',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.files[value.fieldName.prevImg]) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check file["previewImage"]',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // let updateRoomInfo = Promise.method(function (initWriteDate, previewImagePath) {
-   //   // 나중에 VR Tour 변경될 때 promise 형식으로 한번에 바꾸자
-   //   const room = {
-   //     memberIdx: req.user.idx,
-   //     title: req.body.title,
-   //     roomType: req.body.roomType == "" ? null : _.toNumber(req.body.roomType),
-   //     address: req.body.address == "" ? null : req.body.address,    // JSON.stringify(address) 형식 그대로 온다.
-   //     mainPreviewImage: _.isNil(previewImagePath) ? null : previewImagePath,
-   //     deposit: req.body.deposit == "" ? null : _.toNumber(req.body.deposit),
-   //     monthlyRentFee: req.body.monthlyRentFee == "" ? null : _.toNumber(req.body.monthlyRentFee),
-   //     floor: req.body.floor == "" ? null : _.toNumber(req.body.floor),
-   //     manageExpense: req.body.manageExpense == "" ? null : _.toNumber(req.body.manageExpense),
-   //     manageService: req.body.manageService == "" ? null : req.body.manageService,
-   //     areaSize: req.body.areaSize == "" ? null : _.toNumber(req.body.areaSize),
-   //     actualSize: req.body.actualSize == "" ? null : _.toNumber(req.body.actualSize),
-   //     parking: req.body.parking == "" ? null : _.toNumber(req.body.parking),
-   //     elevator: req.body.elevator == "" ? null : _.toNumber(req.body.elevator),
-   //     supplyOption: req.body.supplyOption == "" ? null : _.toNumber(req.body.supplyOption),
-   //     availableDate: req.body.availableDate == "" ? null : req.body.availableDate,
-   //     HTMLText: req.body.HTMLText == "" ? null : req.body.HTMLText,
-   //     // VRImages: _.isNil(vrImages) ? null : JSON.stringify(vrImages),   // 현재는 변환 전임을 표시함.
-   //     locationInfo: req.body.locationInfo == "" ? null : req.body.locationInfo,
-   //     coordinate: req.body.coordinate == "" ? null : req.body.coordinate,    // JSON.stringify() 형식 그대로 오기 때문에
-   //     regionCategory: req.body.regionCategory == "" ? null : req.body.regionCategory,   // JSON.stringify() 형식 그대로
-   //     initWriteDate: _.isNil(initWriteDate) ? null : moment(_.toNumber(initWriteDate)).format("YYYY-MM-DD HH:MM:SS"),   // timestamp로 변환
-   //     fileRef: _.isNil(initWriteDate) ? null : _.toNumber(initWriteDate)
-   //   }
-   //
-   //   // return Array[0] = affectedRows
-   //   return RoomInfoBoard.update(room, {where: {idx: roomInfoIdx}}).then(function (array) {
-   //     return res.status(200).json({
-   //       msg: 'changed ' + array[0] + ' rows',
-   //       statusCode: 1
-   //     });
-   //   }).catch(function (err) {
-   //     if (err) {
-   //       res.status(400).json({
-   //         errorMsg: 'RoomInfoBoard Error : No user could be found for this ID.',
-   //         statusCode: 2
-   //       });
-   //       return next(err);
-   //     }
-   //   });
-   // });
-   //
-   // return moveImagePromise.makeNewSavePath(req)
-   //   .then(function (newSavePath) {
-   //     return Promise.join(
-   //       moveImagePromise.movePreviewImage(req, value.fieldName.prevImg, newSavePath, config.resourcePath), function (previewImage) {
-   //         return {initWriteDate: newSavePath, previewImage: previewImage};
-   //       });
-   //   }).then(function (result) {
-   //   return updateRoomInfo(result.initWriteDate, result.previewImage);
-   // }).done(function (result) {
-   //   log.debug(result);
-   //   next();
-   // }, function (err) {
-   //   log.error(err);
-   //   next(err);
-   // });
+   if (!req.user.logined) {
+      req.flash('msg', req.i18n("require login"));
+      return res.redirect('/room');
+   }
+
+   // 방타입, 전월세여부, 층수에 대한 name-value 추출
+   var pairs = i18nConverter.getLangPair(
+      {
+         placeType: value.placeType,
+         roomContractCondition: value.roomContractCondition,
+         floors: value.floors,
+         postStatus: value.postStatus,
+         postType: value.postType
+      }, req);
+
+   // 기본적으로 user의 기본언어 선택사항을 따라가고,
+   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
+   pairs.lang = req.user.locale || req.getLocale();
+
    return res.render('room/room-new', {
       ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
-      email: "123@123.com",
-      update: true
+      logined: req.logined,
+      title: req.i18n("title")["updateRoomInfoView"] + req.i18n("app")["name"],
+      msg: req.msg,
+      update: true,
+      value: pairs
    });
 }
 

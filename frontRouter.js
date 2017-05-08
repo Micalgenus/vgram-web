@@ -169,6 +169,9 @@ module.exports = function(app) {
   //=========================
    webRoutes.use('/auth', web.auth);
 
+   // 로그인
+   web.auth.get('/login', web.authController.init, web.userController.login);
+
    // Login route
    web.auth.post('/login', web.authController.login, web.requireLogin, web.authController.setToken, web.redirectController.redirectMain);
 
@@ -294,7 +297,7 @@ module.exports = function(app) {
    // update Room Info Info from authenticated user
    // roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-   web.room.get('/change/:roomInfoIdx([0-9]+)', web.roomController.changeRoomInfoView);
+   web.room.get('/change/:roomInfoIdx([0-9]+)', web.authController.init, requireAuth, web.roomController.changeRoomInfoView);
    web.room.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
 
    // delete Room Info Info from authenticated user
