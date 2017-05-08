@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
    var icl_translation = sequelize.define('icl_translation', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          autoIncrement: true,
          primaryKey: true
       },
       element_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'post',
@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
          defaultValue: "post"
       },
       group_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          unique: true
       },
@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
                targetKey: "ID"
             });
 
-            icl_translation.hasOne(models.address, {
+            icl_translation.hasMany(models.address, {
                onUpdate: "CASCADE",
                onDelete: "CASCADE",
                foreignKey: {

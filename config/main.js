@@ -5,7 +5,7 @@ const env_var = require("./environment_vars");
 
 var config = {
    "development": {
-      "hostName": "localhost",    // actual hostname for resource hosting
+      "host": "localhost",    // actual hostname for resource hosting
       "dialect": "sqlite",
       "storage": "./db.development.sqlite"
    },
@@ -15,9 +15,9 @@ var config = {
 
    "production": {
       "username": "root",
-      "password": "hitit113112",
+      "password": "hitit113112!",
       "database": "cozyhouzz",
-      "host": "api.cozyhouzz.co.kr",    // for init sequellize
+      "host": "api.cozyhouzz.co.kr",    // The host of the relational database.
       "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting
       "dialect": "mysql",
       "pool": {

@@ -1,0 +1,6 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: Common elements
+  description: Shared elements in all API

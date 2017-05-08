@@ -10,6 +10,7 @@ moment.locale("ko");
 module.exports = [
    {
       ID: 1,
+      user_id: 1,
       group: "5852a2215fa82",
       type: "zip",
       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
@@ -19,6 +20,7 @@ module.exports = [
    },
    {
       ID: 2,
+      user_id: 2,
       group: "5852a2215fa82",
       type: "wma",
       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
@@ -28,6 +30,7 @@ module.exports = [
    },
    {
       ID: 3,
+      user_id: 3,
       group: "5852a22123667aas",
       type: "png",
       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
@@ -37,6 +40,7 @@ module.exports = [
    },
    {
       ID: 4,
+      user_id: 4,
       group: "5852a22123667aas",
       type: "pdf",
       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),

@@ -4,48 +4,44 @@
 const passport = require('passport'),
   express = require('express'),
   multer = require('multer'),
-  quoter  = require('./tests/quoter');    // test route
+  tests  = require('./controllers/test/hello-world');    // test route
 
-  // web
-const Web = {
-  AuthController: require('./controllers/web/auth'),
-  RoomController: require('./controllers/web/view-room'),
-  MapController: require('./controllers/web/view-map')
+var web = {
+   authController: require('./controllers/web/auth'),
+   roomController: require('./controllers/web/view-room'),
+   mapController: require('./controllers/web/view-map'),
+   redirectController: require('./controllers/web/redirect'),
+   userController: require('./controllers/web/view-user'),
+
+   // web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
+   requireLogin: function(req, res, next) {
+      return passport.authenticate('local', function(err, user, info) {
+         if (err) {
+            return next(err); // will generate a 500 error
+         }
+
+         if (! user) {
+            req.flash('email', req.body.email);
+            req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
+            return res.redirect('/login');
+         }
+
+         req.user = user;
+         return next();
+      }) (req, res, next);
+   }
 };
 
-const redirectViewController = require('./controllers/web/redirect'),
-  AuthViewController = require('./controllers/web/auth'),
-  BizViewController = require('./controllers/web/view-biz'),
-  UserViewController = require('./controllers/web/view-user');
+var api = {
+   authController: require('./controllers/api/rest-auth'),
+   postController: require('./controllers/api/posts')
+};
 
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
-
-//이정현 추가
-//로그인 부분
-const AuthAPIController = require('./controllers/api/rest-auth');
-const postsAPIController = require('./controllers/api/posts');
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
 const requireLogin = passport.authenticate('local', { session: false });
-
-// Web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
-const requireWebLogin = function(req, res, next) {
-  return passport.authenticate('local', function(err, user, info) {
-    if (err) {
-      return next(err); // will generate a 500 error
-    }
-
-    if (! user) {
-      req.flash('email', req.body.email);
-      req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
-      return res.redirect('/login');
-    }
-
-    req.user = user;
-    return next();
-  }) (req, res, next);
-};
 
 var env = process.env.NODE_ENV || "development";
 
@@ -71,38 +67,37 @@ module.exports = function(app) {
   var webRoutes = express.Router(),
     apiRoutes = express.Router();
 
-    publicAPI = express.Router(),
-    authAPI = express.Router(),
-    userAPI = express.Router(),
-    consultAPI = express.Router(),
-    bizStoreAPI = express.Router(),
-    roomInfoAPI = express.Router(),
+    web.default = express.Router();
+    web.room = express.Router();
+    web.search = express.Router();
+    web.map = express.Router();
+    web.consult = express.Router();
+    web.auth = express.Router();
+    web.user = express.Router();
+    web.public = express.Router();
+    web.post = express.Router();
+    web.test = express.Router();
 
-    publicView = express.Router(),
-    authView = express.Router(),
-    userView = express.Router(),
-    consultView = express.Router(),
-    bizStoreView = express.Router();
-
-    Web.roomInfo = express.Router();
-    Web.search = express.Router();
-    Web.map = express.Router();
+    api.default = express.Router();
+    api.public = express.Router();
+    api.consult = express.Router();
+    api.auth = express.Router();
+   api.user = express.Router();
+   api.post = express.Router();
+   api.room = express.Router();
+   api.test = express.Router();
 
    // Set url for View, API group routes
    app.use('/', webRoutes);
    app.use('/api', apiRoutes);
 
-   app.use('/search', Web.search);
-  // chatRoutes = express.Router(),
-  // payRoutes = express.Router(),
-  // communicationRoutes = express.Router();
 
   //=========================
-  // Default Routes
+  // Web - Default Routes
   //=========================
+   webRoutes.use('/', web.default);
 
-  // Test normal route
-  webRoutes.get('/', AuthViewController.init, function(req, res) {
+  web.default.get('/', web.authController.init, function(req, res) {
     res.render('index', {
       ENV: env,
       logined: req.logined,
@@ -111,68 +106,48 @@ module.exports = function(app) {
     });
   });
 
-  // 로그인
-  webRoutes.get('/login', AuthViewController.init, UserViewController.login);
 
-  // 회원정보 조회 및 수정
-  webRoutes.get('/change', AuthViewController.init, requireAuth, UserViewController.viewProfile);
-
-  // 회원가입
-  webRoutes.get('/signup', AuthViewController.init, UserViewController.signup);
+   //=========================
+   // api - Default Routes
+   //=========================
+   apiRoutes.use('/', api.default);
 
 
-
-  //=========================
-  // Web : Biz Route - 업체 목록 조회(사용X)
-  //=========================
-  webRoutes.get('/biz', AuthViewController.init, BizViewController.bizList);
-  webRoutes.get('/bizdetail', redirectViewController.redirectBizList);
-  webRoutes.get('/bizdetail/:idx([0-9]+)', AuthViewController.init, BizViewController.bizDetail);
-
-  //=========================
-  // Test Routes
-  //=========================
-
-
-  /*이 route 주소들을 나중에 app.js에서 app.use를 사용하여 라우팅 해주는
-  방식으로 고치는 것이 좋을것 같음, 지금은 빠르게 ui를 확인하려고 res.render로
-  바로 확인하였음*/
-  // Test view route
-   webRoutes.get('/test/view', function(req, res) {
-      res.render('test', { ENV: env, title: 'Express', msg: 'Lets Go!' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
-
-   // consultingCounsel view route,컨설팅 정보 입력
-   webRoutes.get('/consultingCounsel', function(req, res) {
-      res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
-
-   // krpano iframe view route, vr사진 높이 100%, 넓이 100%
-   webRoutes.get('/roomInfoVR/:id', function(req, res) {
-      //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
-      res.render('iframe/krpano', { ENV: env, title: 'Express', msg: 'krpano test' });
-      // res.status(200).json({ quote: quoter.getRandomOne() });
-   });
+   //=========================
+   // web - Test Routes
+   //=========================
+   webRoutes.use('/test', web.test);
 
    // Test API route
-   apiRoutes.get('/test', function(req, res) {
-    // res.render('index', { ENV: env, title: 'Express', msg: 'Lets Go!' });
-    res.status(200).json({ quote: quoter.getRandomOne() });
-  });
-
-  // Test protected route, 회원 id를 포함한 정보는 jwt값으로 인코딩해서 보내야 함.
-  apiRoutes.get('/test/protected', requireAuth, function(req, res) {
-    res.status(200).json({ content: 'The protected test route is functional!'});
-  });
+   web.test.get('/', tests.getQuoter);
+   web.test.get('/hello', tests.hello);
+   web.test.get('/protected', requireAuth, tests.protectedRoute);
 
   //=========================
-  // public Routes
+  // API - Test Routes
   //=========================
+   apiRoutes.use('/test', api.test);
 
-  // Set public routes as subgroup/middleware to apiRoutes
-  apiRoutes.use('/public', publicAPI);
+   // Test API route
+   api.test.get('/', tests.getQuoter);
+   api.test.get('/hello', tests.hello);
+   api.test.get('/protected', requireAuth, tests.protectedRoute);
+
+
+  //=========================
+  // web - public Routes
+  //=========================
+   webRoutes.use('/public', web.public);
+
+
+
+   //=========================
+   // API - public Routes
+   //=========================
+   apiRoutes.use('/public', api.public);
+
+
+   // Set public routes as subgroup/middleware to apiRoutes
 
   // upload Image and return path when try to attaching device image
   // publicAPI.post('/image', requireAuth, editorImageUpload, PublicController.uploadEditorImage);
@@ -180,73 +155,92 @@ module.exports = function(app) {
   // test - upload file and return path when try to attaching device file
   //  publicAPI.post('/file/test', testFileUpload, PublicController.uploadFileTest);
 
+
+   // consultingCounsel view route,컨설팅 정보 입력
+   // webRoutes.get('/consultingCounsel', function(req, res) {
+   //    res.render('consulting/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
+   //    // res.status(200).json({ quote: quoter.getRandomOne() });
+   // });
+
+
+
   //=========================
-  // Auth Routes
+  // web - Auth Routes
   //=========================
+   webRoutes.use('/auth', web.auth);
 
-  // Set auth routes as subgroup/middleware to apiRoutes
-  apiRoutes.use('/', authAPI);
-  webRoutes.use('/auth', authView);
+   // Login route
+   web.auth.post('/login', web.authController.login, web.requireLogin, web.authController.setToken, web.redirectController.redirectMain);
 
-  //유저 모든정보 출력 api
-  authAPI.post('/info', AuthAPIController.info);
+   // Logout route
+   web.auth.get('/logout', web.authController.logout, web.redirectController.redirectMain);
 
-  // Login route
-  authAPI.post('/login', requireLogin, AuthAPIController.login);
-  authView.post('/login', AuthViewController.login, requireWebLogin, AuthViewController.setToken, redirectViewController.redirectMain);
-
-  // Logout route
-  authView.get('/logout', AuthViewController.logout, redirectViewController.redirectMain);
-
-  // Registration route
-  authAPI.post('/register', AuthAPIController.register);
-  authView.post('/signup', AuthViewController.signup, AuthViewController.register, requireWebLogin, AuthViewController.setToken, redirectViewController.redirectMain);
+   // Registration route
+   web.auth.post('/signup', web.authController.signup, web.authController.register, web.requireLogin, web.authController.setToken, web.redirectController.redirectMain);
 
    //탈퇴 라우터
-   authAPI.post('/quit', AuthAPIController.quit);
-   authView.get('/quit', AuthViewController.quit);
+   web.auth.get('/quit', web.authController.quit);
+
+
+   //=========================
+   // API - Auth Routes
+   //=========================
+   apiRoutes.use('/auth', api.auth);
+
+  //유저 모든정보 출력 api
+   api.auth.post('/info', api.authController.info);
+
+  // Login route
+   api.default.post('/login', requireLogin, api.authController.login);
+
+  // Registration route
+   api.default.post('/register', api.authController.register);
+
+   //탈퇴 라우터
+   api.default.post('/quit', api.authController.quit);
 
    //회원정보 수정
-   authAPI.post('/modifyInfo', requireLogin, AuthAPIController.modifyInfo);
+   api.default.post('/modifyInfo', requireLogin, api.authController.modifyInfo);
 
   // Password reset request route (generate/send token)
-   authAPI.post('/forgot-password', AuthAPIController.forgotPassword);
-  // authView.get('/forgot-password', AuthController.register);
+   api.default.post('/forgot-password', api.authController.forgotPassword);
+  // authView.get('/forgot-password', authController.register);
 
 
-   // authAPI.post('/reset-password/:token', AuthController.verifyToken);
-  // authView.get('/reset-password/:token', AuthController.verifyToken);
+   // authAPI.post('/reset-password/:token', authController.verifyToken);
+  // authView.get('/reset-password/:token', authController.verifyToken);
+
 
    //=========================
-   // 이정현 API 구현 Routes
+   // web - Member Routes
    //=========================
+   webRoutes.use('/user', web.user);
 
-   //공지사항 출력
-   authAPI.get('/notice', postsAPIController.viewNotice);
+   // 회원정보 조회 및 수정(View)
+   web.user.get('/change', web.authController.init, requireAuth, web.userController.viewProfile);
 
-   //방 게시글 출력
-   authAPI.get('/posts', postsAPIController.viewPosts);
+   // 회원정보 조회 및 수정(Action)
+   web.user.post('/change', requireAuth, web.authController.change, web.authController.setToken, web.redirectController.redirectChange);
 
-   //룸세부정보 출력
-   authAPI.get('/room/:roomInfoIdx', postsAPIController.viewRoomDetail);
+   // 회원정보 조회
+   web.user.get('/:memberIdx([0-9]+)', web.userController.viewProfile);
+
+
 
    //=========================
-  // Member Routes
+  // api - Member Routes
   //=========================
 
   // Set user routes as a subgroup/middleware to apiRoutes
-  apiRoutes.use('/user', userAPI);
-  webRoutes.use('/user', userView);
+  apiRoutes.use('/user', api.user);
 
-  userView.post('/change', requireAuth, AuthViewController.change, AuthViewController.setToken, redirectViewController.redirectChange);
 
   // View public user profile route
   // userAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
   //userView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
-  userView.get('/:memberIdx([0-9]+)', UserViewController.viewProfile);
 
   // Update user profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
-  // userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, AuthController.login);
+  // userAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, authController.login);
   //  userView.get('/update/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile);
 
   // View business user profile route
@@ -256,125 +250,187 @@ module.exports = function(app) {
   // userRoutes.put('/biz/:memberIdx', requireAuth, bizImageUpload, UserController.updateBizProfile);
 
 
+   //=========================
+   // web - Post Routes
+   //=========================
+   webRoutes.use('/post', web.post);
+
+
+   // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+   web.post.get('/embed/:ID', function(req, res) {
+      //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
+      res.render('iframe/krpano', { ENV: env, title: 'Express', msg: 'krpano test' });
+      // res.status(200).json({ quote: quoter.getRandomOne() });
+   });
+
+   //=========================
+   // api - Post Routes
+   //=========================
+   apiRoutes.use('/post', api.post);
+
+   //게시글 출력
+   api.post.get('/', api.postController.viewPosts);
+
+   //공지사항 출력
+   api.post.get('/notice', api.postController.viewNotice);
+
+
+
+   //=========================
+   // web - Room Info Routes
+   //=========================
+   webRoutes.use('/room', web.room);
+
+   //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
+   web.room.get('/', web.authController.init, web.roomController.roomInfoListView);
+
+   // create new Room Info from authenticated user
+   // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+   // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
+   web.room.get('/new', web.authController.init, requireAuth, web.roomController.createRoomInfoView);
+   web.room.post('/', requireAuth, web.roomController.createRoomInfo);
+
+
+   // update Room Info Info from authenticated user
+   // roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
+   // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
+   web.room.get('/change/:roomInfoIdx([0-9]+)', web.roomController.changeRoomInfoView);
+   web.room.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
+
+   // delete Room Info Info from authenticated user
+
+   // get Room Info Info from authenticated user
+   // roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
+   web.room.get('/:roomInfoIdx([0-9]+)', web.authController.init, web.roomController.roomInfoDetailView);
+
+   web.room.get('/search', web.roomController.searchRoomListView);
+
+   web.room.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
+   web.room.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
+
+
   //=========================
-  // Biz Store Route - 업체 목록 조회(사용X)
+  // api - Room Info Routes
   //=========================
+   apiRoutes.use('/room', api.room);
 
-  // Set chat routes as a subgroup/middleware to apiRoutes
-  // apiRoutes.use('/biz-store', bizStoreAPI);
-  //  webRoutes.use('/biz-store', bizStoreView);
+   api.room.delete('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.deleteRoomInfo);
 
-  // View business user profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
-  //  bizStoreAPI.get('/', BizStoreController.viewBizProfileList);
-  //  bizStoreView.get('/list', BizStoreController.viewBizProfileList);
-
-  // View business user profile to customer route
-  // bizStoreAPI.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-  //  bizStoreView.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-
+   //룸세부정보 출력
+   api.room.get('/:roomInfoIdx', api.postController.viewRoomDetail);
 
   //=========================
-  // API -  Payment Routes
+  // web - Map Info Routes
   //=========================
-  // apiRoutes.use('/pay', payRoutes);
+  webRoutes.use('/map', web.map);
+  web.map.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
 
-  // Webhook endpoint for Stripe
-  // payRoutes.post('/webhook-notify', StripeController.webhook);
 
-  // Create customer and subscription
-  // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
 
-  // Update customer object and billing information
-  // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
+   //=========================
+   // web - Consult Routes
+   //=========================
+   webRoutes.use('/consult', web.consult);
 
-  // Delete subscription from customer
-  // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
 
-  // Upgrade or downgrade subscription
-  // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
+   //=========================
+   // API - Consult Routes
+   //=========================
+   apiRoutes.use('/consult', api.consult);
 
-  // Fetch customer information
-  // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
 
-  //=========================
-  // Communication Routes
-  //=========================
-  // apiRoutes.use('/communication', communicationRoutes);
 
-  // Send email from contact form
-  // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
-  //=========================
-  // API - Consult Routes
-  //=========================
-  apiRoutes.use('/consult', consultAPI);
-  webRoutes.use('/consult', consultView);
 
-  // insert consulting information
-  // consultAPI.post('/', requireAuth, ConsultController.consultingCounsel);
-  //  consultView.get('/create', requireAuth, ConsultController.consultingCounsel);
+   // insert consulting information
+   // consultAPI.post('/', requireAuth, ConsultController.consultingCounsel);
+   //  consultView.get('/create', requireAuth, ConsultController.consultingCounsel);
 
-  // consulting information list
-  //  consultAPI.get('/', ConsultController.consultingList);
-  //  consultView.get('/list', Web.RoomController.viewRoomInfoList);
+   // consulting information list
+   //  consultAPI.get('/', ConsultController.consultingList);
+   //  consultView.get('/list', web.roomController.viewRoomInfoList);
 
-  // my consulting information list
-  // consultAPI.get('/my/', requireAuth, ConsultController.consultingMyList);
-  //  consultView.get('/my/list', requireAuth, ConsultController.consultingMyList);
+   // my consulting information list
+   // consultAPI.get('/my/', requireAuth, ConsultController.consultingMyList);
+   //  consultView.get('/my/list', requireAuth, ConsultController.consultingMyList);
 
-  // consulting information detail
-  //  consultAPI.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
-  //  consultView.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
+   // consulting information detail
+   //  consultAPI.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
+   //  consultView.get('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDetail);
 
-  // modify consulting information
-  // consultAPI.put('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
-  //  consultView.get('/update/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
+   // modify consulting information
+   // consultAPI.put('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
+   //  consultView.get('/update/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingModify);
 
-  // delete consulting information
-  //  consultAPI.delete('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDelete);
+   // delete consulting information
+   //  consultAPI.delete('/:consultIdx([0-9]+)', requireAuth, ConsultController.consultingDelete);
 
    // search consulting information list
    // apiRoutes.get('/search/consult', RoomInfoController.searchRoomInfoList);
 
 
-  //=========================
-  // API - Room Info Routes
-  //=========================
-  apiRoutes.use('/room', roomInfoAPI);
-  webRoutes.use('/room', Web.roomInfo);
 
-  //  roomInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-  Web.roomInfo.get('/', AuthViewController.init, Web.RoomController.roomInfoListView);
+   //=========================
+   // web - Biz Store Route - 업체 목록 조회
+   //=========================
 
-  // create new Room Info from authenticated user
-  // roomInfoAPI.post('/', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-  // roomInfoView.get('/new', requireAuth, roomInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-  Web.roomInfo.get('/new', Web.AuthController.init, requireAuth, Web.RoomController.createRoomInfoView);
-  Web.roomInfo.post('/', requireAuth, Web.RoomController.createRoomInfo);
+   // Set chat routes as a subgroup/middleware to apiRoutes
+   // apiRoutes.use('/biz-store', bizStoreAPI);
+   //  webRoutes.use('/biz-store', bizStoreView);
+
+   // View business user profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
+   //  bizStoreAPI.get('/', BizStoreController.viewBizProfileList);
+   //  bizStoreView.get('/list', BizStoreController.viewBizProfileList);
+
+   // View business user profile to customer route
+   // bizStoreAPI.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
+   //  bizStoreView.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
 
 
-  // update Room Info Info from authenticated user
-  // roomInfoAPI.put('/:roomInfoIdx', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-  // roomInfoView.get('/change/:roomInfoIdx([0-9]+)', requireAuth, roomInfoImageUpload, RoomInfoController.updateRoomInfo);
-  Web.roomInfo.get('/change/:roomInfoIdx([0-9]+)', Web.RoomController.changeRoomInfoView);
-  Web.roomInfo.put('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.updateRoomInfo);
 
-  // delete Room Info Info from authenticated user
-  roomInfoAPI.delete('/:roomInfoIdx([0-9]+)', requireAuth, Web.RoomController.deleteRoomInfo);
+   //=========================
+   // web : Biz Route - 업체 목록 조회(사용X)
+   //=========================
+   //  web.default.get('/biz', web.authController.init, BizViewController.bizList);
+   //  web.default.get('/bizdetail', redirectViewController.redirectBizList);
+   //  web.default.get('/bizdetail/:idx([0-9]+)', web.authController.init, BizViewController.bizDetail);
 
-  // get Room Info Info from authenticated user
-  // roomInfoAPI.get('/:roomInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-  Web.roomInfo.get('/:roomInfoIdx([0-9]+)', AuthViewController.init, Web.RoomController.roomInfoDetailView);
 
-  Web.roomInfo.get('/search', Web.RoomController.searchRoomListView);
+   //=========================
+   // api - Biz Store Route - 업체 목록 조회
+   //=========================
 
-  Web.roomInfo.get('/json/:roomInfoIdx([0-9]+)', Web.RoomController.roomInfoDetailJson);
-  Web.roomInfo.get('/json/list/:roomIdxList(\[[0-9,]+\])', Web.RoomController.roomInfoListJson);
 
-  //=========================
-  // API - Map Info Routes
-  //=========================
-  webRoutes.use('/map', Web.map);
-  Web.map.get('/room/locations/:east/:west/:south/:north', Web.MapController.getRoomLocations);
+   //=========================
+   // API -  Payment Routes
+   //=========================
+   // apiRoutes.use('/pay', payRoutes);
+
+   // Webhook endpoint for Stripe
+   // payRoutes.post('/webhook-notify', StripeController.webhook);
+
+   // Create customer and subscription
+   // payRoutes.post('/customer', requireAuth, StripeController.createSubscription);
+
+   // Update customer object and billing information
+   // payRoutes.put('/customer', requireAuth, StripeController.updateCustomerBillingInfo);
+
+   // Delete subscription from customer
+   // payRoutes.delete('/subscription', requireAuth, StripeController.deleteSubscription);
+
+   // Upgrade or downgrade subscription
+   // payRoutes.put('/subscription', requireAuth, StripeController.changeSubscription);
+
+   // Fetch customer information
+   // payRoutes.get('/customer', requireAuth, StripeController.getCustomer);
+
+
+   //=========================
+   // example - Communication Routes
+   //=========================
+   // apiRoutes.use('/communication', communicationRoutes);
+
+   // Send email from contact form
+   // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
 };

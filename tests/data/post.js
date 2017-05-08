@@ -22,7 +22,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글0"
@@ -42,7 +42,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글1"
@@ -62,7 +62,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글2"
@@ -82,7 +82,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글3"
@@ -102,7 +102,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "mobile",      // 모바일 환경에서 작성함
          secret_note: "비밀메모글4"
@@ -122,7 +122,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "mobile",      // 모바일 환경에서 작성함
          secret_note: "비밀메모글5"
@@ -142,7 +142,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글7"
@@ -162,7 +162,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글9"
@@ -182,7 +182,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web",
          secret_note: "비밀메모글9"
@@ -202,7 +202,7 @@ module.exports = [
       post_type: 'room',
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web"
       }
@@ -221,7 +221,7 @@ module.exports = [
       post_type: 'notice',     // 공지사항
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web"
       }
@@ -240,7 +240,7 @@ module.exports = [
       post_type: 'notice',     // 공지사항
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web"
       }
@@ -259,7 +259,7 @@ module.exports = [
       post_type: 'event',     // 공지사항
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web"
       }
@@ -278,7 +278,7 @@ module.exports = [
       post_type: 'event',     // 공지사항
       read_count: 0,
       like: 0,
-      locale: 'ko_kr',
+      locale: 'ko-kr',
       meta_value: {
          written_device: "web"
       }

@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
   var post_meta = sequelize.define('post_meta', {
     ID: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     post_id: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       references: {
         model: 'post',
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     meta_key: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(45),
       allowNull: false
     },
     meta_value: {

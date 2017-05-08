@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
    var coordinate = sequelize.define('coordinate', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
       },
       translation_group_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'icl_translation',
@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       region_code: {
          type: DataTypes.STRING(45),
          allowNull: true,
+         defaultValue: null
       },
       lat: {
          type: DataTypes.DECIMAL(20, 17),

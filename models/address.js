@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
    var address = sequelize.define('address', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
       },
       translation_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'icl_translation',
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
          }
       },
       coordinate_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'coordinate',
@@ -26,12 +26,12 @@ module.exports = function(sequelize, DataTypes) {
       },
       post_code: {
          type: DataTypes.STRING(45),
-         allowNull: false,
-         defaultValue: null
+         allowNull: false
       },
       region_code: {
          type: DataTypes.STRING(45),
          allowNull: true,
+         defaultValue: null
       },
       addr1: {
          type: DataTypes.STRING(127),
@@ -56,7 +56,7 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false
       },
       translation_group_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'icl_translation',
@@ -85,7 +85,7 @@ module.exports = function(sequelize, DataTypes) {
                   name: 'translation_group_id',
                   allowNull: false
                },
-               targetKey: "ID",
+               targetKey: "group_id",
                as: "ByGroupId"
             });
 

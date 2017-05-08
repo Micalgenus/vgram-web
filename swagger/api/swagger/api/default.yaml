@@ -1,0 +1,6 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: Default Sub-API
+  description: Default operations, definitions, parameters and responses

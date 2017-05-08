@@ -158,7 +158,7 @@ let setPostRoomData = function (req, res, medias) {
 
    return {
       postInfo: postInfo,
-      roomInfo: roomInfo
+      room: roomInfo
    }
 };
 
@@ -181,7 +181,7 @@ exports.viewRoomInfoList = function (req, res) {
       offset: pageStartIndex
    }).then(function (roomInfoList) {
       return res.status(200).json({
-         roomInfo: roomInfoList,
+         room: roomInfoList,
          statusCode: 1
       });
    }).catch(function (err) {
@@ -220,7 +220,7 @@ exports.createRoomInfoAndVRPano = function (req, res, next) {
       }).spread(function (newMedias, newAttacheds) {    // 2.a [post, room 저장]
          const output = setPostRoomData(req, res, newMedias);
          const postInfo = output.postInfo;
-         const roomInfo = output.roomInfo;
+         const roomInfo = output.room;
 
          return Post.create(postInfo, {transaction: t}).then(newPost => {
 
@@ -438,7 +438,7 @@ exports.viewRoomInfoDetail = function (req, res) {
       }
    }).then(function (roomInfo) {
       return res.status(200).json({
-         roomInfo,
+         room,
          statusCode: 1
       });
    }).catch(function (err) {

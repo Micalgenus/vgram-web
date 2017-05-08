@@ -1,0 +1,12 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: Common response elements
+  description: Shared response elements in all API
+
+responses:
+   ErrorResponse:
+    description: "An expected error occured."
+    schema:
+      $ref: './definitions.yaml#/definitions/Error'

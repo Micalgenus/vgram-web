@@ -3,17 +3,26 @@
 module.exports = function(sequelize, DataTypes) {
    var media = sequelize.define('media', {
       ID: {
-         type: DataTypes.INTEGER(11),
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
       },
-      media_group: {
-         type: DataTypes.STRING,
-         allowNull: true
+      user_id: {
+         type: DataTypes.INTEGER.UNSIGNED,
+         allowNull: false,
+         references: {
+            model: 'user',
+            key: 'ID'
+         }
       },
-      media_type: {
-         type: DataTypes.STRING,
+      group: {
+         type: DataTypes.STRING(127),
+         allowNull: true,
+         defaultValue: null
+      },
+      type: {
+         type: DataTypes.STRING(45),
          allowNull: false
       },
       date: {
@@ -21,16 +30,17 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false
       },
       file_path: {
-         type: DataTypes.STRING,
+         type: DataTypes.STRING(127),
          allowNull: false
       },
       file_name: {
-         type: DataTypes.STRING,
+         type: DataTypes.STRING(127),
          allowNull: false
       },
       meta_value: {
          type: DataTypes.JSON,
-         allowNull: true
+         allowNull: true,
+         defaultValue: null
       }
    }, {
       tableName: 'media',
@@ -59,8 +69,24 @@ module.exports = function(sequelize, DataTypes) {
                as: "ThumbImage"
             });
 
+            media.belongsTo(models.user, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'user_id',
+                  allowNull: false
+               },
+               targetKey: "ID"
+            });
          }
-      }
+      },
+      indexes: [
+         // Create a unique index on ID, user_id
+         {
+            primaryKey: true,
+            fields: ['ID', 'user_id']
+         }
+      ]
    });
 
    return media;

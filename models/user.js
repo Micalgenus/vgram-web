@@ -5,7 +5,7 @@ const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 module.exports = function(sequelize, DataTypes) {
    var user = sequelize.define('user', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
@@ -29,15 +29,15 @@ module.exports = function(sequelize, DataTypes) {
          defaultValue: null
       },
       user_status: {
-         type: DataTypes.INTEGER(11),
+         type: DataTypes.INTEGER,
          allowNull: false,
-         defaultValue: 1
+         defaultValue: 1      // -1 : 탈퇴요청, 0 : 휴면, 1 : 활성
       },
 
       telephone: {
          type: DataTypes.STRING(45),
          allowNull: true,
-         defaultValue: null
+         defaultValue: null      // (ex>"010-2800-2109")
       },
       registered_date: {
          type: DataTypes.DATE,
@@ -178,6 +178,26 @@ module.exports = function(sequelize, DataTypes) {
                },
                sourceKey: "ID",
                as: "Posts"
+            });
+
+            user.hasMany(models.attached, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'user_id',
+                  allowNull: false
+               },
+               sourceKey: "ID"
+            });
+
+            user.hasMany(models.media, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'user_id',
+                  allowNull: false
+               },
+               sourceKey: "ID"
             });
          }
       }

@@ -66,9 +66,9 @@ var roomList = (function() {
 
     /**
      * @desc  room에서 방 번호로 정렬 room list를 정렬하기 위한 함수
-     * @param {roomInfo} a roomInfo 객체
-     * @param {roomInfo} b roomInfo 객체
-     * 
+     * @param {room} a room 객체
+     * @param {room} b room 객체
+     *
      * @return {int} 순서 쌍에 의한 값
      */
     function roomCompare(a,b) {

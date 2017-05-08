@@ -1,0 +1,74 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: Test Sub-API
+  description: Test operations, definitions, parameters and responses
+
+paths:
+  /api/test:
+    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
+    x-swagger-router-controller: hello-world
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: getQuoter
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          $ref: "../shared/definitions.yaml#/definitions/HelloWorldMessage"
+        # responses may fall through to errors
+        default:
+         $ref: "../shared/responses.yaml#/responses/ErrorResponse"
+
+
+  /api/test/hello:
+    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
+    x-swagger-router-controller: hello-world
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: hello
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          $ref: "../shared/definitions.yaml#/definitions/PlainObjectMessage"
+        # responses may fall through to errors
+        default:
+          description: Error
+          $ref: "../shared/responses.yaml#/responses/ErrorResponse"
+
+
+  /api/test/protected:
+    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
+    x-swagger-router-controller: hello-world
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: protectedRoute
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          $ref: "../shared/definitions.yaml#/definitions/PlainObjectMessage"
+        # responses may fall through to errors
+        default:
+          description: Error
+          $ref: "../shared/responses.yaml#/responses/ErrorResponse"

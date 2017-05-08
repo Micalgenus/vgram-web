@@ -3,13 +3,13 @@
 module.exports = function(sequelize, DataTypes) {
    var room = sequelize.define('room', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
       },
       post_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'post',
@@ -21,12 +21,12 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false
       },
       deposit: {
-         type: DataTypes.INTEGER(10).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: true,
          defaultValue: null
       },
       monthly_rent_fee: {
-         type: DataTypes.INTEGER(10).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: true,
          defaultValue: null
       },
@@ -45,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false
       },
       thumbnail_media_id: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          references: {
             model: 'media',

@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('user_post_like_relationship', {
     user_id: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
        primaryKey: true,
        references: {
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     post_id: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
        primaryKey: true,
        references: {

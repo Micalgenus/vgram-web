@@ -18,7 +18,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 1
    },
    {
@@ -31,7 +31,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 2
    },
    {
@@ -44,7 +44,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 3
    },
    {
@@ -57,7 +57,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 4
    },
    {
@@ -70,7 +70,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 5
    },
    {
@@ -83,7 +83,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 6
    },
    {
@@ -96,7 +96,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 7
    },
    {
@@ -109,7 +109,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 8
    },
    {
@@ -122,7 +122,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 9
    },
    {
@@ -135,7 +135,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 1587-31",
       detail: "전북대학교 창업동아리 아늑한집",
       extra_info: "전북대",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -148,7 +148,7 @@ module.exports = [
       addr2: "전라북도 전주시 덕진구 금암동 668-3",
       detail: "코앞빌딩 5-208호 모빌리티랩",
       extra_info: "항공솔루션센터",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -161,7 +161,7 @@ module.exports = [
       addr2: "전북 전주시 덕진구 송천동2가 779-3",
       detail: "",
       extra_info: "전주천변",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -174,7 +174,7 @@ module.exports = [
       addr2: "전북 전주시 덕진구 팔복동4가 209",
       detail: "신전주자동차공업사",
       extra_info: "북전주역근처",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -187,7 +187,7 @@ module.exports = [
       addr2: "전북 전주시 덕진구 송천동2가 610-31",
       detail: "삼성 C&C플라자 전주송천점",
       extra_info: "송천동 메가박스 근처",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -200,7 +200,7 @@ module.exports = [
       addr2: "전북 전주시 덕진구 혁신로 707",
       detail: "전주반월초등학교",
       extra_info: "",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -213,7 +213,7 @@ module.exports = [
       addr2: "전북 전주시 덕진구 번영로 230-14",
       detail: "전주자림학교",
       extra_info: "자림성덕헌",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -226,7 +226,7 @@ module.exports = [
       addr2: "전북 익산시 동서로 309",
       detail: "성모병원",
       extra_info: "성모성모",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -239,7 +239,7 @@ module.exports = [
       addr2: "전북 익산시 동서로35길 41",
       detail: "남성중학교",
       extra_info: "남성여고 옆",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -252,7 +252,7 @@ module.exports = [
       addr2: "전북 익산시 석상길 21-40",
       detail: "마동공원",
       extra_info: "양아치많음 ㅋㅋ",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -265,7 +265,7 @@ module.exports = [
       addr2: "전북 익산시 무왕로 779-26 (가나안자동차운전학원)",
       detail: "가나안자동차운전학원 교무실",
       extra_info: "강사들이 별로 ㅋㅋㅋㅋ",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -278,7 +278,7 @@ module.exports = [
       addr2: "전북 익산시 익산대로33길 75",
       detail: "수양의집 사무실",
       extra_info: "원광요양원",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -291,7 +291,7 @@ module.exports = [
       addr2: "전북 익산시 오동길 50",
       detail: "리라자연유치원",
       extra_info: "삼성동",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -304,7 +304,7 @@ module.exports = [
       addr2: "전북 익산시 하나로15길 179-25",
       detail: "전북원종장",
       extra_info: "전북농업기술원 종자사업소",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -317,7 +317,7 @@ module.exports = [
       addr2: "전북 익산시 하나로15길 179-25",
       detail: "전북원종장",
       extra_info: "전북농업기술원 종자사업소",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -330,7 +330,7 @@ module.exports = [
       addr2: "전북 익산시 황등면 동연길 73-15",
       detail: "황등남초등학교 3학년 2반",
       extra_info: "황등초등학교",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -343,7 +343,7 @@ module.exports = [
       addr2: "전북 군산시 미장안길 14",
       detail: "미장초등학교",
       extra_info: "하악하악",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -356,7 +356,7 @@ module.exports = [
       addr2: "전북 군산시 경포천로 66 (수송공원 삼성쉐르빌)",
       detail: "삼성쉐르빌아파트 101호 101호",
       extra_info: "수송동",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -369,7 +369,7 @@ module.exports = [
       addr2: "전북 군산시 남수송5길 39 (군산실내배드민턴장)",
       detail: "군산실내배드민턴장",
       extra_info: "수송동",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -382,7 +382,7 @@ module.exports = [
       addr2: "전북 군산시 팔마로 114-1",
       detail: "새나라교회 앞 아늑한원룸",
       extra_info: "아늑한집에서 시공한 1호 원룸",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    },
    {
@@ -395,7 +395,7 @@ module.exports = [
       addr2: "전북 군산시 동리2길 20",
       detail: "아늑한원룸 2호 208호",
       extra_info: "아늑한집에서 시공한 2호 원룸",
-      locale: "ko_kr",
+      locale: "ko-kr",
       translation_group_id: 10
    }
 ]

@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
    var tag = sequelize.define('tag', {
       ID: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: false,
          primaryKey: true,
          autoIncrement: true
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
          unique: true
       },
       tagging_count: {
-         type: DataTypes.INTEGER(11).UNSIGNED,
+         type: DataTypes.INTEGER.UNSIGNED,
          allowNull: true,
          defaultValue: 1
       },

@@ -240,7 +240,7 @@ exports.changeRoomInfoView = function(req, res, next) {
    //
    // let updateRoomInfo = Promise.method(function (initWriteDate, previewImagePath) {
    //   // 나중에 VR Tour 변경될 때 promise 형식으로 한번에 바꾸자
-   //   const roomInfo = {
+   //   const room = {
    //     memberIdx: req.user.idx,
    //     title: req.body.title,
    //     roomType: req.body.roomType == "" ? null : _.toNumber(req.body.roomType),
@@ -267,7 +267,7 @@ exports.changeRoomInfoView = function(req, res, next) {
    //   }
    //
    //   // return Array[0] = affectedRows
-   //   return RoomInfoBoard.update(roomInfo, {where: {idx: roomInfoIdx}}).then(function (array) {
+   //   return RoomInfoBoard.update(room, {where: {idx: roomInfoIdx}}).then(function (array) {
    //     return res.status(200).json({
    //       msg: 'changed ' + array[0] + ' rows',
    //       statusCode: 1
@@ -356,7 +356,7 @@ exports.updateRoomInfo = function(req, res, next) {
    //
    // let updateRoomInfo = Promise.method(function (initWriteDate, previewImagePath) {
    //   // 나중에 VR Tour 변경될 때 promise 형식으로 한번에 바꾸자
-   //   const roomInfo = {
+   //   const room = {
    //     memberIdx: req.user.idx,
    //     title: req.body.title,
    //     roomType: req.body.roomType == "" ? null : _.toNumber(req.body.roomType),
@@ -383,7 +383,7 @@ exports.updateRoomInfo = function(req, res, next) {
    //   }
    //
    //   // return Array[0] = affectedRows
-   //   return RoomInfoBoard.update(roomInfo, {where: {idx: roomInfoIdx}}).then(function (array) {
+   //   return RoomInfoBoard.update(room, {where: {idx: roomInfoIdx}}).then(function (array) {
    //     return res.status(200).json({
    //       msg: 'changed ' + array[0] + ' rows',
    //       statusCode: 1
@@ -426,8 +426,8 @@ exports.deleteRoomInfo = function(req, res) {
    //   where: {
    //     idx: roomInfoIdx
    //   }
-   // }).then(function(roomInfo) { // 다른 회원의 내용일 경우 열람 불가능
-   //   if (req.user.idx != roomInfo.memberIdx) {
+   // }).then(function(room) { // 다른 회원의 내용일 경우 열람 불가능
+   //   if (req.user.idx != room.memberIdx) {
    //     return res.status(400).json({
    //         errorMsg: '다른 회원',
    //         statusCode: -1
@@ -609,7 +609,7 @@ exports.roomInfoDetailJson = function(req, res) {
 //     }).then(function(room) {
 //       var r = room.dataValues;
 //       r.address = JSON.parse(r.address);
-      
+
 //       data.push(room.dataValues);
 //     }));
 //   }
