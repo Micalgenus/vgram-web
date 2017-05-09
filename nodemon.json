@@ -2,7 +2,7 @@
   "ignoreRoot": [
      ".git/", "node_modules/", "bower_components/", ".nyc_output/", "coverage/", ".sass-cache/",
      "public/assets/*", "public/lib/*", "public/components/*", "tools/*", "image-resizer/node_modules/*",
-     "resources/*",
+     "resources/*", "swagger/",
 
      ".idea/*", ".sqlite", ".sqlite-journal", ".bak", ".tmp", ".mwb", ".___jb_tmp___", ".json___jb_tmp___", ".js___jb_tmp___",
      ".pptx", ".md", "*.json"

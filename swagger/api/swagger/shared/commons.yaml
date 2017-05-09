@@ -18,6 +18,8 @@ definitions:
   PlainMessage:
     description: "Plain Object Message"
     type: "object"
+    required:
+      - message
     properties:
       message:
         type: string

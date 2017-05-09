@@ -7,9 +7,9 @@ module.exports = app; // for testing
 
 // { fittingsDirs, viewsDirs, swaggerFile, appRoot, configDir
 var config = {
-  appRoot: path.normalize(__dirname + "/..") // required config
+  appRoot: path.normalize(__dirname) // required config
 };
-config.swaggerFile = config.swagger = path.resolve(config.appRoot + "/swagger/api/swagger/swagger.yaml");
+config.swaggerFile = config.swagger = path.resolve(config.appRoot, "api/swagger/swagger.yaml");
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
@@ -21,6 +21,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   app.listen(port);
 
   if (swaggerExpress.runner.swagger.paths['/test']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+    console.log('try this:\ncurl http://127.0.0.1:' + port + '/test/hello?name=Scott');
   }
 });

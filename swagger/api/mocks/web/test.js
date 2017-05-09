@@ -11,7 +11,7 @@
   It is a good idea to list the modules that your application depends on in the package.json in the project root
  */
 var util = require('util');
-var quoter  = require('../../tests/quoter');    // test route
+var quoter  = require('../../../../tests/quoter');    // test route
 
 /*
  Once you 'require' a module you can reference the things that it exports.  These are defined in module.exports.
@@ -32,19 +32,19 @@ var quoter  = require('../../tests/quoter');    // test route
   Param 1: a handle to the request object
   Param 2: a handle to the response object
  */
-exports.helloAPI = function (req, res) {
+exports.hello = function (req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var name = req.query.name || 'stranger';
   var hello = util.format('Hello, %s!. Welcome to Cozyhouzz Server!', name);
 
   // this sends back a JSON response which is a single string
-  res.status(200).json({ message: hello });
+  res.status(200).send(hello);
 }
 
-exports.getQuoterAPI = function (req, res) {
-   res.status(200).json({ message: quoter.getRandomOne() });
+exports.getQuoter = function (req, res) {
+   res.status(200).send(quoter.getRandomOne());
 }
 
-exports.protectedRouteAPI = function (req, res) {
-   res.status(200).json({ message: 'The protected test route is functional!'});
+exports.protectedRoute = function (req, res) {
+   res.status(200).send('The protected test route is functional!');
 }
