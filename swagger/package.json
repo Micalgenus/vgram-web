@@ -21,6 +21,7 @@
     "start": "swagger project start",
     "edit": "swagger project edit",
     "verify": "swagger project verify",
-    "test": "swagger project test"
+    "test": "swagger project test",
+     "file-server": "http-server --cors ./api/swagger -p 8081"
   }
 }

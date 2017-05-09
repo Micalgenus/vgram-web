@@ -16,7 +16,7 @@ swagger:
       mockMode: false
       mockControllersDirs: [ swagger/api/mocks ]
       # controller
-      controllersDirs: [ controllers, controllers/test, controllers/web, controllers/api ]
+      controllersDirs: [ controllers ]
 
     _swagger_validate:
       name: swagger_validator

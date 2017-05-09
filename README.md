@@ -46,38 +46,15 @@ Google Sheet(cozyhouzz_개발자료 : Client-Web 작업구성)을 참고 바람.
 
 
 ### 3. Swagger 이용(API 개발시)
-`현재 개발중인 엑셀버전 대체용, ./swagger 폴더 참고`
-
-##### 실행방법
- 1. ./swagger 폴더로 이동
- 2. npm install --global http-server 설치
- 3. ./swagger에서 cmd 실행 -> "http-server --cors ./api/swagger" 실행
- 4. npm run start 실행(Server)
- 5. npm run edit -> 브라우저 자동실행 -> API 내용 확인 & 테스트 진행(UI 실행)
-
-##### 설치 에러 발생시
-* 권한 관련 에러가 발생하면 cmd창을 관리자모드로 실행한 후 npm install을 수행한다. 
-* Swagger Server/Client 실행 포트 확인
-* 그 외 문법문제 발생시 http://swagger.io/specification/ OR http://editor.swagger.io/#/ 참고
-* swagger-ui Pointer Resolution 설정방법 : https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-8-splitting-specification-file/
-
-
-
-
-## Available
-
-### Routes
-
-Available methods:
-
-* **GET /**: Default route - `index`
-* **GET /test**: route test - `json data`
+`현재 개발중인 엑셀버전 대체용, ./swagger 폴더(README.md) 참고`
 
 
 
 ## Authenticate account
 
-If you want, you can run this server for YOUR Auth0 account. For that, you just need to create a `.env` file and set the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with the information from your account:
+If you want, you can run this server for YOUR Auth0 account.<br />
+For that, you just need to create a `.env` file<br />
+and set the `AUTH0_CLIENT_ID` and `AUTH0_CLIENT_SECRET` variables with the information from your account:
 
 ````bash
 AUTH0_CLIENT_ID=YourClientId
