@@ -18,27 +18,28 @@ consumes:
 # format of the responses to the client (Accepts)
 produces:
   - application/json
+  - text/html
 paths:
   # api routes
   /api/test:
-   $ref: "./api/test.yaml#/paths/~1api~1test"
+   $ref: "http://localhost:8081/api/test.yaml#/paths/~1api~1test"
 
   /api/test/hello:
-   $ref: "./api/test.yaml#/paths/~1api~1test~1hello"
+   $ref: "http://localhost:8081/api/test.yaml#/paths/~1api~1test~1hello"
 
   /api/test/protected:
-   $ref: "./api/test.yaml#/paths/~1api~1test~1protected"
+   $ref: "http://localhost:8081/api/test.yaml#/paths/~1api~1test~1protected"
 
 
   # web routes
   /test:
-   $ref: "./web/test.yaml#/paths/~1test"
+   $ref: "http://localhost:8081/web/test.yaml#/paths/~1test"
 
   /test/hello:
-   $ref: "./web/test.yaml#/paths/~1test~1hello"
+   $ref: "http://localhost:8081/web/test.yaml#/paths/~1test~1hello"
 
   /test/protected:
-   $ref: "./web/test.yaml#/paths/~1test~1protected"
+   $ref: "http://localhost:8081/web/test.yaml#/paths/~1test~1protected"
 
 
 # complex objects have schema definitions

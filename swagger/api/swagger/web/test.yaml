@@ -7,34 +7,30 @@ info:
 
 paths:
   /test:
-    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
-    x-swagger-router-controller: hello-world
+    # binds a127 app logic to a route
+    x-swagger-router-controller: web/test
     get:
-      description: Returns 'Hello' to the caller
+      description: Returns 'Quoter' to the caller
       # used as the method name of the controller
-      operationId: getQuoter
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
       responses:
         "200":
-          description: Success
-          $ref: "../shared/definitions.yaml#/definitions/HelloWorldMessage"
-        # responses may fall through to errors
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Passenger!"
         default:
-         $ref: "../shared/responses.yaml#/responses/ErrorResponse"
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
 
 
   /test/hello:
-    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
-    x-swagger-router-controller: hello-world
+    x-swagger-router-controller: web/test
     get:
       description: Returns 'Hello' to the caller
       # used as the method name of the controller
-      operationId: hello
+      operationId: hello     # operationId는 전체 swagger 내에서 유일해야한다
       parameters:
         - name: name
           in: query
@@ -43,33 +39,32 @@ paths:
           type: string
       responses:
         "200":
-          description: Success
-          $ref: "../shared/definitions.yaml#/definitions/PlainObjectMessage"
-        # responses may fall through to errors
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Kim!"
         default:
-          description: Error
-          $ref: "../shared/responses.yaml#/responses/ErrorResponse"
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
 
 
 
   /test/protected:
-    # binds a127 app logic to a route, ex> /test/hello (X), hello(O)
-    x-swagger-router-controller: hello-world
+    # binds a127 app logic to a route
+    x-swagger-router-controller: web/test
     get:
-      description: Returns 'Hello' to the caller
+      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+      description: Returns The server Protected OR Error to the caller
       # used as the method name of the controller
-      operationId: protectedRoute
-      parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
       responses:
         "200":
-          description: Success
-          $ref: "../shared/definitions.yaml#/definitions/PlainObjectMessage"
-        # responses may fall through to errors
+          description: "successful operation"
+          schema:
+            type: string
+            example: "The protected test route is functional!"        # responses may fall through to errors
         default:
-          description: Error
-          $ref: "../shared/responses.yaml#/responses/ErrorResponse"
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"

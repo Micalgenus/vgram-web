@@ -2,8 +2,8 @@
 
 # values in the swagger hash are system configuration for swagger-node
 swagger:
-  swaggerFile: [ swagger/api/swagger/swagger.yaml ]
-  fittingsDirs: [ swagger/api/fittings ]
+  swaggerFile: [ api/swagger/swagger.yaml ]
+  fittingsDirs: [ api/fittings ]
   defaultPipe: null
   swaggerControllerPipe: swagger_controllers  # defines the standard processing pipe for controllers
 
@@ -14,9 +14,9 @@ swagger:
     _router:
       name: swagger_router
       mockMode: false
-      mockControllersDirs: [ swagger/api/mocks ]
+      mockControllersDirs: [ api/mocks ]
       # controller
-      controllersDirs: [ controllers, controllers/test, controllers/web, controllers/api ]
+      controllersDirs: [ ../controllers ]
 
     _swagger_validate:
       name: swagger_validator

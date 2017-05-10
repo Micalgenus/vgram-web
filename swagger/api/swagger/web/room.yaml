@@ -4,3 +4,67 @@ info:
   version: 0.0.1
   title: RoomInfo Sub-API
   description: RoomInfo operations, definitions, parameters and responses
+
+paths:
+  /test:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: web/test
+    get:
+      description: Returns 'Quoter' to the caller
+      # used as the method name of the controller
+      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Passenger!"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+
+
+  /test/hello:
+    x-swagger-router-controller: web/test
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: hello     # operationId는 전체 swagger 내에서 유일해야한다
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Kim!"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+
+
+
+  /test/protected:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: web/test
+    get:
+      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+      description: Returns The server Protected OR Error to the caller
+      # used as the method name of the controller
+      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "The protected test route is functional!"        # responses may fall through to errors
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
