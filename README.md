@@ -34,7 +34,7 @@ Google Sheet(cozyhouzz_개발자료 : Client-Web 작업구성)을 참고 바람.
 `기본설정 : port : 3003번, file path : /resources, ".env"를 통하여 각종 설정을 바꿀 수 있음(trpviss/image-resizer github 참고)`
 
 ##### 설치 에러 발생시
-* 권한 관련 에러가 발생하면 cmd창을 관리자모드로 실행한 후 npm install을 수행한다. 
+* 권한 관련 에러가 발생하면 cmd창을 관리자모드로 실행한 후 npm install을 수행한다.
 * error C2373 : https://github.com/nodejs/node-gyp/issues/972 ->  참고('npm -g install npm@next')
 * error TRK0005 : https://trello.com/c/vG0Ngvyi/102-cl-exe -> Visual Studio Community를 설치하고 C++ 프로젝트 파일을 생성하면
 업데이트가 따로 뜨는데 그것을 설치하고 npm을 돌려야지 잘 돌아간다. 이 업데이트에는 C++ 컴파일러 관련된 컴포넌트들이 존재한다.
@@ -49,14 +49,13 @@ Google Sheet(cozyhouzz_개발자료 : Client-Web 작업구성)을 참고 바람.
 `현재 개발중인 엑셀버전 대체용, ./swagger 폴더 참고`
 
 ##### 실행방법
- 1. ./swagger 폴더로 이동
- 2. npm install --global http-server 설치
- 3. ./swagger에서 cmd 실행 -> "http-server --cors ./api/swagger" 실행
- 4. npm run start 실행(Server)
- 5. npm run edit -> 브라우저 자동실행 -> API 내용 확인 & 테스트 진행(UI 실행)
+ 1. cmd 실행 -> ./swagger 폴더로 이동
+ 2. npm i & npm install -g swagger & npm install --global http-server 설치
+ 3. http-server --cors ./api/swagger, server:dev 실행
+ 4. npm run start OR npm run edit -> 브라우저 자동실행 -> API 내용 확인 & 테스트 진행(UI 실행)
 
 ##### 설치 에러 발생시
-* 권한 관련 에러가 발생하면 cmd창을 관리자모드로 실행한 후 npm install을 수행한다. 
+* 권한 관련 에러가 발생하면 cmd창을 관리자모드로 실행한 후 npm install을 수행한다.
 * Swagger Server/Client 실행 포트 확인
 * 그 외 문법문제 발생시 http://swagger.io/specification/ OR http://editor.swagger.io/#/ 참고
 * swagger-ui Pointer Resolution 설정방법 : https://apihandyman.io/writing-openapi-swagger-specification-tutorial-part-8-splitting-specification-file/
