@@ -10,6 +10,8 @@ const passport = require('passport'),
    //Member = models.Member,
    users = models.user,
    config = require('./main.js'),
+   value = require('../utils/staticValue'),
+
    genToken = require("../utils/genToken"),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,
@@ -35,7 +37,7 @@ const cookieExtractor = function(req) {
 // Custom extractor function for passport-jwt
 const emptyExtractor = function(req) {
    // 로그인 하지 않은 회원의 경우 데이터 조회는 가능할 수 있도록 passport error가 발생하지 않게
-   // 접근방지를 해제하기 위한 Trick
+   // 접근방지를 해제하기 위한 Trick, user object를 {}로 처리함
    // 서버 부하, 보안문제가 생길 수 있기 때문에, 근본적인 해결방빕이 필요할듯
 
    return genToken.generateUserToken({});
@@ -49,14 +51,16 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
 
       if (!user) {
          return done(null, false, {
-            errorMsg: 'Your login details could not be verified. Please try again.',
+            type: "error",
+            message: value.statusMessage.error.auth.cannotFind,
             statusCode: 0
          });
       }
       //유저상태가 1이 아니면 활성화 되어있는게 아님(탈퇴되었거나 휴면계정)
       if(user.user_status != 1) {
          return done(null, false, {
-            errorMsg: 'quit user',
+            type: "error",
+            message: value.statusMessage.error.auth.quitORnotActivate,
             statusCode: 3
          });
       }
@@ -67,7 +71,8 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
          }
          if (!isMatch) {
             return done(null, false, {
-               errorMsg: "Your login details could not be verified. Please try again.",
+               type: "error",
+               message: value.statusMessage.error.auth.notVerified,
                statusCode: 2
             });
          }
@@ -98,16 +103,23 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
   // console.log(payload);
 
    if (!payload[localOptions.usernameField] || !payload[localOptions.passwordField]) {
-      return done(null, { logined: false }, { type: "success", message: "anonymous" });     // 로그인 되지 않은 회원, req.flash("success")
+      // login이 되지 않은 회원에게 error를 출력하지 않기 위헤서 user object를
+      // 아래와 같이 { logined: false }로 전송함
+      // 로그인 되지 않은 회원 -> req.flash("success")
+      return done(null, { logined: false }, {
+         type: "error", message: value.statusMessage.error.auth.requiredLogin
+      });
    }
 
-   // login이 안되있으면 error를 출력하기 말고, user 값을 null로 설정하기
   users.findOne({where: {email: payload.email}}).then(function (user) {
     if (user) {
        user.logined = true;
       done(null, user);   // localStrategy와 같다.
     } else {
-      done(null, false,  { message: "authentication fails" });     // 회원 인증 실패(없는 회원), req.flash("error")
+      // 회원 인증 실패(없는 회원), req.flash("error")
+      done(null, false,  {
+         type: "error", message: value.statusMessage.error.auth.notVerified
+      });
     }
   }).catch(function (err) {
     if (err) {

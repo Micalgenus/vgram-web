@@ -10,6 +10,8 @@ paths:
     # binds a127 app logic to a route
     x-swagger-router-controller: web/test
     get:
+      tags:
+      - "test"
       description: Returns 'Quoter' to the caller
       # used as the method name of the controller
       operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
@@ -28,6 +30,8 @@ paths:
   /test/hello:
     x-swagger-router-controller: web/test
     get:
+      tags:
+      - "test"
       description: Returns 'Hello' to the caller
       # used as the method name of the controller
       operationId: hello     # operationId는 전체 swagger 내에서 유일해야한다
@@ -54,6 +58,8 @@ paths:
     # binds a127 app logic to a route
     x-swagger-router-controller: web/test
     get:
+      tags:
+      - "test"
       summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
       description: Returns The server Protected OR Error to the caller
       # used as the method name of the controller

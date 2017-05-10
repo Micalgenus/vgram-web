@@ -6,10 +6,38 @@ info:
   description: RoomInfo operations, definitions, parameters and responses
 
 paths:
-  /test:
+  /room:
     # binds a127 app logic to a route
-    x-swagger-router-controller: web/test
+    x-swagger-router-controller: web/view-room
     get:
+      tags:
+      - "room"
+      summary: 접속한 브라우저에 지도, 리스트상의 방 정보를 보여준다
+      description: show roomInfoListView
+      # used as the method name of the controller
+      operationId: roomInfoListView     # operationId는 전체 swagger 내에서 유일해야한다
+      produces:
+      - "text/html"
+      parameters:
+      - name: "pageSize"
+        in: "query"
+        description: "리스트에 한번에 보여줄 페이지 사이즈"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Passenger!"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+    post:
+      tags:
+      - "room"
+      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
       description: Returns 'Quoter' to the caller
       # used as the method name of the controller
       operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
@@ -25,24 +53,47 @@ paths:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
 
 
-  /test/hello:
-    x-swagger-router-controller: web/test
+  /room/new:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: web/view-room
     get:
-      description: Returns 'Hello' to the caller
+      tags:
+      - "room"
+      summary: 접속한 브라우저에 방 정보 입력을 위한 페이지를 보여준다
+      description: show createRoomInfoView
       # used as the method name of the controller
-      operationId: hello     # operationId는 전체 swagger 내에서 유일해야한다
+      operationId: roomInfoListView     # operationId는 전체 swagger 내에서 유일해야한다
+      produces:
+      - "text/html"
       parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+      - name: "pageSize"
+        in: "query"
+        description: "리스트에 한번에 보여줄 페이지 사이즈"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
             type: string
-            example: "Hello World Kim!"
+            example: "Hello World Passenger!"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+    post:
+      tags:
+      - "room"
+      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+      description: Returns 'Quoter' to the caller
+      # used as the method name of the controller
+      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "Hello World Passenger!"
         default:
           description: "error operation"
           schema:
@@ -50,10 +101,29 @@ paths:
 
 
 
-  /test/protected:
+  /room/{roomInfoIdx}:
     # binds a127 app logic to a route
-    x-swagger-router-controller: web/test
+    x-swagger-router-controller: web/view-room
     get:
+      tags:
+      - "room"
+      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+      description: Returns The server Protected OR Error to the caller
+      # used as the method name of the controller
+      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            example: "The protected test route is functional!"        # responses may fall through to errors
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+    put:
+      tags:
+      - "room"
       summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
       description: Returns The server Protected OR Error to the caller
       # used as the method name of the controller

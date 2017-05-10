@@ -150,6 +150,11 @@ exports.createRoomInfoView = function (req, res, next) {
  * @param next
  */
 exports.createRoomInfo = function (req, res, next) {
+   if (!req.user.logined) {
+      req.flash('msg', req.i18n("require login"));
+      return res.redirect('/room');
+   }
+
    if (req.user.memberType != value.memberType.BUSINESS) {
       return res.status(401).json({
          errorMsg: 'You are not authorized to create roominfo case.',

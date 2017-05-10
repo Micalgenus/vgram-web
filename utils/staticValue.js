@@ -8,8 +8,26 @@ var Enum = require('enum');
  * 전송 완료시의 상태코드
  */
 const statusCode = new Enum({
-  'RequestActionCompleted_20x': 1
+  'requestActionCompleted_20x': 1
 });
+
+// 해당 메시지를 기반으로 i18n을 거쳐서 가기 때문에 통신간의 모든 statusMessage는
+// 본 변수에서 지정된 후에 이용해야 한다.
+const statusMessage = {
+   success: {
+      auth: {
+      }
+
+   },
+   error: {
+      auth: {
+         cannotFind: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
+         quitORnotActivate: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
+         notVerified: "couldNotBeVerified",     // 로그인 실패
+         requiredLogin: "requiredLogin"      // 로그인이 필요함(로그인되지 않은 client 알림)
+      }
+   }
+};
 
 const memberType = {
   ADMIN: "ADMIN",
@@ -193,5 +211,6 @@ module.exports = {
    postStatus,
    postType,
    langCode,
-   mapLocationCenter
+   mapLocationCenter,
+   statusMessage
 };

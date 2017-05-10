@@ -124,6 +124,7 @@ module.exports = function (app) {
    web.testRoute.get('/hello', web.testController.hello);
    web.testRoute.get('/protected', requireAuth, web.testController.protectedRoute);
 
+
    //=========================
    // API - Test Routes
    //=========================
@@ -166,7 +167,7 @@ module.exports = function (app) {
    //=========================
    // web - Auth Routes
    //=========================
-   web.rootRoute.use('/authRoute', web.authRoute);
+   web.rootRoute.use('/auth', web.authRoute);
 
    // 로그인
    web.authRoute.get('/login', web.authController.init, web.userController.login);
@@ -187,25 +188,22 @@ module.exports = function (app) {
    //=========================
    // API - Auth Routes
    //=========================
-   api.rootRoute.use('/authRoute', api.authRoute);
+   api.rootRoute.use('/auth', api.authRoute);
 
    //유저 모든정보 출력 api
    api.authRoute.post('/info', api.authController.info);
 
    // Login route
-   api.defaultRoute.post('/login', requireLogin, api.authController.login);
+   api.authRoute.post('/login', requireLogin, api.authController.login);
 
    // Registration route
-   api.defaultRoute.post('/register', api.authController.register);
+   api.authRoute.post('/register', api.authController.register);
 
    //탈퇴 라우터
-   api.defaultRoute.post('/quit', api.authController.quit);
-
-   //회원정보 수정
-   api.defaultRoute.post('/modifyInfo', requireLogin, api.authController.modifyInfo);
+   api.authRoute.post('/quit', api.authController.quit);
 
    // Password reset request route (generate/send token)
-   api.defaultRoute.post('/forgot-password', api.authController.forgotPassword);
+   api.authRoute.post('/forgot-password', api.authController.forgotPassword);
    // authRouteView.get('/forgot-password', authRouteController.register);
 
 
@@ -216,7 +214,7 @@ module.exports = function (app) {
    //=========================
    // web - Member Routes
    //=========================
-   web.rootRoute.use('/userRoute', web.userRoute);
+   web.rootRoute.use('/user', web.userRoute);
 
    // 회원정보 조회 및 수정(View)
    web.userRoute.get('/change', web.authController.init, requireAuth, web.userController.viewProfile);
@@ -233,8 +231,10 @@ module.exports = function (app) {
    //=========================
 
    // Set userRoute routes as a subgroup/middleware to api.rootRoute
-   api.rootRoute.use('/userRoute', api.userRoute);
+   api.rootRoute.use('/user', api.userRoute);
 
+   //회원정보 수정
+   api.userRoute.post('/modifyInfo', requireLogin, api.authController.modifyInfo);
 
    // View publicRoute userRoute profile route
    // userRouteAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
@@ -279,7 +279,7 @@ module.exports = function (app) {
    //=========================
    // web - Room Info Routes
    //=========================
-   web.rootRoute.use('/roomRoute', web.roomRoute);
+   web.rootRoute.use('/room', web.roomRoute);
 
    //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
    web.roomRoute.get('/', web.authController.init, web.roomController.roomInfoListView);
@@ -294,48 +294,48 @@ module.exports = function (app) {
    // update Room Info Info from authRouteenticated userRoute
    // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-   web.roomRoute.get('/change/:roomRouteInfoIdx([0-9]+)', web.authController.init, requireAuth, web.roomController.changeRoomInfoView);
-   web.roomRoute.put('/:roomRouteInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
+   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', web.authController.init, requireAuth, web.roomController.changeRoomInfoView);
+   web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
 
    // delete Room Info Info from authRouteenticated userRoute
 
    // get Room Info Info from authRouteenticated userRoute
    // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   web.roomRoute.get('/:roomRouteInfoIdx([0-9]+)', web.authController.init, web.roomController.roomInfoDetailView);
+   web.roomRoute.get('/:roomInfoIdx([0-9]+)', web.authController.init, web.roomController.roomInfoDetailView);
 
-   web.roomRoute.get('/searchRoute', web.roomController.searchRoomListView);
+   web.roomRoute.get('/search', web.roomController.searchRoomListView);
 
-   web.roomRoute.get('/json/:roomRouteInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
-   web.roomRoute.get('/json/list/:roomRouteIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
+   web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
+   web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
 
 
    //=========================
    // api - Room Info Routes
    //=========================
-   api.rootRoute.use('/roomRoute', api.roomRoute);
+   api.rootRoute.use('/room', api.roomRoute);
 
-   api.roomRoute.delete('/:roomRouteInfoIdx([0-9]+)', requireAuth, web.roomController.deleteRoomInfo);
+   api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.deleteRoomInfo);
 
    //룸세부정보 출력
-   api.roomRoute.get('/:roomRouteInfoIdx', api.postController.viewRoomDetail);
+   api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);
 
    //=========================
    // web - Map Info Routes
    //=========================
-   web.rootRoute.use('/mapRoute', web.mapRoute);
-   web.mapRoute.get('/roomRoute/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
+   web.rootRoute.use('/map', web.mapRoute);
+   web.mapRoute.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
 
 
    //=========================
    // web - Consult Routes
    //=========================
-   web.rootRoute.use('/consultRoute', web.consultRoute);
+   web.rootRoute.use('/consult', web.consultRoute);
 
 
    //=========================
    // API - Consult Routes
    //=========================
-   api.rootRoute.use('/consultRoute', api.consultRoute);
+   api.rootRoute.use('/consult', api.consultRoute);
 
 
    // insert consultRouteing information
