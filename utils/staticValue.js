@@ -15,17 +15,13 @@ const statusCode = new Enum({
 // 본 변수에서 지정된 후에 이용해야 한다.
 const statusMessage = {
    success: {
-      auth: {
-      }
 
    },
    error: {
-      auth: {
-         cannotFind: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
-         quitORnotActivate: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
-         notVerified: "couldNotBeVerified",     // 로그인 실패
-         requiredLogin: "requiredLogin"      // 로그인이 필요함(로그인되지 않은 client 알림)
-      }
+      cannotFindUser: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
+      quitORnotActivateUser: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
+      couldNotVerified: "couldNotVerified",     // 로그인 실패
+      requiredLogin: "requiredLogin"      // 로그인이 필요함(로그인되지 않은 client 알림)
    }
 };
 

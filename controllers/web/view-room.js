@@ -79,8 +79,8 @@ exports.roomInfoListData = function(req, res) {
 
       return res.render('room/room-list', {
         ENV: req.env,
-        logined: req.logined,
-        title: '방 정보 목록',
+        logined: req.user ? req.user.logined : false,
+        title: req.i18n("title")["roomInfoListView"] + req.i18n("app")["name"],
         msg: req.msg,
         nowPage: page,
         lastPage: lastPage,
@@ -93,14 +93,15 @@ exports.roomInfoListData = function(req, res) {
 }
 
 exports.roomInfoListView = function(req, res) {
-  return res.render('room/room-list', {
-    ENV: req.env,
-    logined: req.logined,
-    title: '방 정보 목록',
-    msg: req.msg,
-    lat: value.mapLocationCenter.lat,
-    lng: value.mapLocationCenter.lng
-  });
+  return res.render('room/room-list', _.assignIn({
+        ENV: req.env,
+        logined: req.user ? req.user.logined : false,
+        title: req.i18n("title")["roomInfoListView"] + req.i18n("app")["name"],
+        msg: req.msg
+     }, {
+     lat: value.mapLocationCenter.lat,
+     lng: value.mapLocationCenter.lng
+  }));
 }
 
 /**
@@ -112,7 +113,7 @@ exports.roomInfoListView = function(req, res) {
 exports.createRoomInfoView = function (req, res, next) {
 
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', req.i18n("requiredLogin"));
       return res.redirect('/room');
    }
 
@@ -132,7 +133,7 @@ exports.createRoomInfoView = function (req, res, next) {
 
    return res.render('room/room-new', {
       ENV: req.env,
-      logined: req.logined,
+      logined: req.user ? req.user.logined : false,
       title: req.i18n("title")["createRoomInfoView"] + req.i18n("app")["name"],
       msg: req.msg,
       update: false,
@@ -151,7 +152,7 @@ exports.createRoomInfoView = function (req, res, next) {
  */
 exports.createRoomInfo = function (req, res, next) {
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', req.i18n("requiredLogin"));
       return res.redirect('/room');
    }
 
@@ -192,7 +193,7 @@ exports.createRoomInfo = function (req, res, next) {
 
    return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
       .then(function() {
-         req.flash('msg', res.i18n('post create completed'));
+         req.flash('msg', res.i18n('createPostComplete'));
          return res.redirect(202, '/room');
       }).catch(next);      // all errors asynchronous and synchronous get propagated to the error middleware.
 }
@@ -201,7 +202,7 @@ exports.createRoomInfo = function (req, res, next) {
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.changeRoomInfoView = function(req, res, next) {
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', req.i18n("requiredLogin"));
       return res.redirect('/room');
    }
 
@@ -221,7 +222,7 @@ exports.changeRoomInfoView = function(req, res, next) {
 
    return res.render('room/room-new', {
       ENV: req.env,
-      logined: req.logined,
+      logined: req.user ? req.user.logined : false,
       title: req.i18n("title")["updateRoomInfoView"] + req.i18n("app")["name"],
       msg: req.msg,
       update: true,
@@ -335,7 +336,7 @@ exports.updateRoomInfo = function(req, res, next) {
    //   log.error(err);
    //   next(err);
    // });
-   req.flash('msg', '글 수정이 완료되었습니다.');
+   req.flash('msg', req.i18n("editPostComplete"));
    return res.redirect(202, '/room');
    // return res.redirect('/room/[:roomInfoIdx]');    <- redirect를 이렇게 걸자
 }
@@ -378,7 +379,7 @@ exports.deleteRoomInfo = function(req, res) {
    //     });
    //   }
    // });
-   req.flash('msg', '글 삭제가 완료되었습니다.');
+   req.flash('msg', req.i18n("deletePostComplete"));
    return res.redirect(202, '/room');
 }
 
@@ -433,9 +434,9 @@ exports.roomInfoDetailView = function(req, res) {
 
       return res.render('room/room-detail', {
          ENV: req.env,
-         logined: req.logined,
+         logined: req.user ? req.user.logined : false,
          msg: req.msg,
-         title: '방 정보 상세보기',
+         title: req.i18n("title")["roomInfoDetailView"] + req.i18n("app")["name"],
 
          // 기본 정보
          postTitle: room.post.title,
@@ -490,9 +491,9 @@ exports.searchRoomListView = function(req, res) {
    // room-list에서 if 처리를 해서 search시에만 보여주는 항목을 보여주자
    return res.render('room/room-list', {
       ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
+      logined: req.user ? req.user.logined : false,
+      title: req.i18n("title")["roomInfoListView"] + req.i18n("app")["name"],
+      msg: req.msg,
       email: "123@123.com",
       search: true
    });

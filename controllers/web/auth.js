@@ -235,12 +235,12 @@ exports.setToken = function(req, res, next) {
 }
 
 exports.init = function(req, res, next) {
-   req.msg = req.flash('msg');
+   req.msg = req.flash('msg') | req.flash('error') | req.flash('success');
    req.env = process.env.NODE_ENV || "development";
 
    // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
    // 쿠키 만료시간(expiredDate)과 임의로 동일한 이름으로 쿠키를 만들수도 있기 때문에
-   req.logined = (req.cookies.Authorization ? true : false);
+   // req.logined = (req.cookies.Authorization ? true : false);
 
    return next();
 }

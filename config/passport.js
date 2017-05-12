@@ -11,6 +11,7 @@ const passport = require('passport'),
    users = models.user,
    config = require('./main.js'),
    value = require('../utils/staticValue'),
+   message = value.statusMessage,
 
    genToken = require("../utils/genToken"),
    JwtStrategy = require('passport-jwt').Strategy,
@@ -20,7 +21,9 @@ const passport = require('passport'),
 // Setting username field to email rather than username
 const localOptions = {
    usernameField: 'email',
-   passwordField: 'password'
+   passwordField: 'password',
+   failureFlash: true,
+   passReqToCallback: true
 }
 
 // Custom extractor function for passport-jwt
@@ -44,23 +47,21 @@ const emptyExtractor = function(req) {
 };
 
 // Setting up local login strategy
-const localLogin = new LocalStrategy(localOptions, function (email, password, done) {
+const localLogin = new LocalStrategy(localOptions, function (req, email, password, done) {
    //2017.1.13 이정현 주석 처리
    //Member.findOne({where: {email: email}}).then(function (user) {
    users.findOne({where: {email: email}}).then(function (user) {
 
       if (!user) {
          return done(null, false, {
-            type: "error",
-            message: value.statusMessage.error.auth.cannotFind,
+            message: req.i18n(message.error.cannotFindUser),
             statusCode: 0
          });
       }
       //유저상태가 1이 아니면 활성화 되어있는게 아님(탈퇴되었거나 휴면계정)
       if(user.user_status != 1) {
          return done(null, false, {
-            type: "error",
-            message: value.statusMessage.error.auth.quitORnotActivate,
+            message: req.i18n(message.error.quitORnotActivateUser),
             statusCode: 3
          });
       }
@@ -71,11 +72,12 @@ const localLogin = new LocalStrategy(localOptions, function (email, password, do
          }
          if (!isMatch) {
             return done(null, false, {
-               type: "error",
-               message: value.statusMessage.error.auth.notVerified,
+               message: req.i18n(message.error.couldNotVerified),
                statusCode: 2
             });
          }
+
+         user.logined = true;
 
          return done(null, user);    // user로 넘어가니까 받는 router의 req에서 user라는 이름의 object를 사용할 수 있다.
       });
@@ -94,12 +96,13 @@ const jwtOptions = {
   // Telling Passport where to find the secret
   secretOrKey: config.secret,
   // auth_token: 'JWT'
-
+   failureFlash: true,
+   passReqToCallback: true
   // TO-DO: Add issuer and audience checks
 };
 
 // Setting up JWT login strategy
-const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
+const jwtLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
   // console.log(payload);
 
    if (!payload[localOptions.usernameField] || !payload[localOptions.passwordField]) {
@@ -107,7 +110,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
       // 아래와 같이 { logined: false }로 전송함
       // 로그인 되지 않은 회원 -> req.flash("success")
       return done(null, { logined: false }, {
-         type: "error", message: value.statusMessage.error.auth.requiredLogin
+         message: req.i18n(message.error.requiredLogin)
       });
    }
 
@@ -118,7 +121,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
     } else {
       // 회원 인증 실패(없는 회원), req.flash("error")
       done(null, false,  {
-         type: "error", message: value.statusMessage.error.auth.notVerified
+         message: req.i18n(message.error.couldNotVerified)
       });
     }
   }).catch(function (err) {

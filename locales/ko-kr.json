@@ -2,16 +2,23 @@
 	"app": {
 		"name": "아늑한집"
 	},
-	"404 page not found": "페이지를 찾을 수 없습니다.",
-	"post create completed": "글 작성이 성공하였습니다.",
-	"fail to create post": "글 작성이 실패하였습니다.",
-	"trouble in server message": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
-	"trouble in server title": "에러메시지 알림",
-	"require login": "로그인 정보가 없습니다. 글을 작성하기 위해서는 로그인해주세요.",
+	"404PageNotFound": "페이지를 찾을 수 없습니다.",
+	"createPostComplete": "글 작성이 성공하였습니다.",
+   "editPostComplete": "글 수정이 완료되었습니다.",
+   "deletePostComplete": "글 수정이 완료되었습니다.",
+   "failToCreatePost": "글 작성이 실패하였습니다.",
+	"troubleInServer": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
+	"requiredLogin": "로그인 정보가 없습니다. 로그인을 해주세요!",
+   "cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
+   "quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
+   "couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
+
 	"title": {
-		"createRoomInfoView": "방정보입력",
-		"updateRoomInfoView": "방정보입력"
-	},
+		"createRoomInfoView": "방 정보 입력",
+		"updateRoomInfoView": "방 정보 수정",
+      "roomInfoDetailView": "방 정보 상세보기",
+      "roomInfoListView": "방 정보 목록"
+   },
 	"placeType": {
 		"APARTMENT": "아파트",
 		"VILLA": "빌라",
@@ -55,4 +62,5 @@
 		"en": "영어"
 	},
 	"postType": "postType"
+
 }
