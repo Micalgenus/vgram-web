@@ -6,6 +6,9 @@ info:
   description: Shared elements in all API
 
 definitions:
+  ViewResponse:
+    description: "View Rendering시 필요한 변수 지정
+
   HelloWorldMessage:
     description: "hello world Message"
     type: "object"

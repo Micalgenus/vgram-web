@@ -14,6 +14,7 @@ const statusCode = new Enum({
 // 해당 메시지를 기반으로 i18n을 거쳐서 가기 때문에 통신간의 모든 statusMessage는
 // 본 변수에서 지정된 후에 이용해야 한다.
 const statusMessage = {
+   alreadyLogined: "alreadyLogined",
    success: {
 
    },
@@ -21,7 +22,8 @@ const statusMessage = {
       cannotFindUser: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
       quitORnotActivateUser: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
       couldNotVerified: "couldNotVerified",     // 로그인 실패
-      requiredLogin: "requiredLogin"      // 로그인이 필요함(로그인되지 않은 client 알림)
+      requiredLogin: "requiredLogin",      // 로그인이 필요함(로그인되지 않은 client 알림)
+      tokenExpired: "tokenExpired"     // 토큰 만료
    }
 };
 
@@ -36,7 +38,6 @@ const businessType = {
    ESTATE_AGENT: "ESTATE_AGENT",    // 공인중개사
    LANDLORD: "LANDLORD"    // 건물주
 }
-
 
 const placeType = {
    ONE_ROOM: "ONE_ROOM",

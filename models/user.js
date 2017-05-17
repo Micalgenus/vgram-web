@@ -88,7 +88,7 @@ module.exports = function(sequelize, DataTypes) {
             //  callback - [REQUIRED] - a callback to be fired once the data has been compared.
             //   error - First parameter to the callback detailing any errors.
             //   result - Second parameter to the callback providing whether the data and encrypted forms match [true | false].
-            bcrypt.compareAsync(candidatePassword, self.password).then(function(isMatch) {
+            return bcrypt.compareAsync(candidatePassword, self.password).then(function(isMatch) {
                return cb(null, isMatch);
             }).catch(function(err) {
                if (err) {

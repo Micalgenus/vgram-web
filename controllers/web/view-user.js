@@ -14,68 +14,7 @@ const value = require('../../utils/staticValue');
 const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields([
    { name: value.fieldName.PROFILE_IMAGE, maxCount: 1 }]);
 
-//========================================
-// Login & Logout
-//========================================
 
-exports.login = function(req, res) {
-
-   // 로그인 체크
-   if (req.logined) {
-      req.flash('msg', '이미 로그인 하셧습니다.');
-      console.log("error");
-      return res.redirect('/');
-   }
-
-   // 변수 확인
-   var email = req.flash('email');
-
-   return res.render('login/login', {
-      ENV: req.env,
-      logined: req.logined,
-      title: '로그인',
-      msg: req.msg,
-      email: email
-   });
-}
-
-exports.signup = function(req, res) {
-
-   // 로그인 체크
-   if (req.logined) {
-      req.flash('msg', '로그인 하셧습니다.');
-      return res.redirect('/');
-   }
-
-   // 변수 확인
-   var check = req.flash('check');
-   var email = req.flash('email');
-   var name = req.flash('name');
-   var phone = req.flash('phone');
-   var normal_check, business_check;
-
-   check = check != "" ? check : "PUBLIC";
-   if (check == "PUBLIC") {
-      normal_check = "checked";
-   } else if (check == "BUSINESS") {
-      business_check = "checked";
-   } else {
-      req.flash('msg', '올바르지 않은 유형입니다.');
-      return res.redirect('/signup');
-   }
-
-   return res.render('member/signup', {
-      ENV: req.env,
-      logined: req.logined,
-      title: '회원가입',
-      msg: req.msg,
-      email: email,
-      name: name,
-      phone: phone,
-      normal_check: normal_check,
-      business_check: business_check,
-   });
-}
 
 //========================================
 // User Routes
@@ -111,5 +50,63 @@ exports.viewProfile = function (req, res) {
       owner_name: owner_name,
       company_address: company_address,
       intro_comment: intro_comment,
+   });
+}
+
+
+exports.change = function(req, res, next) {
+   const email = req.user.email;
+   const password = req.body.password;
+   const repassword = req.body.repassword;
+
+   if (password != repassword) {
+      req.flash('msg', '비밀번호가 일치하지 않습니다.');
+      return res.redirect('/change');
+   }
+
+   var userData = {
+      telephone: req.body.phone,
+      display_name: req.body.name
+   };
+
+   if (password) {
+      userData.password = password;
+   }
+
+   if (req.user.member_type != "PUBLIC") {
+      var meta = JSON.parse(req.user.meta_value);
+
+      meta.business_type = req.body.business_type;
+      meta.registered_number = req.body.registered_number;
+      meta.owner_name = req.body.owner_name;
+      // meta.company_address = req.body.company_address;
+      meta.intro_comment = req.body.intro_comment;
+
+      userData.meta_value = meta;
+   }
+
+   return User.update(userData, {
+      where: {
+         email: email
+      }
+   }).then(function(array) {
+      if (array[0] == 1) {
+
+         return User.findOne({
+            where: {
+               email: email
+            }
+         }).then(function(user) {
+            req.user = user.dataValues;
+            return next();
+         }).catch(function(err) {
+            return res.send(err);
+         });
+      } else {
+         req.flash('msg', '변경에 실패하였습니다.');
+         return res.redirect('/change');
+      }
+   }).catch(function(err) {
+      return res.send(err);
    });
 }

@@ -93,7 +93,7 @@
                            방구조</label>
                         <select id="template-contactform-service" name="roomType" class="sm-form-control" required>
                            <% for (i in value.placeType) { %>
-                           <option value="<%= value.placeType[i].value %>"><%= value.placeType[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.placeType[i]) %></option>
                            <% } %>
                         </select>
                      </div>
@@ -127,8 +127,8 @@
                         <div>
                            <select class="selectpicker" name="selectPicker" placeholder="전세,월세,연세">
                               <% for (i in value.roomContractCondition) { %>
-                              <option value="<%= value.roomContractCondition[i].value %>">
-                                 <%= value.roomContractCondition[i].name %></option>
+                              <option value="<%= i %>">
+                                 <%= __(value.roomContractCondition[i]) %></option>
                               <% } %>
                            </select>
                         </div>
@@ -162,7 +162,7 @@
                         <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
                         <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
                            <% for (i in value.floors) { %>
-                           <option value="<%= value.floors[i].value %>"><%= value.floors[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
                            <% } %>
                         </select>
                      </div>
@@ -405,7 +405,7 @@
                         <label for="template-contactform-monthlyRentFee col_">글 공개 여부</label>
                         <select class="select-hide form-control bottommargin-sm" name="postStatus" placeholder="지하~20층이상">
                            <% for (i in value.floors) { %>
-                           <option value="<%= value.floors[i].value %>"><%= value.floors[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
                            <% } %>
                         </select>
                         <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
@@ -543,7 +543,7 @@
          ['view', ['fullscreen', 'codeview']],
          ['help', ['help']]
       ],
-      lang: <%= value.lang %> || browserLang || "en"
+      lang: <%= locale %> || browserLang || "en"
    });
 
 </script>
