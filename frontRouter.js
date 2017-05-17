@@ -14,21 +14,21 @@ var web = {
    testController: require('./controllers/web/test'),
 
    // web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
-   requireLogin: function (req, res, next) {
-      return passport.authRouteenticate('local', function (err, userRoute, info) {
+   requireLogin: function(req, res, next) {
+      return passport.authenticate('local', function(err, user, info) {
          if (err) {
             return next(err); // will generate a 500 error
          }
 
-         if (!userRoute) {
+         if (! user) {
             req.flash('email', req.body.email);
             req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
             return res.redirect('/login');
          }
 
-         req.userRoute = userRoute;
+         req.user = user;
          return next();
-      })(req, res, next);
+      }) (req, res, next);
    }
 };
 

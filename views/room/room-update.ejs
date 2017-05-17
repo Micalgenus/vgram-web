@@ -21,8 +21,7 @@
          ============================================= -->
          <div class="clearfix">
 
-            <form action="/room" id="roomInfo-Inputform" name="roominfo-inputform" method="post"
-                  enctype="multipart/form-data">
+            <form id="roomInfo-Inputform" name="roominfo-inputform" enctype="multipart/form-data">
                <div class="title-block-room-new h3 + span">
                   <!--<div class="fancy-title title-dotted-border">-->
                   <h3>방정보 입력</h3>
@@ -550,15 +549,16 @@
    // 그러면 서버가 처리후 post_id / room_id를 바음 그리고 이미지서버에 post_id와 room_id를 던져줌
    $('#roomInfo-Inputform').submit(function(e) {
 
-      var queryString = $("form[name=testForm]").serialize() ;
+      //var queryString = $('#roomInfo-Inputform').serialize() ;
 
       $.ajax({
-         type : 'post',
+         type : 'PUT',
          // 서버 URL 찾기
-         url : '/test.jsp',
-         data : queryString,
-         dataType : 'json',
+         url : '/room/'+<%=roomInfoIdx%>,
+         data: { roomInfoIdx : <%=roomInfoIdx%> },
+         contentType: 'application/json',
          success : function(data, textStatus, jqXHR){
+               alert(data);
 //            $.ajax({
 //               type : 'post',
 //               // 서버 URL 찾기

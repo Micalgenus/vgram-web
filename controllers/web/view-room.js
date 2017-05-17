@@ -200,6 +200,7 @@ exports.createRoomInfo = function (req, res, next) {
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.changeRoomInfoView = function(req, res, next) {
+
    if (!req.user.logined) {
       req.flash('msg', req.i18n("require login"));
       return res.redirect('/room');
@@ -219,26 +220,28 @@ exports.changeRoomInfoView = function(req, res, next) {
    // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
    pairs.lang = req.user.locale || req.getLocale();
 
-   return res.render('room/room-new', {
+   return res.render('room/room-update', {
       ENV: req.env,
       logined: req.logined,
       title: req.i18n("title")["updateRoomInfoView"] + req.i18n("app")["name"],
       msg: req.msg,
       update: true,
-      value: pairs
+      value: pairs,
+      roomInfoIdx : req.params.roomInfoIdx
    });
 }
 
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.updateRoomInfo = function(req, res, next) {
-   // if (!req.params.roomInfoIdx) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required param! please check :roomInfoIdx',
-   //     statusCode: -1
-   //   });
-   // }
-   // const roomInfoIdx = _.toNumber(req.params.roomInfoIdx);
+   console.log("여기들어왔어요");
+   if (!req.params.roomInfoIdx) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required param! please check :roomInfoIdx',
+       statusCode: -1
+     });
+   }
+   const roomInfoIdx = _.toNumber(req.params.roomInfoIdx);
    //
    // if (req.user.memberType != value.memberType.LEASE_MEMBER) {
    //   return res.status(401).json({
