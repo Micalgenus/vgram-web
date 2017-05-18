@@ -1,105 +1,98 @@
 {
-	"app": {
-		"name": "아늑한집"
-	},
-	"404PageNotFound": "페이지를 찾을 수 없습니다.",
-	"createPostComplete": "글 작성이 성공하였습니다.",
-	"editPostComplete": "글 수정이 완료되었습니다.",
-	"deletePostComplete": "글 수정이 완료되었습니다.",
-	"failToCreatePost": "글 작성이 실패하였습니다.",
-	"troubleInServer": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
-	"requiredLogin": "로그인 정보가 없습니다. 로그인을 해주세요!",
-	"cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
-	"quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
-	"couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
-	"invalidInput": "올바르지 않은 입력입니다.",
-	"loggedOut": "로그아웃 되었습니다",
-	"completedRegister": "회원가입이 완료되었습니다",
-	"alreadyExistMember": "이미 존재하는 회원입니다",
-	"word": {
-		"option": "옵션"
-	},
-	"title": {
-		"main": "아늑한집 Cozyhouzz에 오신 것을 환영합니다~",
-		"createRoomInfoView": "방 정보 입력",
-		"updateRoomInfoView": "방 정보 수정",
-		"roomInfoDetailView": "방 정보 상세보기",
-		"roomInfoListView": "방 정보 목록",
-		"loginView": "로그인",
-		"registerView": "회원가입"
-	},
-	"placeType": {
-		"APARTMENT": "아파트",
-		"VILLA": "빌라",
-		"DETACHED_HOUSE": "주택",
-		"ONE_ROOM": "원룸",
-		"TWO_ROOM": "투룸",
-		"THREE_ROOM": "쓰리룸",
-		"OFFICETEL": "오피스텔",
-		"OFFICE": "사무실",
-		"SHOPPING": "상가",
-		"CAFE_RESTAURANT": "카페/식당",
-		"WEDDING": "웨딩",
-		"ACADEMY": "교육장소",
-		"HOSPITAL": "병원"
-	},
-	"businessType": {
-		"HOTEL": "호텔",
-		"ESTATE_AGENT": "공인중개사",
-		"LANDLORD": "건물주"
-	},
-	"room": {
+   "app": {
+      "name": "아늑한집"
+   },
+   "404PageNotFound": "페이지를 찾을 수 없습니다.",
+   "createPostComplete": "글 작성이 성공하였습니다.",
+   "editPostComplete": "글 수정이 완료되었습니다.",
+   "deletePostComplete": "글 수정이 완료되었습니다.",
+   "failToCreatePost": "글 작성이 실패하였습니다.",
+   "troubleInServer": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
+   "requiredLogin": "로그인 정보가 없습니다. 로그인을 해주세요!",
+   "cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
+   "quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
+   "couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
+   "invalidInput": "올바르지 않은 입력입니다.",
+   "loggedOut": "로그아웃 되었습니다",
+   "completedRegister": "회원가입이 완료되었습니다",
+   "alreadyExistMember": "이미 존재하는 회원입니다",
+   "word": {
+      "option": "옵션"
+   },
+   "title": {
+      "main": "아늑한집 Cozyhouzz에 오신 것을 환영합니다~",
+      "createRoomInfoView": "방 정보 입력",
+      "updateRoomInfoView": "방 정보 수정",
+      "roomInfoDetailView": "방 정보 상세보기",
+      "roomInfoListView": "방 정보 목록",
+      "loginView": "로그인",
+      "registerView": "회원가입"
+   },
+   "placeType": {
+      "APARTMENT": "아파트",
+      "VILLA": "빌라",
+      "DETACHED_HOUSE": "주택",
+      "ONE_ROOM": "원룸",
+      "TWO_ROOM": "투룸",
+      "THREE_ROOM": "쓰리룸",
+      "OFFICETEL": "오피스텔",
+      "OFFICE": "사무실",
+      "SHOPPING": "상가",
+      "CAFE_RESTAURANT": "카페/식당",
+      "WEDDING": "웨딩",
+      "ACADEMY": "교육장소",
+      "HOSPITAL": "병원"
+   },
+   "businessType": {
+      "HOTEL": "호텔",
+      "ESTATE_AGENT": "공인중개사",
+      "LANDLORD": "건물주"
+   },
+   "room": {
       "shortTerm": "단기계약여부",
-		"contractCondition": {
-			"MONTHLY": "월세",
-			"ANNUALLY": "연세",
-			"LEASE": "전세"
-		},
-		"options": {
-			"internet": "인터넷",
-			"TV": "TV",
-			"washer": "세탁기",
-			"airConditioner": "에어컨",
-			"bed": "침대",
-			"desk": "책상",
-			"closet": "옷장",
-			"refrigerator": "냉장고",
-			"gasRange": "가스레인지",
-			"microwave": "전자레인지",
-			"shoeCloset": "신발장"
-		},
-		"parking": "주차가능여부",
-		"elevator": "엘리베이터유무",
-		"heatingType": {
-			"nightElectronic": "심야전기",
-			"cityGas": "도시가스"
-		}
-	},
-	"unit": {
-		"pyeong": "평"
-	},
-	"floors": {
-		"Bx": "지하",
-		"1F": "1층",
-		"2F": "2층",
-		"3F": "3층",
-		"4F": "4층",
-		"5F": "5층",
-		"6xF": "6층 이상"
-	},
-	"postStatus": {
-		"PUBLISH": "공개",
-		"PRIVATE": "비공개"
-	},
-	"lang": {
-		"ko": "한국어",
-		"en": "영어"
-	},
-	"Bx": "Bx",
-	"1F": "1F",
-	"2F": "2F",
-	"3F": "3F",
-	"4F": "4F",
-	"5F": "5F",
-	"6xF": "6xF"
+      "contractCondition": {
+         "MONTHLY": "월세",
+         "ANNUALLY": "연세",
+         "LEASE": "전세"
+      },
+      "options": {
+         "internet": "인터넷",
+         "TV": "TV",
+         "washer": "세탁기",
+         "airConditioner": "에어컨",
+         "bed": "침대",
+         "desk": "책상",
+         "closet": "옷장",
+         "refrigerator": "냉장고",
+         "gasRange": "가스레인지",
+         "microwave": "전자레인지",
+         "shoeCloset": "신발장"
+      },
+      "parking": "주차가능여부",
+      "elevator": "엘리베이터유무",
+      "heatingType": {
+         "nightElectronic": "심야전기",
+         "cityGas": "도시가스"
+      }
+   },
+   "unit": {
+      "pyeong": "평"
+   },
+   "floors": {
+      "Bx": "지하",
+      "1F": "1층",
+      "2F": "2층",
+      "3F": "3층",
+      "4F": "4층",
+      "5F": "5층",
+      "6xF": "6층 이상"
+   },
+   "postStatus": {
+      "PUBLISH": "공개",
+      "PRIVATE": "비공개"
+   },
+   "lang": {
+      "ko": "한국어",
+      "en": "영어"
+   }
 }

@@ -196,12 +196,19 @@ exports.createRoomInfo = function (req, res, next) {
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.changeRoomInfoView = function (req, res, next) {
+<<<<<<< HEAD
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
       return res.redirect('back');
    }
+=======
+   // if (!req.user.logined) {
+   //    req.flash('msg', "requiredLogin");
+   //    return res.redirect('/room');
+   // }
+>>>>>>> 53e02e6d582c6dfb89ad65d43aac4db994078d15
 
-   return res.render('room/room-new', {
+   return res.render('room/room-update', {
       ENV: req.env,
       logined: req.user ? req.user.logined : false,
       title: "updateRoomInfoView",
@@ -212,7 +219,8 @@ exports.changeRoomInfoView = function (req, res, next) {
          roomContractCondition: value.roomContractCondition,
          floors: value.floors,
          postStatus: value.postStatus,
-         postType: value.postType
+         postType: value.postType,
+         roomInfoIdx : req.params.roomInfoIdx
       }
    });
 }
@@ -220,49 +228,50 @@ exports.changeRoomInfoView = function (req, res, next) {
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.updateRoomInfo = function (req, res, next) {
-   // if (!req.params.roomInfoIdx) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required param! please check :roomInfoIdx',
-   //     statusCode: -1
-   //   });
-   // }
-   // const roomInfoIdx = _.toNumber(req.params.roomInfoIdx);
-   //
+//   console.log(req);
+   if (!req.body.roomInfoIdx) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required param! please check :roomInfoIdx',
+       statusCode: -1
+     });
+   }
+   const roomInfoIdx = _.toNumber(req.body.roomInfoIdx);
+   console.log(roomInfoIdx);
    // if (req.user.memberType != value.memberType.LEASE_MEMBER) {
    //   return res.status(401).json({
    //     errorMsg: 'You are not authorized to create roominfo case.',
    //     statusCode: 2
    //   });
    // }
-   //
-   // if (!req.body.title) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check title',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.roomType) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check roomType',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.address) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check address',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.files[value.fieldName.prevImg]) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check file["previewImage"]',
-   //     statusCode: -1
-   //   });
-   // }
-   //
+
+   if (!req.body.title) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check title',
+       statusCode: -1
+     });
+   }
+
+   if (!req.body.roomType) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check roomType',
+       statusCode: -1
+     });
+   }
+
+   if (!req.body.address) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check address',
+       statusCode: -1
+     });
+   }
+
+   if (!req.files[value.fieldName.prevImg]) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check file["previewImage"]',
+       statusCode: -1
+     });
+   }
+
    // let updateRoomInfo = Promise.method(function (initWriteDate, previewImagePath) {
    //   // 나중에 VR Tour 변경될 때 promise 형식으로 한번에 바꾸자
    //   const room = {
