@@ -161,7 +161,7 @@
                      <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
                      <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
                         <% for (i in value.floors) { %>
-                        <option value="<%= i %>"><%= __(value.floors[i]) %></option>
+                        <option value="<%= i %>"><%= __("floors")[i] %></option>
                         <% } %>
                      </select>
                   </div>

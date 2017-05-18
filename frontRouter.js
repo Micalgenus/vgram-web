@@ -127,8 +127,8 @@ module.exports = function (app) {
       res.render('index', {
          ENV: env,
          logined: req.logined,
-         title: 'main'
-         // msg: req.msg
+         title: 'main',
+         msg: req.msg
       });
    });
 

@@ -196,17 +196,10 @@ exports.createRoomInfo = function (req, res, next) {
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
 exports.changeRoomInfoView = function (req, res, next) {
-<<<<<<< HEAD
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
       return res.redirect('back');
    }
-=======
-   // if (!req.user.logined) {
-   //    req.flash('msg', "requiredLogin");
-   //    return res.redirect('/room');
-   // }
->>>>>>> 53e02e6d582c6dfb89ad65d43aac4db994078d15
 
    return res.render('room/room-update', {
       ENV: req.env,
@@ -333,7 +326,7 @@ exports.updateRoomInfo = function (req, res, next) {
    //   next(err);
    // });
    req.flash('msg', "editPostComplete");
-   return res.redirect(202, '/post/room');
+   return res.redirect('/post/room');
    // return res.redirect('/room/[:roomInfoIdx]');    <- redirect를 이렇게 걸자
 }
 
@@ -376,7 +369,7 @@ exports.deleteRoomInfo = function (req, res) {
    //   }
    // });
    req.flash('msg', "deletePostComplete");
-   return res.redirect(202, '/post/room');
+   return res.redirect('/post/room');
 }
 
 exports.roomInfoDetailView = function (req, res) {
