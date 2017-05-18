@@ -13,9 +13,19 @@ exports.redirectMain = function(req, res) {
 
 exports.redirectChange = function(req, res) {
   // Change페이지로 Redirect
-  return res.redirect('/change');
+  return res.redirect('/user/change');
 }
 
 exports.redirectBizList = function(req, res) {
   return res.redirect('/biz/1');
+}
+
+exports.redirectPrevPath = function(req, res) {
+   const prevPath = req.flash("prevPath");
+
+   if (prevPath) {
+      return res.redirect(prevPath);
+   } else {
+      return redirectMain(req, res);
+   }
 }

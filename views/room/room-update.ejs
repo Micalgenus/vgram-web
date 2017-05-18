@@ -524,7 +524,7 @@
 
    var browserLang = navigator.language || navigator.userLanguage;
 
-   $('.summernote').summernote({
+  /* $('.summernote').summernote({
       height: 600,                 // set editor height
       minHeight: null,             // set minimum height of editor
       maxHeight: null,             // set maximum height of editor
@@ -543,20 +543,22 @@
          ['help', ['help']]
       ],
       lang: <%= value.lang %> || browserLang || "en"
-   });
+   });*/
 
    // 글수정 및 글쓰기 하면 서버에다가 ajax로 제이쿼리로 정보를 던짐
    // 그러면 서버가 처리후 post_id / room_id를 바음 그리고 이미지서버에 post_id와 room_id를 던져줌
    $('#roomInfo-Inputform').submit(function(e) {
 
-      //var queryString = $('#roomInfo-Inputform').serialize() ;
+      var queryString = $('#roomInfo-Inputform').serialize() ;
 
       $.ajax({
          type : 'PUT',
          // 서버 URL 찾기
-         url : '/room/'+<%=roomInfoIdx%>,
-         data: { roomInfoIdx : <%=roomInfoIdx%> },
-         contentType: 'application/json',
+         url : '../'+<%=value.roomInfoIdx%>,
+         data: {
+             queryString : queryString,
+             roomInfoIdx : <%=value.roomInfoIdx%>
+         },
          success : function(data, textStatus, jqXHR){
                alert(data);
 //            $.ajax({

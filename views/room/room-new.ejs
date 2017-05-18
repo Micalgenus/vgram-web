@@ -21,7 +21,7 @@
          ============================================= -->
          <div class="clearfix">
 
-            <form action="/room" id="roomInfo-Inputform" name="roominfo-inputform" method="post"
+            <form id="roomInfo-Inputform" name="roominfo-inputform"
                   enctype="multipart/form-data">
                <div class="title-block-room-new h3 + span">
                   <!--<div class="fancy-title title-dotted-border">-->
@@ -93,7 +93,7 @@
                            방구조</label>
                         <select id="template-contactform-service" name="roomType" class="sm-form-control" required>
                            <% for (i in value.placeType) { %>
-                           <option value="<%= value.placeType[i].value %>"><%= value.placeType[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.placeType[i]) %></option>
                            <% } %>
                         </select>
                      </div>
@@ -127,8 +127,8 @@
                         <div>
                            <select class="selectpicker" name="selectPicker" placeholder="전세,월세,연세">
                               <% for (i in value.roomContractCondition) { %>
-                              <option value="<%= value.roomContractCondition[i].value %>">
-                                 <%= value.roomContractCondition[i].name %></option>
+                              <option value="<%= i %>">
+                                 <%= __(value.roomContractCondition[i]) %></option>
                               <% } %>
                            </select>
                         </div>
@@ -162,7 +162,7 @@
                         <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
                         <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
                            <% for (i in value.floors) { %>
-                           <option value="<%= value.floors[i].value %>"><%= value.floors[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
                            <% } %>
                         </select>
                      </div>
@@ -405,7 +405,7 @@
                         <label for="template-contactform-monthlyRentFee col_">글 공개 여부</label>
                         <select class="select-hide form-control bottommargin-sm" name="postStatus" placeholder="지하~20층이상">
                            <% for (i in value.floors) { %>
-                           <option value="<%= value.floors[i].value %>"><%= value.floors[i].name %></option>
+                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
                            <% } %>
                         </select>
                         <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
@@ -525,7 +525,7 @@
 
    var browserLang = navigator.language || navigator.userLanguage;
 
-   $('.summernote').summernote({
+   /*$('.summernote').summernote({
       height: 600,                 // set editor height
       minHeight: null,             // set minimum height of editor
       maxHeight: null,             // set maximum height of editor
@@ -543,7 +543,12 @@
          ['view', ['fullscreen', 'codeview']],
          ['help', ['help']]
       ],
-      lang: <%= value.lang %> || browserLang || "en"
+      lang: <%= locale %> || browserLang || "en"
+   });*/
+
+   $("#template-contactform-submitroomInfo").click(function(event){
+      event.preventDefault();
+      alert("The paragraph was clicked.");
    });
 
 </script>

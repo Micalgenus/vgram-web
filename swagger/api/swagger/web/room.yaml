@@ -24,6 +24,11 @@ paths:
         description: "리스트에 한번에 보여줄 페이지 사이즈"
         required: true
         type: "string"
+      - name: "page"
+        in: "query"
+        description: "현재 읽고 있는 페이지 번호"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
@@ -40,7 +45,19 @@ paths:
       summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
       description: Returns 'Quoter' to the caller
       # used as the method name of the controller
-      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
+      operationId: createRoomInfo     # operationId는 전체 swagger 내에서 유일해야한다
+      # format of bodies a client can send (Content-Type)
+      consumes:
+        - application/json
+      # format of the responses to the client (Accepts)
+      produces:
+        - application/json
+      parameters:
+      - name: "pageSize"
+        in: "query"
+        description: "리스트에 한번에 보여줄 페이지 사이즈"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "successful operation"
