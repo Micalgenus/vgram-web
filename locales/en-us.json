@@ -12,7 +12,10 @@
    "cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
    "quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
    "couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
-   "invaildInput": "올바르지 않은 입력입니다.",
+   "invalidInput": "올바르지 않은 입력입니다.",
+   "loggedOut": "로그아웃 되었습니다",
+   "completedRegister": "회원가입이 완료되었습니다",
+
 
    "title": {
       "main": "아늑한집 Cozyhouzz에 오신 것을 환영합니다~",

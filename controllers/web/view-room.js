@@ -40,11 +40,11 @@ exports.roomInfoListData = function (req, res) {
          // 잘못된 요청일 경우 넘어감
          if (page > lastPage) {
             let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
-            return res.redirect('/room?page=' + lastPage.toString() + size);
+            return res.redirect('/post/room?pageSize=' + lastPage.toString() + size);
          }
          if (page < 1) {
             let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
-            return res.redirect('/room' + size);
+            return res.redirect('/post/room?pageSize' + size);
          }
 
          return Room.findAll({
@@ -112,7 +112,8 @@ exports.createRoomInfoView = function (req, res, next) {
 
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
-      return res.redirect('/room');
+      // return res.redirect('/post/room');
+      return res.redirect('back');
    }
 
    // 기본적으로 user의 기본언어 선택사항을 따라가고,
@@ -125,10 +126,11 @@ exports.createRoomInfoView = function (req, res, next) {
       update: false,
       value: {
          placeType: value.placeType,
-         roomContractCondition: value.roomContractCondition,
+         room: value.room,
          floors: value.floors,
          postStatus: value.postStatus,
-         postType: value.postType
+         postType: value.postType,
+         lang: req.lang
       }
    });
 }
@@ -145,7 +147,8 @@ exports.createRoomInfoView = function (req, res, next) {
 exports.createRoomInfo = function (req, res, next) {
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
-      return res.redirect('/room');
+      // return res.redirect('/post/room');
+      return res.redirect('back');
    }
 
    if (req.user.memberType != value.memberType.BUSINESS) {
@@ -195,7 +198,7 @@ exports.createRoomInfo = function (req, res, next) {
 exports.changeRoomInfoView = function (req, res, next) {
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
-      return res.redirect('/room');
+      return res.redirect('back');
    }
 
    return res.render('room/room-new', {
@@ -321,7 +324,7 @@ exports.updateRoomInfo = function (req, res, next) {
    //   next(err);
    // });
    req.flash('msg', "editPostComplete");
-   return res.redirect(202, '/room');
+   return res.redirect(202, '/post/room');
    // return res.redirect('/room/[:roomInfoIdx]');    <- redirect를 이렇게 걸자
 }
 
@@ -364,7 +367,7 @@ exports.deleteRoomInfo = function (req, res) {
    //   }
    // });
    req.flash('msg', "deletePostComplete");
-   return res.redirect(202, '/room');
+   return res.redirect(202, '/post/room');
 }
 
 exports.roomInfoDetailView = function (req, res) {
