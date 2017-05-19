@@ -546,9 +546,38 @@
       lang: <%= locale %> || browserLang || "en"
    });*/
 
-   $("#template-contactform-submitroomInfo").click(function(event){
-      event.preventDefault();
-      alert("The paragraph was clicked.");
+   $('#roomInfo-Inputform').submit(function(e) {
+
+      var queryString = $('#roomInfo-Inputform').serialize() ;
+
+      $.ajax({
+         type : 'post',
+         // 서버 URL 찾기
+         url : './',
+         data: queryString,
+
+         success : function(data, textStatus, jqXHR){
+            alert(data);
+//            $.ajax({
+//               type : 'post',
+//               // 서버 URL 찾기
+//               url : '/test.jsp',
+//               data : queryString,
+//               dataType : 'json',
+//               success : function(data, textStatus, jqXHR){
+//                  alert(data);
+//               },
+//               error: function(jqXHR, textStatus, error){
+//                  alert(error);
+//               }
+//            });
+
+         },
+         error: function(jqXHR, textStatus, error){
+            alert(error);
+         }
+      });
+      e.preventDefault(); // avoid to execute the actual submit of the form.
    });
 
 </script>

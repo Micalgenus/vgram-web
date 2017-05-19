@@ -147,41 +147,60 @@ exports.createRoomInfo = function (req, res, next) {
       req.flash('msg', "requiredLogin");
       return res.redirect('/room');
    }
+   console.log(req.body);
+   console.log(req.user.ID);
 
-   if (req.user.memberType != value.memberType.BUSINESS) {
-      return res.status(401).json({
-         errorMsg: 'You are not authorized to create roominfo case.',
-         statusCode: 2
-      });
-   }
-
-   if (!req.body.title) {
-      return res.status(401).json({
-         errorMsg: 'You must enter an required field! please check title',
-         statusCode: -1
-      });
-   }
-
-   if (!req.body.roomType) {
-      return res.status(401).json({
-         errorMsg: 'You must enter an required field! please check roomType',
-         statusCode: -1
-      });
-   }
-
-   if (!req.body.address) {
-      return res.status(401).json({
-         errorMsg: 'You must enter an required field! please check address',
-         statusCode: -1
-      });
-   }
-
-   if (!req.files[value.fieldName.NORMAL_IMAGE] || !req.files[value.fieldName.VR_IMAGE]) {
-      return res.status(401).json({
-         errorMsg: 'You must enter an required field! please check file["previewImage"]',
-         statusCode: -1
-      });
-   }
+   // post에
+   // user_id = req.user.ID
+   // titiel = body.title
+   // content = body.detail
+// //room 테이블
+//    room_type = body.roomType  'ONE_ROOM',
+//       deposit = body.deposit
+//    selectPicker: 'MONTHLY',
+//       monthly 월세
+//
+//    주소
+//    postcode: '06112',
+//       address: '서울 강남구 논현로123길 4-1 (논현동)',
+//
+//       detail: '',
+//
+//       extraInfo: '',
+   // // if (req.user.memberType != value.memberType.BUSINESS) {
+   //    return res.status(401).json({
+   //       errorMsg: 'You are not authorized to create roominfo case.',
+   //       statusCode: 2
+   //    });
+   // }
+   //
+   // if (!req.body.title) {
+   //    return res.status(401).json({
+   //       errorMsg: 'You must enter an required field! please check title',
+   //       statusCode: -1
+   //    });
+   // }
+   //
+   // if (!req.body.roomType) {
+   //    return res.status(401).json({
+   //       errorMsg: 'You must enter an required field! please check roomType',
+   //       statusCode: -1
+   //    });
+   // }
+   //
+   // if (!req.body.address) {
+   //    return res.status(401).json({
+   //       errorMsg: 'You must enter an required field! please check address',
+   //       statusCode: -1
+   //    });
+   // }
+   //
+   // if (!req.files[value.fieldName.NORMAL_IMAGE] || !req.files[value.fieldName.VR_IMAGE]) {
+   //    return res.status(401).json({
+   //       errorMsg: 'You must enter an required field! please check file["previewImage"]',
+   //       statusCode: -1
+   //    });
+   // }
 
    // return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
    //    .then(function () {
@@ -226,7 +245,7 @@ exports.updateRoomInfo = function (req, res, next) {
      });
    }
    const roomInfoIdx = _.toNumber(req.body.roomInfoIdx);
-   console.log(roomInfoIdx);
+   console.log("roomInfoIDX = " + roomInfoIdx);
    // if (req.user.memberType != value.memberType.LEASE_MEMBER) {
    //   return res.status(401).json({
    //     errorMsg: 'You are not authorized to create roominfo case.',
