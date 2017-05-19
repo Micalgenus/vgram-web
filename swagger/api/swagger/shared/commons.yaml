@@ -6,27 +6,6 @@ info:
   description: Shared elements in all API
 
 definitions:
-  ViewResponse:
-    description: "View Rendering시 필요한 기본 변수"
-    type: "object"
-    required:
-      - logined
-      - title
-      - msg
-    properties:
-      ENV:
-        type: object
-        example:
-          NODE_ENV: "development"
-      logined:
-        type: boolean
-        default: false
-      title:
-        description: "사이트 제목(i18n값)"
-        type: string
-        example: "main"
-
-
   HelloWorldMessage:
     description: "hello world Message"
     type: "object"
@@ -54,28 +33,16 @@ definitions:
       - message
     properties:
       code:
-        type: string
+        type: number
         enum:
-          - DBERR
-          - NTERR
-          - UNERR
-        example: UNERR
+          - badRequest_400
+          - unauthorized_401
+          - forbidden_403
+          - notFound_404
+          - internalServerError_500
       message:
-        $ref: '#/definitions/ErrorMessage'
+        description: A error description
+        type: string
     example:
-      code: DBERR
-      message:
-        longMessage: "long message"
-        shortMessage: "short message"
-
-  ErrorMessage:
-    required:
-      - longMessage
-      - shortMessage
-    properties:
-      longMessage:
-        description: A long error description
-        type: string
-      shortMessage:
-        description: A short error description
-        type: string
+      code: badRequest_400
+      message: "error message"

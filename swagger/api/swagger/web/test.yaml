@@ -25,7 +25,7 @@ paths:
         default:
           description: "error operation"
           schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
           examples:
             code: DBERR
             message:

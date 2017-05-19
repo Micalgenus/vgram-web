@@ -53,7 +53,8 @@
 		"contractCondition": {
 			"MONTHLY": "월세",
 			"ANNUALLY": "연세",
-			"LEASE": "전세"
+			"LEASE": "전세",
+         "SELL": "판매"
 		},
 		"options": {
 			"internet": "인터넷",

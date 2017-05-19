@@ -8,8 +8,9 @@
 ## How to use it
 1. npm install --global http-server swagger & npm i
 2. cmd 실행 -> 현재폴더 기준 "http-server --cors ./api/swagger" 실행
-3. npm run edit -> 브라우저 자동실행 -> API 내용 확인 & 테스트 진행(UI 실행)
-
+3. 방법 a : npm run edit -> 브라우저 자동실행 -> API 내용 확인 & 테스트 진행(UI 실행) <br />
+   방법 b : http://editor.swagger.io/#!/ -> swagger.yaml 파일을 import file/url을 이용하여 로딩
+   
 * /config/default.yaml : 초기 설정 파일
 * /api/swagger/swagger.yaml : 최종 셋팅 파일(해당 설정 path에 따른 docs 생성)
 * /api/swagger/api/* : API path 설정 파일

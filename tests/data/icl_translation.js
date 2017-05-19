@@ -6,13 +6,13 @@ moment.locale("ko");
 
 //------------------------------------------
 // icl_translation table
-// (post 갯수만큼 존재해야한다)
+// (post 테이블 갯수만큼 존재해야한다)
 //------------------------------------------
 module.exports = [
    {
       ID: 1,
       element_id: 1,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 1,      // 신규 작성시 group_id = ID
       language_code: "ko-kr",
       original_language_code: null
@@ -20,7 +20,7 @@ module.exports = [
    {
       ID: 2,
       element_id: 2,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 2,
       language_code: "ko-kr",
       original_language_code: null
@@ -28,7 +28,7 @@ module.exports = [
    {
       ID: 3,
       element_id: 3,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 3,
       language_code: "ko-kr",
       original_language_code: null
@@ -36,7 +36,7 @@ module.exports = [
    {
       ID: 4,
       element_id: 4,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 4,
       language_code: "ko-kr",
       original_language_code: null
@@ -44,7 +44,7 @@ module.exports = [
    {
       ID: 5,
       element_id: 5,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 5,
       language_code: "ko-kr",
       original_language_code: null
@@ -52,7 +52,7 @@ module.exports = [
    {
       ID: 6,
       element_id: 6,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 6,
       language_code: "ko-kr",
       original_language_code: null
@@ -60,7 +60,7 @@ module.exports = [
    {
       ID: 7,
       element_id: 7,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 7,
       language_code: "ko-kr",
       original_language_code: null
@@ -68,7 +68,7 @@ module.exports = [
    {
       ID: 8,
       element_id: 8,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 8,
       language_code: "ko-kr",
       original_language_code: null
@@ -76,7 +76,7 @@ module.exports = [
    {
       ID: 9,
       element_id: 9,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 9,
       language_code: "ko-kr",
       original_language_code: null
@@ -84,7 +84,7 @@ module.exports = [
    {
       ID: 10,
       element_id: 10,
-      element_type: "post",
+      element_type: "ROOM",
       group_id: 10,
       language_code: "ko-kr",
       original_language_code: null
@@ -92,7 +92,7 @@ module.exports = [
    {
       ID: 11,
       element_id: 11,
-      element_type: "post",
+      element_type: "POST",
       group_id: 11,
       language_code: "ko-kr",
       original_language_code: null
@@ -100,7 +100,7 @@ module.exports = [
    {
       ID: 12,
       element_id: 12,
-      element_type: "post",
+      element_type: "POST",
       group_id: 12,
       language_code: "ko-kr",
       original_language_code: null
@@ -108,7 +108,7 @@ module.exports = [
    {
       ID: 13,
       element_id: 13,
-      element_type: "post",
+      element_type: "POST",
       group_id: 13,
       language_code: "ko-kr",
       original_language_code: null
@@ -116,7 +116,7 @@ module.exports = [
    {
       ID: 14,
       element_id: 14,
-      element_type: "post",
+      element_type: "POST",
       group_id: 14,
       language_code: "ko-kr",
       original_language_code: null

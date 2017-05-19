@@ -58,16 +58,16 @@ module.exports = function(sequelize, DataTypes) {
                as: "UseCases"
             });
 
-            media.hasOne(models.room, {
-               onUpdate: "CASCADE",
-               onDelete: "RESTRICT",
-               foreignKey: {
-                  name: 'thumbnail_media_id',
-                  allowNull: false
-               },
-               sourceKey: "ID",
-               as: "ThumbImage"
-            });
+            // media.hasOne(models.room, {
+            //    onUpdate: "CASCADE",
+            //    onDelete: "RESTRICT",
+            //    foreignKey: {
+            //       name: 'thumbnail_media_id',
+            //       allowNull: false
+            //    },
+            //    sourceKey: "ID",
+            //    as: "ThumbImage"
+            // });
 
             media.belongsTo(models.user, {
                onUpdate: "CASCADE",
