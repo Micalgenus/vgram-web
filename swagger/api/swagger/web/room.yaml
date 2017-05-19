@@ -6,7 +6,7 @@ info:
   description: RoomInfo operations, definitions, parameters and responses
 
 paths:
-  /room:
+  /post/room:
     # binds a127 app logic to a route
     x-swagger-router-controller: web/view-room
     get:
@@ -70,7 +70,7 @@ paths:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
 
 
-  /room/new:
+  /post/room/new:
     # binds a127 app logic to a route
     x-swagger-router-controller: web/view-room
     get:
@@ -118,7 +118,7 @@ paths:
 
 
 
-  /room/{roomInfoIdx}:
+  /post/room/{roomInfoIdx}:
     # binds a127 app logic to a route
     x-swagger-router-controller: web/view-room
     get:

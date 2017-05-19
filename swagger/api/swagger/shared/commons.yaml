@@ -7,7 +7,25 @@ info:
 
 definitions:
   ViewResponse:
-    description: "View Rendering시 필요한 변수 지정
+    description: "View Rendering시 필요한 기본 변수"
+    type: "object"
+    required:
+      - logined
+      - title
+      - msg
+    properties:
+      ENV:
+        type: object
+        example:
+          NODE_ENV: "development"
+      logined:
+        type: boolean
+        default: false
+      title:
+        description: "사이트 제목(i18n값)"
+        type: string
+        example: "main"
+
 
   HelloWorldMessage:
     description: "hello world Message"
@@ -17,6 +35,7 @@ definitions:
     properties:
       message:
         type: string
+        example: "hello 롯데월드!"
 
   PlainMessage:
     description: "Plain Object Message"
@@ -30,14 +49,11 @@ definitions:
 
 
   ErrorResponse:
-    title: MultiError
-    description: Gives full information about the problem
     required:
       - code
       - message
     properties:
       code:
-        description: A human readable code (death to numeric error codes!)
         type: string
         enum:
           - DBERR
@@ -46,10 +62,13 @@ definitions:
         example: UNERR
       message:
         $ref: '#/definitions/ErrorMessage'
+    example:
+      code: DBERR
+      message:
+        longMessage: "long message"
+        shortMessage: "short message"
 
   ErrorMessage:
-    title: MultiErrorMessage
-    description: An error message with a long and a short description
     required:
       - longMessage
       - shortMessage

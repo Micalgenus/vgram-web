@@ -28,6 +28,7 @@ exports.loginView = function(req, res, next) {
    // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
    if (req.user.logined) {
       req.flash('msg', message.alreadyLogined);
+
       return next();
    }
 
@@ -41,6 +42,7 @@ exports.loginView = function(req, res, next) {
 
 exports.logout = function(req, res, next) {
    res.clearCookie('Authorization');
+   req.flash('msg', 'loggedOut');
 
    return next();
 }
@@ -70,7 +72,7 @@ exports.signupView = function(req, res) {
       business_check = "checked";
    } else {
       req.flash('msg', 'invaildInput');
-      return res.redirect('/auth/signup');
+      return res.redirect('back');
    }
 
    return res.render('auth/signup', {
@@ -92,6 +94,7 @@ exports.signup = function (req, res, next) {
    // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
    if (req.user.logined) {
       req.flash('msg', message.alreadyLogined);
+
       return next();
    }
 
@@ -107,42 +110,43 @@ exports.signup = function (req, res, next) {
 
    if (type != "PUBLIC" && type != "BUSINESS") {
       req.flash('msg', '잘못된 유형의 회원입니다.');
-      return res.redirect('/signup');
+      // return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (!email) {
       req.flash('msg', '이메일을 입력해 주십시오.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (!email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) {
       req.flash('msg', '올바른 이메일 형식을 사용해 주시길 바랍니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    let password = req.body.password;
    let repassword = req.body.repassword;
    if (!password || !repassword) {
       req.flash('msg', '비밀번호를 입력해 주시길 바랍니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (password != repassword) {
       req.flash('msg', '비밀번호가 일치하지 않습니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (type == "BUSINESS") {
       let phone = req.body.phone;
       if (!phone) {
          req.flash('msg', '전화번호를 입력해 주십시오.');
-         return res.redirect('/signup');
+         return res.redirect('back');
       }
 
       let name = req.body.name;
       if (!name) {
          req.flash('msg', '이름을 입력해 주십시오.');
-         return res.redirect('/signup');
+         return res.redirect('back');
       }
    }
 
@@ -162,8 +166,8 @@ exports.register = function(req, res, next) {
       }
    }).then(function(user) {
       if (user) {
-         req.flash('msg', '이미 존재하는 회원입니다.');
-         return res.redirect('/signup');
+         req.flash('msg', 'alreadyExistMember');
+         return res.redirect('back');
       }
 
       return User.create({
@@ -181,7 +185,7 @@ exports.register = function(req, res, next) {
             level: 1
          }
       }).then(function(newUser) {
-         req.flash('msg', '회원가입 되셧습니다.');
+         req.flash('msg', 'completedRegister');
          return next();
       });
    }).catch(function(err) {

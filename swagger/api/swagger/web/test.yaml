@@ -19,12 +19,18 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            type: string
-            example: "Hello World Passenger!"
+            type: object
+          examples:
+            message: "Hello World Passenger!"
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            code: DBERR
+            message:
+              longMessage: "long message"
+              shortMessage: "short message"
 
 
   /test/hello:
@@ -45,13 +51,18 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            type: string
-            example: "Hello World Kim!"
+            type: object
+          examples:
+            message: "Hello World test!"
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
-
+          examples:
+            code: DBERR
+            message:
+              longMessage: "long message"
+              shortMessage: "short message"
 
 
   /test/protected:
@@ -68,9 +79,15 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            type: string
-            example: "The protected test route is functional!"        # responses may fall through to errors
+            type: object
+          examples:
+            message: "The protected test route is functional!"        # responses may fall through to errors
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            code: DBERR
+            message:
+              longMessage: "long message"
+              shortMessage: "short message"
