@@ -42,21 +42,18 @@ module.exports = function(sequelize, DataTypes) {
          defaultValue: 'ko_KR'
       },
 
-      post_init_date: {
-         type: DataTypes.DATE,
-         allowNull: false
-      },
       post_init_date_gmt: {
-         type: DataTypes.DATE,
-         allowNull: false
-      },
-      post_modified_date: {
          type: DataTypes.DATE,
          allowNull: false
       },
       post_modified_date_gmt: {
          type: DataTypes.DATE,
          allowNull: false
+      },
+      thumbnail_image_path: {
+         type: DataTypes.JSON,
+         allowNull: true,
+         defaultValue: null
       },
 
       like: {

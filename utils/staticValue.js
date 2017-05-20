@@ -64,10 +64,11 @@ const placeType = {
 
 const room = {
    shortTerm: "shortTerm",
-   contractCondition:  {
+   contractCondition: {
       MONTHLY: "MONTHLY",
       ANNUALLY: "ANNUALLY",
-      LEASE: "LEASE"
+      LEASE: "LEASE",
+      SELL: "SELL"
    },
    options: {
       "internet": "internet",
@@ -84,6 +85,7 @@ const room = {
    },
    parking: "parking",
    elevator: "elevator",
+   manageExpense: "manageExpense",
    heatingType: {
       "nightElectronic": "nightElectronic",
       "cityGas": "cityGas"

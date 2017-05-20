@@ -4,3 +4,110 @@ info:
   version: 0.0.1
   title: Post Sub-API
   description: Post operations, definitions, parameters and responses
+
+paths:
+  /api/post/media-attached:
+    x-swagger-router-controller: api/posts
+    post:
+      tags:
+      - "post"
+      description: 변환/저장을 완료한 media, attached file의 정보를 DB에 저장한다
+      operationId: createMediaAttachedInfo     # operationId는 전체 swagger 내에서 유일해야한다
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: header
+        required: true
+        type: string
+        description: "jwt token, cookie에 저장되어 있거나, header에 직접 삽입하여 전송해야함."
+      - name: "body"
+        in: "body"
+        required: true
+        schema:  # parameter는 response같이 examples을 생성하지 못함
+          $ref: '#/definitions/CreateMediaAttachedParameter'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: object
+            required:
+              - logined
+              - title
+              - msg
+              - lat
+              - lng
+            properties:
+              ENV:
+                type: object
+              logined:
+                type: boolean
+              title:
+                type: string
+              msg:
+                type: string
+              lat:
+                type: number
+                format: double
+              lng:
+                type: number
+                format: double
+          examples:
+            ENV:
+              NODE_ENV: "development"
+            logined: false
+            title: "roomInfoListView"
+            msg: "createPostComplete"
+            lat: 35.8598743
+            lng: 127.1117673
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
+    post:
+      tags:
+      - "room"
+      description: create roomInfo
+      operationId: createRoomInfo     # operationId는 전체 swagger 내에서 유일해야한다
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: header
+        required: true
+        type: string
+        description: "jwt token, cookie에 저장되어 있거나, header에 직접 삽입하여 전송해야함."
+      - name: "body"
+        in: "body"
+        required: true
+        schema:  # parameter는 response같이 examples을 생성하지 못함
+          $ref: '#/definitions/CreateMediaAttachedParameter'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "../definitions/room.yaml#/definitions/Room"
+          examples:
+            $ref: "../definitions/room.yaml#/definitions/RoomExample"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            $ref: "../definitions/room.yaml#/definitions/RoomExample"
+
+definitions:
+  CreateMediaAttachedParameter:
+    description: "글 정보 + 방 정보 전송을 위한 Parameter"
+    type: object
+    required:
+      - medias
+      - attacheds
+      - posts
+    properties:
+      media:
+        $ref: "../definitions/post.yaml#/definitions/Post"
+      attached:
+        $ref: "../definitions/room.yaml#/definitions/Room"
+      post:
+        $ref: "../definitions/post.yaml#/definitions/Post"

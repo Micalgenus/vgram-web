@@ -303,6 +303,8 @@ module.exports = function (app) {
    //공지사항 출력
    api.postRoute.get('/notice', api.postController.viewNotice);
 
+   //media, attached 정보 저장(image-server에서 이용함)
+   api.postRoute.post('/media-attached', requireAuth, api.postController.createMediaAttachedInfo);
 
    //=========================
    // web - Room Info Routes

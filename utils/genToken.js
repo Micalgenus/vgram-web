@@ -33,14 +33,14 @@ exports.setUserInfo = function(user) {
       email: user.email,
       password: user.password,
       member_type: user.member_type,
-      telephone:user.telephone,
-      registered_date:user.registered_date,
-      display_name:user.display_name,
+      display_name: user.display_name,
+      user_status: user.user_status,
+      telephone: user.telephone,
+      registered_date: user.registered_date,
       activation_key:user.activation_key,
       locale: user.locale,
       profile_image_path: user.profile_image_path,
       updated_date: user.updated_date,
-      user_status: user.user_status,
       meta_value: user.meta_value
    };
 
