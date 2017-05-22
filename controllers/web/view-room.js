@@ -145,52 +145,36 @@ exports.createRoomInfoView = function (req, res, next) {
  * @param next
  */
 exports.createRoomInfo = function (req, res, next) {
+   var postID;
+   var roomID;
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
       // return res.redirect('/post/room');
       return res.redirect('back');
    }
-   console.log(req.body);
-   console.log(req.user.ID);
 
-   // post에
-   // user_id = req.user.ID
-   // titiel = body.title
-   // content = body.detail
-// //room 테이블
-//    room_type = body.roomType  'ONE_ROOM',
-//       deposit = body.deposit
-//    selectPicker: 'MONTHLY',
-//       monthly 월세
-//
-//    주소
-//    postcode: '06112',
-//       address: '서울 강남구 논현로123길 4-1 (논현동)',
-//
-//       detail: '',
-//
-//       extraInfo: '',
+//   console.log(req.body);
+
+   if (!req.body.title) {
+      return res.status(401).json({
+         errorMsg: 'You must enter an required field! please check title',
+         statusCode: -1
+      });
+   }
+
+   if (!req.body.roomType) {
+      return res.status(401).json({
+         errorMsg: 'You must enter an required field! please check roomType',
+         statusCode: -1
+      });
+   }
    // // if (req.user.memberType != value.memberType.BUSINESS) {
    //    return res.status(401).json({
    //       errorMsg: 'You are not authorized to create roominfo case.',
    //       statusCode: 2
    //    });
    // }
-   //
-   // if (!req.body.title) {
-   //    return res.status(401).json({
-   //       errorMsg: 'You must enter an required field! please check title',
-   //       statusCode: -1
-   //    });
-   // }
-   //
-   // if (!req.body.roomType) {
-   //    return res.status(401).json({
-   //       errorMsg: 'You must enter an required field! please check roomType',
-   //       statusCode: -1
-   //    });
-   // }
-   //
+
    // if (!req.body.address) {
    //    return res.status(401).json({
    //       errorMsg: 'You must enter an required field! please check address',
@@ -205,6 +189,72 @@ exports.createRoomInfo = function (req, res, next) {
    //    });
    // }
 
+   models.sequelize.transaction(function (t) {
+      return Post.create({
+         user_id: req.user.ID,
+         title: req.body.title,
+         content: req.body.detail,
+         post_status: "PUBLISH",
+         post_type: "ROOM",
+         // locale: moment.utc().format('YYYY-MM-DD'),
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         post_modified_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         like: 0,
+         read_count: 0,
+         //meta_value: {}
+      }, {transaction: t}).then(function (createPost) {
+         return Room.create({
+            post_id: createPost.ID,
+            room_type: req.body.roomType,
+            deposit: req.body.deposit,
+            monthly_rent_fee: req.body.monthly,
+            //area_size:,
+            //meta_value:,
+            //thumbnail_image_path:,
+            // thumbnail_media_id :
+         }, {transaction: t});
+      }).then(function(result) {
+         // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
+         //room의 id
+         postID = result.post_id;
+         roomID = result.ID;
+         return ;//console.log(result);
+         //req.flash('msg', 'completedPost');
+      }).catch(function(err) {
+          return ;//console.log(err);
+      });
+   });
+
+   return res.render('room/room-list', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "createPost",
+      msg: req.msg,
+      lat: value.mapLocationCenter.lat,
+      lng: value.mapLocationCenter.lng,
+      value: {
+         //placeType: value.placeType,
+         //roomContractCondition: value.roomContractCondition,
+         //floors: value.floors,
+         //postStatus: value.postStatus,
+         //postType: value.postType,
+         postID: postID,
+         roomID: roomID
+      }
+   });
+// //room 테이블
+//    room_type = body.roomType  'ONE_ROOM',
+//       deposit = body.deposit
+//    selectPicker: 'MONTHLY',
+//       monthly 월세
+//
+//    주소
+//    postcode: '06112',
+//       address: '서울 강남구 논현로123길 4-1 (논현동)',
+//
+//       detail: '',
+//
+//       extraInfo: '',
    // return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
    //    .then(function () {
    //       req.flash('msg', res.i18n('createPostComplete'));
