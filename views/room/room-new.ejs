@@ -372,12 +372,12 @@
                         <label for="roomInfoInput-mainPreviewImage">미리보기 이미지
                            <small>*</small>
                         </label>
-                        <input type="file" id="roomInfoInput-mainPreviewImage" name="mainPreviewImage" value=""
-                               class="required sm-form-control" required/>
+                        <input type="file" id="roomInfoInput-mainPreviewImage" name="NORMAL_IMAGE" value=""
+                               class="required sm-form-control" required multiple />
                         <label for="roomInfoInput-VRImages">VR 이미지
                            <small>*</small>
                         </label>
-                        <input type="file" id="roomInfoInput-VRImages" name="VRImages" value=""
+                        <input type="file" id="roomInfoInput-VRImages" name="VR_IMAGE" value=""
                                class="required sm-form-control" multiple required/>
                      </div>
                      <div class="clear"></div>
@@ -488,20 +488,33 @@
          data: queryString,
 
          success : function(data, textStatus, jqXHR){
-            alert(data);
-//            $.ajax({
-//               type : 'post',
-//               // 서버 URL 찾기
-//               url : '/test.jsp',
-//               data : queryString,
-//               dataType : 'json',
-//               success : function(data, textStatus, jqXHR){
-//                  alert(data);
-//               },
-//               error: function(jqXHR, textStatus, error){
-//                  alert(error);
-//               }
-//            });
+            //alert(data.postID);
+            alert($("#roomInfoInput-mainPreviewImage")[0].files[0]);
+            var form = $('#roomInfo-Inputform')[0];
+            var formData = new FormData();
+            formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[0]);
+            formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[1]);
+            formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[0]);
+            formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[1]);
+            formData.append('postID', data.postID);
+            //etc_files
+            // 이미지
+            $.ajax({
+               type : 'post',
+               // 서버 URL 찾기
+               url : 'http://210.117.182.159:3000/convert/media-attached',
+               data : formData,
+
+               processData: false,  // file전송시 필수
+               contentType: false,  // file전송시 필수
+
+               success : function(data, textStatus, jqXHR){
+                  alert("img Send");
+               },
+               error: function(jqXHR, textStatus, error){
+                  alert("img Send " + error);
+               }
+            });
 
          },
          error: function(jqXHR, textStatus, error){

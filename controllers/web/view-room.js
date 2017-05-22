@@ -153,7 +153,7 @@ exports.createRoomInfo = function (req, res, next) {
       return res.redirect('back');
    }
 
-//   console.log(req.body);
+   console.log(req.body);
 
    if (!req.body.title) {
       return res.status(401).json({
@@ -189,14 +189,14 @@ exports.createRoomInfo = function (req, res, next) {
    //    });
    // }
 
-   models.sequelize.transaction(function (t) {
+   return models.sequelize.transaction(function (t) {
       return Post.create({
          user_id: req.user.ID,
          title: req.body.title,
          content: req.body.detail,
          post_status: "PUBLISH",
          post_type: "ROOM",
-         // locale: moment.utc().format('YYYY-MM-DD'),
+         locale: "ko_KR",
          post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          post_modified_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
          like: 0,
@@ -215,33 +215,34 @@ exports.createRoomInfo = function (req, res, next) {
          }, {transaction: t});
       }).then(function(result) {
          // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
-         //room의 id
-         postID = result.post_id;
-         roomID = result.ID;
-         return ;//console.log(result);
+         return res.status(200).json({
+            postID : result.post_id,
+            roomID : result.ID
+         });
+         //console.log(result);
          //req.flash('msg', 'completedPost');
       }).catch(function(err) {
-          return ;//console.log(err);
+          return console.log(err);
       });
    });
 
-   return res.render('room/room-list', {
-      ENV: req.env,
-      logined: req.user ? req.user.logined : false,
-      title: "createPost",
-      msg: req.msg,
-      lat: value.mapLocationCenter.lat,
-      lng: value.mapLocationCenter.lng,
-      value: {
-         //placeType: value.placeType,
-         //roomContractCondition: value.roomContractCondition,
-         //floors: value.floors,
-         //postStatus: value.postStatus,
-         //postType: value.postType,
-         postID: postID,
-         roomID: roomID
-      }
-   });
+   // return res.render('room/room-list', {
+   //    ENV: req.env,
+   //    logined: req.user ? req.user.logined : false,
+   //    title: "createPost",
+   //    msg: req.msg,
+   //    lat: value.mapLocationCenter.lat,
+   //    lng: value.mapLocationCenter.lng,
+   //    value: {
+   //       //placeType: value.placeType,
+   //       //roomContractCondition: value.roomContractCondition,
+   //       //floors: value.floors,
+   //       //postStatus: value.postStatus,
+   //       //postType: value.postType,
+   //       postID: postID,
+   //       roomID: roomID
+   //    }
+   // });
 // //room 테이블
 //    room_type = body.roomType  'ONE_ROOM',
 //       deposit = body.deposit
@@ -255,11 +256,7 @@ exports.createRoomInfo = function (req, res, next) {
 //       detail: '',
 //
 //       extraInfo: '',
-   // return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
-   //    .then(function () {
-   //       req.flash('msg', res.i18n('createPostComplete'));
-   //       return res.redirect(202, '/room');
-   //    }).catch(next);      // all errors asynchronous and synchronous get propagated to the error middleware.
+
 }
 
 
