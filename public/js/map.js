@@ -1,22 +1,3 @@
-var filter = (function() {
-  var address = (function() {
-    var $root = $('select#address');
-
-    function push($data) {
-      $root.append('<option>' + $data + '</option>')
-           .selectpicker('refresh');
-    };
-
-    return {
-      push: push
-    }
-  })();
-
-  return {
-    push: address.push
-  }
-})();
-
 //////////////////////////////
 /**
  * @desc 출력될 리스트 데이터
@@ -215,18 +196,20 @@ var ListData = (function() {
     function push(list) {
       for (var i in list) {
         dataArray.push(list[i]);
-        console.log(list[i]);
       }
     }
 
-    function dataReload($init, compare, make) {
+    function dataReload($init, compare, make, _push, done) {
       clear();
       
       $init.then(function() {
         dataArray = dataArray.sort(compare);
-        display.pagination.reload(dataArray.length, make);
+        display.pagination.reload(dataArray.length, make, _push);
 
         display.displayReload(make);
+
+        if (_push) _push(dataArray);
+        if (done) done();
       });
     };
 
@@ -404,6 +387,10 @@ var MapData = (function() {
      */
     var data = (function() {
 
+      var M;
+
+      var T;
+
       // markerCluster 객체
       var markerCluster = null;
 
@@ -429,13 +416,14 @@ var MapData = (function() {
        * @param {event} timer 이벤트에 따른 실행될 함수
        */
       function drawMap(lat, lng, timer) {
-        var map = initMap('map', lat, lng);
+        M = initMap('map', lat, lng);
+        T = timer;
 
-        addListener(map, 'dragend', timer);
-        addListener(map, 'zoom_changed', timer);
-        addListener(map, 'projection_changed', timer);
+        addListener(M, 'dragend', timer);
+        addListener(M, 'zoom_changed', timer);
+        addListener(M, 'projection_changed', timer);
 
-        markerCluster = marker.initMarkerClusterer(map)
+        markerCluster = marker.initMarkerClusterer(M);
       };
       
       /**
@@ -478,21 +466,33 @@ var MapData = (function() {
         return { east: e + ew, north: n + ns, south: s - ns, west: w - ew }
       };
 
+      function setCenter(lat, lng) {
+        M.setCenter({lat, lng});
+
+        var bounds = M.getBounds();
+        var c = getBounds(bounds);
+        T(c.east, c.west, c.south, c.north);
+      }
+
+
       return {
         loadMap: loadMap,
-        drawMap: drawMap
+        drawMap: drawMap,
+        setCenter: setCenter
       }
 
     })(); /* MapData.map.data */
 
     return {
       drawMap: data.drawMap,
-      getLocations: locations.getLocations
+      getLocations: locations.getLocations,
+      setCenter: data.setCenter
     }
   })(); /* MapData.map */
 
   return {
     drawMap: map.drawMap,
-    timer: event.timer
+    timer: event.timer,
+    setCenter: map.setCenter
   }
 })(); /* MapData */

@@ -335,6 +335,9 @@ module.exports = function (app) {
 
    web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
    web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
+   web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+   web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+   web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
 
 
    //=========================

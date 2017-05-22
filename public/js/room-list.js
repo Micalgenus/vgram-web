@@ -1,3 +1,198 @@
+var filter = (function() {
+
+  var dataList = new List('data-list', { item: 'data-item' });
+
+  var address = (function() {
+
+    var bestPictures = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: './room/json/address/init',
+      remote: {
+        url: './room/json/address/%QUERY',
+        wildcard: '%QUERY'
+      }
+    });
+
+    $('#room .typeahead').typeahead(null, {
+      name: 'best-pictures',
+      display: 'addr1',
+      source: bestPictures,
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+            'unable to find any Best Picture winners that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: Handlebars.compile('<div><strong>{{icl_translation.post.room.ID}}</strong> – {{addr1}}</div>')
+      }
+    });
+
+    var $root = $('#room #address');
+    var addrList = [];
+
+    $('#room .typeahead.tt-input').on('typeahead:selected', function(evt, data) {
+      const address = $(this).val();
+      mapReplace(address);
+    });
+
+    $('#room .typeahead.tt-input').on('change', function(evt, data) {
+      const address = $(this).val();
+      mapReplace(address);
+    });
+
+    function mapReplace(address) {
+      let url = "/post/room/json/address/info/";
+
+      $.ajax({
+        url: url + address,
+        success: function(data) {
+          if (data) {
+            let c = data.coordinate;
+            MapData.setCenter(c.lat, c.lng);
+          } else {
+            alert("Not found !!");
+          }
+        }
+      });
+    }
+  })();
+
+  var type = (function() {
+    var $root = $('select#type');
+    var typeList = [];
+
+    function push($data) {
+      $root.append('<option>' + $data + '</option>')
+           .selectpicker('refresh');
+    };
+    
+    function clear() {
+      typeList = [];
+      $root.html('').selectpicker('refresh');
+    }
+
+    function reload() {
+      // clear();
+
+      // $root.append('<option>' + 'ALL' + '</option>')
+      //     .selectpicker('refresh');
+      
+      // dataList.sort('room_type', { order: 'asc' });
+      // var list = dataList.search();
+      // list.forEach(function(d) {
+      //   var v = d._values;
+      //   if (typeList.indexOf(v.room_type) == -1) {
+      //     typeList.push(v.room_type);
+      //     $root.append('<option>' + v.room_type + '</option>')
+      //         .selectpicker('refresh');
+      //   }
+      // });
+    
+      // console.log(typeList);
+      // console.log(dataList.search(typeList, "room_type"));
+    }
+
+    return {
+      push: push,
+      clear: clear,
+      reload: reload
+    }
+  })();
+
+  var deposit = (function() {
+    var $min = $('#deposit .min');
+    var $max = $('#deposit .max');
+
+    function clear() {
+      $min.val(0);
+      $max.val(0);
+    }
+
+    function reload() {
+      clear();
+      var min = true;
+
+      dataList.sort('deposit', { order: 'asc' });
+      var list = dataList.search();
+      list.forEach(function(d) {
+        var v = d._values;
+        if (min) $min.val(v.deposit);
+        
+        $max.val(v.deposit);
+      });
+    };
+
+    return {
+      clear: clear,
+      reload: reload
+    }
+  })();
+
+  var rentFee = (function() {
+    var $min = $('#rent_fee .min');
+    var $max = $('#rent_fee .max');
+
+    function clear() {
+      $min.val(0);
+      $max.val(0);
+    }
+
+    function reload() {
+      clear();
+      var min = true;
+
+      dataList.sort('monthly_rent_fee', { order: 'asc' });
+      var list = dataList.search();
+      list.forEach(function(d) {
+        var v = d._values;
+        if (min) $min.val(v.monthly_rent_fee);
+        
+        $max.val(v.monthly_rent_fee);
+      });
+    };
+
+    return {
+      clear: clear,
+      reload: reload
+    }
+  })();
+
+  function push(data) {
+    // console.log(data);
+    data.forEach(function(d) {
+      // console.log(d);
+      dataList.add({
+        ID: d.ID,
+        address: d.post.icl_translation.addresses[0].addr1,
+        room_type: d.room_type,
+        monthly_rent_fee: d.monthly_rent_fee,
+        deposit: d.deposit
+      });
+    });
+    console.log(dataList.search());
+  }
+
+  function clear() {
+    dataList.clear();
+    // type.clear();
+    deposit.clear();
+    rentFee.clear();
+  }
+
+  function reload() {
+    // type.reload();
+    deposit.reload();
+    rentFee.reload();
+  }
+
+  return {
+    push: push,
+    clear: clear,
+    reload: reload
+  }
+})();
+
 var roomList = (function() {
   var map = (function() {
     /**
@@ -18,7 +213,7 @@ var roomList = (function() {
      */
     function roomTimer(e, w, s, n) {
       const url = "/map/room/locations/" + e + "/" + w + "/" + s + "/" + n;
-      MapData.timer(url, list.reload); ///////////////////////////////////////////////////////////////////
+      MapData.timer(url, list.reload);
     };
 
     return {
@@ -30,13 +225,15 @@ var roomList = (function() {
   var list = (function() {
 
     function roomDataReload(data) {
+      filter.clear();
       let init = getRoomList(data);
 
-      ListData.data.dataReload(init, roomCompare, makeRoom);
+      ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.reload);
+      // ListData.data.dataReload(init, roomCompare, makeRoom, null, filter.reload);
     };
 
     function getRoomList($list) {
-      let url = "/room/json/list/";
+      let url = "/post/room/json/list/";
       return ListData.data.getList(url, makeRoomList($list));
     }
 
@@ -46,18 +243,20 @@ var roomList = (function() {
         let room_id = v.icl_translation.post.room.ID;
         $list.push(room_id);
 
-        filter.push(room_id);
+        // filter.push(room_id);
       });
 
       return ListData.data.makeList($list);
     };
 
     function makeRoom(data) {
+      let imgServerAddr = "/";
       return ListData.template.makeTemplate('/template/room-data.ejs', {
-        image_path: JSON.parse(data.thumbnail_image_path),
+        image_path: imgServerAddr + JSON.parse(data.post.thumbnail_image_path)[0].path,
         deposit: data.deposit,
         monthly_rent_fee: data.monthly_rent_fee,
-        title: data.post.title
+        title: data.post.title,
+        room_type: data.room_type
       });
     };
 

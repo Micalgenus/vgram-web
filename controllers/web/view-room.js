@@ -6,6 +6,7 @@ const Room = models.room;
 const Post = models.post;
 const User = models.user;
 const Translation = models.icl_translation;
+const Address = models.address;
 const Coordinate = models.coordinate;
 
 const _ = require('lodash');
@@ -98,7 +99,12 @@ exports.roomInfoListView = function (req, res) {
       title: "roomInfoListView",     // locale과 매칭되는 변수명을 적어야함.
       msg: req.msg,
       lat: value.mapLocationCenter.lat,
-      lng: value.mapLocationCenter.lng
+      lng: value.mapLocationCenter.lng,
+      value: {
+         placeType: value.placeType,
+         room: value.room,
+         lang: req.lang
+      }
    });
 }
 
@@ -445,7 +451,7 @@ exports.roomInfoDetailView = function (req, res) {
             break;
       }
 
-      return res.render('room/room-detail', {
+      return res.status(200).render('room/room-detail', {
          ENV: req.env,
          logined: req.user ? req.user.logined : false,
          msg: req.msg,
@@ -502,7 +508,7 @@ exports.searchRoomListView = function (req, res) {
    // });
 
    // room-list에서 if 처리를 해서 search시에만 보여주는 항목을 보여주자
-   return res.render('room/room-list', {
+   return res.status(200).render('room/room-list', {
       ENV: req.env,
       logined: req.user ? req.user.logined : false,
       title: "roomInfoListView",
@@ -523,7 +529,7 @@ exports.roomInfoDetailJson = function (req, res) {
    }).then(function (room) {
       var result = room;
       result.test = 'test';
-      return res.send(result);
+      return res.status(200).send(result);
    });
 }
 
@@ -584,7 +590,22 @@ exports.roomInfoListJson = function (req, res) {
 
    return Room.findAll({
       include: [{
-         model: Post
+        model: Post,
+        attributes: ['ID', 'title', 'read_count', 'thumbnail_image_path'],
+        include: [ {
+          model: User,
+          attributes: ['email', 'telephone'],
+        }, {
+          model: Translation,
+          attributes: ['group_id'],
+          include: [ {
+            model: Coordinate,
+            attributes: ['lat', 'lng']
+          }, {
+            model: Address,
+            attributes: ['addr1', 'addr2']
+          } ]
+        } ],
       }],
       where: {
          ID: {
@@ -592,6 +613,52 @@ exports.roomInfoListJson = function (req, res) {
          }
       }
    }).then(function (room) {
-      return res.send(room);
+      return res.status(200).send(room);
    });
+}
+
+exports.roomInfoAddressJsonInit = function(req, res) {
+  return res.status(200).send([]);
+}
+
+exports.roomInfoAddressJson = function(req, res) {
+  let address = req.params.address + '%';
+
+  return Address.findAll({
+    include: [ {
+      model: Translation,
+      include: [ {
+        model: Post,
+        include: [ {
+          model: Room
+        } ],
+      } ],
+    } ],
+    where: {
+      addr1: {
+        $like: address
+      }
+    }
+  }).then(function(rooms) {
+    // console.log(rooms);
+    return res.status(200).send(rooms);
+  });
+}
+
+exports.roomInfoAddressOneJson = function(req, res) {
+  let address = req.params.address;
+
+  return Address.findOne({
+    include: [ {
+      model: Coordinate,
+    } ],
+    where: {
+      addr1: {
+        $like: address
+      }
+    }
+  }).then(function(room) {
+    console.log(room);
+    return res.status(200).send(room);
+  });
 }
