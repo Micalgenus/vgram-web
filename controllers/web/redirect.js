@@ -13,7 +13,7 @@ exports.redirectMain = function(req, res) {
 
 exports.redirectChange = function(req, res) {
   // Change페이지로 Redirect
-  return res.redirect('/change');
+  return res.redirect('/user/change');
 }
 
 exports.redirectBizList = function(req, res) {

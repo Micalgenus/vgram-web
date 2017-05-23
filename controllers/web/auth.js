@@ -9,6 +9,9 @@ const auth = require('../core/authentication');
 const models = require('../../models');
 const User = models.user;
 
+const value = require('../../utils/staticValue'),
+   message = value.statusMessage;
+
 var moment = require('moment');
 moment.locale("ko");
 
@@ -20,52 +23,79 @@ moment.locale("ko");
  * @returns {String}
  */
 
-exports.login = function(req, res, next) {
+exports.loginView = function(req, res, next) {
 
    // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
-   let token = req.cookies.Authorization;
+   if (req.user.logined) {
+      req.flash('msg', message.alreadyLogined);
 
-   if (token) {
-      req.flash('msg', '이미 로그인 하셨습니다.');
-      return res.redirect('/');
+      return next();
    }
 
-   // 사용자 입력 확인
-   if (! req.body.email) {
-      req.flash('msg', '이메일을 입력해 주십시오.');
-      return res.redirect('/login');
-   }
+   return res.render('auth/login', {
+      ENV: req.env,
+      logined: req.user.logined,
+      title: 'loginView',
+      msg: req.msg
+   });
+}
 
-   if (! req.body.password) {
-      req.flash('email', req.body.email);
-      req.flash('msg', '패스워드를 입력해 주십시오.');
-      return res.redirect('/login');
-   }
+exports.logout = function(req, res, next) {
+   res.clearCookie('Authorization');
+   req.flash('msg', 'loggedOut');
 
    return next();
 }
 
-exports.logout = function(req, res, next) {
-   let token = req.cookies.Authorization;
+//========================================
+// Login & Logout
+//========================================
+exports.signupView = function(req, res) {
 
-   if (!token) {
-      req.flash('msg', '로그인을 해주십시오.');
-      return res.redirect('/login');
+   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
+   if (req.user.logined) {
+      req.flash('msg', message.alreadyLogined);
+      return next();
    }
 
-   res.clearCookie('Authorization');
+   // 변수 확인
+   var check = req.flash('check');
+   var email = req.flash('email');
+   var name = req.flash('name');
+   var phone = req.flash('phone');
+   var normal_check, business_check;
 
-   return next();
+   check = check != "" ? check : "PUBLIC";
+   if (check == "PUBLIC") {
+      normal_check = "checked";
+   } else if (check == "BUSINESS") {
+      business_check = "checked";
+   } else {
+      req.flash('msg', 'invaildInput');
+      return res.redirect('back');
+   }
+
+   return res.render('auth/signup', {
+      ENV: req.env,
+      logined: req.user.logined,
+      title: 'registerView',
+      msg: req.msg,
+
+      email: email,
+      name: name,
+      phone: phone,
+      normal_check: normal_check,
+      business_check: business_check
+   });
 }
 
 exports.signup = function (req, res, next) {
 
-   // 로그인이 되어있으면 회원가입 하지 않고 redirect 시킴(jwt 확인)
-   let token = req.cookies.Authorization;
+   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
+   if (req.user.logined) {
+      req.flash('msg', message.alreadyLogined);
 
-   if (token) {
-      req.flash('msg', '이미 로그인 하셨습니다.');
-      return res.redirect('/');
+      return next();
    }
 
    let type = req.body.member_type;
@@ -80,42 +110,43 @@ exports.signup = function (req, res, next) {
 
    if (type != "PUBLIC" && type != "BUSINESS") {
       req.flash('msg', '잘못된 유형의 회원입니다.');
-      return res.redirect('/signup');
+      // return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (!email) {
       req.flash('msg', '이메일을 입력해 주십시오.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (!email.match(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/)) {
       req.flash('msg', '올바른 이메일 형식을 사용해 주시길 바랍니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    let password = req.body.password;
    let repassword = req.body.repassword;
    if (!password || !repassword) {
       req.flash('msg', '비밀번호를 입력해 주시길 바랍니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (password != repassword) {
       req.flash('msg', '비밀번호가 일치하지 않습니다.');
-      return res.redirect('/signup');
+      return res.redirect('back');
    }
 
    if (type == "BUSINESS") {
       let phone = req.body.phone;
       if (!phone) {
          req.flash('msg', '전화번호를 입력해 주십시오.');
-         return res.redirect('/signup');
+         return res.redirect('back');
       }
 
       let name = req.body.name;
       if (!name) {
          req.flash('msg', '이름을 입력해 주십시오.');
-         return res.redirect('/signup');
+         return res.redirect('back');
       }
    }
 
@@ -135,8 +166,8 @@ exports.register = function(req, res, next) {
       }
    }).then(function(user) {
       if (user) {
-         req.flash('msg', '이미 존재하는 회원입니다.');
-         return res.redirect('/signup');
+         req.flash('msg', 'alreadyExistMember');
+         return res.redirect('back');
       }
 
       return User.create({
@@ -154,68 +185,11 @@ exports.register = function(req, res, next) {
             level: 1
          }
       }).then(function(newUser) {
-         req.flash('msg', '회원가입 되셧습니다.');
+         req.flash('msg', 'completedRegister');
          return next();
       });
    }).catch(function(err) {
       return next(err);
-   });
-}
-
-exports.change = function(req, res, next) {
-   const email = req.user.email;
-   const password = req.body.password;
-   const repassword = req.body.repassword;
-
-   if (password != repassword) {
-      req.flash('msg', '비밀번호가 일치하지 않습니다.');
-      return res.redirect('/change');
-   }
-
-   var userData = {
-      telephone: req.body.phone,
-      display_name: req.body.name
-   };
-
-   if (password) {
-      userData.password = password;
-   }
-
-   if (req.user.member_type != "PUBLIC") {
-      var meta = JSON.parse(req.user.meta_value);
-
-      meta.business_type = req.body.business_type;
-      meta.registered_number = req.body.registered_number;
-      meta.owner_name = req.body.owner_name;
-      // meta.company_address = req.body.company_address;
-      meta.intro_comment = req.body.intro_comment;
-
-      userData.meta_value = meta;
-   }
-
-   return User.update(userData, {
-      where: {
-         email: email
-      }
-   }).then(function(array) {
-      if (array[0] == 1) {
-
-         return User.findOne({
-            where: {
-               email: email
-            }
-         }).then(function(user) {
-            req.user = user.dataValues;
-            return next();
-         }).catch(function(err) {
-            return res.send(err);
-         });
-      } else {
-         req.flash('msg', '변경에 실패하였습니다.');
-         return res.redirect('/change');
-      }
-   }).catch(function(err) {
-      return res.send(err);
    });
 }
 
@@ -234,13 +208,14 @@ exports.setToken = function(req, res, next) {
    return next();
 }
 
-exports.init = function(req, res, next) {
-   req.msg = req.flash('msg');
-   req.env = process.env.NODE_ENV || "development";
-
-   // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
-   // 쿠키 만료시간(expiredDate)과 임의로 동일한 이름으로 쿠키를 만들수도 있기 때문에
-   req.logined = (req.cookies.Authorization ? true : false);
-
-   return next();
-}
+// ** frontRouter의 init()을 사용할 것 **
+// exports.init = function(req, res, next) {
+//    req.msg = req.flash('msg') || req.flash('error') || req.flash('success');
+//    req.env = process.env.NODE_ENV || "development";
+//
+//    // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
+//    // 쿠키 만료시간(expiredDate)과 임의로 동일한 이름으로 쿠키를 만들수도 있기 때문에
+//    // req.logined = (req.cookies.Authorization ? true : false);
+//
+//    return next();
+// }

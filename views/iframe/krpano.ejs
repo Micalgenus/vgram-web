@@ -12,31 +12,238 @@
 		@media only screen and (min-device-width:800px) { html { overflow:hidden; } }
 		html { height:100%; }
 		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+
+      .right_box {
+         left: auto;
+         float: right;
+         right: 0;
+         top: 20% !important;
+         bottom: auto;
+         width: 3pc;
+         height:260px;
+      }
+
+      .left_box{
+         top:0;
+         left: 5%;
+         width: 350px;
+      }
+
+      /*.input_group{*/
+         /*display: none;*/
+      /*}*/
+
+      /*#copy_body:hover, #copy_body:active ~ .input_group{*/
+         /*display: block;*/
+         /*float:left;*/
+         /*width:100%;*/
+      /*}*/
+
 	</style>
+
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+   <% include ../static/head.ejs %>
+
 </head>
+
 <body>
 
 <!--krpano js 파일-->
 <script src="/lib/krpano-1.19-pr6-viewer/krpano-tour.js"></script>
 
+
+
 <div id="pano" style="width:100%;height:100%;">
-	<noscript>
-		<table style="width:100%;height:100%;">
-			<tr style="vertical-align:middle;text-align:center;"><td>ERROR:<br><br>Javascript not activated<br><br></td></tr>
-		</table>
-	</noscript>
-	<script>
-		//이미지가 저장된 장소를 images에 저장했음
-        //수정할 것 : id값에 따라 서버에서 값을 가져오는 방향으로 수정해야함
-		var images = '{"statusCode":1,"originalImage":["SAM_100_0008.jpg","SAM_100_0009.jpg"],"baseDir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026","vtourDir":"vtour","xmlName":"tour.xml","swfName":"tour.swf","jsName":"tour.js","tiles":[{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles/thumb.jpg"},{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles/thumb.jpg"}]}'
-        var VRImages = JSON.parse(this.images);
-		console.log(VRImages);
-		//resource에 있는 vr사진을 가져옴
-        embedpano({swf:"/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
-			xml:['/' + this.VRImages.baseDir, this.VRImages.vtourDir, this.VRImages.xmlName].join('/'),
-			target:"pano",html5:"auto", mobilescale:1.0, passQueryParameters:true});
-	</script>
+
+
+<div class="left_box" style="position: absolute; z-index: 9999;">
+
+   <select class="selectpicker">
+      <option>Mustard</option>
+      <option>Ketchup</option>
+      <option>Relish</option>
+   </select>
+
 </div>
 
+
+
+<!-- 이거 url이 post/embed로 고정되있음다. 새창 띄운다고 했는데 땀땀;;  -->
+<div class="right_box" style="position: absolute; z-index: 9999;">
+
+   <div class="copy_body_fi">
+      <a href="share_form.html" data-lightbox="ajax" target="popup" onclick="window.open('share_form.html', 'newwindow','width=450, height=250'); return false;">
+         <i class="i-rounded i-bordered icon-external-link"></i></a>
+      <div class="input_group">
+
+         <div class="center">
+            <a href="#myModal1" data-lightbox="inline" class="button button-large button-rounded">Trigger Modal</a>
+            <div class="line"></div>
+            <a href="modal-onload.html" class="button button-mini button-rounded button-dark">Simple Example</a>
+            <a href="modal-onload-iframe.html" class="button button-mini button-rounded button-dark">Video iFrame</a>
+            <a href="modal-onload-subscribe.html" class="button button-mini button-rounded button-dark">Subscription Form</a>
+            <a href="modal-onload-common-height.html" class="button button-mini button-rounded button-dark">Common Height</a>
+            <a href="modal-onload-cookie.html" class="button button-mini button-rounded button-dark">Cookie Enabled</a>
+         </div>
+
+         <div class="modal-on-load" data-target="#myModal1"></div>
+         <!--<input type="button" class="copy_form" value="http://localhost:3000/room">-->
+
+         <!--<form id="widget-subscribe-form" action="/subscribe.php" role="form" method="post" class="nobottommargin" novalidate="novalidate">-->
+            <!--<div class="input-group divcenter">-->
+               <!--<span class="input-group-addon"><i class="icon-email2"></i></span>-->
+               <!--<input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email" aria-required="true">-->
+               <!--<span class="input-group-btn">-->
+					<!--<button class="btn btn-success" type="submit">Subscribe</button>-->
+               <!--</span>-->
+            <!--</div>-->
+         <!--</form>-->
+
+      </div>
+   </div>
+
+
+   <a href="#">
+      <i class="i-rounded i-bordered icon-download"></i>
+   </a>
+
+
+   <a href="#" class="social-icon si-colored si-facebook" title="Facebook">
+      <i class="icon-facebook"></i>
+      <i class="icon-facebook"></i>
+   </a>
+
+   <a href="#">
+      <i class="i-rounded i-bordered icon-download"></i>
+   </a>
+
+   <a href="#">
+      <i class="i-rounded i-bordered icon-download"></i>
+   </a>
+
+</div>
+
+
+
+
+
+
+   <noscript>
+      <table style="width:100%;height:100%;">
+         <tr style="vertical-align:middle;text-align:center;"><td>ERROR:<b><br>Javascript not activated<br><br></td></tr>
+      </table>
+   </noscript>
+
+</div>
+
+
+<!--&lt;!&ndash;dddd&ndash;&gt;-->
+<!--<div class="modal fade" id="contactFormModal" tabindex="-1" role="dialog" aria-labelledby="contactFormModalLabel" aria-hidden="true">-->
+   <!--<div class="modal-dialog">-->
+      <!--<div class="modal-content">-->
+         <!--<div class="modal-header">-->
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+            <!--<h4 class="modal-title" id="contactFormModalLabel">Send Us an Email</h4>-->
+         <!--</div>-->
+         <!--<div class="modal-body">-->
+
+            <!--<div class="contact-widget">-->
+               <!--<div class="contact-form-result"></div>-->
+               <!--<form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">-->
+
+                  <!--<div class="form-process"></div>-->
+
+                  <!--<div class="col_half">-->
+                     <!--<label for="template-contactform-name">Name <small>*</small></label>-->
+                     <!--<input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control required" />-->
+                  <!--</div>-->
+
+                  <!--<div class="col_half col_last">-->
+                     <!--<label for="template-contactform-email">Email <small>*</small></label>-->
+                     <!--<input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />-->
+                  <!--</div>-->
+
+                  <!--<div class="clear"></div>-->
+
+                  <!--<div class="col_half">-->
+                     <!--<label for="template-contactform-phone">Phone</label>-->
+                     <!--<input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />-->
+                  <!--</div>-->
+
+                  <!--<div class="col_half col_last">-->
+                     <!--<label for="template-contactform-service">Services</label>-->
+                     <!--<select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">-->
+                        <!--<option value="">&#45;&#45; Select One &#45;&#45;</option>-->
+                        <!--<option value="Wordpress">Wordpress</option>-->
+                        <!--<option value="PHP / MySQL">PHP / MySQL</option>-->
+                        <!--<option value="HTML5 / CSS3">HTML5 / CSS3</option>-->
+                        <!--<option value="Graphic Design">Graphic Design</option>-->
+                     <!--</select>-->
+                  <!--</div>-->
+
+                  <!--<div class="clear"></div>-->
+
+                  <!--<div class="col_full">-->
+                     <!--<label for="template-contactform-subject">Subject <small>*</small></label>-->
+                     <!--<input type="text" id="template-contactform-subject" name="template-contactform-subject" value="" class="required sm-form-control" />-->
+                  <!--</div>-->
+
+                  <!--<div class="col_full">-->
+                     <!--<label for="template-contactform-message">Message <small>*</small></label>-->
+                     <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
+                  <!--</div>-->
+
+                  <!--<div class="col_full hidden">-->
+                     <!--<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />-->
+                  <!--</div>-->
+
+                  <!--<div class="col_full">-->
+                     <!--<button class="button button-3d nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Send Message</button>-->
+                  <!--</div>-->
+
+               <!--</form>-->
+
+            <!--</div>-->
+
+
+         <!--</div>-->
+         <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+         <!--</div>-->
+      <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+   <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+
+
+<div class="modal1 mfp-hide" id="myModal1">
+   <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">      <div class="center" style="padding: 50px;">
+         <h3>A Simple Example of a Text Modal</h3>
+         <p class="nobottommargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum delectus, tenetur obcaecati porro! Expedita nostrum tempora quia provident perspiciatis inventore, autem eaque, quod explicabo, ipsum, facilis aliquid! Sapiente, possimus quo!</p>
+      </div>
+      <div class="section center nomargin" style="padding: 30px;">
+         <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close this Modal</a>
+      </div>
+   </div>
+</div>
+
+
+
+<script>
+   //이미지가 저장된 장소를 images에 저장했음
+   //수정할 것 : id값에 따라 서버에서 값을 가져오는 방향으로 수정해야함
+   var images = '{"statusCode":1,"originalImage":["SAM_100_0008.jpg","SAM_100_0009.jpg"],"baseDir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026","vtourDir":"vtour","xmlName":"tour.xml","swfName":"tour.swf","jsName":"tour.js","tiles":[{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles/thumb.jpg"},{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles/thumb.jpg"}]}'
+   var VRImages = JSON.parse(this.images);
+   console.log(VRImages);
+   //resource에 있는 vr사진을 가져옴
+   embedpano({swf:"/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
+      xml:['/' + this.VRImages.baseDir, this.VRImages.vtourDir, this.VRImages.xmlName].join('/'),
+      target:"pano",html5:"auto", mobilescale:1.0, passQueryParameters:true});
+</script>
+
+<!-- LOAD JAVASCRIPT -->
+<% include ../static/js.ejs %>
 </body>
 </html>

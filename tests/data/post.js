@@ -19,8 +19,12 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
       read_count: 0,
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       like: 0,
       locale: 'ko-kr',
       meta_value: {
@@ -39,8 +43,12 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
       read_count: 0,
+      thumbnail_image_path: [{
+         ID: 11,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       like: 0,
       locale: 'ko-kr',
       meta_value: {
@@ -59,7 +67,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -79,8 +91,12 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
       read_count: 0,
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       like: 0,
       locale: 'ko-kr',
       meta_value: {
@@ -99,7 +115,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 11,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -119,7 +139,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -139,7 +163,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -159,7 +187,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 11,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -179,7 +211,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 11,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -199,7 +235,11 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'room',
+      post_type: 'ROOM',
+      thumbnail_image_path: [{
+         ID: 10,
+         path: "medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"
+      }],
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -218,7 +258,7 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'notice',     // 공지사항
+      post_type: 'NOTICE',     // 공지사항
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -237,7 +277,7 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'notice',     // 공지사항
+      post_type: 'NOTICE',     // 공지사항
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -256,7 +296,7 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'event',     // 공지사항
+      post_type: 'EVENT',     // 공지사항
       read_count: 0,
       like: 0,
       locale: 'ko-kr',
@@ -275,7 +315,7 @@ module.exports = [
       post_status: 'publish',
       post_modified_date: '2017-01-25 00:00:00',
       post_modified_date_gmt: '2017-01-25 03:00:00',
-      post_type: 'event',     // 공지사항
+      post_type: 'EVENT',     // 공지사항
       read_count: 0,
       like: 0,
       locale: 'ko-kr',

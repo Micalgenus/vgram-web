@@ -6,6 +6,7 @@ const Room = models.room;
 const Post = models.post;
 const User = models.user;
 const Translation = models.icl_translation;
+const Address = models.address;
 const Coordinate = models.coordinate;
 
 const _ = require('lodash');
@@ -26,81 +27,85 @@ var log = require('console-log-level')({
 
 const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
-const i18nConverter = require('../../utils/i18n-converter');
 
-exports.roomInfoListData = function(req, res) {
-  let page = (req.query.page ? req.query.page : 1);
+exports.roomInfoListData = function (req, res) {
+   let page = (req.query.page ? req.query.page : 1);
 
-  return Room.count()
-  .then(function(roomCount) {
+   return Room.count()
+      .then(function (roomCount) {
 
-    let count = (req.query.pageSize ? req.query.pageSize : 20);
-    let lastPage = parseInt(roomCount / count) + 1;
-    var index = (count * (page - 1));
+         let count = (req.query.pageSize ? req.query.pageSize : 20);
+         let lastPage = parseInt(roomCount / count) + 1;
+         var index = (count * (page - 1));
 
-    // 잘못된 요청일 경우 넘어감
-    if (page > lastPage) {
-      let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
-      return res.redirect('/room?page=' + lastPage.toString() + size);
-    }
-    if (page < 1) {
-      let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
-      return res.redirect('/room' + size);
-    }
+         // 잘못된 요청일 경우 넘어감
+         if (page > lastPage) {
+            let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
+            return res.redirect('/post/room?pageSize=' + lastPage.toString() + size);
+         }
+         if (page < 1) {
+            let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
+            return res.redirect('/post/room?pageSize' + size);
+         }
 
-    return Room.findAll({
-      include: [ {
-        model: Post,
-        attributes: ['ID']
-      } ],
-      limit: count,
-      offset: index,
-      order: '`room`.`ID` DESC'
-    }).then(function(rooms) {
-      var roomInfo = [];
-      rooms.forEach(function(room) {
-        var tmpRoom = {};
+         return Room.findAll({
+            include: [{
+               model: Post,
+               attributes: ['ID']
+            }],
+            limit: count,
+            offset: index,
+            order: '`room`.`ID` DESC'
+         }).then(function (rooms) {
+            var roomInfo = [];
+            rooms.forEach(function (room) {
+               var tmpRoom = {};
 
-        // 임시
-        let image = room.thumbnail_image_path;
-        if (!image.match(/^https?:\/\//)) {
-          image = "http://localhost:3000/" + image;
-        }
+               // 임시
+               let image = room.thumbnail_image_path;
+               if (!image.match(/^https?:\/\//)) {
+                  image = "http://localhost:3000/" + image;
+               }
 
-        //    let address = JSON.parse(room.address);
+               //    let address = JSON.parse(room.address);
 
-        tmpRoom['id'] = room.ID;
-        tmpRoom['image'] = image;
-        //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
-        tmpRoom['title'] = room.post.title;
+               tmpRoom['id'] = room.ID;
+               tmpRoom['image'] = image;
+               //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
+               tmpRoom['title'] = room.post.title;
 
-        roomInfo.push(tmpRoom);
+               roomInfo.push(tmpRoom);
+            });
+
+            return res.render('room/room-list', {
+               ENV: req.env,
+               logined: req.user ? req.user.logined : false,
+               title: "roomInfoListView",
+               msg: req.msg,
+               nowPage: page,
+               lastPage: lastPage,
+               rooms: roomInfo,
+               lat: value.mapLocationCenter.lat,
+               lng: value.mapLocationCenter.lng
+            });
+         });
       });
-
-      return res.render('room/room-list', {
-        ENV: req.env,
-        logined: req.logined,
-        title: '방 정보 목록',
-        msg: req.msg,
-        nowPage: page,
-        lastPage: lastPage,
-        rooms: roomInfo,
-        lat: value.mapLocationCenter.lat,
-        lng: value.mapLocationCenter.lng
-      });
-    });
-  });
 }
 
-exports.roomInfoListView = function(req, res) {
-  return res.render('room/room-list', {
-    ENV: req.env,
-    logined: req.logined,
-    title: '방 정보 목록',
-    msg: req.msg,
-    lat: value.mapLocationCenter.lat,
-    lng: value.mapLocationCenter.lng
-  });
+exports.roomInfoListView = function (req, res) {
+   return res.render('room/room-list', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "roomInfoListView",     // locale과 매칭되는 변수명을 적어야함.
+      msg: req.msg,
+      lat: value.mapLocationCenter.lat,
+      lng: value.mapLocationCenter.lng,
+      value: {
+         placeType: value.placeType,
+         room: value.room,
+         lang: req.lang
+      }
+   });
 }
 
 /**
@@ -112,31 +117,27 @@ exports.roomInfoListView = function(req, res) {
 exports.createRoomInfoView = function (req, res, next) {
 
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
-      return res.redirect('/room');
+      req.flash('msg', "requiredLogin");
+      // return res.redirect('/post/room');
+      return res.redirect('back');
    }
-
-   // 방타입, 전월세여부, 층수에 대한 name-value 추출
-   var pairs = i18nConverter.getLangPair(
-      {
-         placeType: value.placeType,
-         roomContractCondition: value.roomContractCondition,
-         floors: value.floors,
-         postStatus: value.postStatus,
-         postType: value.postType
-      }, req);
 
    // 기본적으로 user의 기본언어 선택사항을 따라가고,
    // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-   pairs.lang = req.user.locale || req.getLocale();
-
    return res.render('room/room-new', {
       ENV: req.env,
-      logined: req.logined,
-      title: req.i18n("title")["createRoomInfoView"] + req.i18n("app")["name"],
+      logined: req.user ? req.user.logined : false,
+      title: "createRoomInfoView",
       msg: req.msg,
       update: false,
-      value: pairs
+      value: {
+         placeType: value.placeType,
+         room: value.room,
+         floors: value.floors,
+         postStatus: value.postStatus,
+         postType: value.postType,
+         lang: req.lang
+      }
    });
 }
 
@@ -150,16 +151,12 @@ exports.createRoomInfoView = function (req, res, next) {
  * @param next
  */
 exports.createRoomInfo = function (req, res, next) {
-   if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
-      return res.redirect('/room');
-   }
 
-   if (req.user.memberType != value.memberType.BUSINESS) {
-      return res.status(401).json({
-         errorMsg: 'You are not authorized to create roominfo case.',
-         statusCode: 2
-      });
+   console.log(req);
+   if (!req.user.logined) {
+      req.flash('msg', "requiredLogin");
+      // return res.redirect('/post/room');
+      return res.redirect('back');
    }
 
    if (!req.body.title) {
@@ -183,98 +180,179 @@ exports.createRoomInfo = function (req, res, next) {
       });
    }
 
-   if (!req.files[value.fieldName.NORMAL_IMAGE] || !req.files[value.fieldName.VR_IMAGE]) {
-      return res.status(401).json({
-         errorMsg: 'You must enter an required field! please check file["previewImage"]',
-         statusCode: -1
+   const metaData = {
+
+      shortTerm: req.body.shortTermContract == ""? false: true,
+      conditionType:   req.body.conditionType,
+      floor: req.body.floors,
+      manageExpense: req.body.contactformManageExpense == ""? null: _.toNumber(req.body.contactformManageExpense),
+      // 라디오 버튼 클릭이 안됨
+      //    options:
+      //    0:  "internet"
+      //    1:  "TV"
+      //    2:  "washer"
+      //    3:  "airConditioner"
+      //    4:  "bed"
+      //    5:  "desk"
+      //    6:  "closet"
+      //다중 클릭이 가능해져서 어떤것을 넣어야될지를 모름
+      //    parking:boolean
+      //    elevator:boolean
+       heatingType: req.body.heatingType == "" ? null : req.body.heatingType
+
+   };
+
+   // DB에 insert하는 부분
+   return models.sequelize.transaction(function (t) {
+
+      // post 테이블 내용 추가
+      return Post.create({
+         user_id: req.user.ID,
+         title: req.body.title,
+         content: req.body.detail,
+         post_status: "PUBLISH",
+         post_type: "ROOM",
+         locale: "ko_KR",
+         post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         post_modified_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+         like: 0,
+         read_count: 0,
+         // 체크박스가 제대로 되지 않아서 일부부만 넣음.
+         meta_value: metaData
+      }, {transaction: t}).then(function (createPost) {
+
+         //room 테이블 내용 추가
+         return Room.create({
+            post_id: createPost.ID,
+            room_type: req.body.roomType,
+            deposit: req.body.deposit,
+            monthly_rent_fee: req.body.monthly,
+            area_size: req.body.actualSize,
+            //meta_value:,
+            // thumbnail_image_path:,
+            // thumbnail_media_id :
+         }, {transaction: t}).then(function (createRoom) {
+
+            // icl_translation 테이블 내용 추가
+            return Translation.create({
+               element_id: createPost.ID,
+               element_type: 'post',
+               group_id: createPost.ID,
+               language_code: 'ko-kr',
+               original_language_code: 'ko-kr'
+            }, {transaction: t}).then(function (createTranslation) {
+
+               //Coordinate 테이블 내용 추가
+               return Coordinate.create({
+                  translation_group_id: createTranslation.ID,
+                  // 넘어오는곳이 없음. 그래서 임시로 temp 문자열을 넣음
+                   region_code: 'temp',
+                   lat: 'temp',
+                   lng: 'temp'
+               }, {transaction: t}).then(function (createCoordinate) {
+                  //Address 테이블 내용 추가
+                  return Address.create({
+                     translation_id: createPost.ID,
+                     coordinate_id: createCoordinate.ID,
+                     post_code: req.body.postcode,
+                     //region_code: ,
+                     // 도로명 주소인지 지번주소인지 구별할 구분자가 없음.
+                     // 그래서 그냥 req로 넘어오는 주소 다 때려박음
+                     // add1, add2 나중에 수정하기
+                     addr1: req.body.address,
+                     addr2: req.body.address,
+                     detail:req.body.detail,
+                     extra_info :req.body.extraInfo,
+                     locale :createTranslation.language_code,
+                     translation_group_id :createCoordinate.translation_group_id
+                  }, {transaction: t});
+               }).then(function (result) {
+                  // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
+                  return res.status(200).json({
+                     postID: result.post_id,
+                     roomID: result.ID
+                  });
+               }).catch(function (err) {
+                  return console.log(err);
+               });
+            });
+         });
       });
-   }
-
-   return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
-      .then(function() {
-         req.flash('msg', res.i18n('post create completed'));
-         return res.redirect(202, '/room');
-      }).catch(next);      // all errors asynchronous and synchronous get propagated to the error middleware.
-}
-
-
-// preview image 수정 후 잘 뜨는지 확인해야함.
-exports.changeRoomInfoView = function(req, res, next) {
-   if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
-      return res.redirect('/room');
-   }
-
-   // 방타입, 전월세여부, 층수에 대한 name-value 추출
-   var pairs = i18nConverter.getLangPair(
-      {
-         placeType: value.placeType,
-         roomContractCondition: value.roomContractCondition,
-         floors: value.floors,
-         postStatus: value.postStatus,
-         postType: value.postType
-      }, req);
-
-   // 기본적으로 user의 기본언어 선택사항을 따라가고,
-   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-   pairs.lang = req.user.locale || req.getLocale();
-
-   return res.render('room/room-new', {
-      ENV: req.env,
-      logined: req.logined,
-      title: req.i18n("title")["updateRoomInfoView"] + req.i18n("app")["name"],
-      msg: req.msg,
-      update: true,
-      value: pairs
    });
 }
 
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
-exports.updateRoomInfo = function(req, res, next) {
-   // if (!req.params.roomInfoIdx) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required param! please check :roomInfoIdx',
-   //     statusCode: -1
-   //   });
-   // }
-   // const roomInfoIdx = _.toNumber(req.params.roomInfoIdx);
-   //
+exports.changeRoomInfoView = function (req, res, next) {
+   if (!req.user.logined) {
+      req.flash('msg', "requiredLogin");
+      return res.redirect('back');
+   }
+
+   return res.render('room/room-update', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "updateRoomInfoView",
+      msg: req.msg,
+      update: true,
+      value: {
+         placeType: value.placeType,
+         roomContractCondition: value.roomContractCondition,
+         floors: value.floors,
+         postStatus: value.postStatus,
+         postType: value.postType,
+         roomInfoIdx : req.params.roomInfoIdx
+      }
+   });
+}
+
+
+// preview image 수정 후 잘 뜨는지 확인해야함.
+exports.updateRoomInfo = function (req, res, next) {
+//   console.log(req);
+   if (!req.body.roomInfoIdx) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required param! please check :roomInfoIdx',
+       statusCode: -1
+     });
+   }
+   const roomInfoIdx = _.toNumber(req.body.roomInfoIdx);
+   console.log("roomInfoIDX = " + roomInfoIdx);
    // if (req.user.memberType != value.memberType.LEASE_MEMBER) {
    //   return res.status(401).json({
    //     errorMsg: 'You are not authorized to create roominfo case.',
    //     statusCode: 2
    //   });
    // }
-   //
-   // if (!req.body.title) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check title',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.roomType) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check roomType',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.body.address) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check address',
-   //     statusCode: -1
-   //   });
-   // }
-   //
-   // if (!req.files[value.fieldName.prevImg]) {
-   //   return res.status(401).json({
-   //     errorMsg: 'You must enter an required field! please check file["previewImage"]',
-   //     statusCode: -1
-   //   });
-   // }
-   //
+
+   if (!req.body.title) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check title',
+       statusCode: -1
+     });
+   }
+
+   if (!req.body.roomType) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check roomType',
+       statusCode: -1
+     });
+   }
+
+   if (!req.body.address) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check address',
+       statusCode: -1
+     });
+   }
+
+   if (!req.files[value.fieldName.prevImg]) {
+     return res.status(401).json({
+       errorMsg: 'You must enter an required field! please check file["previewImage"]',
+       statusCode: -1
+     });
+   }
+
    // let updateRoomInfo = Promise.method(function (initWriteDate, previewImagePath) {
    //   // 나중에 VR Tour 변경될 때 promise 형식으로 한번에 바꾸자
    //   const room = {
@@ -335,12 +413,12 @@ exports.updateRoomInfo = function(req, res, next) {
    //   log.error(err);
    //   next(err);
    // });
-   req.flash('msg', '글 수정이 완료되었습니다.');
-   return res.redirect(202, '/room');
+   req.flash('msg', "editPostComplete");
+   return res.redirect('/post/room');
    // return res.redirect('/room/[:roomInfoIdx]');    <- redirect를 이렇게 걸자
 }
 
-exports.deleteRoomInfo = function(req, res) {
+exports.deleteRoomInfo = function (req, res) {
    // const roomInfoIdx = req.params.roomInfoIdx;
    //
    // return RoomInfoBoard.findOne({
@@ -378,35 +456,35 @@ exports.deleteRoomInfo = function(req, res) {
    //     });
    //   }
    // });
-   req.flash('msg', '글 삭제가 완료되었습니다.');
-   return res.redirect(202, '/room');
+   req.flash('msg', "deletePostComplete");
+   return res.redirect('/post/room');
 }
 
-exports.roomInfoDetailView = function(req, res) {
+exports.roomInfoDetailView = function (req, res) {
 
    let idx = req.params.roomInfoIdx;
 
    return Room.findOne({
-     include: [ {
-       model: Post,
-       attributes: ['ID', 'title', 'read_count'],
-       include: [ {
-         model: User,    // as 옵션을 어떻게 쓰는거지??
-         attributes: ['email', 'telephone'],
-       }, {
-         model: Translation,
-         attributes: ['group_id'],
-         include: [ {
-           model: Coordinate,
-           attributes: ['lat', 'lng']
-         } ]
-       } ],
-     } ],
-     where: {
-       ID: idx
-     },
-     attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
-   }).then(function(room) {
+      include: [{
+         model: Post,
+         attributes: ['ID', 'title', 'read_count'],
+         include: [{
+            model: User,    // as 옵션을 어떻게 쓰는거지??
+            attributes: ['email', 'telephone'],
+         }, {
+            model: Translation,
+            attributes: ['group_id'],
+            include: [{
+               model: Coordinate,
+               attributes: ['lat', 'lng']
+            }]
+         }],
+      }],
+      where: {
+         ID: idx
+      },
+      attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
+   }).then(function (room) {
 
       var type = room.room_type;
       // var position = JSON.parse(room.coordinate);
@@ -417,25 +495,49 @@ exports.roomInfoDetailView = function(req, res) {
       let lat = position.lat;
       let lng = position.lng;
       switch (type) {
-         case "APARTMENT":       type = "아파트"; break;
-         case "VILLA":           type = "빌라"; break;
-         case "DETACHED_HOUSE":  type = "주택"; break;
-         case "ONE_ROOM":        type = "원룸"; break;
-         case "TWO_ROOM":        type = "투룸"; break;
-         case "THREE_ROOM":      type = "쓰리룸"; break;
-         case "OFFICETEL":       type = "오피스텔"; break;
-         case "OFFICE":          type = "사무실"; break;
-         case "SHOPPING":        type = "상가, 매장"; break;
-         case "CAFE_RESTAURANT": type = "카페, 식당"; break;
-         case "ACADEMY":         type = "학원, 교육관련"; break;
-         case "HOSPITAL":        type = "병원"; break;
+         case "APARTMENT":
+            type = "아파트";
+            break;
+         case "VILLA":
+            type = "빌라";
+            break;
+         case "DETACHED_HOUSE":
+            type = "주택";
+            break;
+         case "ONE_ROOM":
+            type = "원룸";
+            break;
+         case "TWO_ROOM":
+            type = "투룸";
+            break;
+         case "THREE_ROOM":
+            type = "쓰리룸";
+            break;
+         case "OFFICETEL":
+            type = "오피스텔";
+            break;
+         case "OFFICE":
+            type = "사무실";
+            break;
+         case "SHOPPING":
+            type = "상가, 매장";
+            break;
+         case "CAFE_RESTAURANT":
+            type = "카페, 식당";
+            break;
+         case "ACADEMY":
+            type = "학원, 교육관련";
+            break;
+         case "HOSPITAL":
+            type = "병원";
+            break;
       }
 
-      return res.render('room/room-detail', {
+      return res.status(200).render('room/room-detail', {
          ENV: req.env,
-         logined: req.logined,
+         logined: req.user ? req.user.logined : false,
          msg: req.msg,
-         title: '방 정보 상세보기',
+         title: "roomInfoDetailView",
 
          // 기본 정보
          postTitle: room.post.title,
@@ -458,7 +560,7 @@ exports.roomInfoDetailView = function(req, res) {
    });
 }
 
-exports.searchRoomListView = function(req, res) {
+exports.searchRoomListView = function (req, res) {
    // let pageSize, pageStartIndex, query = req.query.query;
    //
    // // 페이지 정보 확인
@@ -488,29 +590,29 @@ exports.searchRoomListView = function(req, res) {
    // });
 
    // room-list에서 if 처리를 해서 search시에만 보여주는 항목을 보여주자
-   return res.render('room/room-list', {
+   return res.status(200).render('room/room-list', {
       ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
+      logined: req.user ? req.user.logined : false,
+      title: "roomInfoListView",
+      msg: req.msg,
       email: "123@123.com",
       search: true
    });
 }
 
-exports.roomInfoDetailJson = function(req, res) {
-  let idx = req.params.roomInfoIdx;
+exports.roomInfoDetailJson = function (req, res) {
+   let idx = req.params.roomInfoIdx;
 
-  return Room.findOne({
-    where: {
-      ID: idx
-    },
-    // attributes: [],
-  }).then(function(room) {
-    var result = room;
-    result.test = 'test';
-    return res.send(result);
-  });
+   return Room.findOne({
+      where: {
+         ID: idx
+      },
+      // attributes: [],
+   }).then(function (room) {
+      var result = room;
+      result.test = 'test';
+      return res.status(200).send(result);
+   });
 }
 
 // exports.roomInfoListJson = function(req, res) {
@@ -563,21 +665,82 @@ exports.roomInfoDetailJson = function(req, res) {
 //   };
 // }
 
-exports.roomInfoListJson = function(req, res) {
-  let list = JSON.parse(req.params.roomIdxList);
+exports.roomInfoListJson = function (req, res) {
+   let list = JSON.parse(req.params.roomIdxList);
 
-  if (list.length == 0) return res.send([]);
+   if (list.length == 0) return res.send([]);
 
-  return Room.findAll({
+   return Room.findAll({
+      include: [{
+        model: Post,
+        attributes: ['ID', 'title', 'read_count', 'thumbnail_image_path'],
+        include: [ {
+          model: User,
+          attributes: ['email', 'telephone'],
+        }, {
+          model: Translation,
+          attributes: ['group_id'],
+          include: [ {
+            model: Coordinate,
+            attributes: ['lat', 'lng']
+          }, {
+            model: Address,
+            attributes: ['addr1', 'addr2']
+          } ]
+        } ],
+      }],
+      where: {
+         ID: {
+            $in: list
+         }
+      }
+   }).then(function (room) {
+      return res.status(200).send(room);
+   });
+}
+
+exports.roomInfoAddressJsonInit = function(req, res) {
+  return res.status(200).send([]);
+}
+
+exports.roomInfoAddressJson = function(req, res) {
+  let address = req.params.address + '%';
+
+  return Address.findAll({
     include: [ {
-      model: Post
+      model: Translation,
+      include: [ {
+        model: Post,
+        include: [ {
+          model: Room
+        } ],
+      } ],
     } ],
     where: {
-      ID: {
-        $in: list
+      addr1: {
+        $like: address
+      }
+    }
+  }).then(function(rooms) {
+    // console.log(rooms);
+    return res.status(200).send(rooms);
+  });
+}
+
+exports.roomInfoAddressOneJson = function(req, res) {
+  let address = req.params.address;
+
+  return Address.findOne({
+    include: [ {
+      model: Coordinate,
+    } ],
+    where: {
+      addr1: {
+        $like: address
       }
     }
   }).then(function(room) {
-    return res.send(room);
+    console.log(room);
+    return res.status(200).send(room);
   });
 }

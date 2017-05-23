@@ -6,8 +6,7 @@ info:
   description: RoomInfo operations, definitions, parameters and responses
 
 paths:
-  /room:
-    # binds a127 app logic to a route
+  /post/room:
     x-swagger-router-controller: web/view-room
     get:
       tags:
@@ -18,123 +17,243 @@ paths:
       operationId: roomInfoListView     # operationId는 전체 swagger 내에서 유일해야한다
       produces:
       - "text/html"
-      parameters:
-      - name: "pageSize"
-        in: "query"
-        description: "리스트에 한번에 보여줄 페이지 사이즈"
-        required: true
-        type: "string"
       responses:
         "200":
           description: "successful operation"
           schema:
-            type: string
-            example: "Hello World Passenger!"
+            type: object
+            required:
+              - logined
+              - title
+              - msg
+              - lat
+              - lng
+            properties:
+              ENV:
+                type: object
+              logined:
+                type: boolean
+              title:
+                type: string
+              msg:
+                type: string
+              lat:
+                type: number
+                format: double
+              lng:
+                type: number
+                format: double
+          examples:
+            ENV:
+              NODE_ENV: "development"
+            logined: false
+            title: "roomInfoListView"
+            msg: "createPostComplete"
+            lat: 35.8598743
+            lng: 127.1117673
         default:
           description: "error operation"
           schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
     post:
       tags:
       - "room"
-      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
-      description: Returns 'Quoter' to the caller
-      # used as the method name of the controller
-      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            type: string
-            example: "Hello World Passenger!"
-        default:
-          description: "error operation"
-          schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
-
-
-  /room/new:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: web/view-room
-    get:
-      tags:
-      - "room"
-      summary: 접속한 브라우저에 방 정보 입력을 위한 페이지를 보여준다
-      description: show createRoomInfoView
-      # used as the method name of the controller
-      operationId: roomInfoListView     # operationId는 전체 swagger 내에서 유일해야한다
+      description: create roomInfo
+      operationId: createRoomInfo     # operationId는 전체 swagger 내에서 유일해야한다
       produces:
-      - "text/html"
+      - "application/json"
       parameters:
-      - name: "pageSize"
-        in: "query"
-        description: "리스트에 한번에 보여줄 페이지 사이즈"
+      - name: "Authorization"
+        in: header
         required: true
-        type: "string"
+        type: string
+        description: "jwt token, cookie에 저장되어 있거나, header에 직접 삽입하여 전송해야함."
+      - name: "body"
+        in: "body"
+        required: true
+        schema:  # parameter는 response같이 examples을 생성하지 못함
+          $ref: '#/definitions/RoomCreateParameter'
       responses:
         "200":
           description: "successful operation"
           schema:
-            type: string
-            example: "Hello World Passenger!"
+            $ref: "../definitions/room.yaml#/definitions/Room"
+          examples:
+            $ref: "../definitions/room.yaml#/definitions/RoomExample"
         default:
           description: "error operation"
           schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
-    post:
-      tags:
-      - "room"
-      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
-      description: Returns 'Quoter' to the caller
-      # used as the method name of the controller
-      operationId: getQuoter     # operationId는 전체 swagger 내에서 유일해야한다
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            type: string
-            example: "Hello World Passenger!"
-        default:
-          description: "error operation"
-          schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            $ref: "../definitions/room.yaml#/definitions/RoomExample"
+#
+#
+#  /post/room/{roomInfoIdx}:
+#    # binds a127 app logic to a route
+#    x-swagger-router-controller: web/view-room
+#    get:
+#      tags:
+#      - "room"
+#      summary: 특정 room의 방 정보를 보여준다
+#      description: show roomInfoDetailView
+#      # used as the method name of the controller
+#      operationId: roomInfoDetailView     # operationId는 전체 swagger 내에서 유일해야한다
+#      produces:
+#      - "text/html"
+#      parameters:
+#      - name: "roomInfoIdx"
+#        in: "path"
+#        description: "리스트에 한번에 보여줄 페이지 사이즈"
+#        required: true
+#        type: "integer"
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "Hello World Passenger!"
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#    put:
+#      tags:
+#      - "room"
+#      summary: 특정 room의 방 정보를 보여준다
+#      description: show roomInfoDetailView
+#      # used as the method name of the controller
+#      operationId: roomInfoDetailView     # operationId는 전체 swagger 내에서 유일해야한다
+#      produces:
+#      - "text/html"
+#      parameters:
+#      - name: "roomInfoIdx"
+#        in: "path"
+#        description: "리스트에 한번에 보여줄 페이지 사이즈"
+#        required: true
+#        type: "string"
+#      - name: "page"
+#        in: "query"
+#        description: "현재 읽고 있는 페이지 번호"
+#        required: true
+#        type: "string"
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "Hello World Passenger!"
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#
+#
+#  /post/room/new:
+#    # binds a127 app logic to a route
+#    x-swagger-router-controller: web/view-room
+#    get:
+#      tags:
+#      - "room"
+#      summary: 접속한 브라우저에 방 정보 입력을 위한 페이지를 보여준다
+#      description: show createRoomInfoView
+#      # used as the method name of the controller
+#      operationId: roomInfoListView     # operationId는 전체 swagger 내에서 유일해야한다
+#      produces:
+#      - "text/html"
+#      parameters:
+#      - name: "pageSize"
+#        in: "query"
+#        description: "리스트에 한번에 보여줄 페이지 사이즈"
+#        required: true
+#        type: "string"
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "Hello World Passenger!"
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#
+#
+#  /post/room/{roomInfoIdx}:
+#    # binds a127 app logic to a route
+#    x-swagger-router-controller: web/view-room
+#    get:
+#      tags:
+#      - "room"
+#      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+#      description: Returns The server Protected OR Error to the caller
+#      # used as the method name of the controller
+#      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "The protected test route is functional!"        # responses may fall through to errors
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#    put:
+#      tags:
+#      - "room"
+#      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+#      description: Returns The server Protected OR Error to the caller
+#      # used as the method name of the controller
+#      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "The protected test route is functional!"        # responses may fall through to errors
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#
+#
+#  /post/room/change/{roomInfoIdx}:
+#    # binds a127 app logic to a route
+#    x-swagger-router-controller: web/view-room
+#    get:
+#      tags:
+#      - "room"
+#      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
+#      description: Returns The server Protected OR Error to the caller
+#      # used as the method name of the controller
+#      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
+#      responses:
+#        "200":
+#          description: "successful operation"
+#          schema:
+#            type: string
+#            example: "The protected test route is functional!"        # responses may fall through to errors
+#        default:
+#          description: "error operation"
+#          schema:
+#            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+#
+definitions:
+  RoomCreateParameter:
+    description: "글 정보 + 방 정보 전송을 위한 Parameter"
+    type: object
+    required:
+      - post
+      - room
+      - address
+      - coordinate
+    properties:
+      post:
+        $ref: "../definitions/post.yaml#/definitions/Post"
+      room:
+        $ref: "../definitions/room.yaml#/definitions/Room"
+      address:
+        $ref: "../definitions/address.yaml#/definitions/Address"
+      coordinate:
+        $ref: "../definitions/coordinate.yaml#/definitions/Coordinate"
 
-
-
-  /room/{roomInfoIdx}:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: web/view-room
-    get:
-      tags:
-      - "room"
-      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
-      description: Returns The server Protected OR Error to the caller
-      # used as the method name of the controller
-      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            type: string
-            example: "The protected test route is functional!"        # responses may fall through to errors
-        default:
-          description: "error operation"
-          schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
-    put:
-      tags:
-      - "room"
-      summary: passport의 emptyExtractor() 때문에 현재는 인증(로그인)을 하지 않아도 성공한다.
-      description: Returns The server Protected OR Error to the caller
-      # used as the method name of the controller
-      operationId: protectedRoute     # operationId는 전체 swagger 내에서 유일해야한다
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            type: string
-            example: "The protected test route is functional!"        # responses may fall through to errors
-        default:
-          description: "error operation"
-          schema:
-            $ref: "../shared/commons.yaml#/definitions/ErrorResponse"

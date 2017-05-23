@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  <title>Marker Clustering</title>
+  <title><%= __("title")["roomInfoListView"] + __("app")["name"]%></title>
   <style>
     /* Always set the map height explicitly to define the size of the div
       * element that contains the map. */
@@ -26,7 +26,7 @@
 
 <% include ../addon/room-list-header.ejs %>
 
-<div class="tabs advanced-real-estate-tabs clearfix">
+<div class="tabs advanced-real-estate-tabs clearfix" id="room">
 
   <div class="container clearfix">
       <ul class="tab-nav clearfix">
@@ -40,77 +40,42 @@
             <form action="#" method="post" class="nobottommargin">
               <div class="row">
 
-                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
-                    <label for="">Search</label>
-                    <select class="selectpicker" multiple data-live-search="true" id="address">
-                        <!--<select class="selectpicker form-control" multiple data-live-search="true" data-size="6" style="width:100%; line-height: 30px;">-->
-
-                        <!--<optgroup multiple data-live-search="true" class="bs-searchbox">-->
-                        <optgroup label="대한민국">
-
-                          <option value="duck1">전라북도 전주시 덕진구 덕진동1가</option>
-                          <option value="jung1">전라북도 전주시 완산구 중화산동1가</option>
-                          <option value="woo1">전라북도 전주시 덕진구 우아동1가</option>
-                        </optgroup>
-                    </select>
+                  <div id="data-list" style="display:none;">
+                    <ul class="list"></ul>
+                    <li id="data-item">
+                      <h3 class="name"></h3>
+                      <p class="city"></p>
+                    </li>
                   </div>
 
-                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">-->
-                  <!--<label for="">Search</label>-->
-                  <!--<div id="top-search">-->
-                  <!--<a href="#" id="top-search-trigger">-->
-                  <!--<i class="icon-search3"></i>-->
-                  <!--<i class="icon-line-cross"></i>-->
-                  <!--</a>-->
-                  <!--<form action="search.html" method="get">-->
-                  <!--<input type="text" name="q" class="form-control" value placeholder="search">-->
-                  <!--</form>-->
-                  <!--<optgroup label="대한민국">-->
-
-                  <!--<option value="duck1">전라북도 전주시 덕진구 덕진동1가</option>-->
-                  <!--<option value="jung1">전라북도 전주시 완산구 중화산동1가</option>-->
-                  <!--<option value="woo1">전라북도 전주시 덕진구 우아동1가</option>-->
-                  <!--</optgroup>-->
-
-                  <!--</div>-->
-                  <!--</div>-->
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                    <label for="">Search</label>
+                    <!--<select class="selectpicker" data-live-search="true" id="address">-->
+                    <!--</select>-->
+                    <input class="typeahead" type="text" placeholder="주소">
+                  </div>
 
                   <div class="col-md-1 col-sm-6 col-xs-12 bottommargin-sm">
                     <label for="">방종류</label>
-                    <select class="selectpicker form-control" data-size="6" style="width:100%; line-height: 30px;">
-                        <!--<option value="Any">Any</option>-->
-                        <optgroup label="시">
-                          <option value="oneroom">원룸</option>
-                          <option value="tworoom">투룸</option>
-                          <!--<option value="Villa">Villa</option>-->
-                          <!--<option value="Building">Building</option>-->
-                        </optgroup>
-                        <!--<optgroup label="Commercial">-->
-                        <!--<option value="Shop">Shop</option>-->
-                        <!--<option value="Office">Office</option>-->
-                        <!--<option value="Warehouse">Warehouse</option>-->
-                        <!--</optgroup>-->
+                    <select class="selectpicker form-control" data-size="6" style="width:100%; line-height: 30px;" id="type">
+                        <% for (i in value.placeType) { %>
+                        <option value="<%= i %>"><%= __("placeType")[i] %></option>
+                        <% } %>
                     </select>
                   </div>
 
-                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm" id="deposit">
                     <label for="">보증금</label>
-                    <select class="selectpicker" multiple data-size="6" style="width:100%; line-height: 30px;">
-                        <!--<option value="Any">Any</option>-->
-                        <optgroup label="보증금">
-                          <option value="">~1000만원</option>
-                          <option value="">~2000만원</option>
-                          <option value="">~3000만원</option>
-
-                          <!--<option value="Villa">Villa</option>-->
-                          <!--<option value="Building">Building</option>-->
-                        </optgroup>
-                        <!--<optgroup label="Commercial">-->
-                        <!--<option value="Shop">Shop</option>-->
-                        <!--<option value="Office">Office</option>-->
-                        <!--<option value="Warehouse">Warehouse</option>-->
-                        <!--</optgroup>-->
-                    </select>
+                    <input type="number" placeholder="최소" class="min">
+                    ~
+                    <input type="number" placeholder="최대" class="max">
+                  </div>
+                  
+                  <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm" id="rent_fee">
+                    <label for="">월세</label>
+                    <input type="number" placeholder="최소" class="min">
+                    ~
+                    <input type="number" placeholder="최대" class="max">
                   </div>
 
                   <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">
@@ -247,9 +212,9 @@
 
     function initMap() {
       var lat, lng;
-      var is_safari = navigator.vendor && 
+      var is_safari = navigator.vendor &&
                       navigator.vendor.indexOf('Apple') > -1 &&
-                      navigator.userAgent && 
+                      navigator.userAgent &&
                       !navigator.userAgent.match('CriOS');
 
       if (!is_safari && navigator.geolocation) {

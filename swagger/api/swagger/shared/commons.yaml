@@ -14,6 +14,7 @@ definitions:
     properties:
       message:
         type: string
+        example: "hello 롯데월드!"
 
   PlainMessage:
     description: "Plain Object Message"
@@ -27,33 +28,21 @@ definitions:
 
 
   ErrorResponse:
-    title: MultiError
-    description: Gives full information about the problem
     required:
       - code
       - message
     properties:
       code:
-        description: A human readable code (death to numeric error codes!)
-        type: string
+        type: number
         enum:
-          - DBERR
-          - NTERR
-          - UNERR
-        example: UNERR
+          - badRequest_400
+          - unauthorized_401
+          - forbidden_403
+          - notFound_404
+          - internalServerError_500
       message:
-        $ref: '#/definitions/ErrorMessage'
-
-  ErrorMessage:
-    title: MultiErrorMessage
-    description: An error message with a long and a short description
-    required:
-      - longMessage
-      - shortMessage
-    properties:
-      longMessage:
-        description: A long error description
+        description: A error description
         type: string
-      shortMessage:
-        description: A short error description
-        type: string
+    example:
+      code: badRequest_400
+      message: "error message"

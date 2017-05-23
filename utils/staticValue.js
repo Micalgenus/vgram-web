@@ -7,25 +7,30 @@ var Enum = require('enum');
 /**
  * 전송 완료시의 상태코드
  */
-const statusCode = new Enum({
-  'requestActionCompleted_20x': 1
-});
+const httpStatusCode = {
+   'ok_200': 200,
+   'created_201': 201,
+   'found_302': 302,
+   'badRequest_400': 400,
+   'unauthorized_401': 401,
+   'forbidden_403': 403,
+   'notFound_404': 404,
+   'internalServerError_500': 500
+};
 
 // 해당 메시지를 기반으로 i18n을 거쳐서 가기 때문에 통신간의 모든 statusMessage는
 // 본 변수에서 지정된 후에 이용해야 한다.
 const statusMessage = {
+   alreadyLogined: "alreadyLogined",
    success: {
-      auth: {
-      }
 
    },
    error: {
-      auth: {
-         cannotFind: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
-         quitORnotActivate: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
-         notVerified: "couldNotBeVerified",     // 로그인 실패
-         requiredLogin: "requiredLogin"      // 로그인이 필요함(로그인되지 않은 client 알림)
-      }
+      cannotFindUser: "cannotFindUser",    // 사용자 계정을 찾을 수 없음
+      quitORnotActivateUser: "quitORNotActivatedUser",    // 휴면/탈퇴 계정
+      couldNotVerified: "couldNotVerified",     // 로그인 실패
+      requiredLogin: "requiredLogin",      // 로그인이 필요함(로그인되지 않은 client 알림)
+      tokenExpired: "tokenExpired"     // 토큰 만료
    }
 };
 
@@ -40,7 +45,6 @@ const businessType = {
    ESTATE_AGENT: "ESTATE_AGENT",    // 공인중개사
    LANDLORD: "LANDLORD"    // 건물주
 }
-
 
 const placeType = {
    ONE_ROOM: "ONE_ROOM",
@@ -58,11 +62,36 @@ const placeType = {
    HOSPITAL: "HOSPITAL"
 }
 
-const roomContractCondition = {
-   MONTHLY: "MONTHLY",
-   ANNUALLY: "ANNUALLY",
-   LEASE: "LEASE"
+const room = {
+   shortTerm: "shortTerm",
+   contractCondition: {
+      MONTHLY: "MONTHLY",
+      ANNUALLY: "ANNUALLY",
+      LEASE: "LEASE",
+      SELL: "SELL"
+   },
+   options: {
+      "internet": "internet",
+      "TV": "TV",
+      "washer": "washer",
+      "airConditioner": "airConditioner",
+      "bed": "bed",
+      "desk": "desk",
+      "closet": "closet",
+      "refrigerator": "refrigerator",
+      "gasRange": "gasRange",
+      "microwave": "microwave",
+      "shoeCloset": "shoeCloset"
+   },
+   parking: "parking",
+   elevator: "elevator",
+   manageExpense: "manageExpense",
+   heatingType: {
+      "nightElectronic": "nightElectronic",
+      "cityGas": "cityGas"
+   }
 }
+
 
 const floors = {
    "Bx": "Bx",    // 지하
@@ -200,13 +229,13 @@ const langCode = {
 
 // locales.*.js와 동일한 구조로 만들어야 i18n 적용이 쉽다.
 module.exports = {
-  statusCode,
+   httpStatusCode,
   memberType,
   fieldName,
    mediaType,
   placeType,
   businessType,
-   roomContractCondition,
+   room,
    floors,
    postStatus,
    postType,

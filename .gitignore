@@ -4,6 +4,9 @@ logs
 *.bak
 *.tmp
 
+# Office Temp Files
+~$*
+
 # Runtime data
 pids
 *.pid
