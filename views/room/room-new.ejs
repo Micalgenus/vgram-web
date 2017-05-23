@@ -125,7 +125,7 @@
                         <small>*</small>
                         계약조건</label>
                      <div>
-                        <select class="selectpicker" name="selectPicker" placeholder="전세,월세,연세">
+                        <select class="conditionType" name="conditionType" placeholder="전세,월세,연세">
                            <% for (i in value.room.contractCondition) { %>
                            <option value="<%= i %>"><%= __("room")["contractCondition"][i] %></option>
                            <% } %>
@@ -150,7 +150,7 @@
                         <small>*</small>
                         계약조건</label>
                      <div>
-                        <input id="checkbox-12" class="checkbox-style" name="short-term-contract" type="checkbox">
+                        <input id="checkbox-12" class="checkbox-style" name="shortTermContract" type="checkbox">
                         <label for="checkbox-12" class="checkbox-style-3-label">단기 계약 가능</label>
                      </div>
                   </div>
@@ -191,13 +191,13 @@
                   <div class="content-wrap-room-new">
                      <h5>관리비</h5>
                      <div class="col-md-2">
-                        <input id="checkbox-121" class="checkbox-style" name="checkbox-2" type="checkbox">
+                        <input id="checkbox-121" class="checkbox-style" name="isManageExpense" type="checkbox">
                         <label for="checkbox-121" class="checkbox-style-3-label">있음</label>
                      </div>
                      <div class="col_half">
                         <div class="input-group">
-                           <input type="number" id="template-contactform-manageExpense"
-                                  name="template-contactform-manageExpense" value="" placeholder="만원"
+                           <input type="number" id="contactformManageExpense"
+                                  name="contactformManageExpense" value="" placeholder="만원"
                                   class="sm-form-control"/>
                            <span class="input-group-addon">만원</span>
                         </div>
@@ -218,8 +218,8 @@
                      </div>
                      <div class="col_half">
                         <div class="input-group">
-                           <input type="number" #manageExpense id="template-contactform-manageExpense"
-                                  name="template-contactform-manageExpense" value="" placeholder="만원"
+                           <input type="number" #manageExpense id="templateContactformParking"
+                                  name="template-contactform-parking" value="" placeholder="만원"
                                   class="sm-form-control"/>
                            <span class="input-group-addon">만원</span>
                         </div>
@@ -243,15 +243,15 @@
                   <div class="content-wrap-room-new">
                      <h5>엘리베이터 여부 난방종류</h5>
                      <div class="col-md-2">
-                        <input id="checkbox-1201" class="checkbox-style" name="checkbox-10" type="checkbox">
+                        <input id="checkbox-1201" class="checkbox-style" name="elevator" type="checkbox">
                         <label for="checkbox-1201" class="checkbox-style-3-label">있음</label>
                      </div>
                      <div class="col-md-2">
-                        <input id="checkbox-1202" class="checkbox-style" name="checkbox-11" type="checkbox">
+                        <input id="checkbox-1202" class="checkbox-style" name="elevator" type="checkbox">
                         <label for="checkbox-1202" class="checkbox-style-3-label">없음</label>
                      </div>
                      <div class="col-md-4">
-                        <select class="select-hide form-control col_half" 난방종류선택>
+                        <select name = "heatingType" class="select-hide form-control col_half" 난방종류선택>
                            <% for (i in value.room.heatingType) { %>
                            <option value="<%= i %>"><%= __("room")["heatingType"][i] %></option>
                            <% } %>
@@ -307,7 +307,7 @@
                      <h5><%= __("word")["option"] %></h5>
                      <% for (i in value.room.options) { %>
                      <div class="col_one_fifth">
-                        <input id="checkbox-1205" class="checkbox-style" name="<%= i %>" type="checkbox">
+                        <input id="checkbox-1205"+ class="checkbox-style" name="<%= i %>" type="checkbox" >
                         <label for="checkbox-1205" class="checkbox-style-3-label"><%= __("room")["options"][i] %></label>
                      </div>
                      <% } %>
@@ -477,25 +477,36 @@
     lang: <%= value.lang %> || browserLang || "en"
     });*/
 
+   //submit 버튼 눌렀을 시 발생하는 이벤트
    $('#roomInfo-Inputform').submit(function(e) {
 
-      var queryString = $('#roomInfo-Inputform').serialize() ;
+       //form의 모든 자료를 넘김
+      var queryString = $('#roomInfo-Inputform').serialize();
 
       $.ajax({
+         //web서버에 넘겨서 table에 추가
          type : 'post',
          // 서버 URL 찾기
          url : './',
          data: queryString,
 
          success : function(data, textStatus, jqXHR){
-            //alert(data.postID);
-            alert($("#roomInfoInput-mainPreviewImage")[0].files[0]);
-            var form = $('#roomInfo-Inputform')[0];
+
+            // table에 자료가 추가가 끝난 후 이미지 서버에 전송
+            // 끝난 후에는 새로운 라우터에로 웹서버에게 이미지 path와 postid를 던져주면 업데이트를 함.
+            // 이미지 서버에 JWT토큰 날라가는 지 확인해봐야되는데 못해보았음.
+            const count_normal = $("#roomInfoInput-mainPreviewImage")[0].files.length;
+            const count_vr = $("#roomInfoInput-mainPreviewImage")[0].files.length;
             var formData = new FormData();
-            formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[0]);
-            formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[1]);
-            formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[0]);
-            formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[1]);
+
+            for(var i = 0; i< count_normal; ++i){
+               formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[i]);
+            }
+
+            for(var i = 0; i< count_vr; ++i){
+               formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[1]);
+            }
+
             formData.append('postID', data.postID);
             //etc_files
             // 이미지
@@ -509,10 +520,10 @@
                contentType: false,  // file전송시 필수
 
                success : function(data, textStatus, jqXHR){
-                  alert("img Send");
+                  alert("img Send 성공");
                },
                error: function(jqXHR, textStatus, error){
-                  alert("img Send " + error);
+                  alert("img Send error" + error);
                }
             });
 
