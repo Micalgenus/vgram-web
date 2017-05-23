@@ -1,0 +1,138 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: attached definition
+
+definitions:
+  Post:
+    description: "글 정보 전송을 위한 object"
+    type: "object"
+    required:
+      - postStatus
+      - postType
+      - locale
+      - post_init_date_gmt
+      - post_modified_date_gmt
+    properties:
+      title:
+        type: string
+        description: "글 제목(mysql datatype: TEXT)"
+      content:
+        type: string
+        description: "글 내용(mysql datatype: LONGTEXT"
+      postStatus:
+        type: string
+        enum:
+          - "PUBLISH"  # 공개
+          - "PRIVATE"  # 비공개
+        description: "게시글 상태(mysql datatype: CHAR(20)"
+        default: "PUBLISH"
+      postType:
+        type: string
+        description: "게시글 종류"
+        enum:
+          - "ROOM"  # 방정보
+          - "NOTICE"  # 공지사항
+      locale:
+        $ref: "./commons.yaml#/definitions/Locale"
+      post_init_date_gmt:
+        type: string
+        format: 'date-time'
+        description: "최초생성시간, UTC Time For Internationalization, format('YYYY-MM-DD HH:mm:ss')"
+      post_modified_date_gmt:
+        type: string
+        format: 'date-time'
+        description: "최종수정시간, UTC Time For Internationalization, format('YYYY-MM-DD HH:mm:ss')"
+      thumbnailImagePath:
+        type: string
+        format: 'date-time'
+        description: "최종수정시간, UTC Time For Internationalization, format('YYYY-MM-DD HH:mm:ss')"
+      like:
+        type: 'integer'
+        description: "게시글 좋아요"
+      readCount:
+        type: integer
+        description: "조회수"
+      metaValue:
+        $ref: '#/definitions/MetaValue'
+    example:
+      $ref: '#/definitions/PostExample'
+
+
+  PostExample:
+    title: "test article"
+    content: "안녕하세요 모빌리티랩입니다."
+    postStatus: "PUBLISH"
+    postType: "ROOM"
+    locale: "ko-kr"
+    post_init_date_gmt: "2017-05-20 20:15:54"
+    post_modified_date_gmt: "2017-05-23 17:15:32"
+    thumbnailImagePath:
+      $ref: '#/definitions/ThumbnailImagePathExample'
+    like: 3
+    readCount: 125
+    metaValue:
+      $ref: '#/definitions/MetaValueExample'
+
+
+  ThumbnailImagePath:
+    description: "미리보기 이미지"
+    type: "array"
+    items:
+      $ref: '#/definitions/ThumbnailImage'
+    example:
+      $ref: '#/definitions/ThumbnailImagePathExample'
+
+  ThumbnailImagePathExample:
+    - ID: 10
+      path: "resource/image/sinho0689/11232314/123.jpg"
+    - ID: 11
+      path: "resource/image/sinho0689/11232314/123.jpg"
+
+
+  MetaValue:
+    description: "Post의 부가정보, 자세한 사항은 db 설계 파일(.mwb의 comment 참고)"
+    type: "object"
+    properties:
+      authorDevice:
+        type: "string"
+        enum:
+          - "web"
+          - "mobile"
+        description: "글이 작성된 위치가 모바일버전인지, 웹버전인지 파악하는 정보"
+      imageSliderOrder:
+        type: "array"
+        items:
+          type: integer
+        description: "일반 이미지의 슬라이더 위치, [media.ID, ...]."
+        example:
+          - 1
+          - 2
+          - 3
+    example:
+      $ref: '#/definitions/MetaValueExample'
+
+
+  MetaValueExample:
+    authorDevice: "web"
+    imageSliderOrder:
+      - 1
+      - 2
+      - 3
+
+  ThumbnailImage:
+    type: "object"
+    properties:
+      ID:
+        type: integer
+        description: "참조하고 있는 media.ID"
+      path:
+        type: "string"
+        description: "미리보기 이미지 서버 path"
+    example:
+      ID: 10
+      path: "resource/image/sinho0689/11232314/123.jpg"
+
+
+

@@ -1,0 +1,138 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: room definition
+
+definitions:
+  Room:
+    description: "방 정보 전송을 위한 object"
+    type: "object"
+    required:
+      - roomType
+    properties:
+      ID:
+        type: integer
+        description: "primary key of Room"
+      post_id:
+        type: integer
+        description: "post.id의 fk"
+      roomType:
+        $ref: './commons.yaml#/definitions/PlaceType'
+      deposit:
+        type: integer
+        description: "보증금/전세금/매매금(만원), 금액 공개를 원하지 않는 사람도 있어서 required는 아님"
+      monthlyRentFee:
+        type: integer
+        description: "월세(만원), 금액 공개를 원하지 않는 사람도 있어서 required는 아님"
+      areaSize:
+        type: integer
+        description: "방 넓이(평)"
+      metaValue:
+        $ref: '#/definitions/MetaValue'
+    example:
+      $ref: '#/definitions/RoomExample'
+
+  RoomExample:
+    ID: 1
+    post_id: 1
+    roomType: "ONE_ROOM"
+    deposit: 200
+    monthlyRentFee: 30
+    areaSize: 8
+    metaValue:
+      $ref: '#/definitions/MetaValueExample'
+
+
+  MetaValue:
+    description: "Room의 부가정보, 자세한 사항은 db 설계 파일(.mwb의 comment 참고)"
+    type: "object"
+    properties:
+      shortTerm:
+        type: boolean
+        description: "단기 계약 여부"
+      conditionType:
+        $ref: '#/definitions/ConditionType'
+      floor:
+        $ref: './commons.yaml#/definitions/Floors'
+      manageExpense:
+        type: integer
+        description: "관리비(만원), 0일 경우 관리비 없음"
+      options:
+        $ref: '#/definitions/Options'
+      parking:
+        type: boolean
+        description: "주차가능여부"
+      elevator:
+        type: boolean
+        description: "엘리베이터여부"
+      heatingType:
+        $ref: '#/definitions/HeatingType'
+    example:
+      $ref: '#/definitions/MetaValueExample'
+
+
+  MetaValueExample:
+    shortTerm: false
+    conditionType:
+      - MONTHLY
+      - ANNUALLY
+    floor: "2F"
+    manageExpense: 2
+    options:
+      - "internet"  # 인터넷
+      - "TV"  # TV
+      - "washer"  # 세탁기
+      - "airConditioner"  # 에어컨
+      - "bed"  # 침대
+      - "desk"  # 책상
+      - "closet"  # 옷장
+    parking: true
+    elevator: true
+    heatingType: "nightElectronic"
+
+
+  ConditionType:
+    description: "임대/매매 계약 조건"
+    type: "array"
+    items:
+      type: string
+    enum:
+      - "MONTHLY"
+      - "ANNUALLY"
+      - "LEASE"
+      - "SELL"
+    example: "MONTHLY"
+
+
+  Options:
+    description: "Room의 옵션(침대, 에어컨등)정보"
+    type: "array"
+    items:
+      type: string
+    enum:
+      - "internet"  # 인터넷
+      - "TV"  # TV
+      - "washer"  # 세탁기
+      - "airConditioner"  # 에어컨
+      - "bed"  # 침대
+      - "desk"  # 책상
+      - "closet"  # 옷장
+      - "refrigerator"  # 냉장고
+      - "gasRange"  # 가스레인지
+      - "microwave"  # 전자레인지
+      - "shoeCloset"  # 옷장
+    example:
+      - "internet"  # 인터넷
+      - "TV"  # TV
+      - "washer"  # 세탁기
+      - "airConditioner"  # 에어컨
+
+
+  HeatingType:
+    description: "난방종류 - 도시가스(난방은 심야전기 OR 도시가스 둘중 하나임"
+    type: "string"
+    enum:
+      - "nightElectronic"  # 심야전기
+      - "cityGas"  # 도시가스
+    example: "nightElectronic"
