@@ -28,10 +28,8 @@ paths:
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
           examples:
-            code: DBERR
-            message:
-              longMessage: "long message"
-              shortMessage: "short message"
+            code: badRequest_400
+            msg: "sendMessageSuccess"
 
 
   /api/test/hello:
@@ -62,10 +60,8 @@ paths:
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
           examples:
-            code: DBERR
-            message:
-              longMessage: "long message"
-              shortMessage: "short message"
+            code: badRequest_400
+            msg: "sendMessageSuccess"
 
 
   /api/test/protected:
@@ -91,7 +87,5 @@ paths:
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
           examples:
-            code: DBERR
-            message:
-              longMessage: "long message"
-              shortMessage: "short message"
+            code: badRequest_400
+            msg: "sendMessageSuccess"

@@ -162,7 +162,11 @@ const fieldName = {
 const mediaType = {
    NORMAL_IMAGE: "NORMAL_IMAGE",
    VR_IMAGE: "VR_IMAGE",
-   VTOUR_IMAGE: "VTOUR_IMAGE"
+   VTOUR: "VTOUR",
+   NORMAL_VIDEO: "NORMAL_VIDEO",
+   VR_VIDEO: "VR_VIDEO",
+   AUDIO: "AUDIO",
+   PROFILE_IMAGEL: "PROFILE_IMAGE"
 }
 
 const postStatus = {
