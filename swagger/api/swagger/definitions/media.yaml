@@ -45,11 +45,11 @@ definitions:
       file_name:
         type: string
         description: |
-          파일 이름(ex> SAM_100_0008.jpg, tour.xml, tour.html)
-          원본 이름을 저장한다.
-          - 로딩 할 경우에는 image-server 서버로 request한다.
-          - type이 'VTOUR'일 경우 : xml 파일 이름으로 지정한다.
-          - type이 'CUSTOM'일 경우 : html 파일 이름으로 지정한다.
+          파일 이름(ex> SAM_100_0008.jpg, tour.xml, tour.html) <br />
+          원본 이름을 저장한다. <br />
+          - 로딩 할 경우에는 image-server 서버로 request한다. <br />
+          - type이 'VTOUR'일 경우 : xml 파일 이름으로 지정한다. <br />
+          - type이 'VTOUR_CUSTOM'일 경우 : html 파일 이름으로 지정한다. <br />
       meta_value:
         $ref: '#/definitions/MetaValue'
     example:
@@ -91,112 +91,95 @@ definitions:
 
   MetaValue:
     description: |
-      composite, media 관련 부가 정보가 필요한 경우(JSON{})
+      composite, media 관련 부가 정보가 필요한 경우(JSON{}) <br /> <br />
 
-      ex> NORMAL_IMAGE, PROFILE_IMAGE 저장시
-      meta_value: {
-          mimetype: 'image/jpeg',
-          size: 14588725,
-          encoding: "7bit"
-      }
+      ex> NORMAL_IMAGE, PROFILE_IMAGE 저장시 <br />
+      meta_value: { <br />
+        mimetype: 'image/jpeg', <br />
+        size: 14588725, <br />
+        encoding: "7bit" <br />
+      } <br /><br />
 
-      ex> VR_IMAGE 저장시
-      meta_value: {
-          mimetype: 'image/jpeg',
-          size: 14588725,
-          encoding: "7bit",
-          tile_dir_name: "SAM_100_0008.tiles",
-          thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-          preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-          mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
-      }
+      ex> VR_IMAGE 저장시 <br />
+      meta_value: { <br />
+        mimetype: 'image/jpeg', <br />
+        size: 14588725, <br />
+        encoding: "7bit", <br />
+        tile_dir_name: "SAM_100_0008.tiles", <br />
+        thumbnail_image_name: "thumb.jpg",// 단일면 이미지 <br />
+        preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지) <br />
+        mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름 <br />
+      } <br /><br />
 
-      ex> VTOUR 저장시
-      meta_value: {
-        html_name: "tour.html",  // 로딩시 html 파일 이름
-        js_name: "tour.js",  // 로딩시 js 파일 이름
-        swf_name: "tour.swf",  // 로딩시 swf 파일 이름
-        editor_name: "tour_editor.html",  // 로딩시 editor 파일 이름
-        tile_dir_name: ["SAM_100_0008.tiles", "SAM_100_0009.tiles", ...],  // 원본 VR 이미지의 tile 경로
-        original_media_id: [1, 3, 4, ...] // 원본 VR 이미지의 media.ID
-      }
+      ex> VTOUR 저장시 <br />
+      meta_value: { <br />
+        html_name: "tour.html",  // 로딩시 html 파일 이름 <br />
+        js_name: "tour.js",  // 로딩시 js 파일 이름 <br />
+        swf_name: "tour.swf",  // 로딩시 swf 파일 이름 <br />
+        editor_name: "tour_editor.html",  // 로딩시 editor 파일 이름 <br />
+        tile_dir_name: ["SAM_100_0008.tiles", "SAM_100_0009.tiles", ...],  // 원본 VR 이미지의 tile 경로 <br />
+        original_media_id: [1, 3, 4, ...] // 원본 VR 이미지의 media.ID <br />
+      } <br /><br />
 
-      ex> multer 이용시
-      meta_value: {
-          mimetype: value.mimetype,
-          size: value.size,
-          encoding: value.encoding
-      }
+      ex> multer 이용시 <br />
+      meta_value: { <br />
+        mimetype: value.mimetype, <br />
+        size: value.size, <br />
+        encoding: value.encoding <br />
+      } <br /><br />
 
-      ex> VTOUR_CUSTOM 저장시
-      meta_value: {
-        dir_name: "indexdata"
-      }
+      ex> VTOUR_CUSTOM 저장시 <br />
+      meta_value: { <br />
+        * dir_name: "indexdata" <br />
+      } <br />
     type: "object"
     properties:
-      # 기본
-      mimetype:
+      mimetype:      # 기본
         type: string
         description: mimetype, multer를 이용하는 경우 value.mimetype
-      size:
+      size:      # 기본
         type: integer
         description: file size, multer를 이용하는 경우 value.size
-      encoding:
+      encoding:      # 기본
         type: string
         description: file encoding, multer를 이용하는 경우 value.encoding
-
-      # VR_IMAGE 저장시
-      file_dir_name:
-        type: string
-        description: media.meta_value.tile_dir_name, "VR_IMAGE"용
-      thumbnail_image_name:
+      tile_dir_name:      # VR_IMAGE, VTOUR 저장시
+        type: array
+        items:
+          type: string
+        description: "원본 VR 이미지의 tile 경로(media.meta_value.tile_dir_name), VR_IMAGE의 경우 string / VTOUR의 경우 string[] 형태임"
+        example:
+          - "SAM_100_0008.tiles"
+          - "SAM_100_0009.tiles"
+          - "SAM_100_0010.tiles"
+      thumbnail_image_name:      # VR_IMAGE 저장시
         type: string
         description: 단일면 기준 미리보기 이미지, 현재는 pano_f(front)를 기준으로 생성됨, "VR_IMAGE"용
         default: "thumb.jpg"
-      preview_image_name:
+      preview_image_name:      # VR_IMAGE 저장시
         type: string
         description: 세로형 기준 미리보기 이미지, 각 6개 면-> 직사각형 형태의 하나의 이미지로 제작함, "VR_IMAGE"용
         default: "preview.jpg"
-      mobile_dir_name:
+      mobile_dir_name:      # VR_IMAGE 저장시
         type: "string"
         description: 모바일용 이미지 저장 폴더 이름, "VR_IMAGE"용
-
-      # VTOUR 저장시
-      html_name:
+      html_name:      # VTOUR 저장시
         type: string
         description: 로딩시 html 파일 이름
         default: tour.html
-      js_name:
+      js_name:      # VTOUR 저장시
         type: string
         description: 로딩시 js 파일 이름
         default: "tour.js"
-      swf_name:
+      swf_name:      # VTOUR 저장시
         type: string
         description: 로딩시 swf 파일 이름
         default: "tour.swf"
-      editor_name:
+      editor_name:      # VTOUR 저장시
         type: string
         description: 로딩시 editor 파일 이름
         default: "tour_editor.html"
-      tile_dir_name:
-        type: array
-        items:
-          type: string
-        description: 원본 VR 이미지의 tile 경로
-        example:
-          - "SAM_100_0008.tiles"
-          - "SAM_100_0009.tiles"
-          - "SAM_100_0010.tiles"
-      tile_dir_name:
-        type: array
-        items:
-          type: string
-        description: 원본 VR 이미지의 tile 경로
-        example:
-          - "SAM_100_0008.tiles"
-          - "SAM_100_0009.tiles"
-          - "SAM_100_0010.tiles"
-      original_media_id:
+      original_media_id:      # VTOUR 저장시
         type: array
         items:
           type: integer
@@ -205,9 +188,7 @@ definitions:
           - 1
           - 3
           - 4
-
-      # VTOUR_CUSTOM 저장시
-      dir_name:
+      dir_name:      # VTOUR_CUSTOM 저장시
         type: string
         description: 압축 해제시 최초 폴더 이름(panotour로 제작한 Custom VTour 적용 가능)
 

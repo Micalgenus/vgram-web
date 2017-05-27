@@ -63,8 +63,8 @@ definitions:
       medias:
         type: "array"
         items:
-          type: object
-        description: "변환된 media object 배열([])"
+          $ref: "../definitions/media.yaml#/definitions/Media"
+        description: "변환된 media object 배열([]), 자세한 사항은 definitions/media.yaml 참고"
     example:
       postID: 3
       medias:
