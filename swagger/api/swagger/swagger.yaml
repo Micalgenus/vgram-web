@@ -30,9 +30,14 @@ paths:
   /api/test/protected:
     $ref: "http://localhost:8081/api/test.yaml#/paths/~1api~1test~1protected"
 
-#  /api/post/media-attached:
-#    $ref: "http://localhost:8081/api/post.yaml#/paths/~1api~1post~1media-attached"
 
+
+
+  # post routes
+  /api/post/media-attached:
+    $ref: "http://localhost:8081/api/post.yaml#/paths/~1api~1post~1media-attached"
+
+###################################################################################
 
   ### web routes
   /test:
@@ -48,6 +53,7 @@ paths:
   # room routes
   /post/room:
     $ref: "http://localhost:8081/web/room.yaml#/paths/~1post~1room"
+
 
 #  /post/room/{roomInfoIdx}:
 #    $ref: "http://localhost:8081/web/room.yaml#/paths/~1post~1room~1{roomInfoIdx}"

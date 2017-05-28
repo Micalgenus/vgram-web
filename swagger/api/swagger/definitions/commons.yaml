@@ -74,7 +74,7 @@ definitions:
   ErrorResponse:
     required:
       - code
-      - message
+      - msg
     properties:
       code:
         type: integer
@@ -84,9 +84,9 @@ definitions:
           - forbidden_403
           - notFound_404
           - internalServerError_500
-      message:
+      msg:
         description: A error description
         type: string
     example:
       code: badRequest_400
-      message: "error message"
+      msg: "error message"
