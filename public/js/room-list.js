@@ -73,30 +73,25 @@ var filter = (function() {
     }
 
     function reload() {
-      // clear();
+    }
 
-      // $root.append('<option>' + 'ALL' + '</option>')
-      //     .selectpicker('refresh');
+    $root.change(function() {
+      mapReload();
+    });
+
+    function filter(data) {
+      if ($root.val() == null) return true;
+
+      if ($root.val().indexOf(data.room_type) == -1) return false;
       
-      // dataList.sort('room_type', { order: 'asc' });
-      // var list = dataList.search();
-      // list.forEach(function(d) {
-      //   var v = d._values;
-      //   if (typeList.indexOf(v.room_type) == -1) {
-      //     typeList.push(v.room_type);
-      //     $root.append('<option>' + v.room_type + '</option>')
-      //         .selectpicker('refresh');
-      //   }
-      // });
-    
-      // console.log(typeList);
-      // console.log(dataList.search(typeList, "room_type"));
+      return true;
     }
 
     return {
       push: push,
       clear: clear,
-      reload: reload
+      reload: reload,
+      filter: filter
     }
   })();
 
@@ -123,9 +118,27 @@ var filter = (function() {
       });
     };
 
+    $min.change(function() {
+      mapReload();
+    });
+
+    $max.change(function() {
+      mapReload();
+    });
+    
+    function filter(data) {
+      if ($min.val() == 0 && $max.val() == 0) return true;
+
+      if (data.deposit < $min.val()) return false;
+      if (data.deposit > $max.val()) return false;
+      
+      return true;
+    }
+
     return {
       clear: clear,
-      reload: reload
+      reload: reload,
+      filter: filter
     }
   })();
 
@@ -151,10 +164,28 @@ var filter = (function() {
         $max.val(v.monthly_rent_fee);
       });
     };
+    
+    $min.change(function() {
+      mapReload();
+    });
+
+    $max.change(function() {
+      mapReload();
+    });
+
+    function filter(data) {
+      if ($min.val() == 0 && $max.val() == 0) return true;
+
+      if (data.monthly_rent_fee < $min.val()) return false;
+      if (data.monthly_rent_fee > $max.val()) return false;
+      
+      return true;
+    }
 
     return {
       clear: clear,
-      reload: reload
+      reload: reload,
+      filter: filter
     }
   })();
 
@@ -176,8 +207,8 @@ var filter = (function() {
   function clear() {
     dataList.clear();
     // type.clear();
-    deposit.clear();
-    rentFee.clear();
+    // deposit.clear();
+    // rentFee.clear();
   }
 
   function reload() {
@@ -186,10 +217,27 @@ var filter = (function() {
     rentFee.reload();
   }
 
+  function filter(list) {
+    var result = [];
+    list.forEach(function(e) {
+      if (!type.filter(e)) return;
+      if (!rentFee.filter(e)) return;
+      if (!deposit.filter(e)) return;
+
+      result.push(e);
+    }, this);
+    return result;;
+  }
+
+  function mapReload() {
+    ListData.data.filterReload();
+  }
+
   return {
     push: push,
     clear: clear,
-    reload: reload
+    reload: reload,
+    filter: filter
   }
 })();
 
@@ -216,8 +264,20 @@ var roomList = (function() {
       MapData.timer(url, list.reload);
     };
 
+    function makeLocations(data) {
+      console.log('makeLocations');
+      locations = [];
+      data.forEach(function(v) {
+        var c = v.post.icl_translation.coordinates[0];
+        var l = {lat: c.lat, lng: c.lng};
+        locations.push(l);
+      });
+      return locations;
+    }
+
     return {
-      drawRoom: drawRoom
+      drawRoom: drawRoom,
+      makeLocations: makeLocations
     }
 
   })();
@@ -228,7 +288,8 @@ var roomList = (function() {
       filter.clear();
       let init = getRoomList(data);
 
-      ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.reload);
+      ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.filter, map.makeLocations, null);
+      // ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.reload);
       // ListData.data.dataReload(init, roomCompare, makeRoom, null, filter.reload);
     };
 

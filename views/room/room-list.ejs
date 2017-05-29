@@ -57,7 +57,7 @@
 
                   <div class="col-md-1 col-sm-6 col-xs-12 bottommargin-sm">
                     <label for="">방종류</label>
-                    <select class="selectpicker form-control" data-size="6" style="width:100%; line-height: 30px;" id="type">
+                    <select class="selectpicker form-control" title="모든 방보기" multiple data-size="6" style="width:100%; line-height: 30px;" id="type">
                         <% for (i in value.placeType) { %>
                         <option value="<%= i %>"><%= __("placeType")[i] %></option>
                         <% } %>
@@ -228,6 +228,8 @@
         lng = <%= lng %>;
         roomList.drawRoom(lat, lng);
       }
+
+      filter.reload();
     }
 
   </script>
