@@ -43,13 +43,14 @@
 
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
    <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
 
    <!--카톡-->
    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 
    <!-- 페북 공유 -->
    <meta property="og:url"           content="http://localhost:3000" />
@@ -70,14 +71,56 @@
    </script>
 
    <!-- 카톡 공유 -->
+   <!--<script type='text/javascript'>-->
+      <!--//<![CDATA[-->
+      <!--// 사용할 앱의 JavaScript 키를 설정해 주세요.-->
+      <!--Kakao.init('f77d48fc8ce43e37fc0c908c8d09d9f7');-->
+      <!--function shareStory() {-->
+         <!--Kakao.Story.share({-->
+            <!--url: 'http://localhost:3000',-->
+            <!--text: ' 아늑한 집입니다! '-->
+         <!--});-->
+      <!--}-->
+      <!--//]]>-->
+   <!--</script>-->
    <script type='text/javascript'>
       //<![CDATA[
-      // 사용할 앱의 JavaScript 키를 설정해 주세요.
+      // // 사용할 앱의 JavaScript 키를 설정해 주세요.
       Kakao.init('f77d48fc8ce43e37fc0c908c8d09d9f7');
-      function shareStory() {
-         Kakao.Story.share({
-            url: 'http://localhost:3000',
-            text: ' 아늑한 집입니다! '
+      // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+      function sendLink() {
+         Kakao.Link.sendDefault({
+            objectType: 'feed',
+            content: {
+               title: 'Krpano',
+               description: '#VR  #쩐다  #우왕신기',
+               imageUrl: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+               link: {
+                  mobileWebUrl: 'http://localhost:3000',
+                  webUrl: 'http://localhost:3000'
+               }
+            },
+            social: {
+               likeCount: 286,
+               commentCount: 45,
+               sharedCount: 845
+            },
+            buttons: [
+               {
+                  title: '웹으로 보기',
+                  link: {
+                     mobileWebUrl: 'http://localhost:3000',
+                     webUrl: 'http://localhost:3000'
+                  }
+               },
+               {
+                  title: '앱으로 보기',
+                  link: {
+                     mobileWebUrl: 'http://localhost:3000',
+                     webUrl: 'http://localhost:3000'
+                  }
+               }
+            ]
          });
       }
       //]]>
@@ -167,10 +210,11 @@
    <div class="copy_body_fi">
       <div class="center">
          <span href="#" class="social-icon si-colored si-aim" title="Aim">
-            <a href="javascript:shareStory()">
-               <img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>
-               <!--<i class="icon-aim"></i>-->
-               <!--<i class="icon-aim"></i>-->
+            <a id="kakao-link-btn" href="javascript:sendLink()">
+               <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+            </a>
+            <!--<a href="javascript:shareStory()">-->
+               <!--<img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>-->
             </a>
          </span>
       </div>
