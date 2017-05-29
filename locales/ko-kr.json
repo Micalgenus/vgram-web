@@ -54,7 +54,7 @@
 			"MONTHLY": "월세",
 			"ANNUALLY": "연세",
 			"LEASE": "전세",
-         "SELL": "판매"
+			"SELL": "판매"
 		},
 		"options": {
 			"internet": "인터넷",
@@ -95,5 +95,6 @@
 	"lang": {
 		"ko": "한국어",
 		"en": "영어"
-	}
+	},
+	"krpano test": "krpano test"
 }
