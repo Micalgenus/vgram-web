@@ -55,9 +55,16 @@
                     <input class="typeahead" type="text" placeholder="주소">
                   </div>
 
+                 <div class="col-md-1 col-sm-6 col-xs-12 bottommargin-sm">
+                    <select class="selectpicker form-control" title="매물종류" multiple data-size="6" style="width:100%; line-height: 30px;" id="type">
+                       <% for (i in value.room.contractCondition) { %>
+                       <option value="<%= i %>"><%= __("room")["contractCondition"][i] %></option>
+                       <% } %>
+                    </select>
+                 </div>
+
                   <div class="col-md-1 col-sm-6 col-xs-12 bottommargin-sm">
-                    <label for="">방종류</label>
-                    <select class="selectpicker form-control" title="모든 방보기" multiple data-size="6" style="width:100%; line-height: 30px;" id="type">
+                    <select class="selectpicker form-control" title="방종류" multiple data-size="6" style="width:100%; line-height: 30px;" id="type">
                         <% for (i in value.placeType) { %>
                         <option value="<%= i %>"><%= __("placeType")[i] %></option>
                         <% } %>
@@ -70,7 +77,7 @@
                     ~
                     <input type="number" placeholder="최대" class="max">
                   </div>
-                  
+
                   <div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm" id="rent_fee">
                     <label for="">월세</label>
                     <input type="number" placeholder="최소" class="min">

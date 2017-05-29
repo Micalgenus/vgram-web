@@ -32,7 +32,7 @@ const statusMessage = {
       requiredLogin: "requiredLogin",      // 로그인이 필요함(로그인되지 않은 client 알림)
       tokenExpired: "tokenExpired"     // 토큰 만료
    }
-};
+}
 
 const memberType = {
   ADMIN: "ADMIN",
@@ -95,12 +95,15 @@ const room = {
 
 const floors = {
    "Bx": "Bx",    // 지하
+   "Bh": "Bh",
    "1F": "1F",    // 1층
    "2F": "2F",    // 2층
    "3F": "3F",    // 3층
    "4F": "4F",    // 4층
    "5F": "5F",    // 5층
-   "6xF": "6xF"    // 6층 이상
+   "6F": "6F",    // 6층
+   "7xF": "7xF",    // 7층 이상
+   "rooftop": "rooftop"
 }
 
 const PARTNETS_HOUSE = [        // 주거시설
