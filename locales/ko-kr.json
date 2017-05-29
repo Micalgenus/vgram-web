@@ -26,7 +26,8 @@
 		"roomInfoDetailView": "방 정보 상세보기",
 		"roomInfoListView": "방 정보 목록",
 		"loginView": "로그인",
-		"registerView": "회원가입"
+		"registerView": "회원가입",
+      "embedView": "Cozyhouzz - Embed"
 	},
 	"placeType": {
 		"APARTMENT": "아파트",

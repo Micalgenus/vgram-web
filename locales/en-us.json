@@ -23,7 +23,8 @@
       "updateRoomInfoView": "방 정보 수정",
       "roomInfoDetailView": "방 정보 상세보기",
       "roomInfoListView": "방 정보 목록",
-      "loginView": "로그인"
+      "loginView": "로그인",
+      "embedView": "Cozyhouzz - Embed"
    },
    "placeType": {
       "APARTMENT": "아파트",
