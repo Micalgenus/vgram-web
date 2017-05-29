@@ -7,7 +7,8 @@ var config = {
    "development": {
       "host": "localhost",    // actual hostname for resource hosting
       "dialect": "sqlite",
-      "storage": "./db.development.sqlite"
+      "storage": "./db.development.sqlite",
+      "mediaUrl": "http://localhost:3000"    // 미디어/이미지 서버 URL
    },
 
    "test": {
@@ -18,7 +19,8 @@ var config = {
       "password": "hitit113112!",
       "database": "cozyhouzz",
       "host": "api.cozyhouzz.co.kr",    // The host of the relational database.
-      "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting
+      "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting,
+      "mediaUrl": "http://media.cozyhouzz.co.kr",     // 미디어/이미지 서버 URL
       "dialect": "mysql",
       "pool": {
          "max": 50,
@@ -37,7 +39,7 @@ var config = {
 }
 
 config[NODE_ENV].secret = "cozyhouzz by moblab";  // Secret key for JWT signing and encryption
-config[NODE_ENV].root = rootPath;
+config[NODE_ENV].root = rootPath.path;
 config[NODE_ENV].app = {
    name: 'cozyhouzz'
 };

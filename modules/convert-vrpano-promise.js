@@ -24,20 +24,21 @@ var log = require('console-log-level')({
 var platform = os.platform();
 var arch = os.arch();
 
-var shell, scriptFile, vtourConfig;
+var shell, scriptFile, vtourConfig, toolPath;
 
 if (platform === 'linux') {
 // HACK: to make our calls to exec() testable,
 // support using a mock shell instead of a real shell
    shell = process.env.SHELL || 'sh';
    addToPath(config.krpano.LINUX_PATH);
+   toolPath = config.krpano.LINUX_PATH;
    scriptFile = "krpanotools";
-
 }
 else if (platform === 'win32' && process.env.SHELL === undefined) {
    // support for Win32 outside Cygwin
    shell = process.env.COMSPEC || 'cmd.exe';
    addToPath(config.krpano.WIN_PATH);
+   toolPath = config.krpano.WIN_PATH;
 
    if (arch == 'x64') {
       scriptFile = "krpanotools64.exe";
@@ -67,24 +68,24 @@ exports.convertVRPano = function (imagePaths, folderName) {
       return Promise.reject("must pass argument(imagePaths) :  " + imagePaths);
    }
 
+   // ex> folderName = "sinho0689@gmail.com/1474243481136"
    if (!folderName) {
       return Promise.reject("must pass argument(folderName) :  " + folderName);
    }
 
    const configArgs = "-config=" + vtourConfig;
-   const folderPath = path.posix.join(config.root, config.resource.VTOURS_DIR, folderName);
-
+   let folderPath = path.posix.join(config.root, config.resource.VTOURS_DIR, folderName);
+   folderPath = folderPath.replace(new RegExp('\\' + path.sep, 'g'), path.sep);
    // @link https://krpano.com/tools/kmakemultires/config/
-   const tilePath = "-tilepath=" + folderPath + "/panos/%BASENAME%.tiles/pano[_c].jpg";
-   const customImagePath = "-customimage[mobile].path=" + folderPath + "/panos/%BASENAME%.tiles/mobile/pano_%s.jpg";
-   const thumbPath = "-thumbpath=" + folderPath + "/panos/%BASENAME%.tiles/thumb.jpg";
-   const xmlPath = "-xmlpath=" + folderPath + "/tour.xml";
-   const htmlPath = "-htmlpath=" + folderPath + "/tour.html";
-   const previewPath = "previewpath=" + folderPath + "/panos/%BASENAME%.tiles/preview.jpg";
-   const previewArgs = "-preview=true";
+   // const tilePath = "-tilepath=" + folderPath + "/panos/%BASENAME%.tiles/pano[_c].jpg";
+   // const customImagePath = "-customimage[mobile].path=" + folderPath + "/panos/%BASENAME%.tiles/mobile/pano_%s.jpg";
+   // const thumbPath = "-thumbpath=" + folderPath + "/panos/%BASENAME%.tiles/thumb.jpg";
+   const xmlPath = "-xmlpath=" + path.posix.join(folderPath, "tour.xml");
+   // const htmlPath = "-htmlpath=" + folderPath + "/tour.html";
+   // const previewPath = "previewpath=" + folderPath + "/panos/%BASENAME%.tiles/preview.jpg";
+   // const previewArgs = "-preview=true";
 
-   const makepanoArgs = _.concat(["makepano", configArgs], imagePaths,
-      tilePath, customImagePath, thumbPath, xmlPath, htmlPath, previewPath, previewArgs);
+   const makepanoArgs = _.concat(["makepano", configArgs], imagePaths, xmlPath);
 
    // image 파일이 존재하는지에 대한 검증은 하지 못함
    // 이미지 파일이 존재하지 않아도 echo(stdout)로 출력됨, stderr = ""
@@ -97,9 +98,10 @@ exports.convertVRPano = function (imagePaths, folderName) {
    // 그래서 별도 서버를 설치하고 queue를 이용한 batch processing을 수행해야 한다.
    // 일단 임시방편으로 이렇게 제작하자.
 
+   const command = path.join(toolPath, scriptFile);
    // run convert cubical
-   var promise = spawn(scriptFile, makepanoArgs, {
-      cwd: undefined,
+   var promise = spawn(command, makepanoArgs, {
+      cwd: toolPath,
       env: process.env
    })
 

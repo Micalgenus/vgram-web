@@ -28,12 +28,12 @@
 	<script>
 		//이미지가 저장된 장소를 images에 저장했음
         //수정할 것 : id값에 따라 서버에서 값을 가져오는 방향으로 수정해야함
-		var images = '{"statusCode":1,"originalImage":["SAM_100_0008.jpg","SAM_100_0009.jpg"],"baseDir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026","vtourDir":"vtour","xmlName":"tour.xml","swfName":"tour.swf","jsName":"tour.js","tiles":[{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles/thumb.jpg"},{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles/thumb.jpg"}]}'
-        var VRImages = JSON.parse(this.images);
-		console.log(VRImages);
+		var images = '{"statusCode":1,"originalImage":["SAM_100_0073.jpg","SAM_100_0074.jpg","SAM_100_0075.jpg"],"baseDir":"medias/vtours/sinho0689@gmail.com/123456123456","vtourDir":"","xmlName":"tour.xml","swfName":"tour.swf","jsName":"tour.js","tiles":[{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0008.tiles/thumb.jpg"},{"dir":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles","previewImageName":"thumb.jpg","previewImagePath":"images/buildCaseInfo/sinho0689@gmail.com/1474261771026/vtour/panos/SAM_100_0009.tiles/thumb.jpg"}]}'
+      var VRImages = JSON.parse(this.images);
+      console.log(VRImages);
 		//resource에 있는 vr사진을 가져옴
         embedpano({swf:"/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
-			xml:['/' + this.VRImages.baseDir, this.VRImages.vtourDir, this.VRImages.xmlName].join('/'),
+			xml:['<%= mediaUrl %>', this.VRImages.baseDir, this.VRImages.xmlName].join('/'),
 			target:"pano",html5:"auto", mobilescale:1.0, passQueryParameters:true});
 	</script>
 </div>

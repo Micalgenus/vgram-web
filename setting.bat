@@ -5,7 +5,7 @@ echo And if change krpano version OR path, please re-write command in below
 
 IF EXIST "%KRPANO_TOOL%" GOTO DONE
 
-set TOOL=tools\krpano-1.18.5-win
+set TOOL=tools\krpano-1.19-pr6-win
 set KRPANO_TOOl=%~dp0%TOOL%
 set PATH=%PATH%;%KRPANO_TOOL%
 
