@@ -14,22 +14,22 @@ var web = {
    testController: require('./controllers/web/test'),
 
    // web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
-   requireLogin: function (req, res, next) {
-      return passport.authRouteenticate('local', function (err, userRoute, info) {
-         if (err) {
-            return next(err); // will generate a 500 error
-         }
-
-         if (!userRoute) {
-            req.flash('email', req.body.email);
-            req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
-            return res.redirect('/login');
-         }
-
-         req.userRoute = userRoute;
-         return next();
-      })(req, res, next);
-   }
+   // requireLogin: function (req, res, next) {
+   //    return passport.authenticate('local', function (err, user, info) {
+   //       if (err) {
+   //          return next(err); // will generate a 500 error
+   //       }
+   //
+   //       if (!user) {
+   //          req.flash('email', req.body.email);
+   //          req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
+   //          return res.redirect('/login');
+   //       }
+   //
+   //       req.user = user;
+   //       return next();
+   //    })(req, res, next);
+   // }
 };
 
 var api = {
@@ -43,6 +43,22 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
 // Middleware to require login/authRoute
 const requireAuth = passport.authenticate('jwt', {session: false});
 const requireLogin = passport.authenticate('local', {session: false});
+const init = function(req, res, next) {
+   req.msg = req.flash('error') || req.flash('msg') || req.flash('success');
+   req.env = process.env.NODE_ENV || "development";
+
+   // 로그인이 되지 않았거나, 유효기간이 만료된 경우 쿠키 삭제
+   if (req.user) {
+      if (req.user.expired) {
+         res.clearCookie('Authorization');
+      }
+   }
+   // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
+   // 쿠키 만료시간(expiredDate)과 임의로 동일한 이름으로 쿠키를 만들수도 있기 때문에
+   // req.logined = (req.cookies.Authorization ? true : false);
+
+   return next();
+}
 
 var env = process.env.NODE_ENV || "development";
 
@@ -98,12 +114,12 @@ module.exports = function (app) {
    //=========================
    web.rootRoute.use('/', web.defaultRoute);
 
-   web.defaultRoute.get('/', web.authController.init, function (req, res) {
+   web.defaultRoute.get('/', requireAuth, init, function (req, res) {
       res.render('index', {
          ENV: env,
          logined: req.logined,
-         title: 'Cozyhouzz',
-         msg: req.msg
+         title: 'main'
+         // msg: req.msg
       });
    });
 
@@ -169,17 +185,20 @@ module.exports = function (app) {
    //=========================
    web.rootRoute.use('/auth', web.authRoute);
 
-   // 로그인
-   web.authRoute.get('/login', web.authController.init, web.userController.login);
+   // 로그인View
+   web.authRoute.get('/login', requireAuth, init, web.authController.loginView, web.redirectController.redirectMain);
 
    // Login route
-   web.authRoute.post('/login', web.authController.login, web.requireLogin, web.authController.setToken, web.redirectController.redirectMain);
+   web.authRoute.post('/login', requireLogin, init, web.authController.setToken, web.redirectController.redirectMain);
 
    // Logout route
-   web.authRoute.get('/logout', web.authController.logout, web.redirectController.redirectMain);
+   web.authRoute.get('/logout', web.authController.logout, init, web.redirectController.redirectMain);
+
+   // Registration View route
+   web.authRoute.get('/signup', requireAuth, init, web.authController.signup, web.redirectController.redirectMain);
 
    // Registration route
-   web.authRoute.post('/signup', web.authController.signup, web.authController.register, web.requireLogin, web.authController.setToken, web.redirectController.redirectMain);
+   web.authRoute.post('/signup', requireAuth, init, web.authController.signup, web.authController.register, requireLogin, web.authController.setToken, web.redirectController.redirectMain);
 
    //탈퇴 라우터
    web.authRoute.get('/quit', web.authController.quit);
@@ -217,13 +236,13 @@ module.exports = function (app) {
    web.rootRoute.use('/user', web.userRoute);
 
    // 회원정보 조회 및 수정(View)
-   web.userRoute.get('/change', web.authController.init, requireAuth, web.userController.viewProfile);
+   web.userRoute.get('/change', requireAuth, init, web.userController.viewProfile);
 
    // 회원정보 조회 및 수정(Action)
-   web.userRoute.post('/change', requireAuth, web.authController.change, web.authController.setToken, web.redirectController.redirectChange);
+   web.userRoute.post('/change', requireAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
 
    // 회원정보 조회
-   web.userRoute.get('/:memberIdx([0-9]+)', web.userController.viewProfile);
+   web.userRoute.get('/:memberIdx([0-9]+)', requireAuth, init, web.userController.viewProfile);
 
 
    //=========================
@@ -282,26 +301,26 @@ module.exports = function (app) {
    web.rootRoute.use('/room', web.roomRoute);
 
    //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-   web.roomRoute.get('/', web.authController.init, web.roomController.roomInfoListView);
+   web.roomRoute.get('/', init, web.roomController.roomInfoListView);
 
    // create new Room Info from authRouteenticated userRoute
    // roomRouteInfoAPI.post('/', requireAuth, roomRouteInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
    // roomRouteInfoView.get('/new', requireAuth, roomRouteInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   web.roomRoute.get('/new', web.authController.init, requireAuth, web.roomController.createRoomInfoView);
+   web.roomRoute.get('/new', init, requireAuth, web.roomController.createRoomInfoView);
    web.roomRoute.post('/', requireAuth, web.roomController.createRoomInfo);
 
 
    // update Room Info Info from authRouteenticated userRoute
    // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', web.authController.init, requireAuth, web.roomController.changeRoomInfoView);
+   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', init, requireAuth, web.roomController.changeRoomInfoView);
    web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
 
    // delete Room Info Info from authRouteenticated userRoute
 
    // get Room Info Info from authRouteenticated userRoute
    // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   web.roomRoute.get('/:roomInfoIdx([0-9]+)', web.authController.init, web.roomController.roomInfoDetailView);
+   web.roomRoute.get('/:roomInfoIdx([0-9]+)', init, web.roomController.roomInfoDetailView);
 
    web.roomRoute.get('/search', web.roomController.searchRoomListView);
 

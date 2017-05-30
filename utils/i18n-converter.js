@@ -24,7 +24,7 @@ exports.getLangPair = function (values, i18nInstance) {
          let func = i18nInstance.i18n || i18nInstance.__;
 
          return {
-            name: func(key)[val] || func(key)[val],
+            name: fiunc(key)[val] || func(key)[val],
             value: val
          }
       });

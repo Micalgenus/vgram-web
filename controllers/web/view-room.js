@@ -26,81 +26,80 @@ var log = require('console-log-level')({
 
 const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
-const i18nConverter = require('../../utils/i18n-converter');
 
-exports.roomInfoListData = function(req, res) {
-  let page = (req.query.page ? req.query.page : 1);
+exports.roomInfoListData = function (req, res) {
+   let page = (req.query.page ? req.query.page : 1);
 
-  return Room.count()
-  .then(function(roomCount) {
+   return Room.count()
+      .then(function (roomCount) {
 
-    let count = (req.query.pageSize ? req.query.pageSize : 20);
-    let lastPage = parseInt(roomCount / count) + 1;
-    var index = (count * (page - 1));
+         let count = (req.query.pageSize ? req.query.pageSize : 20);
+         let lastPage = parseInt(roomCount / count) + 1;
+         var index = (count * (page - 1));
 
-    // 잘못된 요청일 경우 넘어감
-    if (page > lastPage) {
-      let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
-      return res.redirect('/room?page=' + lastPage.toString() + size);
-    }
-    if (page < 1) {
-      let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
-      return res.redirect('/room' + size);
-    }
+         // 잘못된 요청일 경우 넘어감
+         if (page > lastPage) {
+            let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
+            return res.redirect('/room?page=' + lastPage.toString() + size);
+         }
+         if (page < 1) {
+            let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
+            return res.redirect('/room' + size);
+         }
 
-    return Room.findAll({
-      include: [ {
-        model: Post,
-        attributes: ['ID']
-      } ],
-      limit: count,
-      offset: index,
-      order: '`room`.`ID` DESC'
-    }).then(function(rooms) {
-      var roomInfo = [];
-      rooms.forEach(function(room) {
-        var tmpRoom = {};
+         return Room.findAll({
+            include: [{
+               model: Post,
+               attributes: ['ID']
+            }],
+            limit: count,
+            offset: index,
+            order: '`room`.`ID` DESC'
+         }).then(function (rooms) {
+            var roomInfo = [];
+            rooms.forEach(function (room) {
+               var tmpRoom = {};
 
-        // 임시
-        let image = room.thumbnail_image_path;
-        if (!image.match(/^https?:\/\//)) {
-          image = "http://localhost:3000/" + image;
-        }
+               // 임시
+               let image = room.thumbnail_image_path;
+               if (!image.match(/^https?:\/\//)) {
+                  image = "http://localhost:3000/" + image;
+               }
 
-        //    let address = JSON.parse(room.address);
+               //    let address = JSON.parse(room.address);
 
-        tmpRoom['id'] = room.ID;
-        tmpRoom['image'] = image;
-        //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
-        tmpRoom['title'] = room.post.title;
+               tmpRoom['id'] = room.ID;
+               tmpRoom['image'] = image;
+               //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
+               tmpRoom['title'] = room.post.title;
 
-        roomInfo.push(tmpRoom);
+               roomInfo.push(tmpRoom);
+            });
+
+            return res.render('room/room-list', {
+               ENV: req.env,
+               logined: req.user ? req.user.logined : false,
+               title: "roomInfoListView",
+               msg: req.msg,
+               nowPage: page,
+               lastPage: lastPage,
+               rooms: roomInfo,
+               lat: value.mapLocationCenter.lat,
+               lng: value.mapLocationCenter.lng
+            });
+         });
       });
-
-      return res.render('room/room-list', {
-        ENV: req.env,
-        logined: req.logined,
-        title: '방 정보 목록',
-        msg: req.msg,
-        nowPage: page,
-        lastPage: lastPage,
-        rooms: roomInfo,
-        lat: value.mapLocationCenter.lat,
-        lng: value.mapLocationCenter.lng
-      });
-    });
-  });
 }
 
-exports.roomInfoListView = function(req, res) {
-  return res.render('room/room-list', {
-    ENV: req.env,
-    logined: req.logined,
-    title: '방 정보 목록',
-    msg: req.msg,
-    lat: value.mapLocationCenter.lat,
-    lng: value.mapLocationCenter.lng
-  });
+exports.roomInfoListView = function (req, res) {
+   return res.render('room/room-list', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "roomInfoListView",     // locale과 매칭되는 변수명을 적어야함.
+      msg: req.msg,
+      lat: value.mapLocationCenter.lat,
+      lng: value.mapLocationCenter.lng
+   });
 }
 
 /**
@@ -112,31 +111,25 @@ exports.roomInfoListView = function(req, res) {
 exports.createRoomInfoView = function (req, res, next) {
 
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', "requiredLogin");
       return res.redirect('/room');
    }
 
-   // 방타입, 전월세여부, 층수에 대한 name-value 추출
-   var pairs = i18nConverter.getLangPair(
-      {
+   // 기본적으로 user의 기본언어 선택사항을 따라가고,
+   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
+   return res.render('room/room-new', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "createRoomInfoView",
+      msg: req.msg,
+      update: false,
+      value: {
          placeType: value.placeType,
          roomContractCondition: value.roomContractCondition,
          floors: value.floors,
          postStatus: value.postStatus,
          postType: value.postType
-      }, req);
-
-   // 기본적으로 user의 기본언어 선택사항을 따라가고,
-   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-   pairs.lang = req.user.locale || req.getLocale();
-
-   return res.render('room/room-new', {
-      ENV: req.env,
-      logined: req.logined,
-      title: req.i18n("title")["createRoomInfoView"] + req.i18n("app")["name"],
-      msg: req.msg,
-      update: false,
-      value: pairs
+      }
    });
 }
 
@@ -151,7 +144,7 @@ exports.createRoomInfoView = function (req, res, next) {
  */
 exports.createRoomInfo = function (req, res, next) {
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', "requiredLogin");
       return res.redirect('/room');
    }
 
@@ -190,48 +183,40 @@ exports.createRoomInfo = function (req, res, next) {
       });
    }
 
-   return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
-      .then(function() {
-         req.flash('msg', res.i18n('post create completed'));
-         return res.redirect(202, '/room');
-      }).catch(next);      // all errors asynchronous and synchronous get propagated to the error middleware.
+   // return roomInfo.createRoomInfoAndVRPano(req, res)     // return promise
+   //    .then(function () {
+   //       req.flash('msg', res.i18n('createPostComplete'));
+   //       return res.redirect(202, '/room');
+   //    }).catch(next);      // all errors asynchronous and synchronous get propagated to the error middleware.
 }
 
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
-exports.changeRoomInfoView = function(req, res, next) {
+exports.changeRoomInfoView = function (req, res, next) {
    if (!req.user.logined) {
-      req.flash('msg', req.i18n("require login"));
+      req.flash('msg', "requiredLogin");
       return res.redirect('/room');
    }
 
-   // 방타입, 전월세여부, 층수에 대한 name-value 추출
-   var pairs = i18nConverter.getLangPair(
-      {
+   return res.render('room/room-new', {
+      ENV: req.env,
+      logined: req.user ? req.user.logined : false,
+      title: "updateRoomInfoView",
+      msg: req.msg,
+      update: true,
+      value: {
          placeType: value.placeType,
          roomContractCondition: value.roomContractCondition,
          floors: value.floors,
          postStatus: value.postStatus,
          postType: value.postType
-      }, req);
-
-   // 기본적으로 user의 기본언어 선택사항을 따라가고,
-   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-   pairs.lang = req.user.locale || req.getLocale();
-
-   return res.render('room/room-new', {
-      ENV: req.env,
-      logined: req.logined,
-      title: req.i18n("title")["updateRoomInfoView"] + req.i18n("app")["name"],
-      msg: req.msg,
-      update: true,
-      value: pairs
+      }
    });
 }
 
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
-exports.updateRoomInfo = function(req, res, next) {
+exports.updateRoomInfo = function (req, res, next) {
    // if (!req.params.roomInfoIdx) {
    //   return res.status(401).json({
    //     errorMsg: 'You must enter an required param! please check :roomInfoIdx',
@@ -335,12 +320,12 @@ exports.updateRoomInfo = function(req, res, next) {
    //   log.error(err);
    //   next(err);
    // });
-   req.flash('msg', '글 수정이 완료되었습니다.');
+   req.flash('msg', "editPostComplete");
    return res.redirect(202, '/room');
    // return res.redirect('/room/[:roomInfoIdx]');    <- redirect를 이렇게 걸자
 }
 
-exports.deleteRoomInfo = function(req, res) {
+exports.deleteRoomInfo = function (req, res) {
    // const roomInfoIdx = req.params.roomInfoIdx;
    //
    // return RoomInfoBoard.findOne({
@@ -378,35 +363,35 @@ exports.deleteRoomInfo = function(req, res) {
    //     });
    //   }
    // });
-   req.flash('msg', '글 삭제가 완료되었습니다.');
+   req.flash('msg', "deletePostComplete");
    return res.redirect(202, '/room');
 }
 
-exports.roomInfoDetailView = function(req, res) {
+exports.roomInfoDetailView = function (req, res) {
 
    let idx = req.params.roomInfoIdx;
 
    return Room.findOne({
-     include: [ {
-       model: Post,
-       attributes: ['ID', 'title', 'read_count'],
-       include: [ {
-         model: User,    // as 옵션을 어떻게 쓰는거지??
-         attributes: ['email', 'telephone'],
-       }, {
-         model: Translation,
-         attributes: ['group_id'],
-         include: [ {
-           model: Coordinate,
-           attributes: ['lat', 'lng']
-         } ]
-       } ],
-     } ],
-     where: {
-       ID: idx
-     },
-     attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
-   }).then(function(room) {
+      include: [{
+         model: Post,
+         attributes: ['ID', 'title', 'read_count'],
+         include: [{
+            model: User,    // as 옵션을 어떻게 쓰는거지??
+            attributes: ['email', 'telephone'],
+         }, {
+            model: Translation,
+            attributes: ['group_id'],
+            include: [{
+               model: Coordinate,
+               attributes: ['lat', 'lng']
+            }]
+         }],
+      }],
+      where: {
+         ID: idx
+      },
+      attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
+   }).then(function (room) {
 
       var type = room.room_type;
       // var position = JSON.parse(room.coordinate);
@@ -417,25 +402,49 @@ exports.roomInfoDetailView = function(req, res) {
       let lat = position.lat;
       let lng = position.lng;
       switch (type) {
-         case "APARTMENT":       type = "아파트"; break;
-         case "VILLA":           type = "빌라"; break;
-         case "DETACHED_HOUSE":  type = "주택"; break;
-         case "ONE_ROOM":        type = "원룸"; break;
-         case "TWO_ROOM":        type = "투룸"; break;
-         case "THREE_ROOM":      type = "쓰리룸"; break;
-         case "OFFICETEL":       type = "오피스텔"; break;
-         case "OFFICE":          type = "사무실"; break;
-         case "SHOPPING":        type = "상가, 매장"; break;
-         case "CAFE_RESTAURANT": type = "카페, 식당"; break;
-         case "ACADEMY":         type = "학원, 교육관련"; break;
-         case "HOSPITAL":        type = "병원"; break;
+         case "APARTMENT":
+            type = "아파트";
+            break;
+         case "VILLA":
+            type = "빌라";
+            break;
+         case "DETACHED_HOUSE":
+            type = "주택";
+            break;
+         case "ONE_ROOM":
+            type = "원룸";
+            break;
+         case "TWO_ROOM":
+            type = "투룸";
+            break;
+         case "THREE_ROOM":
+            type = "쓰리룸";
+            break;
+         case "OFFICETEL":
+            type = "오피스텔";
+            break;
+         case "OFFICE":
+            type = "사무실";
+            break;
+         case "SHOPPING":
+            type = "상가, 매장";
+            break;
+         case "CAFE_RESTAURANT":
+            type = "카페, 식당";
+            break;
+         case "ACADEMY":
+            type = "학원, 교육관련";
+            break;
+         case "HOSPITAL":
+            type = "병원";
+            break;
       }
 
       return res.render('room/room-detail', {
          ENV: req.env,
-         logined: req.logined,
+         logined: req.user ? req.user.logined : false,
          msg: req.msg,
-         title: '방 정보 상세보기',
+         title: "roomInfoDetailView",
 
          // 기본 정보
          postTitle: room.post.title,
@@ -458,7 +467,7 @@ exports.roomInfoDetailView = function(req, res) {
    });
 }
 
-exports.searchRoomListView = function(req, res) {
+exports.searchRoomListView = function (req, res) {
    // let pageSize, pageStartIndex, query = req.query.query;
    //
    // // 페이지 정보 확인
@@ -490,27 +499,27 @@ exports.searchRoomListView = function(req, res) {
    // room-list에서 if 처리를 해서 search시에만 보여주는 항목을 보여주자
    return res.render('room/room-list', {
       ENV: req.env,
-      logined: true,
-      title: '로그인',
-      msg: "message",
+      logined: req.user ? req.user.logined : false,
+      title: "roomInfoListView",
+      msg: req.msg,
       email: "123@123.com",
       search: true
    });
 }
 
-exports.roomInfoDetailJson = function(req, res) {
-  let idx = req.params.roomInfoIdx;
+exports.roomInfoDetailJson = function (req, res) {
+   let idx = req.params.roomInfoIdx;
 
-  return Room.findOne({
-    where: {
-      ID: idx
-    },
-    // attributes: [],
-  }).then(function(room) {
-    var result = room;
-    result.test = 'test';
-    return res.send(result);
-  });
+   return Room.findOne({
+      where: {
+         ID: idx
+      },
+      // attributes: [],
+   }).then(function (room) {
+      var result = room;
+      result.test = 'test';
+      return res.send(result);
+   });
 }
 
 // exports.roomInfoListJson = function(req, res) {
@@ -563,21 +572,21 @@ exports.roomInfoDetailJson = function(req, res) {
 //   };
 // }
 
-exports.roomInfoListJson = function(req, res) {
-  let list = JSON.parse(req.params.roomIdxList);
+exports.roomInfoListJson = function (req, res) {
+   let list = JSON.parse(req.params.roomIdxList);
 
-  if (list.length == 0) return res.send([]);
+   if (list.length == 0) return res.send([]);
 
-  return Room.findAll({
-    include: [ {
-      model: Post
-    } ],
-    where: {
-      ID: {
-        $in: list
+   return Room.findAll({
+      include: [{
+         model: Post
+      }],
+      where: {
+         ID: {
+            $in: list
+         }
       }
-    }
-  }).then(function(room) {
-    return res.send(room);
-  });
+   }).then(function (room) {
+      return res.send(room);
+   });
 }

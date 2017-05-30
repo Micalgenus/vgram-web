@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  <title>Marker Clustering</title>
+  <title><%= __("title")["roomInfoListView"] + __("app")["name"]%></title>
   <style>
     /* Always set the map height explicitly to define the size of the div
       * element that contains the map. */
@@ -247,9 +247,9 @@
 
     function initMap() {
       var lat, lng;
-      var is_safari = navigator.vendor && 
+      var is_safari = navigator.vendor &&
                       navigator.vendor.indexOf('Apple') > -1 &&
-                      navigator.userAgent && 
+                      navigator.userAgent &&
                       !navigator.userAgent.match('CriOS');
 
       if (!is_safari && navigator.geolocation) {

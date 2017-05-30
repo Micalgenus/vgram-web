@@ -14,7 +14,7 @@
 
 <!-- Title -->
 <% if (typeof title != 'undefined' && title != "") { %>
-  <title><%= title %></title>
+  <title><%= __("title")[title] + __("app")["name"] %></title>
 <% } else { %>
   <title>cozyhouzz</title>
 <% } %>
@@ -22,6 +22,6 @@
 
 <!-- Alert Message -->
 <% if (typeof msg != 'undefined'  && msg != "") { %>
-  <script>alert('<%= msg %>');</script>
+  <script>alert('<%= __(msg) %>');</script>
 <% } %>
 <!-- //Alert Message -->

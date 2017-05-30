@@ -33,12 +33,13 @@ i18n.configure({
    directory: __dirname + '/locales',
    defaultLocale: 'ko-kr',
    queryParameter: 'lang',
-   preserveLegacyCase: true,
-   api: {
-      '__': 'i18n',  //now req.__ becomes req.t,
-      '__n': 'i18n_n' //and req.__n can be called as req.tn
-   }
+   preserveLegacyCase: true
+   // api: {
+   //    '__': 'i18n',  //now req.__ becomes req.t,
+   //    '__n': 'i18n_n' //and req.__n can be called as req.tn
+   // }
 });
+
 
 // session 추가
 app.use(session({
@@ -47,6 +48,7 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use(flash());
+app.use(i18n.init);
 
 // Parsers
 // old version of line
@@ -67,7 +69,6 @@ app.use(express.static(config.root + '/public'));
 
 //2017.1.17 이정현 쿠키파서 추가
 app.use(cookieParser());
-app.use(i18n.init);
 
 app.options("*", cors());
 app.use(cors({
