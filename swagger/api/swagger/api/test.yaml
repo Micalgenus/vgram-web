@@ -20,11 +20,16 @@ paths:
           description: "successful operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/HelloWorldMessage"
+          examples:
+            message: "Hello World Passenger!"
         # responses may fall through to errors
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            code: badRequest_400
+            msg: "sendMessageSuccess"
 
 
   /api/test/hello:
@@ -47,11 +52,16 @@ paths:
           description: "successful operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/PlainMessage"
+          examples:
+            message: "Hello World test!"
         # responses may fall through to errors
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            code: badRequest_400
+            msg: "sendMessageSuccess"
 
 
   /api/test/protected:
@@ -69,8 +79,13 @@ paths:
           description: "successful operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/PlainMessage"
+          examples:
+            message: "The protected test route is functional!"        # responses may fall through to errors
         # responses may fall through to errors
         default:
           description: "error operation"
           schema:
             $ref: "../shared/commons.yaml#/definitions/ErrorResponse"
+          examples:
+            code: badRequest_400
+            msg: "sendMessageSuccess"

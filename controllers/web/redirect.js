@@ -19,13 +19,3 @@ exports.redirectChange = function(req, res) {
 exports.redirectBizList = function(req, res) {
   return res.redirect('/biz/1');
 }
-
-exports.redirectPrevPath = function(req, res) {
-   const prevPath = req.flash("prevPath");
-
-   if (prevPath) {
-      return res.redirect(prevPath);
-   } else {
-      return redirectMain(req, res);
-   }
-}

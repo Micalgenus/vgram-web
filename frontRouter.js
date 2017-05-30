@@ -3,7 +3,8 @@
  */
 const passport = require('passport'),
    express = require('express'),
-   multer = require('multer');
+   multer = require('multer'),
+   i18n = require('i18n');
 
 var web = {
    authController: require('./controllers/web/auth'),
@@ -46,11 +47,19 @@ const requireLogin = passport.authenticate('local', {session: false});
 const init = function(req, res, next) {
    req.msg = req.flash('error') || req.flash('msg') || req.flash('success');
    req.env = process.env.NODE_ENV || "development";
+   req.lang = req.getLocale();
 
    // 로그인이 되지 않았거나, 유효기간이 만료된 경우 쿠키 삭제
    if (req.user) {
       if (req.user.expired) {
          res.clearCookie('Authorization');
+      }
+
+      if (req.user.meta_value) {
+         if (req.user.meta_value.lang) {
+            req.lang = req.user.meta_value.lang;      // user의 설정이 우선이다.
+            i18n.setLocale([req, res, res.locals], req.user.meta_value.lang);
+         }
       }
    }
    // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
@@ -118,8 +127,8 @@ module.exports = function (app) {
       res.render('index', {
          ENV: env,
          logined: req.logined,
-         title: 'main'
-         // msg: req.msg
+         title: 'main',
+         msg: req.msg
       });
    });
 
@@ -191,7 +200,7 @@ module.exports = function (app) {
    // Login route
    web.authRoute.post('/login', requireLogin, init, web.authController.setToken, web.redirectController.redirectMain);
 
-   // Logout route
+   // Logout route: post로 변경해야함
    web.authRoute.get('/logout', web.authController.logout, init, web.redirectController.redirectMain);
 
    // Registration View route
@@ -277,9 +286,14 @@ module.exports = function (app) {
 
 
    // krpano iframe view route, vr사진 높이 100%, 넓이 100%
-   web.postRoute.get('/embed/:ID', function (req, res) {
+   web.postRoute.get('/embed/:ID', init, function (req, res) {
       //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
-      res.render('iframe/krpano', {ENV: env, title: 'Express', msg: 'krpano test'});
+      res.render('iframe/krpano', {
+         ENV: env,
+         title: 'embedView',
+         msg: req.msg
+      });
+
       // res.status(200).json({ quote: quoter.getRandomOne() });
    });
 
@@ -294,31 +308,31 @@ module.exports = function (app) {
    //공지사항 출력
    api.postRoute.get('/notice', api.postController.viewNotice);
 
+   //media, attached 정보 저장(image-server에서 이용함)
+   api.postRoute.post('/media-attached', requireAuth, api.postController.createMediaAttachedInfo);
 
    //=========================
    // web - Room Info Routes
    //=========================
-   web.rootRoute.use('/room', web.roomRoute);
+   web.postRoute.use('/room', web.roomRoute);
 
    //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
    web.roomRoute.get('/', init, web.roomController.roomInfoListView);
 
-   // create new Room Info from authRouteenticated userRoute
-   // roomRouteInfoAPI.post('/', requireAuth, roomRouteInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   // roomRouteInfoView.get('/new', requireAuth, roomRouteInfoImageUpload, RoomInfoController.createRoomInfoAndVRPano);
-   web.roomRoute.get('/new', init, requireAuth, web.roomController.createRoomInfoView);
+   // create new Room Info from authenticated userRoute
+   web.roomRoute.get('/new', requireAuth, init, web.roomController.createRoomInfoView);
    web.roomRoute.post('/', requireAuth, web.roomController.createRoomInfo);
 
 
-   // update Room Info Info from authRouteenticated userRoute
+   // update Room Info Info from authenticated userRoute
    // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', init, requireAuth, web.roomController.changeRoomInfoView);
+   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', requireAuth, init, web.roomController.changeRoomInfoView);
    web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
 
-   // delete Room Info Info from authRouteenticated userRoute
+   // delete Room Info Info from authnticated userRoute
 
-   // get Room Info Info from authRouteenticated userRoute
+   // get Room Info Info from authenticated userRoute
    // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
    web.roomRoute.get('/:roomInfoIdx([0-9]+)', init, web.roomController.roomInfoDetailView);
 
@@ -326,12 +340,15 @@ module.exports = function (app) {
 
    web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
    web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
+   web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+   web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+   web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
 
 
    //=========================
    // api - Room Info Routes
    //=========================
-   api.rootRoute.use('/room', api.roomRoute);
+   api.postRoute.use('/room', api.roomRoute);
 
    api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.deleteRoomInfo);
 

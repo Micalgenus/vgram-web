@@ -18,9 +18,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
-      thumbnail_media_id: 9     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 2,
@@ -32,9 +30,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
-      thumbnail_media_id: 10     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 3,
@@ -46,9 +42,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
-      thumbnail_media_id: 9     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 4,
@@ -60,9 +54,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
-      thumbnail_media_id: 10     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 5,
@@ -74,9 +66,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
-      thumbnail_media_id: 9     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 6,
@@ -88,9 +78,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0073.tiles/thumb.jpg"],
-      thumbnail_media_id: 10     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 7,
@@ -102,9 +90,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
-      thumbnail_media_id: 9     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 8,
@@ -116,9 +102,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0074.tiles/thumb.jpg"],
-      thumbnail_media_id: 10     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 9,
@@ -130,9 +114,7 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474243481136/vtour/panos/SAM_100_0008.tiles/thumb.jpg"],
-      thumbnail_media_id: 9     // thumbnail과 연결된 media.ID
+      }
    },
    {
       ID: 10,
@@ -144,8 +126,6 @@ module.exports = [
       area_size: 10,    // 평
       meta_value: {
          options: ["심야전기"]
-      },
-      thumbnail_image_path: ["medias/vtours/1474866921708/vtour/panos/SAM_100_0075.tiles/thumb.jpg"],    // fullpath(file_path + tiles[x].dir + thumbnail)
-      thumbnail_media_id: 10     // thumbnail과 연결된 media.ID
+      }
    }
 ]

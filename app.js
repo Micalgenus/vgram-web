@@ -19,9 +19,9 @@ var morgan = require('morgan'),
 var app = express();
 
 var env = process.env.NODE_ENV || "development";
-app.locals.ENV = env;
-
 var config = require("./config/main");
+app.locals.ENV = env;
+app.locals.mediaUrl = config.mediaUrl;    // view template에서 사용할 수 있도록 app 고정변수로 등록
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,8 +63,9 @@ app.use(device.capture());
 
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(express.static(__dirname + "/" + config.resource.DIR));
-app.use('/config', express.static(__dirname + '/config/publish'));
+if (env === 'development') {
+   app.use(express.static(__dirname + "/" + config.resource.DIR));
+}
 app.use(express.static(config.root + '/public'));
 
 //2017.1.17 이정현 쿠키파서 추가

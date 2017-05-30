@@ -3,6 +3,10 @@ logs
 *.log
 *.bak
 *.tmp
+*.swap
+
+# Office Temp Files
+~$*
 
 # Runtime data
 pids

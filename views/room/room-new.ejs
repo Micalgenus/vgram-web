@@ -21,7 +21,7 @@
          ============================================= -->
          <div class="clearfix">
 
-            <form action="/room" id="roomInfo-Inputform" name="roominfo-inputform" method="post"
+            <form id="roomInfo-Inputform" name="roominfo-inputform"
                   enctype="multipart/form-data">
                <div class="title-block-room-new h3 + span">
                   <!--<div class="fancy-title title-dotted-border">-->
@@ -31,445 +31,376 @@
                </div>
 
 
-                  <!-- 위치정보
-                ============================================= -->
-                  <div class="content-wrap-room-new">
-                     <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
-                        <h3>위치정보</h3></li>
-                     <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px; "></div>
-                     <div>
-                        <div class="col_full">
-                           <label for="roominfo-title">제목
-                              <small>*</small>
-                           </label>
-                           <input type="text" id="roominfo-title" name="title" value="" class="sm-form-control"
-                                  required/>
-                           <label for="postcode">
-                              <small>*</small>
-                              주소</label>
-                           <div>
-                              <div class="col_one_fourth">
-                                 <input type="text" class="sm-form-control postcodify_postcode5" id="postcode"
-                                        name="postcode" placeholder="우편번호" required readonly>
-                              </div>
-                              <div class="col_one_fourth">
-                                 <button class="button button-border button-rounded button-amber" type="button"
-                                         onclick="search()" id="postcodify_search_button" name="search-button"
-                                         value="검색">검색
-                                 </button>
-                                 <br/>
-                              </div>
-                              <div class="clear"></div>
-                              <div class="col_half">
-                                 <input class="sm-form-control postcodify_address" type="text" id="address"
-                                        name="address" placeholder="주소" readonly required>
-                              </div>
-                              <div class="col_half col_last">
-                                 <input class="sm-form-control postcodify_details" type="text" id="detail"
-                                        name="detail" placeholder="상세주소">
-                              </div>
-                              <div class="col_half col_last">
-                                 <input class="sm-form-control postcodify_extra_info" type="text" id="extraInfo"
-                                        name="extraInfo" placeholder="참고항목">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-                     <div class="double-line" style="margin-top: 10px; margin-bottom: 10px;"></div>
-                  </div><!--위치정보-->
-
-
-                  <!-- 기본정보
-                  ============================================= -->
-                  <div class="content-wrap-room-new">
-                     <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
-                        <h3>기본정보</h3></li>
-                     <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
-                     <!-- 방 구조 -->
-                     <div class="col_half">
-                        <label for="template-contactform-service">
-                           <small>*</small>
-                           방구조</label>
-                        <select id="template-contactform-service" name="roomType" class="sm-form-control" required>
-                           <% for (i in value.placeType) { %>
-                           <option value="<%= i %>"><%= __(value.placeType[i]) %></option>
-                           <% } %>
-                        </select>
-                     </div>
-
-                     <!--연세일경우-->
-                     <div class="col_half col_last">
-                        <label for="template-contactform-deposit">
-                           <small>*</small>
-                           계약조건</label>
-                        <div>
-                           <h4>연세일경우, 월세에 1년치 임대료를 입력하세요</h4>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--보증금-->
-                     <div class="col_half">
-                        <label for="template-contactform-deposit">보증금</label>
-                        <div class="input-group">
-                           <input type="number" id="template-contactform-deposit" name="deposit" value=""
-                                  placeholder="만원" class="sm-form-control"/>
-                           <span class="input-group-addon">만원</span>
-                        </div>
-                     </div>
-
-                     <!--전세,월세,연세-->
-                     <div class="col_half col_last">
-                        <label for="template-contactform-deposit">
-                           <small>*</small>
-                           계약조건</label>
-                        <div>
-                           <select class="selectpicker" name="selectPicker" placeholder="전세,월세,연세">
-                              <% for (i in value.roomContractCondition) { %>
-                              <option value="<%= i %>">
-                                 <%= __(value.roomContractCondition[i]) %></option>
-                              <% } %>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--월세-->
-                     <div class="col_half">
-                        <label for="template-contactform-monthlyRentFee">월세</label>
-                        <div class="input-group">
-                           <input type="number" id="template-contactform-monthlyRentFee" name="monthly" value=""
-                                  placeholder="만원" class="sm-form-control"/>
-                           <span class="input-group-addon">만원</span>
-                        </div>
-                     </div>
-
-                     <!--단기계약가능-->
-                     <div class="col_half col_last">
-                        <label for="template-contactform-deposit">
-                           <small>*</small>
-                           계약조건</label>
-                        <div>
-                           <input id="checkbox-12" class="checkbox-style" name="short-term-contract" type="checkbox">
-                           <label for="checkbox-12" class="checkbox-style-3-label">단기 계약 가능</label>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--해당층수-->
-                     <div class="col_half">
-                        <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
-                        <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
-                           <% for (i in value.floors) { %>
-                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
-                           <% } %>
-                        </select>
-                     </div>
-
-                     <!--실내평수-->
-                     <div class="col_half col_last">
-                        <label for="template-contactform-actualSize">실내 평수</label>
-                        <div class="input-group">
-                           <input type="number" #actualSize id="template-contactform-actualSize" name="actualSize"
-                                  value="" class="sm-form-control"/>
-                           <span class="input-group-addon">평</span>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-                     <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
-                  </div><!--기본정보-->
-
-
-                  <!-- 추가정보
-                  ============================================= -->
-                  <div class="content-wrap-room-new">
-                     <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
-                        <h3>추가정보</h3></li>
-                     <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
-
-                     <!--관리비-->
-                     <div class="content-wrap-room-new">
-                        <h5>관리비</h5>
-                        <div class="col-md-2">
-                           <input id="checkbox-121" class="checkbox-style" name="checkbox-2" type="checkbox">
-                           <label for="checkbox-121" class="checkbox-style-3-label">있음</label>
-                        </div>
-                        <div class="col_half">
-                           <div class="input-group">
-                              <input type="number" id="template-contactform-manageExpense"
-                                     name="template-contactform-manageExpense" value="" placeholder="만원"
-                                     class="sm-form-control"/>
-                              <span class="input-group-addon">만원</span>
-                           </div>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-122" class="checkbox-style" name="checkbox-3" type="checkbox">
-                           <label for="checkbox-122" class="checkbox-style-3-label">없음</label>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--관리비 포함항목-->
-                     <div class="content-wrap-room-new">
-                        <h5>관리비포함 항목 선택</h5>
-                        <div class="col-md-2">
-                           <input id="checkbox-123" class="checkbox-style" name="checkbox-4" type="checkbox">
-                           <label for="checkbox-123" class="checkbox-style-3-label">인터넷</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-124" class="checkbox-style" name="checkbox-5" type="checkbox">
-                           <label for="checkbox-124" class="checkbox-style-3-label">유선TV</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-125" class="checkbox-style" name="checkbox-6" type="checkbox">
-                           <label for="checkbox-125" class="checkbox-style-3-label">청소비</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-126" class="checkbox-style" name="checkbox-7" type="checkbox">
-                           <label for="checkbox-126" class="checkbox-style-3-label">수도세</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-127" class="checkbox-style" name="checkbox-8" type="checkbox">
-                           <label for="checkbox-127" class="checkbox-style-3-label">도시가스</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-128" class="checkbox-style" name="checkbox-9" type="checkbox">
-                           <label for="checkbox-128" class="checkbox-style-3-label">전기세</label>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--주차-->
-                     <div class="content-wrap-room-new">
-                        <h5>주차여부</h5>
-                        <div class="col-md-2">
-                           <input id="checkbox-129" class="checkbox-style" name="checkbox-2" type="checkbox">
-                           <label for="checkbox-129" class="checkbox-style-3-label">기능</label>
-                        </div>
-                        <div class="col_half">
-                           <div class="input-group">
-                              <input type="number" #manageExpense id="template-contactform-manageExpense"
-                                     name="template-contactform-manageExpense" value="" placeholder="만원"
-                                     class="sm-form-control"/>
-                              <span class="input-group-addon">만원</span>
-                           </div>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-120" class="checkbox-style" name="checkbox-3" type="checkbox">
-                           <label for="checkbox-120" class="checkbox-style-3-label">불가능</label>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--엘레베이터 & 난방종류-->
-                     <!--<div class="col_half col_last">
-                        <label for="template-contactform-service">엘리베이터 여부</label>
-                        <select #elevator id="template-contactform-service" name="buildType" class="sm-form-control">
-                           <option ngFor="let item of existed | enumKeys" [value]="item.key">{{item.value}}</option>
-                        </select>
-                     </div>
-                     <div class="clear"></div>-->
-
-                     <div class="content-wrap-room-new">
-                        <h5>엘리베이터 여부 난방종류</h5>
-                        <div class="col-md-2">
-                           <input id="checkbox-1201" class="checkbox-style" name="checkbox-10" type="checkbox">
-                           <label for="checkbox-1201" class="checkbox-style-3-label">있음</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-1202" class="checkbox-style" name="checkbox-11" type="checkbox">
-                           <label for="checkbox-1202" class="checkbox-style-3-label">없음</label>
-                        </div>
-                        <div class="col-md-4">
-                           <select class="select-hide form-control col_half" 난방종류선택>
-                              <option>심야전기</option>
-                              <option>도시가스</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--층수-->
-                     <!--  <div class="col_half">
-                          <label for="template-contactform-floor">층수</label>
-                          <input type="number" #floor id="template-contactform-floor" name="template-contactform-floor"
-                                 value="{{currentFloor}}" class="sm-form-control"/>
-                       </div>-->
-                     <!--지역 태그-->
-                     <!-- <div class="col_half col_last">
-                         <label for="template-contactform-tag">지역 태그</label>
-                         <input type="text" #regionCategory id="template-contactform-tag" name="template-contactform-tag"
-                                class="sm-form-control"/>
-                      </div>-->
-
-                     <!--입주 가능일-->
-                     <div class="content-wrap-room-new">
-                        <h5>입주 가능일</h5>
-                        <div class="col-md-4">
-                           <div class="input-group">
-                              <input type="text" value="" class="sm-form-control tleft past-enabled"
-                                     placeholder="달/월/년">
-                              <span class="input-group-addon" style="padding: 9px 12px;">
-											<i class="icon-calendar2"></i>
-										</span>
-                           </div>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-1203" class="checkbox-style" name="checkbox-12" type="checkbox">
-                           <label for="checkbox-1203" class="checkbox-style-3-label">즉시 입주</label>
-                        </div>
-                        <div class="col-md-2">
-                           <input id="checkbox-1204" class="checkbox-style" name="checkbox-13" type="checkbox">
-                           <label for="checkbox-1204" class="checkbox-style-3-label">날짜 협의</label>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-                     <!--<div class="col_half">
-                        <label for="template-contactform-availableDate">입주 가능일</label>
-                        <input type="date" #availableDate id="template-contactform-availableDate" name="template-contactform-availableDate" value="" class="sm-form-control"/>
-                     </div>
-                     <div class="clear"></div>
-                     <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>-->
-
-                     <!--옵션-->
-                     <div class="content-wrap-room-new">
-                        <h5>옵션</h5>
-                        <div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1205" class="checkbox-style" name="checkbox-14" type="checkbox">
-                              <label for="checkbox-1205" class="checkbox-style-3-label">에어컨</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1206" class="checkbox-style" name="checkbox-15" type="checkbox">
-                              <label for="checkbox-1206" class="checkbox-style-3-label">세탁기</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1207" class="checkbox-style" name="checkbox-16" type="checkbox">
-                              <label for="checkbox-1207" class="checkbox-style-3-label">침대</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1208" class="checkbox-style" name="checkbox-17" type="checkbox">
-                              <label for="checkbox-1208" class="checkbox-style-3-label">책상</label>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1209" class="checkbox-style" name="checkbox-18" type="checkbox">
-                              <label for="checkbox-1209" class="checkbox-style-3-label">옷장</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-1200" class="checkbox-style" name="checkbox-19" type="checkbox">
-                              <label for="checkbox-1200" class="checkbox-style-3-label">TV</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-12001" class="checkbox-style" name="checkbox-20" type="checkbox">
-                              <label for="checkbox-12001" class="checkbox-style-3-label">신발장</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-12002" class="checkbox-style" name="checkbox-21" type="checkbox">
-                              <label for="checkbox-12002" class="checkbox-style-3-label">냉장고</label>
-                           </div>
-                        </div>
-                        <div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-12003" class="checkbox-style" name="checkbox-22" type="checkbox">
-                              <label for="checkbox-12003" class="checkbox-style-3-label">가스레인지</label>
-                           </div>
-                           <div class="col_one_fifth">
-                              <input id="checkbox-" class="checkbox-style" name="checkbox-23" type="checkbox">
-                              <label for="checkbox-12004" class="checkbox-style-3-label">전자레인지</label>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="clear"></div>
-
-                     <!--건물정보-->
+               <!-- 위치정보
+             ============================================= -->
+               <div class="content-wrap-room-new">
+                  <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
+                     <h3>위치정보</h3></li>
+                  <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px; "></div>
+                  <div>
                      <div class="col_full">
-                        <label for="template-contactform-locationInfo">건물정보
+                        <label for="roominfo-title">제목
                            <small>*</small>
                         </label>
-                        <input type="text" id="template-contactform-locationInfo" name="buildionInfo" value=""
-                               class="required sm-form-control"/>
+                        <input type="text" id="roominfo-title" name="title" value="" class="sm-form-control"
+                               required/>
+                        <label for="postcode">
+                           <small>*</small>
+                           주소</label>
+                        <div>
+                           <div class="col_one_fourth">
+                              <input type="text" class="sm-form-control postcodify_postcode5" id="postcode"
+                                     name="postcode" placeholder="우편번호" required readonly>
+                           </div>
+                           <div class="col_one_fourth">
+                              <button class="button button-border button-rounded button-amber" type="button"
+                                      onclick="search()" id="postcodify_search_button" name="search-button"
+                                      value="검색">검색
+                              </button>
+                              <br/>
+                           </div>
+                           <div class="clear"></div>
+                           <div class="col_half">
+                              <input class="sm-form-control postcodify_address" type="text" id="address"
+                                     name="address" placeholder="주소" readonly required>
+                           </div>
+                           <div class="col_half col_last">
+                              <input class="sm-form-control postcodify_details" type="text" id="detail"
+                                     name="detail" placeholder="상세주소">
+                           </div>
+                           <div class="col_half col_last">
+                              <input class="sm-form-control postcodify_extra_info" type="text" id="extraInfo"
+                                     name="extraInfo" placeholder="참고항목">
+                           </div>
+                        </div>
                      </div>
-                     <div class="clear"></div>
-                     <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
-                     <!--상세정보-->
+                  </div>
+                  <div class="clear"></div>
+                  <div class="double-line" style="margin-top: 10px; margin-bottom: 10px;"></div>
+               </div><!--위치정보-->
 
 
-                     <!-- 상세정보
-                     ============================================= -->
-                     <div class="content-wrap-room-new">
-                        <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
-                           <h3>상세정보</h3></li>
-                        <label for="template-contactform-monthlyRentFee col_">글 공개 여부</label>
-                        <select class="select-hide form-control bottommargin-sm" name="postStatus" placeholder="지하~20층이상">
-                           <% for (i in value.floors) { %>
-                           <option value="<%= i %>"><%= __(value.floors[i]) %></option>
+               <!-- 기본정보
+               ============================================= -->
+               <div class="content-wrap-room-new">
+                  <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
+                     <h3>기본정보</h3></li>
+                  <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
+                  <!-- 방 구조 -->
+                  <div class="col_half">
+                     <label for="template-contactform-service">
+                        <small>*</small>
+                        방구조</label>
+                     <select id="template-contactform-service" name="roomType" class="sm-form-control" required>
+                        <% for (i in value.placeType) { %>
+                        <option value="<%= i %>"><%= __("placeType")[i] %></option>
+                        <% } %>
+                     </select>
+                  </div>
+
+                  <!--연세일경우-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-deposit">
+                        <small>*</small>
+                        계약조건</label>
+                     <div>
+                        <h4>연세일경우, 월세에 1년치 임대료를 입력하세요</h4>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--보증금-->
+                  <div class="col_half">
+                     <label for="template-contactform-deposit">보증금</label>
+                     <div class="input-group">
+                        <input type="number" id="template-contactform-deposit" name="deposit" value=""
+                               placeholder="만원" class="sm-form-control"/>
+                        <span class="input-group-addon">만원</span>
+                     </div>
+                  </div>
+
+                  <!--전세,월세,연세-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-deposit">
+                        <small>*</small>
+                        계약조건</label>
+                     <div>
+                        <select class="conditionType" name="conditionType" placeholder="전세,월세,연세">
+                           <% for (i in value.room.contractCondition) { %>
+                           <option value="<%= i %>"><%= __("room")["contractCondition"][i] %></option>
                            <% } %>
                         </select>
-                        <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
-                        <div class="col_full">
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--월세-->
+                  <div class="col_half">
+                     <label for="template-contactform-monthlyRentFee">월세</label>
+                     <div class="input-group">
+                        <input type="number" id="template-contactform-monthlyRentFee" name="monthly" value=""
+                               placeholder="만원" class="sm-form-control"/>
+                        <span class="input-group-addon">만원</span>
+                     </div>
+                  </div>
+
+                  <!--단기계약가능-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-deposit">
+                        <small>*</small>
+                        계약조건</label>
+                     <div>
+                        <input id="checkbox-12" class="checkbox-style" name="shortTermContract" type="checkbox">
+                        <label for="checkbox-12" class="checkbox-style-3-label">단기 계약 가능</label>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--해당층수-->
+                  <div class="col_half">
+                     <label for="template-contactform-monthlyRentFee col_">해당 층수</label>
+                     <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
+                        <% for (i in value.floors) { %>
+                        <option value="<%= i %>"><%= __("floors")[i] %></option>
+                        <% } %>
+                     </select>
+                  </div>
+
+                  <!--실내평수-->
+                  <div class="col_half col_last">
+                     <label for="template-contactform-actualSize">실내 평수</label>
+                     <div class="input-group">
+                        <input type="number" #actualSize id="template-contactform-actualSize" name="actualSize"
+                               value="" class="sm-form-control"/>
+                        <span class="input-group-addon">평</span>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+                  <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
+               </div><!--기본정보-->
 
 
-                           <!-- summernote -->
-                           <div class="col_full bottommargin-sm center">
-                              <label for="template-contactform">상세설명 </label>
-                              <div class="summernote" rows="6" cols="30">
-                              </div>
-                              <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
+               <!-- 추가정보
+               ============================================= -->
+               <div class="content-wrap-room-new">
+                  <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
+                     <h3>추가정보</h3></li>
+                  <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
+
+                  <!--관리비-->
+                  <div class="content-wrap-room-new">
+                     <h5>관리비</h5>
+                     <div class="col-md-2">
+                        <input id="checkbox-121" class="checkbox-style" name="isManageExpense" type="checkbox">
+                        <label for="checkbox-121" class="checkbox-style-3-label">있음</label>
+                     </div>
+                     <div class="col_half">
+                        <div class="input-group">
+                           <input type="number" id="contactformManageExpense"
+                                  name="contactformManageExpense" value="" placeholder="만원"
+                                  class="sm-form-control"/>
+                           <span class="input-group-addon">만원</span>
+                        </div>
+                     </div>
+                     <div class="col-md-2">
+                        <input id="checkbox-122" class="checkbox-style" name="checkbox-3" type="checkbox">
+                        <label for="checkbox-122" class="checkbox-style-3-label">없음</label>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--주차-->
+                  <div class="content-wrap-room-new">
+                     <h5>주차여부</h5>
+                     <div class="col-md-2">
+                        <input id="checkbox-129" class="checkbox-style" name="checkbox-2" type="checkbox">
+                        <label for="checkbox-129" class="checkbox-style-3-label">기능</label>
+                     </div>
+                     <div class="col_half">
+                        <div class="input-group">
+                           <input type="number" #manageExpense id="templateContactformParking"
+                                  name="template-contactform-parking" value="" placeholder="만원"
+                                  class="sm-form-control"/>
+                           <span class="input-group-addon">만원</span>
+                        </div>
+                     </div>
+                     <div class="col-md-2">
+                        <input id="checkbox-120" class="checkbox-style" name="checkbox-3" type="checkbox">
+                        <label for="checkbox-120" class="checkbox-style-3-label">불가능</label>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--엘레베이터 & 난방종류-->
+                  <!--<div class="col_half col_last">
+                     <label for="template-contactform-service">엘리베이터 여부</label>
+                     <select #elevator id="template-contactform-service" name="buildType" class="sm-form-control">
+                        <option ngFor="let item of existed | enumKeys" [value]="item.key">{{item.value}}</option>
+                     </select>
+                  </div>
+                  <div class="clear"></div>-->
+
+                  <div class="content-wrap-room-new">
+                     <h5>엘리베이터 여부 난방종류</h5>
+                     <div class="col-md-2">
+                        <input id="checkbox-1201" class="checkbox-style" name="elevator" type="checkbox">
+                        <label for="checkbox-1201" class="checkbox-style-3-label">있음</label>
+                     </div>
+                     <div class="col-md-2">
+                        <input id="checkbox-1202" class="checkbox-style" name="elevator" type="checkbox">
+                        <label for="checkbox-1202" class="checkbox-style-3-label">없음</label>
+                     </div>
+                     <div class="col-md-4">
+                        <select name = "heatingType" class="select-hide form-control col_half" 난방종류선택>
+                           <% for (i in value.room.heatingType) { %>
+                           <option value="<%= i %>"><%= __("room")["heatingType"][i] %></option>
+                           <% } %>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--층수-->
+                  <!--  <div class="col_half">
+                       <label for="template-contactform-floor">층수</label>
+                       <input type="number" #floor id="template-contactform-floor" name="template-contactform-floor"
+                              value="{{currentFloor}}" class="sm-form-control"/>
+                    </div>-->
+                  <!--지역 태그-->
+                  <!-- <div class="col_half col_last">
+                      <label for="template-contactform-tag">지역 태그</label>
+                      <input type="text" #regionCategory id="template-contactform-tag" name="template-contactform-tag"
+                             class="sm-form-control"/>
+                   </div>-->
+
+                  <!--입주 가능일-->
+                  <div class="content-wrap-room-new">
+                     <h5>입주 가능일</h5>
+                     <div class="col-md-4">
+                        <div class="input-group">
+                           <input type="text" value="" class="sm-form-control tleft past-enabled"
+                                  placeholder="달/월/년">
+                           <span class="input-group-addon" style="padding: 9px 12px;">
+											<i class="icon-calendar2"></i>
+										</span>
+                        </div>
+                     </div>
+                     <div class="col-md-2">
+                        <input id="checkbox-1203" class="checkbox-style" name="checkbox-12" type="checkbox">
+                        <label for="checkbox-1203" class="checkbox-style-3-label">즉시 입주</label>
+                     </div>
+                     <div class="col-md-2">
+                        <input id="checkbox-1204" class="checkbox-style" name="checkbox-13" type="checkbox">
+                        <label for="checkbox-1204" class="checkbox-style-3-label">날짜 협의</label>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+                  <!--<div class="col_half">
+                     <label for="template-contactform-availableDate">입주 가능일</label>
+                     <input type="date" #availableDate id="template-contactform-availableDate" name="template-contactform-availableDate" value="" class="sm-form-control"/>
+                  </div>
+                  <div class="clear"></div>
+                  <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>-->
+
+                  <!--옵션-->
+                  <div class="content-wrap-room-new">
+                     <h5><%= __("word")["option"] %></h5>
+                     <% for (i in value.room.options) { %>
+                     <div class="col_one_fifth">
+                        <input id="checkbox-1205"+ class="checkbox-style" name="<%= i %>" type="checkbox" >
+                        <label for="checkbox-1205" class="checkbox-style-3-label"><%= __("room")["options"][i] %></label>
+                     </div>
+                     <% } %>
+                  </div>
+                  <div class="clear"></div>
+
+                  <!--건물정보-->
+                  <div class="col_full">
+                     <label for="template-contactform-locationInfo">건물정보
+                        <small>*</small>
+                     </label>
+                     <input type="text" id="template-contactform-locationInfo" name="buildionInfo" value=""
+                            class="required sm-form-control"/>
+                  </div>
+                  <div class="clear"></div>
+                  <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
+                  <!--상세정보-->
+
+
+                  <!-- 상세정보
+                  ============================================= -->
+                  <div class="content-wrap-room-new">
+                     <li><i class="i-rounded icon-check" style="background-color:#2C3E50"></i>
+                        <h3>상세정보</h3></li>
+                     <label for="template-contactform-monthlyRentFee col_">글 공개 여부</label>
+                     <select class="select-hide form-control bottommargin-sm" name="postStatus" placeholder="지하~20층이상">
+                        <% var postStatus = __("postStatus") %>
+                        <% for (i in postStatus) { %>
+                        <option value="<%= i %>"><%= postStatus[i] %></option>
+                        <% } %>
+                     </select>
+                     <div class="line-room-new" style="margin-top: 10px; margin-bottom: 10px;"></div>
+                     <div class="col_full">
+
+
+                        <!-- summernote -->
+                        <div class="col_full bottommargin-sm center">
+                           <label for="template-contactform">상세설명 </label>
+                           <div class="summernote" rows="6" cols="30">
                            </div>
                            <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
                         </div>
-                        <div class="col_full hidden">
-                           <input type="text" id="template-contactform-botcheck" name="summernote" value=""
-                                  class="sm-form-control"/>
-                        </div>
-                        <div class="col_full">
-                           <recaptcha required (resolved)="resolvedCaptcha($event)"
-                                      siteKey="6LcLPwsUAAAAAOqysXiEPmdSpjwTDUUCmL6LiJez"></recaptcha>
-                        </div>
-                        <!--summernote 작성완료 -->
-                        <!--              <div class="col_full">
-                                         <button class="button button-3d nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="background-color: #1693A5" >확인</button>
-                                         <button type="reset" class="button button-3d nomargin" style="background-color: #1693A5">취소</button>
-                                      </div>
-                       -->
-
-                        <!--VR 이미지 / 대표 이미지-->
-                        <div class="col_full">
-                           <label for="roomInfoInput-mainPreviewImage">미리보기 이미지
-                              <small>*</small>
-                           </label>
-                           <input type="file" id="roomInfoInput-mainPreviewImage" name="mainPreviewImage" value=""
-                                  class="required sm-form-control" required/>
-                           <label for="roomInfoInput-VRImages">VR 이미지
-                              <small>*</small>
-                           </label>
-                           <input type="file" id="roomInfoInput-VRImages" name="VRImages" value=""
-                                  class="required sm-form-control" multiple required/>
-                        </div>
-                        <div class="clear"></div>
-                        <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
+                        <!--<textarea class="required sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>-->
                      </div>
-                     <!--상세정보-->
-
-
-                     <!--작성완료단계-->
-                     <div class="col_full bottommargin-sm center">
-                        <button class="button button-3d button-xlarge button-rounded button-dirtygreen" type="submit"
-                                id="template-contactform-submitroomInfo" name="template-contactform-roomInfosubmit"
-                                value="sumit">작성하기
-                        </button>
-                        <button type="reset" class="button button-3d button-xlarge button-rounded button-dirtygreen">
-                           작성취소
-                        </button>
+                     <div class="col_full hidden">
+                        <input type="text" id="template-contactform-botcheck" name="summernote" value=""
+                               class="sm-form-control"/>
                      </div>
+                     <div class="col_full">
+                        <recaptcha required (resolved)="resolvedCaptcha($event)"
+                                   siteKey="6LcLPwsUAAAAAOqysXiEPmdSpjwTDUUCmL6LiJez"></recaptcha>
+                     </div>
+                     <!--summernote 작성완료 -->
+                     <!--              <div class="col_full">
+                                      <button class="button button-3d nomargin" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="background-color: #1693A5" >확인</button>
+                                      <button type="reset" class="button button-3d nomargin" style="background-color: #1693A5">취소</button>
+                                   </div>
+                    -->
 
-                     <input id="lang" type="hidden" name="lang" value="<%= value.lang %>">
-
+                     <!--VR 이미지 / 대표 이미지-->
+                     <div class="col_full">
+                        <label for="roomInfoInput-mainPreviewImage">미리보기 이미지
+                           <small>*</small>
+                        </label>
+                        <input type="file" id="roomInfoInput-mainPreviewImage" name="NORMAL_IMAGE" value=""
+                               class="required sm-form-control" required multiple />
+                        <label for="roomInfoInput-VRImages">VR 이미지
+                           <small>*</small>
+                        </label>
+                        <input type="file" id="roomInfoInput-VRImages" name="VR_IMAGE" value=""
+                               class="required sm-form-control" multiple required/>
+                     </div>
+                     <div class="clear"></div>
+                     <div class="double-line" style="margin-top: 10px; margin-bottom: 10px; "></div>
                   </div>
-               </form>
+                  <!--상세정보-->
+
+
+                  <!--작성완료단계-->
+                  <div class="col_full bottommargin-sm center">
+                     <button class="button button-3d button-xlarge button-rounded button-dirtygreen" type="submit"
+                             id="template-contactform-submitroomInfo" name="template-contactform-roomInfosubmit"
+                             value="sumit">작성하기
+                     </button>
+                     <button type="reset" class="button button-3d button-xlarge button-rounded button-dirtygreen">
+                        작성취소
+                     </button>
+                  </div>
+
+                  <input id="lang" type="hidden" name="lang" value="<%= value.lang %>">
+
+               </div>
+            </form>
          </div>
       </div><!-- Contact Form Overlay End -->
    </div>
@@ -525,25 +456,88 @@
 
    var browserLang = navigator.language || navigator.userLanguage;
 
-   $('.summernote').summernote({
-      height: 600,                 // set editor height
-      minHeight: null,             // set minimum height of editor
-      maxHeight: null,             // set maximum height of editor
-      focus: true,
-      placeholder: '내용을 입력 해주세요.',
-      toolbar: [
-         ['style', ['style']],
-         ['font', ['bold', 'italic', 'underline', 'clear']],
-         ['fontname', ['fontname']],
-         ['color', ['color']],
-         ['para', ['ul', 'ol', 'paragraph']],
-         ['height', ['height']],
-         ['table', ['table']],
-         ['insert', ['link', 'video', 'hr']],
-         ['view', ['fullscreen', 'codeview']],
-         ['help', ['help']]
-      ],
-      lang: <%= locale %> || browserLang || "en"
+   /*$('.summernote').summernote({
+    height: 600,                 // set editor height
+    minHeight: null,             // set minimum height of editor
+    maxHeight: null,             // set maximum height of editor
+    focus: true,
+    placeholder: '내용을 입력 해주세요.',
+    toolbar: [
+    ['style', ['style']],
+    ['font', ['bold', 'italic', 'underline', 'clear']],
+    ['fontname', ['fontname']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+    ['table', ['table']],
+    ['insert', ['link', 'video', 'hr']],
+    ['view', ['fullscreen', 'codeview']],
+    ['help', ['help']]
+    ],
+    lang: <%= value.lang %> || browserLang || "en"
+    });*/
+
+   //submit 버튼 눌렀을 시 발생하는 이벤트
+   $('#roomInfo-Inputform').submit(function(e) {
+
+       //form의 모든 자료를 넘김
+      var queryString = $('#roomInfo-Inputform').serialize();
+
+      $.ajax({
+         //web서버에 넘겨서 table에 추가
+         type : 'post',
+         // 서버 URL 찾기
+         url : './',
+         data: queryString,
+
+         success : function(data, textStatus, jqXHR){
+            // get cookie
+
+            // table에 자료가 추가가 끝난 후 이미지 서버에 전송
+            // 끝난 후에는 새로운 라우터에로 웹서버에게 이미지 path와 postid를 던져주면 업데이트를 함.
+            // 이미지 서버에 JWT토큰 날라가는 지 확인해봐야되는데 못해보았음.
+
+           // 이미지를 normal 한번 보내고 vr한번보내고 총 2번을 따로 보내기
+            const count_normal = $("#roomInfoInput-mainPreviewImage")[0].files.length;
+            const count_vr = $("#roomInfoInput-mainPreviewImage")[0].files.length;
+            var formData = new FormData();
+
+            for(var i = 0; i< count_normal; ++i){
+               formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[i]);
+            }
+
+            for(var i = 0; i< count_vr; ++i){
+               formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[i]);
+            }
+
+            formData.append('postID', data.postID);
+            //etc_files
+            // 이미지
+            $.ajax({
+               type : 'post',
+               // 서버 URL 찾기
+               url : 'http://210.117.182.159:3000/convert/media-attached',
+               data : formData,
+               headers: {
+                  'Authorization':$.cookie('Authorization')
+               },
+               processData: false,  // file전송시 필수
+               contentType: false,  // file전송시 필수
+
+               success : function(data, textStatus, jqXHR){
+                  alert("img Send 성공");
+               },
+               error: function(jqXHR, textStatus, error){
+                  alert("img Send error" + error);
+               }
+            });
+
+         },
+         error: function(jqXHR, textStatus, error){
+            alert(error);
+         }
+      });
+      e.preventDefault(); // avoid to execute the actual submit of the form.*/
    });
 
 </script>

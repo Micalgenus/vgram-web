@@ -4,3 +4,68 @@ info:
   version: 0.0.1
   title: Post Sub-API
   description: Post operations, definitions, parameters and responses
+
+paths:
+  /api/post/media-attached:
+    x-swagger-router-controller: api/posts
+    post:
+      tags:
+      - "post"
+      description: 변환/저장을 완료한 media, attached file의 정보를 DB에 저장한다
+      operationId: createMediaAttachedInfo     # operationId는 전체 swagger 내에서 유일해야한다
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: header
+        required: true
+        type: string
+        description: "jwt token, cookie에 저장되어 있거나, header에 직접 삽입하여 전송해야함."
+      - name: "body"
+        in: "body"
+        required: true
+        schema:  # parameter는 response같이 examples을 생성하지 못함
+          $ref: '#/definitions/CreateMediaAttachedParameter'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: object
+            required:
+              - statusCode
+              - msg
+            properties:
+              statusCode:
+                type: integer
+                description: "성공 : 1, 실패 : -1"
+              msg:
+                type: string
+                description: 서버 응답 메시지, i18n 적용
+          examples:
+            statusCode: 1
+            msg: "convertMediaSuccess"
+        default:
+          description: "error operation"
+          schema:
+            $ref: "../definitions/commons.yaml#/definitions/ErrorResponse"
+
+definitions:
+  CreateMediaAttachedParameter:
+    description: "변환된 미디어 정보 전송을 위한 Parameter"
+    type: object
+    required:
+    - postID
+    - medias
+    properties:
+      postID:
+        type: integer
+        description: 작성한 글의 post.ID
+      medias:
+        type: "array"
+        items:
+          $ref: "../definitions/media.yaml#/definitions/Media"
+        description: "변환된 media object 배열([]), 자세한 사항은 definitions/media.yaml 참고"
+    example:
+      postID: 3
+      medias:
+        $ref: "../definitions/media.yaml#/definitions/MediasExample"

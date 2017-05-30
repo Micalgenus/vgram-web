@@ -7,9 +7,16 @@ var Enum = require('enum');
 /**
  * 전송 완료시의 상태코드
  */
-const statusCode = new Enum({
-  'requestActionCompleted_20x': 1
-});
+const httpStatusCode = {
+   'ok_200': 200,
+   'created_201': 201,
+   'found_302': 302,
+   'badRequest_400': 400,
+   'unauthorized_401': 401,
+   'forbidden_403': 403,
+   'notFound_404': 404,
+   'internalServerError_500': 500
+};
 
 // 해당 메시지를 기반으로 i18n을 거쳐서 가기 때문에 통신간의 모든 statusMessage는
 // 본 변수에서 지정된 후에 이용해야 한다.
@@ -25,7 +32,7 @@ const statusMessage = {
       requiredLogin: "requiredLogin",      // 로그인이 필요함(로그인되지 않은 client 알림)
       tokenExpired: "tokenExpired"     // 토큰 만료
    }
-};
+}
 
 const memberType = {
   ADMIN: "ADMIN",
@@ -55,20 +62,48 @@ const placeType = {
    HOSPITAL: "HOSPITAL"
 }
 
-const roomContractCondition = {
-   MONTHLY: "MONTHLY",
-   ANNUALLY: "ANNUALLY",
-   LEASE: "LEASE"
+const room = {
+   shortTerm: "shortTerm",
+   contractCondition: {
+      MONTHLY: "MONTHLY",
+      ANNUALLY: "ANNUALLY",
+      LEASE: "LEASE",
+      SELL: "SELL"
+   },
+   options: {
+      "internet": "internet",
+      "TV": "TV",
+      "washer": "washer",
+      "airConditioner": "airConditioner",
+      "bed": "bed",
+      "desk": "desk",
+      "closet": "closet",
+      "refrigerator": "refrigerator",
+      "gasRange": "gasRange",
+      "microwave": "microwave",
+      "shoeCloset": "shoeCloset"
+   },
+   parking: "parking",
+   elevator: "elevator",
+   manageExpense: "manageExpense",
+   heatingType: {
+      "nightElectronic": "nightElectronic",
+      "cityGas": "cityGas"
+   }
 }
+
 
 const floors = {
    "Bx": "Bx",    // 지하
+   "Bh": "Bh",
    "1F": "1F",    // 1층
    "2F": "2F",    // 2층
    "3F": "3F",    // 3층
    "4F": "4F",    // 4층
    "5F": "5F",    // 5층
-   "6xF": "6xF"    // 6층 이상
+   "6F": "6F",    // 6층
+   "7xF": "7xF",    // 7층 이상
+   "rooftop": "rooftop"
 }
 
 const PARTNETS_HOUSE = [        // 주거시설
@@ -130,7 +165,11 @@ const fieldName = {
 const mediaType = {
    NORMAL_IMAGE: "NORMAL_IMAGE",
    VR_IMAGE: "VR_IMAGE",
-   VTOUR_IMAGE: "VTOUR_IMAGE"
+   VTOUR: "VTOUR",
+   NORMAL_VIDEO: "NORMAL_VIDEO",
+   VR_VIDEO: "VR_VIDEO",
+   AUDIO: "AUDIO",
+   PROFILE_IMAGEL: "PROFILE_IMAGE"
 }
 
 const postStatus = {
@@ -197,13 +236,13 @@ const langCode = {
 
 // locales.*.js와 동일한 구조로 만들어야 i18n 적용이 쉽다.
 module.exports = {
-  statusCode,
+   httpStatusCode,
   memberType,
   fieldName,
    mediaType,
   placeType,
   businessType,
-   roomContractCondition,
+   room,
    floors,
    postStatus,
    postType,

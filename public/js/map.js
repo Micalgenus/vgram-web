@@ -1,22 +1,3 @@
-var filter = (function() {
-  var address = (function() {
-    var $root = $('select#address');
-
-    function push($data) {
-      $root.append('<option>' + $data + '</option>')
-           .selectpicker('refresh');
-    };
-
-    return {
-      push: push
-    }
-  })();
-
-  return {
-    push: address.push
-  }
-})();
-
 //////////////////////////////
 /**
  * @desc 출력될 리스트 데이터
@@ -73,9 +54,10 @@ var ListData = (function() {
           displayArray.push(data);
         }
 
-        function displayReload(make) {
+        function displayReload(make, filter, makeLocations) {
           displayArray = [];
-          const dataArray = data.getDataArray();
+          const dataArray = filter(data.getDataArray());
+          const locations = makeLocations(dataArray);
           let count = 0;
           let start = pagination.getPageSize() * (pagination.getPage() - 1);
           let end = pagination.getPageSize() * pagination.getPage();
@@ -86,16 +68,19 @@ var ListData = (function() {
             count++;
           }
           show(make);
-        };
+
+          MapData.loadMap(locations);
+        }
+
         return {
           displayReload: displayReload
         }
       })(); /* ListData.display.list.displayList */
-
+      
       return {
         displayReload: displayList.displayReload
       }
-
+      
     })(); /* ListData.display.list */
 
     /**
@@ -110,6 +95,8 @@ var ListData = (function() {
       var defaultOpts = { totalPages: 1 };
 
       var $make = null;
+      var $filter = function(list){ return list; };
+      var $makeLocations = function(list){ return list; };
       var $page = 1;
       let $pageSize = 5;
 
@@ -120,7 +107,7 @@ var ListData = (function() {
        */
       function clickEvent(evt, page) {
         $page = page;
-        display.displayReload($make);
+        display.displayReload($make, $filter, $makeLocations);
       };
       
       /**
@@ -138,12 +125,14 @@ var ListData = (function() {
        * @desc  pagination 다시 그리기
        * @param {int} listSize 목록 갯수
        */
-      function reload(listSize, make) {
+      function reload(listSize, make, push, filter, makeLocations) {
         if (!$start) init();
         if (listSize < 1) listSize = 1;
         var total = Math.ceil(listSize  / $pageSize);
         
-        $make = make;
+        if (make) $make = make;
+        if (filter) $filter = filter;
+        if (makeLocations) $makeLocations = makeLocations;
 
         $pagination.twbsPagination('destroy');
         $pagination.twbsPagination($.extend({}, defaultOpts, {
@@ -152,10 +141,19 @@ var ListData = (function() {
         }));
       }
 
+      function getEventMethod() {
+        return {
+          make: $make,
+          filter: $filter,
+          makeLocations: $makeLocations
+        }
+      };
+
       return {
         getPage: getPage,
         getPageSize: getPageSize,
         reload: reload,
+        getEventMethod: getEventMethod
       }
     })(); /* ListData.display.pagination */
 
@@ -215,19 +213,27 @@ var ListData = (function() {
     function push(list) {
       for (var i in list) {
         dataArray.push(list[i]);
-        console.log(list[i]);
       }
     }
 
-    function dataReload($init, compare, make) {
+    function dataReload($init, compare, make, _push, _filter, makeLocations, done) {
       clear();
       
       $init.then(function() {
         dataArray = dataArray.sort(compare);
-        display.pagination.reload(dataArray.length, make);
+        display.pagination.reload(dataArray.length, make, _push, _filter, makeLocations);
 
-        display.displayReload(make);
+        display.displayReload(make, _filter, makeLocations);
+
+        if (_push) _push(dataArray);
+        if (done) done();
       });
+    };
+
+    function filterReload() {
+      var event = display.pagination.getEventMethod();
+      
+      display.displayReload(event.make, event.filter, event.makeLocations);
     };
 
     function getDataArray() { return dataArray; }
@@ -240,7 +246,8 @@ var ListData = (function() {
       getDataArray: getDataArray,
       dataReload: dataReload,
       makeList: makeList,
-      getList: getList
+      getList: getList,
+      filterReload: filterReload
     }
   })(); /* ListData.data */
 
@@ -330,7 +337,7 @@ var MapData = (function() {
           success: function(result) {
             if (result) {
               var locations = makeLocations(result);
-              data.loadMap(locations)
+              // data.loadMap(locations)
               if (done) done(result);
             } else {
               alert("Load Error !!");
@@ -404,6 +411,10 @@ var MapData = (function() {
      */
     var data = (function() {
 
+      var M;
+
+      var T;
+
       // markerCluster 객체
       var markerCluster = null;
 
@@ -429,13 +440,14 @@ var MapData = (function() {
        * @param {event} timer 이벤트에 따른 실행될 함수
        */
       function drawMap(lat, lng, timer) {
-        var map = initMap('map', lat, lng);
+        M = initMap('map', lat, lng);
+        T = timer;
 
-        addListener(map, 'dragend', timer);
-        addListener(map, 'zoom_changed', timer);
-        addListener(map, 'projection_changed', timer);
+        addListener(M, 'dragend', timer);
+        addListener(M, 'zoom_changed', timer);
+        addListener(M, 'projection_changed', timer);
 
-        markerCluster = marker.initMarkerClusterer(map)
+        markerCluster = marker.initMarkerClusterer(M);
       };
       
       /**
@@ -454,9 +466,7 @@ var MapData = (function() {
        */
       function addListener(map, event, done) {
         map.addListener(event, function() {
-          var bounds = map.getBounds();
-          var c = getBounds(bounds);
-          done(c.east, c.west, c.south, c.north);
+          redrawMap(map, done);
         });
       };
 
@@ -478,21 +488,38 @@ var MapData = (function() {
         return { east: e + ew, north: n + ns, south: s - ns, west: w - ew }
       };
 
+      function setCenter(lat, lng) {
+        M.setCenter({lat, lng});
+
+        redrawMap(M, T);
+      }
+
+      function redrawMap(map, timer) {
+        var bounds = map.getBounds();
+        var c = getBounds(bounds);
+        timer(c.east, c.west, c.south, c.north);
+      }
+
       return {
         loadMap: loadMap,
-        drawMap: drawMap
+        drawMap: drawMap,
+        setCenter: setCenter
       }
 
     })(); /* MapData.map.data */
 
     return {
       drawMap: data.drawMap,
-      getLocations: locations.getLocations
+      getLocations: locations.getLocations,
+      setCenter: data.setCenter,
+      loadMap: data.loadMap
     }
   })(); /* MapData.map */
 
   return {
     drawMap: map.drawMap,
-    timer: event.timer
+    timer: event.timer,
+    setCenter: map.setCenter,
+    loadMap: map.loadMap
   }
 })(); /* MapData */

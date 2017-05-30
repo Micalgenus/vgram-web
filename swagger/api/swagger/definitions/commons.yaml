@@ -1,0 +1,92 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title: Common elements
+  description: Shared elements in all API
+
+definitions:
+  PlaceType:
+    description: "방, 건물의 종류, staticValue.js#/placeType 참고"
+    type: "string"
+    enum:
+    - "ONE_ROOM"
+    - "TWO_ROOM"
+    - "THREE_ROOM"
+    - "APARTMENT"
+    - "VILLA"
+    - "DETACHED_HOUSE"
+    - "OFFICETEL"
+    - "OFFICE"
+    - "SHOPPING"
+    - "CAFE_RESTAURANT"
+    - "WEDDING"
+    - "ACADEMY"
+    - "HOSPITAL"
+
+  Floors:
+    description: "건물의 층수, staticValue.js#/floors 참고"
+    type: "string"
+    enum:
+    - "Bx"  # 지하
+    - "1F"  # 1층
+    - "2F"  # 2층
+    - "3F"  # 3층
+    - "4F"  # 4층
+    - "5F"  # 5층
+    - "6xF"  # 6층 이상
+
+  Locale:
+    description: "지원 언어 종류, 조회/검색시 빠른 처리를 위한 icl_translation.language_code값 복사"
+    type: "array"
+    items:
+      type: string
+    enum:
+      - "ko-kr"  # 한국어
+      - "en-us"  # 영어
+    example: "ko-kr"
+
+  UserInfo:
+    description: 로그인한 user의 jwt token 정보
+    type: "object"
+
+  HelloWorldMessage:
+    description: "hello world Message"
+    type: "object"
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        example: "hello 롯데월드!"
+
+  PlainMessage:
+    description: "Plain Object Message"
+    type: "object"
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        example: The protected test route is functional!
+
+
+  ErrorResponse:
+    required:
+      - code
+      - msg
+    properties:
+      code:
+        type: integer
+        enum:
+          - badRequest_400
+          - unauthorized_401
+          - forbidden_403
+          - notFound_404
+          - internalServerError_500
+      msg:
+        description: A error description
+        type: string
+    example:
+      code: badRequest_400
+      msg: "error message"
