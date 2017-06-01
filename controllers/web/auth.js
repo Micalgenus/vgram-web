@@ -41,7 +41,7 @@ exports.loginView = function(req, res, next) {
 }
 
 exports.logout = function(req, res, next) {
-   res.clearCookie('Authorization');
+   res.clearCookie('authorization');
    req.flash('msg', 'loggedOut');
 
    return next();
@@ -202,8 +202,8 @@ exports.setToken = function(req, res, next) {
    let result = auth.login(req, res);
 
    // header와 cookies에 id_token을 붙여서 전송
-   res.clearCookie('Authorization');
-   res.cookie('Authorization', result.id_token);
+   res.clearCookie('authorization');
+   res.cookie('authorization', result.id_token);
 
    return next();
 }

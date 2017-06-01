@@ -268,7 +268,7 @@ exports.createRoomInfo = function (req, res, next) {
                   }, {transaction: t});
                }).then(function (result) {
                   // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
-                  
+
                   return res.status(200).json({
                      postID: sendPostID,
                      roomID: sendRoomID
