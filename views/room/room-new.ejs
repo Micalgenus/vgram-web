@@ -491,10 +491,13 @@
          data: queryString,
 
          success : function(data, textStatus, jqXHR){
+            // get cookie
 
             // table에 자료가 추가가 끝난 후 이미지 서버에 전송
             // 끝난 후에는 새로운 라우터에로 웹서버에게 이미지 path와 postid를 던져주면 업데이트를 함.
             // 이미지 서버에 JWT토큰 날라가는 지 확인해봐야되는데 못해보았음.
+
+           // 이미지를 normal 한번 보내고 vr한번보내고 총 2번을 따로 보내기
             const count_normal = $("#roomInfoInput-mainPreviewImage")[0].files.length;
             const count_vr = $("#roomInfoInput-mainPreviewImage")[0].files.length;
             var formData = new FormData();
@@ -504,7 +507,7 @@
             }
 
             for(var i = 0; i< count_vr; ++i){
-               formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[1]);
+               formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[i]);
             }
 
             formData.append('postID', data.postID);
@@ -515,7 +518,9 @@
                // 서버 URL 찾기
                url : 'http://210.117.182.159:3000/convert/media-attached',
                data : formData,
-
+               headers: {
+                  'Authorization':$.cookie('Authorization')
+               },
                processData: false,  // file전송시 필수
                contentType: false,  // file전송시 필수
 
@@ -532,7 +537,7 @@
             alert(error);
          }
       });
-      e.preventDefault(); // avoid to execute the actual submit of the form.
+      e.preventDefault(); // avoid to execute the actual submit of the form.*/
    });
 
 </script>

@@ -6,6 +6,8 @@
 const models = require('../../models');
 const post = models.post;
 const room = models.room;
+const Media = models.media;
+const Post_Media_relationship = models.post_media_relationship;
 const _ = require('lodash');
 const moment = require("moment");
 
@@ -46,43 +48,127 @@ exports.viewNotice = function (req, res) {
    });
 }
 
-
+//2017-05-29 이정현 개발
 // media, attached 파일정보 DB 저장
-exports.createMediaAttachedInfo = function (req, res) {
-   let pageSize, pageStartIndex;
+// media insert, post_media_relationship insert에 값 넣기
+// return 은 상태코드만 날려주기
+exports.createNormalImageInfo = function (req, res) {
 
-   // 페이지 정보 확인
-   if (!req.query.pageSize || !req.query.pageStartIndex) {
-      // query가 제대로 오지 않으면 초기값으로 보낸다.
-      pageSize = 10;
-      pageStartIndex = 0;
-   } else {
-      pageSize = _.toNumber(req.query.pageSize);
-      pageStartIndex = _.toNumber(req.query.pageStartIndex);
-   }
-   //공지사항 조회
-   return models.sequelize.query("select u.email, u.display_name, p.* " +
-      "from users as u, post as p where u.ID = p.user_id and p.post_type = 'notice' limit ?,?",
-      {replacements: [pageStartIndex, pageSize], type: models.sequelize.QueryTypes.SELECT}
-   ).then(function (noticeList) {
-      if (noticeList.length == 0) {
-         return res.status(400).json({
-            errorMsg: '정보 없음',
-            statusCode: -1
-         });
-      } else {
-         return res.status(200).json({
-            noticeList: noticeList,
-            statusCode: 1
-         });
-      }
-   }).catch(function (err) {
+   //  /api/post/normal-image
+
+   let token = req.headers['authorization'];
+   //토큰 확인
+   if (!token) {
       return res.status(400).json({
-         errorMsg: 'DB select error',
-         statusCode: -2
+         errorMsg: 'Do not have a token',
+         statusCode: -1
       });
-   });
+   }
+   console.log(req.user);
+
+   // return models.sequelize.transaction(function (t) {
+   //
+   //    //media 테이블 추가
+   //    return Media.create({
+   //       user_id: req.user.id,
+   //       group: null,
+   //       type : req.body.Images.type,
+   //       date : moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+   //       file_path: '/medias/images/' +  req.user.email,
+   //       file_name: req.body.Images.file_name,
+   //       meta_value: req.body.Images
+   //    }, {transaction: t}).then(function (createMedia) {
+   //       return Post_Media_relationship.create({
+   //          post_id : req.postId,
+   //          media_id : createMedia.ID
+   //       }, {transaction: t});
+   //    }).then(function (result) {
+   //       //정상적으로 되었을 경우
+   //       return res.status(200).json({
+   //          statusCode: 1
+   //       });
+   //    }).catch(function (err) {
+   //       //에러 발생했을 경우
+   //       return res.status(401).json({
+   //          errorMsg: 'DB create error',
+   //          statusCode: -1
+   //       });
+   //    });
+   // });
 }
+
+// vr 이미지 DB
+exports.createVRImageVtourInfo = function (req, res) {
+   console.log(req.user);
+   let token = req.headers['authorization'];
+   //토큰 확인
+   if (!token) {
+      return res.status(400).json({
+         errorMsg: 'Do not have a token',
+         statusCode: -1
+      });
+   }
+   //vr이미지 입력
+   // return models.sequelize.transaction(function (t) {
+   //
+   //    //media 테이블 추가
+   //    return Media.create({
+   //       user_id : req.user.id,
+   //       group: null,
+   //       type: req.body.vrImages.type,
+   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+   //       file_path:  '/medias/vrimages/' +  req.user.email,
+   //       file_name: req.body.vrImages.file_name,
+   //       meta_value: req.vrImages
+   //    }, {transaction: t}).then(function (createMedia) {
+   //       return Post_Media_relationship.create({
+   //          post_id : req.postId,
+   //          media_id : creatMedia.ID
+   //       }, {transaction: t});
+   //
+   //    }).then(function (result) {
+   //
+   //       return res.status(200).json({
+   //          statusCode: 1
+   //       });
+   //    }).catch(function (err) {
+   //       return res.status(401).json({
+   //          errorMsg: 'DB create error',
+   //          statusCode: -1
+   //       });
+   //    });
+   // });
+   //
+   // //vtour 정보 입력
+   // return models.sequelize.transaction(function (t) {
+   //    //media 테이블 추가
+   //    return Media.create({
+   //       user_id : req.user.id,
+   //       group: null,
+   //       type: req.body.vtour.type,
+   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+   //       file_path: "/medias/vtours/" +  req.user.email + req.body.vtour.size ,
+   //       file_name: req.vtour.file_name,
+   //       meta_value: req.vtour
+   //    }, {transaction: t}).then(function (createMedia) {
+   //       return Post_Media_relationship.create({
+   //          post_id : req.postId,
+   //          media_id : createMedia.ID
+   //       }, {transaction: t});
+   //
+   //    }).then(function (result) {
+   //       return res.status(200).json({
+   //          statusCode: 1
+   //       });
+   //    }).catch(function (err) {
+   //       return res.status(401).json({
+   //          errorMsg: 'DB create error',
+   //          statusCode: -1
+   //       });
+   //    });
+   // });
+}
+
 
 //게시글 출력
 exports.viewPosts = function (req, res) {

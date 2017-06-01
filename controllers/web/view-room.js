@@ -151,8 +151,8 @@ exports.createRoomInfoView = function (req, res, next) {
  * @param next
  */
 exports.createRoomInfo = function (req, res, next) {
-
-   console.log(req);
+   var sendPostID;
+   var sendRoomID;
    if (!req.user.logined) {
       req.flash('msg', "requiredLogin");
       // return res.redirect('/post/room');
@@ -220,7 +220,7 @@ exports.createRoomInfo = function (req, res, next) {
          // 체크박스가 제대로 되지 않아서 일부부만 넣음.
          meta_value: metaData
       }, {transaction: t}).then(function (createPost) {
-
+         sendPostID = createPost.ID;
          //room 테이블 내용 추가
          return Room.create({
             post_id: createPost.ID,
@@ -232,7 +232,7 @@ exports.createRoomInfo = function (req, res, next) {
             // thumbnail_image_path:,
             // thumbnail_media_id :
          }, {transaction: t}).then(function (createRoom) {
-
+            sendRoomID = createRoom.ID;
             // icl_translation 테이블 내용 추가
             return Translation.create({
                element_id: createPost.ID,
@@ -268,9 +268,10 @@ exports.createRoomInfo = function (req, res, next) {
                   }, {transaction: t});
                }).then(function (result) {
                   // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
+
                   return res.status(200).json({
-                     postID: result.post_id,
-                     roomID: result.ID
+                     postID: sendPostID,
+                     roomID: sendRoomID
                   });
                }).catch(function (err) {
                   return console.log(err);

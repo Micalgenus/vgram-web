@@ -5,6 +5,6 @@
      "resources/*", "swagger/",
 
      ".idea/*", ".sqlite", ".sqlite-journal", ".bak", ".tmp", ".mwb", ".___jb_tmp___", ".json___jb_tmp___", ".js___jb_tmp___",
-     ".pptx", ".md", "*.json"
+     ".pptx", ".md", "*.json", "*.swap"
   ]
 }

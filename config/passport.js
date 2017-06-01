@@ -31,7 +31,7 @@ const localOptions = {
 const cookieExtractor = function(req) {
   var token = null;
   if (req && req.cookies) {
-    token = req.cookies['Authorization'];
+    token = req.cookies['authorization'];
     if (token) token = token.replace('Bearer ', '');
   }
 
@@ -94,7 +94,7 @@ const localLogin = new LocalStrategy(localOptions, function (req, email, passwor
 const jwtOptions = {
   // Telling Passport to check authorization headers for JWT
   // jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeader(), cookieExtractor, emptyExtractor]),
+  jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme("Bearer"), cookieExtractor, emptyExtractor]),
   // Telling Passport where to find the secret
   secretOrKey: config.secret,
   // auth_token: 'JWT'
