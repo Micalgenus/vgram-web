@@ -26,7 +26,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       post_code: {
          type: DataTypes.STRING(45),
-         allowNull: false
+         allowNull: true,
+         defaultValue: null
       },
       region_code: {
          type: DataTypes.STRING(45),

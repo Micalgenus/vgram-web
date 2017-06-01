@@ -44,7 +44,7 @@ const businessType = {
    HOTEL: "HOTEL",      // 호텔
    ESTATE_AGENT: "ESTATE_AGENT",    // 공인중개사
    LANDLORD: "LANDLORD"    // 건물주
-}
+};
 
 const placeType = {
    ONE_ROOM: "ONE_ROOM",
@@ -60,7 +60,7 @@ const placeType = {
    WEDDING: "WEDDING",
    ACADEMY: "ACADEMY",
    HOSPITAL: "HOSPITAL"
-}
+};
 
 const room = {
    shortTerm: "shortTerm",
