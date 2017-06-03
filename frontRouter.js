@@ -310,8 +310,8 @@ module.exports = function (app) {
 
    //media, attached 정보 저장(image-server에서 이용함)
    //2017-05-29 이정현 개발
-   api.postRoute.post('/normal-image', requireAuth, api.postController.createNormalImageInfo);
-   api.postRoute.post('/vrimage-vtour', requireAuth, api.postController.createVRImageVtourInfo);
+   api.postRoute.post('/images', requireAuth, api.postController.createNormalImageInfo);
+   api.postRoute.post('/vtour', requireAuth, api.postController.createVRImageVtourInfo);
 
    //=========================
    // web - Room Info Routes
