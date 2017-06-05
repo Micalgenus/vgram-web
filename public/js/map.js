@@ -21,7 +21,8 @@ var ListData = (function() {
       var displayArray = [];
 
       // 리스트가 출력될 태그
-      var root = $('.grid-container').isotope({ itemSelector: '.grid-item' });
+      // var root = $('.grid-container').isotope({ itemSelector: '.grid-item' });
+      var root = $('#post');
 
       /**
        * @desc 화면 리스트를 초기화
@@ -37,12 +38,13 @@ var ListData = (function() {
       function show(make) {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
-        root.isotope('layout');
+        // root.isotope('layout');
       };
 
       function appendRoot(data) {
         var $items = $(data);
-        root.append($items).isotope('appended', $items).isotope('layout');
+        root.append($items);
+        // root.append($items).isotope('appended', $items).isotope('layout');
       };
       
       /**
@@ -98,7 +100,7 @@ var ListData = (function() {
       var $filter = function(list){ return list; };
       var $makeLocations = function(list){ return list; };
       var $page = 1;
-      let $pageSize = 5;
+      let $pageSize = 10;
 
       /**
        * @desc  페이지 클릭 시 발생 이벤트
@@ -284,8 +286,8 @@ var MapData = (function() {
      * @param {function} done 요청 성공시 추가 호출할 함수
      */
     function timer(url, done) {
+      clearTimeout(t);
       t = setTimeout(function() {
-        clearTimeout(t);
         map.getLocations(url, done);
       }, 500); // 500ms 이내에 같은 이벤트 호출 시 중복 호출 제거
     };
@@ -364,14 +366,24 @@ var MapData = (function() {
        * 
        * @return {marker} marker에 대한 정보
        */
-      function makeMarker(locations) {
+      function makeMarker(locations, map) {
         const labels = '1';
+
         return locations.map(function(location, i) {
-          return new google.maps.Marker({
+          var $marker = new google.maps.Marker({
             position: location,
             label: labels[i % labels.length]
           });
+
+          $marker.addListener('click', function() {
+            map.setCenter($marker.getPosition());
+            map.setZoom(15);
+            map.setZoom(15);
+          });
+
+          return $marker;
         });
+
       }
 
       /**
@@ -382,7 +394,7 @@ var MapData = (function() {
        */
       function initMarkerClusterer(map) {
         const imagePath = 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m';
-        return new MarkerClusterer(map, makeMarker([]), {imagePath: imagePath});
+        return new MarkerClusterer(map, makeMarker([], map), {imagePath: imagePath});
       }
 
       /**
@@ -390,8 +402,8 @@ var MapData = (function() {
        * @param {markerCluster} markerCluster 생성된 MarkerClusterer객체
        * @param {array} locations 좌표를 포함하는 객체 배열
        */
-      function redrawMarkerCluster(markerCluster, locations) {
-        var newmarkers = makeMarker(locations);
+      function redrawMarkerCluster(markerCluster, locations, map) {
+        var newmarkers = makeMarker(locations, map);
 
         markerCluster.clearMarkers();
         markerCluster.addMarkers(newmarkers, true);
@@ -455,7 +467,7 @@ var MapData = (function() {
        * @param {array} locations 다시 그릴 좌표 배열
        */
       function loadMap(locations) {
-        marker.redrawMarkerCluster(markerCluster, locations);
+        marker.redrawMarkerCluster(markerCluster, locations, M);
       };
 
       /**
@@ -497,6 +509,7 @@ var MapData = (function() {
       function redrawMap(map, timer) {
         var bounds = map.getBounds();
         var c = getBounds(bounds);
+        console.log("bounds", c);
         timer(c.east, c.west, c.south, c.north);
       }
 

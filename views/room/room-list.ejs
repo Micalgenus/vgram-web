@@ -43,7 +43,7 @@
       .left_top{
          width:50%;
          float: left;
-         height: 900px;
+         height: calc(100% - 124px);
       }
 
       #left_area{
@@ -51,7 +51,7 @@
          width:100%;
          overflow: auto;
          overflow-x: hidden;
-         height: 900px;
+         height: 100%;
       }
 
       #post{
@@ -154,12 +154,12 @@
                  <ul>
                     <li><a href="#"><div>방 종류</div></a>
                        <ul>
-                          <!--<a href="#" class="bt-fruits" data-type="checklist" data-value="1" data-title="Select fruits"></a>-->
-                          <li><a href="#"><div>원룸</div></a></li>
-                          <li><a href="#"><div>투룸</div></a></li>
-                          <li><a href="#"><div>쓰리룸</div></a></li>
+                          <% for (i in value.placeType) { %>
+                          <li><a href="#"><div><%= __("placeType")[i] %></div></a></li>
+                          <% } %>
                        </ul>
                     </li>
+
                     <li><a href="#"><div>월세</div></a>
                        <ul>
                           <li><a href="#"><div>25만 ~ 30만</div></a></li>
@@ -348,161 +348,10 @@
 
 <div class="left_top">
 <div id="left_area" class=".col-md-6">
+  <div id="post">
 
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-              <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-             </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-               </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <ul id="pagination" class="pagination-sm"></ul>
-
+  </div>
+  <ul id="pagination" class="pagination-sm"></ul>
 </div>
 
 
@@ -512,7 +361,7 @@
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
    <div class=".col-md-6">
-  <div id="map" style="height:100%"></div>
+  <div id="map" style="height:calc(100% - 124px);"></div>
    </div>
    <script type="text/javascript">
 
@@ -534,8 +383,6 @@
         lng = <%= lng %>;
         roomList.drawRoom(lat, lng);
       }
-
-      filter.reload();
     }
 
   </script>

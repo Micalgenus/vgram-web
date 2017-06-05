@@ -1,7 +1,5 @@
 var filter = (function() {
 
-  var dataList = new List('data-list', { item: 'data-item' });
-
   var address = (function() {
 
     var bestPictures = new Bloodhound({
@@ -29,7 +27,6 @@ var filter = (function() {
     });
 
     var $root = $('#room #address');
-    var addrList = [];
 
     $('#room .typeahead.tt-input').on('typeahead:selected', function(evt, data) {
       const address = $(this).val();
@@ -62,19 +59,6 @@ var filter = (function() {
     var $root = $('select#type');
     var typeList = [];
 
-    function push($data) {
-      $root.append('<option>' + $data + '</option>')
-           .selectpicker('refresh');
-    };
-    
-    function clear() {
-      typeList = [];
-      $root.html('').selectpicker('refresh');
-    }
-
-    function reload() {
-    }
-
     $root.change(function() {
       mapReload();
     });
@@ -88,9 +72,6 @@ var filter = (function() {
     }
 
     return {
-      push: push,
-      clear: clear,
-      reload: reload,
       filter: filter
     }
   })();
@@ -98,25 +79,6 @@ var filter = (function() {
   var deposit = (function() {
     var $min = $('#deposit .min');
     var $max = $('#deposit .max');
-
-    function clear() {
-      $min.val(0);
-      $max.val(0);
-    }
-
-    function reload() {
-      clear();
-      var min = true;
-
-      dataList.sort('deposit', { order: 'asc' });
-      var list = dataList.search();
-      list.forEach(function(d) {
-        var v = d._values;
-        if (min) $min.val(v.deposit);
-        
-        $max.val(v.deposit);
-      });
-    };
 
     $min.change(function() {
       mapReload();
@@ -136,8 +98,6 @@ var filter = (function() {
     }
 
     return {
-      clear: clear,
-      reload: reload,
       filter: filter
     }
   })();
@@ -146,25 +106,6 @@ var filter = (function() {
     var $min = $('#rent_fee .min');
     var $max = $('#rent_fee .max');
 
-    function clear() {
-      $min.val(0);
-      $max.val(0);
-    }
-
-    function reload() {
-      clear();
-      var min = true;
-
-      dataList.sort('monthly_rent_fee', { order: 'asc' });
-      var list = dataList.search();
-      list.forEach(function(d) {
-        var v = d._values;
-        if (min) $min.val(v.monthly_rent_fee);
-        
-        $max.val(v.monthly_rent_fee);
-      });
-    };
-    
     $min.change(function() {
       mapReload();
     });
@@ -183,39 +124,9 @@ var filter = (function() {
     }
 
     return {
-      clear: clear,
-      reload: reload,
       filter: filter
     }
   })();
-
-  function push(data) {
-    // console.log(data);
-    data.forEach(function(d) {
-      // console.log(d);
-      dataList.add({
-        ID: d.ID,
-        address: d.post.icl_translation.addresses[0].addr1,
-        room_type: d.room_type,
-        monthly_rent_fee: d.monthly_rent_fee,
-        deposit: d.deposit
-      });
-    });
-    console.log(dataList.search());
-  }
-
-  function clear() {
-    dataList.clear();
-    // type.clear();
-    // deposit.clear();
-    // rentFee.clear();
-  }
-
-  function reload() {
-    // type.reload();
-    deposit.reload();
-    rentFee.reload();
-  }
 
   function filter(list) {
     var result = [];
@@ -234,9 +145,6 @@ var filter = (function() {
   }
 
   return {
-    push: push,
-    clear: clear,
-    reload: reload,
     filter: filter
   }
 })();
@@ -265,7 +173,6 @@ var roomList = (function() {
     };
 
     function makeLocations(data) {
-      console.log('makeLocations');
       locations = [];
       data.forEach(function(v) {
         var c = v.post.icl_translation.coordinates[0];
@@ -285,12 +192,9 @@ var roomList = (function() {
   var list = (function() {
 
     function roomDataReload(data) {
-      filter.clear();
       let init = getRoomList(data);
 
       ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.filter, map.makeLocations, null);
-      // ListData.data.dataReload(init, roomCompare, makeRoom, filter.push, filter.reload);
-      // ListData.data.dataReload(init, roomCompare, makeRoom, null, filter.reload);
     };
 
     function getRoomList($list) {
@@ -313,7 +217,7 @@ var roomList = (function() {
     function makeRoom(data) {
       let imgServerAddr = "/";
       return ListData.template.makeTemplate('/template/room-data.ejs', {
-        image_path: imgServerAddr + JSON.parse(data.post.thumbnail_image_path)[0].path,
+        image_path: imgServerAddr + JSON.parse(data.post.thumbnail_image_path)[0].vrimages[0].thumb,
         deposit: data.deposit,
         monthly_rent_fee: data.monthly_rent_fee,
         title: data.post.title,
