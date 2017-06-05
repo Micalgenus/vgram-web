@@ -500,26 +500,28 @@
            // 이미지를 normal 한번 보내고 vr한번보내고 총 2번을 따로 보내기
             const count_normal = $("#roomInfoInput-mainPreviewImage")[0].files.length;
             const count_vr = $("#roomInfoInput-mainPreviewImage")[0].files.length;
-            var formData = new FormData();
+            var formNormal = new FormData();
+            var formVR = new FormData();
 
             for(var i = 0; i< count_normal; ++i){
-               formData.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[i]);
+               formNormal.append('normal_images', $("#roomInfoInput-mainPreviewImage")[0].files[i]);
             }
 
             for(var i = 0; i< count_vr; ++i){
-               formData.append('vr_images', $("#roomInfoInput-VRImages")[0].files[i]);
+               formVR.append('vr_images', $("#roomInfoInput-VRImages")[0].files[i]);
             }
 
-            formData.append('postID', data.postID);
+            formNormal.append('postID', data.postID);
+            formVR.append('postID', data.postID);
             //etc_files
             // 이미지
             $.ajax({
                type : 'post',
                // 서버 URL 찾기
-               url : 'http://210.117.182.159:3000/convert/media-attached',
-               data : formData,
+               url : 'http://210.117.182.159:3000/convert/images',
+               data : formNormal,
                headers: {
-                  'Authorization':$.cookie('Authorization')
+                  'authorization':$.cookie('authorization')
                },
                processData: false,  // file전송시 필수
                contentType: false,  // file전송시 필수
@@ -532,6 +534,24 @@
                }
             });
 
+            $.ajax({
+               type : 'post',
+               // 서버 URL 찾기
+               url : 'http://210.117.182.159:3000/convert/vtour',
+               data : formVR,
+               headers: {
+                  'authorization':$.cookie('authorization')
+               },
+               processData: false,  // file전송시 필수
+               contentType: false,  // file전송시 필수
+
+               success : function(data, textStatus, jqXHR){
+                  alert("img Send 성공");
+               },
+               error: function(jqXHR, textStatus, error){
+                  alert("img Send error" + error);
+               }
+            });
          },
          error: function(jqXHR, textStatus, error){
             alert(error);
