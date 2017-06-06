@@ -197,7 +197,7 @@ exports.createVRImageVtourInfo = function (req, res) {
             statusCode: -1
          });
       });
-   }
+   });
    //vr이미지 입력
    // return models.sequelize.transaction(function (t) {
    //

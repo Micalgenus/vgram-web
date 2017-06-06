@@ -69,70 +69,78 @@
      .product_area{
         margin-top:block;
         background-position: center center;
-        height:230px;
+        height:200px;
      }
-     .product_area img{
+    .product_area h2{
+       margin-bottom: 0px;
+    }
+
+    .product_area h3{
+       margin-bottom: 0px;
+    }
+
+    .product_area img{
         position: relative;
         background-position: center center;
         background-size: cover;
         width:90%;
-        height: 230px;
+        height: 200px;
      }
   </style>
   <% include ../static/head.ejs %>
 
 
    <!-- 인피니티 스크롤-->
-   <!--<script type="text/javascript">-->
+   <script type="text/javascript">
 
-      <!--jQuery(window).load(function(){-->
+      jQuery(window).load(function(){
 
-         <!--var $container = $('#portfolio');-->
+         var $container = $('#portfolio');
 
-         <!--$container.isotope({ transitionDuration: '0.65s' });-->
+         $container.isotope({ transitionDuration: '0.65s' });
 
-         <!--$('#portfolio-filter a').click(function(){-->
-            <!--$('#portfolio-filter li').removeClass('activeFilter');-->
-            <!--$(this).parent('li').addClass('activeFilter');-->
-            <!--var selector = $(this).attr('data-filter');-->
-            <!--$container.isotope({ filter: selector });-->
-            <!--return false;-->
-         <!--});-->
+         $('#portfolio-filter a').click(function(){
+            $('#portfolio-filter li').removeClass('activeFilter');
+            $(this).parent('li').addClass('activeFilter');
+            var selector = $(this).attr('data-filter');
+            $container.isotope({ filter: selector });
+            return false;
+         });
 
-         <!--$('#portfolio-shuffle').click(function(){-->
-            <!--$container.isotope('updateSortData').isotope({-->
-               <!--sortBy: 'random'-->
-            <!--});-->
-         <!--});-->
+         $('#portfolio-shuffle').click(function(){
+            $container.isotope('updateSortData').isotope({
+               sortBy: 'random'
+            });
+         });
 
-         <!--$(window).resize(function() {-->
-            <!--$container.isotope('layout');-->
-         <!--});-->
+         $(window).resize(function() {
+            $container.isotope('layout');
+         });
 
-         <!--$container.infinitescroll({-->
-               <!--loading: {-->
-                  <!--finishedMsg: '<i class="icon-line-check"></i>',-->
-                  <!--msgText: '<i class="icon-line-loader icon-spin"></i>',-->
-                  <!--img: "images/preloader-dark.gif",-->
-                  <!--speed: 'normal'-->
-               <!--},-->
-               <!--state: {-->
-                  <!--isDone: false-->
-               <!--},-->
-               <!--nextSelector: "#load-next-posts a",-->
-               <!--navSelector: "#load-next-posts",-->
-               <!--itemSelector: "article.portfolio-item"-->
-            <!--},-->
-            <!--function( newElements ) {-->
-               <!--$container.isotope( 'appended', $( newElements ) );-->
-               <!--var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );-->
-               <!--SEMICOLON.widget.loadFlexSlider();-->
-               <!--SEMICOLON.portfolio.arrange();-->
-            <!--});-->
+         $container.infinitescroll({
+               loading: {
+                  finishedMsg: '<i class="icon-line-check"></i>',
+                  msgText: '<i class="icon-line-loader icon-spin"></i>',
+                  img: "images/preloader-dark.gif",
+                  speed: 'normal'
+               },
+               state: {
+                  isDone: false
+               },
+               nextSelector: "#load-next-posts a",
+               navSelector: "#load-next-posts",
+               itemSelector: "article.portfolio-item"
+            },
+            function( newElements ) {
+               $container.isotope( 'appended', $( newElements ) );
+               var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+               SEMICOLON.widget.loadFlexSlider();
+               SEMICOLON.portfolio.arrange();
+            });
 
-      <!--});-->
+      });
 
-   <!--</script>-->
+   </script>
 
 
 
@@ -349,43 +357,6 @@
 <div class="left_top">
 <div id="left_area" class=".col-md-6">
 
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-              <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-             </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
 
    <div class="product">
       <div class="product_area">
