@@ -309,7 +309,9 @@ module.exports = function (app) {
    api.postRoute.get('/notice', api.postController.viewNotice);
 
    //media, attached 정보 저장(image-server에서 이용함)
-   api.postRoute.post('/media-attached', requireAuth, api.postController.createMediaAttachedInfo);
+   //2017-05-29 이정현 개발
+   api.postRoute.post('/images', requireAuth, api.postController.createNormalImageInfo);
+   api.postRoute.post('/vtour', requireAuth, api.postController.createVRImageVtourInfo);
 
    //=========================
    // web - Room Info Routes
