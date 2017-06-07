@@ -705,7 +705,7 @@ exports.roomInfoAddressJsonInit = function(req, res) {
 }
 
 exports.roomInfoAddressJson = function(req, res) {
-  let address = req.params.address + '%';
+  let address = '%' + req.params.address + '%';
 
   return Address.findAll({
     include: [ {

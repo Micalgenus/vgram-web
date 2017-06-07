@@ -99,9 +99,10 @@ exports.createNormalImageInfo = function (req, res) {
    }
 
    return models.sequelize.transaction(function (t) {
-      return Media.bulkCreate(
-            medias
-         , {transaction: t, returning: true}).then(function (createMedia) {
+      return Media.bulkCreate({
+            medias,
+            returning: true
+         }, {transaction: t}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
             var relation_json = new Object();
@@ -110,9 +111,9 @@ exports.createNormalImageInfo = function (req, res) {
             m_relation.push(relation_json);
          }
 
-         return Post_Media_relationship.bulkCreate(
+         return Post_Media_relationship.bulkCreate({
             m_relation
-         , {transaction: t, returning: true});
+         }, {transaction: t});
       }).then(function (result) {
       //정상적으로 되었을 경우
          return res.status(200).json({
@@ -183,7 +184,8 @@ exports.createVRImageVtourInfo = function (req, res) {
 
    models.sequelize.transaction(function (t) {
       return Media.bulkCreate({
-         vr_medias
+         vr_medias,
+         returning: true
       }, {transaction: t}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
@@ -235,7 +237,8 @@ exports.createVRImageVtourInfo = function (req, res) {
 
    return models.sequelize.transaction(function (t) {
       return Media.bulkCreate({
-         vtour_medias
+         vtour_medias,
+         returning: true
       }, {transaction: t}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
@@ -262,65 +265,6 @@ exports.createVRImageVtourInfo = function (req, res) {
       });
    });
 
-   //vr이미지 입력
-   // return models.sequelize.transaction(function (t) {
-   //
-   //    //media 테이블 추가
-   //    return Media.create({
-   //       user_id : req.user.id,
-   //       group: null,
-   //       type: req.body.vrImages.type,
-   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-   //       file_path:  '/medias/vrimages/' +  req.user.email,
-   //       file_name: req.body.vrImages.file_name,
-   //       meta_value: req.vrImages
-   //    }, {transaction: t}).then(function (createMedia) {
-   //       return Post_Media_relationship.create({
-   //          post_id : req.postId,
-   //          media_id : creatMedia.ID
-   //       }, {transaction: t});
-   //
-   //    }).then(function (result) {
-   //
-   //       return res.status(200).json({
-   //          statusCode: 1
-   //       });
-   //    }).catch(function (err) {
-   //       return res.status(401).json({
-   //          errorMsg: 'DB create error',
-   //          statusCode: -1
-   //       });
-   //    });
-   // });
-   //
-   // //vtour 정보 입력
-   // return models.sequelize.transaction(function (t) {
-   //    //media 테이블 추가
-   //    return Media.create({
-   //       user_id : req.user.id,
-   //       group: null,
-   //       type: req.body.vtour.type,
-   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-   //       file_path: "/medias/vtours/" +  req.user.email + req.body.vtour.size ,
-   //       file_name: req.vtour.file_name,
-   //       meta_value: req.vtour
-   //    }, {transaction: t}).then(function (createMedia) {
-   //       return Post_Media_relationship.create({
-   //          post_id : req.postId,
-   //          media_id : createMedia.ID
-   //       }, {transaction: t});
-   //
-   //    }).then(function (result) {
-   //       return res.status(200).json({
-   //          statusCode: 1
-   //       });
-   //    }).catch(function (err) {
-   //       return res.status(401).json({
-   //          errorMsg: 'DB create error',
-   //          statusCode: -1
-   //       });
-   //    });
-   // });
 }
 
 

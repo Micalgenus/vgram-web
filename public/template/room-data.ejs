@@ -1,43 +1,18 @@
-<div class="grid-item">
-  <div class="portfolio-image">
-    <a href="#">
-      <img alt="Open Imagination" src="<%= image_path %>">
-    </a>
-  </div>
-  <div class="entry-title">
-    <h2>
-      <a href="#"><%= title %>123</a>
-    </h2>
-  </div>
-  <div class="entry-content">
-    <p>address</p>
-    <a class="more-link" href="/post/room/">more[number]</a>
-  </div>
-  <div class="tagcloud">
-    <a href=""> 방종류 <%= room_type %></a>
-    <a href=""> 보증금 <%= deposit %></a>
-    <a href=""> 월세 <%= monthly_rent_fee %></a>
-  </div>
-  <div class="clear"></div>
-  <div class="counter counter-small">
-    <table class="table">
-      <thead></thead>
-      <tbody>
-        <tr>
-          <th>
-            <i class="i-plain icon-thumbs-up"></i>
-            <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
-          </th>
-          <th>
-            <i class="i-plain icon-meh"></i>
-            <span data-from="0" data-to="65" data-refresh-interval="100" data-speed="3000"></span>
-          </th>
-          <th>
-            <i class="i-plain icon-unlink"></i>
-            <span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>
-          </th>
-        </tr>
-      </tbody>
-    </table>
+<div class="product">
+  <div class="product_area">
+    <img src="<%= image_path %>">
+    <div class="title_area">
+      <h2><a href="#"><%= title %></a></h2>
+    </div>
+    <div class="address">
+      <h3>주소</h3>
+    </div>
+    <div id="post">
+      <ul class="entry-meta clearfix">
+        <li><i class="icon-screenshot"></i>방종류 <%= room_type %></li>
+        <li><i class="icon-screenshot"></i>보증금 <%= deposit %></li>
+        <li><i class="icon-screenshot"></i>월세 <%= monthly_rent_fee %></li>
+      </ul>
+    </div>
   </div>
 </div>
