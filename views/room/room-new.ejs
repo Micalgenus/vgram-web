@@ -518,7 +518,7 @@
             $.ajax({
                type : 'post',
                // 서버 URL 찾기
-               url : 'http://210.117.182.159:3000/convert/images',
+               url : '<%= mediaUrl %>' + '/convert/images',
                data : formNormal,
                headers: {
                   'authorization':$.cookie('authorization')
@@ -537,7 +537,7 @@
             $.ajax({
                type : 'post',
                // 서버 URL 찾기
-               url : 'http://210.117.182.159:3000/convert/vtour',
+               url : '<%= mediaUrl %>' + '/convert/vtour',
                data : formVR,
                headers: {
                   'authorization':$.cookie('authorization')
