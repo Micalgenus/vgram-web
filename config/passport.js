@@ -129,10 +129,10 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
   return users.findOne({where: {email: payload.email}}).then(function (user) {
     if (user) {
        user.logined = true;
-      done(null, user);   // localStrategy와 같다.
+      return done(null, user);   // localStrategy와 같다.
     } else {
       // 회원 인증 실패(없는 회원), req.flash("error")
-      done(null, { logined: false },  {
+      return done(null, { logined: false },  {
          message: message.error.couldNotVerified
       });
     }

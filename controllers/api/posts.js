@@ -64,7 +64,7 @@ exports.createNormalImageInfo = function (req, res) {
       });
    }
 
-   let postId = req.body.postId;
+
    let userID =  req.user.ID;
    let email =  req.user.email;
 
@@ -72,6 +72,8 @@ exports.createNormalImageInfo = function (req, res) {
    for(var key in req.body) {
       imageJSON = JSON.parse(key);
    }
+
+   let postID = imageJSON.postID;
 
    var medias = [];
    var m_relation = [];
@@ -97,22 +99,23 @@ exports.createNormalImageInfo = function (req, res) {
       json.meta_value = imageMetaValue;
       medias.push(json);
    }
-
+   //console.log("medias>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" + medias);
    return models.sequelize.transaction(function (t) {
       return Media.bulkCreate(
             medias
-         , {transaction: t, returning: true}).then(function (createMedia) {
+         , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
+
             var relation_json = new Object();
-            relation_json.post_id = postId;
+            relation_json.post_id = postID;
             relation_json.media_id = createMedia[i].ID;
             m_relation.push(relation_json);
          }
-
+         //console.log("m_relation>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" + m_relation);
          return Post_Media_relationship.bulkCreate(
             m_relation
-         , {transaction: t, returning: true});
+         , {transaction: t, returning: true, individualHooks: true});
       }).then(function (result) {
       //정상적으로 되었을 경우
          return res.status(200).json({
@@ -140,22 +143,22 @@ exports.createVRImageVtourInfo = function (req, res) {
       });
    }
 
-   let postID = req.body.postId;
    let userID = req.user.ID;
    let email = req.user.email;
 
-   //vr이미지 입력
 
    let vrJSON;
    for(var key in req.body) {
       vrJSON = JSON.parse(key);
    }
 
+   let postID = vrJSON.postID;
    //-----------------------------------------------
    //        vr이미지
    //---------------------------------------------
    var vr_medias = [];
    var vr_relation = [];
+   console.log(">>>>>>>>>>>>>>>>>> vr");
    for(var i=0; i< vrJSON.vrImages.length; ++i) {
 
       let vrType = vrJSON.vrImages[i].type;
@@ -182,9 +185,9 @@ exports.createVRImageVtourInfo = function (req, res) {
    }
 
    models.sequelize.transaction(function (t) {
-      return Media.bulkCreate({
+      return Media.bulkCreate(
          vr_medias
-      }, {transaction: t}).then(function (createMedia) {
+      , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
             var relation_json = new Object();
@@ -193,9 +196,9 @@ exports.createVRImageVtourInfo = function (req, res) {
             vr_relation.push(relation_json);
          }
 
-         return Post_Media_relationship.bulkCreate({
+         return Post_Media_relationship.bulkCreate(
             vr_relation
-         }, {transaction: t});
+         , {transaction: t, returning: true, individualHooks: true});
       }).then(function (result) {
          //정상적으로 되었을 경우
 
@@ -211,13 +214,14 @@ exports.createVRImageVtourInfo = function (req, res) {
    //-----------------------------------------------
    //        vtour 이미지
    //---------------------------------------------
+   console.log(">>>>>>>>>>>>>>>>>> vtour");
    var vtour_medias = [];
    var vtour_relation = [];
    for(var i=0; i< vrJSON.vtour.length; ++i) {
 
       let vtourType = vrJSON.vtour[i].type;
       let vtourFileName = vrJSON.vtour[i].file_name;
-      let vtourFilePath = "/medias/vtours/" +  email + vrJSON.vtour[i].size ;
+      let vtourFilePath = "/medias/vtours/" +  email + '/' + vrJSON.vtour[i].file_path ;
 
       let vtourMetaValue = {
 
@@ -234,9 +238,9 @@ exports.createVRImageVtourInfo = function (req, res) {
    }
 
    return models.sequelize.transaction(function (t) {
-      return Media.bulkCreate({
+      return Media.bulkCreate(
          vtour_medias
-      }, {transaction: t}).then(function (createMedia) {
+      , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
 
          for(var i = 0; i<createMedia.length; ++i){
             var relation_json = new Object();
@@ -245,12 +249,12 @@ exports.createVRImageVtourInfo = function (req, res) {
             vtour_relation.push(relation_json);
          }
 
-         return Post_Media_relationship.bulkCreate({
+         return Post_Media_relationship.bulkCreate(
             vtour_relation
-         }, {transaction: t});
+         , {transaction: t, returning: true, individualHooks: true});
       }).then(function (result) {
          //정상적으로 되었을 경우
-         return res.status(1).json({
+         return res.status(200).json({
             statusCode: 1
          });
       }).catch(function (err) {
@@ -261,66 +265,6 @@ exports.createVRImageVtourInfo = function (req, res) {
          });
       });
    });
-
-   //vr이미지 입력
-   // return models.sequelize.transaction(function (t) {
-   //
-   //    //media 테이블 추가
-   //    return Media.create({
-   //       user_id : req.user.id,
-   //       group: null,
-   //       type: req.body.vrImages.type,
-   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-   //       file_path:  '/medias/vrimages/' +  req.user.email,
-   //       file_name: req.body.vrImages.file_name,
-   //       meta_value: req.vrImages
-   //    }, {transaction: t}).then(function (createMedia) {
-   //       return Post_Media_relationship.create({
-   //          post_id : req.postId,
-   //          media_id : creatMedia.ID
-   //       }, {transaction: t});
-   //
-   //    }).then(function (result) {
-   //
-   //       return res.status(200).json({
-   //          statusCode: 1
-   //       });
-   //    }).catch(function (err) {
-   //       return res.status(401).json({
-   //          errorMsg: 'DB create error',
-   //          statusCode: -1
-   //       });
-   //    });
-   // });
-   //
-   // //vtour 정보 입력
-   // return models.sequelize.transaction(function (t) {
-   //    //media 테이블 추가
-   //    return Media.create({
-   //       user_id : req.user.id,
-   //       group: null,
-   //       type: req.body.vtour.type,
-   //       date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-   //       file_path: "/medias/vtours/" +  req.user.email + req.body.vtour.size ,
-   //       file_name: req.vtour.file_name,
-   //       meta_value: req.vtour
-   //    }, {transaction: t}).then(function (createMedia) {
-   //       return Post_Media_relationship.create({
-   //          post_id : req.postId,
-   //          media_id : createMedia.ID
-   //       }, {transaction: t});
-   //
-   //    }).then(function (result) {
-   //       return res.status(200).json({
-   //          statusCode: 1
-   //       });
-   //    }).catch(function (err) {
-   //       return res.status(401).json({
-   //          errorMsg: 'DB create error',
-   //          statusCode: -1
-   //       });
-   //    });
-   // });
 }
 
 
