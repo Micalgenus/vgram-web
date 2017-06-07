@@ -8,18 +8,21 @@
    <!-- Stylesheets
     ============================================= -->
    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-   <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-   <link rel="stylesheet" href="style.css" type="text/css" />
-   <link rel="stylesheet" href="css/dark.css" type="text/css" />
-   <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
-   <link rel="stylesheet" href="css/animate.css" type="text/css" />
-   <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/style.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/dark.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/font-icons.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/animate.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/magnific-popup.css" type="text/css" />
 
-   <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+   <!-- Range Slider CSS -->
+   <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css" />
 
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <title><%= __("title")["roomInfoListView"] + __("app")["name"]%></title>
   <style>
@@ -43,7 +46,7 @@
       .left_top{
          width:50%;
          float: left;
-         height: 900px;
+         height: calc(100% - 124px);
       }
 
       #left_area{
@@ -51,7 +54,7 @@
          width:100%;
          overflow: auto;
          overflow-x: hidden;
-         height: 900px;
+         height: 100%;
       }
 
       #post{
@@ -85,6 +88,25 @@
         background-size: cover;
         width:90%;
         height: 200px;
+     }
+
+     .search_box{
+        height: 44px;
+        width: 300px;
+        border: 1px solid #1b5ac2;
+        background: #ffffff;
+     }
+     .search_box input{
+        outline:none;
+        border:0px;
+     }
+     .search_button{
+        width: 35px;
+        height:44px;
+        border:0px;
+        background: #1b5ac2;
+        outline:none;
+        color: #ffffff;
      }
   </style>
   <% include ../static/head.ejs %>
@@ -156,34 +178,51 @@
 
            <div class="container clearfix">
 
-              <div class="menu-title"> Search area </div>
+              <div class="menu-title">
+                 <div class="search_box">
+                       <input class="typeahead sm-form-control" type="text" placeholder="Search here">
+                 </div>
+              </div>
+              <button class="search_button"><i class="icon-search3"></i></button>
+
 
               <nav>
                  <ul>
                     <li><a href="#"><div>방 종류</div></a>
                        <ul>
-                          <!--<a href="#" class="bt-fruits" data-type="checklist" data-value="1" data-title="Select fruits"></a>-->
-                          <li><a href="#"><div>원룸</div></a></li>
-                          <li><a href="#"><div>투룸</div></a></li>
-                          <li><a href="#"><div>쓰리룸</div></a></li>
+                          <% for (i in value.placeType) { %>
+                          <li><a href="#">
+                                <input type="checkbox"><%= __("placeType")[i] %>
+                             </a></li>
+                          <% } %>
                        </ul>
                     </li>
+
                     <li><a href="#"><div>월세</div></a>
-                       <ul>
-                          <li><a href="#"><div>25만 ~ 30만</div></a></li>
-                          <li><a href="#"><div>30만 ~ </div></a></li>
+                       <ul style="width:192px; background-color: white">
+                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0"  placeholder="0~" style="width: 40%;">
+                          <span>~</span>
+                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
+                          <input class="range_20" />
                        </ul>
                     </li>
+
                     <li><a href="#"><div>전세</div></a>
-                       <ul>
-                          <li><a href="#"><div>Expert Reviews</div></a></li>
-                          <li><a href="#"><div>User Reviews</div></a></li>
+                       <ul style="width:192px; background-color: white">
+                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="0~" style="width: 40%;">
+                           <span>~</span>
+                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
+                          <input class="range_20" />
                        </ul>
                     </li>
+
                     <li><a href="#"><div>추가옵션</div></a>
                        <ul>
-                          <li><a href="#"><div>Expert Reviews</div></a></li>
-                          <li><a href="#"><div>User Reviews</div></a></li>
+                          <% for (i in value.placeType) { %>
+                          <li><a href="#">
+                                <input type="checkbox"><%= __("placeType")[i] %>
+                             </a></li>
+                          <% } %>
                        </ul>
                     </li>
                  </ul>
@@ -356,6 +395,7 @@
 
 <div class="left_top">
 <div id="left_area" class=".col-md-6">
+  <div id="post">
 
 
    <div class="product">
@@ -474,16 +514,42 @@
 
    <ul id="pagination" class="pagination-sm"></ul>
 
+  </div>
+  <ul id="pagination" class="pagination-sm"></ul>
 </div>
 
-
-
 </div>
+
+<!-- External JavaScripts
+	============================================= -->
+<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+
+
+<!--Range slider-->
+<script type="text/javascript" src="/lib/js-canvas/js/components/rangeslider.min.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/components/moment.js"></script>
+
+<script>
+   $(document).ready(function(){
+      $(".range_20").ionRangeSlider({
+         type: "double",
+         min: 1000,
+         max: 2000,
+         from: 1200,
+         to: 1800,
+         hide_min_max: true,
+         hide_from_to: true,
+         grid: false
+      });
+   });
+</script>
+
 
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
    <div class=".col-md-6">
-  <div id="map" style="height:100%"></div>
+  <div id="map" style="height:calc(100% - 124px);"></div>
    </div>
    <script type="text/javascript">
 
@@ -505,8 +571,6 @@
         lng = <%= lng %>;
         roomList.drawRoom(lat, lng);
       }
-
-      filter.reload();
     }
 
   </script>
