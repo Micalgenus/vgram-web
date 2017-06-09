@@ -2,582 +2,365 @@
 <html>
 <head>
 
-   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <meta name="author" content="SemiColonWeb" />
-
-   <!-- Stylesheets
-    ============================================= -->
-   <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/style.css" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/css/dark.css" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/css/font-icons.css" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/css/animate.css" type="text/css" />
-   <link rel="stylesheet" href="/lib/js-canvas/css/magnific-popup.css" type="text/css" />
-
-   <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
-   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <% include ../static/head.ejs %>
 
    <!-- Range Slider CSS -->
-   <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css" />
+   <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css"/>
 
+   <style>
+      /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+      #map {
+         position: fixed !important;
+         width: 50%;
+         right: 0;
+         /*height: calc(100% - 280px);*/
+         /*height: 900px;*/
+      }
 
-   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-  <title><%= __("title")["roomInfoListView"] + __("app")["name"]%></title>
-  <style>
-    /* Always set the map height explicitly to define the size of the div
-      * element that contains the map. */
-    #map {
-      position: fixed !important;
-      width:50%;
-      right:0;
-      /*height: calc(100% - 280px);*/
-       /*height: 900px;*/
-    }
-    /* Optional: Makes the sample page fill the window. */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         overflow: hidden;
+      }
 
-      .left_top{
-         width:50%;
+      .left_top {
+         width: 50%;
          float: left;
          height: calc(100% - 124px);
       }
 
-      #left_area{
+      #left_area {
          position: relative;
-         width:100%;
+         width: 100%;
          overflow: auto;
          overflow-x: hidden;
          height: 100%;
       }
 
-      #post{
-         width:90%;
-         margin:auto;
+      #post {
+         width: 90%;
+         margin: auto;
          /*padding-top: 7px;*/
       }
 
-     .product{
-        /*margin-top:1em;*/
-        width:50%;
-        float:left;
-     }
+      .product {
+         /*margin-top:1em;*/
+         width: 50%;
+         float: left;
+      }
 
-     .product_area{
-        margin-top:block;
-        background-position: center center;
-        height:200px;
-     }
-    .product_area h2{
-       margin-bottom: 0px;
-    }
+      .product_area {
+         margin-top: block;
+         background-position: center center;
+         height: 200px;
+      }
 
-    .product_area h3{
-       margin-bottom: 0px;
-    }
+      .product_area h2 {
+         margin-bottom: 0px;
+      }
 
-    .product_area img{
-        position: relative;
-        background-position: center center;
-        background-size: cover;
-        width:90%;
-        height: 200px;
-     }
+      .product_area h3 {
+         margin-bottom: 0px;
+      }
 
-     .search_box{
-        height: 44px;
-        width: 300px;
-        border: 1px solid #1b5ac2;
-        background: #ffffff;
-     }
-     .search_box input{
-        outline:none;
-        border:0px;
-     }
-     .search_button{
-        width: 35px;
-        height:44px;
-        border:0px;
-        background: #1b5ac2;
-        outline:none;
-        color: #ffffff;
-     }
-  </style>
-  <% include ../static/head.ejs %>
+      /*.product_area img {*/
+      /*position: relative;*/
+      /*background-position: center center;*/
+      /*background-size: cover;*/
+      /*width: 90%;*/
+      /*height: 200px;*/
+      /*}*/
 
+      .search_box {
+         height: 44px;
+         width: 300px;
+         border: 1px solid #1b5ac2;
+         background: #ffffff;
+      }
 
-   <!-- 인피니티 스크롤-->
-   <script type="text/javascript">
+      .search_box input {
+         outline: none;
+         border: 0px;
+      }
 
-      jQuery(window).load(function(){
-
-         var $container = $('#portfolio');
-
-         $container.isotope({ transitionDuration: '0.65s' });
-
-         $('#portfolio-filter a').click(function(){
-            $('#portfolio-filter li').removeClass('activeFilter');
-            $(this).parent('li').addClass('activeFilter');
-            var selector = $(this).attr('data-filter');
-            $container.isotope({ filter: selector });
-            return false;
-         });
-
-         $('#portfolio-shuffle').click(function(){
-            $container.isotope('updateSortData').isotope({
-               sortBy: 'random'
-            });
-         });
-
-         $(window).resize(function() {
-            $container.isotope('layout');
-         });
-
-         $container.infinitescroll({
-               loading: {
-                  finishedMsg: '<i class="icon-line-check"></i>',
-                  msgText: '<i class="icon-line-loader icon-spin"></i>',
-                  img: "images/preloader-dark.gif",
-                  speed: 'normal'
-               },
-               state: {
-                  isDone: false
-               },
-               nextSelector: "#load-next-posts a",
-               navSelector: "#load-next-posts",
-               itemSelector: "article.portfolio-item"
-            },
-            function( newElements ) {
-               $container.isotope( 'appended', $( newElements ) );
-               var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
-               SEMICOLON.widget.loadFlexSlider();
-               SEMICOLON.portfolio.arrange();
-            });
-
-      });
-
-   </script>
-
-
+      .search_button {
+         width: 35px;
+         height: 44px;
+         border: 0px;
+         background: #1b5ac2;
+         outline: none;
+         color: #ffffff;
+      }
+   </style>
 
 </head>
-<div style="height: 80px;">
-<% include ../addon/room-list-header.ejs %>
-</div>
-<!--<div class="tabs advanced-real-estate-tabs clearfix" id="room">-->
-
-     <div id="page-menu">
-
-        <div id="page-menu-wrap">
-
-           <div class="container clearfix">
-
-              <div class="menu-title">
-                 <div class="search_box">
-                       <input class="typeahead sm-form-control" type="text" placeholder="Search here">
-                 </div>
-              </div>
-              <button class="search_button"><i class="icon-search3"></i></button>
-
-
-              <nav>
-                 <ul>
-                    <li><a href="#"><div>방 종류</div></a>
-                       <ul>
-                          <% for (i in value.placeType) { %>
-                          <li><a href="#">
-                                <input type="checkbox"><%= __("placeType")[i] %>
-                             </a></li>
-                          <% } %>
-                       </ul>
-                    </li>
-
-                    <li><a href="#"><div>월세</div></a>
-                       <ul style="width:192px; background-color: white">
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0"  placeholder="0~" style="width: 40%;">
-                          <span>~</span>
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
-                          <input class="range_20" />
-                       </ul>
-                    </li>
-
-                    <li><a href="#"><div>전세</div></a>
-                       <ul style="width:192px; background-color: white">
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="0~" style="width: 40%;">
-                           <span>~</span>
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
-                          <input class="range_20" />
-                       </ul>
-                    </li>
-
-                    <li><a href="#"><div>추가옵션</div></a>
-                       <ul>
-                          <% for (i in value.placeType) { %>
-                          <li><a href="#">
-                                <input type="checkbox"><%= __("placeType")[i] %>
-                             </a></li>
-                          <% } %>
-                       </ul>
-                    </li>
-                 </ul>
-              </nav>
-
-              <div id="page-submenu-trigger"><i class="icon-reorder"></i></div>
-
-           </div>
-
-        </div>
-
-     </div><!-- #page-menu end -->
-
-
-  <!--<div class="tab-container">-->
-      <!--<div class="container clearfix">-->
-        <!--<div class="tab-content clearfix" id="tab-properties">-->
-            <!--<form action="#" method="post" class="nobottommargin">-->
-              <!--<div class="row">-->
-
-                  <!--<div id="data-list" style="display:none;">-->
-                    <!--<ul class="list"></ul>-->
-                    <!--<li id="data-item">-->
-                      <!--<h3 class="name"></h3>-->
-                      <!--<p class="city"></p>-->
-                    <!--</li>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">-->
-                    <!--<label for="">Search</label>-->
-                    <!--&lt;!&ndash;<select class="selectpicker" data-live-search="true" id="address">&ndash;&gt;-->
-                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                    <!--<input class="typeahead" type="text" placeholder="주소">-->
-                  <!--</div>-->
-
-
-
-                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm" id="deposit">-->
-                    <!--<label for="">보증금</label>-->
-                    <!--<input type="number" placeholder="최소" class="min">-->
-                    <!--~-->
-                    <!--<input type="number" placeholder="최대" class="max">-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm" id="rent_fee">-->
-                    <!--<label for="">월세</label>-->
-                    <!--<input type="number" placeholder="최소" class="min">-->
-                    <!--~-->
-                    <!--<input type="number" placeholder="최대" class="max">-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-3 col-sm-6 col-xs-12 bottommargin-sm">-->
-                    <!--<label for="">추가옵션</label>-->
-                    <!--<select class="selectpicker" multiple data-size="6" style="width:100%; line-height: 30px;">-->
-                        <!--&lt;!&ndash;<option value="Any">Any</option>&ndash;&gt;-->
-                        <!--<optgroup label="보증금">-->
-                          <!--<option value="">세탁기</option>-->
-                          <!--<option value="">에어컨</option>-->
-                          <!--<option value="">냉장고</option>-->
-
-                          <!--&lt;!&ndash;<option value="Villa">Villa</option>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<option value="Building">Building</option>&ndash;&gt;-->
-                        <!--</optgroup>-->
-                        <!--&lt;!&ndash;<optgroup label="Commercial">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="Shop">Shop</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="Office">Office</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option value="Warehouse">Warehouse</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</optgroup>&ndash;&gt;-->
-                    <!--</select>-->
-                  <!--</div>-->
-
-                  <!--<div class="col-md-2 col-sm-6 col-xs-12 bottommargin-sm">-->
-                    <!--<label for="">선택</label><br>-->
-                    <!--<input class="bt-switch" type="checkbox" checked data-on-text="지도" data-off-text="리스트" data-on-color="white" data-off-color="black">-->
-                  <!--</div>-->
-
-
-                  <!--&lt;!&ndash;<div class="col-md-2 col-sm-12 bottommargin-sm">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="" style="display:block;">지도</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<input class="bt-switch" type="checkbox" checked data-on-text="Buy" data-off-text="Rent" data-on-color="themecolor" data-off-color="themecolor">&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-2 col-sm-12 bottommargin-sm">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="" style="display:block;">리스트</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<input class="bt-switch" type="checkbox" checked data-on-text="Buy" data-off-text="Rent" data-on-color="themecolor" data-off-color="themecolor">&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="">방종류</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="1">원룸</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="2">고시룸</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="3">룸</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<option value="4">4</option>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<option value="5+">5+</option>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-2 col-sm-6 col-xs-6 bottommargin-sm">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="">Baths</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<select class="selectpicker form-control" multiple data-size="6" data-placeholder="Any" style="width:100%; line-height: 30px;">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="1">1</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="2">2</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="3">3</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="4">4</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<option value="5+">5+</option>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</select>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-                  <!--&lt;!&ndash;<div class="sidebar nobottommargin">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="sidebar-widgets-wrap">&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;<div class="widget widget-filter-links clearfix">&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;<h4>Select Category</h4>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<ul class="custom-filter" data-container="#shop" data-active-class="active-filter">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li class="widget-filter-reset active-filter"><a href="#" data-filter="*">Clear</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-dress">Dress</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-tshirt">Tshirts</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-pant">Pants</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-sunglass">Sunglasses</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-shoes">Shoes</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-filter=".sf-watch">Watches</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;<div class="widget widget-filter-links clearfix">&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;<h4>Sort By</h4>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<ul class="shop-sorting">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li class="widget-filter-reset active-filter"><a href="#" data-sort-by="original-order">Clear</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-sort-by="name">Name</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-sort-by="price_lh">Price: Low to High</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><a href="#" data-sort-by="price_hl">Price: High to Low</a></li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&lt;!&ndash; .sidebar end &ndash;&gt;&ndash;&gt;-->
-
-
-                  <!--<div class="clear"></div>-->
-                  <!--&lt;!&ndash;<div class="col-md-4 col-sm-6 col-xs-12">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="" style="margin-bottom: 20px !important;">Price Range</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<input class="price-range-slider" />&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="clear visible-xs bottommargin-sm"></div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-4 col-md-offset-1 col-sm-6 col-xs-12">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<label for="" style="margin-bottom: 20px !important;">Property Area</label>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<input class="area-range-slider" />&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-offset-1 col-md-2 col-sm-12 clearfix">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<button class="button button-dark button-large button-rounded" style="margin-top: 35px !important;">Search</button>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-
-              <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-      <!--</div>-->
-  <!--</div>-->
-
-
-</div>
 
 <body class="stretched">
 
+<div id="wrapper" class="clearfix">
+
+   <!-- HEADER -->
+   <% include ../addon/header2.ejs %>
+
+   <div class="tabs advanced-real-estate-tabs clearfix" id="room">
+
+      <div id="page-menu">
+
+         <div id="page-menu-wrap">
+
+            <div class="container clearfix">
+
+               <!--<div class="menu-title">-->
+               <!--<div class="search_box">-->
+               <!--<input class="typeahead sm-form-control" type="text" placeholder="Search here">-->
+               <!--</div>-->
+               <!--</div>-->
+               <!--<button class="search_button"><i class="icon-search3"></i></button>-->
 
 
-<div class="left_top">
-<div id="left_area" class=".col-md-6">
-  <div id="post">
+               <nav class="divcenter center">
+                  <ul>
+                     <li class="divcenter"><a href="#">
+                           <div>방 종류</div>
+                        </a>
+                        <ul>
+                           <% for (i in value.placeType) { %>
+                           <li><a href="#">
+                                 <input type="checkbox"><%= __("placeType")[i] %>
+                              </a></li>
+                           <% } %>
+                        </ul>
+                     </li>
 
+                     <li class="divcenter"><a href="#">
+                           <div>월세</div>
+                        </a>
+                        <ul style="width:192px; background-color: white">
+                           <input class="button button-3d button-small button-rounded button-lime button-light"
+                                  type="number" min="0" placeholder="0~" style="width: 40%;">
+                           <span>~</span>
+                           <input class="button button-3d button-small button-rounded button-lime button-light"
+                                  type="number" min="0" placeholder="" style="width: 41%;">
+                           <input class="range_20"/>
+                        </ul>
+                     </li>
 
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
+                     <li class="divcenter"><a href="#">
+                           <div>전세</div>
+                        </a>
+                        <ul style="width:192px; background-color: white">
+                           <input class="button button-3d button-small button-rounded button-lime button-light"
+                                  type="number" min="0" placeholder="0~" style="width: 40%;">
+                           <span>~</span>
+                           <input class="button button-3d button-small button-rounded button-lime button-light"
+                                  type="number" min="0" placeholder="" style="width: 41%;">
+                           <input class="range_20"/>
+                        </ul>
+                     </li>
+
+                     <li class="divcenter"><a href="#">
+                           <div>추가옵션</div>
+                        </a>
+                        <ul>
+                           <% for (i in value.placeType) { %>
+                           <li><a href="#">
+                                 <input type="checkbox"><%= __("placeType")[i] %>
+                              </a></li>
+                           <% } %>
+                        </ul>
+                     </li>
+                  </ul>
+               </nav>
+
+               <div id="page-submenu-trigger"><i class="icon-reorder"></i></div>
+            </div>
+
          </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
+
       </div>
+
+   </div><!-- #page-menu end -->
+
+   <div class="left_top">
+      <div class="col-md-6">
+         <div id="post">
+
+            <!-- 이 안에 데이터가 채워짐-->
+
+         </div>
+         <ul id="pagination" class="pagination-sm"></ul>
+      </div>
+
    </div>
 
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-               </ul>
-         </div>
-      </div>
+   <div class="col-md-6">
+      <div id="map" style="height:calc(100% - 124px);"></div>
    </div>
 
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <ul id="pagination" class="pagination-sm"></ul>
-
-  </div>
-  <ul id="pagination" class="pagination-sm"></ul>
-</div>
-
-</div>
-
-<!-- External JavaScripts
-	============================================= -->
-<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
-<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
-
-
-<!--Range slider-->
-<script type="text/javascript" src="/lib/js-canvas/js/components/rangeslider.min.js"></script>
-<script type="text/javascript" src="/lib/js-canvas/js/components/moment.js"></script>
-
-<script>
-   $(document).ready(function(){
-      $(".range_20").ionRangeSlider({
-         type: "double",
-         min: 1000,
-         max: 2000,
-         from: 1200,
-         to: 1800,
-         hide_min_max: true,
-         hide_from_to: true,
-         grid: false
-      });
-   });
-</script>
-
+</div>  <!-- wrapper.clearfix -->
 
 <!-- LOAD JAVASCRIPT -->
-<% include ../static/js.ejs %>
-   <div class=".col-md-6">
-  <div id="map" style="height:calc(100% - 124px);"></div>
-   </div>
-   <script type="text/javascript">
+<% //include ../static/js.ejs  %>
 
-    function initMap() {
-      var lat, lng;
-      var is_safari = navigator.vendor &&
-                      navigator.vendor.indexOf('Apple') > -1 &&
-                      navigator.userAgent &&
-                      !navigator.userAgent.match('CriOS');
+<!-- Basic JavaScripts
+============================================= -->
+<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/functions.js"></script>
 
-      if (!is_safari && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-          lat = position.coords.latitude;
-          lng = position.coords.longitude;
-          roomList.drawRoom(lat, lng);
-        });
-      } else {
-        lat = <%= lat %>;
-        lng = <%= lng %>;
-        roomList.drawRoom(lat, lng);
-      }
-    }
+<!-- Google Map JavaScripts
+ ============================================= -->
+<!--<script type="text/javascript" src="/lib/js-canvas/js/jquery.gmap.js"></script>-->
 
-  </script>
-  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-  </script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap">
-  </script>
+<!-- Bootstrap Select Plugin -->
+<!--<script type="text/javascript" src="/lib/js-canvas/js/components/bs-select.js"></script>-->
+
+<!-- Bootstrap Switch Plugin -->
+<!--<script type="text/javascript" src="/lib/js-canvas/js/components/bs-switches.js"></script>-->
+
+<!-- Range Slider Plugin -->
+<!--<script type="text/javascript" src="/lib/js-canvas/js/components/rangeslider.min.js"></script>-->
+
+<!-- summernote -->
+<!--<script type="text/javascript" src="/components/summernote/dist/summernote.js"></script>-->
+
+<!-- postcode -->
+<!--<script type="text/javascript" src="/lib/postcodify.min.js"></script>-->
+
+<!-- List JS -->
+<!--<script type="text/javascript" src="/lib/list.min.js"></script>-->
+
+<!-- Typehead JS -->
+<!--<script type="text/javascript" src="/lib/typeahead.js"></script>-->
+
+<!-- Handlebars JS -->
+<!--<script type="text/javascript" src="/lib/handlebars.js"></script>-->
+
+<!-- EJS -->
+<!--<script type="text/javascript" src="/lib/ejs.min.js"></script>-->
+
+<!-- Pagination -->
+<!--<script type="text/javascript" src="/lib/jquery.twbsPagination.js"></script>-->
+
+<!-- Moment -->
+<!--<script type="text/javascript" src="/lib/js-canvas/js/components/moment.js"></script>-->
+
+<!-- Footer Scripts
+ ============================================= -->
+
+
+<!-- cookie-->
+<!--<script type="text/javascript" src="/lib/jquery.cookie.js"></script>-->
+
+
+<!--map -->
+<!--<script type="text/javascript" src="/js/map.js"></script>-->
+
+<!--Room List Script -->
+<!--<script type="text/javascript" src="/js/room-list.js"></script>-->
+
+
+<!-- 인피니티 스크롤-->
+<!--<script type="text/javascript">-->
+
+<!--jQuery(window).load(function () {-->
+
+<!--var $container = $('#portfolio');-->
+
+<!--$container.isotope({transitionDuration: '0.65s'});-->
+
+<!--$('#portfolio-filter a').click(function () {-->
+<!--$('#portfolio-filter li').removeClass('activeFilter');-->
+<!--$(this).parent('li').addClass('activeFilter');-->
+<!--var selector = $(this).attr('data-filter');-->
+<!--$container.isotope({filter: selector});-->
+<!--return false;-->
+<!--});-->
+
+<!--$('#portfolio-shuffle').click(function () {-->
+<!--$container.isotope('updateSortData').isotope({-->
+<!--sortBy: 'random'-->
+<!--});-->
+<!--});-->
+
+<!--$(window).resize(function () {-->
+<!--$container.isotope('layout');-->
+<!--});-->
+
+<!--$container.infinitescroll({-->
+<!--loading: {-->
+<!--finishedMsg: '<i class="icon-line-check"></i>',-->
+<!--msgText: '<i class="icon-line-loader icon-spin"></i>',-->
+<!--img: "images/preloader-dark.gif",-->
+<!--speed: 'normal'-->
+<!--},-->
+<!--state: {-->
+<!--isDone: false-->
+<!--},-->
+<!--nextSelector: "#load-next-posts a",-->
+<!--navSelector: "#load-next-posts",-->
+<!--itemSelector: "article.portfolio-item"-->
+<!--},-->
+<!--function (newElements) {-->
+<!--$container.isotope('appended', $(newElements));-->
+<!--var t = setTimeout(function () {-->
+<!--$container.isotope('layout');-->
+<!--}, 2000);-->
+<!--SEMICOLON.widget.loadFlexSlider();-->
+<!--SEMICOLON.portfolio.arrange();-->
+<!--});-->
+
+<!--});-->
+
+<!--</script>-->
+
+<!--<script>-->
+<!--$(document).ready(function () {-->
+<!--$(".range_20").ionRangeSlider({-->
+<!--type: "double",-->
+<!--min: 1000,-->
+<!--max: 2000,-->
+<!--from: 1200,-->
+<!--to: 1800,-->
+<!--hide_min_max: true,-->
+<!--hide_from_to: true,-->
+<!--grid: false-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+
+
+<!--<script type="text/javascript">-->
+
+   <!--function initMap() {-->
+      <!--var lat, lng;-->
+      <!--var is_safari = navigator.vendor &&-->
+         <!--navigator.vendor.indexOf('Apple') > -1 &&-->
+         <!--navigator.userAgent &&-->
+         <!--!navigator.userAgent.match('CriOS');-->
+
+      <!--if (!is_safari && navigator.geolocation) {-->
+         <!--navigator.geolocation.getCurrentPosition(function (position) {-->
+            <!--lat = position.coords.latitude;-->
+            <!--lng = position.coords.longitude;-->
+            <!--roomList.drawRoom(lat, lng);-->
+         <!--});-->
+      <!--} else {-->
+         <!--lat = <%= lat %>;-->
+         <!--lng = <%= lng %>;-->
+         <!--roomList.drawRoom(lat, lng);-->
+      <!--}-->
+   <!--}-->
+
+<!--</script>-->
+<!--<script-->
+   <!--src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">-->
+<!--</script>-->
+<!--<script async defer-->
+        <!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap">-->
+<!--</script>-->
 </body>
 </html>

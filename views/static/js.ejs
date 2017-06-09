@@ -1,11 +1,11 @@
-<!-- External JavaScripts
+<!-- Basic JavaScripts
  ============================================= -->
 <script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
 <script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/functions.js"></script>
 
 <!-- Google Map JavaScripts
  ============================================= -->
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAO2BYvn4xyrdisvP8feA4AS_PGZFxJDp4"></script>
 <script type="text/javascript" src="/lib/js-canvas/js/jquery.gmap.js"></script>
 
 <!-- Bootstrap Select Plugin -->
@@ -21,248 +21,30 @@
 <script type="text/javascript" src="/components/summernote/dist/summernote.js"></script>
 
 <!-- postcode -->
-<script type="text/javascript" src="/lib/js-canvas/js/postcode.js"></script>
+<script type="text/javascript" src="/lib/postcodify.min.js"></script>
 
 <!-- List JS -->
-<script type="text/javascript" src="/js/list.min.js"></script>
+<script type="text/javascript" src="/lib/list.min.js"></script>
 
 <!-- Typehead JS -->
-<script type="text/javascript" src="/js/typeahead.js"></script>
+<script type="text/javascript" src="/lib/typeahead.js"></script>
 
 <!-- Handlebars JS -->
-<script type="text/javascript" src="/js/handlebars.js"></script>
-
-<!-- map -->
-<script type="text/javascript" src="/js/map.js"></script>
-
-<!-- Room List Script -->
-<script type="text/javascript" src="/js/room-list.js"></script>
+<script type="text/javascript" src="/lib/handlebars.js"></script>
 
 <!-- EJS -->
-<script type="text/javascript" src="/js/ejs.min.js"></script>
+<script type="text/javascript" src="/lib/ejs.min.js"></script>
 
 <!-- Pagination -->
-<script type="text/javascript" src="/js/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="/lib/jquery.twbsPagination.js"></script>
+
+<!-- Moment -->
+<script type="text/javascript" src="/lib/js-canvas/js/components/moment.js"></script>
 
 <!-- Footer Scripts
  ============================================= -->
-<script type="text/javascript" src="/lib/js-canvas/js/functions.js"></script>
+
 
 <!-- cookie-->
-<script type="text/javascript" src="/js/jquery.cookie.js"></script>
-
-
-<script type="text/javascript">
-
-   jQuery(document).on('ready', function(){
-
-      $(".price-range-slider").ionRangeSlider({
-         type: "double",
-         prefix: "$",
-         min: 200,
-         max: 10000,
-         max_postfix: "+"
-      });
-
-      $(".area-range-slider").ionRangeSlider({
-         type: "double",
-         min: 50,
-         max: 20000,
-         from: 50,
-         to: 20000,
-         postfix: " sqm.",
-         max_postfix: "+"
-      });
-
-      jQuery(".bt-switch").bootstrapSwitch();
-
-   });
-
-   jQuery(window).load(function(){
-
-      // Google Map
-      jQuery('#headquarters-map').gMap({
-         address: 'New York, USA',
-         maptype: 'ROADMAP',
-         zoom: 13,
-         markers: [
-            {
-               address: "New York, USA",
-               html: "New York, USA",
-               icon: {
-                  image: "images/icons/map-icon-red.png",
-                  iconsize: [32, 36],
-                  iconanchor: [14,44]
-               }
-            }
-         ],
-         doubleclickzoom: false,
-         controls: {
-            panControl: false,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false
-         },
-         styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#F0AD4E"},{"lightness":60}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#2C3E50"},{"visibility":"on"}]}]
-      });
-
-   });
-
-</script>
-
-
-
-<script type="text/javascript">
-   $(function() {
-      $('.travel-date-group .default').datepicker({
-         autoclose: true,
-         startDate: "today",
-      });
-
-      $('.travel-date-group .today').datepicker({
-         autoclose: true,
-         startDate: "today",
-         todayHighlight: true
-      });
-
-      $('.travel-date-group .past-enabled').datepicker({
-         autoclose: true,
-      });
-      $('.travel-date-group .format').datepicker({
-         autoclose: true,
-         format: "dd-mm-yyyy",
-      });
-
-      $('.travel-date-group .autoclose').datepicker();
-
-      $('.travel-date-group .disabled-week').datepicker({
-         autoclose: true,
-         daysOfWeekDisabled: "0"
-      });
-
-      $('.travel-date-group .highlighted-week').datepicker({
-         autoclose: true,
-         daysOfWeekHighlighted: "0"
-      });
-
-      $('.travel-date-group .mnth').datepicker({
-         autoclose: true,
-         minViewMode: 1,
-         format: "mm/yy"
-      });
-
-      $('.travel-date-group .multidate').datepicker({
-         multidate: true,
-         multidateSeparator: " , "
-      });
-
-      $('.travel-date-group .input-daterange').datepicker({
-         autoclose: true
-      });
-
-      $('.travel-date-group .inline-calendar').datepicker();
-
-      $('.datetimepicker').datetimepicker({
-         showClose: true
-      });
-
-      $('.datetimepicker1').datetimepicker({
-         format: 'LT',
-         showClose: true
-      });
-
-      $('.datetimepicker2').datetimepicker({
-         inline: true,
-         sideBySide: true
-      });
-
-   });
-
-   $(function() {
-      // .daterange1
-      $(".daterange1").daterangepicker({
-         "buttonClasses": "button button-rounded button-mini nomargin",
-         "applyClass": "button-color",
-         "cancelClass": "button-light"
-      });
-
-      // .daterange2
-      $(".daterange2").daterangepicker({
-         "opens": "center",
-         timePicker: true,
-         timePickerIncrement: 30,
-         locale: {
-            format: 'MM/DD/YYYY h:mm A'
-         },
-         "buttonClasses": "button button-rounded button-mini nomargin",
-         "applyClass": "button-color",
-         "cancelClass": "button-light"
-      });
-
-      // .daterange3
-      $(".daterange3").daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true
-         },
-         function(start, end, label) {
-            var years = moment().diff(start, 'years');
-            alert("You are " + years + " years old.");
-         });
-
-      // reportrange
-      function cb(start, end) {
-         $(".reportrange span").html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-      }
-      cb(moment().subtract(29, 'days'), moment());
-
-      $(".reportrange").daterangepicker({
-         "buttonClasses": "button button-rounded button-mini nomargin",
-         "applyClass": "button-color",
-         "cancelClass": "button-light",
-         ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-         }
-      }, cb);
-
-      // .daterange4
-      $(".daterange4").daterangepicker({
-         autoUpdateInput: false,
-         locale: {
-            cancelLabel: 'Clear'
-         },
-         "buttonClasses": "button button-rounded button-mini nomargin",
-         "applyClass": "button-color",
-         "cancelClass": "button-light"
-      });
-
-      $(".daterange4").on('apply.daterangepicker', function(ev, picker) {
-         $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-      });
-
-      $(".daterange4").on('cancel.daterangepicker', function(ev, picker) {
-         $(this).val('');
-      });
-
-   });
-
-</script>
-
-
-
-
-<!--
-<% if (ENV === 'production') { %>
-&lt;!&ndash; production &ndash;&gt;
-  <script src="/reload/reload.min.js"></script>
-<% } else { %>
-  <script src="/reload/reload.js"></script>
-<% } %>
--->
+<script type="text/javascript" src="/lib/jquery.cookie.js"></script>
 

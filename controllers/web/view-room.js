@@ -25,72 +25,7 @@ var log = require('console-log-level')({
    level: config.logLevel
 });
 
-const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
-
-exports.roomInfoListData = function (req, res) {
-   let page = (req.query.page ? req.query.page : 1);
-
-   return Room.count()
-      .then(function (roomCount) {
-
-         let count = (req.query.pageSize ? req.query.pageSize : 20);
-         let lastPage = parseInt(roomCount / count) + 1;
-         var index = (count * (page - 1));
-
-         // 잘못된 요청일 경우 넘어감
-         if (page > lastPage) {
-            let size = req.query.pageSize ? '&pageSize=' + count.toString() : '';
-            return res.redirect('/post/room?pageSize=' + lastPage.toString() + size);
-         }
-         if (page < 1) {
-            let size = req.query.pageSize ? '?pageSize=' + count.toString() : '';
-            return res.redirect('/post/room?pageSize' + size);
-         }
-
-         return Room.findAll({
-            include: [{
-               model: Post,
-               attributes: ['ID']
-            }],
-            limit: count,
-            offset: index,
-            order: '`room`.`ID` DESC'
-         }).then(function (rooms) {
-            var roomInfo = [];
-            rooms.forEach(function (room) {
-               var tmpRoom = {};
-
-               // 임시
-               let image = room.thumbnail_image_path;
-               if (!image.match(/^https?:\/\//)) {
-                  image = "http://localhost:3000/" + image;
-               }
-
-               //    let address = JSON.parse(room.address);
-
-               tmpRoom['id'] = room.ID;
-               tmpRoom['image'] = image;
-               //    tmpRoom['address'] = address.addr1 + ' ' + address.addr2;
-               tmpRoom['title'] = room.post.title;
-
-               roomInfo.push(tmpRoom);
-            });
-
-            return res.render('room/room-list', {
-               ENV: req.env,
-               logined: req.user ? req.user.logined : false,
-               title: "roomInfoListView",
-               msg: req.msg,
-               nowPage: page,
-               lastPage: lastPage,
-               rooms: roomInfo,
-               lat: value.mapLocationCenter.lat,
-               lng: value.mapLocationCenter.lng
-            });
-         });
-      });
-}
 
 exports.roomInfoListView = function (req, res) {
    return res.render('room/room-list', {
