@@ -12,7 +12,7 @@ var filter = (function() {
       }
     });
 
-    $('#room .typeahead').typeahead(null, {
+    $('.typeahead').typeahead(null, {
       name: 'best-pictures',
       display: 'addr1',
       source: bestPictures,
@@ -28,12 +28,12 @@ var filter = (function() {
 
     var $root = $('#room #address');
 
-    $('#room .typeahead.tt-input').on('typeahead:selected', function(evt, data) {
+    $('.typeahead.tt-input').on('typeahead:selected', function(evt, data) {
       const address = $(this).val();
       mapReplace(address);
     });
 
-    $('#room .typeahead.tt-input').on('change', function(evt, data) {
+    $('.typeahead.tt-input').on('change', function(evt, data) {
       const address = $(this).val();
       mapReplace(address);
     });
@@ -68,7 +68,7 @@ var filter = (function() {
       const list = $root.find('input:checked');
       if (list.length == 0) return true;
       if ($root.find('input:checked#check_' + data.room_type).length == 0) return false;
-      
+
       return true;
     }
 
@@ -88,13 +88,13 @@ var filter = (function() {
     $max.change(function() {
       mapReload();
     });
-    
+
     function filter(data) {
       if ($min.val() == 0 && $max.val() == 0) return true;
 
       if (data.deposit < $min.val()) return false;
       if (data.deposit > $max.val()) return false;
-      
+
       return true;
     }
 
@@ -120,7 +120,7 @@ var filter = (function() {
 
       if (data.monthly_rent_fee < $min.val()) return false;
       if (data.monthly_rent_fee > $max.val()) return false;
-      
+
       return true;
     }
 
