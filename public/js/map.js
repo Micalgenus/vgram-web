@@ -60,18 +60,25 @@ var ListData = (function() {
           displayArray = [];
           const dataArray = filter(data.getDataArray());
           const locations = makeLocations(dataArray);
+          let filterSize = dataArray.length;
           let count = 0;
           let start = pagination.getPageSize() * (pagination.getPage() - 1);
           let end = pagination.getPageSize() * pagination.getPage();
+
           for (var d in dataArray) {
             if (count >= start && count < end) {
               push(dataArray[d]);
             }
             count++;
           }
+
+          // pagination.reload(filterSize, make, null, filter, makeLocations);
+          // pagination.redraw(filterSize);
           show(make);
 
           MapData.loadMap(locations);
+
+          return filterSize;
         }
 
         return {
@@ -223,9 +230,9 @@ var ListData = (function() {
       
       $init.then(function() {
         dataArray = dataArray.sort(compare);
-        display.pagination.reload(dataArray.length, make, _push, _filter, makeLocations);
 
-        display.displayReload(make, _filter, makeLocations);
+        let count = display.displayReload(make, _filter, makeLocations);
+        display.pagination.reload(count, make, _push, _filter, makeLocations);
 
         if (_push) _push(dataArray);
         if (done) done();
@@ -235,7 +242,8 @@ var ListData = (function() {
     function filterReload() {
       var event = display.pagination.getEventMethod();
       
-      display.displayReload(event.make, event.filter, event.makeLocations);
+      let count = display.displayReload(event.make, event.filter, event.makeLocations);
+      display.pagination.reload(count, event.make, null, event.filter, event.makeLocations);
     };
 
     function getDataArray() { return dataArray; }
@@ -509,7 +517,6 @@ var MapData = (function() {
       function redrawMap(map, timer) {
         var bounds = map.getBounds();
         var c = getBounds(bounds);
-        console.log("bounds", c);
         timer(c.east, c.west, c.south, c.north);
       }
 
