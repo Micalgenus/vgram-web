@@ -170,17 +170,17 @@
 <div style="height: 80px;">
 <% include ../addon/room-list-header.ejs %>
 </div>
-<!--<div class="tabs advanced-real-estate-tabs clearfix" id="room">-->
+<!--<div class="tabs advanced-real-estate-tabs clearfix">-->
 
      <div id="page-menu">
 
         <div id="page-menu-wrap">
 
-           <div class="container clearfix">
+           <div class="container clearfix" id="room">
 
               <div class="menu-title">
                  <div class="search_box">
-                       <input class="typeahead sm-form-control" type="text" placeholder="Search here">
+                    <input class="typeahead sm-form-control" type="text" placeholder="Search here">
                  </div>
               </div>
               <button class="search_button"><i class="icon-search3"></i></button>
@@ -188,30 +188,30 @@
 
               <nav>
                  <ul>
-                    <li><a href="#"><div>방 종류</div></a>
+                    <li id="type"><a href="#"><div>방 종류</div></a>
                        <ul>
                           <% for (i in value.placeType) { %>
                           <li><a href="#">
-                                <input type="checkbox"><%= __("placeType")[i] %>
-                             </a></li>
+                            <label for="check_<%= i %>"><%= __("placeType")[i] %></label><input type="checkbox" value="<%= i %>" id="check_<%= i %>">
+                          </a></li>
                           <% } %>
                        </ul>
                     </li>
 
-                    <li><a href="#"><div>월세</div></a>
+                    <li id="deposit"><a href="#"><div>보증금</div></a>
                        <ul style="width:192px; background-color: white">
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0"  placeholder="0~" style="width: 40%;">
+                          <input class="button button-3d button-small button-rounded button-lime button-light min" type="number" min="0" placeholder="" style="width: 40%;">
                           <span>~</span>
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
+                          <input class="button button-3d button-small button-rounded button-lime button-light max" type="number" min="0" placeholder="" style="width: 41%;">
                           <input class="range_20" />
                        </ul>
                     </li>
 
-                    <li><a href="#"><div>전세</div></a>
+                    <li id="rent_fee"><a href="#"><div>월세</div></a>
                        <ul style="width:192px; background-color: white">
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="0~" style="width: 40%;">
+                          <input class="button button-3d button-small button-rounded button-lime button-light min" type="number" min="0" placeholder="" style="width: 40%;">
                            <span>~</span>
-                          <input class="button button-3d button-small button-rounded button-lime button-light" type="number" min="0" placeholder="" style="width: 41%;">
+                          <input class="button button-3d button-small button-rounded button-lime button-light max" type="number" min="0" placeholder="" style="width: 41%;">
                           <input class="range_20" />
                        </ul>
                     </li>
@@ -396,124 +396,6 @@
 <div class="left_top">
 <div id="left_area" class=".col-md-6">
   <div id="post">
-
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-               </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div class="product">
-      <div class="product_area">
-         <img src="<%= mediaUrl %>/users/profile1_20170125150101.jpg">
-         <div class="title_area">
-            <h2><a href="#">TITLE</a></h2>
-         </div>
-         <div class="address">
-            <h3>주소</h3>
-         </div>
-         <div id="post">
-            <ul class="entry-meta clearfix">
-               <li><i class="icon-screenshot"></i>방종류 </li>
-               <li><i class="icon-screenshot"></i>보증금 </li>
-               <li><i class="icon-screenshot"></i>월세</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <ul id="pagination" class="pagination-sm"></ul>
-
   </div>
   <ul id="pagination" class="pagination-sm"></ul>
 </div>
