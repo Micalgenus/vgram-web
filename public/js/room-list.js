@@ -56,17 +56,18 @@ var filter = (function() {
   })();
 
   var type = (function() {
-    var $root = $('select#type');
+    var $root = $('#room #type');
     var typeList = [];
 
     $root.change(function() {
+      console.log($(this));
       mapReload();
     });
 
     function filter(data) {
-      if ($root.val() == null) return true;
-
-      if ($root.val().indexOf(data.room_type) == -1) return false;
+      const list = $root.find('input:checked');
+      if (list.length == 0) return true;
+      if ($root.find('input:checked#check_' + data.room_type).length == 0) return false;
       
       return true;
     }
@@ -77,8 +78,8 @@ var filter = (function() {
   })();
 
   var deposit = (function() {
-    var $min = $('#deposit .min');
-    var $max = $('#deposit .max');
+    var $min = $('#room #deposit .min');
+    var $max = $('#room #deposit .max');
 
     $min.change(function() {
       mapReload();
@@ -103,8 +104,8 @@ var filter = (function() {
   })();
 
   var rentFee = (function() {
-    var $min = $('#rent_fee .min');
-    var $max = $('#rent_fee .max');
+    var $min = $('#room #rent_fee .min');
+    var $max = $('#room #rent_fee .max');
 
     $min.change(function() {
       mapReload();
