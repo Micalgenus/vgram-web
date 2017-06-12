@@ -12,7 +12,7 @@ var filter = (function() {
       }
     });
 
-    $('#room .typeahead').typeahead(null, {
+    $('.typeahead').typeahead(null, {
       name: 'best-pictures',
       display: 'addr1',
       source: bestPictures,
@@ -28,12 +28,12 @@ var filter = (function() {
 
     var $root = $('#room #address');
 
-    $('#room .typeahead.tt-input').on('typeahead:selected', function(evt, data) {
+    $('.typeahead.tt-input').on('typeahead:selected', function(evt, data) {
       const address = $(this).val();
       mapReplace(address);
     });
 
-    $('#room .typeahead.tt-input').on('change', function(evt, data) {
+    $('.typeahead.tt-input').on('change', function(evt, data) {
       const address = $(this).val();
       mapReplace(address);
     });
@@ -56,18 +56,19 @@ var filter = (function() {
   })();
 
   var type = (function() {
-    var $root = $('select#type');
+    var $root = $('#room #type');
     var typeList = [];
 
     $root.change(function() {
+      console.log($(this));
       mapReload();
     });
 
     function filter(data) {
-      if ($root.val() == null) return true;
+      const list = $root.find('input:checked');
+      if (list.length == 0) return true;
+      if ($root.find('input:checked#check_' + data.room_type).length == 0) return false;
 
-      if ($root.val().indexOf(data.room_type) == -1) return false;
-      
       return true;
     }
 
@@ -77,8 +78,8 @@ var filter = (function() {
   })();
 
   var deposit = (function() {
-    var $min = $('#deposit .min');
-    var $max = $('#deposit .max');
+    var $min = $('#room #deposit .min');
+    var $max = $('#room #deposit .max');
 
     $min.change(function() {
       mapReload();
@@ -87,13 +88,13 @@ var filter = (function() {
     $max.change(function() {
       mapReload();
     });
-    
+
     function filter(data) {
       if ($min.val() == 0 && $max.val() == 0) return true;
 
       if (data.deposit < $min.val()) return false;
       if (data.deposit > $max.val()) return false;
-      
+
       return true;
     }
 
@@ -103,8 +104,8 @@ var filter = (function() {
   })();
 
   var rentFee = (function() {
-    var $min = $('#rent_fee .min');
-    var $max = $('#rent_fee .max');
+    var $min = $('#room #rent_fee .min');
+    var $max = $('#room #rent_fee .max');
 
     $min.change(function() {
       mapReload();
@@ -119,7 +120,7 @@ var filter = (function() {
 
       if (data.monthly_rent_fee < $min.val()) return false;
       if (data.monthly_rent_fee > $max.val()) return false;
-      
+
       return true;
     }
 

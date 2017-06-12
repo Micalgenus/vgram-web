@@ -30,16 +30,17 @@ module.exports = function(sequelize, DataTypes) {
       post_status: {
          type: DataTypes.CHAR(20),
          allowNull: false,
-         defaultValue: 'PRIVATE'
+         defaultValue: 'PUBLISH'
       },
       post_type: {
          type: DataTypes.STRING(45),
-         allowNull: false
+         allowNull: false,
+         defaultValue: 'NORMAL'
       },
       locale: {
          type: DataTypes.STRING(45),
          allowNull: false,
-         defaultValue: 'ko_KR'
+         defaultValue: 'ko_kr'
       },
 
       post_init_date_gmt: {

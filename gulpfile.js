@@ -61,7 +61,7 @@ gulp.task('watch', function () {
   gulp.watch('./public/less/*.less', ['less']);
 });
 
-gulp.task('nodemon', function (debug) {
+gulp.task('nodemon', function (debug, overwrite) {
   if (process.env.NODE_ENV === 'development') {
     livereload.listen();
   }
@@ -69,6 +69,10 @@ gulp.task('nodemon', function (debug) {
   if(debug) {
      gutil.log('nodemon - ' + gutil.colors.magenta('debug mode'));
   }
+
+   if(overwrite) {
+      gutil.log('nodemon - ' + gutil.colors.magenta('overwrite database'));
+   }
 
    var execDebugMap = {
         js: 'node --debug-brk'
@@ -78,7 +82,10 @@ gulp.task('nodemon', function (debug) {
      execMap: debug ? execDebugMap : {},
     script: './bin/www.js',
     ext: 'js coffee ejs',
-    env: {'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development'},
+    env: {
+       'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development',
+       'OVERWRITE': overwrite
+     },
     stdout: false,
      tasks: ['lint'],
      verbose: true

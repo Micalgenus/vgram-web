@@ -11,7 +11,7 @@ var setTestDatabase = require('../modules/setTestDatabase');
 var testDB = require('../tests/data');
 
 var server;
-var overwrite = (env == "development");
+var overwrite = (env === "development" && process.env.OVERWRITE === true);
 app.set('port', normalizePort(process.env.PORT));
 
 const log = require('console-log-level')({
@@ -39,7 +39,7 @@ models.sequelize.sync({ logging: log.debug, force: overwrite }).then(function ()
 
    debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
 
-   if (env === 'development') {
+   if (overwrite) {
       return setTestDatabase(testDB);    // test DB
    }
 }).catch(function(err) {

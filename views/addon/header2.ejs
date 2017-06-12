@@ -1,38 +1,4 @@
-<link rel="stylesheet" href="/css/custom.css" type="text/css" />
-
-
-<!-- Top Bar
-		============================================= -->
-<div id="top-bar" class="transparent-topbar">
-
-   <div class="container clearfix">
-
-      <div class="col_half nobottommargin clearfix">
-
-         <!-- Top Links
-              ============================================= -->
-         <div class="top-links">
-            <ul>
-               <% if (logined) { %>
-               <li><a href="/user/change"><strong>내 정보수정</strong></a></li>
-              <!-- <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
-               <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
-               <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
-               <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>-->
-               <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
-               <% } else { %>
-               <li><a href="/auth/login"><strong>로그인/회원가입</strong></a></li>
-               <% } %>
-            </ul>
-         </div><!-- .top-links end -->
-
-
-      </div>
-   </div>
-
-</div><!-- #top-bar end -->
-
-      <!-- Header
+<!-- Header
            ============================================= -->
 <header id="header">
 
@@ -45,43 +11,63 @@
          <!-- Logo
               ============================================= -->
          <div id="logo" ronterLink="/">
-            <a ronterLink="/auth" hrefActive="active" class="standard-logo"><img src="lib/js-canvas/images/cozylogo3@.png" alt="cozy Logo"></a>
-            <a ronterLink="/auth" hrefActive="active" class="retina-logo"><img src="lib/js-canvas/images/cozylogo3.png" alt="cozyhouzz Logo"></a>
+            <a ronterLink="/auth" hrefActive="active" class="standard-logo">
+               <img src="/images/logo_cozyhouzz.png" alt="cozy Logo"></a>
+            <a ronterLink="/auth" hrefActive="active" class="retina-logo">
+               <img src="/images/logo_cozyhouzz@2x.png" alt="cozyhouzz Logo"></a>
          </div>
 
          <!-- Primary Navigation
               ============================================= -->
-         <nav id="primary-menu" class="mobile-menu-off-canvas dark">
+         <nav id="primary-menu" class="mobile-menu-off-canvas">
 
             <ul>
-               <li><a href="/" hrefActive="active">
-                     <div><strong>Home</strong></div>
-                  </a></li>
-               <!--          <li><a href="/buildcaselist"><div>시공사례</div></a>
-                           <ul>
-                             <li><a href="/buildcaseinput"><div><i class="icon-stack"></i>시공사례입력</div></a></li>
-                             <li><a href="/buildcaselist"><div><i class="icon-gift"></i>시공사례조회</div></a></li>
-                           </ul>
-                         </li>-->
-               <li><a href="/consultingListInfo">
-                     <div><strong>컨설팅</strong></div>
+               <li class="mega-menu"><a href="#">
+                     <div><strong>카테고리</strong></div>
                   </a>
-                  <ul>
-                     <li><a href="/consultingCounsel">
-                           <div><i class="icon-stack"></i>상담 받기</div>
-                        </a></li>
-                     <li><a href="/consultingListInfo">
-                           <div><i class="icon-gift"></i>컨설팅 정보 조회</div>
-                        </a></li>
-                  </ul>
+                  <div class="mega-menu-content style-2 clearfix">
+                     <ul class="mega-menu-column col-md-12">
+                        <li>
+                           <div class="widget clearfix">
+
+                              <div class="owl-carousel customjs image-carousel carousel-widget" data-margin="80"
+                                   data-nav="false" data-pagi="true" data-items-xxs="1" data-items-xs="2"
+                                   data-items-sm="4" data-items-md="6" data-items-lg="8">
+
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/1.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/2.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/3.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/4.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/5.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/6.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/7.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/8.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/9.png"
+                                                                       alt="Clients"></a></div>
+                                 <div class="oc-item"><a href="#"><img src="/lib/js-canvas/images/clients/10.png"
+                                                                       alt="Clients"></a></div>
+
+                              </div>
+
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
                </li>
-               <!--<li><a href="/bizList"><div>등록업체정보</div></a>
-               <ul>
-                 <li><a href="/bizList"><div><i class="icon-stack"></i>업체 목록</div></a></li>
-               </ul>
-             </li>-->
+               <li><a href="/">
+                     <div><strong>사진보기</strong></div>
+                  </a>
+               </li>
                <li><a href="/post/room">
-                     <div><strong>방 정보 홍보 보기</strong></div>
+                     <div><strong>지도보기</strong></div>
                   </a>
                   <ul>
                      <li><a href="/post/room/new">
@@ -92,7 +78,72 @@
                         </a></li>
                   </ul>
                </li>
+               <li><a href="/consultingListInfo">
+                     <div><strong>채팅</strong></div>
+                  </a>
+               </li>
             </ul>
+
+            <!-- Top Cart
+						============================================= -->
+            <div id="top-cart">
+               <a href="#" id="top-cart-trigger"><i class="icon-user"></i><span>5</span></a>
+               <div class="top-cart-content">
+                  <div class="top-cart-title">
+                     <h4>Shopping Cart</h4>
+                  </div>
+                  <div class="top-cart-items">
+                     <div class="top-cart-item clearfix">
+                        <div class="top-cart-item-image">
+                           <a href="#"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt="Blue Round-Neck Tshirt"/></a>
+                        </div>
+                        <div class="top-cart-item-desc">
+                           <a href="#">Blue Round-Neck Tshirt</a>
+                           <span class="top-cart-item-price">$19.99</span>
+                           <span class="top-cart-item-quantity">x 2</span>
+                        </div>
+                     </div>
+                     <div class="top-cart-item clearfix">
+                        <div class="top-cart-item-image">
+                           <a href="#"><img src="/lib/js-canvas/images/shop/small/6.jpg" alt="Light Blue Denim Dress"/></a>
+                        </div>
+                        <div class="top-cart-item-desc">
+                           <a href="#">Light Blue Denim Dress</a>
+                           <span class="top-cart-item-price">$24.99</span>
+                           <span class="top-cart-item-quantity">x 3</span>
+                        </div>
+                        <div class="top-links" style="float: none;">
+                           <ul>
+                              <% if (logined) { %>
+                              <li><a href="/user/change"><strong>내 정보수정</strong></a></li>
+                              <!-- <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
+                               <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
+                               <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
+                               <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>-->
+                              <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
+                              <% } else { %>
+                              <li><a href="/auth/login"><strong>로그인/회원가입</strong></a></li>
+                              <% } %>
+                           </ul>
+                        </div><!-- .top-links end -->
+                     </div>
+                  </div>
+                  <div class="top-cart-action clearfix">
+                     <span class="fleft top-checkout-price">$114.95</span>
+                     <button class="button button-3d button-small nomargin fright">로그인/로그아웃</button>
+                  </div>
+               </div>
+            </div><!-- #top-cart end -->
+
+            <!-- Top Search
+						============================================= -->
+            <div id="top-search">
+               <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+               <form>
+                  <input type="text" name="q" class="form-control typeahead" value="" placeholder="Type &amp; Hit Enter..">
+               </form>
+            </div>
+            <!-- #top-search end -->
 
          </nav><!-- #primary-menu end -->
 

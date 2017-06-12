@@ -1,3 +1,7 @@
 .top-links > ul > li > a {
    color: #444 !important;
 }
+
+.center > ul > li {
+   display: inline-block;
+}
