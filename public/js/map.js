@@ -1,7 +1,7 @@
 //////////////////////////////
 /**
  * @desc 출력될 리스트 데이터
- * 
+ *
  * @return {object} template, data
  */
 //////////////////////////////
@@ -9,7 +9,7 @@ var ListData = (function() {
 
   /**
    * @desc 화면에 뿌려주기 위한 객체
-   * 
+   *
    * @return {object} displayReload
    */
   var display = (function() {
@@ -46,7 +46,7 @@ var ListData = (function() {
         root.append($items);
         // root.append($items).isotope('appended', $items).isotope('layout');
       };
-      
+
       /**
        * @desc 데이터 관리
        */
@@ -85,16 +85,16 @@ var ListData = (function() {
           displayReload: displayReload
         }
       })(); /* ListData.display.list.displayList */
-      
+
       return {
         displayReload: displayList.displayReload
       }
-      
+
     })(); /* ListData.display.list */
 
     /**
      * @desc 페이지 관리
-     * 
+     *
      * @return {object} reload
      */
     var pagination = (function() {
@@ -111,14 +111,14 @@ var ListData = (function() {
 
       /**
        * @desc  페이지 클릭 시 발생 이벤트
-       * @param {*} evt 
+       * @param {*} evt
        * @param {page} page 클릭된 페이지
        */
       function clickEvent(evt, page) {
         $page = page;
         display.displayReload($make, $filter, $makeLocations);
       };
-      
+
       /**
        * @desc  pagination 초기화
        */
@@ -138,7 +138,7 @@ var ListData = (function() {
         if (!$start) init();
         if (listSize < 1) listSize = 1;
         var total = Math.ceil(listSize  / $pageSize);
-        
+
         if (make) $make = make;
         if (filter) $filter = filter;
         if (makeLocations) $makeLocations = makeLocations;
@@ -168,13 +168,13 @@ var ListData = (function() {
 
     /**
      * @desc 데이터를 template로 변환
-     * 
+     *
      * @return {object} makeTemplate
      */
     var template = (function() {
       /**
-       * @desc  
-       * @param {object} data 방 정보에 관한 object 
+       * @desc
+       * @param {object} data 방 정보에 관한 object
        */
       function makeTemplate(url, obj) {
         return new EJS({url: url}).render(obj);
@@ -227,7 +227,7 @@ var ListData = (function() {
 
     function dataReload($init, compare, make, _push, _filter, makeLocations, done) {
       clear();
-      
+
       $init.then(function() {
         dataArray = dataArray.sort(compare);
 
@@ -241,7 +241,7 @@ var ListData = (function() {
 
     function filterReload() {
       var event = display.pagination.getEventMethod();
-      
+
       let count = display.displayReload(event.make, event.filter, event.makeLocations);
       display.pagination.reload(count, event.make, null, event.filter, event.makeLocations);
     };
@@ -272,7 +272,7 @@ var ListData = (function() {
 //////////////////////////////
 /**
  * @desc 맵 관련 데이터
- * 
+ *
  * @return {object} drawMap
  */
 //////////////////////////////
@@ -280,7 +280,7 @@ var MapData = (function() {
 
   /**
    * @desc 맵 이벤트 관련 처리
-   * 
+   *
    * @return {object} imer
    */
   var event = (function() {
@@ -309,14 +309,14 @@ var MapData = (function() {
 
   /**
    * @desc Map전체를 관리하는 객체
-   * 
+   *
    * @return {object} drawMap, getLocations
    */
   var map = (function() {
 
     /**
      * @desc 좌표를 관리하는 객체
-     * 
+     *
      * @return {object} getLocations
      */
     var locations = (function() {
@@ -324,7 +324,7 @@ var MapData = (function() {
       /**
        * @desc  좌표의 값을 가공하는 함수
        * @param {array} data 좌표(lat, lng)등을 멤버로 가지는 배열
-       * 
+       *
        * @return {array} array(object(lat,lng)) 좌표 배열
        */
       function makeLocations(data) {
@@ -363,7 +363,7 @@ var MapData = (function() {
 
     /**
      * @desc 맵에 표시될 마커를 관리
-     * 
+     *
      * @return {object} initMarkerClusterer, redrawMarkerCluster
      */
     var marker = (function() {
@@ -371,7 +371,7 @@ var MapData = (function() {
       /**
        * @desc  좌표를 marker객체로 생성
        * @param {array} locations 좌표(lat, lng) 객체로 이루어진 배열
-       * 
+       *
        * @return {marker} marker에 대한 정보
        */
       function makeMarker(locations, map) {
@@ -397,7 +397,7 @@ var MapData = (function() {
       /**
        * @desc  MarkerClusterer객체 초기화
        * @param {map} map 맵에 대한 정보
-       * 
+       *
        * @return {MarkerClusterer} MarkerClusterer객체
        */
       function initMarkerClusterer(map) {
@@ -426,7 +426,7 @@ var MapData = (function() {
 
     /**
      * @desc Map Data를 관리하는 객체
-     * 
+     *
      * @return {object} loadMap, drawMap
      */
     var data = (function() {
@@ -443,7 +443,7 @@ var MapData = (function() {
        * @param {selector} ID 맵이 생성될 태그
        * @param {int} lat 위도
        * @param {int} lng 경도
-       * 
+       *
        * @return {map} 생성된 맵 객체
        */
       function initMap(ID, lat, lng) {
@@ -469,7 +469,7 @@ var MapData = (function() {
 
         markerCluster = marker.initMarkerClusterer(M);
       };
-      
+
       /**
        * @desc  좌표를 이용하여 맵을 다시 그림
        * @param {array} locations 다시 그릴 좌표 배열
@@ -493,7 +493,7 @@ var MapData = (function() {
       /**
        * @desc bounds를 이용하여 개선된 맵의 크기를 구함
        * @param {bounds} bounds map.getBounds로 구한 값
-       * 
+       *
        * @return {locations} 동, 서, 남, 북에 대한 값
        */
       function getBounds(bounds) {
