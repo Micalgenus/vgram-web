@@ -509,7 +509,7 @@ var MapData = (function() {
       };
 
       function setCenter(lat, lng) {
-        M.setCenter({lat, lng});
+        M.setCenter({lat: lat, lng: lng});
 
         redrawMap(M, T);
       }
