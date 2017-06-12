@@ -11,6 +11,14 @@ const Post_Media_relationship = models.post_media_relationship;
 const _ = require('lodash');
 const moment = require("moment");
 
+var config = require("../../config/main");
+var log = require('console-log-level')({
+   prefix: function () {
+      return new Date().toISOString()
+   },
+   level: config.logLevel
+});
+
 //공지사항 출력
 exports.viewNotice = function (req, res) {
    let pageSize, pageStartIndex;
@@ -65,19 +73,19 @@ exports.createNormalImageInfo = function (req, res) {
    }
 
 
-   let userID =  req.user.ID;
-   let email =  req.user.email;
+   let userID = req.user.ID;
+   let email = req.user.email;
 
    let imageJSON;
-   for(var key in req.body) {
+   for (var key in req.body) {
       imageJSON = JSON.parse(key);
    }
 
    let postID = imageJSON.postID;
-
+   let thumbnail_image_path = imageJSON.images[0].thumb;
    var medias = [];
    var m_relation = [];
-   for(var i=0; i< imageJSON.images.length; ++i) {
+   for (var i = 0; i < imageJSON.images.length; ++i) {
 
       let imageType = imageJSON.images[i].type;
       let imageFileName = imageJSON.images[i].file_name;
@@ -102,10 +110,10 @@ exports.createNormalImageInfo = function (req, res) {
    //console.log("medias>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" + medias);
    return models.sequelize.transaction(function (t) {
       return Media.bulkCreate(
-            medias
+         medias
          , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
 
-         for(var i = 0; i<createMedia.length; ++i){
+         for (var i = 0; i < createMedia.length; ++i) {
 
             var relation_json = new Object();
             relation_json.post_id = postID;
@@ -115,14 +123,14 @@ exports.createNormalImageInfo = function (req, res) {
          //console.log("m_relation>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" + m_relation);
          return Post_Media_relationship.bulkCreate(
             m_relation
-         , {transaction: t, returning: true, individualHooks: true});
+            , {transaction: t, returning: true, individualHooks: true});
       }).then(function (result) {
-      //정상적으로 되었을 경우
+         //정상적으로 되었을 경우
          return res.status(200).json({
             statusCode: 1
          });
       }).catch(function (err) {
-      //에러 발생했을 경우
+         //에러 발생했을 경우
          return res.status(401).json({
             errorMsg: 'DB create error',
             statusCode: -1
@@ -148,22 +156,24 @@ exports.createVRImageVtourInfo = function (req, res) {
 
 
    let vrJSON;
-   for(var key in req.body) {
+   for (var key in req.body) {
       vrJSON = JSON.parse(key);
    }
 
    let postID = vrJSON.postID;
+   let vrFilePath = "/medias/vrimages/" + email;
    //-----------------------------------------------
    //        vr이미지
    //---------------------------------------------
    var vr_medias = [];
    var vr_relation = [];
-   console.log(">>>>>>>>>>>>>>>>>> vr");
-   for(var i=0; i< vrJSON.vrImages.length; ++i) {
+   var post_vrimage = [];
+   var post_thumb = [];
+   for (var i = 0; i < vrJSON.vrImages.length; ++i) {
 
       let vrType = vrJSON.vrImages[i].type;
       let vrFileName = vrJSON.vrImages[i].file_name;
-      let vrFilePath = "/medias/vrimages/" +  email;
+
 
       let vrMetaValue = {
          mimetype: vrJSON.vrImages[i].mimetype,
@@ -184,81 +194,106 @@ exports.createVRImageVtourInfo = function (req, res) {
       vr_medias.push(json);
    }
 
-   models.sequelize.transaction(function (t) {
+   return models.sequelize.transaction(function (t) {
       return Media.bulkCreate(
          vr_medias
-      , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
+         , {transaction: t, returning: true, individualHooks: true}).then(function (createVrMedia) {
 
-         for(var i = 0; i<createMedia.length; ++i){
+         // vrimages의 릴레이션을 표시하기위해서
+         // post_media_relationship테이블에 넣기 위해 JSON을 만드는 부분
+         // 예제 >> { post_id : id , media_id : id }
+         for (var i = 0; i < createVrMedia.length; ++i) {
+
             var relation_json = new Object();
             relation_json.post_id = postID;
-            relation_json.media_id = createMedia[i].ID;
+            relation_json.media_id = createVrMedia[i].ID;
             vr_relation.push(relation_json);
+
+            var post_vrimages_json = new Object();
+            post_vrimages_json.ID = createVrMedia[i].ID;
+            post_vrimages_json.thumb = vrFilePath +'/'+ vrJSON.vrImages[i].tile_dir_name + "/thumb.jpg";
+            post_vrimage.push(post_vrimages_json);
+
          }
 
          return Post_Media_relationship.bulkCreate(
             vr_relation
-         , {transaction: t, returning: true, individualHooks: true});
+            , {transaction: t, returning: true, individualHooks: true});
       }).then(function (result) {
          //정상적으로 되었을 경우
+         //-----------------------------------------------
+         //        vtour 이미지
+         //---------------------------------------------
 
-      }).catch(function (err) {
-         //에러 발생했을 경우
-         return res.status(401).json({
-            errorMsg: 'DB create error',
-            statusCode: -1
-         });
-      });
-   });
+         var vtour_medias = [];
+         var vtour_relation = [];
+         for (var i = 0; i < vrJSON.vtour.length; ++i) {
 
-   //-----------------------------------------------
-   //        vtour 이미지
-   //---------------------------------------------
-   console.log(">>>>>>>>>>>>>>>>>> vtour");
-   var vtour_medias = [];
-   var vtour_relation = [];
-   for(var i=0; i< vrJSON.vtour.length; ++i) {
+            let vtourType = vrJSON.vtour[i].type;
+            let vtourFileName = vrJSON.vtour[i].file_name;
+            let vtourFilePath = "/medias/vtours/" + email + '/' + vrJSON.vtour[i].file_path;
 
-      let vtourType = vrJSON.vtour[i].type;
-      let vtourFileName = vrJSON.vtour[i].file_name;
-      let vtourFilePath = "/medias/vtours/" +  email + '/' + vrJSON.vtour[i].file_path ;
+            let vtourMetaValue = {};
 
-      let vtourMetaValue = {
-
-      };
-
-      var json = new Object();
-      json.user_id = userID;
-      json.type = vtourType;
-      json.date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
-      json.file_path = vtourFilePath;
-      json.file_name = vtourFileName;
-      json.meta_value = vtourMetaValue;
-      vtour_medias.push(json);
-   }
-
-   return models.sequelize.transaction(function (t) {
-      return Media.bulkCreate(
-         vtour_medias
-      , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
-
-         for(var i = 0; i<createMedia.length; ++i){
-            var relation_json = new Object();
-            relation_json.post_id = postID;
-            relation_json.media_id = createMedia[i].ID;
-            vtour_relation.push(relation_json);
+            var json = new Object();
+            json.user_id = userID;
+            json.type = vtourType;
+            json.date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+            json.file_path = vtourFilePath;
+            json.file_name = vtourFileName;
+            json.meta_value = vtourMetaValue;
+            vtour_medias.push(json);
          }
 
-         return Post_Media_relationship.bulkCreate(
-            vtour_relation
-         , {transaction: t, returning: true, individualHooks: true});
-      }).then(function (result) {
-         //정상적으로 되었을 경우
-         return res.status(200).json({
-            statusCode: 1
+         return Media.bulkCreate(
+            vtour_medias
+            , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
+
+            // vtour의 릴레이션을 표시하기위해서
+            // post_media_relationship테이블에 넣기 위해 JSON을 만드는 부분
+            // 예제 >> { post_id : id , media_id : id }
+            for (var i = 0; i < createMedia.length; ++i) {
+               var relation_json = new Object();
+               relation_json.post_id = postID;
+               relation_json.media_id = createMedia[i].ID;
+               vtour_relation.push(relation_json);
+
+               var post_vtour_id = new Object();
+               post_vtour_id.ID = createMedia[i].ID;
+               post_vtour_id.vrimages = post_vrimage;
+               post_thumb.push(post_vtour_id);
+            }
+
+            return Post_Media_relationship.bulkCreate(
+               vtour_relation
+               //,   {transaction: t, returning: true, individualHooks: true});
+               , {transaction: t, returning: true, individualHooks: true}).then(function (createPM) {
+
+               return post.update({
+                  thumbnail_image_path: post_thumb,
+               }, {
+                  where: {
+                     ID: postID
+                  }
+               }, {transaction: t});
+            }).then(function (result) {
+               //정상적으로 되었을 경우
+               return res.status(200).json({
+                  statusCode: 1
+               });
+            }).catch(function (err) {
+               //에러 발생했을 경우
+               log.error("posts - createVRImageVtourInfo error : " + err.message);
+               return res.status(401).json({
+                  errorMsg: 'DB create error',
+                  statusCode: -1
+               });
+            });
          });
+
       }).catch(function (err) {
          //에러 발생했을 경우
+         log.error("posts - createVRImageVtourInfo error : " + err.message);
          return res.status(401).json({
             errorMsg: 'DB create error',
             statusCode: -1
@@ -297,14 +332,14 @@ exports.viewPosts = function (req, res) {
          });
       } else {
          //만약 이메일이 없을 경우에는 찜목록이랑 좋아요 목록이 필요없음.
-         if(!email){
+         if (!email) {
             return res.status(200).json({
                postList: postList,
                likeList: '',
                jjimList: '',
                statusCode: 1
             });
-         }else{
+         } else {
             //이메일이 있는경우에는 찜목록이랑 좋아요 목록 필요
             //찜목록 조회
             return models.sequelize.query("select post_id from user_post_relationships where user_id = " +
@@ -372,7 +407,7 @@ exports.viewRoomDetail = function (req, res) {
             {replacements: [roomInfoIdx], type: models.sequelize.QueryTypes.SELECT}
          ).then(function (mediasList) {
             //만약 이메일이 없을 경우에는 찜목록이랑 좋아요 목록이 필요없음.
-            if(!email) {
+            if (!email) {
                return res.status(200).json({
                   detailList: detailList,
                   mediasList: mediasList,
