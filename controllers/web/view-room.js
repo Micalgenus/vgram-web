@@ -204,10 +204,12 @@ exports.createRoomInfo = function (req, res, next) {
                }).then(function (result) {
                   // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
 
-                  return res.status(200).json({
+                  res.status(200).json({
                      postID: sendPostID,
                      roomID: sendRoomID
                   });
+
+                  return models.sequelize.Promise.resolve();
                }).catch(function (err) {
                   return console.log(err);
                });

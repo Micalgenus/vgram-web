@@ -11,7 +11,7 @@ var setTestDatabase = require('../modules/setTestDatabase');
 var testDB = require('../tests/data');
 
 var server;
-var overwrite = (env === "development" && process.env.OVERWRITE === true);
+var overwrite = (env === "development" && process.env.OVERWRITE === "true");
 app.set('port', normalizePort(process.env.PORT));
 
 const log = require('console-log-level')({

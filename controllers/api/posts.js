@@ -124,18 +124,22 @@ exports.createNormalImageInfo = function (req, res) {
          return Post_Media_relationship.bulkCreate(
             m_relation
             , {transaction: t, returning: true, individualHooks: true});
-      }).then(function (result) {
-         //정상적으로 되었을 경우
-         return res.status(200).json({
-            statusCode: 1
-         });
-      }).catch(function (err) {
-         //에러 발생했을 경우
-         return res.status(401).json({
-            errorMsg: 'DB create error',
-            statusCode: -1
-         });
+      })
+   }).then(function (result) {
+      //정상적으로 되었을 경우
+      res.status(200).json({
+         statusCode: 1
       });
+
+      return models.sequelize.Promise.resolve(result);
+   }).catch(function (err) {
+      //에러 발생했을 경우
+      res.status(401).json({
+         errorMsg: 'DB create error',
+         statusCode: -1
+      });
+
+      return models.sequelize.Promise.reject(err);
    });
 }
 
@@ -197,7 +201,8 @@ exports.createVRImageVtourInfo = function (req, res) {
    return models.sequelize.transaction(function (t) {
       return Media.bulkCreate(
          vr_medias
-         , {transaction: t, returning: true, individualHooks: true}).then(function (createVrMedia) {
+         , {transaction: t, returning: true, individualHooks: true})
+         .then(function (createVrMedia) {
 
          // vrimages의 릴레이션을 표시하기위해서
          // post_media_relationship테이블에 넣기 위해 JSON을 만드는 부분
@@ -211,7 +216,7 @@ exports.createVRImageVtourInfo = function (req, res) {
 
             var post_vrimages_json = new Object();
             post_vrimages_json.ID = createVrMedia[i].ID;
-            post_vrimages_json.thumb = vrFilePath +'/'+ vrJSON.vrImages[i].tile_dir_name + "/thumb.jpg";
+            post_vrimages_json.thumb = vrFilePath + '/' + vrJSON.vrImages[i].tile_dir_name + "/thumb.jpg";
             post_vrimage.push(post_vrimages_json);
 
          }
@@ -247,7 +252,8 @@ exports.createVRImageVtourInfo = function (req, res) {
 
          return Media.bulkCreate(
             vtour_medias
-            , {transaction: t, returning: true, individualHooks: true}).then(function (createMedia) {
+            , {transaction: t, returning: true, individualHooks: true})
+            .then(function (createMedia) {
 
             // vtour의 릴레이션을 표시하기위해서
             // post_media_relationship테이블에 넣기 위해 JSON을 만드는 부분
@@ -266,39 +272,32 @@ exports.createVRImageVtourInfo = function (req, res) {
 
             return Post_Media_relationship.bulkCreate(
                vtour_relation
-               //,   {transaction: t, returning: true, individualHooks: true});
-               , {transaction: t, returning: true, individualHooks: true}).then(function (createPM) {
-
-               return post.update({
-                  thumbnail_image_path: post_thumb,
-               }, {
-                  where: {
-                     ID: postID
-                  }
-               }, {transaction: t});
-            }).then(function (result) {
-               //정상적으로 되었을 경우
-               return res.status(200).json({
-                  statusCode: 1
-               });
-            }).catch(function (err) {
-               //에러 발생했을 경우
-               log.error("posts - createVRImageVtourInfo error : " + err.message);
-               return res.status(401).json({
-                  errorMsg: 'DB create error',
-                  statusCode: -1
-               });
-            });
-         });
-
-      }).catch(function (err) {
-         //에러 발생했을 경우
-         log.error("posts - createVRImageVtourInfo error : " + err.message);
-         return res.status(401).json({
-            errorMsg: 'DB create error',
-            statusCode: -1
+               , {transaction: t, returning: true, individualHooks: true});
          });
       });
+   }).then((result) => {
+      //정상적으로 되었을 경우
+      res.status(200).json({
+         statusCode: 1
+      });
+
+      return post.update({
+         thumbnail_image_path: post_thumb,
+      }, {
+         where: {
+            ID: postID
+         }
+      });
+   }).catch((err) => {
+      //error occured
+      상세정보
+      log.error("posts - createVRImageVtourInfo error : " + err.message);
+      res.status(401).json({
+         errorMsg: 'DB create error',
+         statusCode: -1
+      });
+
+      return models.sequelize.Promise.reject(err);
    });
 }
 
