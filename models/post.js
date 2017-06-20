@@ -60,12 +60,17 @@ module.exports = function(sequelize, DataTypes) {
       like: {
          type: DataTypes.INTEGER(10).UNSIGNED,
          allowNull: true,
-         defaultValue: '0'
+         defaultValue: 0
       },
       read_count: {
          type: DataTypes.INTEGER(10).UNSIGNED,
          allowNull: true,
-         defaultValue: '0'
+         defaultValue: 0
+      },
+      comment_count: {
+         type: DataTypes.INTEGER(10).UNSIGNED,
+         allowNull: true,
+         defaultValue: 0
       },
       meta_value: {
          type: DataTypes.JSON,
@@ -166,6 +171,17 @@ module.exports = function(sequelize, DataTypes) {
                   allowNull: false
                },
                sourceKey: "ID"
+            });
+
+            post.hasMany(models.comment, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'post_id',
+                  allowNull: false
+               },
+               sourceKey: "ID",
+               as: "Comments"
             });
 
          }

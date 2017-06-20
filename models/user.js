@@ -199,6 +199,17 @@ module.exports = function(sequelize, DataTypes) {
                },
                sourceKey: "ID"
             });
+
+            user.hasMany(models.comment, {
+               onUpdate: "CASCADE",
+               onDelete: "CASCADE",
+               foreignKey: {
+                  name: 'user_id',
+                  allowNull: false
+               },
+               sourceKey: "ID",
+               as: "Comments"
+            });
          }
       }
    });
