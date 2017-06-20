@@ -14,11 +14,11 @@
    </script>
 
    <!-- 전화걸기 스크립트 -->
-   <script type=”text/javascript”>
-function callNumber(num){
-location.href=”tel:”+num;
-}
-</script>
+   <!--<script type=”text/javascript”>-->
+<!--function callNumber(num){-->
+<!--location.href=”tel:”+num;-->
+<!--}-->
+<!--</script>-->
 
 
    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -79,6 +79,27 @@ location.href=”tel:”+num;
       }
    </script>
 
+   <style>
+      .button_3 a{
+         position: relative;
+         left: 35%;
+      }
+
+      .copy_body_fi{
+         float: left !important;
+         position: relative !important;
+      }
+
+      .profil{
+         margin-top:15px;
+         margin-bottom: 2pc;
+         margin-right:4pc;
+         float: left;
+      }
+   </style>
+      <!--band script-->
+   <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
+
 
 
 </head>
@@ -99,9 +120,131 @@ location.href=”tel:”+num;
    <div class="container clearfix">
 
       <div id="job-apply" class="heading-block highlight-me">
-         <h2>room detail</h2>
-         <!--<span>And we'll get back to you within 48 hours.</span>-->
+
+         <div class="profile_top">
+               <div class="profil">
+                  <div class="spost clearfix">
+                     <div class="entry-image">
+                        <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                     </div>
+                     <div class="entry-c">
+                        <div class="entry-title">
+                           <h4><a href="#">아이디</a></h4>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+                  <div class="profil">
+                  <!--<label for="template-jobform-lname">조회수 / 등록일자 </label>-->
+                  <a><%=read%> / <%=createdAt%></a>
+                  <!--<input type="text" id="template-jobform-lname" name="template-jobform-lname" value="" class="sm-form-control required" />-->
+                  </div>
+
+                  <div class="profil">
+                     <i class="i-plain icon-gittip"></i> 찜 <span> 몇개 </span>
+                  </div>
+
+                  <div class="profil">
+                     <div class="right_modal">
+                        <a href="#myModal1" data-lightbox="inline" class="i-plain icon-external-link"></a>
+                     </div>
+                  </div>
+               <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+         </div>
+
       </div>
+
+   <!--right modal-->
+      <div class="modal1 mfp-hide" id="myModal1">
+         <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">
+            <div class="center" style="padding: 50px;">
+               <h3>Share!</h3>
+               <p class="nobottommargin">
+
+               <!-- facebook-->
+               <div class="copy_body_fi" data-layout="button_count" data-href="http://localhost:3000/" style="left: 23%;">
+               <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
+                  <!-- href 에 url-->
+                  <a class="fb-xfbml-parse-ignore" target="_blank"
+                     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                     <i class="icon-facebook"></i>
+                     <i class="icon-facebook"></i>
+                  </a>
+               </span>
+               </div>
+
+               <!--kakaotalk-->
+               <div class="copy_body_fi" style="left: 27%;">
+                  <div class="center">
+                     <span href="#" class="social-icon si-colored si-aim" title="Aim">
+                         <a id="kakao-link-btn" href="javascript:sendLink()">
+                            <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+                         </a>
+            <!--<a href="javascript:shareStory()">-->
+            <!--<img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>-->
+                        <!--</a>-->
+                      </span>
+                  </div>
+               </div>
+
+               <!--band-->
+               <div class="copy_body_fi" style="left: 29%;">
+                  <div class="center">
+                     <a href="#">
+                       <span>
+	                      <script type="text/javascript">
+	                         new ShareBand.makeButton({"lang": "ko", "type": "d"});
+                         </script>
+                       </span>
+                     </a>
+                  </div>
+               </div>
+
+               <!--url share-->
+               <div class="copy_body_fi" style="left: 33%;">
+                  <div class="input_group">
+                     <div class="center">
+                        <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                           <i class="icon-delicious"></i>
+							      <i class="icon-delicious"></i>
+                        </span>
+                     </div>
+                     <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+                  </div>
+               </div>
+
+
+
+                  <br><br>
+               </p>
+            </div>
+
+            <div class="section center nomargin" style="padding: 30px;">
+               <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close</a>
+            </div>
+         </div>
+      </div>
+
+
+      <!--url share-->
+      <div class="modal1 mfp-hide" id="myModal2">
+         <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">
+            <div class="center" style="padding: 50px;">
+               <h3>Share url !</h3>
+               <p class="nobottommargin">
+                  <input type="text" id="copyTarget" value="http://locahost:3000/post/embed">
+                  <button id="copyButton">Copy</button>
+                  <br><br>
+               </p>
+            </div>
+            <div class="section center nomargin" style="padding: 30px;">
+               <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close</a>
+            </div>
+         </div>
+      </div>
+
+
 
       <div class="contact-widget">
 
@@ -111,31 +254,18 @@ location.href=”tel:”+num;
 
             <div class="form-process"></div>
 
-            <div class="col_two_third">
-               <label for="template-jobform-fname">title </label>
-               <a><%=postTitle%></a>
+            <!--소개글-->
+            <div class="col_full">
+               <!--<label for="template-jobform-fname">title </label>-->
+               <h2><a><%=postTitle%></a></h2>
                <!--<input type="text" id="template-jobform-fname" name="template-jobform-fname" value="" class="sm-form-control required" />-->
             </div>
 
-            <div class="col_one_third col_last">
-               <label for="template-jobform-lname">조회수 / 등록일자 </label>
-               <a><%=read%> / <%=createdAt%></a>
-               <!--<input type="text" id="template-jobform-lname" name="template-jobform-lname" value="" class="sm-form-control required" />-->
-            </div>
+
 
             <div class="clear"></div>
 
-            <div class="col_two_third">
-               <label for="template-jobform-email">제목 <small>*</small></label>
-               <a>자리</a>
-               <!--<input type="email" id="template-jobform-email" name="template-jobform-email" value="" class="required email sm-form-control" />-->
-            </div>
 
-            <div class="col_one_third col_last">
-               <label for="template-jobform-age">찜하기<small>*</small></label>
-               <a>자리</a>
-               <!--<input type="text" name="template-jobform-age" id="template-jobform-age" value="" size="22" tabindex="4" class="sm-form-control required" />-->
-            </div>
 
             <div class="clear"></div>
 
@@ -143,6 +273,7 @@ location.href=”tel:”+num;
             <div class="col_full">
                <label>VR, 슬라이드 자리 (인풋태그임)</label>
                <input type="text" value="" size="22" tabindex="8" class="sm-form-control" placeholder="VR Viewer"/>
+
             </div>
 
 
@@ -292,13 +423,63 @@ location.href=”tel:”+num;
 
             <!--textarea 태그 수정-->
             <div class="col_full">
-               <label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>
+               <h3> Demonstration</h3>
+               <!-- textarea 태그 고쳐서 뿌려주세용용-->
+               <!--<label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>-->
                <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
             </div>
 
             <div class="col_full hidden">
-               <input type="text" id="template-jobform-botcheck" name="template-jobform-botcheck" value="" class="sm-form-control" />
+               <input type="text" placeholder="이거 없애뿌러"  id="template-jobform-botcheck" name="template-jobform-botcheck" value="" class="sm-form-control" />
             </div>
+
+            <div class="table_gogo">
+               <div class=".col_half">
+               <div class="table-responsive">
+                  <table class="table">
+                     <thead>
+                     </thead>
+                     <tbody>
+                     <tr>
+                        <td>보증금/월세</td>
+                        <td>얼마?</td>
+                        <td>방 종류</td>
+                        <td>원룸?</td>
+                     </tr>
+                     <tr>
+                        <td>해당 층 / 건물 층</td>
+                        <td>3층 / 4층</td>
+                        <td>공급/전용면적</td>
+                        <td>33.0m^2 우아아</td>
+                     </tr>
+                     <tr>
+                        <td>관리비</td>
+                        <td>얼마?</td>
+                        <td>관리비 포함항목</td>
+                        <td>여러가지 세금</td>
+                     </tr>
+                     <tr>
+                        <td>난방종류</td>
+                        <td>개별!</td>
+                        <td>엘리베이터</td>
+                        <td>X</td>
+                     </tr>
+                     <tr>
+                        <td>주차</td>
+                        <td>가능함</td>
+                        <td>반려동물</td>
+                        <td>됐으면 ㅜㅜ</td>
+                     </tr>
+                     <tr>
+                        <td>입주가능일</td>
+                        <td>즉시</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                 </div>
+               </div><!-- /.table-responsive -->
+            </div>
+
 
             <!-- html > include > sendemail.php 에서
          $toemails[] = array(
@@ -308,77 +489,77 @@ location.href=”tel:”+num;
 
             <!--이메일 보내기-->
             <!--위에 있는 modal contact form 사용함-->
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-center fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <!-- 버튼 안에 class="close" 삭제-->
-                     <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target="#contactFormModal"><i class="icon-email2" ></i></a></button>
-                  </div>
-                  <h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle"><%=email%></span></h3>
-               </div>
-            </div>
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--&lt;!&ndash; 버튼 안에 class="close" 삭제&ndash;&gt;-->
+                     <!--<button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target="#contactFormModal"><i class="icon-email2" ></i></a></button>-->
+                  <!--</div>-->
+                  <!--<h3 class="modal-title" id="contactFormModalLabel">Contact<span class="subtitle"><%=email%></span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
 
-            <!--모바일에서 전화걸기-->
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-center fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <ul onclick="callNumber('010-1234-5678')">
-                        <div class="name" align="right">
-                           <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>
-                        </div>
-                     </ul>
-                  </div>
-                  <h3>Call<span class="subtitle"><%=phone%></span></h3>
-               </div>
-            </div>
+            <!--&lt;!&ndash;모바일에서 전화걸기&ndash;&gt;-->
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--<ul onclick="callNumber('010-1234-5678')">-->
+                        <!--<div class="name" align="right">-->
+                           <!--<button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>-->
+                        <!--</div>-->
+                     <!--</ul>-->
+                  <!--</div>-->
+                  <!--<h3>Call<span class="subtitle"><%=phone%></span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
 
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-center fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>
-                  </div>
-                  <h3>Send<span class="subtitle">SMS</span></h3>
-               </div>
-            </div>
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--<button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>-->
+                  <!--</div>-->
+                  <!--<h3>Send<span class="subtitle">SMS</span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
 
-            <div class="col-md-3 col-sm-6 bottommargin clearfix">
-               <div class="feature-box fbox-center fbox-bg fbox-plain">
-                  <div class="fbox-icon">
-                     <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile" ></i></a></button>
-                  </div>
-                  <h3>Talk<span class="subtitle">1:1 대화</span></h3>
-               </div>
-            </div>
+            <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+               <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                  <!--<div class="fbox-icon">-->
+                     <!--<button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile" ></i></a></button>-->
+                  <!--</div>-->
+                  <!--<h3>Talk<span class="subtitle">1:1 대화</span></h3>-->
+               <!--</div>-->
+            <!--</div>-->
 
-            <div class="clear"></div>
+            <!--<div class="clear"></div>-->
 
-            <div class="counter counter-small">
+            <!--<div class="counter counter-small">-->
 
-               <table class="table">
-                  <thead></thead>
-                  <tbody>
-                  <tr>
-                     <td>#</td>
-                     <th>
-                        <i class="i-plain icon-thumbs-up"></i>
-                        <span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>
-                     </th>
+               <!--<table class="table">-->
+                  <!--<thead></thead>-->
+                  <!--<tbody>-->
+                  <!--<tr>-->
+                     <!--<td>#</td>-->
+                     <!--<th>-->
+                        <!--<i class="i-plain icon-thumbs-up"></i>-->
+                        <!--<span data-from="0" data-to="10" data-refresh-interval="100" data-speed="2000"></span>-->
+                     <!--</th>-->
 
-                     <th>
-                        <i class="i-plain icon-meh"></i>
-                        <span data-from="0" data-to="65" data-refresh-interval="100" data-speed="3000"></span>
-                     </th>
+                     <!--<th>-->
+                        <!--<i class="i-plain icon-meh"></i>-->
+                        <!--<span data-from="0" data-to="65" data-refresh-interval="100" data-speed="3000"></span>-->
+                     <!--</th>-->
 
-                     <th>
-                        <i class="i-plain icon-unlink"></i>
-                        <span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>
-                     </th>
-                     <td>#</td>
-                  </tr>
-                  </tbody>
-               </table>
+                     <!--<th>-->
+                        <!--<i class="i-plain icon-unlink"></i>-->
+                        <!--<span data-from="0" data-to="8" data-refresh-interval="100" data-speed="5000"></span>-->
+                     <!--</th>-->
+                     <!--<td>#</td>-->
+                  <!--</tr>-->
+                  <!--</tbody>-->
+               <!--</table>-->
 
-            </div>
+            <!--</div>-->
 
 
             <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
@@ -411,101 +592,271 @@ location.href=”tel:”+num;
             <div class="clear"></div>
 
             <!--SNS 공유-->
-            <div class="sns_wrap">
-               <!--<p>SNS 공유하기</p>-->
+            <!--<div class="sns_wrap">-->
+               <!--&lt;!&ndash;<p>SNS 공유하기</p>&ndash;&gt;-->
 
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--&lt;!&ndash;<a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="tests/images/book.JPG"/></a>&ndash;&gt;-->
+                              <!--<a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"-->
+                                 <!--alt="Share on Facebook" ><img src="/tests/images/book.JPG"></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Facebook<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
+
+
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="/tests/images/line.JPG"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Line<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
+
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="/tests/images/katalk.jpg"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>KaKao Talk<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
+
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="/tests/images/blog.jpg"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Blog<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
+
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="../resources/tests/images/book.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('twitter','공유제목!','http://http://단축URL')" title="트위터로 가져가기"><img src="/img/twitter.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="../resources/tests/images/line.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="../resources/tests/images/katalk.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img src="/img/story.jpg"></a></li>&ndash;&gt;-->
+
+               <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('pholar','공유제목!','http://단축URL')" title="폴라로 가져가기"><img src="/img/pholar.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('pinterest','공유제목!','http://단축URL')" title="핀터레스트로 가져가기"><img src="/img/pinterest.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('band','공유제목!','http://단축URL')" title="밴드로 가져가기"><img src="/img/band.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('google','공유제목!','http://http://단축URL')" title="구글플러스로 가져가기"><img src="/img/google.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="../resources/tests/images/blog.jpg"></a></li>&ndash;&gt;-->
+               <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+               <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><input type="text" value="http://도메인"><a href="javascript:copy_clip('http://도메인')"><img src="/img/sns_btn.jpg" class="sns_btn"></a></li>&ndash;&gt;-->
+               <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+               <!--</div>-->
+
+
+            <!-- 사업주/일반 회원 -->
+            <div class=".col_full">
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <!--<a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="tests/images/book.JPG"/></a>-->
-                              <a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"
-                                 alt="Share on Facebook" ><img src="/tests/images/book.JPG"></a>
-                           </div>
-                        </ul>
+                  로고
+               </div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">아늑한 집</div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">대표번호</div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+
+                  <!--전화-->
+                  <div class=".copy_body_fi" style="float: left;">
+                  <ul onclick="callNumber('010-1234-5678')">
+                     <div class="name" align="right">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>
                      </div>
-                     <h3>Facebook<span class="subtitle"></span></h3>
+                  </ul>
+                  </div>
+                  <!--SMS-->
+                  <div class="copy_body_fi">
+                  <div class="fbox-icon">
+                     <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>
+                  </div>
+                  </div>
+                  <!--1:1대화-->
+                  <div class="copy_body_fi">
+                  <div class="fbox-icon">
+                     <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile" ></i></a></button>
+                  </div>
                   </div>
                </div>
+            </div>
 
-
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="/tests/images/line.JPG"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>Line<span class="subtitle"></span></h3>
-                  </div>
-               </div>
-
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="/tests/images/katalk.jpg"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>KaKao Talk<span class="subtitle"></span></h3>
-                  </div>
-               </div>
-
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="/tests/images/blog.jpg"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>Blog<span class="subtitle"></span></h3>
-                  </div>
-               </div>
-
-                  <!--<li><a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="../resources/tests/images/book.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('twitter','공유제목!','http://http://단축URL')" title="트위터로 가져가기"><img src="/img/twitter.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="../resources/tests/images/line.jpg"></a></li>-->
-                  <!--<li><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="../resources/tests/images/katalk.jpg"></a></li>-->
-                  <!--<li><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img src="/img/story.jpg"></a></li>-->
-
-               <!--<ul>-->
-                  <!--<li><a href="javascript:toSNS('pholar','공유제목!','http://단축URL')" title="폴라로 가져가기"><img src="/img/pholar.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('pinterest','공유제목!','http://단축URL')" title="핀터레스트로 가져가기"><img src="/img/pinterest.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('band','공유제목!','http://단축URL')" title="밴드로 가져가기"><img src="/img/band.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('google','공유제목!','http://http://단축URL')" title="구글플러스로 가져가기"><img src="/img/google.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="../resources/tests/images/blog.jpg"></a></li>-->
-               <!--</ul>-->
-               <!--<ul>-->
-                  <!--<li><input type="text" value="http://도메인"><a href="javascript:copy_clip('http://도메인')"><img src="/img/sns_btn.jpg" class="sns_btn"></a></li>-->
-               <!--</ul>-->
-               </div>
 
 
             <!--수정,삭제   // 내가 쓴거 조건문 추가-->
-            <div style="float:right">
+            <div class="button_3">
             <a href="#" class="button button-3d  button-rounded button-blue">수정</a>
             <a href="#" class="button button-3d  button-rounded button-blue">삭제</a>
             <a href="#" class="button button-3d  button-rounded button-blue">재등록</a>
             </div>
 
             <div class="col_full">
-               <label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>
-               <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
+               <!--<label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>-->
+               <!--<textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>-->
+               <div id="comments" class="clearfix">
+
+                  <h3 id="comments-title"><span>3</span> Comments</h3>
+
+                  <!-- Comments List
+                          ============================================= -->
+                  <ol class="commentlist clearfix">
+
+                     <li class="comment even thread-even depth-1" id="li-comment-1">
+
+                        <div id="comment-1" class="comment-wrap clearfix">
+
+                           <div class="comment-meta">
+
+                              <div class="comment-author vcard">
+
+													<span class="comment-avatar clearfix">
+													<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+
+                              </div>
+
+                           </div>
+
+                           <div class="comment-content clearfix">
+
+                              <div class="comment-author">John Doe<span><a href="#" title="Permalink to this comment">April 24, 2012 at 10:46 am</a></span></div>
+
+                              <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                              <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                           </div>
+
+                           <div class="clear"></div>
+
+                        </div>
+
+
+                        <ul class='children'>
+
+                           <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+
+                              <div id="comment-3" class="comment-wrap clearfix">
+
+                                 <div class="comment-meta">
+
+                                    <div class="comment-author vcard">
+
+															<span class="comment-avatar clearfix">
+															<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></span>
+
+                                    </div>
+
+                                 </div>
+
+                                 <div class="comment-content clearfix">
+
+                                    <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                                    <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                                    <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                 </div>
+
+                                 <div class="clear"></div>
+
+                              </div>
+
+                           </li>
+
+                        </ul>
+
+                     </li>
+
+                     <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+
+                        <div id="comment-2" class="comment-wrap clearfix">
+
+                           <div class="comment-meta">
+
+                              <div class="comment-author vcard">
+
+													<span class="comment-avatar clearfix">
+													<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
+
+                              </div>
+
+                           </div>
+
+                           <div class="comment-content clearfix">
+
+                              <div class="comment-author"><a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                              <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                              <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                           </div>
+
+                           <div class="clear"></div>
+
+                        </div>
+
+                     </li>
+
+                  </ol><!-- .commentlist end -->
+
+                  <div class="clear"></div>
+
+                  <!-- Comment Form
+                          ============================================= -->
+                  <div id="respond" class="clearfix">
+
+                     <h3>Leave a <span>Comment</span></h3>
+
+                     <form class="clearfix" action="#" method="post" id="commentform">
+
+                        <div class="clear"></div>
+
+                        <div class="col_full">
+                           <label for="comment">Comment</label>
+                           <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                        </div>
+
+                        <div class="col_full nobottommargin">
+                           <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Comment</button>
+                        </div>
+
+                     </form>
+
+                  </div><!-- #respond end -->
+
+               </div><!-- #comments end -->
+
+
             </div>
 
             <div class="clear"></div>
 
                <!--목록가기-->
-            <div class="col_full">
-               <a href="#" onclick="goRoom('/post/room')" class="button button-3d button-blue nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>
-            </div>
+            <!--<div class="col_full">-->
+               <!--<a href="#" onclick="goRoom('/post/room')" class="button button-3d button-blue nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>-->
+            <!--</div>-->
 
          </form>
 
