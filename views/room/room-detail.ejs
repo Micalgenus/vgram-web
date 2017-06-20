@@ -79,7 +79,14 @@ location.href=”tel:”+num;
       }
    </script>
 
+   <style>
+      .button_3 a{
+         position: relative;
+         left: 33%;
+      }
+   </style>
 
+   <script src="/lib/krpano-1.19-pr6-viewer/krpano-tour.js"></script>
 
 </head>
 
@@ -100,8 +107,53 @@ location.href=”tel:”+num;
 
       <div id="job-apply" class="heading-block highlight-me">
          <h2>room detail</h2>
-         <!--<span>And we'll get back to you within 48 hours.</span>-->
+
+         <div class="copy_body_fi">
+            <div class="input_group">
+
+
+               <div class="right_modal">
+                  <a href="#myModal1" data-lightbox="inline" class="i-rounded i-bordered icon-external-link"></a>
+               </div>
+
+               <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+            </div>
+         </div>
+
       </div>
+   <!--right modal-->
+      <div class="modal1 mfp-hide" id="myModal1">
+         <div class="block divcenter" style="background-color: #FFF; max-width: 500px;">
+            <div class="center" style="padding: 50px;">
+               <h3>Share!</h3>
+               <p class="nobottommargin">
+               <!-- facebook-->
+               <div data-layout="button_count" data-href="http://localhost:3000/">
+               <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
+                  <!-- href 에 url-->
+                  <a class="fb-xfbml-parse-ignore" target="_blank"
+                     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                     <i class="icon-facebook"></i>
+                     <i class="icon-facebook"></i>
+                  </a>
+               </span>
+               </div>
+
+
+
+                  <button id="copyButton">Copy</button>
+                  <br><br>
+               </p>
+            </div>
+
+            <div class="section center nomargin" style="padding: 30px;">
+               <a href="#" class="button" onClick="$.magnificPopup.close();return false;">Close</a>
+            </div>
+         </div>
+      </div>
+
+
+
 
       <div class="contact-widget">
 
@@ -143,6 +195,7 @@ location.href=”tel:”+num;
             <div class="col_full">
                <label>VR, 슬라이드 자리 (인풋태그임)</label>
                <input type="text" value="" size="22" tabindex="8" class="sm-form-control" placeholder="VR Viewer"/>
+
             </div>
 
 
@@ -292,7 +345,9 @@ location.href=”tel:”+num;
 
             <!--textarea 태그 수정-->
             <div class="col_full">
-               <label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>
+               <h3> Demonstration</h3>
+               <!-- textarea 태그 고쳐서 뿌려주세용용-->
+               <!--<label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>-->
                <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
             </div>
 
@@ -411,101 +466,237 @@ location.href=”tel:”+num;
             <div class="clear"></div>
 
             <!--SNS 공유-->
-            <div class="sns_wrap">
-               <!--<p>SNS 공유하기</p>-->
+            <!--<div class="sns_wrap">-->
+               <!--&lt;!&ndash;<p>SNS 공유하기</p>&ndash;&gt;-->
 
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <!--<a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="tests/images/book.JPG"/></a>-->
-                              <a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"
-                                 alt="Share on Facebook" ><img src="/tests/images/book.JPG"></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>Facebook<span class="subtitle"></span></h3>
-                  </div>
-               </div>
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--&lt;!&ndash;<a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="tests/images/book.JPG"/></a>&ndash;&gt;-->
+                              <!--<a href="#" onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(document.URL)+'&t='+encodeURIComponent(document.title), 'facebooksharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank"-->
+                                 <!--alt="Share on Facebook" ><img src="/tests/images/book.JPG"></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Facebook<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
 
 
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="/tests/images/line.JPG"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>Line<span class="subtitle"></span></h3>
-                  </div>
-               </div>
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="/tests/images/line.JPG"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Line<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
 
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="/tests/images/katalk.jpg"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>KaKao Talk<span class="subtitle"></span></h3>
-                  </div>
-               </div>
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="/tests/images/katalk.jpg"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>KaKao Talk<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
 
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  <div class="feature-box fbox-center fbox-bg fbox-plain">
-                     <div class="fbox-icon">
-                        <ul style="margin-bottom: 0px;">
-                           <div class="name" align="right">
-                              <a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="/tests/images/blog.jpg"/></a>
-                           </div>
-                        </ul>
-                     </div>
-                     <h3>Blog<span class="subtitle"></span></h3>
-                  </div>
-               </div>
+               <!--<div class="col-md-3 col-sm-6 bottommargin clearfix">-->
+                  <!--<div class="feature-box fbox-center fbox-bg fbox-plain">-->
+                     <!--<div class="fbox-icon">-->
+                        <!--<ul style="margin-bottom: 0px;">-->
+                           <!--<div class="name" align="right">-->
+                              <!--<a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="/tests/images/blog.jpg"/></a>-->
+                           <!--</div>-->
+                        <!--</ul>-->
+                     <!--</div>-->
+                     <!--<h3>Blog<span class="subtitle"></span></h3>-->
+                  <!--</div>-->
+               <!--</div>-->
 
-                  <!--<li><a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="../resources/tests/images/book.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('twitter','공유제목!','http://http://단축URL')" title="트위터로 가져가기"><img src="/img/twitter.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="../resources/tests/images/line.jpg"></a></li>-->
-                  <!--<li><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="../resources/tests/images/katalk.jpg"></a></li>-->
-                  <!--<li><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img src="/img/story.jpg"></a></li>-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('facebook','공유제목!','http://http://단축URL')" title="페이스북으로 가져가기"><img src="../resources/tests/images/book.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('twitter','공유제목!','http://http://단축URL')" title="트위터로 가져가기"><img src="/img/twitter.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('line','공유제목!','http://http://단축URL')" title="라인으로 가져가기"><img src="../resources/tests/images/line.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img src="../resources/tests/images/katalk.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img src="/img/story.jpg"></a></li>&ndash;&gt;-->
 
-               <!--<ul>-->
-                  <!--<li><a href="javascript:toSNS('pholar','공유제목!','http://단축URL')" title="폴라로 가져가기"><img src="/img/pholar.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('pinterest','공유제목!','http://단축URL')" title="핀터레스트로 가져가기"><img src="/img/pinterest.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('band','공유제목!','http://단축URL')" title="밴드로 가져가기"><img src="/img/band.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('google','공유제목!','http://http://단축URL')" title="구글플러스로 가져가기"><img src="/img/google.jpg"></a></li>-->
-                  <!--<li><a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="../resources/tests/images/blog.jpg"></a></li>-->
-               <!--</ul>-->
-               <!--<ul>-->
-                  <!--<li><input type="text" value="http://도메인"><a href="javascript:copy_clip('http://도메인')"><img src="/img/sns_btn.jpg" class="sns_btn"></a></li>-->
-               <!--</ul>-->
-               </div>
+               <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('pholar','공유제목!','http://단축URL')" title="폴라로 가져가기"><img src="/img/pholar.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('pinterest','공유제목!','http://단축URL')" title="핀터레스트로 가져가기"><img src="/img/pinterest.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('band','공유제목!','http://단축URL')" title="밴드로 가져가기"><img src="/img/band.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('google','공유제목!','http://http://단축URL')" title="구글플러스로 가져가기"><img src="/img/google.jpg"></a></li>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><a href="javascript:toSNS('blog','공유제목!','http://http://단축URL')" title="네이버블로그로 가져가기"><img src="../resources/tests/images/blog.jpg"></a></li>&ndash;&gt;-->
+               <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+               <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<li><input type="text" value="http://도메인"><a href="javascript:copy_clip('http://도메인')"><img src="/img/sns_btn.jpg" class="sns_btn"></a></li>&ndash;&gt;-->
+               <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+               <!--</div>-->
 
 
             <!--수정,삭제   // 내가 쓴거 조건문 추가-->
-            <div style="float:right">
+            <div class="button_3">
             <a href="#" class="button button-3d  button-rounded button-blue">수정</a>
             <a href="#" class="button button-3d  button-rounded button-blue">삭제</a>
             <a href="#" class="button button-3d  button-rounded button-blue">재등록</a>
             </div>
 
             <div class="col_full">
-               <label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>
-               <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
+               <!--<label for="template-jobform-application">댓글 영역 (textarea 태그임)</label>-->
+               <!--<textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>-->
+               <div id="comments" class="clearfix">
+
+                  <h3 id="comments-title"><span>3</span> Comments</h3>
+
+                  <!-- Comments List
+                          ============================================= -->
+                  <ol class="commentlist clearfix">
+
+                     <li class="comment even thread-even depth-1" id="li-comment-1">
+
+                        <div id="comment-1" class="comment-wrap clearfix">
+
+                           <div class="comment-meta">
+
+                              <div class="comment-author vcard">
+
+													<span class="comment-avatar clearfix">
+													<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+
+                              </div>
+
+                           </div>
+
+                           <div class="comment-content clearfix">
+
+                              <div class="comment-author">John Doe<span><a href="#" title="Permalink to this comment">April 24, 2012 at 10:46 am</a></span></div>
+
+                              <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                              <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                           </div>
+
+                           <div class="clear"></div>
+
+                        </div>
+
+
+                        <ul class='children'>
+
+                           <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+
+                              <div id="comment-3" class="comment-wrap clearfix">
+
+                                 <div class="comment-meta">
+
+                                    <div class="comment-author vcard">
+
+															<span class="comment-avatar clearfix">
+															<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /></span>
+
+                                    </div>
+
+                                 </div>
+
+                                 <div class="comment-content clearfix">
+
+                                    <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                                    <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                                    <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                                 </div>
+
+                                 <div class="clear"></div>
+
+                              </div>
+
+                           </li>
+
+                        </ul>
+
+                     </li>
+
+                     <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+
+                        <div id="comment-2" class="comment-wrap clearfix">
+
+                           <div class="comment-meta">
+
+                              <div class="comment-author vcard">
+
+													<span class="comment-avatar clearfix">
+													<img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
+
+                              </div>
+
+                           </div>
+
+                           <div class="comment-content clearfix">
+
+                              <div class="comment-author"><a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
+
+                              <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+
+                              <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+
+                           </div>
+
+                           <div class="clear"></div>
+
+                        </div>
+
+                     </li>
+
+                  </ol><!-- .commentlist end -->
+
+                  <div class="clear"></div>
+
+                  <!-- Comment Form
+                          ============================================= -->
+                  <div id="respond" class="clearfix">
+
+                     <h3>Leave a <span>Comment</span></h3>
+
+                     <form class="clearfix" action="#" method="post" id="commentform">
+
+                        <div class="clear"></div>
+
+                        <div class="col_full">
+                           <label for="comment">Comment</label>
+                           <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                        </div>
+
+                        <div class="col_full nobottommargin">
+                           <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Comment</button>
+                        </div>
+
+                     </form>
+
+                  </div><!-- #respond end -->
+
+               </div><!-- #comments end -->
+
+
             </div>
 
             <div class="clear"></div>
 
                <!--목록가기-->
-            <div class="col_full">
-               <a href="#" onclick="goRoom('/post/room')" class="button button-3d button-blue nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>
-            </div>
+            <!--<div class="col_full">-->
+               <!--<a href="#" onclick="goRoom('/post/room')" class="button button-3d button-blue nomargin btn-block button-xlarge hidden-xs center">목록 가기 </a>-->
+            <!--</div>-->
 
          </form>
 
