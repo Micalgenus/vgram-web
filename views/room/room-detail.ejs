@@ -96,6 +96,12 @@
          margin-right:4pc;
          float: left;
       }
+      .member_ {
+         height:4pc;
+      }
+      .member_ img{
+         height:4pc;
+      }
    </style>
       <!--band script-->
    <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
@@ -125,11 +131,13 @@
                <div class="profil">
                   <div class="spost clearfix">
                      <div class="entry-image">
-                        <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                        <div class="testi-image">
+                        <a href="#" class="nobg"><img class="img-circle" src="/images/SH.png" alt=""></a>
+                        </div>
                      </div>
                      <div class="entry-c">
                         <div class="entry-title">
-                           <h4><a href="#">아이디</a></h4>
+                           <h4>아이디</h4>
                         </div>
                      </div>
                   </div>
@@ -266,8 +274,6 @@
             <div class="clear"></div>
 
 
-
-            <div class="clear"></div>
 
             <!--인풋태그 수정-->
             <div class="col_full">
@@ -672,10 +678,20 @@
             <!-- 사업주/일반 회원 -->
             <div class=".col_full">
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
-                  로고
+                  <div class="member_">
+                     <img src="/images/logo_cozyhouzz.png">
+                  </div>
                </div>
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">아늑한 집</div>
-               <div class="col-md-3 col-sm-6 bottommargin clearfix">대표번호</div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+                  <div class="member_">
+                     아늑한 집
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+                  <div class="member_">
+                     대표번호
+                  </div>
+               </div>
                <div class="col-md-3 col-sm-6 bottommargin clearfix">
 
                   <!--전화-->
@@ -701,6 +717,51 @@
                </div>
             </div>
 
+            <div class="clear"></div>
+
+            <div class=".col_full">
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+                  <div class="member_">
+                     <img src="/images/logo_cozyhouzz.png">
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+                  <div class="member_">
+                     아늑한 집
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+                  <div class="member_">
+                     대표번호
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6 bottommargin clearfix">
+
+                  <!--전화-->
+                  <div class=".copy_body_fi" style="float: left;">
+                     <ul onclick="callNumber('010-1234-5678')">
+                        <div class="name" align="right">
+                           <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>
+                        </div>
+                     </ul>
+                  </div>
+                  <!--SMS-->
+                  <div class="copy_body_fi">
+                     <div class="fbox-icon">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>
+                     </div>
+                  </div>
+                  <!--1:1대화-->
+                  <div class="copy_body_fi">
+                     <div class="fbox-icon">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile" ></i></a></button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+
+            <div class="clear"></div>
 
 
             <!--수정,삭제   // 내가 쓴거 조건문 추가-->
