@@ -93,7 +93,7 @@
       .profil{
          margin-top:15px;
          margin-bottom: 2pc;
-         margin-right:4pc;
+         margin-left:4pc;
          float: left;
       }
       .member_ {
@@ -330,12 +330,6 @@
 
             <div class="tabs tabs-alt tabs-justify clearfix" id="tab-10">
 
-               <ul class="tab-nav clearfix">
-                  <li><a href="#tabs-38">위치 정보보</a></li>
-                 <li><a href="#tabs-39">방정보</a></li>
-                  <li class="hidden-phone"><a href="#tabs-40">업체정보</a></li>
-               </ul>
-
                <div class="tab-container">
                   <div class="tab-content clearfix" id="tabs-38">
                      <div class="col_half">
@@ -393,31 +387,6 @@
                         </div>
                      </div>
                   </div>
-                  <div class="tab-content clearfix" id="tabs-39">
-                     <div class="col_half">
-                        <label for="template-jobform-fname">보증금/월세 <small>*</small></label>
-                        <a><%=deposit%> / <%=monthlyRentFee%></a>
-                     </div>
-
-                     <div class="col_half col_last">
-                        <label for="template-jobform-lname">방 종류 <small>*</small></label>
-                        <a><%=roomType%></a>
-                     </div>
-
-                     <div class="col_half">
-                        <label for="template-jobform-fname">건물 층 <small>*</small></label>
-                        <a>4층</a>
-                     </div>
-
-                     <div class="col_half col_last">
-                        <label for="template-jobform-lname">면적 <small>*</small></label>
-                        <a>겁나큼</a>
-                     </div>
-                  </div>
-
-                  <div class="tab-content clearfix" id="tabs-40">
-                     업체정보
-                  </div>
 
                </div>
 
@@ -432,8 +401,12 @@
                <h3> Demonstration</h3>
                <!-- textarea 태그 고쳐서 뿌려주세용용-->
                <!--<label for="template-jobform-application">댓글 영역 자리(textarea 태그임)</label>-->
-               <textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>
+               <!--<textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>-->
+               <h4 style="background-color: grey;"> 추가 설명 (영역 백그라운드-칼라 지워용)</h4><br><br>
             </div>
+
+            <div class="clear"></div>
+
 
             <div class="col_full hidden">
                <input type="text" placeholder="이거 없애뿌러"  id="template-jobform-botcheck" name="template-jobform-botcheck" value="" class="sm-form-control" />
