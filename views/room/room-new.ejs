@@ -54,6 +54,18 @@
          margin: 0px;
          padding: 0px;
       }
+      .clear{
+         clear: both;
+         display: block;
+         font-size: 0px;
+         height: 10px;
+         line-height: 0;
+         width: 100%;
+         overflow: hidden;
+      }
+      .bottommargin-sm {
+         margin-bottom: 15px !important;
+      }
    </style>
 </head>
 
@@ -63,70 +75,304 @@
 <% include ../addon/header2.ejs %>
 
 <ul id="menu">
-   <li data-menuanchor="firstPage"><a href="#firstPage">First slide</a></li>
-   <li data-menuanchor="secondPage"><a href="#secondPage">Second slide</a></li>
-   <li data-menuanchor="3rdPage"><a href="#3rdPage">Third slide</a></li>
-   <li data-menuanchor="4thpage"><a href="#4thpage">Fourth slide</a></li>
+   <li data-menuanchor="firstPage"><a href="#firstPage">VR 사진</a></li>
+   <li data-menuanchor="secondPage"><a href="#secondPage">기본정보</a></li>
+   <li data-menuanchor="3rdPage"><a href="#3rdPage">일반사진</a></li>
+   <li data-menuanchor="4thpage"><a href="#4thpage">추가정보</a></li>
 </ul>
 
-<ul class="preview-extensions-menu">
-   <li class="preview-more-extensions"><a href="http://alvarotrigo.com/fullPage/extensions/">More extensions</a></li>
-   <li class="preview-buy-extension"><a href="https://gum.co/fullpageScrollOverflowReset">Download extension</a></li>
-</ul>
+<form id="roomInfo-Inputform" name="roominfo-inputform" enctype="multipart/form-data">
+   <div id="fullpage">
 
+      <div class="section" id="section1">
+         <h1>VR 이미지 업로드</h1>
 
-<div id="fullpage">
-   <div class="section" id="section1">
-      <div class="fp-bg"></div>
+         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+         <div class="row fileupload-buttonbar">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+               <i class="glyphicon glyphicon-plus"></i>
+               <span>Add files...</span>
+               <input type="file" id="roomInfoInput-VRImages" name="VR_IMAGE" value=""
+                      class="required" multiple required/>
+            </span>
+         </div>
+      </div>
+      <!-- 2번째 페이지
+        ============================================= -->
+      <div class="section" id="section2">
+         <h1>Slide 1.2</h1>
+         <div class="col-md-6">
+            <div>
+               <div>
+                  <button class="button button-border button-rounded button-amber" type="button"
+                          onclick="search()" id="postcodify_search_button" name="search-button"
+                          value="검색">검색하기
+                  </button>
+               </div>
+               <div class="clear"></div>
+               <div>
+                  <input type="text" class="sm-form-control postcodify_postcode5" id="postcode"
+                         name="postcode" placeholder="우편번호" required readonly>
+               </div>
+               <div class="clear"></div>
+               <div>
+                  <input class="sm-form-control postcodify_address" type="text" id="jibunAddress"
+                         name="jibunAddress" placeholder="지번주소" readonly required>
+               </div>
+               <div class="clear"></div>
+               <div>
+                  <input class="sm-form-control postcodify_address" type="text" id="roadAddress"
+                         name="roadAddress" placeholder="도로명주소" readonly required>
+               </div>
+               <div class="clear"></div>
+               <div>
+                  <input class="sm-form-control postcodify_details" type="text" id="detail"
+                         name="detail" placeholder="상세주소">
+               </div>
+            </div>
+         </div>
+         <div class="col-md-6">
+            <div>
+               <h5>카테고리</h5>
+               <div class="col-md-12">
+                  <input id="radio-7" class="radio-style" name="radio-group-2" type="radio" checked="">
+                  <label for="radio-7" class="radio-style-2-label">일반</label>
+               </div>
+               <div class="col-md-12">
+                  <input id="radio-8" class="radio-style" name="radio-group-2" type="radio" >
+                  <label for="radio-8" class="radio-style-2-label">방/부동산</label>
+               </div>
+               <div class="col-md-12">
+                  <input id="radio-9" class="radio-style" name="radio-group-2" type="radio">
+                  <label for="radio-9" class="radio-style-2-label">숙박</label>
+               </div>
+               <div class="col-md-12">
+                  <input id="radio-10" class="radio-style" name="radio-group-2" type="radio">
+                  <label for="radio-10" class="radio-style-2-label">관광</label>
+               </div>
+               <div class="col-md-12">
+                  <input id="radio-11" class="radio-style" name="radio-group-2" type="radio">
+                  <label for="radio-11" class="radio-style-2-label">인테리어</label>
+               </div>
+               <div class="col-md-12">
+                  <input id="radio-12" class="radio-style" name="radio-group-2" type="radio">
+                  <label for="radio-12" class="radio-style-2-label">항공사진</label>
+               </div>
+            </div>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <!-- 3번째 페이지
+         ============================================= -->
+      <div class="section" id="section3">
+         <h1>기본이미지</h1>
+         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+         <div class="row fileupload-buttonbar">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+               <i class="glyphicon glyphicon-plus"></i>
+               <span>Add files...</span>
+               <input type="file" id="roomInfoInput-mainPreviewImage" name="NORMAL_IMAGE" value=""
+                      class="required" multiple />
+            </span>
+         </div>
+      </div>
+      <!-- 4번째 페이지
+         ============================================= -->
+      <div class="section" id="section4">
+         <ul class="preview-extensions-menu">
 
-      <div class="intro">
-         <h1>Scroll Overflow Reset</h1>
-         <p>Use `scrollOverflowReset: true` to reset the scrollbar after leaving the section or slide and always show the start of the content on section load.</p>
+            <li class="preview-buy-extension">
+               <button class="button button-3d button-xlarge button-rounded button-dirtygreen"
+                       type="submit" id="template-contactform-submitroomInfo"
+                       name="template-contactform-roomInfosubmit" value="sumit">작성하기
+               </button>
+            </li>
+         </ul>
+         <!-- 기본정보
+         ============================================= -->
+         <div class="content-wrap-room-new">
+
+            <div class="line-room-new" style="margin-top: 200px; margin-bottom: 10px;"></div>
+            <!-- 방 구조 -->
+            <div class="col-md-4">
+               <div class="col-md-6">
+                  <label for="template-contactform-service">
+                     <small>*</small>
+                     방구조</label>
+                  <select id="template-contactform-service" name="roomType" class="sm-form-control" required>
+                     <% for (i in value.placeType) { %>
+                     <option value="<%= i %>"><%= __("placeType")[i] %></option>
+                     <% } %>
+                  </select>
+                  <!--월세-->
+                  <label for="template-contactform-monthlyRentFee">월세</label>
+                  <div class="input-group">
+                     <input type="number" id="template-contactform-monthlyRentFee" name="monthly" value=""
+                            placeholder="만원" class="sm-form-control"/>
+                     <span class="input-group-addon">만원</span>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <!--보증금-->
+                  <label for="template-contactform-deposit">보증금</label>
+                  <div class="input-group">
+                     <input type="number" id="template-contactform-deposit" name="deposit" value=""
+                               placeholder="만원" class="sm-form-control"/>
+                     <span class="input-group-addon">만원</span>
+                  </div>
+                  <!--단기계약가능-->
+                  <label for="template-contactform-deposit">
+                     <small>*</small>
+                     계약조건</label>
+                  <div>
+                     <input id="checkbox-12" class="checkbox-style" name="shortTermContract" type="checkbox">
+                     <label for="checkbox-12" class="checkbox-style-3-label">단기 계약 가능</label>
+                  </div>
+               </div>
+               <div class="clear"></div>
+
+               <!--전세,월세,연세-->
+               <label for="template-contactform-deposit">
+                  <small>*</small>
+                  계약조건</label>
+               <div>
+                  <input id="checkbox-jeonse" class="checkbox-style" name="jeonse" type="checkbox">
+                  <label for="checkbox-jeonse" class="checkbox-style-3-label">전세</label>
+                  <input id="checkbox-wolse" class="checkbox-style" name="wolse" type="checkbox">
+                  <label for="checkbox-wolse" class="checkbox-style-3-label">월세</label>
+                  <input id="checkbox-yeonse" class="checkbox-style" name="yeonse" type="checkbox">
+                  <label for="checkbox-yeonse" class="checkbox-style-3-label">연세</label>
+                  <input id="checkbox-maemae" class="checkbox-style" name="maemae" type="checkbox">
+                  <label for="checkbox-maemae" class="checkbox-style-3-label">매매</label>
+               </div>
+               <!--연세일경우-->
+               <label for="template-contactform-deposit">
+                  <small>*</small>
+                  계약조건</label>
+               <div>
+                  <h4>연세일경우, 월세에 1년치 임대료를 입력하세요</h4>
+               </div>
+            </div><!--기본정보 끝-->
+            <!-- 추가정보
+              ============================================= -->
+            <div class="col-md-4">
+
+               <div class="col-md-6">
+                  <!--관리비-->
+                  <h5>관리비</h5>
+                  <input id="radio-isManageExpense-yes" class="radio-style" name="isManageExpense-yes" type="radio">
+                  <label for="radio-isManageExpense-yes" class="radio-style-2-label">있음</label>
+                  <input id="radio-isManageExpense-no" class="radio-style" name="isManageExpense-no" type="radio" checked="">
+                  <label for="radio-isManageExpense-no" class="radio-style-2-label">없음</label>
+                  <div class="clear"></div>
+                  <!--해당층수-->
+                  <h5>해당층수</h5>
+                  <select class="select-hide form-control bottommargin-sm" name="floors" placeholder="지하~20층이상">
+                     <% for (i in value.floors) { %>
+                     <option value="<%= i %>"><%= __("floors")[i] %></option>
+                     <% } %>
+                  </select>
+
+                  <!--주차-->
+                  <h5>주차여부</h5>
+                  <input id="radio-parking-yes" class="radio-style" name="isParking-yes" type="radio">
+                  <label for="radio-parking-yes" class="radio-style-2-label">있음</label>
+                  <input id="radio-parking-no" class="radio-style" name="isParking-no" type="radio" checked="">
+                  <label for="radio-parking-no" class="radio-style-2-label">없음</label>
+
+                  <!--엘리베이터 여부-->
+                  <h5>엘리베이터 여부</h5>
+                  <input id="radio-elevator-yes" class="radio-style" name="elevator-yes" type="radio">
+                  <label for="radio-elevator-yes" class="radio-style-2-label">있음</label>
+                  <input id="radio-elevator-no" class="radio-style" name="elevator-no" type="radio" checked="">
+                  <label for="radio-elevator-no" class="radio-style-2-label">없음</label>
+               </div>
+               <div class="col-md-6">
+                  <!--관리비-->
+                  <h5>관리비용</h5>
+                  <div class="input-group">
+                     <input type="number" id="contactformManageExpense"
+                            name="contactformManageExpense" value="" placeholder="만원"
+                            class="sm-form-control"/>
+                     <span class="input-group-addon">만원</span>
+                  </div>
+
+                  <!--실내평수-->
+                  <h5>실내평수</h5>
+                  <div class="input-group">
+                     <input type="number" #actualSize id="template-contactform-actualSize" name="actualSize"
+                            value="" class="sm-form-control"/>
+                     <span class="input-group-addon">평</span>
+                  </div>
+                  <!-- 난방종류 -->
+                  <h5>난방종류</h5>
+                  <select name = "heatingType" class="select-hide form-control" 난방종류선택>
+                     <% for (i in value.room.heatingType) { %>
+                     <option value="<%= i %>"><%= __("room")["heatingType"][i] %></option>
+                     <% } %>
+                  </select>
+                  <!--입주 가능일-->
+                     <h5>입주 가능일</h5>
+                     <div class="input-group">
+                        <input type="text" value="" class="sm-form-control tleft past-enabled" placeholder="달/월/년">
+                        <span class="input-group-addon" style="padding: 9px 12px;">
+                                    <i class="icon-calendar2"></i>
+                        </span>
+                     </div>
+
+                  <input id="checkbox-1203" class="checkbox-style" name="rightnow" type="checkbox">
+                  <label for="checkbox-1203" class="checkbox-style-3-label">즉시 입주</label>
+                  <input id="checkbox-1204" class="checkbox-style" name="date-consultation" type="checkbox">
+                  <label for="checkbox-1204" class="checkbox-style-3-label">날짜 협의</label>
+               </div>
+               <!--옵션-->
+               <div class="clear"></div>
+               <div>
+                  <h5><%= __("word")["option"] %></h5>
+
+                  <br/>
+                  <% for (i in value.room.options) { %>
+                  <input id="checkbox-<%= i %>" class="checkbox-style" name="<%= i %>" type="checkbox" >
+                  <label for="checkbox-<%= i %>"  class="checkbox-style-3-label"><%= __("room")["options"][i] %></label>
+                  <% } %>
+               </div>
+               <div class="content-wrap-room-new">
+                  <label for="template-contactform-monthlyRentFee col_">글 공개 여부</label>
+                  <select class="select-hide form-control bottommargin-sm" name="postStatus" placeholder="글 공개 여부">
+                     <% var postStatus = __("postStatus") %>
+                     <% for (i in postStatus) { %>
+                     <option value="<%= i %>"><%= postStatus[i] %></option>
+                     <% } %>
+                  </select>
+               </div>
+               <div class="clear"></div>
+            </div>
+            <div class="col-md-4">
+               <div class="col-md-12">
+                  <!-- summernote -->
+                  <div class="col_full bottommargin-sm center">
+                     <label for="template-contactform">상세설명 </label>
+                     <div class="summernote" rows="6" cols="30">
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 hidden">
+                  <input type="text" id="template-contactform-botcheck" name="summernote" value=""
+                         class="sm-form-control"/>
+               </div>
+               <div class="col-md-12">
+                  <recaptcha required (resolved)="resolvedCaptcha($event)"
+                             siteKey="6LcLPwsUAAAAAOqysXiEPmdSpjwTDUUCmL6LiJez"></recaptcha>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
-   <div class="section" id="section2">
-      <div class="fp-bg"></div>
-
-      <div class="intro">
-         <h1>Section 2</h1>
-         <p>
-            Eu nec ferri molestie consequat, vel at alia dolore putant. Labore philosophia ut vix. In vis nostrud interesset appellantur, vis et tation feugiat scripserit. Te nec noster suavitate persecuti. Diceret erroribus cu vix, alii omnes ei sit. Sea an corrumpit patrioque, virtute accumsan nominavi et usu, ex mei dolore vocibus incorrupte.
-
-            Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui.
-
-            Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui.
-
-            Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui.
-
-            Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui.
-         </p>
-      </div>
-   </div>
-
-   <div class="section" id="section3">
-      <div class="fp-bg"></div>
-
-      <div class="intro">
-         <h1>Section 3</h1>
-         <p>
-            Eu nec ferri molestie consequat, vel at alia dolore putant. Labore philosophia ut vix. In vis nostrud interesset appellantur, vis et tation feugiat scripserit. Te nec noster suavitate persecuti. Diceret erroribus cu vix, alii omnes ei sit. Sea an corrumpit patrioque, virtute accumsan nominavi et usu, ex mei dolore vocibus incorrupte.
-
-            Duo ea saperet tacimates. Sed possim prodesset no, per novum putent doctus ea. Eu mea magna aliquip graecis, pri corpora officiis complectitur ei, lorem saepe consetetur his ad. Meis consulatu ei vis, an altera ocurreret interesset qui.
-         </p>
-      </div>
-
-   </div>
-   <div class="section" id="section4">
-      <div class="fp-bg"></div>
-
-      <div class="intro">
-         <h1>Section 4</h1>
-      </div>
-   </div>
-</div>
-
+</form>
 <!-- NO FOOTER -->
-<!--<% //include ../addon/footer.ejs %>-->
+<% //include ../addon/footer.ejs %>
 
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
@@ -140,49 +386,99 @@
 <script type="text/javascript" src="/lib/jquery.fullPage/jquery.fullpage.extensions.min.js"></script>
 
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/lib/jquery.fileUpload/vendor/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+
+<!-- blueimp Gallery script -->
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="/lib/jquery.fileUpload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="/lib/jquery.fileUpload/jquery.fileupload-ui.js"></script>
+<!-- The main application script -->
+<script src="/lib/jquery.fileUpload/main.js"></script>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="/lib/jquery.fileUpload/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+
 <script>
+
    function search() {
       new daum.Postcode({
          oncomplete: function (data) {
             var fullAddr = ''; // 최종 주소 변수
             var extraAddr = ''; // 조합형 주소 변수
 
-            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-               fullAddr = data.roadAddress
+            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-               fullAddr = data.jibunAddress;
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+               extraRoadAddr += data.bname;
             }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-            if (data.userSelectedType === 'R') {
-               //법정동명이 있을 경우 추가한다.
-               if (data.bname !== '') {
-                  extraAddr += data.bname;
-               }
-               // 건물명이 있을 경우 추가한다.
-               if (data.buildingName !== '') {
-                  extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-               }
-               // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-               fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+               extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+            if(fullRoadAddr !== ''){
+               fullRoadAddr += extraRoadAddr;
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('address').value = fullAddr;
-            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById('roadAddress').value = fullRoadAddr;
+            document.getElementById('jibunAddress').value = data.jibunAddress;
             document.getElementById('details').focus();
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+               //예상되는 도로명 주소에 조합형 주소를 추가한다.
+               var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+               document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
 
-            // addrToCoord를 이용한 좌표 자동변환 ㄱㄱ
+            } else if(data.autoJibunAddress) {
+               var expJibunAddr = data.autoJibunAddress;
+               document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
+            } else {
+               document.getElementById('guide').innerHTML = '';
+            }
          }
       }).open();
    }
 
    var browserLang = navigator.language || navigator.userLanguage;
 
-   /*$('.summernote').summernote({
+   $('.summernote').summernote({
     height: 600,                 // set editor height
     minHeight: null,             // set minimum height of editor
     maxHeight: null,             // set maximum height of editor
@@ -200,16 +496,16 @@
     ['view', ['fullscreen', 'codeview']],
     ['help', ['help']]
     ],
-    lang: <%= value.lang %> || browserLang || "en"
-    });*/
+    //lang: <%= value.lang %> || browserLang || "en"
+    });
 
    //submit 버튼 눌렀을 시 발생하는 이벤트
    $('#roomInfo-Inputform').submit(function(e) {
 
        //form의 모든 자료를 넘김
       var queryString = $('#roomInfo-Inputform').serialize();
-
-      $.ajax({
+      alert(queryString);
+     $.ajax({
          //web서버에 넘겨서 table에 추가
          type : 'post',
          // 서버 URL 찾기
@@ -287,10 +583,29 @@
    });
 
 </script>
+
 <script type="text/javascript">
+   $(document).ready(function() {
+      $('#myContainer').fullpage({
+         sectionsColor: ['#ed545b', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff', '#ccc'],
+         anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage'],
+         menu: '#menu',
+         interlocked: [1, 3],
+         interlockedSlidesKey: 'YWx2YXJvdHJpZ28uY29tX0FVS2FXNTBaWEpzYjJOclpXUlRiR2xrWlhNPVFFNw==',
+         slidesNavigation: true,
+         afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
+            console.log("slideLoad--" + "anchorLink: " + anchorLink + " index: " + index + " slideAnchor: " + slideAnchor + " slideIndex: " + slideIndex);
+
+         },
+         onSlideLeave: function(anchorLink, index, slideIndex, direction){
+            console.log("----------------");
+            console.log("onSlideLeave--" + "anchorLink: " + anchorLink + " index: " + index + " slideIndex: " + slideIndex + " direction: " + direction);
+         }
+      });
+   });
    $('#fullpage').fullpage({
       anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage'],
-      sectionsColor: ['#475577', '#939FAA', '#4A6FB1', '#323539'],
+      sectionsColor: ['#4BBFC3', '#4BBFC3', '#4BBFC3', '#4BBFC3'],
       menu: '#menu',
       slidesNavigation: true,
       scrollOverflow: true,
