@@ -39,10 +39,10 @@ var config = {
    }
 }
 
-config[NODE_ENV].secret = "cozyhouzz by moblab";  // Secret key for JWT signing and encryption
+config[NODE_ENV].secret = env_var.AUTH0_CLIENT_SECRET;  // Secret key for JWT signing and encryption
 config[NODE_ENV].root = rootPath.path;
 config[NODE_ENV].app = {
-   name: 'cozyhouzz'
+   name: env_var.APP_NAME
 };
 
 config[NODE_ENV].krpano = {
@@ -63,6 +63,17 @@ config[NODE_ENV].resource = {
    POSTS_DIR: env_var.POSTS_DIR,
    USERS_DIR: env_var.USERS_DIR,
    TEMP_DIR: env_var.TEMP_DIR,
+}
+
+config[NODE_ENV].auth0 = {
+   DOMAIN: env_var.AUTH0_DOMAIN,
+   CLIENT_ID: env_var.AUTH0_CLIENT_ID,
+   CALLBACK_URL: env_var.AUTH0_CALLBACK_URL,
+   JWKS_URI: env_var.AUTH0_JWKS_URI,
+   IDENTIFIER: env_var.AUTH0_IDENTIFIER,
+   ISSUER: env_var.AUTH0_ISSUER,
+   EXPIRES_IN: env_var.AUTH0_JWT_EXPIRATION,
+   ALGORITHM: env_var.AUTH0_ALGORITHM
 }
 
 module.exports = config[NODE_ENV];

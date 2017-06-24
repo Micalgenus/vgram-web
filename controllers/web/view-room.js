@@ -51,11 +51,12 @@ exports.roomInfoListView = function (req, res) {
  */
 exports.createRoomInfoView = function (req, res, next) {
 
-   // if (!req.user.logined) {
-   //    req.flash('msg', "requiredLogin");
-   //    // return res.redirect('/post/room');
-   //    return res.redirect('back');
-   // }
+   if (!req.user.logined) {
+      req.flash('msg', "requiredLogin");
+      // return res.redirect('/post/room');
+      return res.redirect('back');
+   }
+
    // 기본적으로 user의 기본언어 선택사항을 따라가고,
    // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
    return res.render('room/room-new', {

@@ -2,9 +2,19 @@
  * Created by KIMSEONHO on 2016-08-16.
  */
 const passport = require('passport'),
+   jwt = require('express-jwt'),
    express = require('express'),
    multer = require('multer'),
+   _ = require("lodash"),
    i18n = require('i18n');
+
+const jwksRsa = require('jwks-rsa');
+const jwtAuthz = require('express-jwt-authz');
+
+var env = process.env.NODE_ENV || "development";
+
+var config = require('./config/main');
+const value = require('./utils/staticValue');
 
 var web = {
    authController: require('./controllers/web/auth'),
@@ -13,24 +23,6 @@ var web = {
    redirectController: require('./controllers/web/redirect'),
    userController: require('./controllers/web/view-user'),
    testController: require('./controllers/web/test'),
-
-   // web 용 local passport Login -> 위에 requireLogin 쓰면 되는거 아님?
-   // requireLogin: function (req, res, next) {
-   //    return passport.authenticate('local', function (err, user, info) {
-   //       if (err) {
-   //          return next(err); // will generate a 500 error
-   //       }
-   //
-   //       if (!user) {
-   //          req.flash('email', req.body.email);
-   //          req.flash('msg', '이메일 또는 패스워드가 일치하지 않습니다.');
-   //          return res.redirect('/login');
-   //       }
-   //
-   //       req.user = user;
-   //       return next();
-   //    })(req, res, next);
-   // }
 };
 
 var api = {
@@ -42,17 +34,43 @@ var api = {
 const passportService = require('./config/passport');   // 설정값 로딩때문에 필요함
 
 // Middleware to require login/authRoute
-const requireAuth = passport.authenticate('jwt', {session: false});
-const requireLogin = passport.authenticate('local', {session: false});
+const requireWebAuth = passport.authenticate('jwt', {session: false});
+const auth0WebLogin = passport.authenticate('auth0', { session: false, failureRedirect: '/url-if-something-fails' });
+const requireAPIAuth = jwt({
+   // Dynamically provide a signing key
+   // based on the kid in the header and
+   // the singing keys provided by the JWKS endpoint.
+   secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: config.auth0.JWKS_URI
+   }),
+
+   // Validate the audience and the issuer.
+   audience: config.auth0.IDENTIFIER,
+   issuer: config.auth0.ISSUER,
+   algorithms: ['RS256']
+});
+
+const checkScopes = jwtAuthz([ 'read:messages' ]);
+
 const init = function(req, res, next) {
-   req.msg = req.flash('error') || req.flash('msg') || req.flash('success');
+   req.msg = req.flash('error')[0] || req.flash('msg')[0] || req.flash('success')[0];
+   // req.msg = req.flash();
    req.env = process.env.NODE_ENV || "development";
    req.lang = req.getLocale();
+
+   if (_.isEmpty(req.msg)) {
+      req.msg = undefined;
+   }
 
    // 로그인이 되지 않았거나, 유효기간이 만료된 경우 쿠키 삭제
    if (req.user) {
       if (req.user.expired) {
-         res.clearCookie('Authorization');
+         res.clearCookie('authorization');
+         res.clearCookie('access_token');
+         res.clearCookie('user_profile_token');
       }
 
       if (req.user.meta_value) {
@@ -69,10 +87,6 @@ const init = function(req, res, next) {
    return next();
 }
 
-var env = process.env.NODE_ENV || "development";
-
-var config = require('./config/main');
-const value = require('./utils/staticValue');
 
 // const buildCaseImageUpload = multer({ storage: multerConfig.buildCaseInfoStorage }).fields([
 //   { name: value.fieldName.prevImg, maxCount: 1 }, { name: value.fieldName.vrImg, maxCount: 15 }]);
@@ -123,7 +137,7 @@ module.exports = function (app) {
    //=========================
    web.rootRoute.use('/', web.defaultRoute);
 
-   web.defaultRoute.get('/', requireAuth, init, function (req, res) {
+   web.defaultRoute.get('/', requireWebAuth, init, function (req, res) {
       res.render('index', {
          ENV: env,
          logined: req.logined,
@@ -147,7 +161,7 @@ module.exports = function (app) {
    // Test API route
    web.testRoute.get('/', web.testController.getQuoter);
    web.testRoute.get('/hello', web.testController.hello);
-   web.testRoute.get('/protected', requireAuth, web.testController.protectedRoute);
+   web.testRoute.get('/protected', requireWebAuth, web.testController.protectedRoute);
 
 
    //=========================
@@ -158,7 +172,7 @@ module.exports = function (app) {
    // Test API route
    api.testRoute.get('/', api.testController.getQuoterAPI);
    api.testRoute.get('/hello', api.testController.helloAPI);
-   api.testRoute.get('/protected', requireAuth, api.testController.protectedRouteAPI);
+   api.testRoute.get('/protected', requireAPIAuth, api.testController.protectedRouteAPI);
 
 
    //=========================
@@ -194,20 +208,26 @@ module.exports = function (app) {
    //=========================
    web.rootRoute.use('/auth', web.authRoute);
 
+   // Perform the final stage of authentication and redirect to '/user'
+   // web.authRoute.get('/callback',
+   //    passport.authenticate('auth0', { failureRedirect: '/url-if-something-fails' }), (req, res) => {
+   //       res.redirect(req.session.returnTo || '/');
+   //    });
+
    // 로그인View
-   web.authRoute.get('/login', requireAuth, init, web.authController.loginView, web.redirectController.redirectMain);
+   web.authRoute.get('/login', requireWebAuth, init, web.authController.loginView, web.redirectController.redirectMain);
 
    // Login route
-   web.authRoute.post('/login', requireLogin, init, web.authController.setToken, web.redirectController.redirectMain);
+   web.authRoute.get('/login-callback', auth0WebLogin, init, web.authController.setToken, web.redirectController.redirectMain);
 
    // Logout route: post로 변경해야함
    web.authRoute.get('/logout', web.authController.logout, init, web.redirectController.redirectMain);
 
    // Registration View route
-   web.authRoute.get('/signup', requireAuth, init, web.authController.signup, web.redirectController.redirectMain);
+   web.authRoute.get('/signup', requireWebAuth, init, web.authController.signup, web.redirectController.redirectMain);
 
    // Registration route
-   web.authRoute.post('/signup', requireAuth, init, web.authController.signup, web.authController.register, requireLogin, web.authController.setToken, web.redirectController.redirectMain);
+   web.authRoute.post('/signup', requireWebAuth, init, web.authController.signup, web.authController.register, web.redirectController.redirectMain);
 
    //탈퇴 라우터
    web.authRoute.get('/quit', web.authController.quit);
@@ -222,7 +242,7 @@ module.exports = function (app) {
    api.authRoute.post('/info', api.authController.info);
 
    // Login route
-   api.authRoute.post('/login', requireLogin, api.authController.login);
+   api.authRoute.post('/login', requireAPIAuth, api.authController.login);
 
    // Registration route
    api.authRoute.post('/register', api.authController.register);
@@ -245,13 +265,13 @@ module.exports = function (app) {
    web.rootRoute.use('/user', web.userRoute);
 
    // 회원정보 조회 및 수정(View)
-   web.userRoute.get('/change', requireAuth, init, web.userController.viewProfile);
+   web.userRoute.get('/change', requireWebAuth, init, web.userController.viewProfile);
 
    // 회원정보 조회 및 수정(Action)
-   web.userRoute.post('/change', requireAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
+   web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
 
    // 회원정보 조회
-   web.userRoute.get('/:memberIdx([0-9]+)', requireAuth, init, web.userController.viewProfile);
+   web.userRoute.get('/:memberIdx([0-9]+)', requireWebAuth, init, web.userController.viewProfile);
 
 
    //=========================
@@ -262,7 +282,7 @@ module.exports = function (app) {
    api.rootRoute.use('/user', api.userRoute);
 
    //회원정보 수정
-   api.userRoute.post('/modifyInfo', requireLogin, api.authController.modifyInfo);
+   api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
 
    // View publicRoute userRoute profile route
    // userRouteAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
@@ -305,13 +325,17 @@ module.exports = function (app) {
    //게시글 출력
    api.postRoute.get('/', api.postController.viewPosts);
 
+   // create new Room Info from authenticated userRoute
+   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+   web.postRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+
    //공지사항 출력
    api.postRoute.get('/notice', api.postController.viewNotice);
 
    //media, attached 정보 저장(image-server에서 이용함)
    //2017-05-29 이정현 개발
-   api.postRoute.post('/images', requireAuth, api.postController.createNormalImageInfo);
-   api.postRoute.post('/vtour', requireAuth, api.postController.createVRImageVtourInfo);
+   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
+   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
    //=========================
    // web - Room Info Routes
@@ -322,15 +346,15 @@ module.exports = function (app) {
    web.roomRoute.get('/', init, web.roomController.roomInfoListView);
 
    // create new Room Info from authenticated userRoute
-   web.roomRoute.get('/new', requireAuth, init, web.roomController.createRoomInfoView);
-   web.roomRoute.post('/', requireAuth, web.roomController.createRoomInfo);
+   web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+   web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
 
 
    // update Room Info Info from authenticated userRoute
    // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
    // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', requireAuth, init, web.roomController.changeRoomInfoView);
-   web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.updateRoomInfo);
+   web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
+   web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
 
    // delete Room Info Info from authnticated userRoute
 
@@ -352,7 +376,7 @@ module.exports = function (app) {
    //=========================
    api.postRoute.use('/room', api.roomRoute);
 
-   api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAuth, web.roomController.deleteRoomInfo);
+   api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAPIAuth, web.roomController.deleteRoomInfo);
 
    //룸세부정보 출력
    api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);

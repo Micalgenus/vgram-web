@@ -23,9 +23,10 @@ module.exports = function(sequelize, DataTypes) {
          type: DataTypes.STRING(45),
          allowNull: false
       },
-      display_name: {
+      nickname: {
          type: DataTypes.STRING(45),
          allowNull: true,
+         unique: true,
          defaultValue: null
       },
       user_status: {
@@ -39,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: true,
          defaultValue: null      // (ex>"010-2800-2109")
       },
-      registered_date: {
+      createdAt: {
          type: DataTypes.DATE,
          allowNull: false,
          defaultValue: DataTypes.NOW
@@ -59,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: true,
          defaultValue: null
       },
-      updated_date: {
+      updatedAt: {
          type: DataTypes.DATE,
          allowNull: true,
          defaultValue: null
@@ -200,16 +201,7 @@ module.exports = function(sequelize, DataTypes) {
                sourceKey: "ID"
             });
 
-            user.hasMany(models.comment, {
-               onUpdate: "CASCADE",
-               onDelete: "CASCADE",
-               foreignKey: {
-                  name: 'user_id',
-                  allowNull: false
-               },
-               sourceKey: "ID",
-               as: "Comments"
-            });
+
          }
       }
    });

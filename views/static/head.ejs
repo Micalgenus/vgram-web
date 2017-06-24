@@ -20,7 +20,7 @@
 <!-- //Title -->
 
 <!-- Alert Message -->
-<% if (typeof msg != 'undefined'  && msg != "") { %>
+<% if ((typeof msg != 'undefined') && (msg != "")){ %>
   <script>alert('<%= __(msg) %>');</script>
 <% } %>
 <!-- //Alert Message -->

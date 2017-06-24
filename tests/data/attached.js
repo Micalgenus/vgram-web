@@ -13,7 +13,7 @@ module.exports = [
       user_id: 5,
       group: "5852a2215fa82",
       type: "zip",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "attached/sinho0689@gmail.com",
       file_name: "addrlinkSample_2017012612.zip",
       meta_value: {}
@@ -23,7 +23,7 @@ module.exports = [
       user_id: 5,
       group: "5852a2215fa82",
       type: "wma",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "attached/sinho0689@gmail.com",
       file_name: "jeonju_song_201701261354.wma",
       meta_value: {}
@@ -33,7 +33,7 @@ module.exports = [
       user_id: 5,
       group: "5852a22123667aas",
       type: "png",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "attached/sinho0689@gmail.com",
       file_name: "wordpress-dberdiagram.png",
       meta_value: {}
@@ -43,7 +43,7 @@ module.exports = [
       user_id: 5,
       group: "5852a22123667aas",
       type: "pdf",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "attached/sinho0689@gmail.com",
       file_name: "연수과정안내_2017012316.pdf",
       meta_value: {}
