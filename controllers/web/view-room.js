@@ -8,6 +8,7 @@ const User = models.user;
 const Translation = models.icl_translation;
 const Address = models.address;
 const Coordinate = models.coordinate;
+const Comment = models.comment;
 
 const _ = require('lodash');
 const Promise = require("bluebird");
@@ -411,7 +412,7 @@ exports.roomInfoDetailView = function (req, res) {
             attributes: ['email', 'telephone'],
          }, {
             model: Translation,
-            attributes: ['group_id'],
+            attributes: ['element_id'],
             include: [{
                model: Coordinate,
                attributes: ['lat', 'lng']
@@ -471,31 +472,49 @@ exports.roomInfoDetailView = function (req, res) {
             break;
       }
 
+    return Comment.findAll({
+      include: [{
+        model: Post,
+        include: [{
+          model: User,
+        }],
+      }],
+      where: {
+        post_id: room.post.ID,
+      }
+    }).then(function(c) {
+      
+      // return res.send(c);
+
       return res.status(200).render('room/room-detail', {
-         ENV: req.env,
-         logined: req.user ? req.user.logined : false,
-         msg: req.msg,
-         title: "roomInfoDetailView",
+        ENV: req.env,
+        logined: req.user ? req.user.logined : false,
+        msg: req.msg,
+        title: "roomInfoDetailView",
+        roomIdx: idx,
 
-         // 기본 정보
-         postTitle: room.post.title,
-         read: room.post.read_count,
-         createdAt: room.createdAt,
+        // 기본 정보
+        postTitle: room.post.title,
+        read: room.post.read_count,
+        createdAt: room.createdAt,
 
-         // 위치정보
-         lat: lat,
-         lng: lng,
+        // 위치정보
+        lat: lat,
+        lng: lng,
 
-         // 방정보
-         deposit: room.deposit,
-         monthlyRentFee: room.monthly_rent_fee,
-         roomType: type,
+        // 방정보
+        deposit: room.deposit,
+        monthlyRentFee: room.monthly_rent_fee,
+        roomType: type,
 
-         // 연락
-         email: room.post.user.email,
-         phone: room.post.user.telephone,
+        // 연락
+        email: room.post.user.email,
+        phone: room.post.user.telephone,
+
+        comments: c,
       });
-   });
+    }); 
+  });
 }
 
 exports.searchRoomListView = function (req, res) {
@@ -680,5 +699,40 @@ exports.roomInfoAddressOneJson = function(req, res) {
   }).then(function(room) {
     console.log(room);
     return res.status(200).send(room);
+  });
+}
+
+exports.roomCommentWrite = function(req, res) {
+
+  let idx = req.params.room;
+  let content = req.body.comment;
+
+  if (req.user.logined == false) {
+    req.flash('msg', '로그인 해주시길 바랍니다.');
+    return res.redirect('/post/room/' + idx);
+  }
+
+  return Room.findOne({
+    include: [{
+      model: Post,
+    }],
+    where: {
+      ID: idx
+    },
+  }).then(function(r) {
+    let date = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+
+    // return res.send(req.user);
+
+    return Comment.create({
+      post_id: r.post.ID,
+      user_id: req.user.ID,
+      content: content,
+      createdAt: date,
+      updatedAt: date
+    }).then(function(c) {
+      // return res.status(200).send(req.body);
+      return res.redirect('/post/room/' + idx);
+    });
   });
 }

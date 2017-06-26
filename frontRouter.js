@@ -360,15 +360,17 @@ module.exports = function (app) {
 
    // get Room Info Info from authenticated userRoute
    // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-   web.roomRoute.get('/:roomInfoIdx([0-9]+)', init, web.roomController.roomInfoDetailView);
+  web.roomRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
 
-   web.roomRoute.get('/search', web.roomController.searchRoomListView);
+  web.roomRoute.get('/search', web.roomController.searchRoomListView);
 
-   web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
-   web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
-   web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
-   web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
-   web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
+  web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
+  web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
+  web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+  web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+  web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
+
+  web.roomRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
 
 
    //=========================
