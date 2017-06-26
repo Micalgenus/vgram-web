@@ -2,30 +2,18 @@
 
 /**
  * Created by KIMSEONHO on 2016-08-16.
- * 향후 인증 관련 기능을 auth0으로 변경하기
  */
 // Importing Passport, strategies, and config
 const passport = require('passport'),
-   models = require('../models'),
-   //2017.1.13 이정현 주석 처리
-   //Member = models.Member,
-   users = models.user,
    config = require('./main.js'),
-   value = require('../utils/staticValue'),
-   message = value.statusMessage,
+   message = require('../utils/staticValue').statusMessage,
 
    genToken = require("../utils/genToken"),
    JwtStrategy = require('passport-jwt').Strategy,
    ExtractJwt = require('passport-jwt').ExtractJwt,
-   LocalStrategy = require('passport-local');
+   Auth0Strategy = require('passport-auth0');
 
-// Setting username field to email rather than username
-const localOptions = {
-   usernameField: 'email',
-   passwordField: 'password',
-   failureFlash: true,
-   passReqToCallback: true
-}
+// const jwksRsa = require('jwks-rsa');
 
 // Custom extractor function for passport-jwt
 const cookieExtractor = function(req) {
@@ -44,50 +32,8 @@ const emptyExtractor = function(req) {
    // 접근방지를 해제하기 위한 Trick, user object를 {}로 처리함
    // 서버 부하, 보안문제가 생길 수 있기 때문에, 근본적인 해결방빕이 필요할듯
 
-   return genToken.generateUserToken({});
+   return genToken.generateToken({});
 };
-
-// Setting up local login strategy
-const localLogin = new LocalStrategy(localOptions, function (req, email, password, done) {
-   //2017.1.13 이정현 주석 처리
-   //Member.findOne({where: {email: email}}).then(function (user) {
-   return users.findOne({where: {email: email}}).then(function (user) {
-
-      if (!user) {
-         return done(null, { logined: false }, {
-            message: message.error.cannotFindUser,
-            statusCode: 0
-         });
-      }
-      //유저상태가 1이 아니면 활성화 되어있는게 아님(탈퇴되었거나 휴면계정)
-      if(user.user_status != 1) {
-         return done(null, { logined: false }, {
-            message: message.error.quitORnotActivateUser,
-            statusCode: 3
-         });
-      }
-
-      return user.comparePassword(password, function (err, isMatch) {
-         if (err) {
-            return done(err);
-         }
-         if (!isMatch) {
-            return done(null, { logined: false }, {
-               message: message.error.couldNotVerified,
-               statusCode: 2
-            });
-         }
-
-         user.logined = true;
-
-         return done(null, user);    // user로 넘어가니까 받는 router의 req에서 user라는 이름의 object를 사용할 수 있다.
-      });
-   }).catch(function (err) {
-      if (err) {
-         return done(err);
-      }
-   });
-});
 
 // Setting JWT strategy options
 // 만료된 토큰에 대한 전략이 필요함(갱신등)
@@ -96,16 +42,25 @@ const jwtOptions = {
   // jwtFromRequest: ExtractJwt.fromAuthHeader(),
   jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderWithScheme("Bearer"), cookieExtractor, emptyExtractor]),
   // Telling Passport where to find the secret
-  secretOrKey: config.secret,
+   secretOrKey: config.secret,      // only HS256 algorithm support
+   // secretOrKey: config.secret || jwksRsa.expressJwtSecret({
+  //    cache: true,
+  //    rateLimit: true,
+  //    jwksRequestsPerMinute: 5,
+  //    jwksUri: config.auth0.JWKS_URI
+  // }),
   // auth_token: 'JWT'
    failureFlash: true,
    passReqToCallback: true,
-   ignoreExpiration: true
+   ignoreExpiration: true,
+   issuer: config.auth0.ISSUER,
+   // audience: config.auth0.IDENTIFIER,
+   algorithms: [config.auth0.ALGORITHM]
    // TO-DO: Add issuer and audience checks
 };
 
 // Setting up JWT login strategy
-const jwtLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
+const jwtWebLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
   // console.log(payload);
 
    var expired = payload.exp - parseInt(new Date().getTime() / 1000) < 0 ? true : false;
@@ -120,38 +75,35 @@ const jwtLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
 
    // login이 되지 않은 회원에게 error를 출력하지 않기 위헤서 user object를
    // 아래와 같이 { logined: false }로 전송함
-   if (!payload[localOptions.usernameField] || !payload[localOptions.passwordField]) {
+   if (!payload["email"]) {
       return done(null, { logined: false }, {
          message: message.error.requiredLogin
       });
    }
 
-  return users.findOne({where: {email: payload.email}}).then(function (user) {
-    if (user) {
-       user.logined = true;
-      return done(null, user);   // localStrategy와 같다.
-    } else {
-      // 회원 인증 실패(없는 회원), req.flash("error")
-      return done(null, { logined: false },  {
-         message: message.error.couldNotVerified
-      });
-    }
-  }).catch(function (err) {
-    if (err) {
-      return done(err, false);
-    }
-  });
-  //
-  // Member.findById(payload.idx).then(function(user) {
-  //   if (user) {
-  //     done(null, user);   // localStrategy와 같다.
-  //   } else {
-  //     done(null, false);
-  //   }
-  // }).catch(function(err) {
-  //   if (err) { return done(err, false); }
-  // });
+   payload.logined = true;
+   return done(null, payload);
 });
 
-passport.use(jwtLogin);
-passport.use(localLogin);
+const auth0options = {
+   domain: config.auth0.DOMAIN,
+   clientID: config.auth0.CLIENT_ID,
+   clientSecret: config.secret,
+   callbackURL: config.auth0.CALLBACK_URL
+};
+
+// Configure Passport to use Auth0
+const auth0Login = new Auth0Strategy(auth0options, (accessToken, refreshToken, extraParams, profile, done) => {
+   var result = {
+      accessToken: accessToken,
+      idToken: extraParams.id_token,
+      tokenType: extraParams.token_type,
+      expiresIn: extraParams.expires_in,
+      profile: profile._json
+   }
+
+   return done(null, result);
+});
+
+passport.use(jwtWebLogin);
+passport.use(auth0Login);

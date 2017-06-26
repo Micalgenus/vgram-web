@@ -13,7 +13,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/images/sinho0689@gmail.com",
       file_name: "progressing.png",    // 원본 이미지 경로
       meta_value: {     // thumb,
@@ -31,7 +31,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/images/sinho0689@gmail.com",
       file_name: "360x240_201606281846.jpg",    // 원본 이미지 경로
       meta_value: {     // thumb,
@@ -49,7 +49,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "NORMAL_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/images/sinho0689@gmail.com",
       file_name: "1975-20150311114607.jpg",    // 원본 이미지 경로
       meta_value: {     // thumb,
@@ -66,7 +66,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "NORMAL_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/images/sinho0689@gmail.com",
       file_name: "건축분쟁_201701254601136.jpg",    // 원본 이미지 경로
       meta_value: {     // thumb,
@@ -84,7 +84,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "VR_IMAGE",    // vr이미지(변환전)
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vrimages/sinho0689@gmail.com",
       file_name: "SAM_100_0008.jpg",    // 원본 이미지가 저장된다
       meta_value: {     // thumb,
@@ -102,7 +102,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "VR_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vrimages/sinho0689@gmail.com",
       file_name: "SAM_100_0009.jpg",    // 원본 이미지가 저장된다
       meta_value: {     // thumb,
@@ -120,7 +120,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3z97dt",
       type: "VR_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vrimages/sinho0689@gmail.com",
       file_name: "SAM_100_0073.jpg",    // 원본 이미지가 저장된다
       meta_value: {     // thumb,
@@ -138,7 +138,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VR_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vrimages/sinho0689@gmail.com",
       file_name: "SAM_100_0074.jpg",    // 원본 이미지가 저장된다
       meta_value: {     // thumb,
@@ -156,7 +156,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VR_IMAGE",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vrimages/sinho0689@gmail.com",
       file_name: "SAM_100_0075.jpg",    // 원본 이미지가 저장된다
       meta_value: {     // thumb,
@@ -175,7 +175,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vtours/sinho0689@gmail.com/201705310101",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
@@ -187,7 +187,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vtours/sinho0689@gmail.com/201705310102",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
@@ -199,7 +199,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
@@ -211,7 +211,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vtours/sinho0689@gmail.com/201705310104",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
@@ -223,7 +223,7 @@ module.exports = [
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",
-      date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
       file_path: "medias/vtours/sinho0689@gmail.com/20170531010",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {

@@ -5,6 +5,7 @@ var morgan = require('morgan'),
   path = require('path'),
   express = require('express'),
    i18n = require('i18n'),
+   passport = require('passport'),
 
   errorhandler = require('errorhandler'),
   bodyParser = require('body-parser'),
@@ -47,6 +48,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+//
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 app.use(flash());
 app.use(i18n.init);
 

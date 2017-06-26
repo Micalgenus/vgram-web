@@ -43,11 +43,11 @@ module.exports = function(sequelize, DataTypes) {
          defaultValue: 'ko_kr'
       },
 
-      post_init_date_gmt: {
+      createdAt: {
          type: DataTypes.DATE,
          allowNull: false
       },
-      post_modified_date_gmt: {
+      updatedAt: {
          type: DataTypes.DATE,
          allowNull: false
       },

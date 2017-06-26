@@ -4,7 +4,8 @@
 
 "use strict";
 
-const auth = require('../core/authentication');
+const config = require('../../config/main');
+const genToken = require("../../utils/genToken");
 
 const models = require('../../models');
 const User = models.user;
@@ -36,12 +37,18 @@ exports.loginView = function(req, res, next) {
       ENV: req.env,
       logined: req.user.logined,
       title: 'loginView',
-      msg: req.msg
+      msg: req.msg,
+      AUTH0_DOMAIN: config.auth0.DOMAIN,
+      AUTH0_CLIENT_ID: config.auth0.CLIENT_ID,
+      AUTH0_CALLBACK_URL: config.auth0.CALLBACK_URL
    });
 }
 
 exports.logout = function(req, res, next) {
    res.clearCookie('authorization');
+   res.clearCookie('access_token');
+   res.clearCookie('user_profile_token');
+
    req.flash('msg', 'loggedOut');
 
    return next();
@@ -199,11 +206,24 @@ exports.quit = function (req, res, next){
 
 exports.setToken = function(req, res, next) {
 
-   let result = auth.login(req, res);
+   // {
+   //    accessToken: accessToken,
+   //    idToken: extraParams.id_token,
+   //    tokenType: extraParams.token_type,
+   //    expiresIn: extraParams.expires_in,
+   //    profile: profile
+   // }
+
+   let userToken = genToken.generateToken(req.user.profile);   // passport에서 받은 object
 
    // header와 cookies에 id_token을 붙여서 전송
    res.clearCookie('authorization');
-   res.cookie('authorization', result.id_token);
+   res.clearCookie('access_token');
+   res.clearCookie('user_profile_token');
+
+   res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
+   res.cookie('access_token', req.user.accessToken);
+   res.cookie('user_profile_token', [req.user.tokenType, userToken].join(" "));
 
    return next();
 }
