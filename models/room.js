@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
       },
       room_type: {
          type: DataTypes.STRING(45),
-         allowNull: false
+         allowNull: true,
+         defaultValue: null
       },
       deposit: {
          type: DataTypes.INTEGER.UNSIGNED,
