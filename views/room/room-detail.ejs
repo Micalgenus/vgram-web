@@ -143,7 +143,7 @@
                             </div>
                             <div class="entry-c">
                                 <div class="entry-title">
-                                    <h4>아이디</h4>
+                                    <h4><%= nickname %></h4>
                                 </div>
                             </div>
                         </div>
@@ -151,15 +151,12 @@
 
                     <div class="profil">
                         <!--<label for="template-jobform-lname">조회수 / 등록일자 </label>-->
-                        <a>
-                            <%=read%> /
-                                <%=createdAt%>
-                        </a>
+                        <a><%=read%> / <%=createdAt%></a>
                         <!--<input type="text" id="template-jobform-lname" name="template-jobform-lname" value="" class="sm-form-control required" />-->
                     </div>
 
                     <div class="profil">
-                        <i class="i-plain icon-gittip"></i> 찜 <span> 몇개 </span>
+                        <i class="i-plain icon-gittip"></i> 찜 <span><%= likeCount %>개</span>
                     </div>
 
                     <div class="profil">
@@ -369,7 +366,7 @@
                                             marker.setMap(map);
 
 
-                                            var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,<%=lat%>, <%=lng%>" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,<%=lat%>, <=%lng%>" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                                            var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,<%=lat%>, <%=lng%>" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,<%=lat%>, <%=lng%>" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                                                 iwPosition = new daum.maps.LatLng(<%=lat%>, <%=lng%>); //인포윈도우 표시 위치입니다
 
                                             var infowindow = new daum.maps.InfoWindow({
@@ -433,15 +430,15 @@
                                     <tbody>
                                         <tr>
                                             <td>보증금/월세</td>
-                                            <td>얼마?</td>
+                                            <td><%= deposit %>/<%= monthlyRentFee %></td>
                                             <td>방 종류</td>
-                                            <td>원룸?</td>
+                                            <td><%= __("placeType")[roomType] %></td>
                                         </tr>
                                         <tr>
                                             <td>해당 층 / 건물 층</td>
                                             <td>3층 / 4층</td>
                                             <td>공급/전용면적</td>
-                                            <td>33.0m^2 우아아</td>
+                                            <td><%= area_size %> m^2</td>
                                         </tr>
                                         <tr>
                                             <td>관리비</td>
@@ -763,13 +760,13 @@
                     <!--<textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>-->
                     <div id="comments" class="clearfix">
 
-                        <h3 id="comments-title"><span>3</span> Comments</h3>
+                        <h3 id="comments-title"><span><%= commentCount %></span> Comments</h3>
 
                         <!-- Comments List
                         ============================================= -->
                         <ol class="commentlist clearfix">
 
-                            <% for (i in comments) { %>
+                            <% for (var i = 0; i < commentCount; i++) { %>
                               <li class="comment even thread-even depth-1">
                                   <div class="comment-wrap clearfix">
                                       <div class="comment-meta">
