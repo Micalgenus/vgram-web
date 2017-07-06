@@ -10,6 +10,8 @@ const Address = models.address;
 const Coordinate = models.coordinate;
 const Comment = models.comment;
 
+const postController = require('./view-post');
+
 const _ = require('lodash');
 const Promise = require("bluebird");
 const moment = require("moment");
@@ -399,122 +401,57 @@ exports.deleteRoomInfo = function (req, res) {
    return res.redirect('/post/room');
 }
 
-exports.roomInfoDetailView = function (req, res) {
+exports.roomInfoDetailView = function(req, res) {
 
-   let idx = req.params.roomInfoIdx;
+    let idx = req.params.roomInfoIdx;
 
-   return Room.findOne({
-      include: [{
-         model: Post,
-         attributes: ['ID', 'title', 'read_count'],
-         include: [{
-            model: User,    // as 옵션을 어떻게 쓰는거지??
-            attributes: ['email', 'telephone'],
-         }, {
-            model: Translation,
-            attributes: ['element_id'],
-            include: [{
-               model: Coordinate,
-               attributes: ['lat', 'lng']
-            }]
-         }],
-      }],
-      where: {
-         ID: idx
-      },
-      attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee'],
-   }).then(function (room) {
+    return Room.findOne({
+        where: {
+            ID: idx
+        },
+        attributes: ['room_type', 'createdAt', 'deposit', 'monthly_rent_fee', 'post_id', 'area_size'],
+    }).then(function(room) {
+        if (!room) return res.redirect('/post/room/');
 
-      var type = room.room_type;
-      // var position = JSON.parse(room.coordinate);
+        return postController.getPostInfo(room.post_id).then(function(d) {
+            let lat = d.positions[0].lat;
+            let lng = d.positions[0].lng;
 
-      // return res.send();
-      let position = room.post.icl_translation.coordinates[0];
+            // return res.send(d.comment);
 
-      let lat = position.lat;
-      let lng = position.lng;
-      switch (type) {
-         case "APARTMENT":
-            type = "아파트";
-            break;
-         case "VILLA":
-            type = "빌라";
-            break;
-         case "DETACHED_HOUSE":
-            type = "주택";
-            break;
-         case "ONE_ROOM":
-            type = "원룸";
-            break;
-         case "TWO_ROOM":
-            type = "투룸";
-            break;
-         case "THREE_ROOM":
-            type = "쓰리룸";
-            break;
-         case "OFFICETEL":
-            type = "오피스텔";
-            break;
-         case "OFFICE":
-            type = "사무실";
-            break;
-         case "SHOPPING":
-            type = "상가, 매장";
-            break;
-         case "CAFE_RESTAURANT":
-            type = "카페, 식당";
-            break;
-         case "ACADEMY":
-            type = "학원, 교육관련";
-            break;
-         case "HOSPITAL":
-            type = "병원";
-            break;
-      }
+            return res.status(200).render('room/room-detail', {
+                ENV: req.env,
+                logined: req.user ? req.user.logined : false,
+                msg: req.msg,
+                title: "roomInfoDetailView",
+                roomIdx: idx,
 
-    return Comment.findAll({
-      include: [{
-        model: Post,
-        include: [{
-          model: User,
-        }],
-      }],
-      where: {
-        post_id: room.post.ID,
-      }
-    }).then(function(c) {
-      
-      // return res.send(c);
+                // 게시글 정보
+                postTitle: d.post.title,
+                read: d.post.read_count,
+                createdAt: d.post.createdAt,
+                likeCount: d.likeCount,
 
-      return res.status(200).render('room/room-detail', {
-        ENV: req.env,
-        logined: req.user ? req.user.logined : false,
-        msg: req.msg,
-        title: "roomInfoDetailView",
-        roomIdx: idx,
+                // 위치정보
+                lat: lat,
+                lng: lng,
 
-        // 기본 정보
-        postTitle: room.post.title,
-        read: room.post.read_count,
-        createdAt: room.createdAt,
+                // 방정보
+                deposit: room.deposit,
+                monthlyRentFee: room.monthly_rent_fee,
+                roomType: room.room_type,
+                area_size: room.area_size,
 
-        // 위치정보
-        lat: lat,
-        lng: lng,
+                // 작성자 정보
+                email: d.post.user.email,
+                phone: d.post.user.telephone,
+                nickname: d.post.user.nickname,
 
-        // 방정보
-        deposit: room.deposit,
-        monthlyRentFee: room.monthly_rent_fee,
-        roomType: type,
-
-        // 연락
-        email: room.post.user.email,
-        phone: room.post.user.telephone,
-
-        comments: c,
-      });
-    }); 
-  });
+                comments: d.comments,
+                commentCount: d.commentCount
+            });
+        });
+    });
 }
 
 exports.searchRoomListView = function (req, res) {
