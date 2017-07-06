@@ -29,27 +29,29 @@ exports.viewProfile = function (req, res) {
       company_address,
       intro_comment;
 
-   let meta = JSON.parse(req.user.meta_value);
-   if (meta.business_type) business_type = meta.business_type;
-   if (meta.registered_number) registered_number = meta.registered_number;
-   if (meta.owner_name) owner_name = meta.owner_name;
-   if (meta.company_address) company_address = meta.company_address;
-   if (meta.intro_comment) intro_comment = meta.intro_comment;
+   // let meta = JSON.parse(req.user.meta_value);
+   // if (meta.business_type) business_type = meta.business_type;
+   // if (meta.registered_number) registered_number = meta.registered_number;
+   // if (meta.owner_name) owner_name = meta.owner_name;
+   // if (meta.company_address) company_address = meta.company_address;
+   // if (meta.intro_comment) intro_comment = meta.intro_comment;
 
-   return res.render('member/change', {
+   return res.render('member/mypage', {
       ENV: req.env,
       logined: req.logined,
-      title: '정보조회',
-      member_type: req.user.member_type,
-      email: req.user.email,
-      phone: req.user.telephone,
-      name: req.user.display_name,
-      profile_image_path: req.user.profile_image_path,
-      business_type: business_type,
-      registered_number: registered_number,
-      owner_name: owner_name,
-      company_address: company_address,
-      intro_comment: intro_comment,
+      title: 'userDetailView',
+      msg: req.msg
+
+      // member_type: req.user.member_type,
+      // email: req.user.email,
+      // phone: req.user.telephone,
+      // name: req.user.display_name,
+      // profile_image_path: req.user.profile_image_path,
+      // business_type: business_type,
+      // registered_number: registered_number,
+      // owner_name: owner_name,
+      // company_address: company_address,
+      // intro_comment: intro_comment,
    });
 }
 
