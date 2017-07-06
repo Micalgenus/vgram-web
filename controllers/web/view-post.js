@@ -25,10 +25,7 @@ exports.getPostInfo = function(ID) {
             model: Comment,
             as: 'Comments',
             include: [{
-                model: Post,
-                include: [{
-                    model: User,
-                }],
+                model: User,
             }],
             where: {
                 post_id: ID

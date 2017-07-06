@@ -27,8 +27,9 @@
 		"roomInfoListView": "방 정보 목록",
 		"loginView": "로그인",
 		"registerView": "회원가입",
-		"embedView": "Cozyhouzz - Embed"
-	},
+		"embedView": "Cozyhouzz - Embed",
+      "userDetailView": "회원 정보 상세보기"
+   },
 	"placeType": {
 		"APARTMENT": "아파트",
 		"VILLA": "빌라",

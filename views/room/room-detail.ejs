@@ -772,11 +772,11 @@
                                       <div class="comment-meta">
                                           <div class="comment-author vcard">
                                               <span class="comment-avatar clearfix">
-                                              <img alt='' src='/<%= comments[i].post.user.profile_image_path %>' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                                              <img alt='' src='/<%= comments[i].user.profile_image_path %>' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
                                           </div>
                                       </div>
                                       <div class="comment-content clearfix">
-                                          <div class="comment-author"><%= comments[i].post.user.nickname %><span><a href="#" title="Permalink to this comment"><%= comments[i].createdAt %></a></span></div>
+                                          <div class="comment-author"><%= comments[i].user.nickname %><span><a href="#" title="Permalink to this comment"><%= comments[i].createdAt %></a></span></div>
                                           <p><%= comments[i].content %></p>
                                           <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
                                       </div>

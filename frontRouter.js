@@ -273,7 +273,6 @@ module.exports = function (app) {
    // 회원정보 조회
    web.userRoute.get('/:memberIdx([0-9]+)', requireWebAuth, init, web.userController.viewProfile);
 
-
    //=========================
    // api - Member Routes
    //=========================
