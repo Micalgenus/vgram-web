@@ -7,6 +7,9 @@ const multer = require('multer');
 
 const models = require('../../models');
 const User = models.user;
+const Post = models.post;
+const Comment = models.comment;
+
 const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
 
@@ -23,6 +26,8 @@ const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields(
 
 exports.viewProfile = function (req, res) {
 
+  let userIdx = req.params.memberIdx;
+
    var business_type,
       registered_number,
       owner_name,
@@ -36,25 +41,86 @@ exports.viewProfile = function (req, res) {
    // if (meta.company_address) company_address = meta.company_address;
    // if (meta.intro_comment) intro_comment = meta.intro_comment;
 
-   return res.render('member/mypage', {
-      ENV: req.env,
-      logined: req.logined,
-      title: 'userDetailView',
-      msg: req.msg
+   return User.findOne({
+    where: {
+      ID: userIdx
+    }
+   }).then(function(u) {
+    if (!u) return res.redirect('/');
 
-      // member_type: req.user.member_type,
-      // email: req.user.email,
-      // phone: req.user.telephone,
-      // name: req.user.display_name,
-      // profile_image_path: req.user.profile_image_path,
-      // business_type: business_type,
-      // registered_number: registered_number,
-      // owner_name: owner_name,
-      // company_address: company_address,
-      // intro_comment: intro_comment,
+    var myPage = false;
+    if (req.user.logined && req.user.ID == userIdx) myPage = true;
+
+    return res.render('member/mypage', {
+        ENV: req.env,
+        logined: req.logined,
+        title: 'userDetailView',
+        msg: req.msg,
+
+        myPage: myPage,
+
+        member_type: u.member_type,
+        nickname: u.nickname,
+        profile_image_path: u.profile_image_path,
+        // email: req.user.email,
+        // phone: req.user.telephone,
+        // business_type: business_type,
+        // registered_number: registered_number,
+        // owner_name: owner_name,
+        // company_address: company_address,
+        // intro_comment: intro_comment,
+    });
    });
+
 }
 
+exports.getFollower = function(req, res) {
+  return res.send({});
+}
+
+exports.getFollowing = function(req, res) {
+  return res.send({});
+}
+
+exports.getPosts = function(req, res) {
+  let userIdx = req.params.memberIdx;
+
+  return Post.findAll({
+    where: {
+      user_id: userIdx,
+    }
+  }).then(function(posts) {
+    return res.send(posts);
+  });
+}
+
+exports.getReplies = function(req, res) {
+  let userIdx = req.params.memberIdx;
+
+  return Comment.findAll({
+    where: {
+      user_id: userIdx
+    }
+  }).then(function(comments) {
+    return res.send(comments);
+  });
+}
+
+exports.getLikeposts = function(req, res) {
+  let userIdx = req.params.memberIdx;
+
+  return User.findOne({
+    include: [{
+      model: Post,
+      as: 'LikePosts'
+    }],
+    where: {
+      ID: userIdx
+    }
+  }).then(function(user) {
+    return res.send(user.LikePosts);
+  });
+}
 
 exports.change = function(req, res, next) {
    const email = req.user.email;
