@@ -42,10 +42,10 @@
 
                <div class="col-sm-9">
 
-                  <img src="images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
+                  <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
 
                   <div class="heading-block noborder">
-                     <h3>SemiColonWeb</h3>
+                     <h3><%= nickname %> <span>member_type: <%= member_type %></span></h3>
                      <span>Your Profile Bio</span>
                      <div class="heading-icon">
                         <h4><i class="icon-line-heart"> 23 </i></h4>
@@ -55,6 +55,9 @@
 
                   <div class="clear"></div>
 
+
+
+
                   <div class="row clearfix">
 
                      <div class="col-md-12">
@@ -62,16 +65,16 @@
                         <div class="tabs tabs-alt clearfix" id="tabs-profile">
 
                            <ul class="tab-nav clearfix">
-                              <li><a href="#tab-feeds">Follower</a></li>
-                              <li><a href="#tab-posts">Following</a></li>
-                              <li><a href="#tab-replies">posts</a></li>
-                              <li><a href="#tab-connections">replies</a></li>
+                              <li><a href="#tab-follower">Follower</a></li>
+                              <li><a href="#tab-following">Following</a></li>
+                              <li><a href="#tab-posts">posts</a></li>
+                              <li><a href="#tab-replies">replies</a></li>
                               <li><a href="#tab-likeposts">likeposts</a></li>
                            </ul>
 
                            <div class="tab-container">
 
-                              <div class="tab-content clearfix" id="tab-feeds">
+                              <div class="tab-content clearfix" id="tab-follower">
 
                                  <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
@@ -306,6 +309,9 @@
 
 
                               </div>
+                              <div class="tab-content clearfix" id="tab-posts"></div>
+                              <div class="tab-content clearfix" id="tab-replies"></div>
+                              <div class="tab-content clearfix" id="tab-likeposts"></div>
 
 
                            </div>
@@ -327,8 +333,10 @@
                      <a href="#" class="list-group-item clearfix">Servers <i class="icon-laptop2 pull-right"></i></a>
                      <a href="#" class="list-group-item clearfix">Messages <i class="icon-envelope2 pull-right"></i></a>
                      <a href="#" class="list-group-item clearfix">Billing <i class="icon-credit-cards pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
+                     <% if (myPage) { %>
+                      <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
+                      <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
+                     <% } %>
                   </div>
 
                   <div class="fancy-title topmargin title-border">
@@ -393,6 +401,24 @@
 <% include ../static/js.ejs %>
 <div id="gotoTop" class="icon-angle-up"></div>
 
+<script>
+  jQuery(function($) {
+    function getAjax(link) {
+      $.ajax({
+        url: window.location.href.split('#')[0] + '/json/' + link,
+        success: function(result) {
+          console.log(result);
+          $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));
+        }
+      });
+    }
+
+    $('.tab-nav li a').click(function() {
+      let link = $(this).attr('href').split('-')[1];
+      getAjax(link);
+    });
+  });
+</script>
 
 </body>
 </html>

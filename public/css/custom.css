@@ -5,3 +5,10 @@
 .center > ul > li {
    display: inline-block;
 }
+
+.testi-image, .testi-image a, .testi-image img, .testi-image i {
+   display: block;
+   width: 32px;
+   height: 32px;
+}
+
