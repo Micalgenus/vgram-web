@@ -487,10 +487,12 @@
 <script>
   jQuery(function($) {
     function getAjax(link) {
+      var memberIdx = window.location.href.split('#')[0].split('/');
+      memberIdx = memberIdx[memberIdx.length - 1];
+
       $.ajax({
-        url: window.location.href.split('#')[0] + '/json/' + link,
+        url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,
         success: function(result) {
-          console.log(result);
           $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));
         }
       });
@@ -500,6 +502,8 @@
       let link = $(this).attr('href').split('-')[1];
       getAjax(link);
     });
+
+    getAjax('follower');
   });
 </script>
 
