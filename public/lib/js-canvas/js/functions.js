@@ -433,14 +433,18 @@ var SEMICOLON = SEMICOLON || {};
 						closeBtnInside: false,
 						fixedContentPos: true,
 						mainClass: 'mfp-no-margins mfp-fade', // class to remove default margin from left and right side
+						inline: {
+							// Define markup. Class names should match key names.
+						},
 						image: {
+							markup: new EJS({url: '/template/mfp/mfp-gallery.ejs'}).render({}),
 							verticalFit: true
 						},
 						gallery: {
 							enabled: true,
 							navigateByImgClick: true,
 							preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-						}
+						},
 					});
 				});
 			}
