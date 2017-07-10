@@ -408,6 +408,7 @@ var SEMICOLON = SEMICOLON || {};
 					fixedContentPos: true,
 					mainClass: 'mfp-no-margins mfp-fade', // class to remove default margin from left and right side
 					image: {
+						markup: new EJS({url: '/template/mfp/mfp-image.ejs'}).render({}),
 						verticalFit: true
 					}
 				});
