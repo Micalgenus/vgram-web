@@ -1,31 +1,28 @@
 <head>
-   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-   <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
-   <script>
-      function copy_clip(url) {
-         var IE = (document.all) ? true : false;
-         if (IE) {
-            window.clipboardData.setData("Text", url);
-            alert("이 글의 단축url이 클립보드에 복사되었습니다.");
-         } else {
-            temp = prompt("이 글의 단축url입니다. Ctrl+C를 눌러 클립보드로 복사하세요", url);
-         }
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script type="text/javascript" src="/lib/band-button.js"></script> 
+  <script>
+    function copy_clip(url) {
+      var IE = (document.all) ? true : false;
+      if (IE) {
+        window.clipboardData.setData("Text", url);
+        alert("이 글의 단축url이 클립보드에 복사되었습니다.");
+      } else {
+        temp = prompt("이 글의 단축url입니다. Ctrl+C를 눌러 클립보드로 복사하세요", url);
       }
-   </script>
+    }
+  </script>
 
-   <style>
-      .count i{
-         color: white;
-      }
-      .count h4 {
-         display: inline;
-         float: left;
-         margin-right: 2em;
-      }
+  <style>
+    .count i {
+      color: white;
+    }
 
-      .sns_count {
-         float: right;
-      }
+    .count h4 {
+      display: inline;
+      float: left;
+      margin-right: 2em;
+    }
 
       .sns_facebook {
          margin-right: 40px;
@@ -50,25 +47,25 @@
 
 
 
-        <h6>
+    <h6>
 
-           <div class="mfp_count">
-              <p class="nobottommargin">
+      <div class="mfp_count">
+        <p class="nobottommargin">
 
-                 <!--like-->
-                  <div class="count">
-                     <h4><a href=""><i class="icon-line-heart"> 23 </i></a></h4>
-                 </div>
+          <!--like-->
+          <div class="count">
+            <h4><a href=""><i class="icon-line-heart"> 23 </i></a></h4>
+          </div>
 
-                 <!--comments-->
-              <div class="count">
-              <h4><a href="#"><i class="icon-chat"> 44 </i> </a> </h4>
-              </div>
+          <!--comments-->
+          <div class="count">
+            <h4><a href="#"><i class="icon-chat"> 44 </i> </a> </h4>
+          </div>
 
-                 <!-- facebook-->
-              <div class="sns_count" data-layout="button_count" data-href="http://localhost:3000/">
-                 <div class="sns_facebook">
-                                <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
+          <!-- facebook-->
+          <div class="sns_count" data-layout="button_count" data-href="http://localhost:3000/">
+            <div class="sns_facebook">
+              <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
                   <!-- href 에 url-->
                   <a class="fb-xfbml-parse-ignore" target="_blank"
                      href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
@@ -76,201 +73,202 @@
                      <i class="icon-facebook"></i>
                   </a>
                       </span>
-                 </div>
+            </div>
+          </div>
+
+          <!--kakaotalk-->
+          <div class="sns_count">
+            <div class="center">
+              <span href="#" class="social-icon si-colored" title="Aim">
+                <a id="kakao-link-btn" href="javascript:sendLink()">
+                  <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+                </a>
+                <!--<a href="javascript:shareStory()">-->
+                <!--<img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>-->
+                <!--</a>-->
+              </span>
+            </div>
+          </div>
+
+          <!--band-->
+          <div class="sns_count">
+            <div class="center">
+              <span href="#" data-lightbox="inline" id="band">
+                <script type="text/javascript">
+                  new ShareBand.makeButton({"lang": "ko", "type": "d"}, null, null, 'band');
+                </script> 
+              </span>
+            </div>
+          </div>
+
+          <!--url share-->
+          <div class="sns_count">
+            <div class="input_group">
+              <div class="center">
+                <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                  <i class="icon-delicious"></i>
+                  <i class="icon-delicious"></i>
+                </span>
               </div>
-
-              <!--kakaotalk-->
-              <div class="sns_count">
-                 <div class="center">
-                                    <span href="#" class="social-icon si-colored" title="Aim">
-                         <a id="kakao-link-btn" href="javascript:sendLink()">
-                            <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
-                         </a>
-                                       <!--<a href="javascript:shareStory()">-->
-                                       <!--<img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>-->
-                                       <!--</a>-->
-                      </span>
-                 </div>
-              </div>
-
-              <!--band-->
-              <div class="sns_count">
-                 <div class="center">
-                    <a href="#">
-                         <span>
-                          <script type="text/javascript">
-                            new ShareBand.makeButton({"lang": "ko", "type": "d"});
-                          </script>
-                        </span>
-                    </a>
-                 </div>
-              </div>
-
-              <!--url share-->
-              <div class="sns_count">
-                 <div class="input_group">
-                    <div class="center">
-                                        <span href="#myModal2" data-lightbox="inline"
-                                              class="social-icon si-colored si-delicious">
-                           <i class="icon-delicious"></i>
-                    <i class="icon-delicious"></i>
-                        </span>
-                    </div>
-                    <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
-                 </div>
-              </div>
-              <br><br>
+              <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+            </div>
+          </div>
+          <br><br>
 
 
-              </p>
-           </div>
-        </h6>
+        </p>
+      </div>
+    </h6>
 
-     <div class="col_full">
-     <div class="col_four_fifth col_last" style="margin-bottom: 20px;">
+    <div class="col_full">
+      <div class="col_four_fifth col_last" style="margin-bottom: 20px;">
         <input type="text" name="url" id="url" value="" size="22" tabindex="3" class="sm-form-control" />
-     </div>
-        <span><button style="float: right;" name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit</button>
+      </div>
+      <span><button style="float: right;" name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit</button>
 </span>
-     </div>
+    </div>
 
-     <div class="clear"></div>
+    <div class="clear"></div>
 
-     <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
-           <div class="comment-wrap clearfix">
-              <div class="comment-meta">
-                 <div class="comment-author vcard">
-			      	<span class="comment-avatar clearfix">
+    <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+      <div class="comment-wrap clearfix">
+        <div class="comment-meta">
+          <div class="comment-author vcard">
+            <span class="comment-avatar clearfix">
 					   <img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
-                 </div>
-              </div>
-              <div class="comment-content clearfix">
-                 <div class="comment-author">
-                    <a href=""><h6> useR_name </h6></a>
-                    <h6> time </h6>
-                    <h6> text </h6>
+          </div>
+        </div>
+        <div class="comment-content clearfix">
+          <div class="comment-author">
+            <a href="">
+              <h6> useR_name </h6>
+            </a>
+            <h6> time </h6>
+            <h6> text </h6>
 
-                    <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
-                    <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
+            <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
+            <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
 
-                 <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
+            <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
 
-                 <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-              </div>
-              <div class="clear"></div>
-           </div>
-        </li>
+            <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </li>
 
-     <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
-        <div class="comment-wrap clearfix">
-           <div class="comment-meta">
-              <div class="comment-author vcard">
-			      	<span class="comment-avatar clearfix">
+    <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+      <div class="comment-wrap clearfix">
+        <div class="comment-meta">
+          <div class="comment-author vcard">
+            <span class="comment-avatar clearfix">
 					   <img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
-              </div>
-           </div>
-           <div class="comment-content clearfix">
-              <div class="comment-author">
-                 <a href=""><h6> useR_name </h6></a>
-                 <h6> time </h6>
-                 <h6> text </h6>
+          </div>
+        </div>
+        <div class="comment-content clearfix">
+          <div class="comment-author">
+            <a href="">
+              <h6> useR_name </h6>
+            </a>
+            <h6> time </h6>
+            <h6> text </h6>
 
-                 <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
-                 <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
+            <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
+            <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
 
-                 <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
+            <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
 
-                 <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-              </div>
-              <div class="clear"></div>
-           </div>
-     </li>
+            <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </li>
 
-     <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
-        <div class="comment-wrap clearfix">
-           <div class="comment-meta">
-              <div class="comment-author vcard">
-			      	<span class="comment-avatar clearfix">
+    <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+      <div class="comment-wrap clearfix">
+        <div class="comment-meta">
+          <div class="comment-author vcard">
+            <span class="comment-avatar clearfix">
 					   <img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
-              </div>
-           </div>
-           <div class="comment-content clearfix">
+          </div>
+        </div>
+        <div class="comment-content clearfix">
 
 
-              <div class="comment-author">
-                 <a href="#"><h6> useR_name </h6></a>
-                 <h6> time </h6>
-                 <h6> text </h6>
+          <div class="comment-author">
+            <a href="#">
+              <h6> useR_name </h6>
+            </a>
+            <h6> time </h6>
+            <h6> text </h6>
 
-                 <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
-                 <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
+            <!--<a href='http://themeforest.net/user/semicolonweb' rel='external nofollow' class='url'>SemiColon</a>-->
+            <!--<span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>-->
 
-                 <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
+            <!--<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>-->
 
-                 <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-              </div>
-              <div class="clear"></div>
-           </div>
-     </li>
+            <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+          </div>
+          <div class="clear"></div>
+        </div>
+    </li>
 
-     </div>
-
-
-
-
-  </div>
+    </div>
 
 
-<!--인피니티-->
-<script type="text/javascript">
 
-   jQuery(window).load(function () {
 
-      var $container = $('#portfolio');
+    </div>
 
-      $container.isotope({transitionDuration: '0.65s'});
 
-      $('#portfolio-filter a').click(function () {
-         $('#portfolio-filter li').removeClass('activeFilter');
-         $(this).parent('li').addClass('activeFilter');
-         var selector = $(this).attr('data-filter');
-         $container.isotope({filter: selector});
-         return false;
-      });
+    <!--인피니티-->
+    <script type="text/javascript">
+                            jQuery(window).load(function () {
 
-      $('#portfolio-shuffle').click(function () {
-         $container.isotope('updateSortData').isotope({
-            sortBy: 'random'
-         });
-      });
+                              var $container = $('#portfolio');
 
-      $(window).resize(function () {
-         $container.isotope('layout');
-      });
+                              $container.isotope({ transitionDuration: '0.65s' });
 
-      $container.infinitescroll({
-            loading: {
-               finishedMsg: '<i class="icon-line-check"></i>',
-               msgText: '<i class="icon-line-loader icon-spin"></i>',
-               img: "images/preloader-dark.gif",
-               speed: 'normal'
-            },
-            state: {
-               isDone: false
-            },
-            nextSelector: "#load-next-posts a",
-            navSelector: "#load-next-posts",
-            itemSelector: "article.portfolio-item"
-         },
-         function (newElements) {
-            $container.isotope('appended', $(newElements));
-            var t = setTimeout(function () {
-               $container.isotope('layout');
-            }, 2000);
-            SEMICOLON.widget.loadFlexSlider();
-            SEMICOLON.portfolio.arrange();
-         });
+                              $('#portfolio-filter a').click(function () {
+                                $('#portfolio-filter li').removeClass('activeFilter');
+                                $(this).parent('li').addClass('activeFilter');
+                                var selector = $(this).attr('data-filter');
+                                $container.isotope({ filter: selector });
+                                return false;
+                              });
 
-   });
+                              $('#portfolio-shuffle').click(function () {
+                                $container.isotope('updateSortData').isotope({
+                                  sortBy: 'random'
+                                });
+                              });
 
-</script>
+                              $(window).resize(function () {
+                                $container.isotope('layout');
+                              });
+
+                              $container.infinitescroll({
+                                loading: {
+                                  finishedMsg: '<i class="icon-line-check"></i>',
+                                  msgText: '<i class="icon-line-loader icon-spin"></i>',
+                                  img: "images/preloader-dark.gif",
+                                  speed: 'normal'
+                                },
+                                state: {
+                                  isDone: false
+                                },
+                                nextSelector: "#load-next-posts a",
+                                navSelector: "#load-next-posts",
+                                itemSelector: "article.portfolio-item"
+                              },
+                                function (newElements) {
+                                  $container.isotope('appended', $(newElements));
+                                  var t = setTimeout(function () {
+                                    $container.isotope('layout');
+                                  }, 2000);
+                                  SEMICOLON.widget.loadFlexSlider();
+                                  SEMICOLON.portfolio.arrange();
+                                });
+
+                            });
+    </script>
