@@ -431,7 +431,7 @@ var SEMICOLON = SEMICOLON || {};
 						delegate: 'a[data-lightbox="gallery-item"]',
 						type: 'image',
 						closeOnContentClick: true,
-						closeBtnInside: false,
+						closeBtnInside: true,
 						closeOnBgClick: false,
 						fixedContentPos: true,
 						mainClass: 'mfp-no-margins mfp-fade', // class to remove default margin from left and right side
