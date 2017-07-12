@@ -18,6 +18,9 @@
 
 </style>
 
+
+   <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
+
 </head>
 
 
@@ -46,7 +49,7 @@
 
                   <div class="heading-block noborder">
                      <h3><%= nickname %> <span>member_type: <%= member_type %></span></h3>
-                     <span>Your Profile Bio</span>
+                     <!--<span>Your Profile Bio</span>-->
                      <div class="heading-icon">
                         <h4><i class="icon-line-heart"> 23 </i></h4>
                         <h4><i class=icon-star>  2 </i></h4>
@@ -342,41 +345,47 @@
                      <h4>About Me</h4>
                   </div>
 
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum laboriosam, dignissimos veniam obcaecati. Quasi eaque, odio assumenda porro explicabo laborum!</p>
+                  <p>
+                     test
+                  </p>
 
                   <div class="fancy-title topmargin title-border">
                      <h4>Social Profiles</h4>
                   </div>
 
-                  <a href="#" class="social-icon si-facebook si-small si-rounded si-light" title="Facebook">
+                  <a href="#" class="social-icon si-colored si-facebook" title="Facebook">
                      <i class="icon-facebook"></i>
                      <i class="icon-facebook"></i>
                   </a>
 
-                  <a href="#" class="social-icon si-gplus si-small si-rounded si-light" title="Google+">
-                     <i class="icon-gplus"></i>
-                     <i class="icon-gplus"></i>
-                  </a>
+                  <!--kakaotalk-->
+                   <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
+                         <a id="kakao-link-btn" href="javascript:sendLink()">
+                            <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
+                         </a>
+                      </span>
 
-                  <a href="#" class="social-icon si-dribbble si-small si-rounded si-light" title="Dribbble">
-                     <i class="icon-dribbble"></i>
-                     <i class="icon-dribbble"></i>
-                  </a>
 
-                  <a href="#" class="social-icon si-flickr si-small si-rounded si-light" title="Flickr">
-                     <i class="icon-flickr"></i>
-                     <i class="icon-flickr"></i>
-                  </a>
+                  <!--band-->
+                         <span href="#" data-lightbox="inline">
+                          <script type="text/javascript">
+                            new ShareBand.makeButton({"lang": "ko", "type": "d"});
+                          </script>
+                        </span>
 
-                  <a href="#" class="social-icon si-linkedin si-small si-rounded si-light" title="LinkedIn">
-                     <i class="icon-linkedin"></i>
-                     <i class="icon-linkedin"></i>
-                  </a>
 
-                  <a href="#" class="social-icon si-twitter si-small si-rounded si-light" title="Twitter">
-                     <i class="icon-twitter"></i>
-                     <i class="icon-twitter"></i>
-                  </a>
+
+                  <!--url share-->
+                  <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                           <i class="icon-delicious"></i>
+                           <i class="icon-delicious"></i>
+                  </span>
+
+
+
+
+
+
 
                </div>
 
