@@ -46,11 +46,12 @@
          overflow-x: hidden;
          height: 100%;
          text-align: center;
+         padding-right: 0px;
       }
 
       #post {
-         width: 90%;
-         margin: auto;
+         width: 100%;
+         /*margin: auto;*/
          /*padding-top: 7px;*/
       }
 
@@ -59,7 +60,12 @@
          height: 88%;
       }
 
-      .product {
+       .content-wrap{
+          padding-top: 0px !important;
+          padding-bottom: 0px !important;
+       }
+
+   .product {
          /*margin-top:1em;*/
          width: 50%;
          float: left;
@@ -117,8 +123,13 @@
       }
 
       .left_head{
-         width:50%;
+         width:100%;
          height: 12%;
+         background-color: #F9F9F9;
+      }
+
+      #portfolio{
+         height:1000px !important;
       }
    </style>
 
@@ -138,6 +149,9 @@
 <div class="left_top">
    <div id="left_area" class="col-md-6">
 
+
+
+
       <div class="left_head">
       <div class="col-md-6">
          <div class="white-section">
@@ -153,9 +167,37 @@
 
 
 <div class="post_area">
-      <div id="post">
+
+   <div class="layout">
+      <div class="row topmargin-sm">
+
+         <section id="content">
+
+            <div class="content-wrap">
+
+               <div class="container clearfix" style="width: 90%;">
+                  <div class="clear"></div>
+
+
+                  <!-- 포트폴리오 4개 잡음-->
+                  <div id="portfolio" class="portfolio portfolio-2 portfolio-masonry clearfix" style="height: 1000px !important;">
+
+
+                     <div id="post">
+                      </div>
+
+                  </div><!-- #portfolio end -->
+               </div>
+
+            </div>
+         </section><!-- #content end -->
       </div>
-      <!--<ul id="pagination" class="pagination-sm"></ul>-->
+   </div>
+
+
+
+
+   <!--<ul id="pagination" class="pagination-sm"></ul>-->
 </div>
 
 </div>
