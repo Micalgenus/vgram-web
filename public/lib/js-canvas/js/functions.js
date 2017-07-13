@@ -1973,6 +1973,7 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		arrange: function () {
+			$portfolio = $('.portfolio');
 			if ($portfolio.length > 0) {
 				$portfolio.each(function () {
 					var element = $(this);

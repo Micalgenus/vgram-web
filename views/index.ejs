@@ -198,6 +198,10 @@
 </div>  <!-- wrapper.clearfix -->
 
 
+<div id="load-next-posts" class="center">
+  <a href="/post/room/html/2" class="button button-full button-dark button-rounded">Load more...</a>
+</div>
+
 
 
 
@@ -215,7 +219,6 @@
    <% include static/js.ejs %>
 
 <div id="gotoTop" class="icon-angle-up"></div>
-
 <script>
    jQuery(function($) {
       function getAjax(link) {
@@ -232,13 +235,34 @@
          let link = $(this).attr('href').split('-')[1];
          getAjax(link);
       });
+
+			var $container = $('#portfolio');
+
+			$container.infinitescroll({
+				loading: {
+					finishedMsg: '<i class="icon-line-check"></i>',
+					msgText: '<i class="icon-line-loader icon-spin"></i>',
+					img: "images/preloader-dark.gif",
+					speed: 'normal'
+				},
+				state: {
+					isDone: false
+				},
+				nextSelector: "#load-next-posts a",
+				navSelector: "#load-next-posts",
+				itemSelector: "article.portfolio-item",
+				behavior: 'portfolioinfiniteitemsloader'
+			},
+			function( newElements ) {
+				$container.isotope( 'appended', $( newElements ) );
+				var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+				SEMICOLON.widget.loadFlexSlider();
+				SEMICOLON.portfolio.arrange();
+			});
+
+
+	
    });
 </script>
-
-
-
-
-
-
 </body>
 </html>

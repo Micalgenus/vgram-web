@@ -673,3 +673,11 @@ exports.roomCommentWrite = function(req, res) {
     });
   });
 }
+
+exports.roomHtmlList = function(req, res) {
+
+  let page = req.params.roomListPage;
+  if (page > 3) return res.status(404).send();
+
+  return res.render('room/room-scroll', {});
+}
