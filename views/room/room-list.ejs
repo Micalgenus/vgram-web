@@ -44,7 +44,7 @@
          width: 100%;
          overflow: auto;
          overflow-x: hidden;
-         height: 100%;
+         height: calc(100% - 100px);
          text-align: center;
          padding-right: 0px;
       }
@@ -287,7 +287,7 @@
 <% include ../static/js.ejs %>
 
 <div class=".col-md-6">
-   <div id="map" style="height:100%;"></div>
+   <div id="map" style="height:calc(100% - 100px);"></div>
 </div>
 
 
