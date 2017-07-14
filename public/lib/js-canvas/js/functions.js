@@ -830,9 +830,11 @@ var SEMICOLON = SEMICOLON || {};
 				return true;
 			}
 
+			console.log('setFullColumnWidth', element);
 			element.css({ 'width': '' });
 
 			if (element.hasClass('portfolio-full')) {
+				console.log('portfolio-full', element);
 				var columns = SEMICOLON.initialize.defineColumns(element);
 				var containerWidth = element.width();
 				if (containerWidth == (Math.floor(containerWidth / columns) * columns)) { containerWidth = containerWidth - 1; }
@@ -843,6 +845,7 @@ var SEMICOLON = SEMICOLON || {};
 					$(this).css({ "width": elementSize + "px" });
 				});
 			} else if (element.hasClass('masonry-thumbs')) {
+				console.log('masonry-thumbs', element);
 				var columns = SEMICOLON.initialize.defineColumns(element),
 					containerWidth = element.innerWidth();
 
@@ -1973,7 +1976,7 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		arrange: function () {
-			$portfolio = $('.portfolio');
+			console.log('arrange', $(this));
 			if ($portfolio.length > 0) {
 				$portfolio.each(function () {
 					var element = $(this);

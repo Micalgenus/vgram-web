@@ -186,6 +186,7 @@
         url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,
         success: function(result) {
           $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));
+          SEMICOLON.widget.loadFlexSlider();
 				  SEMICOLON.portfolio.arrange();
         }
       });
