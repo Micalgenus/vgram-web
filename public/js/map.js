@@ -22,7 +22,8 @@ var ListData = (function() {
 
       // 리스트가 출력될 태그
       // var root = $('.grid-container').isotope({ itemSelector: '.grid-item' });
-      var root = $('#post');
+      // var root = $('#post');
+      var root = $('#post').isotope({ itemSelector: '.portfolio-item' });
 
       /**
        * @desc 화면 리스트를 초기화
@@ -39,12 +40,16 @@ var ListData = (function() {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
         // root.isotope('layout');
+				SEMICOLON.widget.loadFlexSlider();
+        SEMICOLON.portfolio.arrange();
       };
 
       function appendRoot(data) {
         var $items = $(data);
         root.append($items);
+
         // root.append($items).isotope('appended', $items).isotope('layout');
+        SEMICOLON.portfolio.arrange();
       };
 
       /**
