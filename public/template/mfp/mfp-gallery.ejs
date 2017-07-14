@@ -32,6 +32,9 @@
          overflow-y: auto !important;
          height: 300px;
       }
+     .band_div a{
+        float: left;
+     }
    </style>
 
 </head>
@@ -63,7 +66,8 @@
           </div>
 
           <!-- facebook-->
-          <div class="sns_count" data-layout="button_count" data-href="http://localhost:3000/">
+          <div class="sns_count">
+             <div data-layout="button_count" data-href="http://localhost:3000/">
             <div class="sns_facebook">
               <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
                   <!-- href 에 url-->
@@ -76,8 +80,21 @@
             </div>
           </div>
 
+
+                <!--url-->
+                <div class="input_group">
+                   <div class="center">
+                <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                  <i class="icon-delicious"></i>
+                  <i class="icon-delicious"></i>
+                </span>
+                   </div>
+                   <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+                </div>
+
+
           <!--kakaotalk-->
-          <div class="sns_count">
+          <!--<div class="sns_count">-->
             <div class="center">
               <span href="#" class="social-icon si-colored" title="Aim">
                 <a id="kakao-link-btn" href="javascript:sendLink()">
@@ -88,30 +105,34 @@
                 <!--</a>-->
               </span>
             </div>
-          </div>
+          <!--</div>-->
 
           <!--band-->
-          <div class="sns_count">
+          <!--<div class="sns_count">-->
             <div class="center">
+               <div class="band_div">
               <span href="#" data-lightbox="inline" id="band">
-                <script type="text/javascript">
-                  new ShareBand.makeButton({"lang": "ko", "type": "d"}, null, null, 'band');
+
+                 <script type="text/javascript">
+                  var ban = new ShareBand.makeButton({"lang": "ko", "type": "d"}, null, null, 'band');
+//                   ban.style.float = "left";
                 </script>
               </span>
+               </div>
             </div>
-          </div>
+          <!--</div>-->
 
           <!--url share-->
-          <div class="sns_count">
-            <div class="input_group">
-              <div class="center">
-                <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
-                  <i class="icon-delicious"></i>
-                  <i class="icon-delicious"></i>
-                </span>
-              </div>
-              <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
-            </div>
+          <!--<div class="sns_count">-->
+            <!--<div class="input_group">-->
+              <!--<div class="center">-->
+                <!--<span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">-->
+                  <!--<i class="icon-delicious"></i>-->
+                  <!--<i class="icon-delicious"></i>-->
+                <!--</span>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div class="modal-on-load" data-target="#myModal1"></div>&ndash;&gt;-->
+            <!--</div>-->
           </div>
           <br><br>
 
