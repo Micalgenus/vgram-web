@@ -19,6 +19,7 @@
 
    "title": {
       "main": "아늑한집 Cozyhouzz에 오신 것을 환영합니다~",
+      "createPostView": "글 정보 입력",
       "createRoomInfoView": "방 정보 입력",
       "updateRoomInfoView": "방 정보 수정",
       "roomInfoDetailView": "방 정보 상세보기",

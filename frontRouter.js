@@ -18,6 +18,7 @@ const value = require('./utils/staticValue');
 
 var web = {
    authController: require('./controllers/web/auth'),
+   postController: require('./controllers/web/web-post'),
    roomController: require('./controllers/web/view-room'),
    mapController: require('./controllers/web/view-map'),
    redirectController: require('./controllers/web/redirect'),
@@ -330,8 +331,8 @@ module.exports = function (app) {
    api.postRoute.get('/', api.postController.viewPosts);
 
    // create new Room Info from authenticated userRoute
-   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-   web.postRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+   web.postRoute.get('/new', requireWebAuth, init, web.postController.createPostView);
+   web.postRoute.post('/', requireWebAuth, web.postController.createPostInfo);
 
    //공지사항 출력
    api.postRoute.get('/notice', api.postController.viewNotice);

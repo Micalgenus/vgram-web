@@ -10,7 +10,7 @@ const Address = models.address;
 const Coordinate = models.coordinate;
 const Comment = models.comment;
 
-const postController = require('./view-post');
+const postController = require('./web-post');
 
 const _ = require('lodash');
 const Promise = require("bluebird");
@@ -62,7 +62,7 @@ exports.createRoomInfoView = function (req, res, next) {
 
    // 기본적으로 user의 기본언어 선택사항을 따라가고,
    // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-   return res.render('room/room-new', {
+   return res.render('post/room/new', {
       ENV: req.env,
       logined: req.user ? req.user.logined : false,
       title: "createRoomInfoView",
