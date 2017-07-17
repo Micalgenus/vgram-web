@@ -447,9 +447,27 @@ var SEMICOLON = SEMICOLON || {};
 							navigateByImgClick: true,
 							preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
 						},
+						callbacks: {
+							elementParse: function (item) {
+								if (item.index == 0) {
+									var id = item.el.parents('.portfolio-item').attr('data-id');
+
+									$.ajax({
+										url: 'http://localhost:3000/api/post/comment/' + id,
+										success: function (result) {
+											if (result) {
+												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({data: result}));
+											} else {
+												alert("Load Error !!");
+											}
+										}
+									});
+								}
+							},
+						}
 					});
 				});
-				
+
 				$(document).ready();
 			}
 
@@ -830,7 +848,6 @@ var SEMICOLON = SEMICOLON || {};
 				return true;
 			}
 
-			console.log('setFullColumnWidth', element);
 			element.css({ 'width': '' });
 
 			if (element.hasClass('portfolio-full')) {
@@ -1976,7 +1993,6 @@ var SEMICOLON = SEMICOLON || {};
 		},
 
 		arrange: function () {
-			console.log('arrange', $(this));
 			if ($portfolio.length > 0) {
 				$portfolio.each(function () {
 					var element = $(this);
