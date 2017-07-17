@@ -274,17 +274,18 @@ module.exports = function (app) {
    // 회원정보 조회
    web.userRoute.get('/:memberIdx([0-9]+)', requireWebAuth, init, web.userController.viewProfile);
 
-   web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-   web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-   web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-   web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-   web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
    //=========================
    // api - Member Routes
    //=========================
 
    // Set userRoute routes as a subgroup/middleware to api.rootRoute
    api.rootRoute.use('/user', api.userRoute);
+
+   api.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+   api.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+   api.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+   api.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+   api.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
    //회원정보 수정
    api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
@@ -368,6 +369,8 @@ module.exports = function (app) {
   web.roomRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
 
   web.roomRoute.get('/search', web.roomController.searchRoomListView);
+
+  web.roomRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
 
   web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
   web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);

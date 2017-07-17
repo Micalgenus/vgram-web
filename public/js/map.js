@@ -22,7 +22,8 @@ var ListData = (function() {
 
       // 리스트가 출력될 태그
       // var root = $('.grid-container').isotope({ itemSelector: '.grid-item' });
-      var root = $('#post');
+      // var root = $('#post');
+      var root = $('#post').isotope({ itemSelector: '.portfolio-item' });
 
       /**
        * @desc 화면 리스트를 초기화
@@ -39,12 +40,16 @@ var ListData = (function() {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
         // root.isotope('layout');
+				SEMICOLON.widget.loadFlexSlider();
+        SEMICOLON.portfolio.arrange();
       };
 
       function appendRoot(data) {
         var $items = $(data);
         root.append($items);
+
         // root.append($items).isotope('appended', $items).isotope('layout');
+        SEMICOLON.portfolio.arrange();
       };
 
       /**
@@ -56,13 +61,19 @@ var ListData = (function() {
           displayArray.push(data);
         }
 
-        function displayReload(make, filter, makeLocations) {
+        function displayReload(make, filter, makeLocations, reset) {
           displayArray = [];
           const dataArray = filter(data.getDataArray());
           const locations = makeLocations(dataArray);
           let filterSize = dataArray.length;
           let count = 0;
-          let start = pagination.getPageSize() * (pagination.getPage() - 1);
+          // let start = pagination.getPageSize() * (pagination.getPage() - 1);
+          let start = 0;
+          if (!reset) {
+            $('#left_area').scrollTop(0);
+            display.pagination.setPage(1);
+          }
+          
           let end = pagination.getPageSize() * pagination.getPage();
 
           for (var d in dataArray) {
@@ -119,6 +130,13 @@ var ListData = (function() {
         display.displayReload($make, $filter, $makeLocations);
       };
 
+      $('#left_area').scroll(function() {
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+          $page++;
+          data.filterReload(true);
+        }
+      });
+
       /**
        * @desc  pagination 초기화
        */
@@ -128,6 +146,7 @@ var ListData = (function() {
       };
 
       function getPage() { return $page; }
+      function setPage(page) { $page = page; }
       function getPageSize() { return $pageSize; }
 
       /**
@@ -160,6 +179,7 @@ var ListData = (function() {
 
       return {
         getPage: getPage,
+        setPage: setPage,
         getPageSize: getPageSize,
         reload: reload,
         getEventMethod: getEventMethod
@@ -239,10 +259,10 @@ var ListData = (function() {
       });
     };
 
-    function filterReload() {
+    function filterReload(r) {
       var event = display.pagination.getEventMethod();
 
-      let count = display.displayReload(event.make, event.filter, event.makeLocations);
+      let count = display.displayReload(event.make, event.filter, event.makeLocations, r);
       display.pagination.reload(count, event.make, null, event.filter, event.makeLocations);
     };
 

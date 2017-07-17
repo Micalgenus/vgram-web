@@ -1,0 +1,99 @@
+<head>
+   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script type="text/javascript" src="/lib/band-button.js"></script> 
+   <script>
+      function copy_clip(url) {
+         var IE = (document.all) ? true : false;
+         if (IE) {
+            window.clipboardData.setData("Text", url);
+            alert("이 글의 단축url이 클립보드에 복사되었습니다.");
+         } else {
+            temp = prompt("이 글의 단축url입니다. Ctrl+C를 눌러 클립보드로 복사하세요", url);
+         }
+      }
+   </script>
+
+
+</head>
+
+
+<div class="mfp-figure">
+  <div class="mfp-close"></div>
+  <div class="mfp-img"></div>
+  <div class="mfp-bottom-bar">
+    <div class="mfp-title">
+
+    </div>
+    <div class="mfp-counter">
+
+       <div class="col_full">
+          <!--<label for="template-jobform-fname">title </label>-->
+          <h2>
+
+             <div class="profile_sns">
+                <p class="nobottommargin">
+
+                   <!-- facebook-->
+                <div class="copy_body_fi" data-layout="button_count" data-href="http://localhost:3000/">
+                                <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
+                  <!-- href 에 url-->
+                  <a class="fb-xfbml-parse-ignore" target="_blank"
+                     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                     <i class="icon-facebook"></i>
+                     <i class="icon-facebook"></i>
+                  </a>
+                      </span>
+                </div>
+
+                <!--kakaotalk-->
+                <div class="copy_body_fi">
+                   <div class="center">
+                                    <span href="#" class="social-icon si-colored si-aim" title="Aim">
+                         <a id="kakao-link-btn" href="javascript:sendLink()">
+                            <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
+                         </a>
+                                       <!--<a href="javascript:shareStory()">-->
+                                       <!--<img src="https://dev.kakao.com/sdk/js/resources/story/icon_small.png"/>-->
+                                       <!--</a>-->
+                      </span>
+                   </div>
+                </div>
+
+                <!--band-->
+                <div class="sns_count">
+                  <div class="center">
+                    <span href="#" data-lightbox="inline" id="band">
+                      <script type="text/javascript">
+                        new ShareBand.makeButton({"lang": "ko", "type": "d"}, null, null, 'band');
+                      </script> 
+                    </span>
+                  </div>
+                </div>
+
+                <!--url share-->
+                <div class="copy_body_fi">
+                   <div class="input_group">
+                      <div class="center">
+                                        <span href="#myModal2" data-lightbox="inline"
+                                              class="social-icon si-colored si-delicious">
+                           <i class="icon-delicious"></i>
+                    <i class="icon-delicious"></i>
+                        </span>
+                      </div>
+                      <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+                   </div>
+                </div>
+                <br><br>
+
+
+                </p>
+             </div>
+          </h2>
+
+          <!--<input type="text" id="template-jobform-fname" name="template-jobform-fname" value="" class="sm-form-control required" />-->
+       </div>
+
+
+  </div>
+</div>
+</div>

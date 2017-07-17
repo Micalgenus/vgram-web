@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
    <!-- Range Slider CSS -->
+
    <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css"/>
+
+   <link rel="stylesheet" href="css/components/bs-select.css" type="text/css" />
+
+   <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
 
    <% include ../static/head.ejs %>
 
@@ -13,7 +20,7 @@
          position: fixed !important;
          width: 50%;
          right: 0;
-         /*height: calc(100% - 280px);*/
+         height: calc(100% - 280px);
          /*height: 900px;*/
       }
 
@@ -28,7 +35,8 @@
       .left_top {
          width: 50%;
          float: left;
-         height: calc(100% - 124px);
+         /*height: calc(100% - 124px);*/
+         height:100%;
       }
 
       #left_area {
@@ -36,17 +44,28 @@
          width: 100%;
          overflow: auto;
          overflow-x: hidden;
-         height: 100%;
+         height: calc(100% - 100px);
          text-align: center;
+         padding-right: 0px;
       }
 
       #post {
-         width: 90%;
-         margin: auto;
+         width: 100%;
+         /*margin: auto;*/
          /*padding-top: 7px;*/
       }
 
-      .product {
+      .post_area{
+         position: relative;
+         height: 88%;
+      }
+
+       .content-wrap{
+          padding-top: 0px !important;
+          padding-bottom: 0px !important;
+       }
+
+   .product {
          /*margin-top:1em;*/
          width: 50%;
          float: left;
@@ -98,6 +117,20 @@
       label {
          color: #fff;
       }
+
+      .menu_wrap{
+         width:50%;
+      }
+
+      .left_head{
+         width:100%;
+         height: 12%;
+         background-color: #F9F9F9;
+      }
+
+      #portfolio{
+         height:1000px !important;
+      }
    </style>
 
 </head>
@@ -107,87 +140,67 @@
    <% include ../addon/header2.ejs %>
 </div>
 <!--<div class="tabs advanced-real-estate-tabs clearfix">-->
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="clear"></div>
 
-<div id="page-menu">
-
-   <div id="page-menu-wrap">
-
-      <div class="container clearfix" id="room">
-
-         <nav class="divcenter center">
-            <ul>
-               <li id="type" class="divcenter"><a href="#">
-                     <div>종류</div>
-                  </a>
-                  <ul>
-                     <% for (i in value.placeType) { %>
-                     <li><a href="#">
-                           <label for="check_<%= i %>"><%= __("placeType")[i] %></label><input type="checkbox"
-                                                                                               value="<%= i %>"
-                                                                                               id="check_<%= i %>">
-                        </a></li>
-                     <% } %>
-                  </ul>
-               </li>
-
-               <li id="deposit" class="divcenter"><a href="#">
-                     <div>보증금</div>
-                  </a>
-                  <ul style="width:192px; background-color: white">
-                     <input class="button button-3d button-small button-rounded button-lime button-light min"
-                            type="number" min="0" placeholder="" style="width: 40%;">
-                     <span>~</span>
-                     <input class="button button-3d button-small button-rounded button-lime button-light max"
-                            type="number" min="0" placeholder="" style="width: 41%;">
-                     <input class="range_20"/>
-                  </ul>
-               </li>
-
-               <li id="rent_fee" class="divcenter"><a href="#">
-                     <div>월세</div>
-                  </a>
-                  <ul style="width:192px; background-color: white">
-                     <input class="button button-3d button-small button-rounded button-lime button-light min"
-                            type="number" min="0" placeholder="" style="width: 40%;">
-                     <span>~</span>
-                     <input class="button button-3d button-small button-rounded button-lime button-light max"
-                            type="number" min="0" placeholder="" style="width: 41%;">
-                     <input class="range_20"/>
-                  </ul>
-               </li>
-
-               <li class="divcenter"><a href="#">
-                     <div>추가옵션</div>
-                  </a>
-                  <ul>
-                     <% for (i in value.placeType) { %>
-                     <li><a href="#">
-                           <label for="option_<%= i %>"><%= __("placeType")[i] %></label><input type="checkbox"
-                                                                                               value="<%= i %>"
-                                                                                               id="option_<%= i %>">
-                        </a></li>
-                     <% } %>
-                  </ul>
-               </li>
-            </ul>
-         </nav>
-
-         <div id="page-submenu-trigger"><i class="icon-reorder"></i></div>
-
-      </div>
-
-   </div>
-
-</div><!-- #page-menu end -->
 
 
 <div class="left_top">
-   <div id="left_area" class=".col-md-6">
-      <div id="post">
+   <div id="left_area" class="col-md-6">
+
+
+
+
+      <div class="left_head">
+
+         <div class="col-md-6 bottommargin-sm">
+            <div class="white-section">
+               <label>Selected text Count:</label>
+               <select class="selectpicker" multiple data-selected-text-format="count">
+                  <option>Mustard</option>
+                  <option>Ketchup</option>
+                  <option>Relish</option>
+               </select>
+            </div>
+         </div>
+
+
+
       </div>
-      <ul id="pagination" class="pagination-sm"></ul>
+
+
+<div class="post_area">
+
+   <div class="layout">
+      <div class="row topmargin-sm">
+
+         <section id="content">
+
+            <div class="content-wrap">
+
+               <div class="container clearfix" style="width: 90%;">
+                  <div class="clear"></div>
+
+
+                  <!-- 포트폴리오 4개 잡음-->
+                  <div id="post" class="portfolio portfolio-2 portfolio-masonry clearfix" style="height: 1000px !important;">
+
+                  </div><!-- #portfolio end -->
+               </div>
+
+            </div>
+         </section><!-- #content end -->
+      </div>
    </div>
 
+
+
+
+   <!--<ul id="pagination" class="pagination-sm"></ul>-->
+</div>
+
+</div>
 </div>
 
 <!-- External JavaScripts
@@ -274,7 +287,7 @@
 <% include ../static/js.ejs %>
 
 <div class=".col-md-6">
-   <div id="map" style="height:calc(100% - 124px);"></div>
+   <div id="map" style="height:calc(100% - 100px);"></div>
 </div>
 
 
@@ -309,5 +322,22 @@
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap">
 </script>
+
+
+<!-- External JavaScripts
+ ============================================= -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+
+
+<!-- Bootstrap Select Plugin -->
+<script type="text/javascript" src="js/components/bs-select.js"></script>
+<link rel="stylesheet" href="css/components/bs-select.css" type="text/css" />
+
+<!-- Select Splitter Plugin -->
+<script type="text/javascript" src="js/components/selectsplitter.js"></script>
+
+
+
 </body>
 </html>
