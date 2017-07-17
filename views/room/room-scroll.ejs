@@ -1,4 +1,4 @@
-<% for (var i = 0; i < 3; i++) { %>
+<% for (var i = 5; i < 8; i++) { %>
   <% if (i % 2) { %>
   <article class="portfolio-item pf-media pf-icons">
     <div class="portfolio-image">
@@ -28,7 +28,7 @@
   </article>
 
   <% } else { %>
-  <article class="portfolio-item pf-graphics pf-illustrations">
+  <article class="portfolio-item pf-graphics pf-illustrations" data-id="<%= i %>">
     <div class="portfolio-image">
         <div class="fslider" data-arrows="false">
           <div class="flexslider">

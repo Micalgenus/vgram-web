@@ -457,3 +457,8 @@ exports.viewRoomDetail = function (req, res) {
       }
    })
 };
+
+exports.getCommentInfoJson = function(req, res) {
+      var idx = req.params.postIdx;
+      return res.send({idx:idx});
+}

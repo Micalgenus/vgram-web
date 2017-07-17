@@ -49,7 +49,6 @@ var ListData = (function() {
         root.append($items);
 
         // root.append($items).isotope('appended', $items).isotope('layout');
-        SEMICOLON.portfolio.arrange();
       };
 
       /**
@@ -131,7 +130,10 @@ var ListData = (function() {
       };
 
       $('#left_area').scroll(function() {
-        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+        if ($page == 1) $scroll = 0;
+
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight && $(this).scrollTop() > $scroll) {
+          $scroll = $(this).scrollTop();
           $page++;
           data.filterReload(true);
         }
