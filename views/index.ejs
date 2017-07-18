@@ -116,75 +116,7 @@
             <!-- Portfolio Items
      ============================================= -->
             <div id="portfolio" class="portfolio grid-container portfolio-3 portfolio-masonry clearfix">
-
-
-
-               <article class="portfolio-item pf-media pf-icons">
-                  <div class="portfolio-image">
-                     <a href="portfolio-single.html">
-                        <img src="/images/SH.png" alt="Open Imagination">
-                     </a>
-                     <div class="portfolio-overlay">
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="left-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
-                        <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-                     </div>
-                  </div>
-                  <div class="testimonial">
-                     <div class="testi-image">
-                        <a href="#"><img src="/lib/js-canvas/images/icons/avatar.jpg" alt="Customer Testimonails"></a>
-                     </div>
-                     <div class="testi-meat"><p style=" margin-bottom:0px;">nickname</p></div>
-                     <div class="portfolio-desc">
-                        <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-                        <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-                     </div>
-                     <ul class="entry-meta clearfix">
-                        <li><i class="icon-line-heart"></i><span>좋아요 개수</span></li>
-                        <li><i class="icon-calendar3"></i>년/월/일</li>
-                        <li><a href="blog-single.html#comments"><i class="icon-comments"></i>댓글 개수</a></li>
-                     </ul>
-                  </div>
-               </article>
-
-
-
-               <article class="portfolio-item pf-graphics pf-illustrations" data-id="1">
-                  <div class="portfolio-image">
-                     <div class="fslider" data-arrows="false">
-                        <div class="flexslider">
-                           <div class="slider-wrap">
-                              <div class="slide"><a href="portfolio-single-gallery.html"><img src="/images/SH.png" alt="Shake It"></a></div>
-                              <div class="slide"><a href="portfolio-single-gallery.html"><img src="/images/SH.png" alt="Shake It"></a></div>
-                              <div class="slide"><a href="portfolio-single-gallery.html"><img src="/images/SH.png" alt="Shake It"></a></div>
-                              <div class="slide"><a href="portfolio-single-gallery.html"><img src="/images/SH.png" alt="Shake It"></a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="portfolio-overlay" data-lightbox="gallery">
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="hidden" data-lightbox="gallery-item"></a>
-                        <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-                     </div>
-                  </div>
-                  <div class="testimonial">
-                     <div class="testi-image">
-                        <a href="#"><img src="/lib/js-canvas/images/icons/avatar.jpg" alt="Customer Testimonails"></a>
-                     </div>
-                     <div class="testi-meat"><p style=" margin-bottom:0px;">nickname</p></div>
-                     <div class="clear"></div>
-                     <div class="portfolio-desc">
-                        <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-                     </div>
-                     <ul class="entry-meta clearfix">
-                        <li><i class="icon-line-heart"></i><span>좋아요 개수</span></li>
-                        <li><i class="icon-calendar3"></i>년/월/일</li>
-                        <li><a href="blog-single.html#comments"><i class="icon-comments"></i>댓글 개수</a></li>
-                     </ul>
-                  </div>
-               </article>
-
+               <article class="portfolio-item" style="padding:0"></article>
             </div><!-- #portfolio end -->
 
 
@@ -202,10 +134,6 @@
   <a href="/post/room/html/2" class="button button-full button-dark button-rounded">Load more...</a>
 </div>
 
-
-
-
-
 <footer>
    <!-- FOOTER -->
    <% include addon/footer.ejs %>
@@ -221,20 +149,6 @@
 <div id="gotoTop" class="icon-angle-up"></div>
 <script>
    jQuery(function($) {
-      function getAjax(link) {
-         $.ajax({
-            url: window.location.href.split('#')[0] + '/json/' + link,
-            success: function(result) {
-               console.log(result);
-               $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));
-            }
-         });
-      }
-
-      $('.tab-nav li a').click(function() {
-         let link = $(this).attr('href').split('-')[1];
-         getAjax(link);
-      });
 
 			var $container = $('#portfolio');
 
@@ -260,8 +174,18 @@
         SEMICOLON.portfolio.arrange();
 			});
 
-
-	
+      $.ajax({
+        url: "/post/room/html/1",
+        success: function(data) {
+          $container.append(data);
+          
+				  var t = setTimeout( function(){ 
+            SEMICOLON.widget.loadFlexSlider();
+            SEMICOLON.portfolio.arrange();
+            $container.isotope('layout');
+          }, 2000 );
+        }
+      });
    });
 </script>
 </body>

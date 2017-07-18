@@ -1,34 +1,5 @@
-<% for (var i = 5; i < 8; i++) { %>
-  <% if (i % 2) { %>
-  <article class="portfolio-item pf-media pf-icons">
-    <div class="portfolio-image">
-        <a href="portfolio-single.html">
-          <img src="/images/SH.png" alt="Open Imagination">
-        </a>
-        <div class="portfolio-overlay">
-          <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="left-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
-          <a href="portfolio-single.html" class="right-icon"><i class="icon-line-ellipsis"></i></a>
-        </div>
-    </div>
-    <div class="testimonial">
-        <div class="testi-image">
-          <a href="#"><img src="/lib/js-canvas/images/icons/avatar.jpg" alt="Customer Testimonails"></a>
-        </div>
-        <div class="testi-meat"><p style=" margin-bottom:0px;">nickname</p></div>
-        <div class="portfolio-desc">
-          <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-          <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-        </div>
-        <ul class="entry-meta clearfix">
-          <li><i class="icon-line-heart"></i><span>좋아요 개수</span></li>
-          <li><i class="icon-calendar3"></i>년/월/일</li>
-          <li><a href="blog-single.html#comments"><i class="icon-comments"></i>댓글 개수</a></li>
-        </ul>
-    </div>
-  </article>
-
-  <% } else { %>
-  <article class="portfolio-item pf-graphics pf-illustrations" data-id="<%= i %>">
+<% for (var i = 0; i < room.length; i++) { %>
+  <article class="portfolio-item pf-graphics pf-illustrations" data-id="<%= room[i].post.ID %>">
     <div class="portfolio-image">
         <div class="fslider" data-arrows="false">
           <div class="flexslider">
@@ -50,19 +21,18 @@
     </div>
     <div class="testimonial">
         <div class="testi-image">
-          <a href="#"><img src="/lib/js-canvas/images/icons/avatar.jpg" alt="Customer Testimonails"></a>
+          <a href="#"><img src="/users/profile1_20170125150101.jpg" alt="Customer Testimonails"></a>
         </div>
-        <div class="testi-meat"><p style=" margin-bottom:0px;">nickname</p></div>
+        <div class="testi-meat"><p style=" margin-bottom:0px;"><%= room[i].post.user.nickname %></p></div>
         <div class="clear"></div>
         <div class="portfolio-desc">
-          <h3><a href="portfolio-single.html">Open Imagination</a></h3>
+          <h3><a href="portfolio-single.html"><%= room[i].post.title %></a></h3>
         </div>
         <ul class="entry-meta clearfix">
           <li><i class="icon-line-heart"></i><span>좋아요 개수</span></li>
-          <li><i class="icon-calendar3"></i>년/월/일</li>
-          <li><a href="blog-single.html#comments"><i class="icon-comments"></i>댓글 개수</a></li>
+          <li><i class="icon-calendar3"></i><%= new Date(room[i].post.createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></li>
+          <li><a href="blog-single.html#comments"><i class="icon-comments"></i><%= room[i].post.Comments.length %></a></li>
         </ul>
     </div>
   </article>
-  <% } %>
 <% } %>

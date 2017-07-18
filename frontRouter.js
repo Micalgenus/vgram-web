@@ -342,7 +342,7 @@ module.exports = function (app) {
    api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
    api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
-   api.postRoute.get('/comment/:postIdx([0-9]+)', api.postController.getCommentInfoJson);
+   api.postRoute.get('/info/:postIdx([0-9]+)', api.postController.getPostInfoJson);
 
    //=========================
    // web - Room Info Routes
