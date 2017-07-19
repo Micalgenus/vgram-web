@@ -689,6 +689,9 @@ exports.roomHtmlList = function (req, res) {
         model: Comment,
         as: 'Comments',
         attributes: ["ID", "post_id"]
+      }, {
+        model: User,
+        as: 'LikeUsers'
       }]
     }],
     limit: count,

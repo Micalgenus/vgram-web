@@ -467,6 +467,7 @@ exports.getPostInfoJson = function (req, res) {
     return res.send({
       postId: d.post.ID,
 
+      likeUserCount: d.post.LikeUsers.length,
       comments: d.comments,
       commentCount: d.commentCount,
 

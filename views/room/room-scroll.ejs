@@ -1,5 +1,5 @@
 <% for (var i = 0; i < room.length; i++) { %>
-  <article class="portfolio-item pf-graphics pf-illustrations" data-id="<%= room[i].post.ID %>">
+  <article class="portfolio-item" data-id="<%= room[i].post.ID %>">
     <div class="portfolio-image">
         <div class="fslider" data-arrows="false">
           <div class="flexslider">
@@ -29,7 +29,7 @@
           <h3><a href="portfolio-single.html"><%= room[i].post.title %></a></h3>
         </div>
         <ul class="entry-meta clearfix">
-          <li><i class="icon-line-heart"></i><span>좋아요 개수</span></li>
+          <li><i class="icon-line-heart"></i><span><%= room[i].post.LikeUsers.length %></span></li>
           <li><i class="icon-calendar3"></i><%= new Date(room[i].post.createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></li>
           <li><a href="blog-single.html#comments"><i class="icon-comments"></i><%= room[i].post.Comments.length %></a></li>
         </ul>
