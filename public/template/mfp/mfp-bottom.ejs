@@ -92,8 +92,13 @@
           <a href="">
             <h6><%= data.comments[i].user.nickname %></h6>
           </a>
-          <h6><%= data.comments[i].createdAt %></h6>
-          <h6><%= data.comments[i].content %></h6>
+
+          <h6>
+           <%= moment(data.comments[i].createdAt).startOf('day').fromNow() %>
+           </h6>
+
+
+           <h6><%= data.comments[i].content %></h6>
           <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
         </div>
         <div class="clear"></div>
