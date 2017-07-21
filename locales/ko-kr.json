@@ -28,8 +28,8 @@
 		"loginView": "로그인",
 		"registerView": "회원가입",
 		"embedView": "Cozyhouzz - Embed",
-      "userDetailView": "회원 정보 상세보기"
-   },
+		"userDetailView": "회원 정보 상세보기"
+	},
 	"placeType": {
 		"APARTMENT": "아파트",
 		"VILLA": "빌라",
@@ -82,16 +82,16 @@
 		"pyeong": "평"
 	},
 	"floors": {
-      "Bx": "지하",
-      "Bh": "반지하",
+		"Bx": "지하",
+		"Bh": "반지하",
 		"1F": "1층",
 		"2F": "2층",
 		"3F": "3층",
 		"4F": "4층",
 		"5F": "5층",
 		"6F": "6층",
-      "7xF": "7층 이상",
-      "rooftop": "옥탑"
+		"7xF": "7층 이상",
+		"rooftop": "옥탑"
 	},
 	"postStatus": {
 		"PUBLISH": "공개",
@@ -100,5 +100,6 @@
 	"lang": {
 		"ko": "한국어",
 		"en": "영어"
-	}
+	},
+	"alreadyLogined": "alreadyLogined"
 }

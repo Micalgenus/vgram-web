@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-   <% include ../static/head.ejs %>
+  <% include ../static/head.ejs %>
 </head>
 
 <body class="stretched">
-<!-- HEADER -->
-<% include ../addon/header2.ejs %>
+  <!-- HEADER -->
+  <% include ../addon/header2.ejs %>
 
-<!-- CONTENT -->
-<div class="content-wrap">
-   <div id="login-container" class="container clearfix">
-   </div>
-</div>
-<!-- END / CONTENT -->
+    <!-- CONTENT -->
+    <div class="content-wrap">
+      <div id="login-container" class="container clearfix">
+      </div>
+    </div>
+    <!-- END / CONTENT -->
 
-<!-- FOOTER -->
-<% include ../addon/footer.ejs %>
+    <!-- FOOTER -->
+    <% include ../addon/footer.ejs %>
 
-<!-- LOAD JAVASCRIPT -->
-<% include ../static/js.ejs %>
-<script>
-   var lock = new Auth0Lock(
-      '<%= AUTH0_CLIENT_ID %>',
-      '<%= AUTH0_DOMAIN %>',
-      {
-         auth: {
-            redirectUrl: '<%= AUTH0_CALLBACK_URL %>'
-            , responseType: 'code'
-            , params: {
-               scope: 'openid name email picture ID'
-            }
-         },
-         container: 'login-container'
-      });
+      <!-- LOAD JAVASCRIPT -->
+      <% include ../static/js.ejs %>
+        <script>
+          var lock = new Auth0Lock(
+            '<%= AUTH0_CLIENT_ID %>',
+            '<%= AUTH0_DOMAIN %>',
+            {
+              auth: {
+                redirectUrl: '<%= AUTH0_CALLBACK_URL %>',
+                responseType: 'code',
+                params: {
+                  scope: 'openid name email picture ID'
+                },
+              },
+              container: 'login-container',
+              additionalSignUpFields: [
+                {
+                  name: "nickname",
+                  placeholder: "Enter your nick name"
+                }, {
+                  type: "select",
+                  name: "member_type",
+                  placeholder: "choose your member type",
+                  options: [
+                    { value: "PUBLIC", label: "일반 회원" },
+                    { value: "BUSINESS", label: "사업주 회원" }
+                  ],
+                }
+              ]
+            });
 
-   lock.show();
-</script>
+          lock.show();
+        </script>
 </body>
+
 </html>
