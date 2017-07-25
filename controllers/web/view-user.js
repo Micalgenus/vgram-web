@@ -53,7 +53,7 @@ exports.viewProfile = function (req, res) {
 
     return res.render('member/mypage', {
         ENV: req.env,
-        logined: req.logined,
+        logined: req.user.logined,
         title: 'userDetailView',
         msg: req.msg,
 
@@ -119,7 +119,7 @@ exports.getPosts = function(req, res) {
       as: 'LikeUsers'
     },{
       model: Comment,
-      as: 'Comments' 
+      as: 'Comments'
     }],
     where: {
       user_id: userIdx,
@@ -165,7 +165,7 @@ exports.getLikeposts = function(req, res) {
     where: {
       ID: userIdx
     },
-    order: [       
+    order: [
       [ {model: Post, as: 'LikePosts'}, 'ID', 'DESC' ]
     ]
   }).then(function(user) {

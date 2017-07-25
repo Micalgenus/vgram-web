@@ -140,7 +140,7 @@ module.exports = function (app) {
   web.defaultRoute.get('/', requireWebAuth, init, function (req, res) {
     res.render('index', {
       ENV: env,
-      logined: req.logined,
+      logined: req.user.logined,
       title: 'main',
       msg: req.msg
     });
