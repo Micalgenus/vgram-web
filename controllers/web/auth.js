@@ -240,13 +240,16 @@ exports.checkUser = function (req, res, next) {
     // exist user
     if (u) return next();
 
+    let info = req.user.profile;
+
     let args = {
       method: 'PATCH',
-      uri: 'https://wowjoy-dev.auth0.com/api/v2/users/' + req.user.profile.user_id,
+      uri: 'https://wowjoy-dev.auth0.com/api/v2/users/' + info.user_id,
       json: {
         "user_metadata": {
-          "id": 5,
-          "user_status": 1
+          "id": 6,
+          "user_status": 1,
+          "member_type": info.user_metadata.member_type
         }
       },
 
@@ -259,13 +262,15 @@ exports.checkUser = function (req, res, next) {
 
     return request(args, function (e, r, body) {
 
+      // return res.send(body);
+
       // create user
       return User.create({
         email: info.email,
         // password: password,
         member_type: info.user_metadata.member_type,
         // telephone: phone,
-        registered_date: moment(info.updated_at).format('YYYY-MM-DD'),
+        registered_date: moment(info.created_at).format('YYYY-MM-DD'),
         nickname: info.nickname,
         locale: "ko-kr",
         //profile_image_path: "users/profile1_20170125150101.jpg",
