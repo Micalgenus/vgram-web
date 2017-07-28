@@ -133,10 +133,11 @@
                                  <!--<input type="file" />-->
                                <!--</span>-->
 
-                  <button type="submit" class="btn btn-primary start">
-                     <i class="glyphicon glyphicon-upload"></i>
-                     <span>Start upload</span>
-                  </button>
+                  <!--<button type="submit" class="btn btn-primary start">-->
+                     <!--<i class="glyphicon glyphicon-upload"></i>-->
+                     <!--<span>Start upload</span>-->
+                  <!--</button>-->
+
                </div>
             </h4>
 
@@ -159,6 +160,8 @@
                         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                         <div class="row fileupload-buttonbar">
+                           <div class="fileupload-buttons">
+
                            <div class="col_full">
 
                               <div class="add_file">
@@ -169,10 +172,17 @@
                                </label>
                               </div>
 
+                              <div class="clear"></div>
+
+
+                              <button type="submit" class="start">Start upload</button>
+
                               <!--<button type="submit" class="btn btn-primary start">-->
                                  <!--<i class="glyphicon glyphicon-upload"></i>-->
                                  <!--<span>Start upload</span>-->
                               <!--</button>-->
+
+
                               <!--<button type="reset" class="btn btn-warning cancel">-->
                                  <!--<i class="glyphicon glyphicon-ban-circle"></i>-->
                                  <!--<span>Cancel upload</span>-->
@@ -194,6 +204,7 @@
                               <!-- The extended global progress state -->
                               <div class="progress-extended">&nbsp;</div>
                            </div>
+                              </div>
                         </div>
 
                         <div class="col-lg-5 fileupload-progress fade">
@@ -208,8 +219,9 @@
                         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
                      </form>
 
-
                   </div>
+
+
                   <div class="tab-content clearfix" id="tabs-22">
                      <div class="add_file">
                         <label class="btn-bs-file btn btn-lg btn-success">
