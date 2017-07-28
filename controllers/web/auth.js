@@ -13,6 +13,8 @@ const User = models.user;
 const value = require('../../utils/staticValue'),
   message = value.statusMessage;
 
+var request = require('request');
+
 var moment = require('moment');
 moment.locale("ko");
 
@@ -240,27 +242,48 @@ exports.checkUser = function (req, res, next) {
 
     let info = req.user.profile;
 
-    // create user
-    return User.create({
-      email: info.email,
-      // password: password,
-      member_type: info.user_metadata.member_type,
-      // telephone: phone,
-      registered_date: moment(info.updated_at).format('YYYY-MM-DD'),
-      nickname: info.nickname,
-      locale: "ko-kr",
-      //profile_image_path: "users/profile1_20170125150101.jpg",
-      updated_date: moment(info.updated_at).format('YYYY-MM-DD'),
-      user_status: 1,
-      meta_value: {
-        level: 1
-      }
-    }).then(function (newUser) {
-      req.flash('msg', 'completedRegister');
-      return next();
+    let args = {
+      method: 'PATCH',
+      uri: 'https://wowjoy-dev.auth0.com/api/v2/users/' + info.user_id,
+      json: {
+        "user_metadata": {
+          "id": 6,
+          "user_status": 1,
+          "member_type": info.user_metadata.member_type
+        }
+      },
+
+      headers: {
+        'Authorization': 'Bearer ' + req.user.idToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    }
+
+    return request(args, function (e, r, body) {
+
+      // return res.send(body);
+
+      // create user
+      return User.create({
+        email: info.email,
+        // password: password,
+        member_type: info.user_metadata.member_type,
+        // telephone: phone,
+        registered_date: moment(info.created_at).format('YYYY-MM-DD'),
+        nickname: info.nickname,
+        locale: "ko-kr",
+        //profile_image_path: "users/profile1_20170125150101.jpg",
+        updated_date: moment(info.updated_at).format('YYYY-MM-DD'),
+        user_status: 1,
+        meta_value: {
+          level: 1
+        }
+      }).then(function (newUser) {
+        req.flash('msg', 'completedRegister');
+        return next();
+      });
     });
-
-
   });
 }
 
