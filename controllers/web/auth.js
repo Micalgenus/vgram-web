@@ -26,7 +26,7 @@ moment.locale("ko");
  * @returns {String}
  */
 
-exports.loginView = function (req, res, next) {
+exports.loginView = function(req, res, next) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -46,7 +46,7 @@ exports.loginView = function (req, res, next) {
   });
 }
 
-exports.logout = function (req, res, next) {
+exports.logout = function(req, res, next) {
   res.clearCookie('authorization');
   res.clearCookie('access_token');
   res.clearCookie('user_profile_token');
@@ -59,7 +59,7 @@ exports.logout = function (req, res, next) {
 //========================================
 // Login & Logout
 //========================================
-exports.signupView = function (req, res) {
+exports.signupView = function(req, res) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -98,7 +98,7 @@ exports.signupView = function (req, res) {
   });
 }
 
-exports.signup = function (req, res, next) {
+exports.signup = function(req, res, next) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -162,7 +162,7 @@ exports.signup = function (req, res, next) {
   return next();
 }
 
-exports.register = function (req, res, next) {
+exports.register = function(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
   let type = req.body.member_type;
@@ -173,7 +173,7 @@ exports.register = function (req, res, next) {
     where: {
       email: email
     }
-  }).then(function (user) {
+  }).then(function(user) {
     if (user) {
       req.flash('msg', 'alreadyExistMember');
       return res.redirect('back');
@@ -193,20 +193,20 @@ exports.register = function (req, res, next) {
       meta_value: {
         level: 1
       }
-    }).then(function (newUser) {
+    }).then(function(newUser) {
       req.flash('msg', 'completedRegister');
       return next();
     });
-  }).catch(function (err) {
+  }).catch(function(err) {
     return next(err);
   });
 }
 
-exports.quit = function (req, res, next) {
+exports.quit = function(req, res, next) {
 
 }
 
-exports.setToken = function (req, res, next) {
+exports.setToken = function(req, res, next) {
 
   // {
   //    accessToken: accessToken,
@@ -216,7 +216,7 @@ exports.setToken = function (req, res, next) {
   //    profile: profile
   // }
 
-  let userToken = genToken.generateToken(req.user.profile);   // passport에서 받은 object
+  let userToken = genToken.generateToken(req.user.profile); // passport에서 받은 object
 
   // header와 cookies에 id_token을 붙여서 전송
   res.clearCookie('authorization');
@@ -230,13 +230,13 @@ exports.setToken = function (req, res, next) {
   return next();
 }
 
-exports.checkUser = function (req, res, next) {
+exports.checkUser = function(req, res, next) {
 
   return User.findOne({
     where: {
       email: req.user.profile.email
     }
-  }).then(function (u) {
+  }).then(function(u) {
     // exist user
     if (u) return next();
 
@@ -249,6 +249,7 @@ exports.checkUser = function (req, res, next) {
         "user_metadata": {
           "id": 6,
           "user_status": 1,
+          "nickname": info.user_metadata.nickname,
           "member_type": info.user_metadata.member_type
         }
       },
@@ -260,7 +261,7 @@ exports.checkUser = function (req, res, next) {
       },
     }
 
-    return request(args, function (e, r, body) {
+    return request(args, function(e, r, body) {
 
       // return res.send(body);
 
@@ -271,7 +272,7 @@ exports.checkUser = function (req, res, next) {
         member_type: info.user_metadata.member_type,
         // telephone: phone,
         registered_date: moment(info.created_at).format('YYYY-MM-DD'),
-        nickname: info.nickname,
+        nickname: info.user_metadata.nickname,
         locale: "ko-kr",
         //profile_image_path: "users/profile1_20170125150101.jpg",
         updated_date: moment(info.updated_at).format('YYYY-MM-DD'),
@@ -279,7 +280,7 @@ exports.checkUser = function (req, res, next) {
         meta_value: {
           level: 1
         }
-      }).then(function (newUser) {
+      }).then(function(newUser) {
         req.flash('msg', 'completedRegister');
         return next();
       });

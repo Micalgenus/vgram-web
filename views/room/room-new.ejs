@@ -152,43 +152,45 @@
                         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                         <div class="row fileupload-buttonbar">
-                           <div class="col-lg-7">
+                            <div class="col-lg-7">
 
-                              <button type="submit" class="btn btn-primary start" style="float: right;">
-                                 <i class="glyphicon glyphicon-upload"></i>
-                                 <span>Start upload</span>
-                              </button>
+                                <input type="hidden" name="postID" value="1" />
 
-                              <div class="col_full">
-                                 <!-- The fileinput-button span is used to style the file input field as button -->
-                                 <label class="btn btn-success fileinput-button" style="width: 100%;">
+                                <button type="submit" class="btn btn-primary start" style="float: right;">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Start upload</span>
+                                </button>
+
+                                <div class="col_full">
+                                    <!-- The fileinput-button span is used to style the file input field as button -->
+                                    <label class="btn btn-success fileinput-button" style="width: 100%;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Add files...</span>
-                                    <input type="file" name="files[]" multiple data-sequential-uploads="true">
-                                 </label>
+                                    <input type="file" name="vr_images" multiple data-sequential-uploads="true">
+                                    </label>
 
-                              </div>
-                              <!-- <button type="reset" class="btn btn-warning cancel"> -->
-                              <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
-                              <!-- <span>Cancel upload</span> -->
-                              <!-- </button> -->
-                              <!-- <button type="button" class="btn btn-danger delete"> -->
-                              <!-- <i class="glyphicon glyphicon-trash"></i> -->
-                              <!-- <span>Delete</span> -->
-                              <!-- </button> -->
-                              <!-- <input type="checkbox" class="toggle"> -->
-                              <!-- The global file processing state -->
-                              <span class="fileupload-process"></span>
-                           </div>
-                           <!-- The global progress state -->
-                           <div class="col-lg-5 fileupload-progress fade">
-                              <!-- The global progress bar -->
-                              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                 <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                              </div>
-                              <!-- The extended global progress state -->
-                              <div class="progress-extended">&nbsp;</div>
-                           </div>
+                                </div>
+                                <!-- <button type="reset" class="btn btn-warning cancel"> -->
+                                <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
+                                <!-- <span>Cancel upload</span> -->
+                                <!-- </button> -->
+                                <!-- <button type="button" class="btn btn-danger delete"> -->
+                                <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                                <!-- <span>Delete</span> -->
+                                <!-- </button> -->
+                                <!-- <input type="checkbox" class="toggle"> -->
+                                <!-- The global file processing state -->
+                                <span class="fileupload-process"></span>
+                            </div>
+                            <!-- The global progress state -->
+                            <div class="col-lg-5 fileupload-progress fade">
+                                <!-- The global progress bar -->
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                </div>
+                                <!-- The extended global progress state -->
+                                <div class="progress-extended">&nbsp;</div>
+                            </div>
                         </div>
                         <!-- The table listing the files available for upload/download -->
                         <table role="presentation" class="table table-striped">
@@ -208,6 +210,8 @@
                         <div class="row fileupload-buttonbar">
                            <div class="col-lg-7">
 
+                            <input type="hidden" name="postID" value="1" />
+
                               <button type="submit" class="btn btn-primary start" style="float: right;">
                                  <i class="glyphicon glyphicon-upload"></i>
                                  <span>Start upload</span>
@@ -218,7 +222,7 @@
                                  <label class="btn btn-success fileinput-button" style="width: 100%;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     <span>Add files...</span>
-                                    <input type="file" name="files[]" multiple data-sequential-uploads="true">
+                                    <input type="file" name="normal_images" multiple data-sequential-uploads="true">
                                  </label>
 
                               </div>
