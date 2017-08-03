@@ -15,10 +15,6 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false,
          unique: true
       },
-      password: {
-         type: DataTypes.STRING(200),
-         allowNull: false
-      },
       member_type: {
          type: DataTypes.STRING(45),
          allowNull: false
@@ -45,10 +41,10 @@ module.exports = function(sequelize, DataTypes) {
          allowNull: false,
          defaultValue: DataTypes.NOW
       },
-      activation_key: {
+      auth0_user_id: {
          type: DataTypes.STRING(127),
-         allowNull: true,
-         defaultValue: null
+         allowNull: false,
+         unique: true
       },
       locale: {
          type: DataTypes.STRING(45),

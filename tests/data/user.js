@@ -9,6 +9,8 @@ var value = require("../../utils/staticValue");
 //------------------------------------------
 // user table
 //------------------------------------------
+
+
 module.exports = [
    {
       ID: 1,
@@ -21,6 +23,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile1_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d2a83391b872e301373d6",
       user_status: 1,
       meta_value: {
          point: 1,
@@ -38,6 +41,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile2_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d6e3142ecdd2bf469a86b",
       user_status: 1,
       meta_value: {
          point: 2,
@@ -55,6 +59,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile3_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d739742ecdd2bf469aa9b",
       user_status: 1,
       meta_value: {
          point: 3,
@@ -72,6 +77,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile1_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d793442ecdd2bf469ac8d",
       user_status: 1,
       meta_value: {
          point: 4,
@@ -89,6 +95,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile2_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "google-oauth2|111943571670757464020",
       user_status: 1,
       meta_value: {
          registered_number: "418-08-80915",

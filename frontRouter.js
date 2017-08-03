@@ -18,7 +18,7 @@ const value = require('./utils/staticValue');
 
 var web = {
    authController: require('./controllers/web/auth'),
-   postController: require('./controllers/web/web-post'),
+   postController: require('./controllers/web/view-post'),
    roomController: require('./controllers/web/view-room'),
    mapController: require('./controllers/web/view-map'),
    redirectController: require('./controllers/web/redirect'),
@@ -219,7 +219,7 @@ module.exports = function (app) {
    web.authRoute.get('/login', requireWebAuth, init, web.authController.loginView, web.redirectController.redirectMain);
 
    // Login route
-   web.authRoute.get('/login-callback', auth0WebLogin, init, web.authController.setToken, web.redirectController.redirectMain);
+   web.authRoute.get('/login-callback', auth0WebLogin, init, web.authController.verifySignup, web.authController.setToken, web.redirectController.redirectMain);
 
    // Logout route: post로 변경해야함
    web.authRoute.get('/logout', web.authController.logout, init, web.redirectController.redirectMain);
