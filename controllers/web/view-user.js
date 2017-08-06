@@ -53,7 +53,7 @@ exports.viewProfile = function (req, res) {
 
     return res.render('member/mypage', {
         ENV: req.env,
-        logined: req.logined,
+        logined: req.user.logined,
         title: 'userDetailView',
         msg: req.msg,
 
@@ -75,20 +75,56 @@ exports.viewProfile = function (req, res) {
 }
 
 exports.getFollower = function(req, res) {
-  return res.send({});
+  // id->target에서 id추출
+  let userIdx = req.params.memberIdx;
+
+  return User.findAll({
+    include: [{
+      model: User,
+      as: 'Subscribes',
+      where: {
+        ID: userIdx
+      }
+    }],
+  }).then(function(u) {
+    return res.send(u);
+  });
 }
 
 exports.getFollowing = function(req, res) {
-  return res.send({});
+  // id->target에서 target추출
+  let userIdx = req.params.memberIdx;
+
+  return User.findOne({
+    include: [{
+      model: User,
+      as: 'Subscribes'
+    }],
+    where: {
+      ID: userIdx
+    }
+  }).then(function(u) {
+    return res.send(u.Subscribes);
+  });
 }
 
 exports.getPosts = function(req, res) {
   let userIdx = req.params.memberIdx;
 
   return Post.findAll({
+    include: [{
+      model: User
+    }, {
+      model: User,
+      as: 'LikeUsers'
+    },{
+      model: Comment,
+      as: 'Comments'
+    }],
     where: {
       user_id: userIdx,
-    }
+    },
+    order: [['ID', 'DESC']]
   }).then(function(posts) {
     return res.send(posts);
   });
@@ -98,6 +134,9 @@ exports.getReplies = function(req, res) {
   let userIdx = req.params.memberIdx;
 
   return Comment.findAll({
+    include: [{
+      model: User
+    }],
     where: {
       user_id: userIdx
     }
@@ -112,11 +151,23 @@ exports.getLikeposts = function(req, res) {
   return User.findOne({
     include: [{
       model: Post,
-      as: 'LikePosts'
+      as: 'LikePosts',
+      include: [{
+        model: User
+      }, {
+        model: User,
+        as: 'LikeUsers'
+      }, {
+        model: Comment,
+        as: 'Comments'
+      }]
     }],
     where: {
       ID: userIdx
-    }
+    },
+    order: [
+      [ {model: Post, as: 'LikePosts'}, 'ID', 'DESC' ]
+    ]
   }).then(function(user) {
     return res.send(user.LikePosts);
   });
