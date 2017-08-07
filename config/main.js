@@ -8,7 +8,7 @@ var config = {
       "host": "localhost",    // actual hostname for resource hosting
       "dialect": "sqlite",
       "storage": "./db.development.sqlite",
-      "mediaUrl": "http://localhost:3001"    // 미디어/이미지 서버 URL
+      "mediaUrl": "http://localhost:3001",    // 미디어/이미지 서버 URL
       // "mediaUrl": "http://image.cozyhouzz.co.kr:3000"     // 미디어/이미지 서버 URL
    },
 
@@ -68,6 +68,7 @@ config[NODE_ENV].resource = {
 config[NODE_ENV].auth0 = {
    DOMAIN: env_var.AUTH0_DOMAIN,
    CLIENT_ID: env_var.AUTH0_CLIENT_ID,
+   CLIENT_SECRET: env_var.AUTH0_CLIENT_SECRET,
    CALLBACK_URL: env_var.AUTH0_CALLBACK_URL,
    JWKS_URI: env_var.AUTH0_JWKS_URI,
    IDENTIFIER: env_var.AUTH0_IDENTIFIER,

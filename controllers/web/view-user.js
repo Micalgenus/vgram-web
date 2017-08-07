@@ -26,7 +26,8 @@ const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields(
 
 exports.viewProfile = function (req, res) {
 
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.user.ID;
+  // let userIdx = req.params.memberIdx;
 
    var business_type,
       registered_number,

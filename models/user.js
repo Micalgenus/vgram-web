@@ -25,8 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       nickname: {
          type: DataTypes.STRING(45),
-         allowNull: true,
-         unique: true,
+         allowNull: false,
          defaultValue: null
       },
       user_status: {
