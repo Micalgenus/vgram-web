@@ -81,7 +81,14 @@
                 height: 0;
                 outline: none;
                 cursor: inherit;
+
             }
+
+           #map{
+              height:300px;
+              width:100%;
+              margin-bottom: 10px;
+           }
         </style>
         <meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,6 +105,12 @@
         <!-- CSS adjustments for browsers with JavaScript disabled -->
         <!--<noscript><link rel="stylesheet" href="/css/jquery.fileupload-noscript.css"></noscript>
    <noscript><link rel="stylesheet" href="/css/jquery.fileupload-ui-noscript.css"></noscript>-->
+
+
+   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+   <script src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b&libraries=services"></script>
+
+
 </head>
 
 <body>
@@ -152,7 +165,7 @@
                         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                         <div class="row fileupload-buttonbar">
-                            <div class="col-lg-7">
+                            <div class="col-sm-12">
 
                                 <input type="hidden" name="postID" value="1" />
 
@@ -208,7 +221,7 @@
                         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                         <div class="row fileupload-buttonbar">
-                           <div class="col-lg-7">
+                           <div class="col-sm-12">
 
                             <input type="hidden" name="postID" value="1" />
 
@@ -260,12 +273,56 @@
 
                   <div class="tab-content clearfix" id="tabs-23">
 
-                     <div class="col_full">
-                        <!--<label for="comment">Comment</label>-->
-                        <div class="add_info">
-                           <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control" placeholder="please write your information hear"></textarea>
-                        </div>
+                     <div class="col-sm-6">
+                        <div id="map"></div>
+                        <input type="text" id="sample5_address" placeholder="주소">
+                        <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+
                      </div>
+
+                     <div class="col-sm-6">
+                        <!--<label for="comment">Comment</label>-->
+                        <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
+
+                           <div class="form-process"></div>
+
+                           <div class="col_full">
+                              <label for="template-contactform-service">공개 여부</label>
+                              <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+                                 <option value="">-- Select One --</option>
+                                 <option value="Wordpress">Wordpress</option>
+                                 <option value="PHP / MySQL">PHP / MySQL</option>
+                                 <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                                 <option value="Graphic Design">Graphic Design</option>
+                              </select>
+                           </div>
+
+                           <div class="col_full">
+                              <label for="template-contactform-service">카테고리</label>
+                              <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+                                 <option value="">-- Select One --</option>
+                                 <option value="Wordpress">Wordpress</option>
+                                 <option value="PHP / MySQL">PHP / MySQL</option>
+                                 <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                                 <option value="Graphic Design">Graphic Design</option>
+                              </select>
+                           </div>
+
+                           <div class="add_info">
+                              <textarea name="comment" cols="58" rows="4" tabindex="4" class="sm-form-control" placeholder="please write your information hear"></textarea>
+                           </div>
+
+                           <div class="col_full">
+                              <button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="float:right;">글작성</button>
+                           </div>
+
+                           <div class="clear"></div>
+
+                        </form>
+
+
+                     </div>
+
                      <!--<textarea style="width: 100%; height: 100px; margin-top: 20px;" placeholder="please write something here"></textarea>-->
                   </div>
 
@@ -420,6 +477,84 @@
     <!--[if (gte IE 8)&(lt IE 10)]>
     <script src="/components/blueimp-file-upload/js/cors/jquery.xdr-transport.js"></script>
     <![endif]-->
+
+<!--<script>-->
+   <!--function initMap() {-->
+      <!--var uluru = {lat: -25.363, lng: 131.044};-->
+      <!--var map = new google.maps.Map(document.getElementById('map'), {-->
+         <!--zoom: 4,-->
+         <!--center: uluru-->
+      <!--});-->
+      <!--var marker = new google.maps.Marker({-->
+         <!--position: uluru,-->
+         <!--map: map-->
+      <!--});-->
+   <!--}-->
+<!--</script>-->
+<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmBJxwPE3JVdF-PRqp4aZwGlTF5SDIi5E&callback=initMap"></script>-->
+
+<script>
+   var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      mapOption = {
+         center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+         level: 5 // 지도의 확대 레벨
+      };
+
+   //지도를 미리 생성
+   var map = new daum.maps.Map(mapContainer, mapOption);
+   //주소-좌표 변환 객체를 생성
+   var geocoder = new daum.maps.services.Geocoder();
+   //마커를 미리 생성
+   var marker = new daum.maps.Marker({
+      position: new daum.maps.LatLng(37.537187, 127.005476),
+      map: map
+   });
+
+   function sample5_execDaumPostcode() {
+      new daum.Postcode({
+         oncomplete: function(data) {
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = data.address; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 기본 주소가 도로명 타입일때 조합한다.
+            if(data.addressType === 'R'){
+               //법정동명이 있을 경우 추가한다.
+               if(data.bname !== ''){
+                  extraAddr += data.bname;
+               }
+               // 건물명이 있을 경우 추가한다.
+               if(data.buildingName !== ''){
+                  extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+               }
+               // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+               fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("sample5_address").value = fullAddr;
+            // 주소로 좌표를 검색
+            geocoder.addr2coord(data.address, function(status, result) {
+               // 정상적으로 검색이 완료됐으면
+               if (status === daum.maps.services.Status.OK) {
+                  // 해당 주소에 대한 좌표를 받아서
+                  var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+                  // 지도를 보여준다.
+                  mapContainer.style.display = "block";
+                  map.relayout();
+                  // 지도 중심을 변경한다.
+                  map.setCenter(coords);
+                  // 마커를 결과값으로 받은 위치로 옮긴다.
+                  marker.setPosition(coords)
+               }
+            });
+         }
+      }).open();
+   }
+</script>
+
+
 </body>
 
 </html>

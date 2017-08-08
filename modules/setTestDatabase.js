@@ -1,3 +1,4 @@
+'use strict'
 /**
  * Created by KIMSEONHO on 2016-11-12.
  * setting sequelize test database, in tests/data folder.
@@ -74,7 +75,7 @@ function getUserInfoByAuth0(idx, token) {
         telephone: data.user_metadata.telephone,
         createdAt: data.created_at,
         locale: data.user_metadata.locale,
-        // activation_key: 
+        // activation_key:
         profile_image_path: data.user_metadata.profile_image_path,
         updatedAt: data.app_metadata.updated_at,
         meta_value: {
