@@ -11,7 +11,6 @@
     "summernote": "^0.8.4",
     "auth0-lock": "^10.18.0",
     "moment": "^2.18.1",
-    "blueimp-file-upload": "^9.18.0",
-    "cropper": "^2.3.4"
+    "blueimp-file-upload": "^9.18.0"
   }
 }
