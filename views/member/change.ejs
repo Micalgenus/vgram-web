@@ -445,10 +445,9 @@
         // }
 
         getImage(target, function(data) {
-          createCropView(data, function(data) {
-            // console.log(data);
-
-            $preview.attr('src', data);
+          createCropView(data, function(cropData) {
+            console.log(cropData);
+            $('.file-input .file-preview-frame img.file-preview-image').attr('src', cropData);
 
             // $.ajax({
             //   type: "POST",
@@ -511,6 +510,8 @@
       $modal.find('button.button-blue').click(function () {
         let cropData = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
         callback(cropData);
+        cropper.destroy();
+        $modal.hide();
       });
 
       $modal.find('button.button-red').click(function () {
