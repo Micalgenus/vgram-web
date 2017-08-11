@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-
 <head>
   <% include ../static/head.ejs %>
 
-    <style>
-      .heading-icon h4 {
-        display: inline;
-        margin-right: 3pc;
-      }
-      /*.team-image img{*/
-      /*width: 360px;*/
-      /*height: 230px;*/
-      /*}*/
-    </style>
+  <style>
+    .heading-icon h4 {
+      display: inline;
+      margin-right: 3pc;
+    }
+    /*.team-image img{*/
+    /*width: 360px;*/
+    /*height: 230px;*/
+    /*}*/
+  </style>
 
 
-    <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
+  <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
 
-    <link rel="stylesheet" href="../../public/lib/js-canvas/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="../../public/lib/js-canvas/css/responsive.css" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <!-- 다음 우편번호 api-->
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+  <!-- 다음 우편번호 api-->
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 
 
@@ -36,261 +35,273 @@
 
       <!-- Content
 		============================================= -->
-      <section id="content">
+    <section id="content">
 
-        <div class="content-wrap">
+      <div class="content-wrap">
 
-          <div class="container clearfix">
+        <div class="container clearfix">
 
-            <form class="nobottommargin" id="template-contactform" name="template-contactform" method="post">
-              <div class="row clearfix">
+          <form class="nobottommargin" id="change-form" name="template-contactform" method="post">
+            <div class="row clearfix">
 
-                <div class="col-sm-9">
+              <div class="col-sm-9">
 
-                  <img src="../../resources/tests/images/testLogo.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin"
-                    alt="Avatar" style="max-width: 84px;">
+                <img src="../../resources/tests/images/testLogo.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin"
+                  alt="Avatar" style="max-width: 84px;">
 
-                  <div class="heading-block noborder">
-                    <h3> <%= nickname %> <span><%= member_type %></span></h3>
-                    <!--<span>Your Profile Bio</span>-->
-                    <div class="heading-icon">
-                      <h4><i class="icon-line-heart"> 회원좋아요 </i></h4>
-                      <h4><i class=icon-star> 등급 </i></h4>
+                <div class="heading-block noborder">
+                  <h3> <%= nickname %> <span><%= member_type %></span></h3>
+                  <!--<span>Your Profile Bio</span>-->
+                  <div class="heading-icon">
+                    <h4><i class="icon-line-heart"> 회원좋아요 </i></h4>
+                    <h4><i class=icon-star> 등급 </i></h4>
+                  </div>
+
+                  <div class="clear"></div>
+
+                </div>
+
+                <div class="col-md-6 bottommargin">
+                  <label>Basic Select File</label><br>
+                  <!-- <input id="input-1" type="file" class="file"> -->
+                  <div class="kv-avatar center-block text-center" style="width:200px">
+                    <input id="avatar-1" name="avatar-1" type="file" class="file-loading">
+                    <div class="help-block"><small>Select file < 1500 KB</small></div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 bottommargin">
+                  <label for="nickname">닉네임</label><br>
+                  <input type="text" id="nickname" name="nickname" value="<%= nickname %>" class="sm-form-control required show-error-msg" />
+                </div>
+
+                <div class="col-md-3 bottommargin">
+                  <label for="phone">Phone</label><br>
+                  <input type="text" id="phone" name="phone" value="<%= phone %>" class="sm-form-control show-error-msg" />
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="postcontent nobottommargin">
+
+                  <div class="contact-widget">
+
+                    <div class="contact-form-result"></div>
+
+
+                    <div class="form-process"></div>
+
+                    <div class="col_one_third">
+                      <label for="template-contactform-service">사업주 정보</label>
+                      <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+                          <option value="">-- Select One --</option>
+                          <option value="Wordpress">Wordpress</option>
+                          <option value="PHP / MySQL">PHP / MySQL</option>
+                          <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                          <option value="Graphic Design">Graphic Design</option>
+                        </select>
+                    </div>
+
+                    <div class="col_one_third">
+                      <label for="registered_number">사업자 등록번호 <small>*</small></label>
+                      <input type="text" id="registered_number" name="registered_number" value="<%= registered_number %>" class="sm-form-control required show-error-msg" />
+                    </div>
+
+                    <div class="col_one_third col_last">
+                      <label for="template-contactform-email">대표명 <small>*</small></label>
+                      <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
                     </div>
 
                     <div class="clear"></div>
 
                   </div>
 
-                  <div class="col-md-6 bottommargin">
-                    <label>Basic Select File</label><br>
-                    <input id="input-1" type="file" class="file">
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="container clearfix">
+                  <div class="col-sm-9" style="margin-bottom: 20px;">
+                    <input type="text" id="sample4_postcode" name="post_code" value="<%= post_code %>" placeholder="우편번호">
+                    <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" id="sample4_roadAddress" name="addr1" value="<%= addr1 %>" placeholder="도로명주소">
+                    <input type="text" id="sample4_jibunAddress" name="addr2" value="<%= addr2 %>" placeholder="지번주소">
+                    <span id="guide" style="color:#999"></span>
                   </div>
+                </div>
 
-                  <div class="col-md-3 bottommargin">
-                    <label for="nickname">닉네임</label><br>
-                    <input type="text" id="nickname" name="nickname" value="<%= nickname %>" class="sm-form-control required show-error-msg" />
-                  </div>
+                <div class="clear"></div>
 
-                  <div class="col-md-3 bottommargin">
-                    <label for="phone">Phone</label><br>
-                    <input type="text" id="phone" name="phone" value="<%= phone %>" class="sm-form-control show-error-msg" />
-                  </div>
+                <div class="container clearfix">
+                  <div class="col-sm-9">
 
-                  <div class="clear"></div>
+                    <!-- Contact Form Overlay
+                            ============================================= -->
+                    <div id="contact-form" class="clearfix">
 
-                  <div class="postcontent nobottommargin">
+                      <div class="contact-widget">
 
-                    <div class="contact-widget">
+                        <div class="contact-form-result"></div>
 
-                      <div class="contact-form-result"></div>
+                        <!-- Contact Form
+                                    ============================================= -->
+                        <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
 
+                          <div class="col_full">
+                            <label for="template-contactform-name">Website<small>*</small></label>
+                            <input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control" />
+                          </div>
 
-                        <div class="form-process"></div>
+                          <div class="col_full">
+                            <label for="template-contactform-email">Facebook<small>*</small></label>
+                            <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="email sm-form-control" />
+                          </div>
 
-                        <div class="col_one_third">
-                          <label for="template-contactform-service">사업주 정보</label>
-                          <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
-                            <option value="">-- Select One --</option>
-                            <option value="Wordpress">Wordpress</option>
-                            <option value="PHP / MySQL">PHP / MySQL</option>
-                            <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                            <option value="Graphic Design">Graphic Design</option>
-                          </select>
-                        </div>
+                          <div class="clear"></div>
 
-                        <div class="col_one_third">
-                          <label for="registered_number">사업자 등록번호 <small>*</small></label>
-                          <input type="text" id="registered_number" name="registered_number" value="<%= registered_number %>" class="sm-form-control required show-error-msg" />
-                        </div>
-
-                        <div class="col_one_third col_last">
-                          <label for="template-contactform-email">대표명 <small>*</small></label>
-                          <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
-                        </div>
-
-                        <div class="clear"></div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="clear"></div>
-
-                  <div class="container clearfix">
-                    <div class="col-sm-9" style="margin-bottom: 20px;">
-                      <input type="text" id="sample4_postcode" name="post_code" value="<%= post_code %>" placeholder="우편번호">
-                      <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                      <input type="text" id="sample4_roadAddress" name="addr1" value="<%= addr1 %>" placeholder="도로명주소">
-                      <input type="text" id="sample4_jibunAddress" name="addr2" value="<%= addr2 %>" placeholder="지번주소">
-                      <span id="guide" style="color:#999"></span>
-                    </div>
-                  </div>
-
-                  <div class="clear"></div>
-
-                  <div class="container clearfix">
-                    <div class="col-sm-9">
-
-                      <!-- Contact Form Overlay
-                              ============================================= -->
-                      <div id="contact-form" class="clearfix">
-
-                        <div class="contact-widget">
-
-                          <div class="contact-form-result"></div>
-
-                          <!-- Contact Form
-                                      ============================================= -->
-                          <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
-
-                            <div class="col_full">
-                              <label for="template-contactform-name">Website<small>*</small></label>
-                              <input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control" />
-                            </div>
-
-                            <div class="col_full">
-                              <label for="template-contactform-email">Facebook<small>*</small></label>
-                              <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="email sm-form-control" />
-                            </div>
-
-                            <div class="clear"></div>
-
-                            <div class="col_full">
-                              <label for="template-contactform-phone">instagram</label>
-                              <input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
-                            </div>
+                          <div class="col_full">
+                            <label for="template-contactform-phone">instagram</label>
+                            <input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
+                          </div>
 
 
-                            <div class="clear"></div>
+                          <div class="clear"></div>
 
-                            <div class="col_full">
-                              <label for="template-contactform-subject">twitter <small>*</small></label>
-                              <input type="text" id="template-contactform-subject" name="template-contactform-subject" value="" class="sm-form-control" />
-                            </div>
+                          <div class="col_full">
+                            <label for="template-contactform-subject">twitter <small>*</small></label>
+                            <input type="text" id="template-contactform-subject" name="template-contactform-subject" value="" class="sm-form-control" />
+                          </div>
 
-                            <div class="col_full">
-                              <label for="template-contactform-message">Message <small>*</small></label>
-                              <textarea class="sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
-                            </div>
+                          <div class="col_full">
+                            <label for="template-contactform-message">Message <small>*</small></label>
+                            <textarea class="sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
+                          </div>
 
-                            <div class="col_full hidden">
-                              <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
-                            </div>
+                          <div class="col_full hidden">
+                            <input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" class="sm-form-control" />
+                          </div>
 
-                            <div class="col-sm-6">
-                              <button class="button button-3d button-rounded button-green" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Submit</button>
-                            </div>
+                          <div class="col-sm-6">
+                            <button class="button button-3d button-rounded button-green" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Submit</button>
+                          </div>
 
-                            <div class="col-sm-6">
-                              <button class="button button-3d button-rounded button-amber" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="float:right;">계정삭제</button>
-                            </div>
+                          <div class="col-sm-6">
+                            <button class="button button-3d button-rounded button-amber" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="float:right;">계정삭제</button>
+                          </div>
 
-                          </form>
-
-                        </div>
+                        </form>
 
                       </div>
-                      <!-- Contact Form Overlay End -->
 
                     </div>
+                    <!-- Contact Form Overlay End -->
+
                   </div>
-
-
-
-                  <!--<div class="row clearfix">-->
-
-                  <!--<div class="col-md-12">-->
-
-                  <!--<div class="tabs tabs-alt clearfix" id="tabs-profile">-->
-
-                  <!--<ul class="tab-nav clearfix">-->
-                  <!--<li><a href="#tab-follower">Follower</a></li>-->
-                  <!--<li><a href="#tab-following">Following</a></li>-->
-                  <!--<li><a href="#tab-posts">posts</a></li>-->
-                  <!--<li><a href="#tab-replies">replies</a></li>-->
-                  <!--<li><a href="#tab-likeposts">likeposts</a></li>-->
-                  <!--</ul>-->
-
-                  <!--<div class="tab-container">-->
-
-                  <!--<div class="tab-content clearfix" id="tab-follower"></div>-->
-                  <!--<div class="tab-content clearfix" id="tab-following"></div>-->
-                  <!--<div class="tab-content clearfix" id="tab-posts"></div>-->
-                  <!--<div class="tab-content clearfix" id="tab-replies"></div>-->
-                  <!--<div class="tab-content clearfix" id="tab-likeposts"></div>-->
-
-
-                  <!--</div>-->
-
-                  <!--</div>-->
-
-                  <!--</div>-->
-
-                  <!--</div>-->
-
                 </div>
 
-                <div class="line visible-xs-block"></div>
-
-                <div class="col-sm-3 clearfix">
-
-                  <div class="list-group">
-                    <a href="#" class="list-group-item clearfix">Profile <i class="icon-user pull-right"></i></a>
-                    <a href="#" class="list-group-item clearfix">비밀번호 변경 <i class="icon-laptop2 pull-right"></i></a>
-                    <a href="#" class="list-group-item clearfix">Messages <i class="icon-envelope2 pull-right"></i></a>
-                    <a href="#" class="list-group-item clearfix">Billing <i class="icon-credit-cards pull-right"></i></a>
-
-                    <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
-                    <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
-                  </div>
-
-                  <div class="fancy-title topmargin title-border">
-                    <h4>About Me</h4>
-                  </div>
-
-                  <p>test</p>
-
-                  <div class="fancy-title topmargin title-border">
-                    <h4>Social Profiles</h4>
-                  </div>
-
-                  <a href="#" class="social-icon si-colored si-facebook" title="Facebook">
-                    <i class="icon-facebook"></i>
-                    <i class="icon-facebook"></i>
-                  </a>
-
-                  <!--kakaotalk-->
-                  <span href="#" data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
-                    <a id="kakao-link-btn" href="javascript:sendLink()">
-                      <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
-                    </a>
-                  </span>
 
 
-                  <!--band-->
-                  <span href="#" data-lightbox="inline">
-                    <script type="text/javascript">
-                      new ShareBand.makeButton({ "lang": "ko", "type": "d" });
-                    </script>
-                  </span>
+                <!--<div class="row clearfix">-->
+
+                <!--<div class="col-md-12">-->
+
+                <!--<div class="tabs tabs-alt clearfix" id="tabs-profile">-->
+
+                <!--<ul class="tab-nav clearfix">-->
+                <!--<li><a href="#tab-follower">Follower</a></li>-->
+                <!--<li><a href="#tab-following">Following</a></li>-->
+                <!--<li><a href="#tab-posts">posts</a></li>-->
+                <!--<li><a href="#tab-replies">replies</a></li>-->
+                <!--<li><a href="#tab-likeposts">likeposts</a></li>-->
+                <!--</ul>-->
+
+                <!--<div class="tab-container">-->
+
+                <!--<div class="tab-content clearfix" id="tab-follower"></div>-->
+                <!--<div class="tab-content clearfix" id="tab-following"></div>-->
+                <!--<div class="tab-content clearfix" id="tab-posts"></div>-->
+                <!--<div class="tab-content clearfix" id="tab-replies"></div>-->
+                <!--<div class="tab-content clearfix" id="tab-likeposts"></div>-->
 
 
+                <!--</div>-->
 
-                  <!--url share-->
-                  <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
-                    <i class="icon-delicious"></i>
-                    <i class="icon-delicious"></i>
-                  </span>
+                <!--</div>-->
 
+                <!--</div>-->
 
-                </div>
+                <!--</div>-->
+
               </div>
-            </form>
-          </div>
+
+              <div class="line visible-xs-block"></div>
+
+              <div class="col-sm-3 clearfix">
+
+                <div class="list-group">
+                  <a href="#" class="list-group-item clearfix">Profile <i class="icon-user pull-right"></i></a>
+                  <a href="#" class="list-group-item clearfix">비밀번호 변경 <i class="icon-laptop2 pull-right"></i></a>
+                  <a href="#" class="list-group-item clearfix">Messages <i class="icon-envelope2 pull-right"></i></a>
+                  <a href="#" class="list-group-item clearfix">Billing <i class="icon-credit-cards pull-right"></i></a>
+
+                  <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
+                  <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
+                </div>
+
+                <div class="fancy-title topmargin title-border">
+                  <h4>About Me</h4>
+                </div>
+
+                <p>test</p>
+
+                <div class="fancy-title topmargin title-border">
+                  <h4>Social Profiles</h4>
+                </div>
+
+                <a href="#" class="social-icon si-colored si-facebook" title="Facebook">
+                  <i class="icon-facebook"></i>
+                  <i class="icon-facebook"></i>
+                </a>
+
+                <!--kakaotalk-->
+                <span href="#" data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
+                  <a id="kakao-link-btn" href="javascript:sendLink()">
+                    <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
+                  </a>
+                </span>
+
+
+                <!--band-->
+                <span href="#" data-lightbox="inline">
+                  <script type="text/javascript">
+                    new ShareBand.makeButton({ "lang": "ko", "type": "d" });
+                  </script>
+                </span>
+
+
+
+                <!--url share-->
+                <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                  <i class="icon-delicious"></i>
+                  <i class="icon-delicious"></i>
+                </span>
+
+
+              </div>
+            </div>
+          </form>
         </div>
-      </section>
-      <!-- #content end -->
+      </div>
+    </section>
+    <!-- #content end -->
+
+    <div id="cropModal" style="display:none;">
+      <!-- crop 이미지 -->
+      <img id="cropImg" />
+      <!-- 버튼들 -->
+      <button class="button button-3d button-rounded button-red" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">취소</button>
+      <button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">확인</button>
+    </div>
 
   </div>
   <!-- wrapper.clearfix -->
@@ -303,92 +314,224 @@
 
   <!-- LOAD JAVASCRIPT -->
   <% include ../static/js.ejs %>
-    <div id="gotoTop" class="icon-angle-up"></div>
+  <div id="gotoTop" class="icon-angle-up"></div>
 
-    <!--<script>-->
-    <!--jQuery(function($) {-->
-    <!--function getAjax(link) {-->
-    <!--var memberIdx = window.location.href.split('#')[0].split('/');-->
-    <!--memberIdx = memberIdx[memberIdx.length - 1];-->
+  <!--<script>-->
+  <!--jQuery(function($) {-->
+  <!--function getAjax(link) {-->
+  <!--var memberIdx = window.location.href.split('#')[0].split('/');-->
+  <!--memberIdx = memberIdx[memberIdx.length - 1];-->
 
-    <!--$.ajax({-->
-    <!--url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,-->
-    <!--success: function(result) {-->
-    <!--$('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));-->
-    <!--SEMICOLON.widget.loadFlexSlider();-->
-    <!--SEMICOLON.portfolio.arrange();-->
-    <!--}-->
-    <!--});-->
-    <!--}-->
+  <!--$.ajax({-->
+  <!--url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,-->
+  <!--success: function(result) {-->
+  <!--$('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));-->
+  <!--SEMICOLON.widget.loadFlexSlider();-->
+  <!--SEMICOLON.portfolio.arrange();-->
+  <!--}-->
+  <!--});-->
+  <!--}-->
 
-    <!--$('.tab-nav li a').click(function() {-->
-    <!--let link = $(this).attr('href').split('-')[1];-->
-    <!--getAjax(link);-->
-    <!--});-->
+  <!--$('.tab-nav li a').click(function() {-->
+  <!--let link = $(this).attr('href').split('-')[1];-->
+  <!--getAjax(link);-->
+  <!--});-->
 
-    <!--getAjax('follower');-->
-    <!--});-->
-    <!--</script>-->
+  <!--getAjax('follower');-->
+  <!--});-->
+  <!--</script>-->
 
-    <script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
-    <script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+  <script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+  <script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
 
-    <link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css" />
-    <script type="text/javascript" src="/lib/js-canvas/js/components/bs-filestyle.js"></script>
+  <link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css" />
+  <script type="text/javascript" src="/lib/js-canvas/js/components/bs-filestyle.js"></script>
 
+  <!-- Cropper JS -->
+  <link rel="stylesheet" href="/lib/cropperjs/cropper.css" />
+  <script src="/lib/cropperjs/cropper.js"></script>
 
-    <script>
-      //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-      function sample4_execDaumPostcode() {
-        new daum.Postcode({
-          oncomplete: function (data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+  <script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+          // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+          var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-              extraRoadAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if (data.buildingName !== '' && data.apartment === 'Y') {
-              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (extraRoadAddr !== '') {
-              extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
-            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-            if (fullRoadAddr !== '') {
-              fullRoadAddr += extraRoadAddr;
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('sample4_roadAddress').value = fullRoadAddr;
-            document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
-
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if (data.autoRoadAddress) {
-              //예상되는 도로명 주소에 조합형 주소를 추가한다.
-              var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-              document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
-            } else if (data.autoJibunAddress) {
-              var expJibunAddr = data.autoJibunAddress;
-              document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-
-            } else {
-              document.getElementById('guide').innerHTML = '';
-            }
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
           }
-        }).open();
-      }
-    </script>
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+          }
+          // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+          if (fullRoadAddr !== '') {
+            fullRoadAddr += extraRoadAddr;
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
+          document.getElementById('sample4_roadAddress').value = fullRoadAddr;
+          document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+
+          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+          if (data.autoRoadAddress) {
+            //예상되는 도로명 주소에 조합형 주소를 추가한다.
+            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+
+          } else if (data.autoJibunAddress) {
+            var expJibunAddr = data.autoJibunAddress;
+            document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
+          } else {
+            document.getElementById('guide').innerHTML = '';
+          }
+        }
+      }).open();
+    }
+  </script>
+
+  <script>
+    jQuery(function ($) {
+
+      var $profileImg = $("#avatar-1");
+
+      $profileImg.fileinput({
+        overwriteInitial: true,
+        maxFileSize: 1500,
+        showClose: false,
+        showCaption: false,
+        browseOnZoneClick: true,
+        browseLabel: 'browse',
+        removeLabel: 'remove',
+        browseIcon: '<i class="icon-folder-open"></i>',
+        removeIcon: '<i class="icon-remove"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors-1',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="http://localhost:3000/images/logo_cozyhouzz.png" alt="Your Avatar" style="width:160px">',
+        layoutTemplates: { main2: '{preview} {remove} {browse}' },
+        allowedFileExtensions: ["jpg", "png", "gif"]
+      });
+
+      $profileImg.change(function() {
+        // alert('change');
+
+        var $preview = $('.file-preview img');
+
+        var url = $preview.attr('src');
+        var protocol = url.substr(0, 4);
+        var target, getImage;
+
+        // if (protocol != "blob") {
+        //   target = url;
+        //   getImage = toDataURL;
+        // } else {
+          target = $('input#avatar-1[type="file"]')[0].files[0];
+          getImage = getBase64;
+        // }
+
+        getImage(target, function(data) {
+          createCropView(data, function(data) {
+            // console.log(data);
+
+            $preview.attr('src', data);
+
+            // $.ajax({
+            //   type: "POST",
+            //   url: 'http://localhost:3001/convert/profile',
+            //   success: function(result) {
+            //     // $('form#change-form').submit();
+            //   }
+            // });
+          });
+        });
+      });
+    });
+
+    function getBase64(file, callback) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function () {
+        callback(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+    }
+
+    function toDataURL(url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+          callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+      };
+      xhr.open('GET', url);
+      xhr.responseType = 'blob';
+      xhr.send();
+    }
+
+    function createCropView(data, callback) {
+      var $modal = $('#cropModal');
+      var $image = document.getElementById('cropImg');
+
+      // 여기에 모달 기능 구현 하면 됩니다.
+      $modal.show();
+      $modal.find('#cropImg').attr('src', data);
+      
+      var cropper = new Cropper($image, {
+        aspectRatio: 1 / 1,
+        crop: function(e) {
+          // console.log(e.detail.x);
+          // console.log(e.detail.y);
+          // console.log(e.detail.width);
+          // console.log(e.detail.height);
+          // console.log(e.detail.rotate);
+          // console.log(e.detail.scaleX);
+          // console.log(e.detail.scaleY);
+        }
+      });
+
+      $modal.find('button.button-blue').click(function () {
+        let cropData = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
+        callback(cropData);
+      });
+
+      $modal.find('button.button-red').click(function () {
+        alert('취소');
+        cropper.destroy();
+        $modal.hide();
+      });
+    }
+
+    // 전송
+    $('button.button-green').click(function () {
+      $('form#change-form').submit();
+      return false;
+    });
+
+    // 취소
+    $('button.button-amber').click(function () {
+      alert('delete');
+      return false;
+    });
+  </script>
 
 
 </body>
