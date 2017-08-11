@@ -84,6 +84,27 @@
 
             }
 
+            .upload1_2{
+               width:100%;
+               height:136px;
+               /*background-color: grey;*/
+               display: table;
+               text-align: center;
+               background-image: url('/images/plus.png');
+               border: dashed 2px;
+               /*-webkit-background-size:;*/
+               background-size: 142px;
+               background-repeat: no-repeat;
+               background-position: center center;
+            }
+            .upload1_2 h4{
+               /*color: white;*/
+               display: table-cell;
+               vertical-align: bottom;
+               padding-bottom: 15px;
+            }
+
+
            /*#map{*/
               /*height: 300px;*/
               /*width: 300px;*/
@@ -210,15 +231,24 @@
                                 <span class="fileupload-process"></span>
                             </div>
                             <!-- The global progress state -->
-                            <div class="col-lg-5 fileupload-progress fade">
-                                <!-- The global progress bar -->
-                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                                </div>
-                                <!-- The extended global progress state -->
-                                <div class="progress-extended">&nbsp;</div>
-                            </div>
+                            <!--<div class="col-lg-5 fileupload-progress fade">-->
+                                <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
+                                <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
+                                    <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
+                                <!--<div class="progress-extended">&nbsp;</div>-->
+                            <!--</div>-->
                         </div>
+
+
+                        <div class="col_full">
+                              <div class="upload1_2" id="upload1">
+                                <h4><span>drop here! </span></h4>
+                              </div>
+                        </div>
+
+
                         <!-- The table listing the files available for upload/download -->
                         <table role="presentation" class="table table-striped">
                            <tbody class="files"></tbody>
@@ -266,15 +296,24 @@
                               <span class="fileupload-process"></span>
                            </div>
                            <!-- The global progress state -->
-                           <div class="col-lg-5 fileupload-progress fade">
-                              <!-- The global progress bar -->
-                              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                 <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                              </div>
-                              <!-- The extended global progress state -->
-                              <div class="progress-extended">&nbsp;</div>
+                           <!--<div class="col-lg-5 fileupload-progress fade">-->
+                              <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
+                              <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
+                                 <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
+                              <!--</div>-->
+                              <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
+                              <!--<div class="progress-extended">&nbsp;</div>-->
+                           <!--</div>-->
+                        </div>
+
+                        <div class="col_full">
+                           <div class="upload1_2" id="upload2">
+                              <h4><span>Drop here</span></h4>
                            </div>
                         </div>
+
+
+
                         <!-- The table listing the files available for upload/download -->
                         <table role="presentation" class="table table-striped">
                            <tbody class="files"></tbody>
