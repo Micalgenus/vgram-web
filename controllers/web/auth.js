@@ -224,9 +224,13 @@ exports.setToken = function (req, res, next) {
   res.clearCookie('access_token');
   res.clearCookie('user_profile_token');
 
-  res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
+  res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
+  // res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
   res.cookie('access_token', req.user.accessToken);
   res.cookie('user_profile_token', [req.user.tokenType, userToken].join(" "));
+
+  // console.log(req.user);
+  // return res.send(req.user);
 
   return next();
 }
@@ -235,7 +239,9 @@ function getAdminToken() {
   var options = {
     method: 'POST',
     url: config.auth0.ISSUER + 'oauth/token',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'content-type': 'application/json'
+    },
     body: {
       grant_type: 'client_credentials',
       client_id: config.auth0.CLIENT_ID,
@@ -249,6 +255,8 @@ function getAdminToken() {
     return body.access_token;
   });
 }
+
+exports.getAdminToken = getAdminToken;
 
 function getLastId(page, token) {
   var options = {
@@ -270,7 +278,7 @@ function getLastId(page, token) {
 
   return requestp(options).then(function (body) {
     if (body[0] && body[0].app_metadata && body[0].app_metadata.ID) return body[0].app_metadata.ID;
-    return getLastId(page + 1, token).then(function(id) { return id });
+    return getLastId(page + 1, token).then(function (id) { return id });
   });
 }
 
@@ -325,6 +333,7 @@ exports.checkUser = function (req, res, next) {
         }
 
         return request(args, function (e, r, body) {
+
           // create user
           return User.create({
             ID: body.app_metadata.ID,
@@ -353,6 +362,9 @@ exports.checkUser = function (req, res, next) {
               phone_number: body.user_metadata.phone_number,
             }
           }).then(function (newUser) {
+
+            req.user.profile.ID = body.app_metadata.ID;
+
             req.flash('msg', 'completedRegister');
             return next();
           });
