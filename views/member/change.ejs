@@ -349,8 +349,8 @@
    <!-- 모달 폼 -->
    <div class="mfp-hide" id="cropModal">
       <div class="block divcenter">
-         <div class="center" style="width: max;">
-            <div id="crop-InnerModal" style="width: max;">
+         <div class="center" style="width: 500px; height: 500px;">
+            <div id="crop-InnerModal" style="width: 500px; height: 500px; position: fixed; left: 33%;">
                <!-- crop 이미지 -->
                <img id="cropImg"/>
                <!-- 버튼들 -->
@@ -562,6 +562,15 @@
 
       cropper = new Cropper($croppedImage[0], {
             aspectRatio: 1 / 1,
+//            autoCropArea: 0,
+//            strict: true,
+//            guides: false,
+//            highlight: false,
+//            dragCrop: false,
+//            cropBoxMovable: false,
+//            cropBoxResizable: false,
+
+
 //               preview: '.img-preview',
             crop: function (e) {
 //                  $dataX.val(Math.round(e.x));
