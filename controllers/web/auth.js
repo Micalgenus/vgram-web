@@ -14,6 +14,7 @@ const value = require('../../utils/staticValue'),
   message = value.statusMessage;
 
 var request = require('request');
+var requestp = require('request-promise');
 
 var moment = require('moment');
 moment.locale("ko");
@@ -26,7 +27,7 @@ moment.locale("ko");
  * @returns {String}
  */
 
-exports.loginView = function(req, res, next) {
+exports.loginView = function (req, res, next) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -46,7 +47,7 @@ exports.loginView = function(req, res, next) {
   });
 }
 
-exports.logout = function(req, res, next) {
+exports.logout = function (req, res, next) {
   res.clearCookie('authorization');
   res.clearCookie('access_token');
   res.clearCookie('user_profile_token');
@@ -59,7 +60,7 @@ exports.logout = function(req, res, next) {
 //========================================
 // Login & Logout
 //========================================
-exports.signupView = function(req, res) {
+exports.signupView = function (req, res) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -98,7 +99,7 @@ exports.signupView = function(req, res) {
   });
 }
 
-exports.signup = function(req, res, next) {
+exports.signup = function (req, res, next) {
 
   // 로그인이 되어있으면 로그인을 하지 않고 redirect 시킴(jwt 확인)
   if (req.user.logined) {
@@ -162,52 +163,7 @@ exports.signup = function(req, res, next) {
   return next();
 }
 
-exports.verifySignup = function(req, res, next) {
-   // {
-   //    accessToken: accessToken,
-   //    idToken: extraParams.id_token,
-   //    tokenType: extraParams.token_type,
-   //    expiresIn: extraParams.expires_in,
-   //    profile: profile
-   // }
-   let userToken = genToken.generateToken(req.user.profile);   // passport에서 받은 object
-
-   return User.findOne({
-      where: {
-         email: email
-      }
-   }).then(function(user) {
-      if (user) {
-         req.flash('msg', 'alreadyExistMember');
-         return res.redirect('back');
-      }
-
-      return User.create({
-         email: email,
-         password: password,
-         member_type: type,
-         telephone: phone,
-         registered_date: moment.utc().format('YYYY-MM-DD'),
-         display_name: name,
-         locale: "ko_KR",
-         //profile_image_path: "users/profile1_20170125150101.jpg",
-         updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-         user_status: 1,
-         meta_value: {
-            level: 1
-         }
-      }).then(function(newUser) {
-         req.flash('msg', 'completedRegister');
-         return next();
-      });
-   }).catch(function(err) {
-      return next(err);
-   });
-
-   return next();
-}
-
-exports.register = function(req, res, next) {
+exports.register = function (req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
   let type = req.body.member_type;
@@ -218,7 +174,7 @@ exports.register = function(req, res, next) {
     where: {
       email: email
     }
-  }).then(function(user) {
+  }).then(function (user) {
     if (user) {
       req.flash('msg', 'alreadyExistMember');
       return res.redirect('back');
@@ -238,20 +194,20 @@ exports.register = function(req, res, next) {
       meta_value: {
         level: 1
       }
-    }).then(function(newUser) {
+    }).then(function (newUser) {
       req.flash('msg', 'completedRegister');
       return next();
     });
-  }).catch(function(err) {
+  }).catch(function (err) {
     return next(err);
   });
 }
 
-exports.quit = function(req, res, next) {
+exports.quit = function (req, res, next) {
 
 }
 
-exports.setToken = function(req, res, next) {
+exports.setToken = function (req, res, next) {
 
   // {
   //    accessToken: accessToken,
@@ -268,66 +224,151 @@ exports.setToken = function(req, res, next) {
   res.clearCookie('access_token');
   res.clearCookie('user_profile_token');
 
-  res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
+  res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
+  // res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
   res.cookie('access_token', req.user.accessToken);
   res.cookie('user_profile_token', [req.user.tokenType, userToken].join(" "));
+
+  // console.log(req.user);
+  // return res.send(req.user);
 
   return next();
 }
 
-exports.checkUser = function(req, res, next) {
+function getAdminToken() {
+  var options = {
+    method: 'POST',
+    url: config.auth0.ISSUER + 'oauth/token',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: {
+      grant_type: 'client_credentials',
+      client_id: config.auth0.CLIENT_ID,
+      client_secret: config.auth0.CLIENT_SECRET,
+      audience: config.auth0.IDENTIFIER
+    },
+    json: true
+  };
+
+  return requestp(options).then(function (body) {
+    return body.access_token;
+  });
+}
+
+exports.getAdminToken = getAdminToken;
+
+function getLastId(page, token) {
+  var options = {
+    method: 'GET',
+    uri: config.auth0.IDENTIFIER + 'users',
+    qs: {
+      per_page: 1,
+      page: page,
+      sort: 'created_at:-1',
+    },
+    json: true,
+
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+  };
+
+  return requestp(options).then(function (body) {
+    if (body[0] && body[0].app_metadata && body[0].app_metadata.ID) return body[0].app_metadata.ID;
+    return getLastId(page + 1, token).then(function (id) { return id });
+  });
+}
+
+exports.checkUser = function (req, res, next) {
 
   return User.findOne({
     where: {
       email: req.user.profile.email
     }
-  }).then(function(u) {
+  }).then(function (u) {
     // exist user
     if (u) return next();
 
     let info = req.user.profile;
 
-    let args = {
-      method: 'PATCH',
-      uri: 'https://wowjoy-dev.auth0.com/api/v2/users/' + info.user_id,
-      json: {
-        "user_metadata": {
-          "id": 6,
-          "user_status": 1,
-          "nickname": info.user_metadata.nickname,
-          "member_type": info.user_metadata.member_type
+    return getAdminToken().then(function (token) {
+      return getLastId(0, token).then(function (id) {
+        let args = {
+          method: 'PATCH',
+          uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
+          json: {
+            user_metadata: {
+              nickname: info.user_metadata.nickname,
+              username: "",
+              telephone: "",
+              phone_number: "",
+              profile_image_path: "",
+              locale: "ko-kr",
+              registered_number: "",
+              address: {
+                post_code: "",
+                addr1: "",
+                addr2: ""
+              }
+            },
+            app_metadata: {
+              roles: [
+                info.user_metadata.member_type
+              ],
+              user_status: 1,
+              updated_at: req.user.updated_at,
+              point: 0,
+              ID: id + 1,
+            }
+          },
+
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
         }
-      },
 
-      headers: {
-        'Authorization': 'Bearer ' + req.user.idToken,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-    }
+        return request(args, function (e, r, body) {
 
-    return request(args, function(e, r, body) {
+          // create user
+          return User.create({
+            ID: body.app_metadata.ID,
+            email: body.email,
+            password: 'PASSWORD',
+            member_type: body.user_metadata.member_type,
+            nickname: body.user_metadata.nickname,
+            user_status: body.app_metadata.user_status,
+            telephone: body.user_metadata.telephone,
+            createdAt: moment(body.created_at).format('YYYY-MM-DD'),
+            locale: body.user_metadata.locale,
+            // activation_key: 
+            profile_image_path: body.user_metadata.profile_image_path,
+            updatedAt: moment(body.updated_at).format('YYYY-MM-DD'),
+            meta_value: {
+              registered_number: body.user_metadata.registered_number,
+              address: {
+                post_code: body.user_metadata.address.post_code,
+                addr1: body.user_metadata.address.addr1,
+                addr2: body.user_metadata.address.addr2,
+              },
+              point: body.app_metadata.point,
+              // owner_name: "김선호",
+              // business_type: "LANDLORD",
+              // comment: "환영합니다 ^^",
+              phone_number: body.user_metadata.phone_number,
+            }
+          }).then(function (newUser) {
 
-      // return res.send(body);
+            req.user.profile.ID = body.app_metadata.ID;
 
-      // create user
-      return User.create({
-        email: info.email,
-        // password: password,
-        member_type: info.user_metadata.member_type,
-        // telephone: phone,
-        registered_date: moment(info.created_at).format('YYYY-MM-DD'),
-        nickname: info.user_metadata.nickname,
-        locale: "ko-kr",
-        //profile_image_path: "users/profile1_20170125150101.jpg",
-        updated_date: moment(info.updated_at).format('YYYY-MM-DD'),
-        user_status: 1,
-        meta_value: {
-          level: 1
-        }
-      }).then(function(newUser) {
-        req.flash('msg', 'completedRegister');
-        return next();
+            req.flash('msg', 'completedRegister');
+            return next();
+          });
+        });
       });
     });
   });

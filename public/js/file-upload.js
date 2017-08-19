@@ -20,6 +20,7 @@ $(function () {
     $('#fileupload').fileupload({
         type: 'POST',
         url: '//localhost:3001/convert/vtour',
+       dropZone: $('#upload1'),
         singleFileUploads: false,
         beforeSend: function (xhr) {
             setHeader(xhr);
@@ -35,7 +36,8 @@ $(function () {
     $('#fileupload2').fileupload({
         type: 'POST',
         url: '//localhost:3001/convert/images',
-        singleFileUploads: false,
+       dropZone: $('#upload2'),
+       singleFileUploads: false,
         beforeSend: function (xhr) {
             setHeader(xhr);
         },

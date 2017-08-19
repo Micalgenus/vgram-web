@@ -266,9 +266,10 @@ module.exports = function (app) {
   web.rootRoute.use('/user', web.userRoute);
 
   // 회원정보 조회 및 수정(View)
-  web.userRoute.get('/change', requireWebAuth, init, web.userController.viewProfile);
+  web.userRoute.get('/change', requireWebAuth, init, web.userController.viewChangeProfile);
 
   // 회원정보 조회 및 수정(Action)
+  // web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
   web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
 
   // 회원정보 조회

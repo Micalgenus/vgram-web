@@ -95,7 +95,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile2_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      auth0_user_id: "google-oauth2|111943571670757464020",
+      auth0_user_id: "auth0|594d79d9391b872e301393cb",
       user_status: 1,
       meta_value: {
          registered_number: "418-08-80915",
@@ -122,6 +122,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile3_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d7b97391b872e30139499",
       user_status: 1,
       meta_value: {
          registered_number: "418-86-95742",
@@ -148,6 +149,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile1_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d7c77391b872e301394f0",
       user_status: 1,
       meta_value: {
          registered_number: "418-86-95742",
@@ -174,6 +176,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile2_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d7d78391b872e3013955c",
       user_status: 0,      // 휴면계정
       meta_value: {
          registered_number: "418-86-95742",
@@ -200,6 +203,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile3_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d7e00cf1a4c2c243726aa",
       user_status: -1,     // 탈퇴요청
       meta_value: {
          registered_number: "418-86-95742",
@@ -226,6 +230,7 @@ module.exports = [
       locale: "ko-kr",
       profile_image_path: "users/profile1_20170125150101.jpg",
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      auth0_user_id: "auth0|594d7e8d391b872e301395cd",
       user_status: 1,
       meta_value: {
          registered_number: "999-99-99999",
