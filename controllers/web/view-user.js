@@ -41,8 +41,6 @@ exports.viewChangeProfile = function (req, res) {
   }).then(function (u) {
     if (!u) return res.redirect('/');
 
-    // return res.send(u);
-
     u.meta_value = JSON.parse(u.meta_value);
 
     return res.render('member/change', {
@@ -54,6 +52,7 @@ exports.viewChangeProfile = function (req, res) {
       nickname: u.nickname,
       phone: u.telephone,
       member_type: u.member_type,
+      profile_image_path: u.profile_image_path,
 
       registered_number: u.meta_value.registered_number,
       post_code: u.meta_value.address.post_code,
