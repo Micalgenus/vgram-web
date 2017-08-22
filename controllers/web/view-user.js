@@ -41,8 +41,6 @@ exports.viewChangeProfile = function (req, res) {
   }).then(function (u) {
     if (!u) return res.redirect('/');
 
-    // return res.send(u);
-
     u.meta_value = JSON.parse(u.meta_value);
 
     return res.render('member/change', {
@@ -54,6 +52,7 @@ exports.viewChangeProfile = function (req, res) {
       nickname: u.nickname,
       phone: u.telephone,
       member_type: u.member_type,
+      profile_image_path: 'http://localhost:3001' + u.profile_image_path,
 
       registered_number: u.meta_value.registered_number,
       post_code: u.meta_value.address.post_code,
@@ -224,6 +223,7 @@ exports.change = function (req, res, next) {
   const post_code = req.body.post_code;
   const addr1 = req.body.addr1;
   const addr2 = req.body.addr2;
+  const profile_src = req.body.profile_src;
 
   return authController.getAdminToken().then(function (token) {
 
@@ -236,7 +236,7 @@ exports.change = function (req, res, next) {
           username: "",
           telephone: phone,
           phone_number: phone,
-          profile_image_path: "",
+          profile_image_path: profile_src,
           locale: req.user.user_metadata.locale,
           registered_number: registered_number,
           address: {
@@ -259,6 +259,7 @@ exports.change = function (req, res, next) {
       let userData = {
         nickname: nickname,
         telephone: phone,
+        profile_image_path: profile_src,
         meta_value: {
           registered_number: registered_number,
           address: {
