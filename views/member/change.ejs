@@ -65,7 +65,8 @@
                   <label>Basic Select File</label><br>
                   <!-- <input id="input-1" type="file" class="file"> -->
                   <div class="kv-avatar center-block text-center" style="width:200px">
-                    <input id="avatar-1" name="avatar-1" type="file" class="file-loading">
+                    <input id="profile" name="profile" type="file" class="file-loading">
+                    <input id="profile_src" name="profile_src" type="hidden" value="<%= profile_image_path %>" />
                     <div class="help-block">
                       <small>Select file < 1500 KB</small>
                     </div>
@@ -423,7 +424,7 @@
   </script>
 
   <script>
-    var $profileImg = $("#avatar-1");
+    var $profileImg = $("#profile");
     var $cropInnerModal = $('#crop-InnerModal');
     var cropper;
     var orgFileBase;
@@ -441,7 +442,7 @@
       removeTitle: 'Cancel or reset changes',
       elErrorContainer: '#kv-avatar-errors-1',
       msgErrorClass: 'alert alert-block alert-danger',
-      defaultPreviewContent: '<img src="http://localhost:3000/images/logo_cozyhouzz.png" alt="Your Avatar" style="width:160px">',
+      defaultPreviewContent: '<img src="<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',
       layoutTemplates: { main2: '{preview} {remove} {browse}' },
       allowedFileTypes: ['image'],
       allowedFileExtensions: ["jpg", "png"]
@@ -584,8 +585,13 @@
           processData: false,
           contentType: false
         }).done(function(data) {
+          $profile_src = $('#profile_src');
+          $profile_src.attr('value', data.url);
+          // console.log($profile_src.attr('value'));
           $('form#change-form').submit();
         });
+      } else {
+        $('form#change-form').submit();
       }
 
       return false;
