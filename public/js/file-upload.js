@@ -20,7 +20,6 @@ $(function () {
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
         type: 'POST',
-        url: '//localhost:3001/convert/vtour',
         dropZone: $('#upload1'),
         singleFileUploads: false,
         beforeSend: function (xhr) {
@@ -30,7 +29,6 @@ $(function () {
 
     $('#fileupload2').fileupload({
         type: 'POST',
-        url: '//localhost:3001/convert/images',
         dropZone: $('#upload2'),
         singleFileUploads: false,
         beforeSend: function (xhr) {

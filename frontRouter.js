@@ -60,6 +60,13 @@ const init = function (req, res, next) {
   // req.msg = req.flash();
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
+  req.ID = req.user
+            ? (req.user.logined 
+                ? req.user.ID 
+                : null)
+            : null;
+
+
 
   if (_.isEmpty(req.msg)) {
     req.msg = undefined;
@@ -141,6 +148,7 @@ module.exports = function (app) {
     res.render('index', {
       ENV: env,
       logined: req.user.logined,
+      userIdx: req.ID,
       title: 'main',
       msg: req.msg
     });

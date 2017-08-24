@@ -1,0 +1,25 @@
+<li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
+  <div class="comment-wrap clearfix">
+    <div class="comment-meta">
+      <div class="comment-author vcard">
+        <span class="comment-avatar clearfix">
+        <img alt='' src='<%= mediaUrl + comment.user.profile_image_path %>' class='avatar avatar-60 photo' height='60' width='60' /></span>
+      </div>
+    </div>
+    <div class="comment-content clearfix">
+      <div class="comment-author">
+        <a href="">
+          <h6><%= comment.user.nickname %></h6>
+        </a>
+
+        <h6>
+          <%= moment(comment.createdAt).startOf('day').fromNow() %>
+          </h6>
+
+
+          <h6><%= comment.content %></h6>
+        <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+      </div>
+      <div class="clear"></div>
+    </div>
+</li>

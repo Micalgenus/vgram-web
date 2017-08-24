@@ -54,7 +54,7 @@
                      <h3><%= nickname %> <span>member_type: <%= member_type %></span></h3>
                      <!--<span>Your Profile Bio</span>-->
                      <div class="heading-icon">
-                        <h4><i class="icon-line-heart"> 회원좋아요 </i></h4>
+                        <h4><i class="icon-line-heart"> <%= userLikeCount %> </i></h4>
                         <h4><i class=icon-star> 등급 </i></h4>
                      </div>
 
@@ -104,23 +104,14 @@
 
                <div class="col-sm-3 clearfix">
 
-                  <div class="list-group">
-                     <a href="#" class="list-group-item clearfix">Profile <i class="icon-user pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Servers <i class="icon-laptop2 pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Messages <i class="icon-envelope2 pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Billing <i class="icon-credit-cards pull-right"></i></a>
-
-                     <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
-                     <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
-
-                  </div>
+                  <% include ./right-side.ejs %>
 
                   <div class="fancy-title topmargin title-border">
                      <h4>About Me</h4>
                   </div>
 
                   <p>
-                     test
+                     <%= about %>
                   </p>
 
                   <div class="fancy-title topmargin title-border">

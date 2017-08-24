@@ -13,7 +13,7 @@ const moment = require("moment");
 
 const postController = require('../web/view-post');
 
-var config = require("../../config/main");
+const config = require("../../config/main");
 var log = require('console-log-level')({
   prefix: function () {
     return new Date().toISOString()
@@ -470,6 +470,8 @@ exports.getPostInfoJson = function (req, res) {
       likeUserCount: d.post.LikeUsers.length,
       comments: d.comments,
       commentCount: d.commentCount,
+
+      mediaUrl: config.mediaUrl,
 
       data: d
     });

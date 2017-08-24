@@ -64,10 +64,13 @@ exports.createRoomInfoView = function (req, res, next) {
   // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
   return res.render('room/room-new', {
     ENV: req.env,
-    logined: req.user ? req.user.logined : false,
+    logined: req.user.logined,
+    userIdx: req.ID,
     title: "createRoomInfoView",
     msg: req.msg,
     update: false,
+    mediaUrl: config.mediaUrl,
+
     value: {
       placeType: value.placeType,
       room: value.room,
@@ -421,7 +424,8 @@ exports.roomInfoDetailView = function (req, res) {
 
       return res.status(200).render('room/room-detail', {
         ENV: req.env,
-        logined: req.user ? req.user.logined : false,
+        logined: req.user.logined,
+        userIdx: req.ID,
         msg: req.msg,
         title: "roomInfoDetailView",
         roomIdx: idx,

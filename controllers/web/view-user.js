@@ -16,8 +16,9 @@ const value = require('../../utils/staticValue');
 const authController = require('./auth.js');
 const config = require('../../config/main');
 
-var request = require('request');
-var requestp = require('request-promise');
+const request = require('request');
+const requestp = require('request-promise');
+const xss = require('xss');
 
 
 // for file download
@@ -43,22 +44,40 @@ exports.viewChangeProfile = function (req, res) {
 
     u.meta_value = JSON.parse(u.meta_value);
 
-    return res.render('member/change', {
-      ENV: req.env,
-      logined: req.user.logined,
-      title: 'viewChangeProfile',
-      msg: req.msg,
+    return User.findAll({
+      include: [{
+        model: User,
+        as: 'Subscribes',
+        where: {
+          ID: userIdx
+        }
+      }],
+    }).then(function (c) {
 
-      nickname: u.nickname,
-      phone: u.telephone,
-      member_type: u.member_type,
-      profile_image_path: 'http://localhost:3001' + u.profile_image_path,
+      return res.render('member/change', {
+        ENV: req.env,
+        logined: req.user.logined,
+        userIdx: req.user.ID,
+        title: 'viewChangeProfile',
+        msg: req.msg,
 
-      registered_number: u.meta_value.registered_number,
-      post_code: u.meta_value.address.post_code,
-      addr1: u.meta_value.address.addr1,
-      addr2: u.meta_value.address.addr2,
+        mediaUrl: config.mediaUrl,
+
+        nickname: u.nickname,
+        userLikeCount: c.length,
+        phone: u.telephone,
+        member_type: u.member_type,
+        profile_image_path: u.profile_image_path,
+
+        registered_number: u.meta_value.registered_number,
+        post_code: u.meta_value.address.post_code,
+        addr1: u.meta_value.address.addr1,
+        addr2: u.meta_value.address.addr2,
+
+        about: u.meta_value.about
+      });
     });
+
   });
 }
 
@@ -87,27 +106,44 @@ exports.viewProfile = function (req, res) {
   }).then(function (u) {
     if (!u) return res.redirect('/');
 
-    var myPage = false;
-    if (req.user.logined && req.user.ID == userIdx) myPage = true;
+    u.meta_value = JSON.parse(u.meta_value);
 
-    return res.render('member/mypage', {
-      ENV: req.env,
-      logined: req.user.logined,
-      title: 'userDetailView',
-      msg: req.msg,
+    return User.findAll({
+      include: [{
+        model: User,
+        as: 'Subscribes',
+        where: {
+          ID: userIdx
+        }
+      }],
+    }).then(function (c) {
 
-      myPage: myPage,
+      var myPage = false;
+      if (req.user.logined && req.user.ID == userIdx) myPage = true;
 
-      member_type: u.member_type,
-      nickname: u.nickname,
-      profile_image_path: u.profile_image_path,
-      // email: req.user.email,
-      // phone: req.user.telephone,
-      // business_type: business_type,
-      // registered_number: registered_number,
-      // owner_name: owner_name,
-      // company_address: company_address,
-      // intro_comment: intro_comment,
+      return res.render('member/mypage', {
+        ENV: req.env,
+        logined: req.user.logined,
+        userIdx: req.ID,
+        title: 'userDetailView',
+        msg: req.msg,
+
+        myPage: myPage,
+
+        nickname: u.nickname,
+        member_type: u.member_type,
+        userLikeCount: c.length,
+        profile_image_path: config.mediaUrl + u.profile_image_path,
+        
+        about: xss(u.meta_value.about)
+        // email: req.user.email,
+        // phone: req.user.telephone,
+        // business_type: business_type,
+        // registered_number: registered_number,
+        // owner_name: owner_name,
+        // company_address: company_address,
+        // intro_comment: intro_comment,
+      });
     });
   });
 
@@ -224,6 +260,7 @@ exports.change = function (req, res, next) {
   const addr1 = req.body.addr1;
   const addr2 = req.body.addr2;
   const profile_src = req.body.profile_src;
+  const about = req.body.about;
 
   return authController.getAdminToken().then(function (token) {
 
@@ -243,7 +280,8 @@ exports.change = function (req, res, next) {
             post_code: post_code,
             addr1: addr1,
             addr2: addr2
-          }
+          },
+          about: about
         },
       },
 
@@ -268,7 +306,8 @@ exports.change = function (req, res, next) {
             addr2: addr2
           },
           point: 0,
-          phone_number: ""
+          phone_number: "",
+          about: about
         }
       };
 
