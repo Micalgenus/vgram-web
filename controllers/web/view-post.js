@@ -9,7 +9,11 @@ const Coordinate = models.coordinate;
 const Comment = models.comment;
 const UserPostLike = models.user_post_like_relationship;
 
-exports.getPostInfo = function(ID) {
+const moment = require("moment");
+
+var config = require("../../config/main");
+
+exports.getPostInfo = function (ID) {
     return Post.findOne({
         include: [{
             model: User,
@@ -35,9 +39,9 @@ exports.getPostInfo = function(ID) {
             ID: ID
         },
         order: [
-            [ {model: Comment, as: 'Comments'}, 'createdAt', 'DESC' ]
+            [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
         ]
-    }).then(function(p) {
+    }).then(function (p) {
         let positions = p.icl_translation.coordinates;
         let likeCount = p.LikeUsers.length;
         let commentCount = p.Comments.length;
@@ -49,5 +53,44 @@ exports.getPostInfo = function(ID) {
             comments: p.Comments,
             commentCount: commentCount
         }
+    });
+}
+
+exports.createPostComment = function (req, res) {
+
+    var postIdx = req.params.postIdx;
+    var comment = req.body.comment;
+    var userIdx = req.user.ID;
+    var createdAt = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+    var updatedAt = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+
+    // db에 넣으면 됨
+    /*
+        models.User.create({userID: '유저ID', password: '유저PW'})
+        .then(result => {
+           res.json(result);
+        })
+        .catch(err => {
+           console.error(err);
+        });
+        */
+
+    return Comment.create({
+        post_id: postIdx,
+        user_id: userIdx,
+        content: comment,
+        createdAt: createdAt,
+        updatedAt: updatedAt
+    }).then(function (c) {
+        return User.findOne({
+            ID: userIdx
+        }).then(function (u) {
+            return res.send({
+                user: u,
+                createdAt: createdAt,
+                comment: comment,
+                mediaUrl: config.mediaUrl
+            });
+        });
     });
 }

@@ -66,8 +66,7 @@
 <!--댓글 작성 시작-->
 <div class="col_full">
   <div class="col_four_fifth col_last" style="margin-bottom: 20px;">
-    <input type="hidden" name="post_id" value="<%= data.postId %>" />
-    <input type="text" name="url" id="url" value="" size="22" tabindex="3" class="sm-form-control" />
+    <input type="text" name="comment" id="comment" size="22" tabindex="3" class="sm-form-control" />
   </div>
   <span><button style="float: right;" name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit</button>
 </span>
@@ -77,8 +76,20 @@
 jQuery(function($) {
   $('#submit-button').click(function() {
     $.ajax({
+      type: 'POST',
+      url: '/post/comment/new/<%= data.postId %>',
+      data: {
+        comment: $('#comment').val()
+      },
       success: function(data) {
-        alert(data);
+        let comments = {
+          content: data.comment,
+          user: data.user,
+          createdAt : data.createdAt
+        }
+
+        let appendData = new EJS({ url: '/template/mfp/mfp-comment.ejs' }).render({comment: comments, mediaUrl: data.mediaUrl});
+        $('#commentBox').prepend(appendData);
       },
       error: function(error) {
         alert(error);
@@ -92,7 +103,7 @@ jQuery(function($) {
 <!--댓글 작성 끝-->
 
 <!-- 댓글 표시 시작-->
-<ul>
+<ul id="commentBox">
   <% for (var i = 0; i < data.comments.length; i++) { %>
     <%= new EJS({ url: '/template/mfp/mfp-comment.ejs' }).render({comment: data.comments[i], mediaUrl: data.mediaUrl}) %>
   <% } %>
