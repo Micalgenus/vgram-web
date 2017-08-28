@@ -62,12 +62,10 @@ const init = function (req, res, next) {
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
   req.ID = req.user
-            ? (req.user.logined 
-                ? req.user.ID 
-                : null)
+            ? (req.user.logined ? req.user.ID : null)
             : null;
 
-
+          
 
   if (_.isEmpty(req.msg)) {
     req.msg = undefined;
@@ -363,7 +361,7 @@ module.exports = function (app) {
   web.postRoute.use('/room', web.roomRoute);
 
   //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-  web.roomRoute.get('/', init, web.roomController.roomInfoListView);
+  web.roomRoute.get('/', requireWebAuth, init, web.roomController.roomInfoListView);
 
   // create new Room Info from authenticated userRoute
   web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);

@@ -33,7 +33,8 @@ const value = require('../../utils/staticValue');
 exports.roomInfoListView = function (req, res) {
   return res.render('room/room-list', {
     ENV: req.env,
-    logined: req.user ? req.user.logined : false,
+    logined: req.user.logined,
+    userIdx: req.ID,
     title: "roomInfoListView",     // locale과 매칭되는 변수명을 적어야함.
     msg: req.msg,
     lat: value.mapLocationCenter.lat,
