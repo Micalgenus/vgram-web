@@ -96,3 +96,14 @@ exports.createPostComment = function (req, res) {
         });
     });
 }
+
+exports.controlpost = function (req, res) {
+    
+        var postIdx = req.params.postIdx;
+        var userIdx = req.user.ID;
+
+        Post.Destroy();
+
+   
+    }
+    
