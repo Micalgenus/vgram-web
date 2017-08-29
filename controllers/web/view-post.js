@@ -61,8 +61,8 @@ exports.createPostComment = function (req, res) {
     var postIdx = req.params.postIdx;
     var comment = req.body.comment;
     var userIdx = req.user.ID;
-    var createdAt = moment.utc().format('YYYY-MM-DD HH:mm:ss');
-    var updatedAt = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+    var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    var updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
     // db에 넣으면 됨
     /*
@@ -83,7 +83,9 @@ exports.createPostComment = function (req, res) {
         updatedAt: updatedAt
     }).then(function (c) {
         return User.findOne({
-            ID: userIdx
+            where: {
+                ID: userIdx
+            }
         }).then(function (u) {
             return res.send({
                 user: u,

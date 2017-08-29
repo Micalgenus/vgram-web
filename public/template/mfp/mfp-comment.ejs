@@ -11,15 +11,10 @@
         <a href="">
           <h6><%= comment.user.nickname %></h6>
         </a>
-
         <h6>
-          <%= moment(comment.createdAt).startOf('day').fromNow() %>
-          <%= comment.createdAt %>
-          </h6>
-
-
-
-          <h6><%= comment.content %></h6>
+          <%= moment(comment.createdAt).fromNow() %>
+        </h6>
+        <h6><%= comment.content %></h6>
         <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
       </div>
       <div class="clear"></div>
