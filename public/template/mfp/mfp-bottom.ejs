@@ -66,7 +66,8 @@
 <!--댓글 작성 시작-->
 <div class="col_full">
   <div class="col_four_fifth col_last" style="margin-bottom: 20px;">
-    <input type="text" name="comment" id="comment" size="22" tabindex="3" class="sm-form-control" />
+    <input type="text" name="comment" id="comment" size="22" tabindex="3" class="sm-form-control" onblur="if(this.value!=''){this.value='';}">
+    
   </div>
   <span><button style="float: right;" name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit</button>
 </span>
