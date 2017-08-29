@@ -96,3 +96,62 @@ exports.createPostComment = function (req, res) {
         });
     });
 }
+
+
+exports.createPostComment = function (req, res) {
+
+    var postIdx = req.params.postIdx;
+    var comment = req.body.comment;
+    var userIdx = req.user.ID;
+    var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    var updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    // db에 넣으면 됨
+    /*
+        models.User.create({userID: '유저ID', password: '유저PW'})
+        .then(result => {
+           res.json(result);
+        })
+        .catch(err => {
+           console.error(err);
+        });
+        */
+
+    return Comment.create({
+        post_id: postIdx,
+        user_id: userIdx,
+        content: comment,
+        createdAt: createdAt,
+        updatedAt: updatedAt
+    }).then(function (c) {
+        return User.findOne({
+            where: {
+                ID: userIdx
+            }
+        }).then(function (u) {
+            return res.send({
+                user: u,
+                createdAt: createdAt,
+                comment: comment,
+                mediaUrl: config.mediaUrl
+            });
+        });
+    });
+}
+
+exports.controlpost = function (req, res) {
+    
+        var postIdx = req.params.postIdx;
+        var userIdx = req.user.ID;
+        var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        var updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    
+      if(req.user_id==userIdx){
+        Post.Destroy({where : {user_id : req.user_id}})
+        .then(result => {
+            console.log('del is active man');
+        })
+
+      }
+    }
+    
