@@ -56,6 +56,15 @@ const requireAPIAuth = jwt({
 
 const checkScopes = jwtAuthz(['read:messages']);
 
+const loginCheck = function(req, res, next) {
+  if (!req.user.logined) {
+    req.msg = 'login please';
+    return res.redirect('back');
+  }
+
+  return next();
+};
+
 const init = function (req, res, next) {
   req.msg = req.flash('error')[0] || req.flash('msg')[0] || req.flash('success')[0];
   // req.msg = req.flash();
@@ -340,7 +349,7 @@ module.exports = function (app) {
 
   // create new Room Info from authenticated userRoute
   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  web.postRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+  web.postRoute.post('/new', requireWebAuth, loginCheck, web.roomController.createRoomInfo);
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);

@@ -83,6 +83,26 @@ exports.createRoomInfoView = function (req, res, next) {
   });
 }
 
+
+exports.createRoomInfo = function (req, res, next) {
+
+  return Post.create({
+    user_id: req.user.ID,
+    title: req.body.title,
+    content: req.body.content,
+    post_status: req.body.post_status,
+    post_type: 'POST',
+    locale: req.user.locale,
+    createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+    updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+    meta_value: {
+      written_device: 'web'
+    }
+  }).then(function(p) {
+    return res.send({ID: p.ID});
+  });
+};
+
 // 1. file 다운로드, request parameter check
 // 2. core.createRoomInfoAndVRPano -> return promise
 // 3. promise에 따른 결과값 return
@@ -92,139 +112,139 @@ exports.createRoomInfoView = function (req, res, next) {
  * @param res
  * @param next
  */
-exports.createRoomInfo = function (req, res, next) {
-  var sendPostID;
-  var sendRoomID;
-  if (!req.user.logined) {
-    req.flash('msg', "requiredLogin");
-    // return res.redirect('/post/room');
-    return res.redirect('back');
-  }
+// exports.createRoomInfo = function (req, res, next) {
+//   var sendPostID;
+//   var sendRoomID;
+//   if (!req.user.logined) {
+//     req.flash('msg', "requiredLogin");
+//     // return res.redirect('/post/room');
+//     return res.redirect('back');
+//   }
 
-  if (!req.body.title) {
-    return res.status(401).json({
-      errorMsg: 'You must enter an required field! please check title',
-      statusCode: -1
-    });
-  }
+//   if (!req.body.title) {
+//     return res.status(401).json({
+//       errorMsg: 'You must enter an required field! please check title',
+//       statusCode: -1
+//     });
+//   }
 
-  if (!req.body.roomType) {
-    return res.status(401).json({
-      errorMsg: 'You must enter an required field! please check roomType',
-      statusCode: -1
-    });
-  }
+//   if (!req.body.roomType) {
+//     return res.status(401).json({
+//       errorMsg: 'You must enter an required field! please check roomType',
+//       statusCode: -1
+//     });
+//   }
 
-  if (!req.body.address) {
-    return res.status(401).json({
-      errorMsg: 'You must enter an required field! please check address',
-      statusCode: -1
-    });
-  }
+//   if (!req.body.address) {
+//     return res.status(401).json({
+//       errorMsg: 'You must enter an required field! please check address',
+//       statusCode: -1
+//     });
+//   }
 
-  const metaData = {
+//   const metaData = {
 
-    shortTerm: req.body.shortTermContract == "" ? false : true,
-    conditionType: req.body.conditionType,
-    floor: req.body.floors,
-    manageExpense: req.body.contactformManageExpense == "" ? null : _.toNumber(req.body.contactformManageExpense),
-    // 라디오 버튼 클릭이 안됨
-    //    options:
-    //    0:  "internet"
-    //    1:  "TV"
-    //    2:  "washer"
-    //    3:  "airConditioner"
-    //    4:  "bed"
-    //    5:  "desk"
-    //    6:  "closet"
-    //다중 클릭이 가능해져서 어떤것을 넣어야될지를 모름
-    //    parking:boolean
-    //    elevator:boolean
-    heatingType: req.body.heatingType == "" ? null : req.body.heatingType
+//     shortTerm: req.body.shortTermContract == "" ? false : true,
+//     conditionType: req.body.conditionType,
+//     floor: req.body.floors,
+//     manageExpense: req.body.contactformManageExpense == "" ? null : _.toNumber(req.body.contactformManageExpense),
+//     // 라디오 버튼 클릭이 안됨
+//     //    options:
+//     //    0:  "internet"
+//     //    1:  "TV"
+//     //    2:  "washer"
+//     //    3:  "airConditioner"
+//     //    4:  "bed"
+//     //    5:  "desk"
+//     //    6:  "closet"
+//     //다중 클릭이 가능해져서 어떤것을 넣어야될지를 모름
+//     //    parking:boolean
+//     //    elevator:boolean
+//     heatingType: req.body.heatingType == "" ? null : req.body.heatingType
 
-  };
+//   };
 
-  // DB에 insert하는 부분
-  return models.sequelize.transaction(function (t) {
+//   // DB에 insert하는 부분
+//   return models.sequelize.transaction(function (t) {
 
-    // post 테이블 내용 추가
-    return Post.create({
-      user_id: req.user.ID,
-      title: req.body.title,
-      content: req.body.detail,
-      post_status: "PUBLISH",
-      post_type: "ROOM",
-      locale: "ko_KR",
-      post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_modified_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      like: 0,
-      read_count: 0,
-      // 체크박스가 제대로 되지 않아서 일부부만 넣음.
-      meta_value: metaData
-    }, { transaction: t }).then(function (createPost) {
-      sendPostID = createPost.ID;
-      //room 테이블 내용 추가
-      return Room.create({
-        post_id: createPost.ID,
-        room_type: req.body.roomType,
-        deposit: req.body.deposit,
-        monthly_rent_fee: req.body.monthly,
-        area_size: req.body.actualSize,
-        //meta_value:,
-        // thumbnail_image_path:,
-        // thumbnail_media_id :
-      }, { transaction: t }).then(function (createRoom) {
-        sendRoomID = createRoom.ID;
-        // icl_translation 테이블 내용 추가
-        return Translation.create({
-          element_id: createPost.ID,
-          element_type: 'post',
-          group_id: createPost.ID,
-          language_code: 'ko-kr',
-          original_language_code: 'ko-kr'
-        }, { transaction: t }).then(function (createTranslation) {
+//     // post 테이블 내용 추가
+//     return Post.create({
+//       user_id: req.user.ID,
+//       title: req.body.title,
+//       content: req.body.detail,
+//       post_status: "PUBLISH",
+//       post_type: "ROOM",
+//       locale: "ko_KR",
+//       post_init_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+//       post_modified_date_gmt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+//       like: 0,
+//       read_count: 0,
+//       // 체크박스가 제대로 되지 않아서 일부부만 넣음.
+//       meta_value: metaData
+//     }, { transaction: t }).then(function (createPost) {
+//       sendPostID = createPost.ID;
+//       //room 테이블 내용 추가
+//       return Room.create({
+//         post_id: createPost.ID,
+//         room_type: req.body.roomType,
+//         deposit: req.body.deposit,
+//         monthly_rent_fee: req.body.monthly,
+//         area_size: req.body.actualSize,
+//         //meta_value:,
+//         // thumbnail_image_path:,
+//         // thumbnail_media_id :
+//       }, { transaction: t }).then(function (createRoom) {
+//         sendRoomID = createRoom.ID;
+//         // icl_translation 테이블 내용 추가
+//         return Translation.create({
+//           element_id: createPost.ID,
+//           element_type: 'post',
+//           group_id: createPost.ID,
+//           language_code: 'ko-kr',
+//           original_language_code: 'ko-kr'
+//         }, { transaction: t }).then(function (createTranslation) {
 
-          //Coordinate 테이블 내용 추가
-          return Coordinate.create({
-            translation_group_id: createTranslation.ID,
-            // 넘어오는곳이 없음. 그래서 임시로 temp 문자열을 넣음
-            region_code: 'temp',
-            lat: 'temp',
-            lng: 'temp'
-          }, { transaction: t }).then(function (createCoordinate) {
-            //Address 테이블 내용 추가
-            return Address.create({
-              translation_id: createPost.ID,
-              coordinate_id: createCoordinate.ID,
-              post_code: req.body.postcode,
-              //region_code: ,
-              // 도로명 주소인지 지번주소인지 구별할 구분자가 없음.
-              // 그래서 그냥 req로 넘어오는 주소 다 때려박음
-              // add1, add2 나중에 수정하기
-              addr1: req.body.address,
-              addr2: req.body.address,
-              detail: req.body.detail,
-              extra_info: req.body.extraInfo,
-              locale: createTranslation.language_code,
-              translation_group_id: createCoordinate.translation_group_id
-            }, { transaction: t });
-          }).then(function (result) {
-            // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
+//           //Coordinate 테이블 내용 추가
+//           return Coordinate.create({
+//             translation_group_id: createTranslation.ID,
+//             // 넘어오는곳이 없음. 그래서 임시로 temp 문자열을 넣음
+//             region_code: 'temp',
+//             lat: 'temp',
+//             lng: 'temp'
+//           }, { transaction: t }).then(function (createCoordinate) {
+//             //Address 테이블 내용 추가
+//             return Address.create({
+//               translation_id: createPost.ID,
+//               coordinate_id: createCoordinate.ID,
+//               post_code: req.body.postcode,
+//               //region_code: ,
+//               // 도로명 주소인지 지번주소인지 구별할 구분자가 없음.
+//               // 그래서 그냥 req로 넘어오는 주소 다 때려박음
+//               // add1, add2 나중에 수정하기
+//               addr1: req.body.address,
+//               addr2: req.body.address,
+//               detail: req.body.detail,
+//               extra_info: req.body.extraInfo,
+//               locale: createTranslation.language_code,
+//               translation_group_id: createCoordinate.translation_group_id
+//             }, { transaction: t });
+//           }).then(function (result) {
+//             // post_id 와 room의 id를 저장해놓고 이미지 서버로 전송해야함.
 
-            res.status(200).json({
-              postID: sendPostID,
-              roomID: sendRoomID
-            });
+//             res.status(200).json({
+//               postID: sendPostID,
+//               roomID: sendRoomID
+//             });
 
-            return models.sequelize.Promise.resolve();
-          }).catch(function (err) {
-            return console.log(err);
-          });
-        });
-      });
-    });
-  });
-}
+//             return models.sequelize.Promise.resolve();
+//           }).catch(function (err) {
+//             return console.log(err);
+//           });
+//         });
+//       });
+//     });
+//   });
+// }
 
 
 // preview image 수정 후 잘 뜨는지 확인해야함.
