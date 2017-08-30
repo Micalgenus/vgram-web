@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-
 <head>
   <% include ../static/head.ejs %>
   <!--<link rel="stylesheet" type="text/css" href="/lib/jquery.fullPage/jquery.fullPage.css" />-->
@@ -713,6 +712,16 @@
       
       $('#tabs-23 button.button-blue').click(function () {
 
+        if ($('#fileupload .template-upload').length == 0) {
+          alert('please vrimage upload');
+          return false;
+        }
+        
+        if ($('#fileupload2 .template-upload').length == 0) {
+          alert('please normal image upload');
+          return false;
+        }
+
         const address1 = $("#sample5_address").val();
         const address2 = $("#address2").val();
         const lat = $("#lat").val();
@@ -722,6 +731,7 @@
         const category = $("#category").val();
         const title = $("#title").val();
         const content = $('#summernote').summernote('code');
+
 
         $.post({
           url: location.href,
@@ -739,12 +749,11 @@
           success: function (result) {
             // change postId
             const postId = result.ID;
-            console.log($('input[name="postID"]').val(postId));
+            $('input[name="postID"]').val(postId);
 
             // submit images
-
-            // alert(result);
-            // console.log(result);
+            $('#fileupload button[type="submit"]').click();
+            $('#fileupload2 button[type="submit"]').click();
           },
           error: function (error) {
             alert(error);

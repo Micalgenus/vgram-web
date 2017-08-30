@@ -351,6 +351,9 @@ module.exports = function (app) {
   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.roomController.createRoomInfo);
 
+  // delete post
+  web.postRoute.get('/delete/:postIdx([0-9]+)', requireWebAuth, web.postController.deletePost);
+
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
 

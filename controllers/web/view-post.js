@@ -97,13 +97,27 @@ exports.createPostComment = function (req, res) {
     });
 }
 
-exports.controlpost = function (req, res) {
-    
-        var postIdx = req.params.postIdx;
-        var userIdx = req.user.ID;
+exports.deletePost = function (req, res) {
+    var postIdx = req.params.postIdx;
 
-        Post.Destroy();
+    return Post.findOne({
+        where: {
+            Id: postIdx
+        }
+    }).then(function (p) {
+        if (p.user_id == req.user.ID) {
+            return Post.destroy({
+                where: {
+                    ID: postIdx
+                }
+            }).then(function (p) {
+                return res.redirect('back');
+            });
+        }
 
-   
-    }
-    
+        return res.status(400).json({
+            errorMsg: '다른 회원',
+            statusCode: -1
+        });
+    });
+}
