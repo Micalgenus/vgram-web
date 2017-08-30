@@ -83,26 +83,6 @@ exports.createRoomInfoView = function (req, res, next) {
   });
 }
 
-
-exports.createRoomInfo = function (req, res, next) {
-
-  return Post.create({
-    user_id: req.user.ID,
-    title: req.body.title,
-    content: req.body.content,
-    post_status: req.body.post_status,
-    post_type: 'POST',
-    locale: req.user.locale,
-    createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-    updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-    meta_value: {
-      written_device: 'web'
-    }
-  }).then(function(p) {
-    return res.send({ID: p.ID});
-  });
-};
-
 // 1. file 다운로드, request parameter check
 // 2. core.createRoomInfoAndVRPano -> return promise
 // 3. promise에 따른 결과값 return

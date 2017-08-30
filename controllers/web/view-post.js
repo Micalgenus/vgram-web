@@ -56,6 +56,25 @@ exports.getPostInfo = function (ID) {
     });
 }
 
+exports.createPostInfo = function (req, res, next) {
+
+    return Post.create({
+        user_id: req.user.ID,
+        title: req.body.title,
+        content: req.body.content,
+        post_status: req.body.post_status,
+        post_type: req.body.category,
+        locale: req.user.locale,
+        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        meta_value: {
+            written_device: 'web'
+        }
+    }).then(function (p) {
+        return res.send({ ID: p.ID });
+    });
+};
+
 exports.createPostComment = function (req, res) {
 
     var postIdx = req.params.postIdx;

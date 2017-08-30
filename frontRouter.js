@@ -349,7 +349,7 @@ module.exports = function (app) {
 
   // create new Room Info from authenticated userRoute
   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  web.postRoute.post('/new', requireWebAuth, loginCheck, web.roomController.createRoomInfo);
+  web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
 
   // delete post
   web.postRoute.get('/delete/:postIdx([0-9]+)', requireWebAuth, web.postController.deletePost);
@@ -377,7 +377,7 @@ module.exports = function (app) {
 
   // create new Room Info from authenticated userRoute
   web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+  // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
 
 
   // update Room Info Info from authenticated userRoute

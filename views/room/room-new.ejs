@@ -722,6 +722,11 @@
           return false;
         }
 
+        if (!$('#lat').val() || !$('#lat').val() || !$('#sample5_address').val()) {
+          alert('please select address');
+          return false;
+        }
+
         const address1 = $("#sample5_address").val();
         const address2 = $("#address2").val();
         const lat = $("#lat").val();
