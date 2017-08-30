@@ -161,35 +161,35 @@
                               <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
 
                                 <div class="col_full">
-                                  <label for="template-contactform-name">Website<small>*</small></label>
-                                  <input type="text" id="template-contactform-name" name="template-contactform-name" value="" class="sm-form-control" />
+                                  <label for="website">Website</label>
+                                  <input type="text" id="website" name="website" value="<%= sns.website %>" class="sm-form-control" />
                                 </div>
 
                                 <div class="col_full">
-                                  <label for="template-contactform-email">Facebook<small>*</small></label>
-                                  <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="email sm-form-control"
+                                  <label for="facebook">Facebook</label>
+                                  <input type="email" id="facebook" name="facebook" value="<%= sns.facebook %>" class="email sm-form-control"
                                   />
                                 </div>
 
                                 <div class="clear"></div>
 
                                 <div class="col_full">
-                                  <label for="template-contactform-phone">instagram</label>
-                                  <input type="text" id="template-contactform-phone" name="template-contactform-phone" value="" class="sm-form-control" />
+                                  <label for="instagram">instagram</label>
+                                  <input type="text" id="instagram" name="instagram" value="<%= sns.instagram %>" class="sm-form-control" />
                                 </div>
 
 
                                 <div class="clear"></div>
 
                                 <div class="col_full">
-                                  <label for="template-contactform-subject">twitter<small>*</small></label>
-                                  <input type="text" id="template-contactform-subject" name="template-contactform-subject" value="" class="sm-form-control"
+                                  <label for="twitters">twitter</label>
+                                  <input type="text" id="twitter" name="twitter" value="<%= sns.twitter %>" class="sm-form-control"
                                   />
                                 </div>
 
                                 <div class="col_full">
-                                  <label for="template-contactform-message">Message<small>*</small></label>
-                                  <textarea class="sm-form-control" id="template-contactform-message" name="template-contactform-message" rows="6" cols="30"></textarea>
+                                  <label for="about">Message</label>
+                                  <textarea class="sm-form-control" id="about" name="about" rows="6" cols="30"><%= about %></textarea>
                                 </div>
 
                                 <div class="col_full hidden">

@@ -54,6 +54,8 @@ exports.viewChangeProfile = function (req, res) {
       }],
     }).then(function (c) {
 
+      let sns = u.meta_value.sns || {};
+
       return res.render('member/change', {
         ENV: req.env,
         logined: req.user.logined,
@@ -73,6 +75,8 @@ exports.viewChangeProfile = function (req, res) {
         post_code: u.meta_value.address.post_code,
         addr1: u.meta_value.address.addr1,
         addr2: u.meta_value.address.addr2,
+
+        sns: sns,
 
         about: u.meta_value.about
       });
@@ -121,6 +125,8 @@ exports.viewProfile = function (req, res) {
       var myPage = false;
       if (req.user.logined && req.user.ID == userIdx) myPage = true;
 
+      let sns = u.meta_value.sns || {};
+
       return res.render('member/mypage', {
         ENV: req.env,
         logined: req.user.logined,
@@ -134,7 +140,9 @@ exports.viewProfile = function (req, res) {
         member_type: u.member_type,
         userLikeCount: c.length,
         profile_image_path: config.mediaUrl + u.profile_image_path,
-        
+
+        sns: sns,
+
         about: xss(u.meta_value.about)
         // email: req.user.email,
         // phone: req.user.telephone,
@@ -256,11 +264,20 @@ exports.change = function (req, res, next) {
   const nickname = req.body.nickname;
   const phone = req.body.phone;
   const registered_number = req.body.registered_number;
-  const post_code = req.body.post_code;
-  const addr1 = req.body.addr1;
-  const addr2 = req.body.addr2;
+  const address = {
+    post_code: req.body.post_code,
+    addr1: req.body.addr1,
+    addr2: req.body.addr2
+  };
   const profile_src = req.body.profile_src;
   const about = req.body.about;
+
+  const sns = {
+    website: req.body.website,
+    facebook: req.body.facebook,
+    instagram: req.body.instagram,
+    twitter: req.body.twitter
+  };
 
   return authController.getAdminToken().then(function (token) {
 
@@ -276,11 +293,8 @@ exports.change = function (req, res, next) {
           profile_image_path: profile_src,
           locale: req.user.user_metadata.locale,
           registered_number: registered_number,
-          address: {
-            post_code: post_code,
-            addr1: addr1,
-            addr2: addr2
-          },
+          address: address,
+          sns: sns,
           about: about
         },
       },
@@ -300,11 +314,8 @@ exports.change = function (req, res, next) {
         profile_image_path: profile_src,
         meta_value: {
           registered_number: registered_number,
-          address: {
-            post_code: post_code,
-            addr1: addr1,
-            addr2: addr2
-          },
+          address: address,
+          sns: sns,
           point: 0,
           phone_number: "",
           about: about
