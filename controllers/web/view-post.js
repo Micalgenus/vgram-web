@@ -117,27 +117,31 @@ exports.createPostComment = function (req, res) {
 }
 
 exports.deletePost = function (req, res) {
-    var postIdx = req.params.postIdx;
+  var postIdx = req.params.postIdx;
 
-    return Post.findOne({
+  return Post.findOne({
+    where: {
+      Id: postIdx
+    }
+  }).then(function (p) {
+    if (p.user_id == req.user.ID) {
+      return Post.destroy({
         where: {
-            Id: postIdx
+          ID: postIdx
         }
-    }).then(function (p) {
-        if (p.user_id == req.user.ID) {
-            return Post.destroy({
-                where: {
-                    ID: postIdx
-                }
-            }).then(function (p) {
-                return res.redirect('back');
-            });
-        }
+      }).then(function (p) {
+        return res.redirect('back');
+      });
+    }
 
-        return res.status(400).json({
-            errorMsg: '다른 회원',
-            statusCode: -1
-        });
+    return res.status(400).json({
+      errorMsg: '다른 회원',
+      statusCode: -1
+    });
+  });
+}
+
+
 exports.getPostInfoJson = function (req, res) {
   var idx = req.params.postIdx;
 
