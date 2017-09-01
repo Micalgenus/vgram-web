@@ -155,5 +155,40 @@ exports.getPostInfoJson = function (req, res) {
     });
   });
 }
+
+exports.roomHtmlList = function (req, res) {
+
+  let page = req.params.roomListPage;
+  let count = 6;
+  let index = count * (page - 1);
+
+  return Post.findAll({
+    include: [{
+      model: User
+    }, {
+      model: Comment,
+      as: 'Comments',
+      attributes: ["ID", "post_id"]
+    }, {
+      model: User,
+      as: 'LikeUsers'
+    }],
+    limit: count,
+    offset: index,
+    order: [
+      ['createdAt', 'DESC'],
+      ['ID', 'DESC']
+    ],
+    where: {
+      post_type: {
+        $notIn: ['NOTICE', 'EVENT']
+      }
+    }
+  }).then(function (r) {
+    if (!r) return res.status(404).send();
+
+    return res.render('room/room-scroll', {
+      room: r
     });
-}
+  });
+};

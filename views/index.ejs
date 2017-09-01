@@ -95,12 +95,10 @@
                  ============================================= -->
             <ul id="portfolio-filter" class="portfolio-filter clearfix" data-container="#portfolio">
 
-               <li class="activeFilter"><a href="#" data-filter="*">모두보기</a></li>
-               <li><a href="#" data-filter=".pf-icons">이벤트</a></li>
-               <li><a href="#" data-filter=".pf-illustrations">컨텐츠</a></li>
-               <li><a href="#" data-filter=".pf-uielements">여행</a></li>
-               <li><a href="#" data-filter=".pf-media">디자인</a></li>
-               <li><a href="#" data-filter=".pf-graphics">감성</a></li>
+              <li class="activeFilter"><a href="#" data-filter="*">모두보기</a></li>
+              <% for (i in value.placeType) { %>
+                <li><a href="#" data-filter=".<%= i %>"><%= __("placeType")[i] %></a></li>
+              <% } %>
 
             </ul><!-- #portfolio-filter end -->
 
@@ -131,7 +129,7 @@
 
 
 <div id="load-next-posts" class="center">
-  <a href="/post/room/html/2" class="button button-full button-dark button-rounded">Load more...</a>
+  <a href="/post/html/2" class="button button-full button-dark button-rounded">Load more...</a>
 </div>
 
 <footer>
@@ -175,7 +173,7 @@
 			});
 
       $.ajax({
-        url: "/post/room/html/1",
+        url: "/post/html/1",
         success: function(data) {
           $container.append(data);
           

@@ -133,6 +133,7 @@ exports.viewProfile = function (req, res) {
         userIdx: req.ID,
         title: 'userDetailView',
         msg: req.msg,
+        mediaUrl: config.mediaUrl,
 
         myPage: myPage,
 

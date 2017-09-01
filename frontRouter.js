@@ -365,7 +365,10 @@ module.exports = function (app) {
   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
-  api.postRoute.get('/info/:postIdx([0-9]+)', api.postController.getPostInfoJson);
+  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
+
+  // index list
+  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.roomHtmlList);
 
   // comment
   web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);

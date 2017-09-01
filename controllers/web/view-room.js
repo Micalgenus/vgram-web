@@ -575,7 +575,7 @@ exports.roomInfoListJson = function (req, res) {
       attributes: ['ID', 'title', 'read_count', 'thumbnail_image_path'],
       include: [{
         model: User,
-        attributes: ['email', 'telephone'],
+        attributes: ['email', 'telephone', 'profile_image_path'],
       }, {
         model: Translation,
         attributes: ['group_id'],
