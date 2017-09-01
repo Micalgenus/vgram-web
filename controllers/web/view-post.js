@@ -138,5 +138,22 @@ exports.deletePost = function (req, res) {
             errorMsg: '다른 회원',
             statusCode: -1
         });
+exports.getPostInfoJson = function (req, res) {
+  var idx = req.params.postIdx;
+
+  return getPostInfo(idx).then(function (d) {
+    return res.send({
+      postId: d.post.ID,
+
+      likeUserCount: d.post.LikeUsers.length,
+      comments: d.comments,
+      commentCount: d.commentCount,
+
+      mediaUrl: config.mediaUrl,
+
+      data: d
+    });
+  });
+}
     });
 }

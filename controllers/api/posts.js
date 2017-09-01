@@ -459,21 +459,3 @@ exports.viewRoomDetail = function (req, res) {
     }
   })
 };
-
-exports.getPostInfoJson = function (req, res) {
-  var idx = req.params.postIdx;
-
-  return postController.getPostInfo(idx).then(function (d) {
-    return res.send({
-      postId: d.post.ID,
-
-      likeUserCount: d.post.LikeUsers.length,
-      comments: d.comments,
-      commentCount: d.commentCount,
-
-      mediaUrl: config.mediaUrl,
-
-      data: d
-    });
-  });
-}
