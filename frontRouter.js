@@ -161,7 +161,16 @@ module.exports = function (app) {
       logined: req.user.logined,
       userIdx: req.ID,
       title: 'main',
-      msg: req.msg
+      msg: req.msg,
+
+      value: {
+        placeType: value.placeType,
+        room: value.room,
+        floors: value.floors,
+        postStatus: value.postStatus,
+        postType: value.postType,
+        lang: req.lang
+      }
     });
   });
 
