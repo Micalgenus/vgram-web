@@ -217,12 +217,15 @@ var roomList = (function() {
 
     function makeRoom(data) {
       let imgServerAddr = "/";
+      console.log(data);
       return ListData.template.makeTemplate('/template/room-data.ejs', {
         image_path: imgServerAddr + JSON.parse(data.post.thumbnail_image_path)[0].vrimages[0].thumb,
         deposit: data.deposit,
         monthly_rent_fee: data.monthly_rent_fee,
         title: data.post.title,
-        room_type: data.room_type
+        room_type: data.room_type,
+        mediaUrl: 'http://localhost:3001/',
+        profile_image_path: data.post.user.profile_image_path
       });
     };
 
