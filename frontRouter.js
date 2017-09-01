@@ -300,11 +300,11 @@ module.exports = function (app) {
   // Set userRoute routes as a subgroup/middleware to api.rootRoute
   api.rootRoute.use('/user', api.userRoute);
 
-  api.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
   //회원정보 수정
   api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
