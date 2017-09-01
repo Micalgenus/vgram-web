@@ -344,8 +344,8 @@ exports.checkUser = function (req, res, next) {
             user_status: body.app_metadata.user_status,
             telephone: body.user_metadata.telephone,
             createdAt: moment(body.created_at).format('YYYY-MM-DD'),
+             auth0_user_id: body.user_id,
             locale: body.user_metadata.locale,
-            // activation_key: 
             profile_image_path: body.user_metadata.profile_image_path,
             updatedAt: moment(body.updated_at).format('YYYY-MM-DD'),
             meta_value: {

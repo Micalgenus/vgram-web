@@ -7,7 +7,6 @@ const _ = require('lodash');
 var path = require('path');
 var scriptName = path.basename(__filename);
 
-var request = require('request');
 var requestp = require('request-promise');
 
 var config = require('../config/main');
@@ -36,78 +35,66 @@ function getAllUserInfoByAuth0() {
     json: true
   };
 
-  // console.log(config);
+  // get access key
   return requestp(options).then(function (body) {
-    // console.log(body);
-    return getUserInfoByAuth0(0, body.access_token).then(function (u) { return u; });
-  });
+     let args = {
+        method: 'GET',
+        uri: config.auth0.IDENTIFIER + 'users',
+        // qs: {
+        //   'per_page': 50,
+        //   'page': idx
+        // },
 
-}
+        headers: {
+           'Authorization': 'Bearer ' + body.access_token,
+           'Content-Type': 'application/json',
+           'Accept': 'application/json'
+        },
+     }
 
-function getUserInfoByAuth0(idx, token) {
+     return requestp(args).then(function (body) {
+        if (body != '[]') {
+           let datas = JSON.parse(body);
 
-  let args = {
-    method: 'GET',
-    uri: config.auth0.IDENTIFIER + 'users',
-    qs: {
-      'per_page': 1,
-      'page': idx
-    },
+           let users = _.map(datas, function(data) {
+              let u = {
+                 ID: data.app_metadata.ID,
+                 email: data.email,
+                 // password: 'PASSWORD',
+                 member_type: data.app_metadata.roles[0],
+                 nickname: data.user_metadata.nickname,
+                 user_status: data.app_metadata.user_status,
+                 telephone: data.user_metadata.telephone,
+                 createdAt: data.created_at,
+                 auth0_user_id: data.user_id,
+                 locale: data.user_metadata.locale,
+                 profile_image_path: data.user_metadata.profile_image_path,
+                 updatedAt: data.app_metadata.updated_at,
+                 meta_value: {
+                    registered_number: data.user_metadata.registered_number,
+                    address: {
+                       post_code: data.user_metadata.address.post_code,
+                       addr1: data.user_metadata.address.addr1,
+                       addr2: data.user_metadata.address.addr2,
+                    },
+                    point: data.app_metadata.point,
+                    // owner_name: "김선호",
+                    // business_type: "LANDLORD",
+                    // comment: "환영합니다 ^^",
+                    phone_number: data.user_metadata.phone_number,
+                 }
+              }
 
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-  }
+              return u;
+           });
 
-  return requestp(args).then(function (body) {
-    if (body != '[]') {
-      let data = JSON.parse(body)[0];
-
-      let u = {
-        ID: data.app_metadata.ID,
-        email: data.email,
-        password: 'PASSWORD',
-        member_type: data.app_metadata.roles[0],
-        nickname: data.user_metadata.nickname,
-        user_status: data.app_metadata.user_status,
-        telephone: data.user_metadata.telephone,
-        createdAt: data.created_at,
-        locale: data.user_metadata.locale,
-        // activation_key:
-        profile_image_path: data.user_metadata.profile_image_path,
-        updatedAt: data.app_metadata.updated_at,
-        meta_value: {
-          registered_number: data.user_metadata.registered_number,
-          address: {
-            post_code: data.user_metadata.address.post_code,
-            addr1: data.user_metadata.address.addr1,
-            addr2: data.user_metadata.address.addr2,
-          },
-          point: data.app_metadata.point,
-          // owner_name: "김선호",
-          // business_type: "LANDLORD",
-          // comment: "환영합니다 ^^",
-          phone_number: data.user_metadata.phone_number,
-        }
-      }
-
-      let user = [u];
-      return getUserInfoByAuth0(idx + 1, token).then(function (p) {
-        if (p == '[]') {
-          return user;
+           return users;
+        } else {
+           return [];
         }
 
-        for (var i = 1; i <= p.length; i++) {
-          user[i] = p[i - 1];
-        }
-
-        return user;
-      });
-    }
-
-    return body;
+        return body;
+     });
   });
 }
 
@@ -116,8 +103,8 @@ module.exports = function (testDB) {
 
     testDB["user"] = [];
 
-    return getAllUserInfoByAuth0().then(function (u) {
-      testDB["user"] = u;
+    return getAllUserInfoByAuth0().then(function (users) {
+      testDB["user"] = users;
       // Foreign Key 때문에 입력 순서대로 넣어야한다.
       var modelnames = ["user", "user_meta", "post", "post_meta", "attached", "media", "room", "post_media_relationship",
         "post_attached_relationship", "user_post_relationship", "user_user_relationship", "user_post_like_relationship",
