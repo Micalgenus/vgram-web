@@ -59,7 +59,7 @@ const requireAPIAuth = jwt({
 
 const checkScopes = jwtAuthz(['read:messages']);
 
-const loginCheck = function(req, res, next) {
+const loginCheck = function (req, res, next) {
   if (!req.user.logined) {
     req.msg = 'login please';
     return res.redirect('back');
@@ -74,10 +74,10 @@ const init = function (req, res, next) {
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
   req.ID = req.user
-            ? (req.user.logined ? req.user.ID : null)
-            : null;
+    ? (req.user.logined ? req.user.ID : null)
+    : null;
 
-          
+
 
   if (_.isEmpty(req.msg)) {
     req.msg = undefined;
