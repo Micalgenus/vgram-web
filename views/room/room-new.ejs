@@ -388,8 +388,6 @@
                     <div class="col_full">
                       <label for="category">카테고리</label>
                       <select id="category" name="category" class="sm-form-control">
-                        <option value="">-- Select One --</option>
-                            
                         <% for (i in value.placeType) { %>
                           <option value="<%= i %>"><%= __("placeType")[i] %></option>
                         <% } %>
@@ -398,7 +396,7 @@
 
                     <div class="col_full">
                       <label for="title">제목</label>
-                      <input type="text" name="title" id="title" class="sm-form-control"/>
+                      <input type="text" name="title" id="title" class="sm-form-control" required/>
                     </div>
 
                     <div id="summernote"></div>
@@ -495,7 +493,8 @@
         <td>
           <p class="name">
             {% if (file.url) { %}
-              <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a>                {% } else { %}
+              <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a>
+            {% } else { %}
               <span>{%=file.name%}</span>
             {% } %}
           </p>
@@ -727,6 +726,17 @@
           return false;
         }
 
+        if (!$("#title").val()) {
+          alert('please write title');
+          return false;
+        }
+
+        if ($('#summernote').summernote('isEmpty')) {
+          alert('please write content');
+          return false;
+        }
+
+
         const address1 = $("#sample5_address").val();
         const address2 = $("#address2").val();
         const lat = $("#lat").val();
@@ -757,8 +767,20 @@
             $('input[name="postID"]').val(postId);
 
             // submit images
-            $('#fileupload button[type="submit"]').click();
-            $('#fileupload2 button[type="submit"]').click();
+            $('#fileupload button[type="submit"]').click();   // vr image
+            $('#fileupload2 button[type="submit"]').click();    // normal image
+
+            var stopInterval = function(interval) {
+              clearInterval(interval);
+            }
+
+            var t = setInterval(function() {
+              if ($('#fileupload .template-upload').length == 0 && $('#fileupload2 .template-upload').length == 0) {
+                alert('upload success !');
+                stopInterval(t);
+                location.reload();
+              }
+            }, 500);
           },
           error: function (error) {
             alert(error);

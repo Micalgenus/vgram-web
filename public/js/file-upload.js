@@ -18,21 +18,37 @@ $(function () {
     };
 
     // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload({
+
+    let $vrImageUpload = $('#fileupload');
+    let $normalImageUpload = $('#fileupload2');
+
+    $vrImageUpload.fileupload({
         type: 'POST',
         dropZone: $('#upload1'),
         singleFileUploads: false,
         beforeSend: function (xhr) {
             setHeader(xhr);
         },
+        done: function (e, data) {
+            $vrImageUpload.find('.template-upload').remove();
+        },
+        fail: function (e, data) {
+            alert('vr images upload fail');
+        },
     });
 
-    $('#fileupload2').fileupload({
+    $normalImageUpload.fileupload({
         type: 'POST',
         dropZone: $('#upload2'),
         singleFileUploads: false,
         beforeSend: function (xhr) {
             setHeader(xhr);
+        },
+        done: function (e, data) {
+            $normalImageUpload.find('.template-upload').remove();
+        },
+        fail: function (e, data) {
+            alert('normal images upload fail');
         },
     });
 });

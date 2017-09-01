@@ -13,7 +13,6 @@ const moment = require("moment");
 
 var config = require("../../config/main");
 
-exports.getPostInfo = function (ID) {
     return Post.findOne({
         include: [{
             model: User,
@@ -54,25 +53,62 @@ exports.getPostInfo = function (ID) {
             commentCount: commentCount
         }
     });
+let getPostInfo = function (ID) {
 }
+
+exports.getPostInfo = getPostInfo;
 
 exports.createPostInfo = function (req, res, next) {
 
+  return models.sequelize.transaction(function (t) {
     return Post.create({
-        user_id: req.user.ID,
-        title: req.body.title,
-        content: req.body.content,
-        post_status: req.body.post_status,
-        post_type: req.body.category,
-        locale: req.user.locale,
-        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        meta_value: {
-            written_device: 'web'
-        }
-    }).then(function (p) {
-        return res.send({ ID: p.ID });
+      user_id: req.user.ID,
+      title: req.body.title,
+      content: req.body.content,
+      post_status: req.body.post_status,
+      post_type: req.body.category,
+      locale: req.user.locale,
+      createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+      meta_value: {
+        written_device: 'web'
+      }
+    }, { transaction: t }).then(function (p) {
+      // console.log(req.user);
+      return Translation.create({
+        element_id: p.ID,
+        // element_type: "post", // ??
+        group_id: 0,
+        language_code: req.user.user_metadata.locale,
+      }, { transaction: t }).then(function (i) {
+        return Translation.update({
+          group_id: i.ID
+        }, { where: { ID: i.ID }, transaction: t }).then(function () {
+          return Coordinate.create({
+            translation_group_id: i.ID,
+            // region_code: 
+            lat: req.body.lat,
+            lng: req.body.lng,
+          }, { transaction: t }).then(function (c) {
+            return Address.create({
+              translation_id: i.ID,
+              coordinate_id: c.ID,
+              // post_code: 
+              // region_code:
+              addr1: req.body.address1,
+              addr2: req.body.address1,
+              detail: req.body.address2,
+              // extra_info: 
+              locale: i.language_code,
+              translation_group_id: i.ID
+            }, { transaction: t }).then(function (a) {
+              return res.send({ ID: p.ID });
+            });
+          });
+        });
+      });
     });
+  });
 };
 
 exports.createPostComment = function (req, res) {
