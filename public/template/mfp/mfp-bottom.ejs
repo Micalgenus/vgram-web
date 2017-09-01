@@ -1,5 +1,6 @@
 <% console.log(data) %>
 <h6>
+  <a href="/post/delete/<%= data.postId %>">Delete</a>
   <div class="mfp_count">
     <p class="nobottommargin">
 
@@ -66,44 +67,48 @@
 <!--댓글 작성 시작-->
 <div class="col_full">
   <div class="col_four_fifth col_last" style="margin-bottom: 20px;">
-    <input type="text" name="url" id="url" value="" size="22" tabindex="3" class="sm-form-control" />
+    <input type="text" name="comment" id="comment" size="22" tabindex="3" class="sm-form-control">
+    
   </div>
   <span><button style="float: right;" name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit</button>
 </span>
 </div>
 
+<script>
+jQuery(function($) {
+  $('#submit-button').click(function() {
+    $.ajax({
+      type: 'POST',
+      url: '/post/comment/new/<%= data.postId %>',
+      data: {
+        comment: $('#comment').val()
+      },
+      success: function(data) {
+        let comments = {
+          content: data.comment,
+          user: data.user,
+          createdAt : data.createdAt
+        }
+
+        let appendData = new EJS({ url: '/template/mfp/mfp-comment.ejs' }).render({comment: comments, mediaUrl: data.mediaUrl});
+        $('#commentBox').prepend(appendData);
+        $('#comment').val('');
+      },
+      error: function(error) {
+        alert(error);
+      }
+    });
+  });
+});
+</script>
+
 <div class="clear"></div>
 <!--댓글 작성 끝-->
 
 <!-- 댓글 표시 시작-->
-<ul>
-  <% console.log(data) %>
+<ul id="commentBox">
   <% for (var i = 0; i < data.comments.length; i++) { %>
-  <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
-    <div class="comment-wrap clearfix">
-      <div class="comment-meta">
-        <div class="comment-author vcard">
-          <span class="comment-avatar clearfix">
-              <img alt='' src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' /></span>
-        </div>
-      </div>
-      <div class="comment-content clearfix">
-        <div class="comment-author">
-          <a href="">
-            <h6><%= data.comments[i].user.nickname %></h6>
-          </a>
-
-          <h6>
-           <%= moment(data.comments[i].createdAt).startOf('day').fromNow() %>
-           </h6>
-
-
-           <h6><%= data.comments[i].content %></h6>
-          <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-        </div>
-        <div class="clear"></div>
-      </div>
-  </li>
+    <%= new EJS({ url: '/template/mfp/mfp-comment.ejs' }).render({comment: data.comments[i], mediaUrl: data.mediaUrl}) %>
   <% } %>
 </ul>
 <!-- 댓글 표시 끝-->

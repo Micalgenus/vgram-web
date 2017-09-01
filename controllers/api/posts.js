@@ -13,7 +13,7 @@ const moment = require("moment");
 
 const postController = require('../web/view-post');
 
-var config = require("../../config/main");
+const config = require("../../config/main");
 var log = require('console-log-level')({
   prefix: function () {
     return new Date().toISOString()
@@ -459,19 +459,3 @@ exports.viewRoomDetail = function (req, res) {
     }
   })
 };
-
-exports.getPostInfoJson = function (req, res) {
-  var idx = req.params.postIdx;
-
-  return postController.getPostInfo(idx).then(function (d) {
-    return res.send({
-      postId: d.post.ID,
-
-      likeUserCount: d.post.LikeUsers.length,
-      comments: d.comments,
-      commentCount: d.commentCount,
-
-      data: d
-    });
-  });
-}

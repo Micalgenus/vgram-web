@@ -32,19 +32,17 @@
 		"userDetailView": "회원 정보 상세보기"
 	},
 	"placeType": {
-		"APARTMENT": "아파트",
-		"VILLA": "빌라",
-		"DETACHED_HOUSE": "주택",
-		"ONE_ROOM": "원룸",
-		"TWO_ROOM": "투룸",
-		"THREE_ROOM": "쓰리룸",
-		"OFFICETEL": "오피스텔",
-		"OFFICE": "사무실",
-		"SHOPPING": "상가",
-		"CAFE_RESTAURANT": "카페/식당",
-		"WEDDING": "웨딩",
-		"ACADEMY": "교육장소",
-		"HOSPITAL": "병원"
+		"NORMAL": "일반",
+		"TRAVEL": "여행",
+		"REALTY": "부동산",
+		"BUILDING": "건물",
+		"ACCOMMODATION": "숙박",
+		"HOTEL": "호텔",
+		"VACATION_SPOT": "휴양지",
+		"RESTAURANT": "레스토랑",
+		"MUSEUM": "박물관",
+		"VEHICLE": "차량",
+		"AIRLINE": "항공"
 	},
 	"businessType": {
 		"HOTEL": "호텔",

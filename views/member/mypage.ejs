@@ -54,7 +54,7 @@
                      <h3><%= nickname %> <span>member_type: <%= member_type %></span></h3>
                      <!--<span>Your Profile Bio</span>-->
                      <div class="heading-icon">
-                        <h4><i class="icon-line-heart"> 회원좋아요 </i></h4>
+                        <h4><i class="icon-line-heart"> <%= userLikeCount %> </i></h4>
                         <h4><i class=icon-star> 등급 </i></h4>
                      </div>
 
@@ -104,62 +104,7 @@
 
                <div class="col-sm-3 clearfix">
 
-                  <div class="list-group">
-                     <a href="#" class="list-group-item clearfix">Profile <i class="icon-user pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Servers <i class="icon-laptop2 pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Messages <i class="icon-envelope2 pull-right"></i></a>
-                     <a href="#" class="list-group-item clearfix">Billing <i class="icon-credit-cards pull-right"></i></a>
-
-                     <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
-                     <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
-
-                  </div>
-
-                  <div class="fancy-title topmargin title-border">
-                     <h4>About Me</h4>
-                  </div>
-
-                  <p>
-                     test
-                  </p>
-
-                  <div class="fancy-title topmargin title-border">
-                     <h4>Social Profiles</h4>
-                  </div>
-
-                  <a href="#" class="social-icon si-colored si-facebook" title="Facebook">
-                     <i class="icon-facebook"></i>
-                     <i class="icon-facebook"></i>
-                  </a>
-
-                  <!--kakaotalk-->
-                  <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
-                         <a id="kakao-link-btn" href="javascript:sendLink()">
-                            <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
-                         </a>
-                      </span>
-
-
-                  <!--band-->
-                  <span href="#" data-lightbox="inline">
-                          <script type="text/javascript">
-                            new ShareBand.makeButton({"lang": "ko", "type": "d"});
-                          </script>
-                        </span>
-
-
-
-                  <!--url share-->
-                  <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
-                           <i class="icon-delicious"></i>
-                           <i class="icon-delicious"></i>
-                  </span>
-
-
-
-
-
-
+                  <% include ./right-side.ejs %>
 
                </div>
 
@@ -190,9 +135,9 @@
          memberIdx = memberIdx[memberIdx.length - 1];
 
          $.ajax({
-            url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,
+            url: 'http://localhost:3000/user/' + memberIdx + '/json/' + link,
             success: function(result) {
-               $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));
+               $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
                SEMICOLON.widget.loadFlexSlider();
                SEMICOLON.portfolio.arrange();
             }

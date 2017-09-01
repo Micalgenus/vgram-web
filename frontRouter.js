@@ -17,13 +17,13 @@ var config = require('./config/main');
 const value = require('./utils/staticValue');
 
 var web = {
-   authController: require('./controllers/web/auth'),
-   postController: require('./controllers/web/view-post'),
-   roomController: require('./controllers/web/view-room'),
-   mapController: require('./controllers/web/view-map'),
-   redirectController: require('./controllers/web/redirect'),
-   userController: require('./controllers/web/view-user'),
-   testController: require('./controllers/web/test'),
+  authController: require('./controllers/web/auth'),
+  roomController: require('./controllers/web/view-room'),
+  mapController: require('./controllers/web/view-map'),
+  redirectController: require('./controllers/web/redirect'),
+  userController: require('./controllers/web/view-user'),
+  testController: require('./controllers/web/test'),
+  postController: require('./controllers/web/view-post'),
 };
 
 var api = {
@@ -41,26 +41,43 @@ const requireAPIAuth = jwt({
   // Dynamically provide a signing key
   // based on the kid in the header and
   // the singing keys provided by the JWKS endpoint.
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: config.auth0.JWKS_URI
-  }),
+
+  // secret: jwksRsa.expressJwtSecret({
+  //   cache: true,
+  //   rateLimit: true,
+  //   jwksRequestsPerMinute: 5,
+  //   jwksUri: config.auth0.JWKS_URI
+  // }),
+
+  secret: config.secret,
 
   // Validate the audience and the issuer.
   audience: config.auth0.IDENTIFIER,
   issuer: config.auth0.ISSUER,
-  algorithms: ['RS256']
+  algorithms: [config.auth0.ALGORITHM]
 });
 
 const checkScopes = jwtAuthz(['read:messages']);
+
+const loginCheck = function (req, res, next) {
+  if (!req.user.logined) {
+    req.msg = 'login please';
+    return res.redirect('back');
+  }
+
+  return next();
+};
 
 const init = function (req, res, next) {
   req.msg = req.flash('error')[0] || req.flash('msg')[0] || req.flash('success')[0];
   // req.msg = req.flash();
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
+  req.ID = req.user
+    ? (req.user.logined ? req.user.ID : null)
+    : null;
+
+
 
   if (_.isEmpty(req.msg)) {
     req.msg = undefined;
@@ -142,8 +159,18 @@ module.exports = function (app) {
     res.render('index', {
       ENV: env,
       logined: req.user.logined,
+      userIdx: req.ID,
       title: 'main',
-      msg: req.msg
+      msg: req.msg,
+
+      value: {
+        placeType: value.placeType,
+        room: value.room,
+        floors: value.floors,
+        postStatus: value.postStatus,
+        postType: value.postType,
+        lang: req.lang
+      }
     });
   });
 
@@ -282,11 +309,11 @@ module.exports = function (app) {
   // Set userRoute routes as a subgroup/middleware to api.rootRoute
   api.rootRoute.use('/user', api.userRoute);
 
-  api.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-  api.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
   //회원정보 수정
   api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
@@ -334,7 +361,10 @@ module.exports = function (app) {
 
   // create new Room Info from authenticated userRoute
   web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  web.postRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+  web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
+
+  // delete post
+  web.postRoute.get('/delete/:postIdx([0-9]+)', requireWebAuth, web.postController.deletePost);
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
@@ -344,7 +374,13 @@ module.exports = function (app) {
   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
-  api.postRoute.get('/info/:postIdx([0-9]+)', api.postController.getPostInfoJson);
+  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
+
+  // index list
+  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.roomHtmlList);
+
+  // comment
+  web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
 
   //=========================
   // web - Room Info Routes
@@ -352,11 +388,11 @@ module.exports = function (app) {
   web.postRoute.use('/room', web.roomRoute);
 
   //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-  web.roomRoute.get('/', init, web.roomController.roomInfoListView);
+  web.roomRoute.get('/', requireWebAuth, init, web.roomController.roomInfoListView);
 
   // create new Room Info from authenticated userRoute
   web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+  // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
 
 
   // update Room Info Info from authenticated userRoute
