@@ -41,17 +41,20 @@ const requireAPIAuth = jwt({
   // Dynamically provide a signing key
   // based on the kid in the header and
   // the singing keys provided by the JWKS endpoint.
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: config.auth0.JWKS_URI
-  }),
+
+  // secret: jwksRsa.expressJwtSecret({
+  //   cache: true,
+  //   rateLimit: true,
+  //   jwksRequestsPerMinute: 5,
+  //   jwksUri: config.auth0.JWKS_URI
+  // }),
+
+  secret: config.secret,
 
   // Validate the audience and the issuer.
   audience: config.auth0.IDENTIFIER,
   issuer: config.auth0.ISSUER,
-  algorithms: ['RS256']
+  algorithms: [config.auth0.ALGORITHM]
 });
 
 const checkScopes = jwtAuthz(['read:messages']);
