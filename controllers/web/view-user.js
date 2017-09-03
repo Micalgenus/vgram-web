@@ -63,6 +63,11 @@ exports.viewChangeProfile = function (req, res) {
         title: 'viewChangeProfile',
         msg: req.msg,
 
+        value: {
+          memberType: value.memberType,
+          lang: req.lang
+        },
+
         mediaUrl: config.mediaUrl,
 
         nickname: u.nickname,
@@ -134,6 +139,11 @@ exports.viewProfile = function (req, res) {
         title: 'userDetailView',
         msg: req.msg,
         mediaUrl: config.mediaUrl,
+        
+        value: {
+          memberType: value.memberType,
+          lang: req.lang
+        },
 
         myPage: myPage,
 
