@@ -306,272 +306,281 @@
 
   <!-- LOAD JAVASCRIPT -->
   <% include ../static/js.ejs %>
-    <div id="gotoTop" class="icon-angle-up"></div>
+  <div id="gotoTop" class="icon-angle-up"></div>
 
-    <!--<script>-->
-    <!--jQuery(function($) {-->
-    <!--function getAjax(link) {-->
-    <!--var memberIdx = window.location.href.split('#')[0].split('/');-->
-    <!--memberIdx = memberIdx[memberIdx.length - 1];-->
+  <!--<script>-->
+  <!--jQuery(function($) {-->
+  <!--function getAjax(link) {-->
+  <!--var memberIdx = window.location.href.split('#')[0].split('/');-->
+  <!--memberIdx = memberIdx[memberIdx.length - 1];-->
 
-    <!--$.ajax({-->
-    <!--url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,-->
-    <!--success: function(result) {-->
-    <!--$('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));-->
-    <!--SEMICOLON.widget.loadFlexSlider();-->
-    <!--SEMICOLON.portfolio.arrange();-->
-    <!--}-->
-    <!--});-->
-    <!--}-->
+  <!--$.ajax({-->
+  <!--url: 'http://localhost:3000/api/user/' + memberIdx + '/json/' + link,-->
+  <!--success: function(result) {-->
+  <!--$('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result}));-->
+  <!--SEMICOLON.widget.loadFlexSlider();-->
+  <!--SEMICOLON.portfolio.arrange();-->
+  <!--}-->
+  <!--});-->
+  <!--}-->
 
-    <!--$('.tab-nav li a').click(function() {-->
-    <!--let link = $(this).attr('href').split('-')[1];-->
-    <!--getAjax(link);-->
-    <!--});-->
+  <!--$('.tab-nav li a').click(function() {-->
+  <!--let link = $(this).attr('href').split('-')[1];-->
+  <!--getAjax(link);-->
+  <!--});-->
 
-    <!--getAjax('follower');-->
-    <!--});-->
-    <!--</script>-->
+  <!--getAjax('follower');-->
+  <!--});-->
+  <!--</script>-->
 
-    <link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css" />
-    <script type="text/javascript" src="/lib/js-canvas/js/components/bs-filestyle.js"></script>
+  <link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css" />
+  <script type="text/javascript" src="/lib/js-canvas/js/components/bs-filestyle.js"></script>
 
-    <!-- Cropper JS -->
-    <link rel="stylesheet" href="/lib/cropperjs/cropper.css" />
-    <script src="/lib/cropperjs/cropper.js"></script>
+  <!-- Cropper JS -->
+  <link rel="stylesheet" href="/lib/cropperjs/cropper.css" />
+  <script src="/lib/cropperjs/cropper.js"></script>
 
-    <script>
-      //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-      function sample4_execDaumPostcode() {
-        new daum.Postcode({
-          oncomplete: function (data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+  <script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+          // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+          var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-              extraRoadAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if (data.buildingName !== '' && data.apartment === 'Y') {
-              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if (extraRoadAddr !== '') {
-              extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
-            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-            if (fullRoadAddr !== '') {
-              fullRoadAddr += extraRoadAddr;
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('sample4_roadAddress').value = fullRoadAddr;
-            document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
-
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if (data.autoRoadAddress) {
-              //예상되는 도로명 주소에 조합형 주소를 추가한다.
-              var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-              document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-
-            } else if (data.autoJibunAddress) {
-              var expJibunAddr = data.autoJibunAddress;
-              document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-
-            } else {
-              document.getElementById('guide').innerHTML = '';
-            }
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
           }
-        }).open();
-      }
-    </script>
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+          }
+          // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+          if (fullRoadAddr !== '') {
+            fullRoadAddr += extraRoadAddr;
+          }
 
-    <script>
-      var $profileImg = $("#profile");
-      var $cropInnerModal = $('#crop-InnerModal');
-      var cropper;
-      var orgFileBase;
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
+          document.getElementById('sample4_roadAddress').value = fullRoadAddr;
+          document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
 
-      $profileImg.fileinput({
-        overwriteInitial: true,
-        showClose: false,
-        showCaption: false,
-        browseOnZoneClick: true,
-        browseLabel: 'browse',
-        removeLabel: 'remove',
-        browseIcon: '<i class="icon-folder-open"></i>',
-        removeIcon: '<i class="icon-remove"></i>',
-        removeTitle: 'Cancel or reset changes',
-        elErrorContainer: '#kv-avatar-errors-1',
-        msgErrorClass: 'alert alert-block alert-danger',
-        defaultPreviewContent: '<img src="<%= mediaUrl + profile_image_path %>" alt="Your Avatar" style="width:160px">',
-        layoutTemplates: { main2: '{preview} {remove} {browse}' },
-        allowedFileTypes: ['image'],
-        allowedFileExtensions: ["jpg", "png"]
-      });
+          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+          if (data.autoRoadAddress) {
+            //예상되는 도로명 주소에 조합형 주소를 추가한다.
+            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            document.getElementById('guide').innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
 
-      $profileImg.on('change', function (event, numFiles, label) {
-        var originalURL;
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+          } else if (data.autoJibunAddress) {
+            var expJibunAddr = data.autoJibunAddress;
+            document.getElementById('guide').innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
 
-        reader.addEventListener("load", function (e) {
-          var base64 = e.target.result;
-          orgFileBase = base64;
+          } else {
+            document.getElementById('guide').innerHTML = '';
+          }
+        }
+      }).open();
+    }
+  </script>
 
-          /* BASE64 STRING IMAGE BINDING */
-          // preview.src = base64;
+  <script>
+    var $profileImg = $("#profile");
+    var $cropInnerModal = $('#crop-InnerModal');
+    var cropper;
+    var orgFileBase;
 
-          /* BLOB URL IMAGE BINDING */
-          // preview.src = window.URL.createObjectURL(base64StringToBlob(base64));
-          originalURL = window.URL.createObjectURL(base64StringToBlob(base64));
+    $profileImg.fileinput({
+      overwriteInitial: true,
+      showClose: false,
+      showCaption: false,
+      browseOnZoneClick: true,
+      browseLabel: 'browse',
+      removeLabel: 'remove',
+      browseIcon: '<i class="icon-folder-open"></i>',
+      removeIcon: '<i class="icon-remove"></i>',
+      removeTitle: 'Cancel or reset changes',
+      elErrorContainer: '#kv-avatar-errors-1',
+      msgErrorClass: 'alert alert-block alert-danger',
+      defaultPreviewContent: '<img src="<%= mediaUrl + profile_image_path %>" alt="Your Avatar" style="width:160px">',
+      layoutTemplates: { main2: '{preview} {remove} {browse}' },
+      allowedFileTypes: ['image'],
+      allowedFileExtensions: ["jpg", "png"]
+    });
 
-          $(".file-preview-thumbnails .file-preview-frame").click((event, target) => {
-            console.log("clicked");
+    $profileImg.on('change', function (event, numFiles, label) {
+      var originalURL;
+      var file = document.querySelector('input[type=file]').files[0];
+      var reader = new FileReader();
 
-            $.magnificPopup.open({
-              items: {
-                src: $("#cropModal"),
-                type: 'inline',
-                mainClass: 'mfp-no-margins mfp-fade',
-                closeBtnInside: false,
-                fixedContentPos: true,
-                overflowY: 'scroll',
-                modal: true
-              }
-            });
+      reader.addEventListener("load", function (e) {
+        var base64 = e.target.result;
+        orgFileBase = base64;
 
-            createCropView(originalURL);
+        /* BASE64 STRING IMAGE BINDING */
+        // preview.src = base64;
+
+        /* BLOB URL IMAGE BINDING */
+        // preview.src = window.URL.createObjectURL(base64StringToBlob(base64));
+        originalURL = window.URL.createObjectURL(base64StringToBlob(base64));
+
+        $(".file-preview-thumbnails .file-preview-frame").click((event, target) => {
+          console.log("clicked");
+
+          $.magnificPopup.open({
+            items: {
+              src: $("#cropModal"),
+              type: 'inline',
+              mainClass: 'mfp-no-margins mfp-fade',
+              closeBtnInside: false,
+              fixedContentPos: true,
+              overflowY: 'scroll',
+              modal: true
+            }
           });
 
-        }, false);
+          createCropView(originalURL);
+        });
 
-        reader.onerror = function (error) {
-          console.log('Error: ', error);
-        };
+      }, false);
 
-        if (file) {
-          reader.readAsDataURL(file);
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function binaryStringToArrayBuffer(binary) {
+      var length = binary.length;
+      var buf = new ArrayBuffer(length);
+      var arr = new Uint8Array(buf);
+      for (var i = 0; i < length; i++) {
+        arr[i] = binary.charCodeAt(i);
+      }
+      return buf;
+    }
+
+    function base64StringToBlob(base64) {
+      var type = base64.match(/data:([^;]+)/)[1];
+      base64 = base64.replace(/^[^,]+,/g, '');
+      var options = {};
+      if (type) {
+        options.type = type;
+      }
+      var binaryArrayBuffer = [binaryStringToArrayBuffer(window.atob(base64))];
+      return new Blob(binaryArrayBuffer, options);
+    }
+
+    function createCropView(data) {
+      var $croppedImage = $('#crop-InnerModal').find('#cropImg').attr('src', data);
+
+      if (cropper) {
+        cropper.destroy();
+      }
+
+      cropper = new Cropper($croppedImage[0], {
+        aspectRatio: 1 / 1,
+        // autoCropArea: 0,
+        // strict: true,
+        // guides: false,
+        // highlight: false,
+        // dragCrop: false,
+        // cropBoxMovable: false,
+        // cropBoxResizable: false,
+        // preview: '.img-preview',
+        crop: function (e) {
+          // $dataX.val(Math.round(e.x));
+          // $dataY.val(Math.round(e.y));
+          // $dataHeight.val(Math.round(e.height));
+          // $dataWidth.val(Math.round(e.width));
+          // $dataRotate.val(e.rotate);
+          // $dataScaleX.val(e.scaleX);
+          // $dataScaleY.val(e.scaleY);
         }
       });
+    }
 
-      function binaryStringToArrayBuffer(binary) {
-        var length = binary.length;
-        var buf = new ArrayBuffer(length);
-        var arr = new Uint8Array(buf);
-        for (var i = 0; i < length; i++) {
-          arr[i] = binary.charCodeAt(i);
-        }
-        return buf;
-      }
+    // profile image crop 성공
+    $cropInnerModal.find('button.button-blue').click(function () {
+      var preview = document.querySelector('.file-preview img');
 
-      function base64StringToBlob(base64) {
-        var type = base64.match(/data:([^;]+)/)[1];
-        base64 = base64.replace(/^[^,]+,/g, '');
-        var options = {};
-        if (type) {
-          options.type = type;
-        }
-        var binaryArrayBuffer = [binaryStringToArrayBuffer(window.atob(base64))];
-        return new Blob(binaryArrayBuffer, options);
-      }
+      let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
+      preview.src = window.URL.createObjectURL(base64StringToBlob(croppedDataURL));
 
-      function createCropView(data) {
-        var $croppedImage = $('#crop-InnerModal').find('#cropImg').attr('src', data);
+      $.magnificPopup.close();
+    });
+
+    // profile image crop 취소
+    $cropInnerModal.find('button.button-red').click(function () {
+      // alert('취소');
+      $.magnificPopup.close();
+    });
+
+    // 전송
+    $('button.button-green').click(function () {
+
+      if ($('.file-preview-frame img').attr('src')) {
+        var blobData;
 
         if (cropper) {
-          cropper.destroy();
+          let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
+          blobData = base64StringToBlob(croppedDataURL);
+        } else if (orgFileBase) {
+          blobData = base64StringToBlob(orgFileBase);
         }
 
-        cropper = new Cropper($croppedImage[0], {
-          aspectRatio: 1 / 1,
-          // autoCropArea: 0,
-          // strict: true,
-          // guides: false,
-          // highlight: false,
-          // dragCrop: false,
-          // cropBoxMovable: false,
-          // cropBoxResizable: false,
-          // preview: '.img-preview',
-          crop: function (e) {
-            // $dataX.val(Math.round(e.x));
-            // $dataY.val(Math.round(e.y));
-            // $dataHeight.val(Math.round(e.height));
-            // $dataWidth.val(Math.round(e.width));
-            // $dataRotate.val(e.rotate);
-            // $dataScaleX.val(e.scaleX);
-            // $dataScaleY.val(e.scaleY);
-          }
+        // console.log('blobData', blobData);
+        var fd = new FormData();
+        fd.append('filename', $('.file-footer-caption')[0].title);
+        fd.append('profile_images', blobData);
+
+        $.ajax({
+          type: 'POST',
+          url: '<%= mediaUrl %>/convert/profile',
+          data: fd,
+          headers: { authorization: $.cookie("authorization"), },
+          processData: false,
+          contentType: false
+        }).done(function (data) {
+          $profile_src = $('#profile_src');
+          $profile_src.attr('value', data.url);
+          // console.log($profile_src.attr('value'));
+          $('form#change-form').submit();
+        });
+      } else {
+        $('form#change-form').submit();
+      }
+
+      return false;
+    });
+
+    // 취소
+    $('button.button-amber').click(function () {
+      if (confirm("삭제하시겠습니까?")) {
+        $.ajax({
+          type: 'DELETE',
+          url: '/user/delete',
+          headers: { authorization: $.cookie("authorization"), },
+        }).done(function (data) {
+          if (data == 'OK') location.href = '/auth/logout';
         });
       }
 
-      // profile image crop 성공
-      $cropInnerModal.find('button.button-blue').click(function () {
-        var preview = document.querySelector('.file-preview img');
-
-        let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
-        preview.src = window.URL.createObjectURL(base64StringToBlob(croppedDataURL));
-
-        $.magnificPopup.close();
-      });
-
-      // profile image crop 취소
-      $cropInnerModal.find('button.button-red').click(function () {
-        // alert('취소');
-        $.magnificPopup.close();
-      });
-
-      // 전송
-      $('button.button-green').click(function () {
-
-        if ($('.file-preview-frame img').attr('src')) {
-          var blobData;
-
-          if (cropper) {
-            let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
-            blobData = base64StringToBlob(croppedDataURL);
-          } else if (orgFileBase) {
-            blobData = base64StringToBlob(orgFileBase);
-          }
-
-          // console.log('blobData', blobData);
-          var fd = new FormData();
-          fd.append('filename', $('.file-footer-caption')[0].title);
-          fd.append('profile_images', blobData);
-
-          $.ajax({
-            type: 'POST',
-            url: '<%= mediaUrl %>/convert/profile',
-            data: fd,
-            headers: { authorization: $.cookie("authorization"), },
-            processData: false,
-            contentType: false
-          }).done(function (data) {
-            $profile_src = $('#profile_src');
-            $profile_src.attr('value', data.url);
-            // console.log($profile_src.attr('value'));
-            $('form#change-form').submit();
-          });
-        } else {
-          $('form#change-form').submit();
-        }
-
-        return false;
-      });
-
-      // 취소
-      $('button.button-amber').click(function () {
-        alert('delete');
-        return false;
-      });
-    </script>
+      return false;
+    });
+  </script>
 
 
 </body>

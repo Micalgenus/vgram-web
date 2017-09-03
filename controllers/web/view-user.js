@@ -404,3 +404,34 @@ exports.change = function (req, res, next) {
   //   return res.send(err);
   // });
 }
+
+
+exports.delete = function (req, res) {
+
+  return authController.getAdminToken().then(function (token) {
+
+    let args = {
+      method: 'DELETE',
+      uri: config.auth0.IDENTIFIER + 'users/' + req.user.sub,
+
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    }
+
+    return request(args, function (e, r, body) {
+      return User.destroy({
+        where: {
+          ID: req.user.ID
+        }
+      }).then(function (d) {
+        return res.send('OK');
+      }).catch(function (err) {
+        return res.send(err);
+      });
+    });
+
+  });
+}
