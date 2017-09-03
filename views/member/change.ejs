@@ -69,9 +69,6 @@
                     <div class="kv-avatar center-block text-center" style="width:200px">
                       <input id="profile" name="profile" type="file" class="file-loading">
                       <input id="profile_src" name="profile_src" type="hidden" value="<%= profile_image_path %>" />
-                      <div class="help-block">
-                        <small>Select file < 1500 KB</small>
-                      </div>
                     </div>
                   </div>
 
@@ -404,7 +401,6 @@
 
       $profileImg.fileinput({
         overwriteInitial: true,
-        maxFileSize: 1500,
         showClose: false,
         showCaption: false,
         browseOnZoneClick: true,
