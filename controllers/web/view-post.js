@@ -152,7 +152,7 @@ exports.deletePost = function (req, res) {
           ID: postIdx
         }
       }).then(function (p) {
-        return res.redirect('back');
+        return res.send("OK");
       });
     }
 

@@ -1,6 +1,26 @@
-<% console.log(data) %>
 <h6>
-  <a href="/post/delete/<%= data.postId %>">Delete</a>
+  <button id="deletePost">Delete</button>
+    
+  <script>
+  jQuery(function($) {
+    $('#deletePost').click(function() {
+      $.ajax({
+        type: 'DELETE',
+        url: '/post/delete/<%= data.postId %>',
+        success: function(data) {
+          if (data == "OK") {
+            alert("delete");
+            location.reload();
+          }
+        },
+        error: function(error) {
+          alert(error);
+        }
+      });
+    });
+  });
+  </script>
+
   <div class="mfp_count">
     <p class="nobottommargin">
 
