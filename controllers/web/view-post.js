@@ -65,8 +65,6 @@ exports.createPostInfo = function (req, res, next) {
       post_status: req.body.post_status,
       post_type: req.body.category,
       locale: req.user.locale,
-      createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       meta_value: {
         written_device: 'web'
       }
@@ -113,8 +111,6 @@ exports.createPostComment = function (req, res) {
   var postIdx = req.params.postIdx;
   var comment = req.body.comment;
   var userIdx = req.user.ID;
-  var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-  var updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
   return Comment.create({
     post_id: postIdx,
@@ -152,7 +148,7 @@ exports.deletePost = function (req, res) {
           ID: postIdx
         }
       }).then(function (p) {
-        return res.redirect('back');
+        return res.send("OK");
       });
     }
 
@@ -162,6 +158,25 @@ exports.deletePost = function (req, res) {
     });
   });
 }
+
+exports.reEnrollPost = function (req, res) {
+
+  var postIdx = req.params.postIdx;
+
+  let updateData = {
+    createdAt: moment().format('YYYY-MM-DD HH:mm:ss')
+  }
+
+  return Post.update(updateData, {
+    where: {
+      ID: postIdx,
+      user_id: req.user.ID
+    }
+  }).then(function (p) {
+    if (p) return res.send('OK');
+    return res.send('not found');
+  });
+};
 
 
 exports.getPostInfoJson = function (req, res) {

@@ -708,31 +708,45 @@
         });
 
       });
+
+      var uploading = false;
       
       $('#tabs-23 button.button-blue').click(function () {
 
+        if (uploading) {
+          alert('waiting for upload...');
+          return false;
+        }
+
+        uploading = true;
+
         if ($('#fileupload .template-upload').length == 0) {
           alert('please vrimage upload');
+          uploading = false;
           return false;
         }
         
         if ($('#fileupload2 .template-upload').length == 0) {
           alert('please normal image upload');
+          uploading = false;
           return false;
         }
 
         if (!$('#lat').val() || !$('#lat').val() || !$('#sample5_address').val()) {
           alert('please select address');
+          uploading = false;
           return false;
         }
 
         if (!$("#title").val()) {
           alert('please write title');
+          uploading = false;
           return false;
         }
 
         if ($('#summernote').summernote('isEmpty')) {
           alert('please write content');
+          uploading = false;
           return false;
         }
 
@@ -746,7 +760,6 @@
         const category = $("#category").val();
         const title = $("#title").val();
         const content = $('#summernote').summernote('code');
-
 
         $.post({
           url: location.href,
@@ -776,6 +789,7 @@
 
             var t = setInterval(function() {
               if ($('#fileupload .template-upload').length == 0 && $('#fileupload2 .template-upload').length == 0) {
+                uploading = false;
                 alert('upload success !');
                 stopInterval(t);
                 location.reload();
@@ -783,6 +797,7 @@
             }, 500);
           },
           error: function (error) {
+            uploading = false;
             alert(error);
           }
         });
