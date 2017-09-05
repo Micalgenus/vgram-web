@@ -11,20 +11,21 @@
           </div>
         </div>
         <div class="portfolio-overlay" data-lightbox="gallery">
-          <a href="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0073.tiles/pano_f.jpg" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
-          <a href="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0074.tiles/pano_f.jpg" class="hidden" data-lightbox="gallery-item"></a>
-          <a href="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0075.tiles/pano_f.jpg" class="hidden" data-lightbox="gallery-item"></a>
+          <a href="/medias/images/sinho0689@gmail.com/desktop/360x240_201606281846.jpg" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
+          <a href="/medias/images/sinho0689@gmail.com/desktop/1975-20150311114607.jpg" class="hidden" data-lightbox="gallery-item"></a>
+          <a href="/medias/images/sinho0689@gmail.com/desktop/progressing.jpg" class="hidden" data-lightbox="gallery-item"></a>
+          <a href="/medias/images/sinho0689@gmail.com/desktop/건축분쟁_201701254601136.jpg" class="hidden" data-lightbox="gallery-item"></a>
           <!-- <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="right-icon"><i class="icon-line-ellipsis"></i></a> -->
         </div>
     </div>
     <div class="testimonial">
         <div class="testi-image">
-          <a href="#"><img src="/users/profile1_20170125150101.jpg" alt="Customer Testimonails"></a>
+          <a href="#"><img src="<%= mediaUrl %><%= room[i].user.profile_image_path %>" alt="Avatar"></a>
         </div>
         <div class="testi-meat"><p style=" margin-bottom:0px;"><%= room[i].user.nickname %></p></div>
         <div class="clear"></div>
         <div class="portfolio-desc">
-          <h3><a href="/post/room/<%= room[i].ID %>"><%= room[i].title %></a></h3>
+          <h3><a href="/post/<%= room[i].ID %>"><%= room[i].title %></a></h3>
         </div>
         <ul class="entry-meta clearfix">
           <li><i class="icon-line-heart"></i><span><%= room[i].LikeUsers.length %></span></li>
