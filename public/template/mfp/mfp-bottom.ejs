@@ -1,5 +1,6 @@
 <h6>
   <button id="deletePost">삭제</button>
+  <button id="modifyPost">수정</button>
   <button id="updatePost">재등록</button>
     
   <script>
@@ -18,6 +19,10 @@
           alert(error);
         }
       });
+    });
+    
+    $('#modifyPost').click(function() {
+      location.href = '/post/modify/<%= data.postId %>';
     });
     
     $('#updatePost').click(function() {
