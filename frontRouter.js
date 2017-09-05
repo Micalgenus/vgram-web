@@ -362,7 +362,7 @@ module.exports = function (app) {
   api.postRoute.get('/', api.postController.viewPosts);
 
   // create new Room Info from authenticated userRoute
-  web.postRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+  web.postRoute.get('/new', requireWebAuth, init, web.postController.createPostInfoView);
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
 
   // delete post
@@ -370,20 +370,22 @@ module.exports = function (app) {
 
   // re enroll post
   web.postRoute.put('/re-enroll/:postIdx([0-9]+)', requireWebAuth, loginCheck, web.postController.reEnrollPost);
-  
+
+  // view post info
+  web.postRoute.get('/:postIdx([0-9]+)', requireWebAuth, web.postController.viewPostInfoView);
+
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
 
   //media, attached 정보 저장(image-server에서 이용함)
-  //2017-05-29 이정현 개발
   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
   web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
 
   // index list
-  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.roomHtmlList);
+  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
 
   // comment
   web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);

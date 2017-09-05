@@ -11,8 +11,10 @@ const Comment = models.comment;
 
 const moment = require("moment");
 
-var config = require("../../config/main");
+const config = require("../../config/main");
+const value = require('../../utils/staticValue');
 
+/* action */
 let getPostInfo = function (ID) {
   return Post.findOne({
     include: [{
@@ -181,6 +183,7 @@ exports.reEnrollPost = function (req, res) {
 };
 
 
+
 exports.getPostInfoJson = function (req, res) {
   var idx = req.params.postIdx;
 
@@ -199,7 +202,7 @@ exports.getPostInfoJson = function (req, res) {
   });
 }
 
-exports.roomHtmlList = function (req, res) {
+exports.postHtmlList = function (req, res) {
 
   let page = req.params.roomListPage;
   let count = 6;
@@ -227,11 +230,70 @@ exports.roomHtmlList = function (req, res) {
         $notIn: ['NOTICE', 'EVENT']
       }
     }
-  }).then(function (r) {
-    if (!r) return res.status(404).send();
+  }).then(function (p) {
+    if (!p) return res.status(404).send();
 
-    return res.render('room/room-scroll', {
-      room: r
+    return res.render('post/list-item', {
+      post: p
     });
   });
+};
+
+/* view */
+exports.createPostInfoView = function (req, res) {
+
+  if (!req.user.logined) {
+    req.flash('msg', "requiredLogin");
+    // return res.redirect('/post/room');
+    return res.redirect('back');
+  }
+
+  // 기본적으로 user의 기본언어 선택사항을 따라가고,
+  // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
+  return res.render('post/new', {
+    ENV: req.env,
+    logined: req.user.logined,
+    userIdx: req.ID,
+    title: "createPostInfoView",
+    msg: req.msg,
+    update: false,
+    mediaUrl: config.mediaUrl,
+
+    value: {
+      placeType: value.placeType,
+      room: value.room,
+      floors: value.floors,
+      postStatus: value.postStatus,
+      postType: value.postType,
+      lang: req.lang
+    }
+  });
+};
+
+exports.viewPostInfoView = function (req, res) {
+
+  let postIdx = req.params.postIdx;
+
+  return getPostInfo(postIdx).then(function (info) {
+    return res.render('post/detail', {
+      ENV: req.env,
+      logined: req.user.logined,
+      userIdx: req.ID,
+      title: "viewPostInfoView",
+      msg: req.msg,
+      mediaUrl: config.mediaUrl,
+
+      postTitle: info.post.title,
+      createdAt: info.post.createdAt,
+      comments: info.comments,
+      commentCount: info.commentCount,
+
+      email: info.post.user.email,
+      phone: info.post.user.telephone,
+
+      lat: info.positions[0].lat,
+      lng: info.positions[0].lng,
+    });
+  });
+
 };
