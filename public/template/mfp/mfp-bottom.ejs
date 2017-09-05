@@ -1,5 +1,6 @@
 <h6>
-  <button id="deletePost">Delete</button>
+  <button id="deletePost">삭제</button>
+  <button id="updatePost">재등록</button>
     
   <script>
   jQuery(function($) {
@@ -9,7 +10,23 @@
         url: '/post/delete/<%= data.postId %>',
         success: function(data) {
           if (data == "OK") {
-            alert("delete");
+            alert("삭제되었습니다.");
+            location.reload();
+          }
+        },
+        error: function(error) {
+          alert(error);
+        }
+      });
+    });
+    
+    $('#updatePost').click(function() {
+      $.ajax({
+        type: 'PUT',
+        url: '/post/re-enroll/<%= data.postId %>',
+        success: function(data) {
+          if (data == "OK") {
+            alert("재등록 하였습니다.");
             location.reload();
           }
         },

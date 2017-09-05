@@ -366,7 +366,11 @@ module.exports = function (app) {
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
 
   // delete post
-  web.postRoute.delete('/delete/:postIdx([0-9]+)', requireWebAuth, web.postController.deletePost);
+  web.postRoute.delete('/delete/:postIdx([0-9]+)', requireWebAuth, loginCheck, web.postController.deletePost);
+
+  // re enroll post
+  web.postRoute.put('/re-enroll/:postIdx([0-9]+)', requireWebAuth, loginCheck, web.postController.reEnrollPost);
+  
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
