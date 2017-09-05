@@ -16,7 +16,7 @@
           }
         },
         error: function(error) {
-          alert(error);
+          alert(error.responseJSON.errorMsg);
         }
       });
     });
@@ -33,6 +33,12 @@
           if (data == "OK") {
             alert("재등록 하였습니다.");
             location.reload();
+          } else if (data == "other") {
+            alert("다른 회원의 게시글 입니다.");
+          }
+
+          else {
+            alert(data);
           }
         },
         error: function(error) {
