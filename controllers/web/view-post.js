@@ -111,13 +111,13 @@ exports.createPostComment = function (req, res) {
   var postIdx = req.params.postIdx;
   var comment = req.body.comment;
   var userIdx = req.user.ID;
+  var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
   return Comment.create({
     post_id: postIdx,
     user_id: userIdx,
     content: comment,
-    createdAt: createdAt,
-    updatedAt: updatedAt
+    createdAt: createdAt
   }).then(function (c) {
     return User.findOne({
       where: {
@@ -153,7 +153,7 @@ exports.deletePost = function (req, res) {
     }
 
     return res.status(400).json({
-      errorMsg: '다른 회원',
+      errorMsg: '다른 회원입니다.',
       statusCode: -1
     });
   });
@@ -173,8 +173,10 @@ exports.reEnrollPost = function (req, res) {
       user_id: req.user.ID
     }
   }).then(function (p) {
-    if (p) return res.send('OK');
-    return res.send('not found');
+    if (p[0]) return res.send('OK');
+    return res.send('other');
+  }).catch(function (err) {
+    return res.send(err);
   });
 };
 
