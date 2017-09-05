@@ -1,0 +1,140 @@
+<!-- Top Bar
+		============================================= -->
+<div id="top-bar" class="transparent-topbar">
+
+      <div class="container clearfix">
+
+            <div class="col_half nobottommargin clearfix">
+
+                  <!-- Top Links
+              ============================================= -->
+
+                  <div class="top-links">
+                        <ul>
+                              <% if (logined) { %>
+                                    <li><a href="/user/change"><strong>내 정보수정</strong></a></li>
+                                    <!-- <li><a href="/buildcaselately"><strong>최근 본 사례 조회</strong></a></li>
+                                    <li><a href="/buildcaseselected"><strong>찜한 사례 조회</strong></a></li>
+                                    <li><a href="/consultingMyListInfo"><strong>내 컨설팅 정보</strong></a></li>
+                                    <li><a href="/list/room"><strong>방 정보 목록 조회</strong></a></li>-->
+                                    <li><a href="/auth/logout"><strong>로그아웃</strong></a></li>
+                              <% } else { %>
+                                    <li><a href="/auth/login"><strong>로그인/회원가입</strong></a></li>
+                              <% } %>
+                        </ul>
+                  </div>
+                  <!-- .top-links end -->
+
+
+            </div>
+
+            <!--
+      <div class="col_half fright col_last clearfix nobottommargin">
+
+         &lt;!&ndash; Top Links
+              ============================================= &ndash;&gt;ㅇㄹㅇㄹ
+         <div class="top-links">
+            <ul>
+               <li class="hidden-sm"><a href="#"><i class="icon-call"></i> +1800-123-7890</a></li>
+               <li><a href="#"><i class="icon-download-alt"></i> Download App</a></li>
+               <li class="top-bar-highlight"><a href="#">Sell/Rent your Property</a>
+                  <div class="top-link-section" style="font-size: 14px;">
+                     Genuine Clients, 100% Trust Assurance and Lowest Fees on the Market. <a href="#" class="more-link font-secondary" style="border-bottom-style: dotted;">Learn More &rarr;</a>
+                  </div>
+               </li>
+               <li><a href="#" class="side-panel-trigger">Login/Register</a></li>
+            </ul>
+         </div>&lt;!&ndash; .top-links end &ndash;&gt;
+
+      </div>
+-->
+
+      </div>
+
+</div>
+<!-- #top-bar end -->
+
+<!-- Header
+  ============================================= -->
+<header id="header" class="static-sticky transparent-header dark">
+
+      <div id="header-wrap">
+
+            <div class="container clearfix">
+
+                  <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                  <!-- Logo
+              ============================================= -->
+                  <div id="logo" ronterLink="/">
+                        <a ronterLink="/auth" hrefActive="active" class="standard-logo"><img src="lib/js-canvas/images/cozylogo4@.png" alt="cozy Logo"></a>
+                        <a ronterLink="/auth" hrefActive="active" class="retina-logo"><img src="lib/js-canvas/images/cozylogo4.png" alt="cozyhouzz Logo"></a>
+                  </div>
+                  <!-- #logo end -->
+
+                  <!-- Primary Navigation
+              ============================================= -->
+                  <nav id="primary-menu" class="mobile-menu-off-canvas dark">
+
+                        <ul>
+                              <li>
+                                    <a href="/" hrefActive="active">
+                                          <div>Home</div>
+                                    </a>
+                              </li>
+                              <!--          <li><a href="/buildcaselist"><div>시공사례</div></a>
+                           <ul>
+                             <li><a href="/buildcaseinput"><div><i class="icon-stack"></i>시공사례입력</div></a></li>
+                             <li><a href="/buildcaselist"><div><i class="icon-gift"></i>시공사례조회</div></a></li>
+                           </ul>
+                         </li>-->
+                              <li>
+                                    <a href="/consultingListInfo">
+                                          <div>컨설팅</div>
+                                    </a>
+                                    <ul>
+                                          <li>
+                                                <a href="/consultingCounsel">
+                                                      <div><i class="icon-stack"></i>상담 받기</div>
+                                                </a>
+                                          </li>
+                                          <li>
+                                                <a href="/consultingListInfo">
+                                                      <div><i class="icon-gift"></i>컨설팅 정보 조회</div>
+                                                </a>
+                                          </li>
+                                    </ul>
+                              </li>
+                              <!--<li><a href="/bizList"><div>등록업체정보</div></a>
+               <ul>
+                 <li><a href="/bizList"><div><i class="icon-stack"></i>업체 목록</div></a></li>
+               </ul>
+             </li>-->
+                              <li>
+                                    <a href="/post/room">
+                                          <div>방 정보 홍보 보기</div>
+                                    </a>
+                                    <ul>
+                                          <li>
+                                                <a href="/post/room/new">
+                                                      <div><i class="icon-stack"></i>방 등록</div>
+                                                </a>
+                                          </li>
+                                          <li>
+                                                <a href="/post/room">
+                                                      <div><i class="icon-stack"></i>방 정보 목록조회</div>
+                                                </a>
+                                          </li>
+                                    </ul>
+                              </li>
+                        </ul>
+
+                  </nav>
+                  <!-- #primary-menu end -->
+
+            </div>
+
+      </div>
+
+</header>
+<!-- #header end -->
