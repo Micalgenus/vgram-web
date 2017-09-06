@@ -108,7 +108,7 @@
         <div class="nobottommargin clearfix">
 
           <h4 style="margin-bottom: 0px;">
-            goods
+            Upload VR Gallery
             <div class="right_head">
               <!--<span class="btn btn-success fileinput-button">-->
               <!--<i class="glyphicon glyphicon-plus"></i>-->
@@ -618,9 +618,9 @@
 
   <script>
     jQuery(function ($) {
-  
+
       $(document).ready(function() {
-        $('#summernote').summernote({ 
+        $('#summernote').summernote({
           height: 150,
           lang: 'ko-KR'
         });
@@ -628,7 +628,7 @@
       });
 
       var uploading = false;
-      
+
       $('#tabs-23 button.button-blue').click(function () {
 
         if (uploading) {
@@ -643,7 +643,7 @@
           uploading = false;
           return false;
         }
-        
+
         if ($('#fileupload2 .template-upload').length == 0) {
           alert('please normal image upload');
           uploading = false;
