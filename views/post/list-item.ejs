@@ -8,7 +8,7 @@
           <div class="flexslider">
               <div class="slider-wrap">
                 <% for (var image = 0; image < images.length; image++) { %>
-                  <div class="slide"><img src="<%= mediaUrl %><%= t[image].thumb %>" alt="Shake It"></div>                
+                  <div class="slide"><img src="<%= mediaUrl %><%= images[image].thumb %>" alt="Shake It"></div>                
                 <% } %>
               </div>
           </div>
@@ -17,9 +17,9 @@
         <div class="portfolio-overlay" data-lightbox="gallery">
           <% for (var image = 0; image < images.length; image++) { %>
             <% if (image == 0) { %>
-              <a href="<%= mediaUrl %><%= t[image].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>              
+              <a href="<%= mediaUrl %><%= images[image].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>              
             <% } else { %>
-              <a href="<%= mediaUrl %><%= t[image].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
+              <a href="<%= mediaUrl %><%= images[image].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
             <% } %>
           <% } %>
         </div>
