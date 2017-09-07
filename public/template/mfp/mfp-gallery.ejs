@@ -24,44 +24,60 @@
       margin-right: 2em;
     }
 
-      .sns_facebook {
-         margin-right: 40px;
-      }
+    .sns_facebook {
+        margin-right: 40px;
+    }
 
-      .mfp-bottom-bar{
-         overflow-y: auto !important;
-         height: 300px;
-      }
-     .band_div a{
-        float: left;
-     }
+    .mfp-bottom-bar{
+        overflow-y: auto !important;
+        height: 300px;
+    }
 
-     .comment-avatar {
-        top: -12px !important;
-        left: -76px !important;
-     }
+    .mfp-close {
+      margin-top:-50px;
+    }
 
-     .comment-author{
-        text-align: start;
-        left: 41px;
-        position: relative;
-     }
+    .band_div a{
+      float: left;
+    }
+
+    .comment-avatar {
+      top: -12px !important;
+      left: -76px !important;
+    }
+
+    .comment-author{
+      text-align: start;
+      left: 41px;
+      position: relative;
+    }
 
     .comment-author h6{
-       color: white;
+        color: white;
     }
 
     .comment-author a h6{
-       color: white;
+        color: white;
     }
-   </style>
+  </style>
 
 </head>
 
 
 <div class="mfp-figure">
   <div class="mfp-close"></div>
-  <div class="mfp-img"></div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#VR">VR</a></li>
+    <li><a data-toggle="tab" href="#images">images</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="VR" class="tab-pane fade in active">
+      <div class="mfp-vr"></div>
+    </div>
+    <div id="images" class="tab-pane fade">
+      <div class="mfp-img"></div>
+    </div>
+  </div>
   <div class="mfp-description"></div>
   <div class="mfp-bottom-bar">
     <div class="mfp-title"></div>

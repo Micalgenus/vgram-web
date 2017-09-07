@@ -456,12 +456,15 @@ var SEMICOLON = SEMICOLON || {};
 										url: 'http://localhost:3000/post/info/' + id,
 										success: function (result) {
 											if (result) {
+												$('.mfp-vr').html(new EJS({ url: '/template/mfp/mfp-vr.ejs' }).render({ data: result }));
 												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({ data: result }));
 											} else {
 												alert("Load Error !!");
 											}
 										}
 									});
+
+
 								}
 							},
 						}
