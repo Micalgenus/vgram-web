@@ -167,7 +167,7 @@ exports.createVRImageVtourInfo = function (req, res) {
   }
 
   let postID = vrJSON.postID;
-  let vrFilePath = "/medias/vrimages/" + email;
+  let vrFilePath = ["/medias/vtours", email, vrJSON.vtour[0].file_path].join('/');
   //-----------------------------------------------
   //        vr이미지
   //---------------------------------------------

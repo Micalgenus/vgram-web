@@ -1,21 +1,31 @@
 <% for (var i = 0; i < post.length; i++) { %>
   <article class="portfolio-item <%= post[i].post_type %>" data-id="<%= post[i].ID %>">
+
+    <%
+      var t = JSON.parse(post[i].thumbnail_image_path)[0].vrimages
+    %>
+
+    <% console.log(t) %>
+    
     <div class="portfolio-image">
         <div class="fslider" data-arrows="false">
           <div class="flexslider">
               <div class="slider-wrap">
-                <div class="slide"><a href="portfolio-single-gallery.html"><img src="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0073.tiles/thumb.jpg" alt="Shake It"></a></div>
-                <div class="slide"><a href="portfolio-single-gallery.html"><img src="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0074.tiles/thumb.jpg" alt="Shake It"></a></div>
-                <div class="slide"><a href="portfolio-single-gallery.html"><img src="/medias/vtours/sinho0689@gmail.com/201705310101/panos/SAM_100_0075.tiles/thumb.jpg" alt="Shake It"></a></div>
+                <% for (var image = 0; image < t.length; image++) { %>
+                  <div class="slide"><img src="<%= mediaUrl %><%= t[image].thumb %>" alt="Shake It"></div>                
+                <% } %>
               </div>
           </div>
         </div>
+
         <div class="portfolio-overlay" data-lightbox="gallery">
-          <a href="/medias/images/sinho0689@gmail.com/desktop/360x240_201606281846.jpg" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
-          <a href="/medias/images/sinho0689@gmail.com/desktop/1975-20150311114607.jpg" class="hidden" data-lightbox="gallery-item"></a>
-          <a href="/medias/images/sinho0689@gmail.com/desktop/progressing.jpg" class="hidden" data-lightbox="gallery-item"></a>
-          <a href="/medias/images/sinho0689@gmail.com/desktop/건축분쟁_201701254601136.jpg" class="hidden" data-lightbox="gallery-item"></a>
-          <!-- <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="right-icon"><i class="icon-line-ellipsis"></i></a> -->
+          <% for (var image = 0; image < t.length; image++) { %>
+            <% if (image == 0) { %>
+              <a href="<%= mediaUrl %><%= t[image].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>              
+            <% } else { %>
+              <a href="<%= mediaUrl %><%= t[image].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
+            <% } %>
+          <% } %>
         </div>
     </div>
     <div class="testimonial">
