@@ -1,17 +1,13 @@
 <% for (var i = 0; i < post.length; i++) { %>
   <article class="portfolio-item <%= post[i].post_type %>" data-id="<%= post[i].ID %>">
 
-    <%
-      var t = JSON.parse(post[i].thumbnail_image_path)[0].vrimages
-    %>
-
-    <% console.log(t) %>
+    <% var images = JSON.parse(post[i].thumbnail_image_path)[0].vrimages %>
     
     <div class="portfolio-image">
         <div class="fslider" data-arrows="false">
           <div class="flexslider">
               <div class="slider-wrap">
-                <% for (var image = 0; image < t.length; image++) { %>
+                <% for (var image = 0; image < images.length; image++) { %>
                   <div class="slide"><img src="<%= mediaUrl %><%= t[image].thumb %>" alt="Shake It"></div>                
                 <% } %>
               </div>
@@ -19,7 +15,7 @@
         </div>
 
         <div class="portfolio-overlay" data-lightbox="gallery">
-          <% for (var image = 0; image < t.length; image++) { %>
+          <% for (var image = 0; image < images.length; image++) { %>
             <% if (image == 0) { %>
               <a href="<%= mediaUrl %><%= t[image].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>              
             <% } else { %>
