@@ -224,13 +224,6 @@ module.exports = function (app) {
   //  publicRouteAPI.post('/file/test', testFileUpload, PublicController.uploadFileTest);
 
 
-  // consultingCounsel view route,컨설팅 정보 입력
-  // webRoutes.get('/consultCounsel', function(req, res) {
-  //    res.render('consult/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
-  //    // res.status(200).json({ quote: quoter.getRandomOne() });
-  // });
-
-
   //=========================
   // web - Auth Routes
   //=========================
@@ -445,73 +438,6 @@ module.exports = function (app) {
   web.mapRoute.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
 
 
-  //=========================
-  // web - Consult Routes
-  //=========================
-  web.rootRoute.use('/consult', web.consultRoute);
-
-
-  //=========================
-  // API - Consult Routes
-  //=========================
-  api.rootRoute.use('/consult', api.consultRoute);
-
-
-  // insert consultRouteing information
-  // consultRouteAPI.post('/', requireAuth, ConsultController.consultRouteingCounsel);
-  //  consultRouteView.get('/create', requireAuth, ConsultController.consultRouteingCounsel);
-
-  // consultRouteing information list
-  //  consultRouteAPI.get('/', ConsultController.consultRouteingList);
-  //  consultRouteView.get('/list', web.roomRouteController.viewRoomInfoList);
-
-  // my consultRouteing information list
-  // consultRouteAPI.get('/my/', requireAuth, ConsultController.consultRouteingMyList);
-  //  consultRouteView.get('/my/list', requireAuth, ConsultController.consultRouteingMyList);
-
-  // consultRouteing information detail
-  //  consultRouteAPI.get('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDetail);
-  //  consultRouteView.get('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDetail);
-
-  // modify consultRouteing information
-  // consultRouteAPI.put('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingModify);
-  //  consultRouteView.get('/update/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingModify);
-
-  // delete consultRouteing information
-  //  consultRouteAPI.delete('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDelete);
-
-  // searchRoute consultRouteing information list
-  // api.rootRoute.get('/searchRoute/consultRoute', RoomInfoController.searchRouteRoomInfoList);
-
-
-  //=========================
-  // web - Biz Store Route - 업체 목록 조회
-  //=========================
-
-  // Set chat routes as a subgroup/middleware to api.rootRoute
-  // api.rootRoute.use('/biz-store', bizStoreAPI);
-  //  webRoutes.use('/biz-store', bizStoreView);
-
-  // View business userRoute profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
-  //  bizStoreAPI.get('/', BizStoreController.viewBizProfileList);
-  //  bizStoreView.get('/list', BizStoreController.viewBizProfileList);
-
-  // View business userRoute profile to customer route
-  // bizStoreAPI.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-  //  bizStoreView.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-
-
-  //=========================
-  // web : Biz Route - 업체 목록 조회(사용X)
-  //=========================
-  //  web.defaultRoute.get('/biz', web.authRouteController.init, BizViewController.bizList);
-  //  web.defaultRoute.get('/bizdetail', redirectViewController.redirectBizList);
-  //  web.defaultRoute.get('/bizdetail/:idx([0-9]+)', web.authRouteController.init, BizViewController.bizDetail);
-
-
-  //=========================
-  // api - Biz Store Route - 업체 목록 조회
-  //=========================
 
 
   //=========================
