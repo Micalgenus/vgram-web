@@ -323,3 +323,14 @@ exports.viewPostInfoView = function (req, res) {
   });
 
 };
+
+exports.embedPost = function (req, res) {
+  //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
+  res.render('iframe/krpano', {
+    ENV: env,
+    title: 'embedView',
+    msg: req.msg
+  });
+
+  // res.status(200).json({ quote: quoter.getRandomOne() });
+}
