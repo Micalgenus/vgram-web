@@ -29,6 +29,7 @@ var web = {
 var api = {
   authController: require('./controllers/api/rest-auth'),
   postController: require('./controllers/api/posts'),
+  userController: require('./controllers/api/user'),
   testController: require('./controllers/api/test')    // test route
 };
 
@@ -260,23 +261,26 @@ module.exports = function (app) {
   api.rootRoute.use('/auth', api.authRoute);
 
   //유저 모든정보 출력 api
-  api.authRoute.post('/info', api.authController.info);
+  // api.authRoute.post('/info', api.authController.info);
 
   // Login route
   api.authRoute.post('/login', requireAPIAuth, api.authController.login);
 
+  // Logout route
+  api.authRoute.post('/logout', requireAPIAuth, api.authController.logout);
+
   // Registration route
-  api.authRoute.post('/register', api.authController.register);
+  api.authRoute.post('/signup', api.authController.register);
 
-  //탈퇴 라우터
-  api.authRoute.post('/quit', api.authController.quit);
+  // 탈퇴 라우터
+  // api.authRoute.post('/quit', api.authController.quit);
 
-  // Password reset request route (generate/send token)
+  // Forgot password
   api.authRoute.post('/forgot-password', api.authController.forgotPassword);
   // authRouteView.get('/forgot-password', authRouteController.register);
 
-
-  // authRouteAPI.post('/reset-password/:token', authRouteController.verifyToken);
+  // Password reset request route (generate/send token)
+  api.authRoute.post('/reset-password/:token', api.authController.verifyToken);
   // authRouteView.get('/reset-password/:token', authRouteController.verifyToken);
 
 
@@ -297,6 +301,13 @@ module.exports = function (app) {
 
   web.userRoute.delete('/delete', requireWebAuth, loginCheck, web.userController.delete);
 
+  // member정보를 json형식으로 출력
+  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+
   //=========================
   // api - Member Routes
   //=========================
@@ -304,14 +315,16 @@ module.exports = function (app) {
   // Set userRoute routes as a subgroup/middleware to api.rootRoute
   api.rootRoute.use('/user', api.userRoute);
 
-  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+  api.userRoute.get('/info', api.userController.getAllUserInfo);  
+
+  api.userRoute.get('/:userIdx', api.userController.getUserInfoByIdx);
+
+  api.userRoute.put('/:userIdx', api.userController.modifyUserInfoByIdx);
+
+  api.userRoute.delete('/delete', api.userController.deleteUser);
 
   //회원정보 수정
-  api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
+  // api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
 
   // View publicRoute userRoute profile route
   // userRouteAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
@@ -333,21 +346,18 @@ module.exports = function (app) {
   //=========================
   web.rootRoute.use('/post', web.postRoute);
 
-
-  // krpano iframe view route, vr사진 높이 100%, 넓이 100%
-  web.postRoute.get('/embed/:ID', init, web.postController.embedPost);
-
-  //=========================
-  // api - Post Routes
-  //=========================
-  api.rootRoute.use('/post', api.postRoute);
-
-  //게시글 출력
-  api.postRoute.get('/', api.postController.viewPosts);
-
   // create new Room Info from authenticated userRoute
   web.postRoute.get('/new', requireWebAuth, init, web.postController.createPostInfoView);
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
+
+  // post info를 json로 받음
+  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
+
+  // index list
+  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
+
+  // comment
+  web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
 
   // delete post
   web.postRoute.delete('/delete/:postIdx([0-9]+)', requireWebAuth, loginCheck, web.postController.deletePost);
@@ -358,21 +368,36 @@ module.exports = function (app) {
   // view post info
   web.postRoute.get('/:postIdx([0-9]+)', requireWebAuth, web.postController.viewPostInfoView);
 
+  // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+  web.postRoute.get('/embed/:ID', init, web.postController.embedPost);
+
+  //=========================
+  // api - Post Routes
+  //=========================
+  api.rootRoute.use('/post', api.postRoute);
+
+  //게시글 출력
+  // api.postRoute.get('/', api.postController.viewPosts);
+
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
 
+  api.postRoute.get('/', api.postController.viewPost);
+
+  api.postRoute.post('/', api.postController.createPostInfo);
+
+  api.postRoute.put('/:postIdx', api.postController.modifyPostInfo);
+
+  api.postRoute.delete('/:postIdx', api.postController.deletePost);
+  
+  api.postRoute.get('/:postIdx', api.postController.getPostInfoByIdx);
+
+  api.postRoute.get('/search', api.postController.searchPost);
+
   //media, attached 정보 저장(image-server에서 이용함)
   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
-
-  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
-
-  // index list
-  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
-
-  // comment
-  web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
 
   //=========================
   // web - Room Info Routes
@@ -426,9 +451,8 @@ module.exports = function (app) {
   // web - Map Info Routes
   //=========================
   web.rootRoute.use('/map', web.mapRoute);
+
   web.mapRoute.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
-
-
 
 
   //=========================
