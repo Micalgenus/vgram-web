@@ -6,11 +6,10 @@
 
   <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/components/bs-select.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/components/bs-select.css" type="text/css" /> -->
 
-  <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/css/responsive.css" type="text/css" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
 
   <% include ../static/head.ejs %>
 
@@ -159,17 +158,13 @@
       <div class="left_head">
 
         <div class="col-md-6 bottommargin-sm">
-          <div class="white-section">
-            <label>Selected text Count:</label>
-            <select class="selectpicker" multiple data-selected-text-format="count">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-               </select>
-          </div>
+          <ul id="category" class="portfolio-filter clearfix">
+            <li class="activeFilter"><a href="#" data-filter="all">모두보기</a></li>
+            <% for (i in value.placeType) { %>
+              <li><a href="#" data-filter="<%= i %>"><%= __("placeType")[i] %></a></li>
+            <% } %>
+          </ul><!-- #portfolio-filter end -->
         </div>
-
-
 
       </div>
 
@@ -199,10 +194,6 @@
             <!-- #content end -->
           </div>
         </div>
-
-
-
-
         <!--<ul id="pagination" class="pagination-sm"></ul>-->
       </div>
 
@@ -330,16 +321,16 @@
 
   <!-- External JavaScripts
 ============================================= -->
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/plugins.js"></script>
+  <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+  <!-- <script type="text/javascript" src="js/plugins.js"></script> -->
 
 
   <!-- Bootstrap Select Plugin -->
-  <script type="text/javascript" src="js/components/bs-select.js"></script>
-  <link rel="stylesheet" href="css/components/bs-select.css" type="text/css" />
+  <!-- <script type="text/javascript" src="js/components/bs-select.js"></script> -->
+  <!-- <link rel="stylesheet" href="css/components/bs-select.css" type="text/css" /> -->
 
   <!-- Select Splitter Plugin -->
-  <script type="text/javascript" src="js/components/selectsplitter.js"></script>
+  <!-- <script type="text/javascript" src="js/components/selectsplitter.js"></script> -->
 
 
 

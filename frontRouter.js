@@ -400,49 +400,49 @@ module.exports = function (app) {
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
   //=========================
-  // web - Room Info Routes
+  // web - Map Info Routes
   //=========================
-  web.postRoute.use('/room', web.roomRoute);
+  
+  web.postRoute.use('/map', web.mapRoute);
 
-  //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-  web.roomRoute.get('/', requireWebAuth, init, web.roomController.roomInfoListView);
+  web.mapRoute.get('/', requireWebAuth, init, web.mapController.postInfoListView);
 
+  web.mapRoute.get('/json/list/:postIdxList(\[[0-9,]+\])', web.mapController.postInfoListJson);
+
+  web.mapRoute.get('/json/locations/:east/:west/:south/:north', web.mapController.getPostLocations);
+  
   // create new Room Info from authenticated userRoute
-  web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+  // web.mapRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
   // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
-
 
   // update Room Info Info from authenticated userRoute
   // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
   // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-  web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
-  web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
+  // web.mapRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
+  // web.mapRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
 
   // delete Room Info Info from authnticated userRoute
 
   // get Room Info Info from authenticated userRoute
   // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-  web.roomRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
+  // web.mapRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
 
-  web.roomRoute.get('/search', web.roomController.searchRoomListView);
+  // web.mapRoute.get('/search', web.roomController.searchRoomListView);
+  // web.mapRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
+  
+  // web.mapRoute.get('/json/:roomInfoIdx([0-9]+)', web.mapController.postInfoDetailJson);
+  // web.mapRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+  // web.mapRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+  // web.mapRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
 
-  web.roomRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
-
-  web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
-  web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
-  web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
-  web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
-  web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
-
-  web.roomRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
-
+  // web.mapRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
 
   //=========================
   // api - Room Info Routes
   //=========================
   api.postRoute.use('/room', api.roomRoute);
 
-  api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAPIAuth, web.roomController.deleteRoomInfo);
+  // api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAPIAuth, web.roomController.deleteRoomInfo);
 
   //룸세부정보 출력
   api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);
@@ -450,9 +450,8 @@ module.exports = function (app) {
   //=========================
   // web - Map Info Routes
   //=========================
-  web.rootRoute.use('/map', web.mapRoute);
+  // web.rootRoute.use('/map', web.mapRoute);
 
-  web.mapRoute.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
 
 
   //=========================
