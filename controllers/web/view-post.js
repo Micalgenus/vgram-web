@@ -304,18 +304,27 @@ exports.viewPostInfoView = function (req, res) {
     return res.render('post/detail', {
       ENV: req.env,
       logined: req.user.logined,
-      userIdx: req.ID,
+      userIdx: req.user.ID,
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,
+      domainUrl: config.host,
 
+      postID: info.post.ID,
       postTitle: info.post.title,
+      postType: info.post.post_type,
       createdAt: info.post.createdAt,
       comments: info.comments,
       commentCount: info.commentCount,
 
+      images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
+
       email: info.post.user.email,
+      nickname: info.post.user.nickname,
       phone: info.post.user.telephone,
+      memberType: info.post.user.member_type,
+
+      myPost: req.user.logined && info.post.user.ID == req.user.ID,
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,

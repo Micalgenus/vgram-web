@@ -27,6 +27,7 @@ app.locals.mediaUrl = config.mediaUrl;    // view template에서 사용할 수 �
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.locals.moment = require('moment');
 
 i18n.configure({
    locales: ['ko-kr', 'en-us'],

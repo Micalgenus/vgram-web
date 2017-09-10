@@ -122,15 +122,18 @@
               <p class="nobottommargin">
 
                 <!-- facebook-->
-                <div class="copy_body_fi" data-layout="button_count" data-href="http://localhost:3000/">
-                  <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
-                    <!-- href 에 url-->
-                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
-                      <i class="icon-facebook"></i>
-                      <i class="icon-facebook"></i>
-                    </a>
-                  </span>
-                </div>
+                <div class="sns_count">
+                  <div data-layout="button_count" data-href="http://localhost:3000/">
+                    <div class="sns_facebook">
+                      <span href="#" class="social-icon si-colored si-facebook" title="Facebook">
+                            <a class="fb-xfbml-parse-ignore" target="_blank"
+                              href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent('https://' + domainUrl + '/post/' + postID + '&src=sdkpreparse') %>">
+                              <i class="icon-facebook"></i>
+                              <i class="icon-facebook"></i>
+                            </a>
+                        </span>
+                    </div>
+                  </div>
 
                 <!--kakaotalk-->
                 <div class="copy_body_fi">
@@ -182,10 +185,10 @@
         <div class="clear"></div>
 
           <ul class="entry-meta clearfix">
-            <li><i class="icon-calendar3"></i> 10th July 2014</li>
-            <li><a href="#"><i class="icon-user"></i> admin</a></li>
-            <li><i class="icon-folder-open"></i> <a href="#">General</a>, <a href="#">Media</a></li>
-            <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li>
+            <li><i class="icon-calendar3"></i> <%= moment(createdAt).fromNow() %> </li>
+            <li><a href="#"><i class="icon-user"></i> <%= nickname %> </a></li>
+            <li><i class="icon-folder-open"></i> <%= postType %></li>
+            <li><a href="#"><i class="icon-comments"></i> <%= commentCount %> Comments</a></li>
             <li class="meta-right" style="float: right;"><a href="#"><i class="icon-camera-retro"></i></a></li>
           </ul><!-- .entry-meta end -->
         </div>
@@ -454,56 +457,106 @@
 
                   <div class="clear"></div>
 
-                  <!-- 사업주/일반 회원 -->
-                  <div class="col_full">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title"> 업체명 <span>
-                          <a href="#">
-                            <div class="member_option" style="float:right;">
-                              <!--전화-->
-                              <div class=".copy_body_fi" style="float: left;">
-                                <ul onclick="callNumber('010-1234-5678')">
-                                  <div class="name" align="right">
-                                    <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>
+                  <% if (memberType == "BUSINESS") { %>
+                    <!-- 사업주/일반 회원 -->
+                    <div class="col_full">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"> 업체명 <span>
+                            <a href="#">
+                              <div class="member_option" style="float:right;">
+                                <!--전화-->
+                                <div class=".copy_body_fi" style="float: left;">
+                                  <ul onclick="callNumber('010-1234-5678')">
+                                    <div class="name" align="right">
+                                      <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="tel:010-1111-2222"><i class="icon-phone3"></i></a></button>
+                                    </div>
+                                  </ul>
+                                </div>
+
+                                <!--SMS-->
+                                <div class="copy_body_fi">
+                                  <div class="fbox-icon">
+                                    <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>
                                   </div>
-                                </ul>
-                              </div>
+                                </div>
 
-                              <!--SMS-->
-                              <div class="copy_body_fi">
-                                <div class="fbox-icon">
-                                  <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title"><a href="sms:010-1111-2222"><i class="icon-line-mail"></i></a></button>
+                                <!--1:1대화-->
+                                <div class="copy_body_fi">
+                                  <div class="fbox-icon">
+                                    <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile"></i></a></button>
+                                  </div>
                                 </div>
                               </div>
-
-                              <!--1:1대화-->
-                              <div class="copy_body_fi">
-                                <div class="fbox-icon">
-                                  <button type="button" data-dismiss="modal" aria-hidden="true" class="modal-title" id="contactFormModalLabel"><a href="#" data-toggle="modal" data-target=""><i class="icon-smile"></i></a></button>
-                                </div>
-                              </div>
-                            </div>
-                          </a></span>
-                        </h3>
-                      </div>
-                      <div class="panel-body">
-                        <div class="author-image">
-                          <img src="/images/SH.png" alt="" class="img-rectangular">
+                            </a></span>
+                          </h3>
                         </div>
-                        전화번호
-                      </div>
-                    </div><!-- Post Single - Author End -->
-                  </div>
+                        <div class="panel-body">
+                          <div class="author-image">
+                            <img src="/images/SH.png" alt="" class="img-rectangular">
+                          </div>
+                          전화번호
+                        </div>
+                      </div><!-- Post Single - Author End -->
+                    </div>
+                  <% } %>
 
                   <div class="clear"></div>
 
                   <!--수정,삭제   // 내가 쓴거 조건문 추가-->
+                  <% if (myPost) { %>
                   <div class="button_3">
-                    <a href="#" class="button button-3d  button-rounded button-blue">수정</a>
-                    <a href="#" class="button button-3d  button-rounded button-blue">삭제</a>
-                    <a href="#" class="button button-3d  button-rounded button-blue">재등록</a>
+                    <a id="deletePost" href="#" class="button button-3d  button-rounded button-blue">수정</a>
+                    <a id="modifyPost" href="#" class="button button-3d  button-rounded button-blue">삭제</a>
+                    <a id="updatePost" href="#" class="button button-3d  button-rounded button-blue">재등록</a>
+                        
+                    <script>
+                    jQuery(function($) {
+                      $('#deletePost').click(function() {
+                        $.ajax({
+                          type: 'DELETE',
+                          url: '/post/delete/<%= postID %>',
+                          success: function(data) {
+                            if (data == "OK") {
+                              alert("삭제되었습니다.");
+                              location.reload();
+                            }
+                          },
+                          error: function(error) {
+                            alert(error.responseJSON.errorMsg);
+                          }
+                        });
+                      });
+                      
+                      $('#modifyPost').click(function() {
+                        location.href = '/post/modify/<%= postID %>';
+                      });
+                      
+                      $('#updatePost').click(function() {
+                        $.ajax({
+                          type: 'PUT',
+                          url: '/post/re-enroll/<%= postID %>',
+                          success: function(data) {
+                            if (data == "OK") {
+                              alert("재등록 하였습니다.");
+                              location.reload();
+                            } else if (data == "other") {
+                              alert("다른 회원의 게시글 입니다.");
+                            }
+
+                            else {
+                              alert(data);
+                            }
+                          },
+                          error: function(error) {
+                            alert(error);
+                          }
+                        });
+                      });
+                    });
+                    </script>
                   </div>
+                  <% } %>
 
             </form>
             <div class="col_full">
@@ -511,139 +564,55 @@
                <!--<textarea name="template-jobform-application" id="template-jobform-application" rows="6" tabindex="11" class="sm-form-control required"></textarea>-->
                <div id="comments" class="clearfix">
 
-                  <h3 id="comments-title"><span>3</span> Comments</h3>
+                  <h3 id="comments-title"><span><%= commentCount %></span> Comments</h3>
 
                   <!-- Comments List
                   ============================================= -->
                   <ol class="commentlist clearfix">
-
                      <% for (i in comments) { %>
-                     <li class="comment even thread-even depth-1">
-                        <div class="comment-wrap clearfix">
-                           <div class="comment-meta">
-                              <div class="comment-author vcard">
-                                              <span class="comment-avatar clearfix">
-                                              <!--<img alt='' src='/<%= //comments[i].post.user.profile_image_path %>'-->
-                                                   <!--class='avatar avatar-60 photo avatar-default' height='60'-->
-                                                   <!--width='60'/>-->
-                                              </span>
-                              </div>
-                           </div>
-                           <div class="comment-content clearfix">
-                              <div class="comment-author"><%= // comments[i].post.user.nickname %><span><a href="#"
-                                                                                                        title="Permalink to this comment"><%= comments[i].createdAt %></a></span>
-                              </div>
-                              <p><%= comments[i].content %></p>
-                              <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-                           </div>
-                           <div class="clear"></div>
-                        </div>
-                        <% if (comments[i].list) { %>
-                        <ul class='children'>
-                           <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
-                              <div id="comment-3" class="comment-wrap clearfix">
-                                 <div class="comment-meta">
-                                    <div class="comment-author vcard">
-                                                      <span class="comment-avatar clearfix">
-                                                      <img alt='' src='/<%= comments[i].post.user.profile_image_path %>'
-                                                           class='avatar avatar-40 photo' height='40'
-                                                           width='40'/></span>
-                                    </div>
-                                 </div>
-                                 <div class="comment-content clearfix">
-                                    <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a
-                                             href="#"
-                                             title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span>
-                                    </div>
-                                    <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                    <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-                                 </div>
-                                 <div class="clear"></div>
-                              </div>
-                           </li>
-                        </ul>
-                        <% } %>
-                     </li>
+                      <li class="comment even thread-even depth-1">
+                          <div class="comment-wrap clearfix">
+                            <div class="comment-meta">
+                                <div class="comment-author vcard">
+                                    <span class="comment-avatar clearfix">
+                                      <img alt='' src='<%= mediaUrl + comments[i].user.profile_image_path %>' class='avatar avatar-60 photo' height='60' width='60' /></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="comment-content clearfix">
+                                <div class="comment-author"><%= comments[i].user.nickname %><span><a href="#" title="Permalink to this comment"><%= moment(comments[i].createdAt).fromNow() %></a></span>
+                                </div>
+                                <p><%= comments[i].content %></p>
+                                <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                      </li>
                      <% } %>
 
                   </ol>
                   <!-- .commentlist end -->
 
-                  <div class="clear"></div>
+                      <div class="clear"></div>
 
-                  <!-- Comment Form
-                  ============================================= -->
-                  <div id="respond" class="clearfix">
-
-                     <h3>Leave a <span>Comment</span></h3>
-
-                     <form class="clearfix" action="comment/< % = roomIdx %>" method="post" id="commentform">
-
-                        <!-- Comments List
-                        ============================================= -->
-                        <ol class="commentlist clearfix">
-
-                            <% for (var i = 0; i < commentCount; i++) { %>
-                              <li class="comment even thread-even depth-1">
-                                  <div class="comment-wrap clearfix">
-                                      <div class="comment-meta">
-                                          <div class="comment-author vcard">
-                                              <span class="comment-avatar clearfix">
-                                              <img alt='' src='/<%= comments[i].user.profile_image_path %>' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
-                                          </div>
-                                      </div>
-                                      <div class="comment-content clearfix">
-                                          <div class="comment-author"><%= comments[i].user.nickname %><span><a href="#" title="Permalink to this comment"><%= comments[i].createdAt %></a></span></div>
-                                          <p><%= comments[i].content %></p>
-                                          <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-                                      </div>
-                                      <div class="clear"></div>
-                                  </div>
-                                  <% if (comments[i].list) { %>
-                                    <ul class='children'>
-                                      <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
-                                          <div id="comment-3" class="comment-wrap clearfix">
-                                              <div class="comment-meta">
-                                                  <div class="comment-author vcard">
-                                                      <span class="comment-avatar clearfix">
-                                                      <img alt='' src='/<%= comments[i].post.user.profile_image_path %>' class='avatar avatar-40 photo' height='40' width='40' /></span>
-                                                  </div>
-                                              </div>
-                                              <div class="comment-content clearfix">
-                                                  <div class="comment-author"><a href='#' rel='external nofollow' class='url'>SemiColon</a><span><a href="#" title="Permalink to this comment">April 25, 2012 at 1:03 am</a></span></div>
-                                                  <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                  <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-                                              </div>
-                                              <div class="clear"></div>
-                                          </div>
-                                      </li>
-                                  </ul>
-                                <% } %>
-                              </li>
-                            <% } %>
-
-                        </ol>
-                        <!-- .commentlist end -->
-
-                        <div class="clear"></div>
-
-                        <div class="col_full">
-                           <label for="comment">Comment</label>
-                           <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"
-                                     <% if (logined == false) { %>readonly>Login please.
-                              <% } else { %>
+                      <div class="col_full">
+                          <label for="comment">Comment</label>
+                          <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"
+                            <% if (logined == false) { %>
+                              readonly>Login please.
+                            <% } else { %>
                               >
-                              <% } %>
-                           </textarea>
-                        </div>
+                            <% } %>
+                          </textarea>
+                      </div>
 
-                        <div class="col_full nobottommargin">
-                           <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit"
-                                   class="button button-3d nomargin">Submit Comment
-                           </button>
-                        </div>
+                      <div class="col_full nobottommargin">
+                          <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit"
+                                  class="button button-3d nomargin">Submit Comment
+                          </button>
+                      </div>
 
-                     </form>
+                    </form>
 
                   </div>
                   <!-- #respond end -->
