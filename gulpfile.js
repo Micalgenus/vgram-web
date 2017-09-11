@@ -11,6 +11,7 @@ var gulp = require('gulp-param')(require('gulp'), process.argv),
 
   sass = require('gulp-sass'),
   less = require('gulp-less'),
+  autoprefixer = require('gulp-autoprefixer'),
   cleanCSS = require('gulp-clean-css'),
   pump = require('pump');
 
@@ -23,7 +24,7 @@ gulp.task('lint', function () {
 })
 
 gulp.task('less', function () {
-  gulp.src('./public/less/**/*.less')
+  return gulp.src('./public/less/**/*.less')
     .pipe(plumber())
     .pipe(less())
     .pipe(gulp.dest('./public/css'))
@@ -49,9 +50,12 @@ gulp.task('less:watch', function () {
 
 
 gulp.task('sass', function () {
-  gulp.src('./public/sass/**/*.scss')
+  return gulp.src('./public/sass/**/*.scss')
     .pipe(plumber())
     .pipe(sass())
+    .pipe(autoprefixer({
+      browsers: ['last 2 version', 'ios 8', 'android 4']
+    }))
     .pipe(gulp.dest('./public/css'))
     .pipe(livereload());
 });

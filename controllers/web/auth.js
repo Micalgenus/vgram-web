@@ -294,6 +294,42 @@ exports.checkUser = function (req, res, next) {
 
     let info = req.user.profile;
 
+    // 초기화 된 계정일 경우
+    if (info.user_metadata) {
+      return User.create({
+        ID: info.app_metadata.ID,
+        email: info.email,
+        password: 'PASSWORD',
+        member_type: info.app_metadata.roles[0],
+        nickname: info.user_metadata.nickname,
+        user_status: info.app_metadata.user_status,
+        telephone: info.user_metadata.telephone,
+        createdAt: moment(info.created_at).format('YYYY-MM-DD'),
+         auth0_user_id: info.user_id,
+        locale: info.user_metadata.locale,
+        profile_image_path: info.user_metadata.profile_image_path,
+        updatedAt: moment(info.updated_at).format('YYYY-MM-DD'),
+        meta_value: {
+          registered_number: info.user_metadata.registered_number,
+          address: {
+            post_code: info.user_metadata.address.post_code,
+            addr1: info.user_metadata.address.addr1,
+            addr2: info.user_metadata.address.addr2,
+          },
+          point: info.app_metadata.point,
+          // owner_name: "김선호",
+          // business_type: "LANDLORD",
+          // comment: "환영합니다 ^^",
+          phone_number: info.user_metadata.phone_number,
+        }
+      }).then(function (newUser) {
+        req.user.profile.ID = info.app_metadata.ID;
+        
+        return next();
+      });
+    }
+
+    // 계정 생성 후 초기화 되지 않은 계정
     return getAdminToken().then(function (token) {
       return getLastId(0, token).then(function (id) {
         let args = {
