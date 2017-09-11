@@ -3,14 +3,14 @@
  */
 
 "use strict";
-const multer = require('multer');
+// const multer = require('multer');
 
 const models = require('../../models');
 const User = models.user;
 const Post = models.post;
 const Comment = models.comment;
 
-const multerConfig = require('../../config/multer');
+// const multerConfig = require('../../config/multer');
 const value = require('../../utils/staticValue');
 
 const authController = require('./auth.js');
@@ -22,9 +22,8 @@ const xss = require('xss');
 
 
 // for file download
-const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields([
-  { name: value.fieldName.PROFILE_IMAGE, maxCount: 1 }]);
-
+// const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields([
+//   { name: value.fieldName.PROFILE_IMAGE, maxCount: 1 }]);
 
 
 //========================================

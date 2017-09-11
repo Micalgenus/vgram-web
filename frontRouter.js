@@ -4,7 +4,7 @@
 const passport = require('passport'),
   jwt = require('express-jwt'),
   express = require('express'),
-  multer = require('multer'),
+  // multer = require('multer'),
   _ = require("lodash"),
   i18n = require('i18n');
 
@@ -18,7 +18,6 @@ const value = require('./utils/staticValue');
 
 var web = {
   authController: require('./controllers/web/auth'),
-  roomController: require('./controllers/web/view-room'),
   mapController: require('./controllers/web/view-map'),
   redirectController: require('./controllers/web/redirect'),
   userController: require('./controllers/web/view-user'),
@@ -411,31 +410,6 @@ module.exports = function (app) {
 
   web.mapRoute.get('/json/locations/:east/:west/:south/:north', web.mapController.getPostLocations);
 
-  // create new Room Info from authenticated userRoute
-  // web.mapRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
-  // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
-
-  // update Room Info Info from authenticated userRoute
-  // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-  // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-  // web.mapRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
-  // web.mapRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
-
-  // delete Room Info Info from authnticated userRoute
-
-  // get Room Info Info from authenticated userRoute
-  // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-  // web.mapRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
-
-  // web.mapRoute.get('/search', web.roomController.searchRoomListView);
-  // web.mapRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
-
-  // web.mapRoute.get('/json/:roomInfoIdx([0-9]+)', web.mapController.postInfoDetailJson);
-  // web.mapRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
-  // web.mapRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
-  // web.mapRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
-
-  // web.mapRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
 
   //=========================
   // api - Room Info Routes
@@ -486,4 +460,32 @@ module.exports = function (app) {
   // Send email from contact form
   // communicationRoutes.post('/contact', CommunicationController.sendContactForm);
 
+
+
+
+  // create new Room Info from authenticated userRoute
+  // web.mapRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+  // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
+
+  // update Room Info Info from authenticated userRoute
+  // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
+  // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
+  // web.mapRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
+  // web.mapRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
+
+  // delete Room Info Info from authnticated userRoute
+
+  // get Room Info Info from authenticated userRoute
+  // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
+  // web.mapRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
+
+  // web.mapRoute.get('/search', web.roomController.searchRoomListView);
+  // web.mapRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
+
+  // web.mapRoute.get('/json/:roomInfoIdx([0-9]+)', web.mapController.postInfoDetailJson);
+  // web.mapRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+  // web.mapRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+  // web.mapRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
+
+  // web.mapRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
 };
