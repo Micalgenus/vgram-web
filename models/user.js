@@ -154,17 +154,6 @@ module.exports = function(sequelize, DataTypes) {
                as: "LikePosts"
             });
 
-            user.belongsToMany(models.post, {
-               onUpdate: "CASCADE",
-               onDelete: "CASCADE",
-               through: models.user_post_relationship,
-               foreignKey: {
-                  name: 'user_id',
-                  allowNull: false
-               },
-               as: "WishPosts"
-            });
-
             user.hasMany(models.post, {
                onUpdate: "CASCADE",
                onDelete: "CASCADE",

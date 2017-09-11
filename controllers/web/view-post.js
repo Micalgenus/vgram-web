@@ -109,19 +109,19 @@ exports.createPostInfo = function (req, res, next) {
         }, { where: { ID: i.ID }, transaction: t }).then(function () {
           return Coordinate.create({
             translation_group_id: i.ID,
-            // region_code: 
+            // region_code:
             lat: req.body.lat,
             lng: req.body.lng,
           }, { transaction: t }).then(function (c) {
             return Address.create({
               translation_id: i.ID,
               coordinate_id: c.ID,
-              // post_code: 
+              // post_code:
               // region_code:
               addr1: req.body.address1,
               addr2: req.body.address1,
               detail: req.body.address2,
-              // extra_info: 
+              // extra_info:
               locale: i.language_code,
               translation_group_id: i.ID
             }, { transaction: t }).then(function (a) {
@@ -258,7 +258,6 @@ exports.postHtmlList = function (req, res) {
     }
   }).then(function (p) {
     if (!p) return res.status(404).send();
-
     return res.render('post/main-list-item', {
       post: p
     });

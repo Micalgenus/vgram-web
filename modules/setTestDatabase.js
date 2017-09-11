@@ -107,7 +107,7 @@ module.exports = function (testDB) {
       testDB["user"] = users;
       // Foreign Key 때문에 입력 순서대로 넣어야한다.
       var modelnames = ["user", "user_meta", "post", "post_meta", "attached", "media", "room", "post_media_relationship",
-        "post_attached_relationship", "user_post_relationship", "user_user_relationship", "user_post_like_relationship",
+        "post_attached_relationship", "user_user_relationship", "user_post_like_relationship",
         "hash_table", "icl_translation", "coordinate", "address", "tag", "tag_relationship", "comment"];
 
       return models.sequelize.Promise.each(_.map(testDB), (item, index, length) => {

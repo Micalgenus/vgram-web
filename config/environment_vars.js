@@ -3,7 +3,6 @@
 var _, vars;
 var dotenv = require('dotenv'),
    _ = require('lodash');
-const appRoot = require('app-root-path');
 const path = require('path');
 
 // var log = require('console-log-level')({
@@ -24,34 +23,14 @@ if (process.env.NODE_ENV === "development") {
 
 dotenv.config({path: envPath});    // loading .env and write to process.env
 
-// root project path 찾는 방법에 대해서는 여러가지 방법이 구현되어 있으나,
-// 현재는 이 방법을 사용한다.
-const KRPANO_WIN_PATH = path.join(appRoot.toString(), "\\tools\\krpano-1.19-pr6-win");
-const KRPANO_LINUX_PATH = path.join(appRoot.toString(), "/tools/krpano-1.19-pr6-linux");
-const VTOUR_CONFIG_PATH = "templates/vtour-normal-custom.config";
-const PANOTOUR_PATH = path.join("vtour", "panos");
-
 vars = {
    NODE_ENV: process.env.NODE_ENV || "development",
    LOG_LEVEL: "debug",
+  PORT: 3000,
 
-   RESOURCE_DIR: "resources",
-   ATTACHED_DIR: "resources/attached",
-   MEDIAS_DIR: "resources/medias",
-   IMAGES_DIR: "resources/medias/images",
-   VIDEOS_DIR: "resources/medias/videos",
-   VRIMAGES_DIR: "resources/medias/vrimages",
-   VTOURS_DIR: "resources/medias/vtours",
-   POSTS_DIR: "resources/posts",
-   USERS_DIR: "resources/users",
-   TEMP_DIR: "resources/temp",
+  MEDIA_SERVER_URL: "http://localhost:3001",
 
-   KRPANO_WIN_PATH: KRPANO_WIN_PATH,
-   KRPANO_LINUX_PATH: KRPANO_LINUX_PATH,
-   VTOUR_CONFIG_PATH: VTOUR_CONFIG_PATH,
-   PANOTOUR_PATH: PANOTOUR_PATH,
-
-   AUTH0_DOMAIN: "",
+  AUTH0_DOMAIN: "",
    AUTH0_CLIENT_ID: "",
    AUTH0_CLIENT_SECRET: "",
    AUTH0_CALLBACK_URL: "",
@@ -61,9 +40,7 @@ vars = {
    AUTH0_JWT_EXPIRATION: 18000,
    AUTH0_ALGORITHM: "RS256",
 
-
-   APP_NAME: "cozyhouzz",
-   PORT: 3000
+   APP_NAME: "vgram",
 };
 
 _.forEach(vars, function(value, key){

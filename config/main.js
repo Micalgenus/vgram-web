@@ -21,7 +21,7 @@ var config = {
       "database": "cozyhouzz",
       "host": "api.cozyhouzz.co.kr",    // The host of the relational database.
       "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting,
-      "mediaUrl": "http://media.cozyhouzz.co.kr:3000",     // 미디어/이미지 서버 URL
+      "mediaUrl": "http://image.vgram.kr",     // 미디어/이미지 서버 URL
       "dialect": "mysql",
       "pool": {
          "max": 50,
@@ -41,29 +41,11 @@ var config = {
 
 config[NODE_ENV].secret = env_var.AUTH0_CLIENT_SECRET;  // Secret key for JWT signing and encryption
 config[NODE_ENV].root = rootPath.path;
+config[NODE_ENV].mediaUrl = env_var.MEDIA_SERVER_URL;
+
 config[NODE_ENV].app = {
    name: env_var.APP_NAME
 };
-
-config[NODE_ENV].krpano = {
-   WIN_PATH: env_var.KRPANO_WIN_PATH,
-   LINUX_PATH: env_var.KRPANO_LINUX_PATH,
-   VTOUR_CONFIG_PATH: env_var.VTOUR_CONFIG_PATH,
-   PANOTOUR_PATH: env_var.PANOTOUR_PATH
-}
-
-config[NODE_ENV].resource = {
-   DIR: env_var.RESOURCE_DIR,
-   ATTACHED_DIR: env_var.ATTACHED_DIR,
-   MEDIAS_DIR: env_var.MEDIAS_DIR,
-   IMAGES_DIR: env_var.IMAGES_DIR,
-   VIDEOS_DIR: env_var.VIDEOS_DIR,
-   VRIMAGES_DIR: env_var.VRIMAGES_DIR,
-   VTOURS_DIR: env_var.VTOURS_DIR,
-   POSTS_DIR: env_var.POSTS_DIR,
-   USERS_DIR: env_var.USERS_DIR,
-   TEMP_DIR: env_var.TEMP_DIR,
-}
 
 config[NODE_ENV].auth0 = {
    DOMAIN: env_var.AUTH0_DOMAIN,
