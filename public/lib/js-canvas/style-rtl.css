@@ -5,7 +5,7 @@
 	Description: The Multi-Purpose Template
 	Author: SemiColonWeb
 	Author URI: http://themeforest.net/user/semicolonweb
-	Version: 4.2
+	Version: 4.5.1
 
 	-- RTL CSS --
 
@@ -2632,6 +2632,8 @@ ul.tab-nav li a i {
 }
 
 .side-tabs ul.tab-nav li {
+	float: none;
+	border-right: 1px solid #DDD;
 	border-left: 0;
 	text-align: right;
 }
@@ -2640,6 +2642,7 @@ ul.tab-nav li a i {
 	margin-right: 0;
 	margin-left: 0;
 	border-right: 1px solid #DDD;
+	border-left: 0;
 }
 
 .side-tabs ul.tab-nav li.ui-tabs-active a {
@@ -2870,21 +2873,18 @@ ul.tab-nav li a i {
 .table-comparison th:first-child,
 .table-comparison td:first-child { text-align: right; }
 
-
 /* ----------------------------------------------------------------
 	Animated Rounded Skills
 -----------------------------------------------------------------*/
 
-.easyPieChart canvas {
+.rounded-skill canvas {
 	right: 0;
 	left: auto;
 }
 
-
 /* ----------------------------------------------------------------
 	Skills Bar
 -----------------------------------------------------------------*/
-
 
 .skills li .progress {
 	right: 0;
@@ -3232,12 +3232,9 @@ blockquote.pull-right {
 
 .landing-video { margin: 22px 90px 0 0; }
 
-
-
 /* ----------------------------------------------------------------
 	Toastr Notifications
 -----------------------------------------------------------------*/
-
 
 .toast-close-button {
 	left: 5px;
@@ -3302,7 +3299,6 @@ blockquote.pull-right {
 	margin-right: 0;
 }
 
-
 /* Tag Cloud
 -----------------------------------------------------------------*/
 
@@ -3350,7 +3346,6 @@ blockquote.pull-right {
 	margin-left: 0;
 }
 
-
 /* Widget - Testimonial & Twitter
 -----------------------------------------------------------------*/
 
@@ -3358,7 +3353,6 @@ blockquote.pull-right {
 	margin-left: 10px;
 	margin-right: 0;
 }
-
 
 /* Twitter Feed Widget
 -----------------------------------------------------------------*/
@@ -3398,7 +3392,6 @@ blockquote.pull-right {
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-
 /* Navigation Tree
 -----------------------------------------------------------------*/
 
@@ -3435,7 +3428,6 @@ blockquote.pull-right {
 /* ----------------------------------------------------------------
 	Wedding
 -----------------------------------------------------------------*/
-
 
 .wedding-head .first-name,
 .wedding-head .last-name,
@@ -3551,11 +3543,9 @@ label.checkbox {
 	margin-right: 0;
 }
 
-
 /* ----------------------------------------------------------------
 	Magnific Popup Lightbox
 -----------------------------------------------------------------*/
-
 
 .mfp-wrap,
 .mfp-auto-cursor,
@@ -3568,11 +3558,9 @@ label.checkbox {
 	right: auto !important;
 }
 
-
 /* ----------------------------------------------------------------
 	HTML5 Youtube Video Backgrounds
 -----------------------------------------------------------------*/
-
 
 .mb_YTVPlayer.fullscreen {
 	right: 0!important;

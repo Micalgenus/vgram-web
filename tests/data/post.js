@@ -23,7 +23,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       read_count: 0,
       thumbnail_image_path: [],      // 10번
       like: 0,
@@ -45,7 +45,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       read_count: 0,
       thumbnail_image_path: [],      // 11번
       like: 0,
@@ -66,7 +66,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       thumbnail_image_path: [],      // 12번
       read_count: 0,
       like: 0,
@@ -87,7 +87,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       read_count: 0,
       thumbnail_image_path: [],      // 13번
       like: 0,
@@ -108,7 +108,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -129,7 +129,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'NORMAL',
       thumbnail_image_path: [],      // 10번
       read_count: 0,
       like: 0,
@@ -150,7 +150,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 11번
       read_count: 0,
       like: 0,
@@ -171,7 +171,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 12번
       read_count: 0,
       like: 0,
@@ -192,7 +192,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 13번
       read_count: 0,
       like: 0,
@@ -213,7 +213,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -233,7 +233,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 10번
       read_count: 0,
       like: 0,
@@ -254,7 +254,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'REAL_ESTATE',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -274,7 +274,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -294,7 +294,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -314,7 +314,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -334,7 +334,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -354,7 +354,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -374,7 +374,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'TRAVEL',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -394,7 +394,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -414,7 +414,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -434,7 +434,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -454,7 +454,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -474,7 +474,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -494,7 +494,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'ACCOMMODATION',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -514,7 +514,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -534,7 +534,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -554,7 +554,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -574,7 +574,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -594,7 +594,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -614,7 +614,7 @@ var data = [
       post_status: 'publish',
       createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      post_type: 'ROOM',
+      post_type: 'INTERIOR',
       thumbnail_image_path: [],      // 14번
       read_count: 0,
       like: 0,
@@ -705,8 +705,8 @@ var data = [
    }
 ]
 
-var testImages = ["./medias/images/360x240_201606281846.jpg", "./medias/images/1975-20150311114607.jpg",
-   "./medias/images/건축분쟁_201701254601136.jpg"];
+// var testImages = ["./medias/images/360x240_201606281846.jpg", "./medias/images/1975-20150311114607.jpg",
+//    "./medias/images/건축분쟁_201701254601136.jpg"];
 
 var testVRThumbnails = [];
 // [
@@ -788,21 +788,21 @@ var testThumbnails = [];
 //    }
 // ]
 
+/**
+ * VR 이미지 포함 글 thumbnail 정보 생성
+ */
 for (i = 0; i < mediaData.length; i++) {     // testVRThumbnails 제작
    if (_.eq(mediaData[i].type, "VTOUR")) {
       var tmp = {};
       tmp.ID = mediaData[i].ID;
       tmp.vrimages = [];
 
-      for (var id of mediaData[i].meta_value.original_media_id) {
-         var originalObj = _.find(mediaData, { ID : id });
-         var thumbPath = [
-            originalObj.file_path,
-            originalObj.meta_value.tile_dir_name,
-            originalObj.meta_value.thumbnail_image_name].join("/");
+      for (var tile of mediaData[i].meta_value.tiles) {
+         // var originalObj = _.find(mediaData, { ID : id });
+         var thumbPath = [mediaData[i].file_path, "panos", tile.dir_name, "thumb.jpg"].join("/");
 
          tmp.vrimages.push({
-            ID: originalObj.ID,
+            ID: mediaData[i].ID,
             thumb: thumbPath
          });
       }
@@ -811,37 +811,47 @@ for (i = 0; i < mediaData.length; i++) {     // testVRThumbnails 제작
    }
 }
 
+/**
+ * 이벤트, 공지사항 관련 글 thumbnail 정보 생성
+ */
 for (i = 0; i < mediaData.length; i++) {     // testThumbnails 제작
    if (_.eq(mediaData[i].type, "NORMAL_IMAGE")) {
       var tmp = {};
       tmp.ID = mediaData[i].ID;
       tmp.thumb = [
          mediaData[i].file_path,
-         mediaData[i].meta_value.mobile_dir,
+         mediaData[i].meta_value.mobile_dir,    // 일단 mobile 사이즈를 썸네일로 쓰자
          mediaData[i].file_name].join("/");
 
       testThumbnails.push(tmp);
    }
 }
 
-for (i = 0; i < 30; i++) {  // ROOM 관련 test 데이터 30개 생성
+/**
+ * VR 이미지 포함 글 thumbnail 정보 post에 입력
+ */
+for (i = 0; i < 30; i++) {  // POST 관련 test 데이터 30개 생성
    data[i].content = '<p style="text-align: center; ">'+addressData[i].addr2+'</p><p style="text-align: center; ">' +
-   'ㅋㅋㅋㅋㅋㅋㅋㅋ<br></p><img style="width: 411px;" src="' + testImages[i%testImages.length] + '" data-media-ID="1" />';
+      '<br />VGram에 오신것을 환영합니다!! VGram에 오신것을 환영합니다!! </p>';
    data[i].title = addressData[0].addr1;
-   data[i].thumbnail_image_path = [];
+   data[i].thumbnail_image_path = testVRThumbnails[i%testVRThumbnails.length];
+   data[i].meta_value.image_slider_order = [];
 
-   for (image of testVRThumbnails[i%testVRThumbnails.length]) {
-      data[i].thumbnail_image_path.push(image);
+   for (var thumb of testThumbnails) {
+      data[i].meta_value.image_slider_order.push(thumb.ID);
    }
 }
 
+/**
+ * 이벤트, 공지사항 관련 글 thumbnail 정보 post에 입력
+ */
 for (i = 30; i < data.length; i++) {
    data[i].thumbnail_image_path = testThumbnails;
-}
+   data[i].meta_value.image_slider_order = [];
 
-for (i = 0; i < data.length; i++) {
-   // post_media_relationship을 위해서 없으면 빈 배열이라도 넣어줘야됨
-   data[i].meta_value.image_slider_order = [2, 3, 4];
+   for (var thumb of testThumbnails) {
+      data[i].meta_value.image_slider_order.push(thumb.ID);
+   }
 }
 
 module.exports = data;

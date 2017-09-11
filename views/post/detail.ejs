@@ -270,7 +270,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div>
               <div class="contact-form-result"></div>
               <form action="include/jobs.php" id="template-jobform" name="template-jobform" method="post" role="form">
@@ -589,7 +589,7 @@
                                       <div class="comment-meta">
                                           <div class="comment-author vcard">
                                               <span class="comment-avatar clearfix">
-                                              <img alt='' src='/<%= comments[i].user.profile_image_path %>' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                                              <img alt='' src='<%= mediaUrl %>/<%= comments[i].user.profile_image_path %>' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
                                           </div>
                                       </div>
                                       <div class="comment-content clearfix">
@@ -606,7 +606,7 @@
                                               <div class="comment-meta">
                                                   <div class="comment-author vcard">
                                                       <span class="comment-avatar clearfix">
-                                                      <img alt='' src='/<%= comments[i].post.user.profile_image_path %>' class='avatar avatar-40 photo' height='40' width='40' /></span>
+                                                      <img alt='' src='<%= mediaUrl %>/<%= comments[i].post.user.profile_image_path %>' class='avatar avatar-40 photo' height='40' width='40' /></span>
                                                   </div>
                                               </div>
                                               <div class="comment-content clearfix">

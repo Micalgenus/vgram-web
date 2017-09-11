@@ -82,6 +82,13 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 			}
 		}
 
+		// Uncomment the following Lines of Code if you want to Force reCaptcha Validation
+
+		// if( !isset( $_POST['g-recaptcha-response'] ) ) {
+		// 	echo '{ "alert": "error", "message": "Captcha not Submitted! Please Try Again." }';
+		// 	die;
+		// }
+
 		$mail->MsgHTML( $body );
 		$sendEmail = $mail->Send();
 

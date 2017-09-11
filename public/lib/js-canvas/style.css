@@ -5,7 +5,7 @@
 	Description: The Multi-Purpose Template
 	Author: SemiColonWeb
 	Author URI: http://themeforest.net/user/semicolonweb
-	Version: 4.2
+	Version: 4.5.1
 
 -----------------------------------------------------------------------------------*/
 
@@ -176,7 +176,7 @@ h6 {
 }
 
 h5,
-h6 { margin-bottom: 0px; }
+h6 { margin-bottom: 20px; }
 
 h1 { font-size: 36px; }
 
@@ -220,6 +220,8 @@ small { font-family: 'Lato', sans-serif; }
 /* ----------------------------------------------------------------
 	Helper Classes
 -----------------------------------------------------------------*/
+
+
 .uppercase { text-transform: uppercase !important; }
 
 .lowercase { text-transform: lowercase !important; }
@@ -270,11 +272,7 @@ span.middot {
 	margin: 0 5px;
 }
 
-.double-line { border-top: 3px double #1a2c51; }
-
-.line-room-new { border-top: 4px double #1a2c51;
-                 border-width: thick;
-}
+.double-line { border-top: 3px double #E5E5E5; }
 
 .emptydiv {
 	display: block !important;
@@ -616,9 +614,9 @@ body.stretched .container-fullwidth {
 	display: block;
 	position: relative;
 	margin-right: 4%;
-/*	margin-bottom: 50px;*/
+	margin-bottom: 50px;
 	float: left;
-} /*room/new*/
+}
 
 .postcontent,
 .sidebar { margin-right: 40px; }
@@ -633,8 +631,8 @@ body.stretched .container-fullwidth {
 .sidebar.col_last { float: right; }
 
 .col_last {
-margin-right: 0 !important;
-clear: right;
+	margin-right: 0 !important;
+	clear: right;
 }
 
 
@@ -3520,11 +3518,6 @@ body.stretched .container-fullwidth .breadcrumb { right: 60px !important; }
 	padding: 80px 0;
 }
 
-.content-wrap-room-new {
-   position: relative;
-   padding: 5px 0;
-}
-
 #content .container { position: relative; }
 
 .grid-container {
@@ -4543,8 +4536,7 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-overlay {
 	background-color: #F5F5F5;
 	width: 40px !important;
 	height: 40px !important;
-	margin: -28px 0 0 -20px;
-	/* margin: -28px 0 0 -44px; */
+	margin: -28px 0 0 -44px;
 	font-size: 18px;
 	line-height: 40px;
 	text-align: center;
@@ -8955,6 +8947,12 @@ body:not(.device-touch) .social-icon i {
 
 .toggle .toggleta i.toggle-open { display: block; }
 
+.toggle .togglet:not(.toggleta) span.toggle-open,
+.toggle .togglet.toggleta span.toggle-closed { display: none; }
+
+.toggle .togglet.toggleta span.toggle-open,
+.toggle .togglet:not(.toggleta) span.toggle-closed { display: block; }
+
 .toggle .togglec {
 	display: block;
 	position: relative;
@@ -11117,12 +11115,6 @@ input[type=checkbox]:not(:checked) + label.error { display: block !important; }
 	margin-bottom: 30px;
 }
 
-.title-block-room-new {
-   padding: 2px 0 3px 20px;
-   border-left: 7px solid #1693A5;
-   margin-bottom: 30px;
-}
-
 .title-block-right {
 	padding: 2px 20px 3px 0;
 	border-left: 0;
@@ -11938,11 +11930,11 @@ button.toast-close-button {
 .device-lg.sticky-footer #header,
 .device-md.sticky-footer #header { z-index: 199; }
 
-.device-lg.sticky-footer #slider,
+.device-lg.sticky-footer #slider:not(.slider-parallax-invisible),
 .device-lg.sticky-footer #page-submenu,
 .device-lg.sticky-footer #page-title,
 .device-lg.sticky-footer #content,
-.device-md.sticky-footer #slider,
+.device-md.sticky-footer #slider:not(.slider-parallax-invisible),
 .device-md.sticky-footer #page-submenu,
 .device-md.sticky-footer #page-title,
 .device-md.sticky-footer #content { z-index: 2; }
@@ -11971,7 +11963,7 @@ button.toast-close-button {
 
 #footer .footer-widgets-wrap {
 	position: relative;
-	padding: 40px 0;
+	padding: 80px 0;
 }
 
 .footer-widgets-wrap .col_full,

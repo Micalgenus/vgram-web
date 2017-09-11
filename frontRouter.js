@@ -28,7 +28,7 @@ var web = {
 
 var api = {
   authController: require('./controllers/api/rest-auth'),
-  postController: require('./controllers/api/posts'),
+  postController: require('./controllers/api/post'),
   testController: require('./controllers/api/test')    // test route
 };
 

@@ -127,7 +127,7 @@ for (i = 0; i < 30; i++) {  // room 관련 test 데이터 30개 생성
    var tmp = {
       ID: i + 1,
       element_id: i + 1,
-      element_type: "room",
+      element_type: "post",
       group_id: i + 1,
       language_code: "ko-kr",
       original_language_code: null

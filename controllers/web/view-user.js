@@ -139,7 +139,7 @@ exports.viewProfile = function (req, res) {
         title: 'userDetailView',
         msg: req.msg,
         mediaUrl: config.mediaUrl,
-        
+
         value: {
           memberType: value.memberType,
           lang: req.lang
@@ -150,7 +150,7 @@ exports.viewProfile = function (req, res) {
         nickname: u.nickname,
         member_type: u.member_type,
         userLikeCount: c.length,
-        profile_image_path: config.mediaUrl + u.profile_image_path,
+        profile_image_path: u.profile_image_path,
 
         sns: sns,
 

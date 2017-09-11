@@ -61,22 +61,26 @@ gulp.task('watch', function () {
   gulp.watch('./public/less/*.less', ['less']);
 });
 
-gulp.task('nodemon', function (debug, overwrite) {
-  if (process.env.NODE_ENV === 'development') {
+gulp.task('nodemon', function (debug, inspect, overwrite) {
+   var execDebugMap = {
+      js: 'node --debug-brk'
+   }
+
+   if (process.env.NODE_ENV === 'development') {
     livereload.listen();
   }
 
-  if(debug) {
+  if(debug || inspect) {
+     if (inspect) {
+        execDebugMap.js = 'node-inspect --inspect'
+     }
+
      gutil.log('nodemon - ' + gutil.colors.magenta('debug mode'));
   }
 
    if(overwrite) {
       gutil.log('nodemon - ' + gutil.colors.magenta('overwrite database'));
    }
-
-   var execDebugMap = {
-        js: 'node --debug-brk'
-     }
 
   nodemon({
      execMap: debug ? execDebugMap : {},

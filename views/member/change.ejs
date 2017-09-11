@@ -47,7 +47,7 @@
 
                 <div class="col-sm-9">
 
-                  <img src="<%= mediaUrl + profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar"
+                  <img src="<%= mediaUrl %>/<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar"
                     style="max-width: 84px;">
 
                   <div class="heading-block noborder">
@@ -139,7 +139,7 @@
 
                     <div class="clear"></div>
 
-                   
+
                     <% } %>
                       <!-- -->
                       <div class="container clearfix">
@@ -411,7 +411,7 @@
       removeTitle: 'Cancel or reset changes',
       elErrorContainer: '#kv-avatar-errors-1',
       msgErrorClass: 'alert alert-block alert-danger',
-      defaultPreviewContent: '<img src="<%= mediaUrl + profile_image_path %>" alt="Your Avatar" style="width:160px">',
+      defaultPreviewContent: '<img src="<%= mediaUrl %>/<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',
       layoutTemplates: { main2: '{preview} {remove} {browse}' },
       allowedFileTypes: ['image'],
       allowedFileExtensions: ["jpg", "png"]

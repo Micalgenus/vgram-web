@@ -45,9 +45,9 @@ exports.bizList = function(req, res, next) {
 
             // 임시
             let image = user.profile_image_path;
-            if (!image.match(/^https?:\/\//)) {
-               image = "http://localhost:3000/" + image;
-            }
+            // if (!image.match(/^https?:\/\//)) {
+            //    image = "http://localhost:3000/" + image;
+            // }
 
             tmpUser['id'] = user.ID;
             tmpUser['name'] = user.display_name;

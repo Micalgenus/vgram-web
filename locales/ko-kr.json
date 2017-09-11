@@ -34,15 +34,13 @@
 	"placeType": {
 		"NORMAL": "일반",
 		"TRAVEL": "여행",
-		"REALTY": "부동산",
-		"BUILDING": "건물",
+		"REAL_ESTATE": "방/부동산",
 		"ACCOMMODATION": "숙박",
-		"HOTEL": "호텔",
 		"VACATION_SPOT": "휴양지",
 		"RESTAURANT": "레스토랑",
-		"MUSEUM": "박물관",
-		"VEHICLE": "차량",
-		"AIRLINE": "항공"
+		"INTERIOR": "인테리어",
+		"AERIAL": "항공",
+      "ETC": "기타"
 	},
 	"businessType": {
 		"HOTEL": "호텔",

@@ -49,15 +49,13 @@ const businessType = {
 const placeType = {
   NORMAL: "NORMAL", // 일반
   TRAVEL: "TRAVEL", // 여행
-  REALTY: "REALTY", // 부동산
-  BUILDING: "BUILDING", // 건물
+  REAL_ESTATE: "REAL_ESTATE", // 부동산
   ACCOMMODATION: "ACCOMMODATION", // 숙박
-  HOTEL: "HOTEL", // 호텔
   VACATION_SPOT: "VACATION_SPOT", // 휴양지
   RESTAURANT: "RESTAURANT", // 레스토랑
-  MUSEUM: "MUSEUM", // 박물관
-  VEHICLE: "VEHICLE", // 차량
-  AIRLINE: "AIRLINE", // 항공
+   INTERIOR: "INTERIOR", // 인테리어
+   AERIAL: "AERIAL", // 항공
+   ETC: "ETC", // 차량
 };
 
 const room = {

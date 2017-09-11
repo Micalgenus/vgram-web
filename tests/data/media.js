@@ -91,10 +91,11 @@ module.exports = [
          mimetype: 'image/jpeg',
          size: 14588725,
          encoding: "7bit",
-         tile_dir_name: "SAM_100_0008.tiles",
-         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+         real_file_name: "SAM_100_0008.jpg",
+         // tile_dir_name: "SAM_100_0008.tiles",
+         // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -109,10 +110,11 @@ module.exports = [
          mimetype: 'image/jpeg',
          size: 14588725,
          encoding: "7bit",
-         tile_dir_name: "SAM_100_0009.tiles",
-         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+         real_file_name: "SAM_100_0009.jpg",
+         // tile_dir_name: "SAM_100_0009.tiles",
+         // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -127,10 +129,11 @@ module.exports = [
          mimetype: 'image/jpeg',
          size: 14588725,
          encoding: "7bit",
-         tile_dir_name: "SAM_100_0073.tiles",
-         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+         real_file_name: "SAM_100_0073.jpg",
+         // tile_dir_name: "SAM_100_0073.tiles",
+         // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -145,10 +148,11 @@ module.exports = [
          mimetype: 'image/jpeg',
          size: 14588725,
          encoding: "7bit",
-         tile_dir_name: "SAM_100_0074.tiles",
-         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+         real_file_name: "SAM_100_0074.jpg",
+         // tile_dir_name: "SAM_100_0074.tiles",
+         // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -163,10 +167,12 @@ module.exports = [
          mimetype: 'image/jpeg',
          size: 14588725,
          encoding: "7bit",
-         tile_dir_name: "SAM_100_0074.tiles",
-         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
-         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
-         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+         real_file_name: "SAM_100_0075.jpg",    // 원본 이미지가 저장된다
+
+         // tile_dir_name: "SAM_100_0075.tiles",
+         // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    //    vtour 변환시에는 vr image tile화는 하지말고 변환만 하자(tile화는 vrimage 저장시 자동으로 진행)
@@ -179,7 +185,23 @@ module.exports = [
       file_path: "medias/vtours/sinho0689@gmail.com/201705310101",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
-         original_media_id: [7, 8, 9]
+         tiles: [
+            {
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
+            },
+            {
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
+            },
+            {
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -191,7 +213,23 @@ module.exports = [
       file_path: "medias/vtours/sinho0689@gmail.com/201705310102",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
-         original_media_id: [6, 7, 8]     // medias.ID
+         tiles: [
+            {
+               ID: 6,  // media.ID
+               dir_name: "SAM_100_0009.tiles"
+            },
+            {
+               ID: 7,
+               dir_name: "SAM_100_0073.tiles"
+            },
+            {
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -203,7 +241,23 @@ module.exports = [
       file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
-         original_media_id: [7, 8, 9]     // medias.ID
+         tiles: [
+            {
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
+            },
+            {
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
+            },
+            {
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -215,7 +269,23 @@ module.exports = [
       file_path: "medias/vtours/sinho0689@gmail.com/201705310104",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
-         original_media_id: [5, 8, 9]     // medias.ID
+         tiles: [
+            {
+               ID: 5,  // media.ID
+               dir_name: "SAM_100_0008.tiles"
+            },
+            {
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
+            },
+            {
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    },
    {
@@ -227,7 +297,27 @@ module.exports = [
       file_path: "medias/vtours/sinho0689@gmail.com/20170531010",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
-         original_media_id: [5, 6, 7, 9]     // medias.ID
+         tiles: [
+            {
+               ID: 5,  // media.ID
+               dir_name: "SAM_100_0008.tiles"
+            },
+            {
+               ID: 6,
+               dir_name: "SAM_100_0009.tiles"
+            },
+            {
+               ID: 7,
+               dir_name: "SAM_100_0073.tiles"
+            },
+            {
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
    }
 ]
