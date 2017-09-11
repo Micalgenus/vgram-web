@@ -29,6 +29,7 @@ var web = {
 var api = {
   authController: require('./controllers/api/rest-auth'),
   postController: require('./controllers/api/post'),
+  userController: require('./controllers/api/user'),
   testController: require('./controllers/api/test')    // test route
 };
 
@@ -224,13 +225,6 @@ module.exports = function (app) {
   //  publicRouteAPI.post('/file/test', testFileUpload, PublicController.uploadFileTest);
 
 
-  // consultingCounsel view route,컨설팅 정보 입력
-  // webRoutes.get('/consultCounsel', function(req, res) {
-  //    res.render('consult/counsel', { ENV: env, title: 'Express', msg: 'consultingCounsel test' });
-  //    // res.status(200).json({ quote: quoter.getRandomOne() });
-  // });
-
-
   //=========================
   // web - Auth Routes
   //=========================
@@ -260,30 +254,32 @@ module.exports = function (app) {
   //탈퇴 라우터
   web.authRoute.get('/quit', web.authController.quit);
 
-
   //=========================
   // API - Auth Routes
   //=========================
   api.rootRoute.use('/auth', api.authRoute);
 
   //유저 모든정보 출력 api
-  api.authRoute.post('/info', api.authController.info);
+  // api.authRoute.post('/info', api.authController.info);
 
   // Login route
   api.authRoute.post('/login', requireAPIAuth, api.authController.login);
 
+  // Logout route
+  api.authRoute.post('/logout', requireAPIAuth, api.authController.logout);
+
   // Registration route
-  api.authRoute.post('/register', api.authController.register);
+  api.authRoute.post('/signup', api.authController.register);
 
-  //탈퇴 라우터
-  api.authRoute.post('/quit', api.authController.quit);
+  // 탈퇴 라우터
+  // api.authRoute.post('/quit', api.authController.quit);
 
-  // Password reset request route (generate/send token)
+  // Forgot password
   api.authRoute.post('/forgot-password', api.authController.forgotPassword);
   // authRouteView.get('/forgot-password', authRouteController.register);
 
-
-  // authRouteAPI.post('/reset-password/:token', authRouteController.verifyToken);
+  // Password reset request route (generate/send token)
+  api.authRoute.post('/reset-password/:token', api.authController.verifyToken);
   // authRouteView.get('/reset-password/:token', authRouteController.verifyToken);
 
 
@@ -295,6 +291,7 @@ module.exports = function (app) {
   // 회원정보 조회 및 수정(View)
   web.userRoute.get('/change', requireWebAuth, init, web.userController.viewChangeProfile);
 
+
   // 회원정보 조회 및 수정(Action)
   // web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
   web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
@@ -304,6 +301,13 @@ module.exports = function (app) {
 
   web.userRoute.delete('/delete', requireWebAuth, loginCheck, web.userController.delete);
 
+  // member정보를 json형식으로 출력
+  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+
   //=========================
   // api - Member Routes
   //=========================
@@ -311,14 +315,16 @@ module.exports = function (app) {
   // Set userRoute routes as a subgroup/middleware to api.rootRoute
   api.rootRoute.use('/user', api.userRoute);
 
-  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+  api.userRoute.get('/info', api.userController.getAllUserInfo);
+
+  api.userRoute.get('/:userIdx', api.userController.getUserInfoByIdx);
+
+  api.userRoute.put('/:userIdx', api.userController.modifyUserInfoByIdx);
+
+  api.userRoute.delete('/delete', api.userController.deleteUser);
 
   //회원정보 수정
-  api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
+  // api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
 
   // View publicRoute userRoute profile route
   // userRouteAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
@@ -340,30 +346,18 @@ module.exports = function (app) {
   //=========================
   web.rootRoute.use('/post', web.postRoute);
 
-
-  // krpano iframe view route, vr사진 높이 100%, 넓이 100%
-  web.postRoute.get('/embed/:ID', init, function (req, res) {
-    //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
-    res.render('iframe/krpano', {
-      ENV: env,
-      title: 'embedView',
-      msg: req.msg
-    });
-
-    // res.status(200).json({ quote: quoter.getRandomOne() });
-  });
-
-  //=========================
-  // api - Post Routes
-  //=========================
-  api.rootRoute.use('/post', api.postRoute);
-
-  //게시글 출력
-  api.postRoute.get('/', api.postController.viewPosts);
-
   // create new Room Info from authenticated userRoute
   web.postRoute.get('/new', requireWebAuth, init, web.postController.createPostInfoView);
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
+
+  // post info를 json로 받음
+  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
+
+  // index list
+  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
+
+  // comment
+  web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
 
   // delete post
   web.postRoute.delete('/delete/:postIdx([0-9]+)', requireWebAuth, loginCheck, web.postController.deletePost);
@@ -374,66 +368,81 @@ module.exports = function (app) {
   // view post info
   web.postRoute.get('/:postIdx([0-9]+)', requireWebAuth, web.postController.viewPostInfoView);
 
+  // krpano iframe view route, vr사진 높이 100%, 넓이 100%
+  web.postRoute.get('/embed/:ID', init, web.postController.embedPost);
+
+  //=========================
+  // api - Post Routes
+  //=========================
+  api.rootRoute.use('/post', api.postRoute);
+
+  //게시글 출력
+  // api.postRoute.get('/', api.postController.viewPosts);
+
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
+
+  api.postRoute.get('/', api.postController.viewPost);
+
+  api.postRoute.post('/', api.postController.createPostInfo);
+
+  api.postRoute.put('/:postIdx', api.postController.modifyPostInfo);
+
+  api.postRoute.delete('/:postIdx', api.postController.deletePost);
+
+  api.postRoute.get('/:postIdx', api.postController.getPostInfoByIdx);
+
+  api.postRoute.get('/search', api.postController.searchPost);
 
   //media, attached 정보 저장(image-server에서 이용함)
   api.postRoute.post('/images', requireAPIAuth, api.postController.createNormalImageInfo);
   api.postRoute.post('/vtour', requireAPIAuth, api.postController.createVRImageVtourInfo);
 
-  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
-
-  // index list
-  web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
-
-  // comment
-  web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
-
   //=========================
-  // web - Room Info Routes
+  // web - Map Info Routes
   //=========================
-  web.postRoute.use('/room', web.roomRoute);
 
-  //  roomRouteInfoAPI.get('/', RoomInfoController.viewRoomInfoList);      // 수정필요
-  web.roomRoute.get('/', requireWebAuth, init, web.roomController.roomInfoListView);
+  web.postRoute.use('/map', web.mapRoute);
+
+  web.mapRoute.get('/', requireWebAuth, init, web.mapController.postInfoListView);
+
+  web.mapRoute.get('/json/list/:postIdxList(\[[0-9,]+\])', web.mapController.postInfoListJson);
+
+  web.mapRoute.get('/json/locations/:east/:west/:south/:north', web.mapController.getPostLocations);
 
   // create new Room Info from authenticated userRoute
-  web.roomRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
+  // web.mapRoute.get('/new', requireWebAuth, init, web.roomController.createRoomInfoView);
   // web.roomRoute.post('/', requireWebAuth, web.roomController.createRoomInfo);
-
 
   // update Room Info Info from authenticated userRoute
   // roomRouteInfoAPI.put('/:roomRouteInfoIdx', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
   // roomRouteInfoView.get('/change/:roomRouteInfoIdx([0-9]+)', requireAuth, roomRouteInfoImageUpload, RoomInfoController.updateRoomInfo);
-  web.roomRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
-  web.roomRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
+  // web.mapRoute.get('/change/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.changeRoomInfoView);
+  // web.mapRoute.put('/:roomInfoIdx([0-9]+)', requireWebAuth, web.roomController.updateRoomInfo);
 
   // delete Room Info Info from authnticated userRoute
 
   // get Room Info Info from authenticated userRoute
   // roomRouteInfoAPI.get('/:roomRouteInfoIdx([0-9]+)', RoomInfoController.viewRoomInfoDetail);
-  web.roomRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
+  // web.mapRoute.get('/:roomInfoIdx([0-9]+)', requireWebAuth, init, web.roomController.roomInfoDetailView);
 
-  web.roomRoute.get('/search', web.roomController.searchRoomListView);
+  // web.mapRoute.get('/search', web.roomController.searchRoomListView);
+  // web.mapRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
 
-  web.roomRoute.get('/html/:roomListPage([0-9]+)', web.roomController.roomHtmlList);
+  // web.mapRoute.get('/json/:roomInfoIdx([0-9]+)', web.mapController.postInfoDetailJson);
+  // web.mapRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
+  // web.mapRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
+  // web.mapRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
 
-  web.roomRoute.get('/json/:roomInfoIdx([0-9]+)', web.roomController.roomInfoDetailJson);
-  web.roomRoute.get('/json/list/:roomIdxList(\[[0-9,]+\])', web.roomController.roomInfoListJson);
-  web.roomRoute.get('/json/address/init', web.roomController.roomInfoAddressJsonInit);
-  web.roomRoute.get('/json/address/:address', web.roomController.roomInfoAddressJson);
-  web.roomRoute.get('/json/address/info/:address', web.roomController.roomInfoAddressOneJson);
-
-  web.roomRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
-
+  // web.mapRoute.post('/comment/:room([0-9]+)', requireWebAuth, web.roomController.roomCommentWrite);
 
   //=========================
   // api - Room Info Routes
   //=========================
   api.postRoute.use('/room', api.roomRoute);
 
-  api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAPIAuth, web.roomController.deleteRoomInfo);
+  // api.roomRoute.delete('/:roomInfoIdx([0-9]+)', requireAPIAuth, web.roomController.deleteRoomInfo);
 
   //룸세부정보 출력
   api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);
@@ -441,77 +450,8 @@ module.exports = function (app) {
   //=========================
   // web - Map Info Routes
   //=========================
-  web.rootRoute.use('/map', web.mapRoute);
-  web.mapRoute.get('/room/locations/:east/:west/:south/:north', web.mapController.getRoomLocations);
+  // web.rootRoute.use('/map', web.mapRoute);
 
-
-  //=========================
-  // web - Consult Routes
-  //=========================
-  web.rootRoute.use('/consult', web.consultRoute);
-
-
-  //=========================
-  // API - Consult Routes
-  //=========================
-  api.rootRoute.use('/consult', api.consultRoute);
-
-
-  // insert consultRouteing information
-  // consultRouteAPI.post('/', requireAuth, ConsultController.consultRouteingCounsel);
-  //  consultRouteView.get('/create', requireAuth, ConsultController.consultRouteingCounsel);
-
-  // consultRouteing information list
-  //  consultRouteAPI.get('/', ConsultController.consultRouteingList);
-  //  consultRouteView.get('/list', web.roomRouteController.viewRoomInfoList);
-
-  // my consultRouteing information list
-  // consultRouteAPI.get('/my/', requireAuth, ConsultController.consultRouteingMyList);
-  //  consultRouteView.get('/my/list', requireAuth, ConsultController.consultRouteingMyList);
-
-  // consultRouteing information detail
-  //  consultRouteAPI.get('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDetail);
-  //  consultRouteView.get('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDetail);
-
-  // modify consultRouteing information
-  // consultRouteAPI.put('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingModify);
-  //  consultRouteView.get('/update/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingModify);
-
-  // delete consultRouteing information
-  //  consultRouteAPI.delete('/:consultRouteIdx([0-9]+)', requireAuth, ConsultController.consultRouteingDelete);
-
-  // searchRoute consultRouteing information list
-  // api.rootRoute.get('/searchRoute/consultRoute', RoomInfoController.searchRouteRoomInfoList);
-
-
-  //=========================
-  // web - Biz Store Route - 업체 목록 조회
-  //=========================
-
-  // Set chat routes as a subgroup/middleware to api.rootRoute
-  // api.rootRoute.use('/biz-store', bizStoreAPI);
-  //  webRoutes.use('/biz-store', bizStoreView);
-
-  // View business userRoute profile list route(must get query(?pageSize={}&pageStartIndex={}) param)
-  //  bizStoreAPI.get('/', BizStoreController.viewBizProfileList);
-  //  bizStoreView.get('/list', BizStoreController.viewBizProfileList);
-
-  // View business userRoute profile to customer route
-  // bizStoreAPI.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-  //  bizStoreView.get('/:memberIdx([0-9]+)', BizStoreController.viewBizProfile);
-
-
-  //=========================
-  // web : Biz Route - 업체 목록 조회(사용X)
-  //=========================
-  //  web.defaultRoute.get('/biz', web.authRouteController.init, BizViewController.bizList);
-  //  web.defaultRoute.get('/bizdetail', redirectViewController.redirectBizList);
-  //  web.defaultRoute.get('/bizdetail/:idx([0-9]+)', web.authRouteController.init, BizViewController.bizDetail);
-
-
-  //=========================
-  // api - Biz Store Route - 업체 목록 조회
-  //=========================
 
 
   //=========================

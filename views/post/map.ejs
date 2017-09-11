@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <!-- Range Slider CSS -->
+
+  <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css" />
+
+  <!-- <link rel="stylesheet" href="/css/components/bs-select.css" type="text/css" /> -->
+
+  <!-- <link rel="stylesheet" href="/css/responsive.css" type="text/css" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <% include ../static/head.ejs %>
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+
+      #map {
+        position: fixed !important;
+        width: 50%;
+        right: 0;
+        height: calc(100% - 280px);
+        /*height: 900px;*/
+      }
+      /* Optional: Makes the sample page fill the window. */
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .left_top {
+        width: 50%;
+        float: left;
+        /*height: calc(100% - 124px);*/
+        height: 100%;
+      }
+
+      #left_area {
+        position: relative;
+        width: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+        height: calc(100% - 100px);
+        text-align: center;
+        padding-right: 0px;
+      }
+
+      #post {
+        width: 100%;
+        /*margin: auto;*/
+        /*padding-top: 7px;*/
+      }
+
+      .post_area {
+        position: relative;
+        height: 88%;
+      }
+
+      .content-wrap {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+      }
+
+      .product {
+        /*margin-top:1em;*/
+        width: 50%;
+        float: left;
+      }
+
+      .product_area {
+        margin-top: block;
+        background-position: center center;
+        height: 200px;
+      }
+
+      .product_area h2 {
+        margin-bottom: 0px;
+      }
+
+      .product_area h3 {
+        margin-bottom: 0px;
+      }
+
+      .product_area img {
+        position: relative;
+        background-position: center center;
+        background-size: cover;
+        width: 90%;
+        height: 200px;
+      }
+
+      .search_box {
+        height: 44px;
+        width: 300px;
+        border: 1px solid #1b5ac2;
+        background: #ffffff;
+      }
+
+      .search_box input {
+        outline: none;
+        border: 0px;
+      }
+
+      .search_button {
+        width: 35px;
+        height: 44px;
+        border: 0px;
+        background: #1b5ac2;
+        outline: none;
+        color: #ffffff;
+      }
+
+      label {
+        color: #fff;
+      }
+
+      .menu_wrap {
+        width: 50%;
+      }
+
+      .left_head {
+        width: 100%;
+        height: 12%;
+        background-color: #F9F9F9;
+      }
+
+      #portfolio {
+        height: 1000px !important;
+      }
+    </style>
+
+</head>
+
+<body class="stretched">
+
+  <div style="height: 80px;">
+    <% include ../addon/header.ejs %>
+  </div>
+  <!--<div class="tabs advanced-real-estate-tabs clearfix">-->
+  <div class="clear"></div>
+  <div class="clear"></div>
+  <div class="clear"></div>
+
+
+
+  <div class="left_top">
+    <div id="left_area" class="col-md-6">
+
+
+
+
+      <div class="left_head">
+
+        <div class="col-md-6 bottommargin-sm">
+          <ul id="category" class="portfolio-filter clearfix">
+            <li class="activeFilter"><a href="#" data-filter="all">모두보기</a></li>
+            <% for (i in value.placeType) { %>
+              <li><a href="#" data-filter="<%= i %>"><%= __("placeType")[i] %></a></li>
+            <% } %>
+          </ul><!-- #portfolio-filter end -->
+        </div>
+
+      </div>
+
+
+      <div class="post_area">
+
+        <div class="layout">
+          <div class="row topmargin-sm">
+
+            <section id="content">
+
+              <div class="content-wrap">
+
+                <div class="container clearfix" style="width: 90%;">
+                  <div class="clear"></div>
+
+
+                  <!-- 포트폴리오 4개 잡음-->
+                  <div id="post" class="portfolio portfolio-2 portfolio-masonry clearfix" style="height: 1000px !important;">
+
+                  </div>
+                  <!-- #portfolio end -->
+                </div>
+
+              </div>
+            </section>
+            <!-- #content end -->
+          </div>
+        </div>
+        <!--<ul id="pagination" class="pagination-sm"></ul>-->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- External JavaScripts
+	============================================= -->
+  <script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+  <script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+
+
+  <!--Range slider-->
+  <script type="text/javascript" src="/lib/js-canvas/js/components/rangeslider.min.js"></script>
+  <script type="text/javascript" src="/lib/js-canvas/js/components/moment.js"></script>
+
+  <!-- 인피니티 스크롤-->
+  <script type="text/javascript">
+    jQuery(window).load(function () {
+
+      var $container = $('#portfolio');
+
+      $container.isotope({ transitionDuration: '0.65s' });
+
+      $('#portfolio-filter a').click(function () {
+        $('#portfolio-filter li').removeClass('activeFilter');
+        $(this).parent('li').addClass('activeFilter');
+        var selector = $(this).attr('data-filter');
+        $container.isotope({ filter: selector });
+        return false;
+      });
+
+      $('#portfolio-shuffle').click(function () {
+        $container.isotope('updateSortData').isotope({
+          sortBy: 'random'
+        });
+      });
+
+      $(window).resize(function () {
+        $container.isotope('layout');
+      });
+
+      $container.infinitescroll({
+        loading: {
+          finishedMsg: '<i class="icon-line-check"></i>',
+          msgText: '<i class="icon-line-loader icon-spin"></i>',
+          img: "images/preloader-dark.gif",
+          speed: 'normal'
+        },
+        state: {
+          isDone: false
+        },
+        nextSelector: "#load-next-posts a",
+        navSelector: "#load-next-posts",
+        itemSelector: "article.portfolio-item"
+      },
+        function (newElements) {
+          $container.isotope('appended', $(newElements));
+          var t = setTimeout(function () {
+            $container.isotope('layout');
+          }, 2000);
+          SEMICOLON.widget.loadFlexSlider();
+          SEMICOLON.portfolio.arrange();
+        });
+
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $(".range_20").ionRangeSlider({
+        type: "double",
+        min: 1000,
+        max: 2000,
+        from: 1200,
+        to: 1800,
+        hide_min_max: true,
+        hide_from_to: true,
+        grid: false
+      });
+    });
+  </script>
+
+
+  <!-- LOAD JAVASCRIPT -->
+  <% include ../static/js.ejs %>
+
+  <div class=".col-md-6">
+    <div id="map" style="height:calc(100% - 100px);"></div>
+  </div>
+
+
+  <!-- map -->
+  <script type="text/javascript" src="/js/map.js"></script>
+
+  <!-- Room List Script -->
+  <script type="text/javascript" src="/js/room-list.js"></script>
+  <script type="text/javascript">
+    function initMap() {
+      var lat, lng;
+      var is_safari = navigator.vendor &&
+        navigator.vendor.indexOf('Apple') > -1 &&
+        navigator.userAgent && !navigator.userAgent.match('CriOS');
+
+      if (!is_safari && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
+          roomList.drawRoom(lat, lng);
+        });
+      } else {
+        lat = <%= lat %>;
+        lng = <%= lng %>;
+        roomList.drawRoom(lat, lng);
+      }
+    }
+  </script>
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap">
+
+  </script>
+
+
+  <!-- External JavaScripts
+============================================= -->
+  <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+  <!-- <script type="text/javascript" src="js/plugins.js"></script> -->
+
+
+  <!-- Bootstrap Select Plugin -->
+  <!-- <script type="text/javascript" src="js/components/bs-select.js"></script> -->
+  <!-- <link rel="stylesheet" href="css/components/bs-select.css" type="text/css" /> -->
+
+  <!-- Select Splitter Plugin -->
+  <!-- <script type="text/javascript" src="js/components/selectsplitter.js"></script> -->
+
+
+
+</body>
+
+</html>

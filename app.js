@@ -27,6 +27,7 @@ app.locals.mediaUrl = config.mediaUrl;    // view template에서 사용할 수 �
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.locals.moment = require('moment');
 
 i18n.configure({
    locales: ['ko-kr', 'en-us'],
@@ -68,9 +69,9 @@ app.use(device.capture());
 
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-if (env === 'development') {
-   app.use(express.static(__dirname + "/" + config.resource.DIR));
-}
+// if (env === 'development') {
+//    app.use(express.static(__dirname + "/" + config.resource.DIR));
+// }
 app.use(express.static(config.root + '/public'));
 
 //2017.1.17 이정현 쿠키파서 추가

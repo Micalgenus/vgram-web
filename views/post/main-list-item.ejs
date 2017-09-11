@@ -1,0 +1,43 @@
+<% for (var i = 0; i < post.length; i++) { %>
+  <article class="portfolio-item <%= post[i].post_type %>" data-id="<%= post[i].ID %>">
+
+    <% var images = JSON.parse(post[i].thumbnail_image_path)[0].vrimages %>
+
+    <div class="portfolio-image">
+        <div class="fslider" data-arrows="false">
+          <div class="flexslider">
+              <div class="slider-wrap">
+                <% for (var image = 0; image < images.length; image++) { %>
+                  <div class="slide"><img src="<%= mediaUrl %>/<%= images[image].thumb %>" alt="Shake It"></div>
+                <% } %>
+              </div>
+          </div>
+        </div>
+
+        <div class="portfolio-overlay" data-lightbox="gallery">
+          <% for (var image = 0; image < images.length; image++) { %>
+            <% if (image == 0) { %>
+              <a href="<%= mediaUrl %>/<%= images[image].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
+            <% } else { %>
+              <a href="<%= mediaUrl %>/<%= images[image].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
+            <% } %>
+          <% } %>
+        </div>
+    </div>
+    <div class="testimonial">
+        <div class="testi-image">
+          <a href="/user/<%= post[i].user.ID %>"><img src="<%= mediaUrl %>/<%= post[i].user.profile_image_path %>" alt="Avatar"></a>
+        </div>
+        <div class="testi-meat"><p style=" margin-bottom:0px;"><%= post[i].user.nickname %></p></div>
+        <div class="clear"></div>
+        <div class="portfolio-desc">
+          <h3><a href="/post/<%= post[i].ID %>"><%= post[i].title %></a></h3>
+        </div>
+        <ul class="entry-meta clearfix">
+          <li><i class="icon-line-heart"></i><span><%= post[i].LikeUsers.length %></span></li>
+          <li><i class="icon-calendar3"></i><%= new Date(post[i].createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></li>
+          <li><i class="icon-comments"></i><%= post[i].Comments.length %></li>
+        </ul>
+    </div>
+  </article>
+<% } %>

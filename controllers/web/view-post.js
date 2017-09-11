@@ -8,6 +8,7 @@ const Translation = models.icl_translation;
 const Coordinate = models.coordinate;
 const Address = models.address;
 const Comment = models.comment;
+const Media = models.media;
 
 const moment = require("moment");
 
@@ -33,6 +34,8 @@ let getPostInfo = function (ID) {
       include: [{
         model: User,
       }]
+    }, {
+      model: Media,
     }],
     where: {
       ID: ID
@@ -45,12 +48,35 @@ let getPostInfo = function (ID) {
     let likeCount = p.LikeUsers.length;
     let commentCount = p.Comments.length;
 
+    let VTOUR = [];
+    let NORMAL = [];
+    let VRIMAGE = [];
+
+    for (var i in p.media) {
+      switch (p.media[i].type) {
+        case 'VTOUR':
+          VTOUR.push(p.media[i]);
+          break;
+        case 'NORMAL_IMAGE':
+          NORMAL.push(p.media[i]);
+          break;
+        case 'VR_IMAGE':
+          VRIMAGE.push(p.media[i]);
+          break;
+      }
+    }
+
     return {
       post: p,
       positions: positions,
       likeCount: likeCount,
+
       comments: p.Comments,
-      commentCount: commentCount
+      commentCount: commentCount,
+
+      vtour: VTOUR,
+      normal: NORMAL,
+      vrimage: VRIMAGE,
     }
   });
 }
@@ -233,7 +259,7 @@ exports.postHtmlList = function (req, res) {
   }).then(function (p) {
     if (!p) return res.status(404).send();
 
-    return res.render('post/list-item', {
+    return res.render('post/main-list-item', {
       post: p
     });
   });
@@ -278,18 +304,27 @@ exports.viewPostInfoView = function (req, res) {
     return res.render('post/detail', {
       ENV: req.env,
       logined: req.user.logined,
-      userIdx: req.ID,
+      userIdx: req.user.ID,
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,
+      domainUrl: config.host,
 
+      postID: info.post.ID,
       postTitle: info.post.title,
+      postType: info.post.post_type,
       createdAt: info.post.createdAt,
       comments: info.comments,
       commentCount: info.commentCount,
 
+      images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
+
       email: info.post.user.email,
+      nickname: info.post.user.nickname,
       phone: info.post.user.telephone,
+      memberType: info.post.user.member_type,
+
+      myPost: req.user.logined && info.post.user.ID == req.user.ID,
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
@@ -297,3 +332,14 @@ exports.viewPostInfoView = function (req, res) {
   });
 
 };
+
+exports.embedPost = function (req, res) {
+  //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
+  res.render('iframe/krpano', {
+    ENV: env,
+    title: 'embedView',
+    msg: req.msg
+  });
+
+  // res.status(200).json({ quote: quoter.getRandomOne() });
+}

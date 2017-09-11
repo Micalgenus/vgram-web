@@ -440,7 +440,31 @@ var SEMICOLON = SEMICOLON || {};
 						gallery: {
 							enabled: true,
 							navigateByImgClick: true,
-							preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+							preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+						},
+						callbacks: {
+							elementParse: function (item) {
+								if (item.index == 0) {
+									var id = item.el.parents('.portfolio-item').attr('data-id');
+
+									$.ajax({
+										url: 'http://localhost:3000/post/info/' + id,
+										success: function (result) {
+											if (result) {
+												let id = $('#top-cart a').attr('href').split('/user/')[1];
+												let logined = id ? true : false;
+
+												$('.mfp-vr').html(new EJS({ url: '/template/mfp/mfp-vr.ejs' }).render({ data: result, logined: logined, userID: id }));
+												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({ data: result, logined: logined, userID: id }));
+											} else {
+												alert("Load Error !!");
+											}
+										}
+									});
+
+
+								}
+							},
 						}
 					});
 				});

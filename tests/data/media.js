@@ -294,7 +294,7 @@ module.exports = [
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",
       createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      file_path: "medias/vtours/sinho0689@gmail.com/20170531010",
+      file_path: "medias/vtours/sinho0689@gmail.com/201705310105",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
          tiles: [

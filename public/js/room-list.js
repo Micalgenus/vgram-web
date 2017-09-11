@@ -5,9 +5,9 @@ var filter = (function() {
     var bestPictures = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: './room/json/address/init',
+      prefetch: './map/json/address/init',
       remote: {
-        url: './room/json/address/%QUERY',
+        url: './map/json/address/%QUERY',
         wildcard: '%QUERY'
       }
     });
@@ -56,20 +56,23 @@ var filter = (function() {
   })();
 
   var type = (function() {
-    var $root = $('#room #type');
+    var $root = $('#category');
     var typeList = [];
 
-    $root.change(function() {
-      console.log($(this));
-      mapReload();
+    var $lastCategory = $('#category .activeFilter a').attr('data-filter');
+
+    $root.find('a').click(function() {
+      if ($(this).attr('data-filter') != $lastCategory) {
+        $lastCategory = $(this).attr('data-filter');
+        mapReload();
+      }
     });
 
     function filter(data) {
-      const list = $root.find('input:checked');
-      if (list.length == 0) return true;
-      if ($root.find('input:checked#check_' + data.room_type).length == 0) return false;
+      if ($lastCategory == 'all') return true;
+      if ($lastCategory == data.post_type) return true;
 
-      return true;
+      return false;
     }
 
     return {
@@ -169,14 +172,14 @@ var roomList = (function() {
      * @param {*} n 북쪽 좌표
      */
     function roomTimer(e, w, s, n) {
-      const url = "/map/room/locations/" + e + "/" + w + "/" + s + "/" + n;
+      const url = "./map/json/locations/" + e + "/" + w + "/" + s + "/" + n;
       MapData.timer(url, list.reload);
     };
 
     function makeLocations(data) {
       locations = [];
       data.forEach(function(v) {
-        var c = v.post.icl_translation.coordinates[0];
+        var c = v.icl_translation.coordinates[0];
         var l = {lat: c.lat, lng: c.lng};
         locations.push(l);
       });
@@ -199,14 +202,14 @@ var roomList = (function() {
     };
 
     function getRoomList($list) {
-      let url = "/post/room/json/list/";
+      let url = "./map/json/list/";
       return ListData.data.getList(url, makeRoomList($list));
     }
 
     function makeRoomList(data) {
       $list = [];
       data.forEach(function(v) {
-        let room_id = v.icl_translation.post.room.ID;
+        let room_id = v.icl_translation.post.ID;
         $list.push(room_id);
 
         // filter.push(room_id);
@@ -216,16 +219,14 @@ var roomList = (function() {
     };
 
     function makeRoom(data) {
-      let imgServerAddr = "/";
-      console.log(data);
       return ListData.template.makeTemplate('/template/room-data.ejs', {
-        image_path: imgServerAddr + JSON.parse(data.post.thumbnail_image_path)[0].vrimages[0].thumb,
+        image_path: JSON.parse(data.thumbnail_image_path)[0].vrimages[0].thumb,
         deposit: data.deposit,
         monthly_rent_fee: data.monthly_rent_fee,
-        title: data.post.title,
-        room_type: data.room_type,
-        mediaUrl: 'http://localhost:3001/',
-        profile_image_path: data.post.user.profile_image_path
+        title: data.title,
+        room_type: data.post_type,
+        mediaUrl: 'http://localhost:3001',
+        profile_image_path: data.user.profile_image_path
       });
     };
 

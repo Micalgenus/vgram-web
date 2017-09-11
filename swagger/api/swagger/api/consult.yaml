@@ -1,6 +1,0 @@
-swagger: "2.0"
-
-info:
-  version: 0.0.1
-  title: Consult Sub-API
-  description: Consult operations, definitions, parameters and responses

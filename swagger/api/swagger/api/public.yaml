@@ -1,6 +1,0 @@
-swagger: "2.0"
-
-info:
-  version: 0.0.1
-  title: Auth Sub-API
-  description: Auth operations, definitions, parameters and responses

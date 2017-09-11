@@ -218,7 +218,7 @@ exports.getPosts = function (req, res) {
     where: {
       user_id: userIdx,
     },
-    order: [['ID', 'DESC']]
+    order: [['createdAt', 'DESC']]
   }).then(function (posts) {
     return res.send(posts);
   });
@@ -260,7 +260,7 @@ exports.getLikeposts = function (req, res) {
       ID: userIdx
     },
     order: [
-      [{ model: Post, as: 'LikePosts' }, 'ID', 'DESC']
+      [{ model: Post, as: 'LikePosts' }, 'createdAt', 'DESC']
     ]
   }).then(function (user) {
     return res.send(user.LikePosts);

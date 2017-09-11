@@ -1,53 +1,55 @@
 <h6>
-  <button id="deletePost">삭제</button>
-  <button id="modifyPost">수정</button>
-  <button id="updatePost">재등록</button>
-    
-  <script>
-  jQuery(function($) {
-    $('#deletePost').click(function() {
-      $.ajax({
-        type: 'DELETE',
-        url: '/post/delete/<%= data.postId %>',
-        success: function(data) {
-          if (data == "OK") {
-            alert("삭제되었습니다.");
-            location.reload();
+  <% if (logined && data.data.post.user.ID == userID) { %>
+    <button id="deletePost">삭제</button>
+    <button id="modifyPost">수정</button>
+    <button id="updatePost">재등록</button>
+      
+    <script>
+    jQuery(function($) {
+      $('#deletePost').click(function() {
+        $.ajax({
+          type: 'DELETE',
+          url: '/post/delete/<%= data.postId %>',
+          success: function(data) {
+            if (data == "OK") {
+              alert("삭제되었습니다.");
+              location.reload();
+            }
+          },
+          error: function(error) {
+            alert(error.responseJSON.errorMsg);
           }
-        },
-        error: function(error) {
-          alert(error.responseJSON.errorMsg);
-        }
+        });
       });
-    });
-    
-    $('#modifyPost').click(function() {
-      location.href = '/post/modify/<%= data.postId %>';
-    });
-    
-    $('#updatePost').click(function() {
-      $.ajax({
-        type: 'PUT',
-        url: '/post/re-enroll/<%= data.postId %>',
-        success: function(data) {
-          if (data == "OK") {
-            alert("재등록 하였습니다.");
-            location.reload();
-          } else if (data == "other") {
-            alert("다른 회원의 게시글 입니다.");
-          }
+      
+      $('#modifyPost').click(function() {
+        location.href = '/post/modify/<%= data.postId %>';
+      });
+      
+      $('#updatePost').click(function() {
+        $.ajax({
+          type: 'PUT',
+          url: '/post/re-enroll/<%= data.postId %>',
+          success: function(data) {
+            if (data == "OK") {
+              alert("재등록 하였습니다.");
+              location.reload();
+            } else if (data == "other") {
+              alert("다른 회원의 게시글 입니다.");
+            }
 
-          else {
-            alert(data);
+            else {
+              alert(data);
+            }
+          },
+          error: function(error) {
+            alert(error);
           }
-        },
-        error: function(error) {
-          alert(error);
-        }
+        });
       });
     });
-  });
-  </script>
+    </script>
+  <% } %>
 
   <div class="mfp_count">
     <p class="nobottommargin">
