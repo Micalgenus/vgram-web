@@ -6,11 +6,9 @@ var gulp = require('gulp-param')(require('gulp'), process.argv),
   env = require('gulp-env'),
   rename = require("gulp-rename"),
   uglify = require('gulp-uglify'),
-   jshint = require('gulp-jshint');
-
+  jshint = require('gulp-jshint');
 
   sass = require('gulp-sass'),
-  less = require('gulp-less'),
   autoprefixer = require('gulp-autoprefixer'),
   cleanCSS = require('gulp-clean-css'),
   pump = require('pump');
@@ -21,33 +19,7 @@ gutil.log('taskmode : ' + process.env.NODE_ENV);
 gulp.task('lint', function () {
    gulp.src('./**/*.js')
       .pipe(jshint())
-})
-
-gulp.task('less', function () {
-  return gulp.src('./public/less/**/*.less')
-    .pipe(plumber())
-    .pipe(less())
-    .pipe(gulp.dest('./public/css'))
-    .pipe(livereload());
 });
-
-gulp.task('minify-less', function () {
-  gulp.src('./public/less/**/*.less')
-    .pipe(plumber())
-    .pipe(less())
-    .pipe(cleanCSS({debug: true, compatibility: "*"}, function (details) {
-      console.log(details.name + ': ' + details.stats.originalSize);
-      console.log(details.name + ': ' + details.stats.minifiedSize);
-    }))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./public/css'));
-});
-
-gulp.task('less:watch', function () {
-  livereload.listen();
-  gulp.watch('./public/less/**/*.less', ['less']);
-});
-
 
 gulp.task('sass', function () {
   return gulp.src('./public/sass/**/*.scss')
@@ -68,7 +40,7 @@ gulp.task('sass:watch', function () {
 gulp.task('minify-sass', function () {
   gulp.src('./public/sass/**/*.scss')
     .pipe(plumber())
-    .pipe(less())
+    .pipe(sass())
     .pipe(cleanCSS({debug: true, compatibility: "*"}, function (details) {
       console.log(details.name + ': ' + details.stats.originalSize);
       console.log(details.name + ': ' + details.stats.minifiedSize);
@@ -129,13 +101,11 @@ gulp.task('nodemon', function (debug, inspect, overwrite) {
 });
 
 gulp.task('default', [
-  'less',
   'nodemon',
   'sass:watch'
 ]);
 
 gulp.task('debug', [
-   'less',
    'nodemon',
    'sass:watch'
 ]);
