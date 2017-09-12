@@ -456,7 +456,11 @@ var SEMICOLON = SEMICOLON || {};
 										url: 'http://localhost:3000/post/info/' + id,
 										success: function (result) {
 											if (result) {
-												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({ data: result }));
+												let id = result.loginedUserId;
+												let logined = id ? true : false;
+
+												$('.mfp-vr').html(new EJS({ url: '/template/mfp/mfp-vr.ejs' }).render({ data: result, logined: logined, userID: id }));
+												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({ data: result, logined: logined, userID: id }));
 											} else {
 												alert("Load Error !!");
 											}

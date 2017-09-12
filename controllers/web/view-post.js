@@ -223,6 +223,8 @@ exports.getPostInfoJson = function (req, res) {
 
       mediaUrl: config.mediaUrl,
 
+      loginedUserId: req.user.logined ? req.user.ID : null,
+
       data: d
     });
   });

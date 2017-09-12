@@ -299,7 +299,6 @@ exports.checkUser = function (req, res, next) {
       return User.create({
         ID: info.app_metadata.ID,
         email: info.email,
-        password: 'PASSWORD',
         member_type: info.app_metadata.roles[0],
         nickname: info.user_metadata.nickname,
         user_status: info.app_metadata.user_status,
@@ -374,7 +373,6 @@ exports.checkUser = function (req, res, next) {
           return User.create({
             ID: body.app_metadata.ID,
             email: body.email,
-            password: 'PASSWORD',
             member_type: body.user_metadata.member_type,
             nickname: body.user_metadata.nickname,
             user_status: body.app_metadata.user_status,
