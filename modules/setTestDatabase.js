@@ -60,7 +60,6 @@ function getAllUserInfoByAuth0() {
               let u = {
                  ID: data.app_metadata.ID,
                  email: data.email,
-                 // password: 'PASSWORD',
                  member_type: data.app_metadata.roles[0],
                  nickname: data.user_metadata.nickname,
                  user_status: data.app_metadata.user_status,
