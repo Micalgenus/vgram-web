@@ -258,6 +258,7 @@ exports.postHtmlList = function (req, res) {
     }
   }).then(function (p) {
     if (!p) return res.status(404).send();
+
     return res.render('post/main-list-item', {
       post: p
     });

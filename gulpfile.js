@@ -6,8 +6,8 @@ var gulp = require('gulp-param')(require('gulp'), process.argv),
   env = require('gulp-env'),
   rename = require("gulp-rename"),
   uglify = require('gulp-uglify'),
-   jshint = require('gulp-jshint');
-
+   jshint = require('gulp-jshint'),
+  cached = require('gulp-cached'),
 
   sass = require('gulp-sass'),
   less = require('gulp-less'),
@@ -20,7 +20,8 @@ gutil.log('taskmode : ' + process.env.NODE_ENV);
 
 gulp.task('lint', function () {
    gulp.src('./**/*.js')
-      .pipe(jshint())
+     .pipe(cached('jshint'))
+     .pipe(jshint());
 })
 
 gulp.task('less', function () {
