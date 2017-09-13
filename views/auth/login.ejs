@@ -37,7 +37,13 @@
               additionalSignUpFields: [
                 {
                   name: "nickname",
-                  placeholder: "Enter your nick name"
+                  placeholder: "Enter your nick name",
+                  validator: function(nickname) {
+                    return {
+                      valid: nickname.length >= 6,
+                      hint: "Must have 6 or more chars" // optional
+                    };
+                  }
                 }, {
                   type: "select",
                   name: "member_type",
@@ -46,6 +52,16 @@
                     { value: "PUBLIC", label: "일반 회원" },
                     { value: "BUSINESS", label: "사업주 회원" }
                   ],
+//                  options: function(cb) {                               // required
+//                    // obtain options, in case of error you call cb with the error in the
+//                    // first arg instead of null
+//                    cb(null, options);
+//                  },
+//                  prefill: function(cb) {                               // optional
+//                    // obtain prefill, in case of error you call cb with the error in the
+//                    // first arg instead of null
+//                    cb(null, prefill);
+//                  },
                 }
               ]
             });
