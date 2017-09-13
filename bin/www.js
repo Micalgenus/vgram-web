@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 "use strict";
 
+var fs = require('fs');
+var path = require('path');
 var debug = require('debug')('app');
 var app = require('../app');
 var models = require("../models");
@@ -12,15 +14,21 @@ var server;
 var overwrite = (env === "development" && process.env.OVERWRITE === "true");
 app.set('port', normalizePort(process.env.PORT));
 
-const log = require('console-log-level')({
-   prefix: function () {
-      return new Date().toISOString()
-   },
-   level: 'debug'
-});
+const logger = require("../utils/logger")
+// const log = require('console-log-level')({
+//    prefix: function () {
+//       return new Date().toISOString()
+//    },
+//    level: 'debug'
+// });
+let logDir = process.env.LOG_DIR || "logs";
+if ( !fs.existsSync( logDir ) ) {
+  // Create the directory if it does not exist
+  fs.mkdirSync( logDir );
+}
 
 // If force: true it will first drop tables before recreating them.
-models.sequelize.sync({ logging: log.debug, force: overwrite }).then(function () {
+models.sequelize.sync({ logging: logger.debug, force: overwrite }).then(function () {
    /**
     * Listen on provided port, on all network interfaces.
     */
@@ -44,8 +52,8 @@ models.sequelize.sync({ logging: log.debug, force: overwrite }).then(function ()
       return setTestDatabase(testDB);    // test DB
    }
 }).catch(function(err) {
-   console.error(err + ' on sequelize.sync error');
-   process.exit(1);
+  logger.error(err + ' on sequelize.sync error');
+  process.exit(1);
 });
 
 /**
@@ -83,11 +91,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      logger.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      logger.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
@@ -104,5 +112,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  logger.info('Listening on ' + bind);
 }

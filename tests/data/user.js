@@ -136,7 +136,7 @@ let data = [  // 데이터 작성 샘플, 실제 데이터는 auth0을 통하여
         addr2: "전북대학교 창업동아리 아늑한집"
       },
       point: 2,
-      owner_name: "김선호",
+      user_name: "김선호",
       business_type: value.businessType.LANDLORD,
       comment: "환영합니다 ^^",
       "phone_number": "010-3800-2109",
@@ -168,7 +168,7 @@ let data = [  // 데이터 작성 샘플, 실제 데이터는 auth0을 통하여
         addr2: "전북대학교 창업동아리 아늑한친구들"
       },
       point: 2,
-      owner_name: "김선호1",
+      user_name: "김선호1",
       business_type: value.businessType.ESTATE_AGENT,
       comment: "환영합니다 ^^",
       "phone_number": "010-3800-2109",
@@ -200,7 +200,7 @@ let data = [  // 데이터 작성 샘플, 실제 데이터는 auth0을 통하여
         addr2: "전북대학교 창업동아리 아늑한친구들"
       },
       point: 3,
-      owner_name: "김선호1",
+      user_name: "김선호1",
       business_type: value.businessType.LANDLORD,
       comment: "환영합니다 ^^",
       "phone_number": "010-3800-2109",
@@ -232,7 +232,7 @@ let data = [  // 데이터 작성 샘플, 실제 데이터는 auth0을 통하여
         addr2: "전북대학교 창업동아리 아늑한친구들"
       },
       point: 4,
-      owner_name: "김선호1",
+      user_name: "김선호1",
       business_type: value.businessType.ESTATE_AGENT,
       comment: "환영합니다 ^^",
       "phone_number": "010-3800-2109",
@@ -264,7 +264,7 @@ let data = [  // 데이터 작성 샘플, 실제 데이터는 auth0을 통하여
         addr2: "전북대학교 창업동아리 아늑한친구들"
       },
       point: 5,
-      owner_name: "김선호2",
+      user_name: "김선호2",
       business_type: value.businessType.ESTATE_AGENT,
       comment: "환영합니다 ^^",
       "phone_number": "010-3800-2109",
@@ -385,7 +385,7 @@ let getAllUserInfoByAuth0 = function () {
               addr2: data.user_metadata.address.addr2,
             },
             point: data.app_metadata.point,
-            // owner_name: "김선호",
+            // user_name: "김선호",
             // business_type: "LANDLORD",
             // comment: "환영합니다 ^^",
             phone_number: data.user_metadata.phone_number,

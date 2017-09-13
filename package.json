@@ -104,7 +104,8 @@
     "pump": "^1.0.2",
     "sqlite3": "^3.1.9",
     "supertest": "^2.0.0",
-    "sync-request": "^4.1.0"
+    "sync-request": "^4.1.0",
+    "winston": "^2.3.1"
   },
   "repository": {
     "type": "git",

@@ -20,6 +20,7 @@ const request = require('request');
 const requestp = require('request-promise');
 const xss = require('xss');
 
+const logger = require("../../utils/logger");
 
 // for file download
 // const userInfoUpload = multer({ storage: multerConfig.userInfoStorage }).fields([

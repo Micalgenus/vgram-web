@@ -186,7 +186,8 @@ const mapLocationCenter = {
 // 향후 글 작성시 다양한 언어로 작성할 수 있음
 const langCode = {
   "ko-kr": {     // 한국어
-    codes: ["ko", "ko-kr", "ko-KR"]
+    codes: ["ko", "ko-kr", "ko-KR"],
+    alias_codes: []
   },
   "en-us": {     // 미국
     codes: ["en", "en-us", "en-US"],

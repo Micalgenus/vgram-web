@@ -1,12 +1,14 @@
 'use strict';
 
 var morgan = require('morgan'),
+  winston = require('winston'),
   cors = require('cors'),
   path = require('path'),
   express = require('express'),
-   i18n = require('i18n'),
-   passport = require('passport'),
+  i18n = require('i18n'),
+  passport = require('passport'),
 
+  logger = require('./utils/logger'),
   errorhandler = require('errorhandler'),
   bodyParser = require('body-parser'),
   compress = require('compression'),
@@ -15,12 +17,14 @@ var morgan = require('morgan'),
   flash = require('express-flash'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
-   device = require('express-device');
+  device = require('express-device');
 
 var app = express();
 
-var env = process.env.NODE_ENV || "development";
 var config = require("./config/main");
+var env = process.env.NODE_ENV || "development";
+
+app.set('env', env);
 app.locals.ENV = env;
 app.locals.mediaUrl = config.mediaUrl;    // view template에서 사용할 수 있도록 app 고정변수로 등록
 
@@ -30,16 +34,16 @@ app.set('view engine', 'ejs');
 app.locals.moment = require('moment');
 
 i18n.configure({
-   locales: ['ko-kr', 'en-us'],
-   cookie: 'lang',      //
-   directory: __dirname + '/locales',
-   defaultLocale: 'ko-kr',
-   queryParameter: 'lang',
-   preserveLegacyCase: true
-   // api: {
-   //    '__': 'i18n',  //now req.__ becomes req.t,
-   //    '__n': 'i18n_n' //and req.__n can be called as req.tn
-   // }
+  locales: ['ko-kr', 'en-us'],
+  cookie: 'lang',      //
+  directory: __dirname + '/locales',
+  defaultLocale: 'ko-kr',
+  queryParameter: 'lang',
+  preserveLegacyCase: true
+  // api: {
+  //    '__': 'i18n',  //now req.__ becomes req.t,
+  //    '__n': 'i18n_n' //and req.__n can be called as req.tn
+  // }
 });
 
 
@@ -97,15 +101,16 @@ app.use(function (err, req, res, next) {
 // error handler
 // no stacktraces leaked to user unless in development environment
 if (app.get('env') === 'production') {
-   app.use(function (err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('error', {
-         message: res.i18n("trouble in server message") || err.message,
-         title: res.i18n("trouble in server title")
-      });
-   });
-}
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: res.i18n("trouble in server message") || err.message,
+      title: res.i18n("trouble in server title")
+    });
+  });
 
+  app.use(morgan("combined", {"stream": logger.stream}));
+}
 
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {

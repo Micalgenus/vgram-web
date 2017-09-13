@@ -36,7 +36,7 @@ const passportService = require('./config/passport');   // 설정값 로딩때�
 
 // Middleware to require login/authRoute
 const requireWebAuth = passport.authenticate('jwt', { session: false });
-const auth0WebLogin = passport.authenticate('auth0', { session: false, failureRedirect: '/url-if-something-fails' });
+const auth0WebLogin = passport.authenticate('auth0', { session: false, failureRedirect: '/auth/login' });
 const requireAPIAuth = jwt({
   // Dynamically provide a signing key
   // based on the kid in the header and
@@ -52,7 +52,7 @@ const requireAPIAuth = jwt({
   secret: config.secret,
 
   // Validate the audience and the issuer.
-  audience: config.auth0.IDENTIFIER,
+  aud: config.auth0.IDENTIFIER,
   issuer: config.auth0.ISSUER,
   algorithms: [config.auth0.ALGORITHM]
 });
@@ -73,9 +73,7 @@ const init = function (req, res, next) {
   // req.msg = req.flash();
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
-  req.ID = req.user
-    ? (req.user.logined ? req.user.ID : null)
-    : null;
+  req.ID = req.user ? (req.user.logined ? req.user.ID : null) : null;
 
 
 

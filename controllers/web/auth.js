@@ -15,9 +15,11 @@ const value = require('../../utils/staticValue'),
 
 var request = require('request');
 var requestp = require('request-promise');
-
+var _ = require('lodash');
 var moment = require('moment');
 moment.locale("ko");
+
+const logger = require('../../utils/logger');
 
 /**
  * show login view if not login(no sessio
@@ -217,6 +219,11 @@ exports.setToken = function (req, res, next) {
   //    profile: profile
   // }
 
+  // delete unused property to reduce cookie character
+  req.user.profile = _.omit(req.user.profile,
+    ['given_name', 'family_name', 'picture_large', 'context', 'age_range', 'devices',
+      'favorite_teams', 'name_format']);  // 페이스북 불필요 prop 삭제
+
   let userToken = genToken.generateToken(req.user.profile); // passport에서 받은 object
 
   // header와 cookies에 id_token을 붙여서 전송
@@ -224,10 +231,12 @@ exports.setToken = function (req, res, next) {
   res.clearCookie('access_token');
   res.clearCookie('user_profile_token');
 
-  res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
-  // res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
+  // cdn.auth0.com/js/lock/10.18.0/lock.min.js:9 Set-Cookie header is ignored in response from
+  // url: http://localhost:3000/auth/login-callback?code=fKx9Jp018uW-K1cT.
+  // Cookie length should be less than or equal to 4096 characters.
+  res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
   res.cookie('access_token', req.user.accessToken);
-  res.cookie('user_profile_token', [req.user.tokenType, userToken].join(" "));
+  res.cookie('user_profile_token', userToken);
 
   // console.log(req.user);
   // return res.send(req.user);
@@ -278,7 +287,9 @@ function getLastId(page, token) {
 
   return requestp(options).then(function (body) {
     if (body[0] && body[0].app_metadata && body[0].app_metadata.ID) return body[0].app_metadata.ID;
-    return getLastId(page + 1, token).then(function (id) { return id });
+    return getLastId(page + 1, token).then(function (id) {
+      return id
+    });
   });
 }
 
@@ -286,118 +297,101 @@ exports.checkUser = function (req, res, next) {
 
   return User.findOne({
     where: {
-      email: req.user.profile.email
+      // email: req.user.profile.email
+      // email의 경우 SSO가 연동되어 있지 않은 경우 똑같은 email로 2개 이상의 회원가입이 가능함
+      auth0_user_id: req.user.profile.user_id
     }
   }).then(function (u) {
-    // exist user
+    // exist user(기존 회원 로그인)
     if (u) return next();
 
-    let info = req.user;
+    let info = req.user.profile;
 
-    console.log(info);
-
-    // 초기화 된 계정일 경우
-    if (info.user_metadata) {
-      return User.create({
-        ID: info.app_metadata.ID,
-        email: info.email,
-        member_type: info.app_metadata.roles[0],
-        nickname: info.user_metadata.nickname,
-        user_status: info.app_metadata.user_status,
-        telephone: info.user_metadata.telephone,
-        createdAt: moment(info.created_at).format('YYYY-MM-DD'),
-         auth0_user_id: info.user_id,
-        locale: info.user_metadata.locale,
-        profile_image_path: info.user_metadata.profile_image_path || info.picture,
-        updatedAt: moment(info.updated_at).format('YYYY-MM-DD'),
-        meta_value: {
-          registered_number: info.user_metadata.registered_number,
-          address: {
-            post_code: info.user_metadata.address.post_code,
-            addr1: info.user_metadata.address.addr1,
-            addr2: info.user_metadata.address.addr2,
-          },
-          point: info.app_metadata.point,
-          // owner_name: "김선호",
-          // business_type: "LANDLORD",
-          // comment: "환영합니다 ^^",
-          phone_number: info.user_metadata.phone_number,
+    /**
+     * ID/PWD 방식의 경우 user_metadata, app_metadata가 있으나
+     * SNS 연동 방식의 경우 두 정보가 없기 때문에 예외처리가 필요하다
+     * 자세한 user object 정보는 auth0 tester client로 확인이 가능함
+     * 각 회원가입방법별로 object 모양이 다르기 때문에 SNS 로그인 기능 추가 지원시
+     * 코드수정, 예외처리가 중요할 것 같다
+     * SNS 로그인의 경우 전화번호, 국가, 취미, 친구목록, 성별등 다양한 정보가 나오기 때문에
+     * 향후 기능 연동이 가능 할 것 같다.
+     * https://manage.auth0.com/#/connections/database
+     * https://manage.auth0.com/#/connections/social
+     */
+    let userInfo = {
+      email: info.email,
+      member_type: info.app_metadata ? (info.app_metadata.roles[0] || value.memberType.PUBLIC) : value.memberType.PUBLIC,
+      nickname: info.user_metadata ? (info.user_metadata.nickname || info.nickname) : info.nickname,
+      user_status: info.app_metadata ? (info.app_metadata.user_status || 1) : 1,  // -1 : 탈퇴요청, 0 : 휴면, 1 : 활성
+      telephone: "",
+      createdAt: moment(info.created_at).format('YYYY-MM-DD'),
+      auth0_user_id: info.user_id,
+      locale: info.user_metadata ? info.user_metadata.locale : value.langCode["ko-kr"].codes[1],   // ko-kr
+      profile_image_path: info.user_metadata ? info.user_metadata.profile_image_path : info.picture,
+      updatedAt: moment(info.updated_at).format('YYYY-MM-DD'),
+      meta_value: {
+        registered_number: "",
+        address: {
+          post_code: "",
+          addr1: "",
+          addr2: "",
+          detail: "",
+          extra_info: ""
+        },
+        point: 0,
+        user_name: "",
+        business_type: "",
+        comment: "",
+        phone_number: "",
+        sns: {
+          "website": "",
+          "facebook": "",
+          "instagram": "",
+          "blog_naver": ""
         }
-      }).then(function (newUser) {
-        req.user.profile.ID = info.app_metadata.ID;
+      }
+    };
+    return User.create(userInfo).then(function (newUser) {
+      userInfo.ID = newUser.ID;
+      // req.user.profile.ID = newUser.ID;
 
-        return getAdminToken().then((token) => {
-          let args = {
-            method: 'PATCH',
-            uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
-            json: {
-              user_metadata: {
-                nickname: info.user_metadata.nickname || info.nickname,
-                username: "",
-                telephone: "",
-                phone_number: "",
-                profile_image_path: info.picture,
-                locale: "ko-kr",
-                registered_number: "",
-                address: {
-                  post_code: "",
-                  addr1: "",
-                  addr2: ""
-                }
-              },
-              app_metadata: {
-                roles: [
-                  info.user_metadata.member_type || value.memberType.PUBLIC
-                ],
-                user_status: 1,
-                updated_at: req.user.updated_at,
-                point: 0,
-                ID: id + 1,
-              }
-            },
-
-            headers: {
-              'Authorization': 'Bearer ' + token,
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-          };
-
-
-        });
-        return next();
-      });
-    }
-
-    // 계정 생성 후 초기화 되지 않은 계정
-    return getAdminToken().then(function (token) {
-      return getLastId(0, token).then(function (id) {
-        let args = {
+      return getAdminToken().then((token) => {
+        let options = {
           method: 'PATCH',
           uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
           json: {
             user_metadata: {
-              nickname: info.user_metadata.nickname || info.nickname,
-              username: "",
-              telephone: "",
-              phone_number: "",
+              nickname: userInfo.nickname,
+              telephone: userInfo.telephone,
               profile_image_path: info.picture,
-              locale: "ko-kr",
-              registered_number: "",
+              locale: userInfo.locale,
+              registered_number: userInfo.meta_value.registered_number,
               address: {
-                post_code: "",
-                addr1: "",
-                addr2: ""
+                post_code: userInfo.meta_value.address.post_code,
+                addr1: userInfo.meta_value.address.addr1,
+                addr2: userInfo.meta_value.address.addr2,
+                detail: userInfo.meta_value.address.detail,
+                extra_info: userInfo.meta_value.address.extra_info
+              },
+              username: userInfo.meta_value.user_name,
+              business_type: userInfo.meta_value.business_type,
+              comment: "",
+              phone_number: userInfo.meta_value.telephone,
+              sns: {
+                "website": "",
+                "facebook": "",
+                "instagram": "",
+                "blog_naver": ""
               }
             },
             app_metadata: {
               roles: [
-                info.user_metadata.member_type || value.memberType.PUBLIC
+                userInfo.member_type
               ],
-              user_status: 1,
-              updated_at: req.user.updated_at,
-              point: 0,
-              ID: id + 1,
+              user_status: userInfo.user_status,
+              updated_at: userInfo.updatedAt,
+              point: userInfo.meta_value.point,
+              ID: userInfo.ID,
             }
           },
 
@@ -406,57 +400,15 @@ exports.checkUser = function (req, res, next) {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-        }
+        };
 
-        return request(args, function (e, r, body) {
-
-          // create user
-          return User.create({
-            ID: body.app_metadata.ID,
-            email: body.email,
-            member_type: body.user_metadata.member_type,
-            nickname: body.user_metadata.nickname,
-            user_status: body.app_metadata.user_status,
-            telephone: body.user_metadata.telephone,
-            createdAt: moment(body.created_at).format('YYYY-MM-DD'),
-             auth0_user_id: body.user_id,
-            locale: body.user_metadata.locale,
-            profile_image_path: body.user_metadata.profile_image_path,
-            updatedAt: moment(body.updated_at).format('YYYY-MM-DD'),
-            meta_value: {
-              registered_number: body.user_metadata.registered_number,
-              address: {
-                post_code: body.user_metadata.address.post_code,
-                addr1: body.user_metadata.address.addr1,
-                addr2: body.user_metadata.address.addr2,
-              },
-              point: body.app_metadata.point,
-              // owner_name: "김선호",
-              // business_type: "LANDLORD",
-              // comment: "환영합니다 ^^",
-              phone_number: body.user_metadata.phone_number,
-            }
-          }).then(function (newUser) {
-
-            req.user.profile.ID = body.app_metadata.ID;
-
-            req.flash('msg', 'completedRegister');
-            return next();
-          });
+        return requestp(options).then(function (body) {
+          req.user.profile.ID = body.app_metadata.ID;
+          return models.Sequelize.Promise.resolve();
         });
       });
     });
-  });
-}
-
-// ** frontRouter의 init()을 사용할 것 **
-// exports.init = function(req, res, next) {
-//    req.msg = req.flash('msg') || req.flash('error') || req.flash('success');
-//    req.env = process.env.NODE_ENV || "development";
-//
-//    // 본 코드는 잠재적으로 문제가 있을 것 같기 때문에 삭제를 권장함.
-//    // 쿠키 만료시간(expiredDate)과 임의로 동일한 이름으로 쿠키를 만들수도 있기 때문에
-//    // req.logined = (req.cookies.Authorization ? true : false);
-//
-//    return next();
-// }
+  }).then((newUser) => {
+    return next();
+  }).catch(next);
+};

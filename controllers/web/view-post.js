@@ -11,9 +11,11 @@ const Comment = models.comment;
 const Media = models.media;
 
 const moment = require("moment");
+const cookieParser = require("cookie-parser");
 
 const config = require("../../config/main");
 const value = require('../../utils/staticValue');
+const genToken = require("../../utils/genToken");
 
 /* action */
 let getPostInfo = function (ID) {
@@ -84,6 +86,7 @@ let getPostInfo = function (ID) {
 exports.getPostInfo = getPostInfo;
 
 exports.createPostInfo = function (req, res, next) {
+  let profile = genToken.decodedToken(req.cookies['user_profile_token']);
 
   return models.sequelize.transaction(function (t) {
     return Post.create({
@@ -92,40 +95,40 @@ exports.createPostInfo = function (req, res, next) {
       content: req.body.content,
       post_status: req.body.post_status,
       post_type: req.body.category,
-      locale: req.user.locale,
+      locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
       meta_value: {
         written_device: 'web'
       }
-    }, { transaction: t }).then(function (p) {
+    }, { transaction: t }).then(function (post) {
       // console.log(req.user);
       return Translation.create({
-        element_id: p.ID,
+        element_id: post.ID,
         // element_type: "post", // ??
         group_id: 0,
-        language_code: req.user.user_metadata.locale,
-      }, { transaction: t }).then(function (i) {
+        language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+      }, { transaction: t }).then(function (translation) {
         return Translation.update({
-          group_id: i.ID
-        }, { where: { ID: i.ID }, transaction: t }).then(function () {
+          group_id: translation.ID
+        }, { where: { ID: translation.ID }, transaction: t }).then(function () {
           return Coordinate.create({
-            translation_group_id: i.ID,
+            translation_group_id: translation.ID,
             // region_code:
             lat: req.body.lat,
             lng: req.body.lng,
-          }, { transaction: t }).then(function (c) {
+          }, { transaction: t }).then(function (coordinate) {
             return Address.create({
-              translation_id: i.ID,
-              coordinate_id: c.ID,
+              translation_id: translation.ID,
+              coordinate_id: coordinate.ID,
               // post_code:
               // region_code:
               addr1: req.body.address1,
               addr2: req.body.address1,
               detail: req.body.address2,
               // extra_info:
-              locale: i.language_code,
-              translation_group_id: i.ID
-            }, { transaction: t }).then(function (a) {
-              return res.send({ ID: p.ID });
+              locale: translation.language_code,
+              translation_group_id: translation.ID
+            }, { transaction: t }).then(function (addr) {
+              return res.send({ ID: post.ID });
             });
           });
         });
