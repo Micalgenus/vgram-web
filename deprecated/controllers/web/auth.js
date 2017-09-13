@@ -162,46 +162,46 @@ exports.signup = function (req, res, next) {
 
   return next();
 }
-//
-// exports.register = function (req, res, next) {
-//   let email = req.body.email;
-//   let password = req.body.password;
-//   let type = req.body.member_type;
-//   let phone = req.body.phone;
-//   let name = req.body.name;
-//
-//   return User.findOne({
-//     where: {
-//       email: email
-//     }
-//   }).then(function (user) {
-//     if (user) {
-//       req.flash('msg', 'alreadyExistMember');
-//       return res.redirect('back');
-//     }
-//
-//     return User.create({
-//       email: email,
-//       password: password,
-//       member_type: type,
-//       telephone: phone,
-//       registered_date: moment.utc().format('YYYY-MM-DD'),
-//       display_name: name,
-//       locale: "ko_KR",
-//       //profile_image_path: "users/profile1_20170125150101.jpg",
-//       updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-//       user_status: 1,
-//       meta_value: {
-//         level: 1
-//       }
-//     }).then(function (newUser) {
-//       req.flash('msg', 'completedRegister');
-//       return next();
-//     });
-//   }).catch(function (err) {
-//     return next(err);
-//   });
-// }
+
+exports.register = function (req, res, next) {
+  let email = req.body.email;
+  let password = req.body.password;
+  let type = req.body.member_type;
+  let phone = req.body.phone;
+  let name = req.body.name;
+
+  return User.findOne({
+    where: {
+      email: email
+    }
+  }).then(function (user) {
+    if (user) {
+      req.flash('msg', 'alreadyExistMember');
+      return res.redirect('back');
+    }
+
+    return User.create({
+      email: email,
+      password: password,
+      member_type: type,
+      telephone: phone,
+      registered_date: moment.utc().format('YYYY-MM-DD'),
+      display_name: name,
+      locale: "ko_KR",
+      //profile_image_path: "users/profile1_20170125150101.jpg",
+      updated_date: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      user_status: 1,
+      meta_value: {
+        level: 1
+      }
+    }).then(function (newUser) {
+      req.flash('msg', 'completedRegister');
+      return next();
+    });
+  }).catch(function (err) {
+    return next(err);
+  });
+}
 
 exports.quit = function (req, res, next) {
 
@@ -326,45 +326,6 @@ exports.checkUser = function (req, res, next) {
       }).then(function (newUser) {
         req.user.profile.ID = info.app_metadata.ID;
 
-        return getAdminToken().then((token) => {
-          let args = {
-            method: 'PATCH',
-            uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
-            json: {
-              user_metadata: {
-                nickname: info.user_metadata.nickname || info.nickname,
-                username: "",
-                telephone: "",
-                phone_number: "",
-                profile_image_path: info.picture,
-                locale: "ko-kr",
-                registered_number: "",
-                address: {
-                  post_code: "",
-                  addr1: "",
-                  addr2: ""
-                }
-              },
-              app_metadata: {
-                roles: [
-                  info.user_metadata.member_type || value.memberType.PUBLIC
-                ],
-                user_status: 1,
-                updated_at: req.user.updated_at,
-                point: 0,
-                ID: id + 1,
-              }
-            },
-
-            headers: {
-              'Authorization': 'Bearer ' + token,
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-          };
-
-
-        });
         return next();
       });
     }

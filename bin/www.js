@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 
 var debug = require('debug')('app');
 var app = require('../app');
@@ -6,9 +7,6 @@ var models = require("../models");
 
 var env = process.env.NODE_ENV || "development";
 var config = require('../config/main');
-
-var setTestDatabase = require('../modules/setTestDatabase');
-var testDB = require('../tests/data');
 
 var server;
 var overwrite = (env === "development" && process.env.OVERWRITE === "true");
@@ -40,6 +38,9 @@ models.sequelize.sync({ logging: log.debug, force: overwrite }).then(function ()
    debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
 
    if (overwrite) {
+     let setTestDatabase = require('../modules/setTestDatabase');
+     let testDB = require('../tests/data');
+
       return setTestDatabase(testDB);    // test DB
    }
 }).catch(function(err) {

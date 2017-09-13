@@ -245,10 +245,10 @@ module.exports = function (app) {
   web.authRoute.get('/logout', web.authController.logout, init, web.redirectController.redirectMain);
 
   // Registration View route
-  web.authRoute.get('/signup', requireWebAuth, init, web.authController.signup, web.redirectController.redirectMain);
+  // web.authRoute.get('/signup', requireWebAuth, init, web.authController.signup, web.redirectController.redirectMain);
 
   // Registration route
-  web.authRoute.post('/signup', requireWebAuth, init, web.authController.signup, web.authController.register, web.redirectController.redirectMain);
+  // web.authRoute.post('/signup', requireWebAuth, init, web.authController.signup, web.authController.register, web.redirectController.redirectMain);
 
   //탈퇴 라우터
   web.authRoute.get('/quit', web.authController.quit);
@@ -350,7 +350,7 @@ module.exports = function (app) {
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
 
   // post info를 json로 받음
-  web.postRoute.get('/info/:postIdx([0-9]+)', web.postController.getPostInfoJson);
+  web.postRoute.get('/info/:postIdx([0-9]+)', requireWebAuth, web.postController.getPostInfoJson);
 
   // index list
   web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
