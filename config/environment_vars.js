@@ -26,6 +26,7 @@ dotenv.config({path: envPath});    // loading .env and write to process.env
 vars = {
    NODE_ENV: process.env.NODE_ENV || "development",
    LOG_LEVEL: "debug",
+  LOG_DIR: "logs",
   PORT: 3000,
 
   MEDIA_SERVER_URL: "http://localhost:3001",

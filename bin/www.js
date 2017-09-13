@@ -8,24 +8,19 @@ var app = require('../app');
 var models = require("../models");
 
 var env = process.env.NODE_ENV || "development";
-var config = require('../config/main');
 
 var server;
 var overwrite = (env === "development" && process.env.OVERWRITE === "true");
 app.set('port', normalizePort(process.env.PORT));
 
-const logger = require("../utils/logger")
 // const log = require('console-log-level')({
 //    prefix: function () {
 //       return new Date().toISOString()
 //    },
 //    level: 'debug'
 // });
-let logDir = process.env.LOG_DIR || "logs";
-if ( !fs.existsSync( logDir ) ) {
-  // Create the directory if it does not exist
-  fs.mkdirSync( logDir );
-}
+
+const logger = require("../utils/logger");
 
 // If force: true it will first drop tables before recreating them.
 models.sequelize.sync({ logging: logger.debug, force: overwrite }).then(function () {

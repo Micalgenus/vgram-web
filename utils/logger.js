@@ -5,10 +5,19 @@
 
 const morgan = require('morgan'),
   winston = require('winston'),
-  process = require('process'),
-  moment = require('moment');
+  moment = require('moment'),
+
+  fs = require('fs');
+
+var config = require('../config/main');
 
 winston.emitErrs = true;
+
+let logDir = config.LOG_DIR || "logs";
+if ( !fs.existsSync( logDir ) ) {
+  // Create the directory if it does not exist
+  fs.mkdirSync( logDir );
+}
 
 // logging level : { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
 const logger = new winston.Logger({
@@ -16,7 +25,7 @@ const logger = new winston.Logger({
     new winston.transports.File({
       name: 'info-file',
       level: 'info',
-      filename: './logs/info-logs-' + moment().format('YYYYMMDDHHmm') + "-pid_" + process.pid + '.log',
+      filename: './' + logDir + '/info-logs-' + moment().format('YYYYMMDDHHmm') + "-pid_" + process.pid + '.log',
       handleExceptions: true,
       humanReadableUnhandledException: true,
       json: true,
@@ -40,7 +49,7 @@ const logger = new winston.Logger({
     }),
     new winston.transports.File({
       name: 'error-file',
-      filename: './logs/error-logs-' + moment().format('YYYYMMDDHHmm') + "-pid_" + process.pid + '.log',
+      filename: './' + logDir + '/error-logs-' + moment().format('YYYYMMDDHHmm') + "-pid_" + process.pid + '.log',
       level: 'error',
       humanReadableUnhandledException: true,
       json: true,
