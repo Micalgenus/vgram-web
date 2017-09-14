@@ -1958,16 +1958,16 @@ var SEMICOLON = SEMICOLON || {};
 				if (!elementActiveClass) { elementActiveClass = 'activeFilter'; }
 
 				element.find('a').click(function () {
-					element.find('li, div.oc-item').removeClass(elementActiveClass);
-					$(this).parent('li, div.oc-item').addClass(elementActiveClass);
+					element.find('li, div.vlist-menu-item').removeClass(elementActiveClass);
+					$(this).parent('li, div.vlist-menu-item').addClass(elementActiveClass);
 					var selector = $(this).attr('data-filter');
 					$(elementContainer).isotope({ filter: selector });
 					return false;
 				});
 
 				if (elementDefaultFilter) {
-					element.find('li, div.oc-item').removeClass(elementActiveClass);
-					element.find('[data-filter="' + elementDefaultFilter + '"]').parent('li, div.oc-item').addClass(elementActiveClass);
+					element.find('li, div.vlist-menu-item').removeClass(elementActiveClass);
+					element.find('[data-filter="' + elementDefaultFilter + '"]').parent('li, div.vlist-menu-item').addClass(elementActiveClass);
 					$(elementContainer).isotope({ filter: elementDefaultFilter });
 				}
 			});

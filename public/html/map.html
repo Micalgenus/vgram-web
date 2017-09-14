@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
 </head>
-<body id="index" class="stretched no-transition">
+<body id="sub-full" class="stretched no-transition">
 
 <div id="wrapper" class="clearfix">
   <header id="header">
@@ -35,8 +35,8 @@
         </div>
         <nav id="primary-menu">
           <ul>
-            <li class="current"><a href="index.html"><div>리스트로 보기</div></a></li>
-            <li><a href="map.html"><div>지도로 보기</div></a></li>
+            <li><a href="index.html"><div>리스트로 보기</div></a></li>
+            <li class="current"><a href="map.html"><div>지도로 보기</div></a></li>
             <li><a href="new.html"><div>NEW</div></a></li>
           </ul>
           <div class="quick-menu">
@@ -96,39 +96,11 @@
     </div>
   </header>
   <main>
-    <section id="slider" class="boxed-slider">
-      <div class="container clearfix">
-        <div class="fslider" data-easing="easeInQuad">
-          <div class="flexslider">
-            <div class="slider-wrap">
-              <div class="slide">
-                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/2.jpg" alt=""></a>
-              </div>
-              <div class="slide">
-                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/3.jpg" alt=""></a>
-              </div>
-              <div class="slide">
-                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/4.jpg" alt=""></a>
-              </div>
-              <div class="slide">
-                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div id="map-container" class="clearfix">
+      <div class="map">
+        <div id="google-map"></div>
       </div>
-    </section>
-    <section id="promotion">
-      <div class="container clearfix">
-        <div class="promo promo-light">
-          <h3>세상과의 소통 <span>Vgram</span> 에서 시작합니다. <span>Vgram.co.kr</span></h3>
-          <span>Vgram 과 함께 하실 사업자 분들의 연락을 기다리고 있습니다.</span>
-          <a class="button button-dark button-large button-rounded" href="#">회원가입</a>
-        </div>
-      </div>
-    </section>
-    <section id="vlist" class="vlist">
-      <div class="container clearfix">
+      <div class="vlist">
         <div class="vlist-menu-wrapper clearfix">
           <div id="portfolio-filter" class="vlist-menu portfolio-filter" data-container="#portfolio">
             <div class="vlist-menu-item activeFilter"><a href="#" data-filter="*"><i class="icon-line2-grid"></i>모두보기</a></div>
@@ -144,7 +116,7 @@
           </div>
         </div>
 
-        <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+        <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix" data-md-col="2">
         
           <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
             <div class="portfolio-image">
@@ -272,7 +244,10 @@
           </a>
         </div>
       </div>
-    </section>
+      <div class="control">
+        <button class="button button-small button-circle"><i class="icon-map"></i>지도</a>
+      </div>
+    </div>
   </main>
   <footer id="footer">
     <div id="copyrights">
@@ -362,11 +337,34 @@
 </script>
 
 <!-- Page -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap"></script>
+<script>
+  function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('google-map'), {
+      zoom: 4,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+  }
+
+  $(document).on('click', '#map-container .control button', function(e) {
+    $('#map-container .map').toggleClass('active');
+    e.preventDefault();
+  })
+</script>
+
 <script type="text/javascript">
   // Masonry
   jQuery(window).load(function(){
-
     var $container = $('#portfolio');
+
+    $container.isotope({
+      itemSelector : "article.portfolio-item"
+    });
 
     $container.infinitescroll({
       loading: {
@@ -375,21 +373,15 @@
         img: "/lib/js-canvas/images/preloader-dark.gif",
         speed: 'normal'
       },
-      state: {
-        isDone: false
-      },
       nextSelector: "#load-next-posts a",
       navSelector: "#load-next-posts",
-      itemSelector: "article.portfolio-item",
-      behavior: 'portfolioinfiniteitemsloader'
-    },
-    function( newElements ) {
+      itemSelector: "article.portfolio-item"
+    }, function( newElements ) {
       $container.isotope( 'appended', $( newElements ) );
       var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
       SEMICOLON.widget.loadFlexSlider();
       SEMICOLON.portfolio.arrange();
     });
-
   });
 </script>
 <!--// Page -->
