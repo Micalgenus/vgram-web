@@ -46,6 +46,7 @@
     "express-flash": "0.0.2",
     "express-jwt": "^0.3.2",
     "express-jwt-authz": "^1.0.0",
+    "firebase": "^4.3.1",
     "fs-promise": "^0.5.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.1",

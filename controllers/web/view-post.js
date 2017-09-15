@@ -17,6 +17,8 @@ const config = require("../../config/main");
 const value = require('../../utils/staticValue');
 const genToken = require("../../utils/genToken");
 
+const Firebase = require('./firebase');
+
 /* action */
 let getPostInfo = function (ID) {
   return Post.findOne({
@@ -128,6 +130,7 @@ exports.createPostInfo = function (req, res, next) {
               locale: translation.language_code,
               translation_group_id: translation.ID
             }, { transaction: t }).then(function (addr) {
+              Firebase.notificationCreatePost(req.user.sub, post.ID);
               return res.send({ ID: post.ID });
             });
           });
