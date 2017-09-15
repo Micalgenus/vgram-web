@@ -1,0 +1,42 @@
+<% var vrimages = JSON.parse(post.thumbnail_image_path)[0].vrimages %>
+<article class="portfolio-item pf-graphics pf-illustrations">
+    <div class="portfolio-image">
+        <div class="fslider" data-arrows="false">
+          <div class="flexslider">
+             <!-- thumb.jpg를 미리보기로 -->
+              <div class="slider-wrap">
+                <% for (var i = 0; i < vrimages.length; i++) { %>
+                <div class="slide"><a href="portfolio-single-gallery.html"><img src="<%= mediaUrl %>/<%= vrimages[i].thumb %>" alt="Shake It"></a></div>
+                 <% } %>
+              </div>
+          </div>
+        </div>
+       <!-- thumb.jpg가 pano_f.jpg임 -->
+        <div class="portfolio-overlay" data-lightbox="gallery">
+          <% for (var i = 0; i < vrimages.length; i++) { %>
+            <% if (i == 0) { %>
+              <a href="<%= mediaUrl %>/<%= vrimages[i].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
+            <% } else { %>
+              <a href="<%= mediaUrl %>/<%= vrimages[i].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
+            <% } %>
+          <% } %>
+          <!-- <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="right-icon"><i class="icon-line-ellipsis"></i></a> -->
+        </div>
+    </div>
+
+    <div class="testimonial">
+        <div class="testi-image">
+          <a href="/user/<%= post.user.ID %>"><img src="<%= post.user.profile_image_path %>" alt="Customer Testimonails"></a>
+        </div>
+        <div class="testi-meat"><p style=" margin-bottom:0px;"><%= post.user.nickname %></p></div>
+        <div class="clear"></div>
+        <div class="portfolio-desc">
+          <h3><a href="portfolio-single.html"><%= post.title %></a></h3>
+        </div>
+      <ul class="entry-meta clearfix">
+        <li><i class="icon-line-heart"></i><span><%= post.LikeUsers.length %></span></li>
+        <li><i class="icon-calendar3"></i><%= new Date(post.createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></li>
+        <li><i class="icon-comments"></i><%= post.Comments.length %></li>
+      </ul>
+    </div>
+  </article>

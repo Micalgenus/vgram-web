@@ -154,6 +154,8 @@ var filter = (function() {
 })();
 
 var roomList = (function() {
+  var mediaServerUrl;
+
   var map = (function() {
     /**
      * @desc  방정보로 된 맵 초기화
@@ -218,14 +220,16 @@ var roomList = (function() {
       return ListData.data.makeList($list);
     };
 
-    function makeRoom(data) {
-      return ListData.template.makeTemplate('/template/room-data.ejs', {
-        image_path: JSON.parse(data.thumbnail_image_path)[0].vrimages[0].thumb,
+    function makeRoom(data) {   // 하나씩 들어옴
+      console.log(data);  // {...}
+      return ListData.template.makeTemplate('/template/post/map-list-item.ejs', {
+        post: data,
+        // vrimages: JSON.parse(data.thumbnail_image_path)[0].vrimages,
         deposit: data.deposit,
         monthly_rent_fee: data.monthly_rent_fee,
         title: data.title,
         room_type: data.post_type,
-        mediaUrl: 'http://localhost:3001',
+        mediaUrl: mediaServerUrl,
         profile_image_path: data.user.profile_image_path
       });
     };
@@ -248,7 +252,12 @@ var roomList = (function() {
     }
   })();
 
+  var init = function(mediaUrl) {
+    mediaServerUrl = mediaUrl
+  }
+
   return {
-    drawRoom: map.drawRoom
+    drawRoom: map.drawRoom,
+    init: init
   }
 })();

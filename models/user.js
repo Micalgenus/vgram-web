@@ -1,6 +1,10 @@
 /* jshint indent: 2 */
+"use strict";
+
 const Promise = require("bluebird");
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
+const _ = require("lodash");
+const config = require("../config/main");
 
 module.exports = function(sequelize, DataTypes) {
    var user = sequelize.define('user', {
@@ -53,7 +57,18 @@ module.exports = function(sequelize, DataTypes) {
       profile_image_path: {
          type: DataTypes.STRING(255),
          allowNull: true,
-         defaultValue: null
+         defaultValue: null,
+        get() {
+           // image_path에 host 주소가 없는 경우를 구분하여 host 주소를 붙여줌
+           let profile_image_path = this.getDataValue('profile_image_path');
+
+          if(_.includes(profile_image_path, "http://")
+            || _.includes(profile_image_path, "https://")) {
+            return profile_image_path;
+          } else {
+            return [config.mediaUrl, profile_image_path].join('/');
+          }
+        }
       },
       updatedAt: {
          type: DataTypes.DATE,

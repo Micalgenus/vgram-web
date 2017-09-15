@@ -4,6 +4,7 @@ const models = require('../../models');
 const Coordinate = models.coordinate;
 const Post = models.post;
 const User = models.user;
+const Comment = models.comment;
 const Translation = models.icl_translation;
 const Address = models.address;
 // const Room = models.room;
@@ -33,10 +34,15 @@ exports.postInfoListJson = function (req, res) {
   if (list.length == 0) return res.send([]);
 
   return Post.findAll({
-    attributes: ['ID', 'title', 'read_count', 'thumbnail_image_path', 'post_type'],
     include: [{
+      model: User
+    }, {
+      model: Comment,
+      as: 'Comments',
+      attributes: ["ID", "post_id"]  // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
+    }, {
       model: User,
-      attributes: ['email', 'telephone', 'profile_image_path'],
+      as: 'LikeUsers' // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
     }, {
       model: Translation,
       attributes: ['group_id'],
@@ -48,7 +54,7 @@ exports.postInfoListJson = function (req, res) {
         attributes: ['addr1', 'addr2']
       }]
     }],
-    
+
     where: {
       ID: {
         $in: list

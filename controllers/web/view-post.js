@@ -11,7 +11,7 @@ const Comment = models.comment;
 const Media = models.media;
 
 const moment = require("moment");
-const cookieParser = require("cookie-parser");
+const _ = require("lodash");
 
 const config = require("../../config/main");
 const value = require('../../utils/staticValue');
@@ -245,7 +245,7 @@ exports.postHtmlList = function (req, res) {
     }, {
       model: Comment,
       as: 'Comments',
-      attributes: ["ID", "post_id"]
+      attributes: ["ID", "post_id"]  // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
     }, {
       model: User,
       as: 'LikeUsers'
@@ -306,6 +306,19 @@ exports.viewPostInfoView = function (req, res) {
   let postIdx = req.params.postIdx;
 
   return getPostInfo(postIdx).then(function (info) {
+    // info {
+    //   post: p,
+    //   positions: positions,
+    //   likeCount: likeCount,
+    //
+    //   comments: p.Comments,
+    //   commentCount: commentCount,
+    //
+    //   vtour: VTOUR,
+    //   normal: NORMAL,
+    //   vrimage: VRIMAGE,
+    // }
+
     return res.render('post/detail', {
       ENV: req.env,
       logined: req.user.logined,
@@ -315,6 +328,7 @@ exports.viewPostInfoView = function (req, res) {
       mediaUrl: config.mediaUrl,
       domainUrl: config.host,
 
+      post: info.post,
       postID: info.post.ID,
       postTitle: info.post.title,
       postType: info.post.post_type,

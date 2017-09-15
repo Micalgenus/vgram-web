@@ -48,7 +48,7 @@
 
                <div class="col-sm-9">
 
-                  <img src="<%= mediaUrl %>/<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
+                  <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
 
                   <div class="heading-block noborder">
                      <h3><%= nickname %></h3>
@@ -135,7 +135,7 @@
          memberIdx = memberIdx[memberIdx.length - 1];
 
          $.ajax({
-            url: 'http://localhost:3000/user/' + memberIdx + '/json/' + link,
+            url: '/user/' + memberIdx + '/json/' + link,
             success: function(result) {
                $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
                SEMICOLON.widget.loadFlexSlider();
