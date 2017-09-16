@@ -55,13 +55,21 @@
     <p class="nobottommargin">
 
       <!--like-->
-      <div class="count">
-        <h4><a href=""><i class="icon-line-heart"> <%= data.likeUserCount %> </i></a></h4>
+      <div class="count" id="likeCount">
+        <h4><a href="#"><i class="icon-heart"><%= data.likeUserCount %></i></a></h4>
       </div>
 
+      <script>
+        jQuery(function($) {
+          $('#likeCount').click(function() {
+            alert('like');
+          });
+        });
+      </script>
+
       <!--comments-->
-      <div class="count">
-        <h4><a href="#"><i class="icon-chat"> <%= data.commentCount %> </i> </a> </h4>
+      <div class="count" id="commentCount">
+        <h4><i class="icon-chat"><%= data.commentCount %></i></h4>
       </div>
 
       <!-- facebook-->
@@ -143,6 +151,7 @@ jQuery(function($) {
         let appendData = new EJS({ url: '/template/mfp/mfp-comment.ejs' }).render({comment: comments, mediaUrl: data.mediaUrl});
         $('#commentBox').prepend(appendData);
         $('#comment').val('');
+        $('#commentCount i').html(parseInt($('#commentCount i').html()) + 1);
       },
       error: function(error) {
         alert(error);

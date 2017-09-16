@@ -130,7 +130,7 @@ exports.createPostInfo = function (req, res, next) {
               locale: translation.language_code,
               translation_group_id: translation.ID
             }, { transaction: t }).then(function (addr) {
-              Firebase.notificationCreatePost(req.user.sub, post.ID);
+              Firebase.notificationCreatePost(req.user, post);
               return res.send({ ID: post.ID });
             });
           });

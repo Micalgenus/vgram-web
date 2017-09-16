@@ -20,6 +20,9 @@ const request = require('request');
 const requestp = require('request-promise');
 const xss = require('xss');
 
+const Firebase = require('./firebase');
+const postController = require('./view-post');
+
 const logger = require("../../utils/logger");
 
 // for file download
@@ -224,18 +227,49 @@ exports.getPosts = function (req, res) {
   });
 }
 
-exports.getReplies = function (req, res) {
+// exports.getReplies = function (req, res) {
+//   let userIdx = req.params.memberIdx;
+//
+//   return Comment.findAll({
+//     include: [{
+//       model: User
+//     }],
+//     where: {
+//       user_id: userIdx
+//     }
+//   }).then(function (comments) {
+//     return res.send(comments);
+//   });
+// }
+
+exports.getNotice = function (req, res) {
   let userIdx = req.params.memberIdx;
 
-  return Comment.findAll({
-    include: [{
-      model: User
-    }],
-    where: {
-      user_id: userIdx
+  return Firebase.getNotificationByUserIdx(userIdx).then(function (data) {
+
+    let result = [];
+    let promises = [];
+
+    for (var key in data) {
+      let d = data[key];
+      switch (d.type) {
+        case 'POST.CREATE':
+          promises.push(postController.getPostInfo(d.post.ID).then(function (post) {
+            if (post) {
+              post.type = d.type;
+              result.push(post);
+            }
+          }));
+          break;
+
+        default:
+          console.log('d.tpye error', d.type);
+      }
     }
-  }).then(function (comments) {
-    return res.send(comments);
+
+    return Promise.all(promises).then(function() {
+      return res.send(result);
+    });
   });
 }
 
