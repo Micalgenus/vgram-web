@@ -117,7 +117,7 @@
         </div>
 
         <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix" data-md-col="2">
-        
+
           <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
             <div class="portfolio-image">
               <a href="portfolio-single.html">
@@ -245,7 +245,7 @@
         </div>
       </div>
       <div class="control">
-        <button class="button button-small button-circle"><i class="icon-map"></i>지도</a>
+        <button class="button button-small button-circle"><i class="icon-map"></i><span>지도</span>
       </div>
     </div>
   </main>
@@ -351,8 +351,15 @@
     });
   }
 
-  $(document).on('click', '#map-container .control button', function(e) {
-    $('#map-container .map').toggleClass('active');
+  $('#map-container .control button').on('click', function(e) {
+    var $map = $('#map-container .map').toggleClass('active');
+
+    if ($map.hasClass('active')) {
+      $('span', this).html("목록");  // i18n 적용 필요
+    } else {
+      $('span', this).html("지도");
+    }
+
     e.preventDefault();
   })
 </script>

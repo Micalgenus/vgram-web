@@ -6,6 +6,7 @@
 const morgan = require('morgan'),
   winston = require('winston'),
   moment = require('moment'),
+  path = require('path'),
 
   fs = require('fs');
 
@@ -70,4 +71,18 @@ logger.stream = {
   }
 };
 
-module.exports = logger;
+module.exports = function(filename) {
+  let basename = path.basename(filename);
+
+  return {
+    info: function (message, encoding) {
+      logger.info(basename + ": " + message);
+    },
+    error: function (message, encoding) {
+      logger.error(basename + ": " + message);
+    },
+    debug: function (message, encoding) {
+      logger.debug(basename + ": " + message);
+    }
+  }
+}

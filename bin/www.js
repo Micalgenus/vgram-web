@@ -20,7 +20,7 @@ app.set('port', normalizePort(process.env.PORT));
 //    level: 'debug'
 // });
 
-const logger = require("../utils/logger");
+const logger = require("../utils/logger")(__filename);
 
 // If force: true it will first drop tables before recreating them.
 models.sequelize.sync({ logging: logger.debug, force: overwrite }).then(function () {
@@ -32,13 +32,13 @@ models.sequelize.sync({ logging: logger.debug, force: overwrite }).then(function
    // });
 
    server = app.listen(app.get('port'), function (err) {
-      debug('Express server listening on port ' + server.address().port);
+     logger.info('Express server listening on port ' + server.address().port);
    });
 
    server.on('error', onError);
    server.on('listening', onListening);
 
-   debug('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
+  logger.info('process.env.NODE_ENV :  ' + process.env.NODE_ENV);
 
    if (overwrite) {
      let setTestDatabase = require('../modules/setTestDatabase');

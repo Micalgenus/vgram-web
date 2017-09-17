@@ -5,14 +5,8 @@
  */
 const _ = require('lodash');
 var path = require('path');
-var scriptName = path.basename(__filename);
 
-const log = require('console-log-level')({
-  prefix: function () {
-    return new Date().toISOString() + ", " + scriptName;
-  },
-  level: 'debug'
-});
+const logger = require('../utils/logger')(__filename);
 
 var models = require("../models");
 

@@ -22,7 +22,7 @@ var web = {
   redirectController: require('./controllers/web/redirect'),
   userController: require('./controllers/web/view-user'),
   testController: require('./controllers/web/test'),
-  postController: require('./controllers/web/view-post'),
+  postController: require('./controllers/web/view-post')
 };
 
 var api = {
