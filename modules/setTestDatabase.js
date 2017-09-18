@@ -18,14 +18,14 @@ module.exports = function (testDB) {
       "hash_table", "icl_translation", "coordinate", "address", "tag", "tag_relationship", "comment"];
 
     return models.sequelize.Promise.each(_.map(testDB), (item, index, length) => {
-      log.debug("--- " + index + " ---" + "Create Test Database : " + modelnames[index]);
+      logger.debug("--- " + index + " ---" + "Create Test Database : " + modelnames[index]);
 
       return models[modelnames[index]].bulkCreate(testDB[modelnames[index]]);
     }).then(function () {
-      log.debug('Complete create Test Database');
+      logger.debug('Complete create Test Database');
       return models.sequelize.Promise.resolve('Complete create Test Database');
     }).catch(function (err) {
-      log.debug('create Test Database Error ' + err);
+      logger.debug('create Test Database Error ' + err);
       return models.sequelize.Promise.reject(err);
     });
   } else {
