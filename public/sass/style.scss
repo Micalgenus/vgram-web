@@ -15,6 +15,14 @@ $box-color: #F5F5F5; // 회색박스
 
 
 
+/* Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+
 /* Default */
 html {
   overflow-y: scroll;
@@ -31,6 +39,10 @@ body {
       padding-bottom: 40px;
     }
   }
+}
+input[type=text],
+textarea {
+  appearance: none;
 }
 #wrapper {
   width: 100%;
@@ -291,6 +303,7 @@ body.top-search-open #top-notification {opacity: 0;}
         width: 45px;
         font-size: 11px;
         color: $weak;
+        img {width: 30px;}
       }
     }
   }
@@ -378,19 +391,181 @@ body.top-search-open #top-notification {opacity: 0;}
   }
 }
 
-// 템플릿
+
+
+/* Template 변경 */
 #wrapper {
-  h1, h2, h3, h4, h5, h6 {@extend .noto;}
-  .button,
-  .flex-viewport { // 애니메이션 삭제
-    transition: none !important;
-  }
   @media ($tm) {
     .container {width: 100% !important;}
   }
+  h1, h2, h3, h4, h5, h6 {@extend .noto;}
+
+  // 애니메이션 삭제
+  .button, // 버튼
+  .flex-viewport { // 슬라이더
+    transition: none !important;
+  }
+
+  .button,
+  .social-icon {border-radius: 4px;}
+  .button:hover {background-color: #3498db;}
+  .button-red:hover {background-color: #C02942;}
+
+  .si-kakao {background-color:#f2d60a;}
+  .icon-kakao {
+    width: 30px;
+    height: 30px;
+    background: url('/images/social_kakao.png') 0 0 no-repeat;
+    background-size: 30px 30px;
+    font-size: 0;
+  }
+  .si-line {background-color:#3dd037;}
+  .icon-line {
+    width: 30px;
+    height: 30px;
+    background: url('/images/social_line.png') 0 0 no-repeat;
+    background-size: 30px 30px;
+    font-size: 0;
+  }
+  .si-blog {background-color:#3dd037;}
+  .icon-blog {
+    width: 30px;
+    height: 30px;
+    background: url('/images/social_blog.png') 0 0 no-repeat;
+    background-size: 30px 30px;
+    font-size: 0;
+  }
+  .si-copy {background-color:#555;}
+  .icon-copy:before {
+    content: "\e769";
+  }
+  .si-website {background-color:#555;}
+  .icon-website:before {
+    font-family: "lined-icons";
+    content: "\e078";
+  }
 }
 
-// 로그인
+
+
+/* Index */
+body#index {
+  section {
+    margin-bottom: 50px;
+    @media ($tm) {
+      margin-bottom: 40px;
+    }
+    &:last-child {margin-bottom: 0;}
+  }
+  #slider {
+    @media ($tm) {
+      .container {padding: 0;}
+    }
+  }
+  #promotion {
+    .promo {
+      margin-top: -30px;
+      background-color: #fff;
+    }
+    @media ($tm) {
+      text-align: center;
+      .promo {padding: 15px 20px !important;}
+      .promo h3 {font-size: 16px;}
+      .promo h3 span:nth-child(2) {display:none;}
+      .promo > span {
+        font-size: 14px;
+        word-break: keep-all;
+      }
+      .button {
+        margin: 10px 0 0 !important;
+        padding: 0 17px;
+        font-size: 12px;
+        height: 34px;
+        line-height: 34px;
+      }
+    }
+  }
+}
+
+
+
+/* Sub - Full page (without footer) */
+body#sub-full {
+  #wrapper {height: 100%;}
+  main {
+    width: 100%;
+    height: calc(100% - 60px;);
+  }
+  #footer {display: none;}
+}
+
+
+
+/* 로딩 */
+.loading {
+  position: fixed;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 3px;
+  line-height: 48px;
+  font-size: 24px;
+  color: #FFF;
+  text-align: center;
+}
+
+
+
+/* Popup */
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  h4 {margin-bottom: 20px;}
+  &#modal-copy {
+    .col_full {margin-bottom: 20px;}
+    label {display:block;}
+    input[type="text"] {
+      float: left;
+      width: calc(100% - 70px);
+    }
+    button {
+      float: left;
+      width: 70px;
+      margin: 0;
+      padding: 0;
+      height: 41px;
+    }
+  }
+}
+
+/*
+              <div id="modal-copy" class="white-popup mfp-hide">
+                <h4>공유하기</h4>
+                <div class="col_full">
+                  <label>URL</label>
+                  <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://www.naver.com/">
+                  <button class="button button-small" data-clipboard-target="#copy-url">복사</button>
+                </div>
+                <div class="col_full">
+                  <label>EMBED TAG</label>
+                  <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://www.naver.com/" width="100%" height="500"></embed>'>
+                  <button class="button button-small" data-clipboard-target="#copy-embed">
+                    복사
+                  </button>
+                </div>
+*/
+
+
+
+/* 로그인 */
 #login-container {
   position: relative;
   .auth0-lock.auth0-lock {
@@ -400,7 +575,58 @@ body.top-search-open #top-notification {opacity: 0;}
   }
 }
 
-// VR리스트
+
+
+/* 슬라이더 */
+@media ($tm) {
+  .fslider {
+    .flex-prev {
+      transform: scale(0.7);
+      transform-origin: 0 50%;
+    }
+    .flex-next {
+      transform: scale(0.7);
+      transform-origin: 100% 50%;
+    }
+  }
+}
+
+
+
+/* 댓글 */
+.clist {
+  .commentlist {
+    margin-bottom: 0;
+    padding-bottom: 40px;
+    li {
+      animation: fadeIn .4s;
+      transform-origin: 50% 50%; 
+    }
+    .comment-author span {
+      @extend .noto;
+      font-style: normal;
+    }
+  }
+  .clist-more a {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: none;
+    border-color: $color;
+    color: $color;
+    font-weight: bold;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #fff;
+      box-shadow: none;
+      border-color: $color;
+    }
+  }
+}
+
+
+
+/* VR 리스트 */
 .vlist {
   .vlist-menu-wrapper {
     overflow-x: auto;
@@ -517,120 +743,169 @@ body.top-search-open #top-notification {opacity: 0;}
 
 
 
-/* Main */
-body#index {
-  section {
-    margin-bottom: 50px;
+/* VR 뷰 */
+.vview {
+  h4 {margin-bottom: 20px;}
+  .line {
+    margin: 40px 0;
+  }
+  .si-share {
+    float: none;
+    padding: 0;
+    text-align: right;
+    line-height: 1;
+    .social-icon {
+      display: inline-block;
+      float: none;
+    }
+  }
+  .social-icon:hover i:first-child {margin-top: 0;}
+  .entry {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+  }
+  .vview-info {
+    margin-bottom: 20px;
+    .entry-meta {
+      float: left;
+      width: 50%;
+      margin: 0;
+      padding: 10px 0;
+      * {font-style: normal;}
+      li {
+        @extend .noto;
+        margin-bottom: 0;
+      }
+      i {
+        margin-top: -2px;
+        vertical-align: middle;      
+      }
+      img {
+        height: 16px;
+        margin: -2px 0 0;
+        vertical-align: middle;
+      }
+    }
+    .si-share {
+      float: right;
+      width: 50%;
+    }
     @media ($tm) {
+      .entry-meta {
+        clear: both;
+        overflow: hidden;
+        float: none;
+        width: 100%;
+        padding-bottom: 20px;
+      }
+      .si-share {
+        float: none;
+        width: 100%;
+        text-align: right;
+      }
+    }
+  }
+  .vview-content {
+    .vr-image {
+      .boot-tabs {margin-bottom: 30px !important;}
       margin-bottom: 40px;
     }
-    &:last-child {margin-bottom: 0;}
+    .map {
+      .col_half {margin-bottom: 40px;}
+      #daum-map,
+      #daum-roadview {
+        height: 400px;
+        @media ($mobile) {
+          height: 300px;
+        }
+      }
+    }
   }
-  #slider {padding-top: 0;} // 슬라이드 이미지
-  #promotion {
-    .promo {
-      margin-top: -30px;
-      background-color: #fff;
+  .vview-button {
+    margin: -30px 0 40px;
+    text-align: center;
+  }
+  .vview-author-info {
+    margin-bottom: 40px;
+    h3 {
+      a {color: $color;}
+      img {
+        height: 16px;
+        margin: -2px 0 0;
+        vertical-align: middle;
+      }
+    }
+    .author-content {
+      margin-bottom: 10px;
+    }
+    .si-share {
+      clear: both;
+      text-align: right;
     }
   }
-  @media ($tm) {
-    #slider {
-      // padding-top: 40px;
-      .container {padding: 0;}
-      .flex-prev {
-        transform: scale(0.7);
-        transform-origin: 0 50%;
-      }
-      .flex-next {
-        transform: scale(0.7);
-        transform-origin: 100% 50%;
-      }
-    }
-    #promotion {
-      text-align: center;
-      .promo {padding: 15px 20px !important;}
-      .promo h3 {font-size: 16px;}
-      .promo h3 span:nth-child(2) {display:none;}
-      .promo > span {
-        font-size: 14px;
-        word-break: keep-all;
-      }
-      .button {
-        margin: 10px 0 0 !important;
-        padding: 0 17px;
-        font-size: 12px;
-        height: 34px;
-        line-height: 34px;
-      }
-    }
+  #comments {
+    margin-top: 40px;
+    padding-top: 40px;
+    .col_full {margin-bottom: 20px;}
   }
 }
 
 
 
-/* Sub - Full page (without footer) */
-body#sub-full {
-  #wrapper {height: 100%;}
-  main {
-    width: 100%;
+/* 지도로 보기 */
+#map-container {
+  position: relative;
+  width: 100%;
+  .map {
+    position: fixed;
+    right: 0;
+    top: 60px;
+    z-index: 10;
+    width: 35%;
     height: calc(100% - 60px;);
+    #google-map {width: 100%;height: 100%;}
+  } 
+  .vlist {
+    width: 65%;
+    min-height: 100%;
+    padding: 30px;
+    .vlist-more {display: none;}
   }
-  #footer {display: none;}
-
-  #map-container {
-    position: relative;
-    width: 100%;
+  .control {
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    z-index: 201;
+    transform: translate(-50%, 0);
+  }
+  @media (max-width: 1599px) and (min-width: 1200px) {
+    .vlist-menu {
+      width: calc(100% + 10px);
+      margin: 0 0 0 -10px;
+      .vlist-menu-item {
+        a {margin-left: 10px;}
+      }
+    }
+    .portfolio-item {width: 50%;}
+  }
+  @media (max-width: 1199px) {
+    .control {display: block;}
     .map {
-      position: fixed;
-      right: 0;
-      top: 60px;
-      z-index: 10;
-      width: 35%;
-      height: calc(100% - 60px;);
-      #google-map {width: 100%;height: 100%;}
-    } 
+      opacity: 0;
+      z-index: -10;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      &.active {
+        opacity: 1;
+        z-index: 200;
+      }
+    }
     .vlist {
-      width: 65%;
-      min-height: 100%;
-      padding: 30px;
-      .vlist-more {display: none;}
-    }
-    .control {
-      display: none;
-      position: fixed;
-      left: 50%;
-      bottom: 20px;
-      z-index: 201;
-      transform: translate(-50%, 0);
-    }
-    @media (max-width: 1599px) and (min-width: 1200px) {
-      .vlist-menu {
-        width: calc(100% + 10px);
-        margin: 0 0 0 -10px;
-        .vlist-menu-item {
-          a {margin-left: 10px;}
-        }
-      }
-      .portfolio-item {width: 50%;}
-    }
-    @media (max-width: 1199px) {
-      .control {display: block;}
-      .map {
-        opacity: 0;
-        z-index: -10;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        &.active {
-          opacity: 1;
-          z-index: 200;
-        }
-      }
-      .vlist {
-        overflow: visible;
-        width: 100%;
-        height: auto;
-      }
+      overflow: visible;
+      width: 100%;
+      height: auto;
     }
   }
 }
