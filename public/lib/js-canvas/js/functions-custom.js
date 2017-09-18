@@ -453,7 +453,7 @@ var SEMICOLON = SEMICOLON || {};
 									var id = item.el.parents('.portfolio-item').attr('data-id');
 
 									$.ajax({
-										url: 'http://localhost:3000/post/info/' + id,
+										url: '/post/info/' + id,  // only data 형태이기 때문에 api형 주소로 바꾸자
 										success: function (result) {
 											if (result) {
 												let id = result.loginedUserId;

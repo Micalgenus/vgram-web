@@ -221,7 +221,7 @@ var roomList = (function() {
     };
 
     function makeRoom(data) {   // 하나씩 들어옴
-      console.log(data);  // {...}
+      // console.log(data);  // {...}
       return ListData.template.makeTemplate('/template/post/map-list-item.ejs', {
         post: data,
         // vrimages: JSON.parse(data.thumbnail_image_path)[0].vrimages,

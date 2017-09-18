@@ -7,6 +7,8 @@ const User = models.user;
 const Comment = models.comment;
 const Translation = models.icl_translation;
 const Address = models.address;
+const Media = models.media;
+
 // const Room = models.room;
 
 const value = require('../../utils/staticValue');
@@ -44,6 +46,13 @@ exports.postInfoListJson = function (req, res) {
       model: User,
       as: 'LikeUsers' // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
     }, {
+      model: Media,
+      where: {
+        type: {
+          $in: ["NORMAL_IMAGE"]
+        }
+      }
+    }, {
       model: Translation,
       attributes: ['group_id'],
       include: [{
@@ -61,6 +70,13 @@ exports.postInfoListJson = function (req, res) {
       }
     },
   }).then(function (posts) {
+    // device별 path 변환
+    for (let post of posts) {
+      for (let media of post.media) {
+        media.file_path = media.getDevicePath(req.device.type);
+      }
+    }
+
     return res.status(200).send(posts);
   });
 }

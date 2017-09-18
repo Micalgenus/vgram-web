@@ -4,10 +4,15 @@
 "use strict";
 
 const models = require('../../models');
-const post = models.post;
-const room = models.room;
+const Post = models.post;
+const User = models.user;
+const Translation = models.icl_translation;
+const Coordinate = models.coordinate;
+const Address = models.address;
+const Comment = models.comment;
 const Media = models.media;
 const Post_Media_relationship = models.post_media_relationship;
+
 const _ = require('lodash');
 const moment = require("moment");
 const path = require("path");
@@ -19,6 +24,73 @@ var log = require('console-log-level')({
    },
    level: config.logLevel
 });
+
+let getPostInfo = function (ID) {
+  return Post.findOne({
+    include: [{
+      model: User,
+    }, {
+      model: Translation,
+      include: [{
+        model: Coordinate,
+      }]
+    }, {
+      model: User,
+      as: 'LikeUsers'
+    }, {
+      model: Comment,
+      as: 'Comments',
+      include: [{
+        model: User,
+      }]
+    }, {
+      model: Media,
+    }],
+    where: {
+      ID: ID
+    },
+    order: [
+      [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
+    ]
+  }).then(function (p) {
+    let positions = p.icl_translation.coordinates;
+    let likeCount = p.LikeUsers.length;
+    let commentCount = p.Comments.length;
+
+    let VTOUR = [];
+    let NORMAL = [];
+    let VRIMAGE = [];
+
+    for (var i in p.media) {
+      switch (p.media[i].type) {
+        case 'VTOUR':
+          VTOUR.push(p.media[i]);
+          break;
+        case 'NORMAL_IMAGE':
+          NORMAL.push(p.media[i]);
+          break;
+        case 'VR_IMAGE':
+          VRIMAGE.push(p.media[i]);
+          break;
+      }
+    }
+
+    return {
+      post: p,
+      positions: positions,
+      likeCount: likeCount,
+
+      comments: p.Comments,
+      commentCount: commentCount,
+
+      vtour: VTOUR,
+      normal: NORMAL,
+      vrimage: VRIMAGE
+    }
+  });
+}
+
+exports.getPostInfo = getPostInfo;
 
 //공지사항 출력
 exports.viewNotice = function (req, res) {
@@ -59,6 +131,10 @@ exports.viewNotice = function (req, res) {
 //   });
 // }
 
+exports.getPostList = function (req, res, next) {
+
+}
+
 exports.viewPost = function (req, res, next) {
 }
 
@@ -73,7 +149,23 @@ exports.deletePost = function (req, res, next) {
 
 }
 exports.getPostInfoByIdx = function (req, res, next) {
+  var idx = req.params.postIdx;
 
+  return getPostInfo(idx).then(function (d) {
+    return res.send({
+      postId: d.post.ID,
+
+      likeUserCount: d.post.LikeUsers.length,
+      comments: d.comments,
+      commentCount: d.commentCount,
+
+      mediaUrl: config.mediaUrl,
+
+      loginedUserId: req.user.logined ? req.user.ID : null,
+
+      data: d
+    });
+  });
 }
 exports.searchPost = function (req, res, next) {
 

@@ -15,11 +15,11 @@
         </div>
 
         <div class="portfolio-overlay" data-lightbox="gallery">
-          <% for (var j = 0; j < images.length; j++) { %>
+          <% for (var j = 0; j < post[i].media.length; j++) { %>
             <% if (j == 0) { %>
-              <a href="<%= mediaUrl %>/<%= images[j].thumb %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
+              <a href="<%= [mediaUrl, post[i].media[j].file_path, post[i].media[j].file_name].join("/") %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
             <% } else { %>
-              <a href="<%= mediaUrl %>/<%= images[j].thumb %>" class="hidden" data-lightbox="gallery-item"></a>
+              <a href="<%= [mediaUrl, post[i].media[j].file_path, post[i].media[j].file_name].join("/") %>" class="hidden" data-lightbox="gallery-item"></a>
             <% } %>
           <% } %>
         </div>
