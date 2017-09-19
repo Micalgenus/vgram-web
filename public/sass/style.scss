@@ -27,6 +27,7 @@ $box-color: #F5F5F5; // 회색박스
 html {
   overflow-y: scroll;
   height: 100% !important;
+  &.hasPopup {overflow-y: hidden;}
 }
 body {
   @extend .noto;
@@ -394,56 +395,54 @@ body.top-search-open #top-notification {opacity: 0;}
 
 
 /* Template 변경 */
-#wrapper {
-  @media ($tm) {
-    .container {width: 100% !important;}
-  }
-  h1, h2, h3, h4, h5, h6 {@extend .noto;}
+@media ($tm) {
+  .container {width: 100% !important;}
+}
+h1, h2, h3, h4, h5, h6 {@extend .noto;}
 
-  // 애니메이션 삭제
-  .button, // 버튼
-  .flex-viewport { // 슬라이더
-    transition: none !important;
-  }
+// 애니메이션 삭제
+.button, // 버튼
+.flex-viewport { // 슬라이더
+  transition: none !important;
+}
 
-  .button,
-  .social-icon {border-radius: 4px;}
-  .button:hover {background-color: #3498db;}
-  .button-red:hover {background-color: #C02942;}
+.button,
+.social-icon {border-radius: 4px;}
+.button:hover {background-color: #3498db;}
+.button-red:hover {background-color: #C02942;}
 
-  .si-kakao {background-color:#f2d60a;}
-  .icon-kakao {
-    width: 30px;
-    height: 30px;
-    background: url('/images/social_kakao.png') 0 0 no-repeat;
-    background-size: 30px 30px;
-    font-size: 0;
-  }
-  .si-line {background-color:#3dd037;}
-  .icon-line {
-    width: 30px;
-    height: 30px;
-    background: url('/images/social_line.png') 0 0 no-repeat;
-    background-size: 30px 30px;
-    font-size: 0;
-  }
-  .si-blog {background-color:#3dd037;}
-  .icon-blog {
-    width: 30px;
-    height: 30px;
-    background: url('/images/social_blog.png') 0 0 no-repeat;
-    background-size: 30px 30px;
-    font-size: 0;
-  }
-  .si-copy {background-color:#555;}
-  .icon-copy:before {
-    content: "\e769";
-  }
-  .si-website {background-color:#555;}
-  .icon-website:before {
-    font-family: "lined-icons";
-    content: "\e078";
-  }
+.si-kakao {background-color:#f2d60a;}
+.icon-kakao {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_kakao.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-line {background-color:#3dd037;}
+.icon-line {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_line.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-blog {background-color:#3dd037;}
+.icon-blog {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_blog.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-copy {background-color:#555;}
+.icon-copy:before {
+  content: "\e769";
+}
+.si-website {background-color:#555;}
+.icon-website:before {
+  font-family: "lined-icons";
+  content: "\e078";
 }
 
 
@@ -529,7 +528,7 @@ body#sub-full {
   max-width: 500px;
   margin: 20px auto;
   h4 {margin-bottom: 20px;}
-  &#modal-copy {
+  &.mfp-copy {
     .col_full {margin-bottom: 20px;}
     label {display:block;}
     input[type="text"] {
@@ -542,26 +541,31 @@ body#sub-full {
       margin: 0;
       padding: 0;
       height: 41px;
+      border-radius: 0;
     }
   }
 }
-
-/*
-              <div id="modal-copy" class="white-popup mfp-hide">
-                <h4>공유하기</h4>
-                <div class="col_full">
-                  <label>URL</label>
-                  <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://www.naver.com/">
-                  <button class="button button-small" data-clipboard-target="#copy-url">복사</button>
-                </div>
-                <div class="col_full">
-                  <label>EMBED TAG</label>
-                  <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://www.naver.com/" width="100%" height="500"></embed>'>
-                  <button class="button button-small" data-clipboard-target="#copy-embed">
-                    복사
-                  </button>
-                </div>
-*/
+#popup {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  outline: none !important; 
+  > div {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 1000px;
+    margin: 20px auto;
+    .mfp-close {color:#333;}
+  }
+}
 
 
 
@@ -812,8 +816,8 @@ body#sub-full {
     }
     .map {
       .col_half {margin-bottom: 40px;}
-      #daum-map,
-      #daum-roadview {
+      .daum-map,
+      .daum-roadview {
         height: 400px;
         @media ($mobile) {
           height: 300px;

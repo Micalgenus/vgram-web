@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
 </head>
-<body id="sub" class="stretched no-transition">
+<body id="sub" class="stretched no-transition no-smooth-scroll">
 
 <div id="wrapper" class="clearfix">
   <header id="header">
@@ -36,7 +36,7 @@
         <nav id="primary-menu">
           <ul>
             <li><a href="index.html"><div>리스트로 보기</div></a></li>
-            <li class="current"><a href="map.html"><div>지도로 보기</div></a></li>
+            <li><a href="map.html"><div>지도로 보기</div></a></li>
             <li><a href="new.html"><div>NEW</div></a></li>
           </ul>
           <div class="quick-menu">
@@ -122,11 +122,11 @@
                 <i class="icon-line"></i>
                 <i class="icon-line"></i>
               </a>
-              <a href="#modal-copy" class="social-icon si-colored si-small si-copy modal-link">
+              <a href="#copy" class="social-icon si-colored si-small si-copy copy-link">
                 <i class="icon-copy"></i>
                 <i class="icon-copy"></i>
               </a>
-              <div id="modal-copy" class="white-popup mfp-hide">
+              <div id="copy" class="white-popup mfp-hide mfp-copy">
                 <h4>공유하기</h4>
                 <div class="col_full clearfix">
                   <label>URL</label>
@@ -171,10 +171,10 @@
             </div>
             <div class="map clearfix">
               <div class="col_half">
-                <div id="daum-map"></div>
+                <div id="daum-map" class="daum-map"></div>
               </div>
               <div class="col_half col_last">
-                <div id="daum-roadview"></div>
+                <div id="daum-roadview" class="daum-roadview"></div>
               </div>
             </div>
             <div class="entry-content">
@@ -275,11 +275,11 @@
         <div class="vlist">
           <h4>관련 게시물</h4>
 
-          <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+          <div id="view-portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
           
             <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
               <div class="portfolio-image">
-                <a href="ajax_view.html" class="ajax-popup-link">
+                <a href="view.html">
                   <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
                 </a>
               </div>
@@ -299,8 +299,8 @@
                 <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
                   <div class="flexslider">
                     <div class="slider-wrap">
-                      <div class="slide"><a href="ajax_view.html" class="ajax-popup-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt="Morning Dew"></a></div>
-                      <div class="slide"><a href="ajax_view.html" class="ajax-popup-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt="Morning Dew"></a></div>
+                      <div class="slide"><a href="view.html"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt="Morning Dew"></a></div>
+                      <div class="slide"><a href="view.html"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt="Morning Dew"></a></div>
                     </div>
                   </div>
                 </div>
@@ -318,7 +318,7 @@
 
             <article class="portfolio-item ACCOMMODATION VACATION_SPOT INTERIOR ETC">
               <div class="portfolio-image">
-                <a href="ajax_view.html" class="ajax-popup-link">
+                <a href="view.html">
                   <img src="/lib/js-canvas/images/portfolio/masonry/3/7.jpg" alt="Open Imagination">
                 </a>
               </div>
@@ -335,7 +335,7 @@
 
              <article class="portfolio-item TRAVEL REAL_ESTATE ACCOMMODATION INTERIOR AERIAL">
               <div class="portfolio-image">
-                <a href="ajax_view.html" class="ajax-popup-link">
+                <a href="view.html">
                   <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
                 </a>
               </div>
@@ -355,8 +355,8 @@
                 <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
                   <div class="flexslider">
                     <div class="slider-wrap">
-                      <div class="slide"><a href="ajax_view.html" class="ajax-popup-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-2.jpg" alt="Morning Dew"></a></div>
-                      <div class="slide"><a href="ajax_view.html" class="ajax-popup-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-3.jpg" alt="Morning Dew"></a></div>
+                      <div class="slide"><a href="view.html"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-2.jpg" alt="Morning Dew"></a></div>
+                      <div class="slide"><a href="view.html"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-3.jpg" alt="Morning Dew"></a></div>
                     </div>
                   </div>
                 </div>
@@ -374,8 +374,8 @@
 
           </div>
 
-          <div id="load-next-posts" class="vlist-more center">
-            <a href="ajax_list.html?v=2" class="btn btn-default btn-block">
+          <div id="view-load-next-posts" class="vlist-more center">
+            <a href="ajax_view_list.html?v=2" class="btn btn-default btn-block">
               <i class="icon-line-plus"></i>
               더보기
             </a>
@@ -419,92 +419,32 @@
 <div id="gotoTop" class="icon-angle-up"></div>
 
 <script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
-<script type="text/javascript" src="/lib/ejs.min.js"></script>
 <script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
 <script type="text/javascript" src="/lib/js-canvas/js/functions-custom.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
 <script type="text/javascript" src="/lib/js-canvas/js/components/typehead.js"></script>
-<script type="text/javascript">
-  // Typehead
-  var substringMatcher = function(strs) {
-    return function findMatches(q, cb) {
-    var matches, substringRegex;
-
-    // an array that will be populated with substring matches
-    matches = [];
-
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
-
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-      matches.push(str);
-      }
-    });
-
-    cb(matches);
-    };
-  };
-
-  var searchQuery = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-    'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-    'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-    'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
-
-  $('.search').typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 1
-  },
-  {
-    name: 'query',
-    source: substringMatcher(searchQuery)
-  });
-
-</script>
+<script type="text/javascript" src="/js/script.js"></script>
 
 <!-- Page -->
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
-<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
 <script>
   // URL 공유
-  $('a.modal-link').magnificPopup({
+  $('a.copy-link').magnificPopup({
     type: 'inline',
     closeBtnInside: true,
     preloader: false
   });
-  $("#modal-copy input[type=text]").focus(function() { 
-    $(this).select(); 
-  });
-  var clipboard = new Clipboard('#modal-copy .button');
-  clipboard.on('success', function(e) {
-    alert('복사되었습니다');
-    e.clearSelection();
-  });
-  clipboard.on('error', function(e) {
-    alert('복사 기능이 지원되지 않습니다\n텍스트를 선택 후 직접 복사해주세요');
-  });
 
   // 이미지 컨텐츠 lightbox
+  SEMICOLON.widget.loadFlexSlider();
   $('.vr-image .slider-wrap').magnificPopup({
     delegate: 'a',
     type: 'image',
-    tLoading: 'Loading image #%curr%...',
     mainClass: 'mfp-img-mobile',
     gallery: {
       enabled: true,
       navigateByImgClick: true,
       preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-    },
-    image: {
-      tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
     }
   });
 
@@ -516,44 +456,37 @@
     level: 3
   };
   var map = new daum.maps.Map(container, options);
-
   var markerPosition = new daum.maps.LatLng(35.974654, 126.712565);
   var marker = new daum.maps.Marker({
     position: markerPosition
   });
   marker.setMap(map);
-
   var iwContent = '<div style="padding:5px;">모빌리티랩스<br><a href="http://map.daum.net/link/map/모빌리티랩스,35.974654, 126.712565" style="color:blue" target="_blank">큰지도보기</a> <a href="http://map.daum.net/link/to/모빌리티랩스,35.974654, <=%lng" style="color:blue" target="_blank">길찾기</a></div>',
     iwPosition = new daum.maps.LatLng(35.974654, 126.712565);
-
   var infowindow = new daum.maps.InfoWindow({
     position: iwPosition,
     content: iwContent
   });
-
   infowindow.open(map, marker);
 
   // 다음 로드뷰
   var roadviewContainer = document.getElementById('daum-roadview');
   var roadview = new daum.maps.Roadview(roadviewContainer);
   var roadviewClient = new daum.maps.RoadviewClient();
-
   var position = new daum.maps.LatLng(33.450701, 126.570667);
-
   roadviewClient.getNearestPanoId(position, 50, function (panoId) {
     roadview.setPanoId(panoId, position);
   });
 
   // 댓글 더보기
   $('.clist-more a').on('click', function(e) {
-    var $map = $('#map-container .map').toggleClass('active');
     var $html = '<li class="comment"><div class="comment-wrap clearfix"><div class="comment-meta"><div class="comment-author vcard"><span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span></div></div><div class="comment-content clearfix"><div class="comment-author">모랩<span>2017-09-18</span></div><p>댓글입니다.</p></div><div class="clear"></div></div></li>';
 
     $('.clist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
     window.setTimeout(function() {
       $('.commentlist').append($html);
       $('.clist .loading').remove();
-    }, 1000);
+    }, 500);
 
     e.preventDefault();
   });
@@ -561,7 +494,7 @@
   // Masonry
   jQuery(window).load(function(){
 
-    var $container = $('#portfolio');
+    var $container = $('#view-portfolio');
 
     $container.infinitescroll({
       loading: {
@@ -573,8 +506,8 @@
       state: {
         isDone: false
       },
-      nextSelector: "#load-next-posts a",
-      navSelector: "#load-next-posts",
+      nextSelector: "#view-load-next-posts a",
+      navSelector: "#view-load-next-posts",
       itemSelector: "article.portfolio-item",
       behavior: 'portfolioinfiniteitemsloader'
     },
@@ -585,11 +518,6 @@
       SEMICOLON.portfolio.arrange();
     });
 
-  });
-
-  // 뷰 레이어
-  $('.ajax-popup-link').magnificPopup({
-    type: 'ajax'
   });
 </script>
 <!--// Page -->
