@@ -258,6 +258,10 @@ exports.getNotice = function (req, res) {
             if (post) {
               post.type = d.type;
               result.push(post);
+            } else {
+              Firebase.deleteNotificationByDate(key, userIdx).then(function (post) {
+                console.log('delete post');
+              });
             }
           }));
           break;

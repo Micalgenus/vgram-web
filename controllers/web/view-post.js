@@ -48,6 +48,8 @@ let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
       [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
     ]
   }).then(function (p) {
+    if (!p) return null;
+
     let positions = p.icl_translation.coordinates;
     let likeCount = p.LikeUsers.length;
     let commentCount = p.Comments.length;
