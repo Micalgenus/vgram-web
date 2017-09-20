@@ -76,16 +76,5 @@ let likerelationship = [
 //         }
 //     }
 // });
-<<<<<<< HEAD
-likerelationship =_.forEach(function(postData,userData){
-        return{
-                    user_id: _.sampleSize(_.range(1,2),_.size(postData)),
-                    post_id: _.sampleSize(_.range(1,2),_.size(userData))
-        }
-        
-            });
-    
-=======
 
->>>>>>> 8c3469a107f9468453885affe4f0eadbcce57fff
 module.exports = likerelationship;
