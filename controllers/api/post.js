@@ -395,7 +395,7 @@ exports.createVRImageVtourInfo = function (req, res, next) {
    }).then(() => {
       //정상 완료
 
-      return post.update({
+      return Post.update({
          thumbnail_image_path: post_thumb_image_path,
       }, {
          where: {
