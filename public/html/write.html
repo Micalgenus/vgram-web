@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="" />
+  <meta name="author" content="Vgram" />
+  <meta name="keywords" content="" />
+
+  <title>Vgram</title>
+
+  <link rel="icon" href="/images/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/images/touch-icon-iphone.png" />
+
+  <link href="http://fonts.googleapis.com/css?family=Noto+Sans|Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/style.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/font-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/colors.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/magnific-popup.css" type="text/css" />
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+<body id="sub" class="stretched no-transition no-smooth-scroll">
+
+<div id="wrapper" class="clearfix">
+  <header id="header">
+    <div id="header-wrap">
+      <div class="container clearfix">
+        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+        <div id="logo">
+          <a href="index.html"><img src="/images/logo.png" alt="Vgram"></a>
+        </div>
+        <nav id="primary-menu">
+          <ul>
+            <li><a href="index.html"><div>리스트로 보기</div></a></li>
+            <li><a href="map.html"><div>지도로 보기</div></a></li>
+            <li class="current"><a href="write.html"><div>NEW</div></a></li>
+          </ul>
+          <div class="quick-menu">
+            <div id="top-account">
+              <a href="login.html"><i class="icon-user"></i></a>
+            </div>
+            <div id="top-notification">
+              <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>3</span></a>
+              <div class="top-notification-content">
+                <div class="top-notification-title">
+                  <h4>최근 (11)</h4>
+                </div>
+                <div class="top-notification-items">
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다</span>
+                      <span class="date">2일전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1달전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1년전</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="top-notification-action clearfix">
+                  <a href="#" class="more"><i class="icon-line-plus"></i> 모두보기</a>
+                </div>
+              </div>
+            </div>
+            <div id="top-search">
+              <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+              <form action="search.html" method="get">
+                <input type="text" name="q" class="search form-control" value="" placeholder="검색어를 입력하세요">
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="vwrite">
+        <ul class="nav nav-tabs boot-tabs">
+          <li class="active"><a href="#vr-upload1" data-toggle="tab">VR</a></li>
+          <li><a href="#vr-upload2" data-toggle="tab">이미지</a></li>
+          <li><a href="#vr-upload3" data-toggle="tab">부가정보</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="vr-upload1">
+            <h4>VR 이미지 (필수)</h4>
+            <form>
+              <div class="upload1_2 dropzone" id="upload2">
+                <h4><span>파일을 드래그해서 넣어주세요</span></h4>
+              </div>
+              <div class="file">
+                <label class="btn btn-block btn-primary">파일 직접 추가 <input type="file" style="display: none;"></label>
+              </div>
+              <table role="presentation" class="table table-striped">
+                <tbody class="files">
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:100%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-danger delete">삭제</button>
+                    </td>
+                  </tr>
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:50%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-warning cancel">취소</button>
+                    </td>
+                  </tr>
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-primary start">시작</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            <div class="step">
+              <a href="#vr-upload2" class="button button-small">다음</a>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="vr-upload2">
+            <h4>일반 이미지</h4>
+            <form>
+              <div class="upload1_2 dropzone" id="upload2">
+                <h4><span>파일을 드래그해서 넣어주세요</span></h4>
+              </div>
+              <div class="file">
+                <label class="btn btn-block btn-primary">파일 직접 추가 <input type="file" style="display: none;"></label>
+              </div>
+              <table role="presentation" class="table table-striped">
+                <tbody class="files">
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:100%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-danger delete">삭제</button>
+                    </td>
+                  </tr>
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:50%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-warning cancel">취소</button>
+                    </td>
+                  </tr>
+                  <tr class="template-upload fade in">
+                    <td>
+                      <span class="preview"><canvas width="80" height="63"></canvas></span>
+                    </td>
+                    <td>
+                      <p class="name">logo.png</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">0.94 KB</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                      </div>
+                    </td>
+                    <td>
+                      <button class="btn btn-small btn-primary start">시작</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            <div class="step">
+              <a href="#vr-upload1" class="button button-leaf button-small">이전</a>
+              <a href="#vr-upload3" class="button button-small">다음</a>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="vr-upload3">
+            <h4>부가정보</h4>
+            <form>
+              <div class="info clearfix">
+                <div class="col_half">
+                  <div id="daum-map"></div>
+                  <div class="col_full clearfix find">
+                    <button type="button" id="form-condition-4">주소검색</button>
+                    <input type="text" class="sm-form-control" placeholder="주소" readonly>
+                    <input type="text" class="sm-form-control" placeholder="상세주소 입력">
+                  </div>
+                </div>
+                <div class="col_half col_last">
+                  <div class="col_full">
+                    <label for="form-condition-1">공개여부</label>
+                    <select name="form-condition-1" class="sm-form-control" id="form-condition-1">
+                      <option>1</option>
+                      <option>2</option>
+                    </select>
+                  </div>
+                  <div class="col_full">
+                    <label for="form-condition-2">카테고리</label>
+                    <select name="form-condition-2" class="sm-form-control" id="form-condition-2">
+                      <option>1</option>
+                      <option>2</option>
+                    </select>
+                  </div>
+                  <div class="col_full">
+                    <label for="form-condition-3">제목</label>
+                    <input name="form-condition-3" class="sm-form-control" id="form-condition-3" type="text" value="">
+                  </div>
+                </div>
+              </div>
+              <div class="col_full">
+                <link rel="stylesheet" href="/components/summernote/dist/summernote.css" type="text/css" />
+                <div id="summernote"></div>
+              </div>
+              <div class="step">
+                <a href="#vr-upload1" class="button button-leaf button-small">이전</a>
+                <button type="submit" class="button button-small">완료</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="footer">
+    <div id="copyrights">
+      <div class="container clearfix">
+        <div class="logo"><img src="/images/logo.png" alt=""></div>
+        <div class="menu">
+          <div class="copyrights-menu copyright-links clearfix">
+            <a href="#">메뉴1</a>
+            <a href="#">메뉴2</a>
+            <a href="#">메뉴3</a>
+            <a href="#">메뉴4</a>
+            <a href="#">메뉴5</a>
+          </div>
+          <div class="clearfix">
+            <a href="#" class="social-icon si-small si-borderless si-facebook">
+              <i class="icon-facebook"></i>
+              <i class="icon-facebook"></i>
+            </a>
+            <a href="#" class="social-icon si-small si-borderless si-instagram">
+              <i class="icon-instagram"></i>
+              <i class="icon-instagram"></i>
+            </a>
+          </div>
+        </div>
+        <div class="Copyrights">
+          Copyrights &copy; 2017 All Rights Reserved by Vgram Inc.
+        </div>
+      </div>
+    </div>
+
+  </footer>
+</div>
+
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/functions-custom.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/components/typehead.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+
+<!-- Page -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b0838fb3a11b23c5d23479ac25aa2ae&libraries=services"></script>
+<script type="text/javascript" src="/components/summernote/dist/summernote.js"></script>
+<script>
+$('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
+  /* VR 이미지 업로드 안됐을 때
+  alert('VR 이미지를 업로드해주세요');
+  $(this).blur();
+  return false;
+  */
+  $(window).scrollTop(0);
+
+  if ( $(this).index('.vwrite .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-map-complete') !== 'true' ) {
+    $(this).attr('data-map-complete', 'true');
+
+    window.setTimeout(function() {
+      var container = document.getElementById('daum-map');
+      var options = {
+        center: new daum.maps.LatLng(33.450701, 126.570667),
+        level: 3
+      };
+      var map = new daum.maps.Map(container, options);
+    }, 500);
+  }
+});
+$('.vwrite .step a').click(function(e) {
+  $('.vwrite .nav a[href="' + $(this).attr('href') + '"]').trigger('click');
+});
+
+$('#summernote').summernote({
+  height: 200,
+  lang: 'ko-KR'
+});
+</script>
+<!--// Page -->
+
+</body>
+</html>

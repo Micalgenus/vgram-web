@@ -304,7 +304,7 @@ body.top-search-open #top-notification {opacity: 0;}
         width: 45px;
         font-size: 11px;
         color: $weak;
-        img {width: 30px;}
+        img {width: 30px;max-height: 30px;}
       }
     }
   }
@@ -410,6 +410,20 @@ h1, h2, h3, h4, h5, h6 {@extend .noto;}
 .social-icon {border-radius: 4px;}
 .button:hover {background-color: #3498db;}
 .button-red:hover {background-color: #C02942;}
+.button-teal:hover {background-color: #53777a;}
+.button-yellow:hover {background-color: #ecd078;}
+.button-green:hover {background-color: #59ba41;}
+.button-brown:hover {background-color: #774f38;}
+.button-aqua:hover {background-color: #40c0cb;}
+.button-lime:hover {background-color: #aee239;}
+.button-purple:hover {background-color: #5d4157;}
+.button-leaf:hover {background-color: #a8caba;}
+.button-pink:hover {background-color: #f89fa1;}
+.button-blue:hover {background-color: #1265a8;}
+.button-dirtygreen:hover {background-color: #1693a5;}
+.button-amber:hover {background-color: #eb9c4d;}
+.button-black:hover {background-color: #111;}
+.button-white:hover {background-color: #fff;}
 
 .si-kakao {background-color:#f2d60a;}
 .icon-kakao {
@@ -851,6 +865,77 @@ body#sub-full {
     margin-top: 40px;
     padding-top: 40px;
     .col_full {margin-bottom: 20px;}
+  }
+}
+
+
+
+/* VR 쓰기 */
+.vwrite {
+  .nav {margin-bottom: 30px !important;}
+  .step,
+  .vwrite-button {text-align: center;}
+  .dropzone {
+    display:table-cell;
+    width: 9999px;
+    height: 300px;
+    border: 3px dashed #ddd;
+    border-radius:10px;
+    vertical-align: middle;
+    text-align: center;
+    @media ($tm) {
+      display:none;
+    }
+  }
+  .file {margin: 10px 0 30px;}
+  table {border-callapse: collapse;}
+  table tbody.files {
+    td {
+      width: 25%;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+      * {margin: 0;}
+      &:nth-of-type(1) {
+        text-align: center;
+      }
+      &:nth-of-type(2) {
+        text-align: left; 
+      }
+      &:nth-of-type(3) {
+        text-align: center;
+      }
+      &:nth-of-type(4) {
+        text-align: right;
+      }
+    }
+  }
+  #daum-map {
+    overflow: hidden;
+    width: 100%;
+    height: 217px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  .find {
+    input {
+      float: left;
+      width: calc(50% - 50px);
+    }
+    button {
+      float: left;
+      width: 100px;
+      height: 41px;
+      display: inline-block;
+      background-color: #fff;
+      box-shadow: none;
+      border: 1px solid $color;
+      color: $color;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    @media ($mobile) {
+      input, button {width: 100%;}
+    }
   }
 }
 

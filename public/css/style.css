@@ -288,7 +288,8 @@ body.top-search-open #top-notification {
         font-size: 11px;
         color: #999; }
         #top-notification .top-notification-items .top-notification-item .date img {
-          width: 30px; }
+          width: 30px;
+          max-height: 30px; }
   #top-notification .more {
     display: block;
     width: 100%;
@@ -378,6 +379,48 @@ body.top-search-open #top-notification {
 
 .button-red:hover {
   background-color: #C02942; }
+
+.button-teal:hover {
+  background-color: #53777a; }
+
+.button-yellow:hover {
+  background-color: #ecd078; }
+
+.button-green:hover {
+  background-color: #59ba41; }
+
+.button-brown:hover {
+  background-color: #774f38; }
+
+.button-aqua:hover {
+  background-color: #40c0cb; }
+
+.button-lime:hover {
+  background-color: #aee239; }
+
+.button-purple:hover {
+  background-color: #5d4157; }
+
+.button-leaf:hover {
+  background-color: #a8caba; }
+
+.button-pink:hover {
+  background-color: #f89fa1; }
+
+.button-blue:hover {
+  background-color: #1265a8; }
+
+.button-dirtygreen:hover {
+  background-color: #1693a5; }
+
+.button-amber:hover {
+  background-color: #eb9c4d; }
+
+.button-black:hover {
+  background-color: #111; }
+
+.button-white:hover {
+  background-color: #fff; }
 
 .si-kakao {
   background-color: #f2d60a; }
@@ -770,6 +813,75 @@ body#sub-full #footer {
   padding-top: 40px; }
   .vview #comments .col_full {
     margin-bottom: 20px; }
+
+/* VR 쓰기 */
+.vwrite .nav {
+  margin-bottom: 30px !important; }
+
+.vwrite .step,
+.vwrite .vwrite-button {
+  text-align: center; }
+
+.vwrite .dropzone {
+  display: table-cell;
+  width: 9999px;
+  height: 300px;
+  border: 3px dashed #ddd;
+  border-radius: 10px;
+  vertical-align: middle;
+  text-align: center; }
+  @media (max-width: 991px) {
+    .vwrite .dropzone {
+      display: none; } }
+
+.vwrite .file {
+  margin: 10px 0 30px; }
+
+.vwrite table {
+  border-callapse: collapse; }
+
+.vwrite table tbody.files td {
+  width: 25%;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle; }
+  .vwrite table tbody.files td * {
+    margin: 0; }
+  .vwrite table tbody.files td:nth-of-type(1) {
+    text-align: center; }
+  .vwrite table tbody.files td:nth-of-type(2) {
+    text-align: left; }
+  .vwrite table tbody.files td:nth-of-type(3) {
+    text-align: center; }
+  .vwrite table tbody.files td:nth-of-type(4) {
+    text-align: right; }
+
+.vwrite #daum-map {
+  overflow: hidden;
+  width: 100%;
+  height: 217px;
+  margin-bottom: 10px;
+  border-radius: 10px; }
+
+.vwrite .find input {
+  float: left;
+  width: calc(50% - 50px); }
+
+.vwrite .find button {
+  float: left;
+  width: 100px;
+  height: 41px;
+  display: inline-block;
+  background-color: #fff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 1px solid #3498db;
+  color: #3498db;
+  font-size: 14px;
+  font-weight: bold; }
+
+@media (max-width: 479px) {
+  .vwrite .find input, .vwrite .find button {
+    width: 100%; } }
 
 /* 지도로 보기 */
 #map-container {
