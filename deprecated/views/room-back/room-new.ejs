@@ -2,7 +2,7 @@
 <html lang="ko">
 
 <head>
-  <% include ../static/head.ejs %>
+  <% include ../../../views/static/head.ejs %>
   <!--<link rel="stylesheet" type="text/css" href="/lib/jquery.fullPage/jquery.fullPage.css" />-->
   <!--<link rel="stylesheet" type="text/css" href="/css/fullPage.scrollOverflowReset.css" />-->
   <style>
@@ -443,7 +443,7 @@
   <% //include ../addon/footer.ejs %>
 
   <!-- LOAD JAVASCRIPT -->
-  <% include ../static/js.ejs %>
+  <% include ../../../views/static/js.ejs %>
 
   <!-- The template to display files available for upload -->
   <script id="template-upload" type="text/x-tmpl">
@@ -700,9 +700,9 @@
 
   <script>
     jQuery(function ($) {
-  
+
       $(document).ready(function() {
-        $('#summernote').summernote({ 
+        $('#summernote').summernote({
           height: 150,
           lang: 'ko-KR'
         });
@@ -710,7 +710,7 @@
       });
 
       var uploading = false;
-      
+
       $('#tabs-23 button.button-blue').click(function () {
 
         if (uploading) {
@@ -725,7 +725,7 @@
           uploading = false;
           return false;
         }
-        
+
         if ($('#fileupload2 .template-upload').length == 0) {
           alert('please normal image upload');
           uploading = false;

@@ -20,7 +20,7 @@ const genToken = require("../../utils/genToken");
 const Firebase = require('./firebase');
 
 /* action */
-let getPostInfo = function (ID) {
+let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
   return Post.findOne({
     include: [{
       model: User,
@@ -48,6 +48,8 @@ let getPostInfo = function (ID) {
       [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
     ]
   }).then(function (p) {
+    if (!p) return null;
+
     let positions = p.icl_translation.coordinates;
     let likeCount = p.LikeUsers.length;
     let commentCount = p.Comments.length;
@@ -62,6 +64,7 @@ let getPostInfo = function (ID) {
           VTOUR.push(p.media[i]);
           break;
         case 'NORMAL_IMAGE':
+          p.media[i].file_path = p.media[i].getDevicePath(device);
           NORMAL.push(p.media[i]);
           break;
         case 'VR_IMAGE':
@@ -80,7 +83,7 @@ let getPostInfo = function (ID) {
 
       vtour: VTOUR,
       normal: NORMAL,
-      vrimage: VRIMAGE,
+      vrimage: VRIMAGE
     }
   });
 }
@@ -219,7 +222,7 @@ exports.reEnrollPost = function (req, res) {
 exports.getPostInfoJson = function (req, res) {
   var idx = req.params.postIdx;
 
-  return getPostInfo(idx).then(function (d) {
+  return getPostInfo(idx, req.device.type).then(function (d) {
     return res.send({
       postId: d.post.ID,
 
@@ -236,7 +239,7 @@ exports.getPostInfoJson = function (req, res) {
   });
 }
 
-exports.postHtmlList = function (req, res) {
+exports.postHtmlList = function (req, res) {  // Method 이름 바꾸기, 뭐하는건지 모르겠음
 
   let page = req.params.roomListPage;
   let count = 6;
@@ -252,6 +255,13 @@ exports.postHtmlList = function (req, res) {
     }, {
       model: User,
       as: 'LikeUsers'
+    }, {
+      model: Media,
+      where: {
+        type: {
+          $in: ["NORMAL_IMAGE"]
+        }
+      }
     }],
     limit: count,
     offset: index,
@@ -266,6 +276,13 @@ exports.postHtmlList = function (req, res) {
     }
   }).then(function (p) {
     if (!p) return res.status(404).send();
+
+    // device별 path 변환
+    for (let post of p) {
+      for (let media of post.media) {
+        media.file_path = media.getDevicePath(req.device.type);
+      }
+    }
 
     return res.render('post/main-list-item', {
       post: p
@@ -308,7 +325,7 @@ exports.viewPostInfoView = function (req, res) {
 
   let postIdx = req.params.postIdx;
 
-  return getPostInfo(postIdx).then(function (info) {
+  return getPostInfo(postIdx, req.device.type).then(function (info) {
     // info {
     //   post: p,
     //   positions: positions,
@@ -357,7 +374,7 @@ exports.viewPostInfoView = function (req, res) {
 
 exports.embedPost = function (req, res) {
   //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
-  res.render('iframe/krpano', {
+  res.render('embed/krpano', {
     ENV: env,
     title: 'embedView',
     msg: req.msg

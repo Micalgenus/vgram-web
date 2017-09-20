@@ -5,58 +5,61 @@ var moment = require('moment');
 moment.locale("ko");
 var userData = require('./user');
 var postData = require('./post');
+
+var _ = require("lodash");
+
 //------------------------------------------
 // user_post_like_relationship table
 //------------------------------------------
 let likerelationship = [
-    // {
-    //     user_id: 1,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 2,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 3,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 4,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 5,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 6,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 7,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 8,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 9,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 10,
-    //     post_id: 1
-    // },
-    // {
-    //     user_id: 1,
-    //     post_id: 2
-    // },
-    // {
-    //     user_id: 1,
-    //     post_id: 3
-    // }
+    {
+        user_id: 1,
+        post_id: 1
+    },
+    {
+        user_id: 2,
+        post_id: 1
+    },
+    {
+        user_id: 3,
+        post_id: 1
+    },
+    {
+        user_id: 4,
+        post_id: 1
+    },
+    {
+        user_id: 5,
+        post_id: 1
+    },
+    {
+        user_id: 6,
+        post_id: 1
+    },
+    {
+        user_id: 7,
+        post_id: 1
+    },
+    {
+        user_id: 8,
+        post_id: 1
+    },
+    {
+        user_id: 9,
+        post_id: 1
+    },
+    {
+        user_id: 10,
+        post_id: 1
+    },
+    {
+        user_id: 1,
+        post_id: 2
+    },
+    {
+        user_id: 1,
+        post_id: 3
+    }
 ]
 // likerelationship = _.map(postData, function (user, i) {
 
@@ -73,6 +76,7 @@ let likerelationship = [
 //         }
 //     }
 // });
+<<<<<<< HEAD
 likerelationship =_.forEach(function(postData,userData){
         return{
                     user_id: _.sampleSize(_.range(1,2),_.size(postData)),
@@ -81,4 +85,7 @@ likerelationship =_.forEach(function(postData,userData){
         
             });
     
+=======
+
+>>>>>>> 8c3469a107f9468453885affe4f0eadbcce57fff
 module.exports = likerelationship;

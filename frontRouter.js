@@ -377,11 +377,10 @@ module.exports = function (app) {
   //게시글 출력
   // api.postRoute.get('/', api.postController.viewPosts);
 
+  api.postRoute.get('/', api.postController.viewPost);
 
   //공지사항 출력
   api.postRoute.get('/notice', api.postController.viewNotice);
-
-  api.postRoute.get('/', api.postController.viewPost);
 
   api.postRoute.post('/', api.postController.createPostInfo);
 
@@ -389,7 +388,7 @@ module.exports = function (app) {
 
   api.postRoute.delete('/:postIdx', api.postController.deletePost);
 
-  api.postRoute.get('/:postIdx', api.postController.getPostInfoByIdx);
+  api.postRoute.get('/:postIdx([0-9]+)', api.postController.getPostInfoByIdx);
 
   api.postRoute.get('/search', api.postController.searchPost);
 

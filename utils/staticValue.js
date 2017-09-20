@@ -223,7 +223,7 @@ const langCode = {
       "zh-hk", "zh-HK",
       "zh-cn", "zh-cn"
     ]
-  },
+  }
 }
 
 // attached - 첨부파일

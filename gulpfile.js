@@ -70,10 +70,9 @@ gulp.task('nodemon', function (debug, inspect, overwrite) {
 
   if(debug || inspect) {
      if (inspect) {
-        execDebugMap.js = 'node-inspect --inspect'
+       execDebugMap.js = 'node-inspect --inspect'
      }
-
-     gutil.log('nodemon - ' + gutil.colors.magenta('debug mode'));
+    gutil.log('nodemon - ' + gutil.colors.magenta('debug mode'));
   }
 
    if(overwrite) {

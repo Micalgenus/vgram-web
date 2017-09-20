@@ -71,3 +71,25 @@ exports.getNotificationByUserIdx = function (userIdx) {
     });
   });
 }
+
+exports.deleteNotificationByDate = function (date, userIdx) {
+  return User.findOne({
+    where: {
+      ID: userIdx
+    }
+  }).then(function (u) {
+    const userAuthId = u.auth0_user_id;
+
+    return firebase.auth().signInWithEmailAndPassword(firebaseUserEmail, firebaseUserPassword).catch(error => {
+      console.log('Error while authenticating:', error);
+    }).then(loginObject => {
+      if (loginObject) {
+        return firebase.database().ref(['/notification', userAuthId, date].join('/')).once('value').then(function (snapshot) {
+          return snapshot.ref.remove();
+        });
+      } else {
+        console.log('Oops, something went wrong while authenticating:', loginObject);
+      }
+    });
+  });
+}

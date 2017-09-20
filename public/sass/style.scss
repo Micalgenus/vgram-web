@@ -15,10 +15,19 @@ $box-color: #F5F5F5; // 회색박스
 
 
 
+/* Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+
 /* Default */
 html {
   overflow-y: scroll;
   height: 100% !important;
+  &.hasPopup {overflow-y: hidden;}
 }
 body {
   @extend .noto;
@@ -31,6 +40,10 @@ body {
       padding-bottom: 40px;
     }
   }
+}
+input[type=text],
+textarea {
+  appearance: none;
 }
 #wrapper {
   width: 100%;
@@ -291,6 +304,7 @@ body.top-search-open #top-notification {opacity: 0;}
         width: 45px;
         font-size: 11px;
         color: $weak;
+        img {width: 30px;max-height: 30px;}
       }
     }
   }
@@ -378,19 +392,198 @@ body.top-search-open #top-notification {opacity: 0;}
   }
 }
 
-// 템플릿
-#wrapper {
-  h1, h2, h3, h4, h5, h6 {@extend .noto;}
-  .button,
-  .flex-viewport { // 애니메이션 삭제
-    transition: none !important;
+
+
+/* Template 변경 */
+@media ($tm) {
+  .container {width: 100% !important;}
+}
+h1, h2, h3, h4, h5, h6 {@extend .noto;}
+
+// 애니메이션 삭제
+.button, // 버튼
+.flex-viewport { // 슬라이더
+  transition: none !important;
+}
+
+.button,
+.social-icon {border-radius: 4px;}
+.button:hover {background-color: #3498db;}
+.button-red:hover {background-color: #C02942;}
+.button-teal:hover {background-color: #53777a;}
+.button-yellow:hover {background-color: #ecd078;}
+.button-green:hover {background-color: #59ba41;}
+.button-brown:hover {background-color: #774f38;}
+.button-aqua:hover {background-color: #40c0cb;}
+.button-lime:hover {background-color: #aee239;}
+.button-purple:hover {background-color: #5d4157;}
+.button-leaf:hover {background-color: #a8caba;}
+.button-pink:hover {background-color: #f89fa1;}
+.button-blue:hover {background-color: #1265a8;}
+.button-dirtygreen:hover {background-color: #1693a5;}
+.button-amber:hover {background-color: #eb9c4d;}
+.button-black:hover {background-color: #111;}
+.button-white:hover {background-color: #fff;}
+
+.si-kakao {background-color:#f2d60a;}
+.icon-kakao {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_kakao.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-line {background-color:#3dd037;}
+.icon-line {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_line.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-blog {background-color:#3dd037;}
+.icon-blog {
+  width: 30px;
+  height: 30px;
+  background: url('/images/social_blog.png') 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0;
+}
+.si-copy {background-color:#555;}
+.icon-copy:before {
+  content: "\e769";
+}
+.si-website {background-color:#555;}
+.icon-website:before {
+  font-family: "lined-icons";
+  content: "\e078";
+}
+
+
+
+/* Index */
+body#index {
+  section {
+    margin-bottom: 50px;
+    @media ($tm) {
+      margin-bottom: 40px;
+    }
+    &:last-child {margin-bottom: 0;}
   }
-  @media ($tm) {
-    .container {width: 100% !important;}
+  #slider {
+    @media ($tm) {
+      .container {padding: 0;}
+    }
+  }
+  #promotion {
+    .promo {
+      margin-top: -30px;
+      background-color: #fff;
+    }
+    @media ($tm) {
+      text-align: center;
+      .promo {padding: 15px 20px !important;}
+      .promo h3 {font-size: 16px;}
+      .promo h3 span:nth-child(2) {display:none;}
+      .promo > span {
+        font-size: 14px;
+        word-break: keep-all;
+      }
+      .button {
+        margin: 10px 0 0 !important;
+        padding: 0 17px;
+        font-size: 12px;
+        height: 34px;
+        line-height: 34px;
+      }
+    }
   }
 }
 
-// 로그인
+
+
+/* Sub - Full page (without footer) */
+body#sub-full {
+  #wrapper {height: 100%;}
+  main {
+    width: 100%;
+    height: calc(100% - 60px;);
+  }
+  #footer {display: none;}
+}
+
+
+
+/* 로딩 */
+.loading {
+  position: fixed;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 3px;
+  line-height: 48px;
+  font-size: 24px;
+  color: #FFF;
+  text-align: center;
+}
+
+
+
+/* Popup */
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  h4 {margin-bottom: 20px;}
+  &.mfp-copy {
+    .col_full {margin-bottom: 20px;}
+    label {display:block;}
+    input[type="text"] {
+      float: left;
+      width: calc(100% - 70px);
+    }
+    button {
+      float: left;
+      width: 70px;
+      margin: 0;
+      padding: 0;
+      height: 41px;
+      border-radius: 0;
+    }
+  }
+}
+#popup {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.8);
+  outline: none !important; 
+  > div {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 1000px;
+    margin: 20px auto;
+    .mfp-close {color:#333;}
+  }
+}
+
+
+
+/* 로그인 */
 #login-container {
   position: relative;
   .auth0-lock.auth0-lock {
@@ -400,7 +593,58 @@ body.top-search-open #top-notification {opacity: 0;}
   }
 }
 
-// VR리스트
+
+
+/* 슬라이더 */
+@media ($tm) {
+  .fslider {
+    .flex-prev {
+      transform: scale(0.7);
+      transform-origin: 0 50%;
+    }
+    .flex-next {
+      transform: scale(0.7);
+      transform-origin: 100% 50%;
+    }
+  }
+}
+
+
+
+/* 댓글 */
+.clist {
+  .commentlist {
+    margin-bottom: 0;
+    padding-bottom: 40px;
+    li {
+      animation: fadeIn .4s;
+      transform-origin: 50% 50%; 
+    }
+    .comment-author span {
+      @extend .noto;
+      font-style: normal;
+    }
+  }
+  .clist-more a {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: none;
+    border-color: $color;
+    color: $color;
+    font-weight: bold;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #fff;
+      box-shadow: none;
+      border-color: $color;
+    }
+  }
+}
+
+
+
+/* VR 리스트 */
 .vlist {
   .vlist-menu-wrapper {
     overflow-x: auto;
@@ -517,120 +761,240 @@ body.top-search-open #top-notification {opacity: 0;}
 
 
 
-/* Main */
-body#index {
-  section {
-    margin-bottom: 50px;
+/* VR 뷰 */
+.vview {
+  h4 {margin-bottom: 20px;}
+  .line {
+    margin: 40px 0;
+  }
+  .si-share {
+    float: none;
+    padding: 0;
+    text-align: right;
+    line-height: 1;
+    .social-icon {
+      display: inline-block;
+      float: none;
+    }
+  }
+  .social-icon:hover i:first-child {margin-top: 0;}
+  .entry {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+  }
+  .vview-info {
+    margin-bottom: 20px;
+    .entry-meta {
+      float: left;
+      width: 50%;
+      margin: 0;
+      padding: 10px 0;
+      * {font-style: normal;}
+      li {
+        @extend .noto;
+        margin-bottom: 0;
+      }
+      i {
+        margin-top: -2px;
+        vertical-align: middle;      
+      }
+      img {
+        height: 16px;
+        margin: -2px 0 0;
+        vertical-align: middle;
+      }
+    }
+    .si-share {
+      float: right;
+      width: 50%;
+    }
     @media ($tm) {
+      .entry-meta {
+        clear: both;
+        overflow: hidden;
+        float: none;
+        width: 100%;
+        padding-bottom: 20px;
+      }
+      .si-share {
+        float: none;
+        width: 100%;
+        text-align: right;
+      }
+    }
+  }
+  .vview-content {
+    .vr-image {
+      .boot-tabs {margin-bottom: 30px !important;}
       margin-bottom: 40px;
     }
-    &:last-child {margin-bottom: 0;}
+    .map {
+      .col_half {margin-bottom: 40px;}
+      .daum-map,
+      .daum-roadview {
+        height: 400px;
+        @media ($mobile) {
+          height: 300px;
+        }
+      }
+    }
   }
-  #slider {padding-top: 0;} // 슬라이드 이미지
-  #promotion {
-    .promo {
-      margin-top: -30px;
+  .vview-button {
+    margin: -30px 0 40px;
+    text-align: center;
+  }
+  .vview-author-info {
+    margin-bottom: 40px;
+    h3 {
+      a {color: $color;}
+      img {
+        height: 16px;
+        margin: -2px 0 0;
+        vertical-align: middle;
+      }
+    }
+    .author-content {
+      margin-bottom: 10px;
+    }
+    .si-share {
+      clear: both;
+      text-align: right;
+    }
+  }
+  #comments {
+    margin-top: 40px;
+    padding-top: 40px;
+    .col_full {margin-bottom: 20px;}
+  }
+}
+
+
+
+/* VR 쓰기 */
+.vwrite {
+  .nav {margin-bottom: 30px !important;}
+  .step,
+  .vwrite-button {text-align: center;}
+  .dropzone {
+    display:table-cell;
+    width: 9999px;
+    height: 300px;
+    border: 3px dashed #ddd;
+    border-radius:10px;
+    vertical-align: middle;
+    text-align: center;
+    @media ($tm) {
+      display:none;
+    }
+  }
+  .file {margin: 10px 0 30px;}
+  table {border-callapse: collapse;}
+  table tbody.files {
+    td {
+      width: 25%;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
+      * {margin: 0;}
+      &:nth-of-type(1) {
+        text-align: center;
+      }
+      &:nth-of-type(2) {
+        text-align: left; 
+      }
+      &:nth-of-type(3) {
+        text-align: center;
+      }
+      &:nth-of-type(4) {
+        text-align: right;
+      }
+    }
+  }
+  #daum-map {
+    overflow: hidden;
+    width: 100%;
+    height: 217px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  .find {
+    input {
+      float: left;
+      width: calc(50% - 50px);
+    }
+    button {
+      float: left;
+      width: 100px;
+      height: 41px;
+      display: inline-block;
       background-color: #fff;
+      box-shadow: none;
+      border: 1px solid $color;
+      color: $color;
+      font-size: 14px;
+      font-weight: bold;
     }
-  }
-  @media ($tm) {
-    #slider {
-      // padding-top: 40px;
-      .container {padding: 0;}
-      .flex-prev {
-        transform: scale(0.7);
-        transform-origin: 0 50%;
-      }
-      .flex-next {
-        transform: scale(0.7);
-        transform-origin: 100% 50%;
-      }
-    }
-    #promotion {
-      text-align: center;
-      .promo {padding: 15px 20px !important;}
-      .promo h3 {font-size: 16px;}
-      .promo h3 span:nth-child(2) {display:none;}
-      .promo > span {
-        font-size: 14px;
-        word-break: keep-all;
-      }
-      .button {
-        margin: 10px 0 0 !important;
-        padding: 0 17px;
-        font-size: 12px;
-        height: 34px;
-        line-height: 34px;
-      }
+    @media ($mobile) {
+      input, button {width: 100%;}
     }
   }
 }
 
 
 
-/* Sub - Full page (without footer) */
-body#sub-full {
-  #wrapper {height: 100%;}
-  main {
-    width: 100%;
+/* 지도로 보기 */
+#map-container {
+  position: relative;
+  width: 100%;
+  .map {
+    position: fixed;
+    right: 0;
+    top: 60px;
+    z-index: 10;
+    width: 35%;
     height: calc(100% - 60px;);
+    #google-map {width: 100%;height: 100%;}
+  } 
+  .vlist {
+    width: 65%;
+    min-height: 100%;
+    padding: 30px;
+    .vlist-more {display: none;}
   }
-  #footer {display: none;}
-
-  #map-container {
-    position: relative;
-    width: 100%;
+  .control {
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    z-index: 201;
+    transform: translate(-50%, 0);
+  }
+  @media (max-width: 1599px) and (min-width: 1200px) {
+    .vlist-menu {
+      width: calc(100% + 10px);
+      margin: 0 0 0 -10px;
+      .vlist-menu-item {
+        a {margin-left: 10px;}
+      }
+    }
+    .portfolio-item {width: 50%;}
+  }
+  @media (max-width: 1199px) {
+    .control {display: block;}
     .map {
-      position: fixed;
-      right: 0;
-      top: 60px;
-      z-index: 10;
-      width: 35%;
-      height: calc(100% - 60px;);
-      #google-map {width: 100%;height: 100%;}
-    } 
+      opacity: 0;
+      z-index: -10;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      &.active {
+        opacity: 1;
+        z-index: 200;
+      }
+    }
     .vlist {
-      width: 65%;
-      min-height: 100%;
-      padding: 30px;
-      .vlist-more {display: none;}
-    }
-    .control {
-      display: none;
-      position: fixed;
-      left: 50%;
-      bottom: 20px;
-      z-index: 201;
-      transform: translate(-50%, 0);
-    }
-    @media (max-width: 1599px) and (min-width: 1200px) {
-      .vlist-menu {
-        width: calc(100% + 10px);
-        margin: 0 0 0 -10px;
-        .vlist-menu-item {
-          a {margin-left: 10px;}
-        }
-      }
-      .portfolio-item {width: 50%;}
-    }
-    @media (max-width: 1199px) {
-      .control {display: block;}
-      .map {
-        opacity: 0;
-        z-index: -10;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        &.active {
-          opacity: 1;
-          z-index: 200;
-        }
-      }
-      .vlist {
-        overflow: visible;
-        width: 100%;
-        height: auto;
-      }
+      overflow: visible;
+      width: 100%;
+      height: auto;
     }
   }
 }
