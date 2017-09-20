@@ -58,20 +58,27 @@ let likerelationship = [
     //     post_id: 3
     // }
 ]
-likerelationship = _.map(postData, function (user, i) {
+// likerelationship = _.map(postData, function (user, i) {
 
-    for (var post of postData) {
+//     for (var post of postData) {
        
 
         
-        return {
-            user_id: user.ID,
-            post_id: post.Id
-        };
-        if (!_.find(data, tmp)) {
-            data.push(tmp);
+//         return {
+//             user_id: user.ID,
+//             post_id: post.Id
+//         };
+//         if (!_.find(data, tmp)) {
+//             data.push(tmp);
+//         }
+//     }
+// });
+likerelationship =_.forEach(function(postData,userData){
+        return{
+                    user_id: _.sampleSize(_.range(1,2),_.size(postData)),
+                    post_id: _.sampleSize(_.range(1,2),_.size(userData))
         }
-    }
-});
-
+        
+            });
+    
 module.exports = likerelationship;
