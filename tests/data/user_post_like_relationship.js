@@ -12,61 +12,61 @@ var _ = require("lodash");
 // user_post_like_relationship table
 //------------------------------------------
 let likerelationship = [
-    {
-        user_id: 1,
-        post_id: 1
-    },
-    {
-        user_id: 2,
-        post_id: 1
-    },
-    {
-        user_id: 3,
-        post_id: 1
-    },
-    {
-        user_id: 4,
-        post_id: 1
-    },
-    {
-        user_id: 5,
-        post_id: 1
-    },
-    {
-        user_id: 6,
-        post_id: 1
-    },
-    {
-        user_id: 7,
-        post_id: 1
-    },
-    {
-        user_id: 8,
-        post_id: 1
-    },
-    {
-        user_id: 9,
-        post_id: 1
-    },
-    {
-        user_id: 10,
-        post_id: 1
-    },
-    {
-        user_id: 1,
-        post_id: 2
-    },
-    {
-        user_id: 1,
-        post_id: 3
-    }
+    // {
+    //     user_id: 1,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 2,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 3,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 4,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 5,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 6,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 7,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 8,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 9,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 10,
+    //     post_id: 1
+    // },
+    // {
+    //     user_id: 1,
+    //     post_id: 2
+    // },
+    // {
+    //     user_id: 1,
+    //     post_id: 3
+    // }
 ]
 // likerelationship = _.map(postData, function (user, i) {
 
 //     for (var post of postData) {
-       
 
-        
+
+
 //         return {
 //             user_id: user.ID,
 //             post_id: post.Id
@@ -76,5 +76,22 @@ let likerelationship = [
 //         }
 //     }
 // });
+
+for (var i = 1; i <= userData.length; i++) {
+    for (var j = 1; j <= postData.length; j++) {
+
+        var tmp = {
+            user_id: i,
+            post_id: j
+        };
+        // tmp.likerelationship.push({
+        //     user_id: i,
+        //     post_id: j
+        // });
+        
+        likerelationship.push(tmp);
+    }
+    
+}
 
 module.exports = likerelationship;
