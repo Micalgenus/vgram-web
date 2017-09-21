@@ -245,36 +245,50 @@ exports.getPosts = function (req, res) {
 exports.getNotice = function (req, res) {
   let userIdx = req.params.memberIdx;
 
-  return Firebase.getNotificationByUserIdx(userIdx).then(function (data) {
-
-    let result = [];
-    let promises = [];
-
-    for (var key in data) {
-      let d = data[key];
-      switch (d.type) {
-        case 'POST.CREATE':
-          promises.push(postController.getPostInfo(d.post.ID).then(function (post) {
-            if (post) {
-              post.type = d.type;
-              result.push(post);
-            } else {
-              Firebase.deleteNotificationByDate(key, userIdx).then(function (post) {
-                console.log('delete post');
-              });
-            }
-          }));
-          break;
-
-        default:
-          console.log('d.tpye error', d.type);
-      }
+  return User.findOne({
+    where: {
+      ID: userIdx
     }
-
-    return Promise.all(promises).then(function() {
-      return res.send(result);
-    });
+  }).then(function (u) {
+    if (u) return res.send(u.auth0_user_id);
+    return res.send({});
   });
+
+  // return Firebase.getAdminAuthToken().then(function (token) {
+  // return Firebase.getNotificationByUserIdx(userIdx).then(function (data) {
+
+  // let result = [];
+  // let promises = [];
+
+  // for (var key in data) {
+  //   let d = data[key];
+  //   switch (d.type) {
+  //     case 'POST.CREATE':
+  //       promises.push(postController.getPostInfo(d.post.ID).then(function (post) {
+  //         if (post) {
+  //           post.type = d.type;
+  //           post.key = key;
+  //           result.push(post);
+  //         } else {
+  //           Firebase.deleteNotificationByDate(key, userIdx).then(function (post) {
+  //             console.log('delete post');
+  //           });
+  //         }
+  //       }));
+  //       break;
+
+  //     default:
+  //       console.log('d.tpye error', d.type);
+  //   }
+  // }
+
+  // return Promise.all(promises).then(function () {
+  //   return res.send(result);
+  // });
+
+  // return res.send(token);
+  // });
+  // });
 }
 
 exports.getLikeposts = function (req, res) {

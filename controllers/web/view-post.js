@@ -223,19 +223,24 @@ exports.getPostInfoJson = function (req, res) {
   var idx = req.params.postIdx;
 
   return getPostInfo(idx, req.device.type).then(function (d) {
-    return res.send({
-      postId: d.post.ID,
 
-      likeUserCount: d.post.LikeUsers.length,
-      comments: d.comments,
-      commentCount: d.commentCount,
+    if (d) {
+      return res.send({
+        postId: d.post.ID,
 
-      mediaUrl: config.mediaUrl,
+        likeUserCount: d.post.LikeUsers.length,
+        comments: d.comments,
+        commentCount: d.commentCount,
 
-      loginedUserId: req.user.logined ? req.user.ID : null,
+        mediaUrl: config.mediaUrl,
 
-      data: d
-    });
+        loginedUserId: req.user.logined ? req.user.ID : null,
+
+        data: d
+      });
+    } else { // error 처리
+      return res.send({});
+    }
   });
 }
 
