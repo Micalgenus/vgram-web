@@ -74,7 +74,8 @@ let relationdata = [
 // });
 for (var i = 1; i <= userData.length; i++) {
     for (var j = 1; j <= userData.length; j++) {
-
+        if(j % 3 ==0)
+            continue;
         var tmp = {
             user_id: i,
             user_target_id: j

@@ -79,7 +79,10 @@ let likerelationship = [
 
 for (var i = 1; i <= userData.length; i++) {
     for (var j = 1; j <= postData.length; j++) {
-
+        if(i%3==0)
+            continue;
+        if (j%3==0)
+            continue;
         var tmp = {
             user_id: i,
             post_id: j
