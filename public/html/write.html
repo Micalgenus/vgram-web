@@ -172,7 +172,7 @@
                 </tbody>
               </table>
             </form>
-            <div class="step">
+            <div class="write-button">
               <a href="#vr-upload2" class="button button-small">다음</a>
             </div>
           </div>
@@ -244,7 +244,7 @@
                 </tbody>
               </table>
             </form>
-            <div class="step">
+            <div class="write-button">
               <a href="#vr-upload1" class="button button-leaf button-small">이전</a>
               <a href="#vr-upload3" class="button button-small">다음</a>
             </div>
@@ -255,30 +255,28 @@
               <div class="info clearfix">
                 <div class="col_half">
                   <div id="daum-map"></div>
-                  <div class="col_full clearfix find">
-                    <button type="button" id="form-condition-4">주소검색</button>
+                  <div class="col_full clearfix address">
+                    <button type="button">주소검색</button>
                     <input type="text" class="sm-form-control" placeholder="주소" readonly>
                     <input type="text" class="sm-form-control" placeholder="상세주소 입력">
                   </div>
                 </div>
                 <div class="col_half col_last">
                   <div class="col_full">
-                    <label for="form-condition-1">공개여부</label>
-                    <select name="form-condition-1" class="sm-form-control" id="form-condition-1">
-                      <option>1</option>
-                      <option>2</option>
+                    <label>공개여부</label>
+                    <select class="sm-form-control">
+                      <option></option>
                     </select>
                   </div>
                   <div class="col_full">
-                    <label for="form-condition-2">카테고리</label>
-                    <select name="form-condition-2" class="sm-form-control" id="form-condition-2">
-                      <option>1</option>
-                      <option>2</option>
+                    <label>카테고리</label>
+                    <select class="sm-form-control">
+                      <option></option>
                     </select>
                   </div>
                   <div class="col_full">
-                    <label for="form-condition-3">제목</label>
-                    <input name="form-condition-3" class="sm-form-control" id="form-condition-3" type="text" value="">
+                    <label>제목</label>
+                    <input type="text" class="sm-form-control">
                   </div>
                 </div>
               </div>
@@ -286,7 +284,7 @@
                 <link rel="stylesheet" href="/components/summernote/dist/summernote.css" type="text/css" />
                 <div id="summernote"></div>
               </div>
-              <div class="step">
+              <div class="write-button">
                 <a href="#vr-upload1" class="button button-leaf button-small">이전</a>
                 <button type="submit" class="button button-small">완료</button>
               </div>
@@ -343,6 +341,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b0838fb3a11b23c5d23479ac25aa2ae&libraries=services"></script>
 <script type="text/javascript" src="/components/summernote/dist/summernote.js"></script>
 <script>
+// 탭 클릭시
 $('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
   /* VR 이미지 업로드 안됐을 때
   alert('VR 이미지를 업로드해주세요');
@@ -351,6 +350,7 @@ $('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
   */
   $(window).scrollTop(0);
 
+  // 다음 맵 활성화
   if ( $(this).index('.vwrite .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-map-complete') !== 'true' ) {
     $(this).attr('data-map-complete', 'true');
 
@@ -364,10 +364,13 @@ $('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
     }, 500);
   }
 });
-$('.vwrite .step a').click(function(e) {
+
+// 이전, 다음 trigger
+$('.vwrite .write-button a').click(function(e) {
   $('.vwrite .nav a[href="' + $(this).attr('href') + '"]').trigger('click');
 });
 
+// 에디터
 $('#summernote').summernote({
   height: 200,
   lang: 'ko-KR'

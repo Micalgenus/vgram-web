@@ -236,7 +236,7 @@
                 <div class="comment-wrap clearfix">
                   <div class="comment-meta">
                     <div class="comment-author vcard">
-                      <span class="comment-avatar clearfix"><img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                      <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
                     </div>
                   </div>
                   <div class="comment-content clearfix">
@@ -250,7 +250,7 @@
                 <div class="comment-wrap clearfix">
                   <div class="comment-meta">
                     <div class="comment-author vcard">
-                      <span class="comment-avatar clearfix"><img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' class='avatar avatar-60 photo avatar-default' height='60' width='60' /></span>
+                      <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
                     </div>
                   </div>
                   <div class="comment-content clearfix">
@@ -275,7 +275,7 @@
         <div class="vlist">
           <h4>관련 게시물</h4>
 
-          <div id="view-portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+          <div id="vlist" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
           
             <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
               <div class="portfolio-image">
@@ -374,7 +374,7 @@
 
           </div>
 
-          <div id="view-load-next-posts" class="vlist-more center">
+          <div id="load-next-vlist" class="vlist-more center">
             <a href="ajax_view_list.html?v=2" class="btn btn-default btn-block">
               <i class="icon-line-plus"></i>
               더보기
@@ -492,9 +492,8 @@
   });
 
   // Masonry
-  jQuery(window).load(function(){
-
-    var $container = $('#view-portfolio');
+  (function() {
+    var $container = $('#vlist');
     $container.isotope();
     $container.infinitescroll({
       loading: {
@@ -506,8 +505,8 @@
       state: {
         isDone: false
       },
-      nextSelector: "#view-load-next-posts a",
-      navSelector: "#view-load-next-posts",
+      nextSelector: "#load-next-vlist a",
+      navSelector: "#load-next-vlist",
       itemSelector: "article.portfolio-item",
       behavior: 'portfolioinfiniteitemsloader'
     },
@@ -517,8 +516,7 @@
       SEMICOLON.widget.loadFlexSlider();
       SEMICOLON.portfolio.arrange();
     });
-
-  });
+  })();
 </script>
 <!--// Page -->
 

@@ -53,31 +53,32 @@ $(document).on('click', '#wrapper a.ajax-link', function(e) {
       var html = $(result);
       $('html').addClass('hasPopup');
       $('body').prepend($(result));
-        $('#popup > div').prepend('<button title="Close (Esc)" type="button" class="mfp-close">×</button>');
-      },
-      error: function( error ) {
-        alert('error');
-      }
-    });
-    e.preventDefault();
-  });
-  // 팝업 포스트 닫기
-  $(document).on('click', '#popup, #popup .mfp-close', function(e) {
-    if ($(e.target).is('#popup') || $(e.target).is('#popup .mfp-close')) {
-      $('html').removeClass('hasPopup');
-      $('#popup').remove();
+      $('#popup > div').prepend('<button title="Close (Esc)" type="button" class="mfp-close">×</button>');
+    },
+    error: function( error ) {
+      alert('error');
     }
   });
+  e.preventDefault();
+});
 
-  // Copy
-  $(document).on('focus', ".mfp-copy input[type=text]", function() { 
-    $(this).select(); 
-  });
-  var clipboard = new Clipboard('.mfp-copy .button');
-  clipboard.on('success', function(e) {
-    alert('복사되었습니다');
-    e.clearSelection();
-  });
-  clipboard.on('error', function(e) {
-    alert('복사 기능이 지원되지 않습니다\n텍스트를 선택 후 직접 복사해주세요');
-  });
+// 팝업 포스트 닫기
+$(document).on('click', '#popup, #popup .mfp-close', function(e) {
+  if ($(e.target).is('#popup') || $(e.target).is('#popup .mfp-close')) {
+    $('html').removeClass('hasPopup');
+    $('#popup').remove();
+  }
+});
+
+// Copy
+$(document).on('focus', ".mfp-copy input[type=text]", function() { 
+  $(this).select(); 
+});
+var clipboard = new Clipboard('.mfp-copy .button');
+clipboard.on('success', function(e) {
+  alert('복사되었습니다');
+  e.clearSelection();
+});
+clipboard.on('error', function(e) {
+  alert('복사 기능이 지원되지 않습니다\n텍스트를 선택 후 직접 복사해주세요');
+});

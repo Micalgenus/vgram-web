@@ -143,53 +143,54 @@
 <!-- Page -->
 <script src="http://cdn.auth0.com/js/lock/10.20.0/lock.min.js"></script>
 <script>
-  var lock = new Auth0Lock(
-    'RwNCnd1Mt1VfOOHlrotssTVKRPok3IiU',
-    'wowjoy-dev.auth0.com',
-    {
-      language: 'ko',
-      theme: {
-        logo: '/images/login.png',
-        primaryColor: '#3498db'
-      },
-      languageDictionary: {
-        emailInputPlaceholder: "이메일 (ex: id@gmail.com)",
-        title: "Vgram"
-      },
-      rememberLastLogin: false,
+// Auth0Lock
+var lock = new Auth0Lock(
+  'RwNCnd1Mt1VfOOHlrotssTVKRPok3IiU',
+  'wowjoy-dev.auth0.com',
+  {
+    language: 'ko',
+    theme: {
+      logo: '/images/login.png',
+      primaryColor: '#3498db'
+    },
+    languageDictionary: {
+      emailInputPlaceholder: "이메일 (ex: id@gmail.com)",
+      title: "Vgram"
+    },
+    rememberLastLogin: false,
 
-      auth: {
-        redirectUrl: 'http://localhost:3000/auth/login-callback',
-        responseType: 'code',
-        params: {
-          scope: 'openid name email picture ID'
-        },
+    auth: {
+      redirectUrl: 'http://localhost:3000/auth/login-callback',
+      responseType: 'code',
+      params: {
+        scope: 'openid name email picture ID'
       },
-      container: 'login-container',
-      additionalSignUpFields: [
-        {
-          name: "nickname",
-          placeholder: "닉네임 입력 (필수)",
-          validator: function(nickname) {
-            return {
-              valid: nickname.length >= 6,
-              hint: "닉네임은 6글자 이상입니다" // optional
-            };
-          }
-        }, {
-          type: "select",
-          name: "member_type",
-          placeholder: "회원 종류 선택 (필수)",
-          options: [
-            { value: "PUBLIC", label: "일반 회원" },
-            { value: "BUSINESS", label: "사업주 회원" }
-          ],
+    },
+    container: 'login-container',
+    additionalSignUpFields: [
+      {
+        name: "nickname",
+        placeholder: "닉네임 입력 (필수)",
+        validator: function(nickname) {
+          return {
+            valid: nickname.length >= 6,
+            hint: "닉네임은 6글자 이상입니다" // optional
+          };
         }
-      ]
-    }
-  );
+      }, {
+        type: "select",
+        name: "member_type",
+        placeholder: "회원 종류 선택 (필수)",
+        options: [
+          { value: "PUBLIC", label: "일반 회원" },
+          { value: "BUSINESS", label: "사업주 회원" }
+        ],
+      }
+    ]
+  }
+);
 
-  lock.show();
+lock.show();
 </script>
 <!--// Page -->
 

@@ -102,7 +102,7 @@
       </div>
       <div class="vlist">
         <div class="vlist-menu-wrapper clearfix">
-          <div id="portfolio-filter" class="vlist-menu portfolio-filter" data-container="#portfolio">
+          <div class="vlist-menu portfolio-filter" data-container="#vlist">
             <div class="vlist-menu-item activeFilter"><a href="#" data-filter="*"><i class="icon-line2-grid"></i>모두보기</a></div>
             <div class="vlist-menu-item"><a href="#" data-filter=".NORMAL"><i class="icon-line2-folder"></i>일반</a></div>
             <div class="vlist-menu-item"><a href="#" data-filter=".TRAVEL"><i class="icon-line2-compass"></i>여행</a></div>
@@ -116,7 +116,7 @@
           </div>
         </div>
 
-        <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+        <div id="vlist" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
 
           <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
             <div class="portfolio-image">
@@ -215,7 +215,7 @@
 
         </div>
 
-        <div id="load-next-posts" class="vlist-more center">
+        <div id="load-next-vlist" class="vlist-more center">
           <a href="ajax_list.html?v=2" class="btn btn-default btn-block">
             <i class="icon-line-plus"></i>
             더보기
@@ -272,57 +272,57 @@
 <!-- Page -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzgaoy93ozZFYqlmTvo8LNbO6i9WYqrlM&callback=initMap"></script>
 <script>
-  function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
-    var map = new google.maps.Map(document.getElementById('google-map'), {
-      zoom: 4,
-      center: uluru
-    });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
+// 구글 맵
+function initMap() {
+  var uluru = {lat: -25.363, lng: 131.044};
+  var map = new google.maps.Map(document.getElementById('google-map'), {
+    zoom: 4,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+}
+
+// 지도 Toggle
+$('#map-container .control button').on('click', function(e) {
+  var $map = $('#map-container .map').toggleClass('active');
+
+  if ($map.hasClass('active')) {
+    $('span', this).html("목록");  // i18n 적용 필요
+  } else {
+    $('span', this).html("지도");
   }
 
-  $('#map-container .control button').on('click', function(e) {
-    var $map = $('#map-container .map').toggleClass('active');
+  e.preventDefault();
+});
 
-    if ($map.hasClass('active')) {
-      $('span', this).html("목록");  // i18n 적용 필요
-    } else {
-      $('span', this).html("지도");
-    }
+// Masonry
+(function() {
+  var $container = $('#vlist');
 
-    e.preventDefault();
-  })
-</script>
-
-<script type="text/javascript">
-  // Masonry
-  jQuery(window).load(function(){
-    var $container = $('#portfolio');
-
-    $container.isotope({
-      itemSelector : "article.portfolio-item"
-    });
-
-    $container.infinitescroll({
-      loading: {
-        finishedMsg: '<i class="icon-line-check"></i>',
-        msgText: '<i class="icon-line-loader icon-spin"></i>',
-        img: "/lib/js-canvas/images/preloader-dark.gif",
-        speed: 'normal'
-      },
-      nextSelector: "#load-next-posts a",
-      navSelector: "#load-next-posts",
-      itemSelector: "article.portfolio-item"
-    }, function( newElements ) {
-      $container.isotope( 'appended', $( newElements ) );
-      var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
-      SEMICOLON.widget.loadFlexSlider();
-      SEMICOLON.portfolio.arrange();
-    });
+  $container.isotope({
+    itemSelector : "article.portfolio-item"
   });
+
+  $container.infinitescroll({
+    loading: {
+      finishedMsg: '<i class="icon-line-check"></i>',
+      msgText: '<i class="icon-line-loader icon-spin"></i>',
+      img: "/lib/js-canvas/images/preloader-dark.gif",
+      speed: 'normal'
+    },
+    nextSelector: "#load-next-vlist a",
+    navSelector: "#load-next-vlist",
+    itemSelector: "article.portfolio-item"
+  }, function( newElements ) {
+    $container.isotope( 'appended', $( newElements ) );
+    var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+    SEMICOLON.widget.loadFlexSlider();
+    SEMICOLON.portfolio.arrange();
+  });
+})();
 </script>
 <!--// Page -->
 
