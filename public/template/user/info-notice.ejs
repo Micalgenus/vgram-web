@@ -1,3 +1,64 @@
+<div class="ulist">
+  <ol class="commentlist clearfix">
+    <li class="comment">
+      <div class="comment-wrap clearfix">
+        <div class="comment-meta">
+          <div class="comment-author vcard">
+            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+          </div>
+        </div>
+        <div class="comment-content clearfix">
+          <div class="comment-author">모랩<span>2017-09-18</span></div>
+          <p>내용입니다.</p>
+          <div class="comment-reply-link">
+            <a class="button button-small" href="#">채팅</a>
+            <a class="button button-small button-red" href="#">삭제</a>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </li>
+    <li class="comment">
+      <div class="comment-wrap clearfix">
+        <div class="comment-meta">
+          <div class="comment-author vcard">
+            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+          </div>
+        </div>
+        <div class="comment-content clearfix">
+          <div class="comment-author">모랩<span>2017-09-18</span></div>
+          <p>내용입니다.</p>
+          <div class="comment-reply-link">
+            <a class="button button-small button-red" href="#">삭제</a>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </li>
+  </ol>
+  <div class="ulist-more">
+    <a href="#" class="btn btn-default btn-block">
+      <i class="icon-line-plus"></i>
+      더보기
+    </a>
+  </div>
+</div>
+
+<script>
+// 알림 더보기
+$('#tab-notice .ulist-more a').on('click', function(e) {
+  var $html = '<li class="comment"> <div class="comment-wrap clearfix"> <div class="comment-meta"> <div class="comment-author vcard"> <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60"/></span> </div></div><div class="comment-content clearfix"> <div class="comment-author">모랩<span>2017-09-18</span></div><p>내용입니다.</p><div class="comment-reply-link"> <a class="button button-small" href="#">채팅</a> <a class="button button-small button-red" href="#">삭제</a> </div></div><div class="clear"></div></div></li>';
+
+  $('#tab-notice .ulist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
+  window.setTimeout(function() {
+    $('#tab-notice .commentlist').append($html);
+    $('#tab-notice .ulist .loading').remove();
+  }, 500);
+
+  e.preventDefault();
+});
+</script>
+
 <div class="clear topmargin-sm"></div>
 <ol class="commentlist noborder nomargin nopadding clearfix">
 </ol>

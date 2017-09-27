@@ -412,6 +412,7 @@ h1, h2, h3, h4, h5, h6 {@extend .noto;}
 .nav {margin-bottom: 30px !important;}
 
 // 버튼
+.si-share {padding-left: 0;}
 .button,
 .social-icon {border-radius: 4px;}
 .button:hover {background-color: #3498db;}
@@ -490,6 +491,23 @@ h1, h2, h3, h4, h5, h6 {@extend .noto;}
   }
   @media ($mobile) {
     input, button {width: 100%;}
+  }
+}
+.profile .address {
+  input:nth-of-type(1) {
+    float: left;
+    width: 100px;
+  }
+  input:nth-of-type(2),
+  input:nth-of-type(3) {
+    width: calc(50% - 100px);
+  }
+  @media ($mobile) {
+    input:nth-of-type(1), button {width: 50%;}
+    input:nth-of-type(2),
+    input:nth-of-type(3) {
+      width: 100%;
+    }
   }
 }
 
@@ -658,6 +676,18 @@ body#sub-full {
     .comment-author span {
       @extend .noto;
       font-style: normal;
+    }
+    .comment-reply-link {
+      top: 2px;
+      width: auto;
+      height: auto;
+      .button {
+        width: 60px;
+        margin: 0 2px;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+      }
     }
   }
   .clist-more a {
@@ -925,7 +955,7 @@ body#sub-full {
   table tbody.files {
     td {
       width: 25%;
-      padding: 0;
+      padding: 10px 0;
       border-bottom: 1px solid #ddd;
       vertical-align: middle;
       * {margin: 0;}
@@ -939,6 +969,7 @@ body#sub-full {
         text-align: center;
       }
       &:nth-of-type(4) {
+        padding-right: 10px;
         text-align: right;
       }
     }
@@ -965,7 +996,8 @@ body#sub-full {
     z-index: 10;
     width: 35%;
     height: calc(100% - 60px;);
-    #google-map {width: 100%;height: 100%;}
+    #google-map,
+    #map {width: 100%;height: 100%;}
   } 
   .vlist {
     width: 65%;
@@ -1024,6 +1056,21 @@ body#sub-full {
     i {
       margin: -3px 0 0;
       vertical-align: middle;
+    }
+  }
+  .panel-default {
+    clear: both;
+    margin: 20px 0 0;
+    .author-content {
+      margin-bottom: 10px;
+    }
+    .si-share {
+      clear: both;
+      text-align: right;
+      .social-icon {
+        display: inline-block;
+        float: none;
+      }
     }
   }
 }

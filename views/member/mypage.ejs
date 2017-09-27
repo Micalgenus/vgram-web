@@ -1,162 +1,202 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-
 <head>
-   <% include ../static/head.ejs %>
-
-   <style>
-      .heading-icon h4{
-         display: inline;
-         margin-right: 3pc;
-      }
-
-      /*.team-image img{*/
-      /*width: 360px;*/
-      /*height: 230px;*/
-      /*}*/
-
-   </style>
-
-
-   <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
-
-
-
-
+  <% include ../static/head.ejs %>
+  <script type="text/javascript" src="//developers.band.us/js/share/band-button.js?v=28052017"></script>
 </head>
-
-
-<body class="stretched side-push-panel">
-
+<body id="sub" class="stretched no-transition no-smooth-scroll">
 
 <div id="wrapper" class="clearfix">
+  <% include ../addon/header.ejs %>
+  <main>
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-sm-3 clearfix bottommargin-sm">
+          <% include ./right-side.ejs %>
+        </div>
+        <div class="mypage col-sm-9">
+          <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="width: 84px;">
+          <div class="heading-block noborder info">
+            <h3><%= nickname %></h3>
+            <span>
+              <span><i class="icon-heart3"></i> <%= userLikeCount %></span>
+              <span><i class="icon-star3"></i> <%= __("memberType")[member_type] %></span>
+            </span>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="author-content">
+                  <%= about %>
+                </div>
+                <div class="si-share noborder">
+                  <% if (sns.website) { %>
+                    <a href="<%= sns.website %>" target="_blank" class="social-icon si-colored si-delicious">
+                      <i class="icon-home"></i>
+                      <i class="icon-home"></i>
+                    </a>
+                  <% } %>
 
+                  <% if (sns.facebook) { %>
+                    <a href="<%= sns.facebook %>" target="_blank" class="social-icon si-colored si-facebook">
+                      <i class="icon-facebook"></i>
+                      <i class="icon-facebook"></i>
+                    </a>
+                  <% } %>
 
-   <!-- HEADER -->
-   <% include ../addon/header.ejs %>
+                  <% if (sns.instagram) { %>
+                    <a href="<%= sns.instagram %>" target="_blank" class="social-icon si-colored si-instagram">
+                      <i class="icon-instagram"></i>
+                      <i class="icon-instagram"></i>
+                    </a>
+                  <% } %>
 
-   <!-- Content
-		============================================= -->
-   <section id="content">
+                  <% if (sns.twitter) { %>
+                    <a href="<%= sns.twitter %>" target="_blank" class="social-icon si-colored si-twitter">
+                      <i class="icon-twitter"></i>
+                      <i class="icon-twitter"></i>
+                    </a>
+                  <% } %>
+<!--kakaotalk-->
+<!-- <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
+      <a id="kakao-link-btn" href="javascript:sendLink()">
+         <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
+      </a>
+   </span> -->
 
-      <div class="content-wrap">
+<!--band-->
+<!-- <span href="#" data-lightbox="inline">
+       <script type="text/javascript">
+         new ShareBand.makeButton({"lang": "ko", "type": "d"});
+       </script>
+     </span> -->
 
-         <div class="container clearfix">
-
-            <div class="row clearfix">
-
-               <div class="col-sm-9">
-
-                  <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
-
-                  <div class="heading-block noborder">
-                     <h3><%= nickname %></h3>
-                     <!--<span>Your Profile Bio</span>-->
-                     <div class="heading-icon">
-                        <h4><i class="icon-line-heart"> <%= userLikeCount %> </i></h4>
-                        <h4><i class=icon-star> <%= __("memberType")[member_type] %> </i></h4>
-                     </div>
-
-
-
-                  </div>
-
-                  <div class="clear"></div>
-
-
-
-
-                  <div class="row clearfix">
-
-                     <div class="col-md-12">
-
-                        <div class="tabs tabs-alt clearfix" id="tabs-profile">
-
-                           <ul class="tab-nav clearfix">
-                              <li><a href="#tab-follower">Follower</a></li>
-                              <li><a href="#tab-following">Following</a></li>
-                              <li><a href="#tab-posts">posts</a></li>
-                              <li><a href="#tab-notice">notice</a></li>
-                              <!-- <li><a href="#tab-replies">replies</a></li> -->
-                              <li><a href="#tab-likeposts">likeposts</a></li>
-                           </ul>
-
-                           <div class="tab-container">
-
-                              <div class="tab-content clearfix" id="tab-follower"></div>
-                              <div class="tab-content clearfix" id="tab-following"></div>
-                              <div class="tab-content clearfix" id="tab-posts"></div>
-                              <div class="tab-content clearfix" id="tab-notice"></div>
-                              <!-- <div class="tab-content clearfix" id="tab-replies"></div> -->
-                              <div class="tab-content clearfix" id="tab-likeposts"></div>
-
-
-                           </div>
-
-                        </div>
-
-                     </div>
-
-                  </div>
-
-               </div>
-
-               <div class="line visible-xs-block"></div>
-
-               <div class="col-sm-3 clearfix">
-
-                  <% include ./right-side.ejs %>
-
-               </div>
-
+<!--url share-->
+<!-- <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+        <i class="icon-delicious"></i>
+        <i class="icon-delicious"></i>
+</span> -->
+                </div>
+              </div>
             </div>
+          </div>
 
-         </div>
-
+          <div class="clear"></div>
+            
+          <div class="user">
+            <ul class="nav nav-tabs boot-tabs">
+              <li class="active"><a href="#tab-follower" data-toggle="tab">팔로워</a></li>
+              <li><a href="#tab-following" data-toggle="tab">팔로잉</a></li>
+              <li><a href="#tab-posts" data-toggle="tab">포스트</a></li>
+              <li><a href="#tab-notice" data-toggle="tab">알림</a></li>
+              <!-- <li><a href="#tab-replies">replies</a></li> -->
+              <li><a href="#tab-likeposts" data-toggle="tab">좋아요</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab-follower"></div>
+              <div class="tab-pane fade" id="tab-following"></div>
+              <div class="tab-pane fade" id="tab-posts"></div>
+              <div class="tab-pane fade" id="tab-notice"></div>
+              <!-- <div class="tab-pane fade" id="tab-replies"></div> -->
+              <div class="tab-pane fade" id="tab-likeposts"></div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </main>
+  <% include ../addon/footer.ejs %>
+</div>
 
-   </section><!-- #content end -->
-
-</div>  <!-- wrapper.clearfix -->
-
-<footer>
-   <!-- FOOTER -->
-   <% include ../addon/footer.ejs %>
-</footer>
-
+<div id="gotoTop" class="icon-angle-up"></div>
 
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
-<div id="gotoTop" class="icon-angle-up"></div>
 
+<!-- Page -->
 <script>
-   jQuery(function($) {
-      function getAjax(link) {
-         var memberIdx = window.location.href.split('#')[0].split('/');
-         memberIdx = memberIdx[memberIdx.length - 1];
+// Tab
+function getAjax(link) {
+  var memberIdx = window.location.href.split('/user/')[1];
 
-         $.ajax({
-            url: '/user/' + memberIdx + '/json/' + link,
-            success: function(result) {
-               $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
-               SEMICOLON.widget.loadFlexSlider();
-               SEMICOLON.portfolio.arrange();
-            }
-         });
+  $.ajax({
+    url: '/user/' + memberIdx + '/json/' + link,
+    success: function(result) {
+      $('#tab-' + link).html(new EJS({url: '/template/user/info-' + link + '.ejs'}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
+
+      if (link === 'posts') {
+        window.setTimeout(function() {
+          (function() {
+            var $container = $('#posts');
+            $container.isotope();
+            $container.infinitescroll({
+              loading: {
+                finishedMsg: '<i class="icon-line-check"></i>',
+                msgText: '<i class="icon-line-loader icon-spin"></i>',
+                img: "/lib/js-canvas/images/preloader-dark.gif",
+                speed: 'normal'
+              },
+              state: {
+                isDone: false
+              },
+              nextSelector: "#load-next-posts a",
+              navSelector: "#load-next-posts",
+              itemSelector: "article.portfolio-item",
+              behavior: 'portfolioinfiniteitemsloader'
+            },
+            function( newElements ) {
+              $container.isotope( 'appended', $( newElements ) );
+              var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
+              SEMICOLON.widget.loadFlexSlider();
+              SEMICOLON.portfolio.arrange();
+            });
+            SEMICOLON.widget.loadFlexSlider();
+            SEMICOLON.portfolio.arrange();
+          })();
+        }, 1000);
       }
 
-      $('.tab-nav li a').click(function() {
-         let link = $(this).attr('href').split('-')[1];
-         getAjax(link);
-      });
+      if (link === 'likeposts') {
+        window.setTimeout(function() {
+          (function() {
+            var $container = $('#likeposts');
+            $container.isotope();
+            $container.infinitescroll({
+              loading: {
+                finishedMsg: '<i class="icon-line-check"></i>',
+                msgText: '<i class="icon-line-loader icon-spin"></i>',
+                img: "/lib/js-canvas/images/preloader-dark.gif",
+                speed: 'normal'
+              },
+              state: {
+                isDone: false
+              },
+              nextSelector: "#load-next-likeposts a",
+              navSelector: "#load-next-likeposts",
+              itemSelector: "article.portfolio-item",
+              behavior: 'portfolioinfiniteitemsloader'
+            },
+            function( newElements ) {
+              $container.isotope( 'appended', $( newElements ) );
+              var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
+              SEMICOLON.widget.loadFlexSlider();
+              SEMICOLON.portfolio.arrange();
+            });
+            SEMICOLON.widget.loadFlexSlider();
+            SEMICOLON.portfolio.arrange();
+          })();
+        }, 1000);
+      }
+    }
+  });
+}
 
-      getAjax('follower');
-   });
+$('.user .nav a[data-toggle="tab"]').click(function(e) {
+  $('.flexslider').resize(); // 리스트 갱신 버그 처리
+
+  getAjax( $(this).attr('href').split('#tab-')[1] );
+}).eq(0).trigger('click');
 </script>
 
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
@@ -176,6 +216,7 @@
   
   firebase.initializeApp(config);
 </script>
+<!--// Page -->
 
 </body>
 </html>

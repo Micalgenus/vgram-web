@@ -23,13 +23,18 @@ var ListData = (function() {
       // 리스트가 출력될 태그
       // var root = $('.grid-container').isotope({ itemSelector: '.grid-item' });
       // var root = $('#post');
-      var root = $('#post').isotope({ itemSelector: '.portfolio-item' });
+      // var root = $('#post').isotope({ itemSelector: '.portfolio-item' });
+      var $container = $('#post');
+      $container.isotope();
 
       /**
        * @desc 화면 리스트를 초기화
        */
       function clear() {
-        root.html('');
+        // root.html('');
+        $container.isotope( 'remove', $container.find( '*' ) );
+        $container.infinitescroll('destroy');
+        $container.data('infinitescroll', null);
       };
 
       /**
@@ -40,15 +45,39 @@ var ListData = (function() {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
         // root.isotope('layout');
+        var t = setTimeout( function(){
+          $("#load-next-vlist a").attr("href", '/post/html/2'); // url 변경
+          $container.isotope('layout');
+          $container.infinitescroll({
+            loading: {
+              finishedMsg: '<i class="icon-line-check"></i>',
+              msgText: '<i class="icon-line-loader icon-spin"></i>',
+              img: "/lib/js-canvas/images/preloader-dark.gif",
+              speed: 'normal'
+            },
+            state: {
+              isDestroy: false
+            },
+            nextSelector: "#load-next-vlist a",
+            navSelector: "#load-next-vlist",
+            itemSelector: "article.portfolio-item"
+          }, function( newElements ) {
+            $container.isotope( 'appended', $( newElements ) );
+            var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
+            SEMICOLON.widget.loadFlexSlider();
+            SEMICOLON.portfolio.arrange();
+          });
+        }, 1000 );
 				SEMICOLON.widget.loadFlexSlider();
         SEMICOLON.portfolio.arrange();
       };
 
       function appendRoot(data) {
         var $items = $(data);
-        root.append($items);
+        // root.append($items);
 
         // root.append($items).isotope('appended', $items).isotope('layout');
+        $container.append( $items ).isotope('appended', $items).isotope('layout');
       };
 
       /**
