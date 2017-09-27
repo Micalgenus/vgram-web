@@ -45,6 +45,9 @@ textarea {
      -moz-appearance: none;
           appearance: none; }
 
+input[type=text]::-ms-clear {
+  display: none; }
+
 #wrapper {
   width: 100%;
   height: 100%; }
@@ -370,7 +373,7 @@ body.top-search-open #top-notification {
   -webkit-transition: none !important;
   transition: none !important; }
 
-main .social-icon:hover i:first-child {
+.social-icon:hover i:first-child {
   margin-top: 0 !important; }
 
 .nav {
@@ -609,6 +612,8 @@ body#sub-full #footer {
 /* 로그인 */
 #login-container {
   position: relative; }
+  #login-container form {
+    max-height: none; }
   #login-container .auth0-lock.auth0-lock {
     z-index: 10;
     width: 300px; }
@@ -868,6 +873,7 @@ body#sub-full #footer {
 
 .vwrite table tbody.files td {
   width: 25%;
+  padding: 0;
   border-bottom: 1px solid #ddd;
   vertical-align: middle; }
   .vwrite table tbody.files td * {

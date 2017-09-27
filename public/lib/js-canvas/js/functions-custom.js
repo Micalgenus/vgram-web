@@ -456,8 +456,8 @@ var SEMICOLON = SEMICOLON || {};
 										url: '/post/info/' + id,  // only data 형태이기 때문에 api형 주소로 바꾸자
 										success: function (result) {
 											if (result) {
-												let id = result.loginedUserId;
-												let logined = id ? true : false;
+												var id = result.loginedUserId;
+												var logined = id ? true : false;
 
 												$('.mfp-vr').html(new EJS({ url: '/template/mfp/mfp-vr.ejs' }).render({ data: result, logined: logined, userID: id }));
 												$('.mfp-bottom').html(new EJS({ url: '/template/mfp/mfp-bottom.ejs' }).render({ data: result, logined: logined, userID: id }));
