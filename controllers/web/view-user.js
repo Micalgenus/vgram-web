@@ -138,7 +138,7 @@ exports.viewProfile = function (req, res) {
       return res.render('member/mypage', {
         ENV: req.env,
         logined: req.user.logined,
-        userIdx: req.ID,
+        userIdx: req.user.ID,
         title: 'userDetailView',
         msg: req.msg,
         mediaUrl: config.mediaUrl,
@@ -150,6 +150,7 @@ exports.viewProfile = function (req, res) {
 
         myPage: myPage,
 
+        memberIdx: u.ID,
         nickname: u.nickname,
         member_type: u.member_type,
         userLikeCount: c.length,
