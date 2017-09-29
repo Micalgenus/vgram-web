@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="" />
+  <meta name="author" content="Vgram" />
+  <meta name="keywords" content="" />
+
+  <title>Vgram</title>
+
+  <link rel="icon" href="/images/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/images/touch-icon-iphone.png" />
+
+  <link href="http://fonts.googleapis.com/css?family=Noto+Sans|Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/style.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/font-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/colors.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/magnific-popup.css" type="text/css" />
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+<body id="sub" class="stretched no-transition no-smooth-scroll">
+
+<div id="wrapper" class="clearfix">
+  <header id="header">
+    <div id="header-wrap">
+      <div class="container clearfix">
+        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+        <div id="logo">
+          <a href="index.html"><img src="/images/logo.png" alt="Vgram"></a>
+        </div>
+        <nav id="primary-menu">
+          <ul>
+            <li><a href="index.html"><div>리스트로 보기</div></a></li>
+            <li><a href="map.html"><div>지도로 보기</div></a></li>
+            <li><a href="write.html"><div>NEW</div></a></li>
+          </ul>
+          <div class="quick-menu">
+            <div id="top-account">
+              <a href="login.html"><i class="icon-user"></i></a>
+            </div>
+            <div id="top-notification">
+              <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>3</span></a>
+              <div class="top-notification-content">
+                <div class="top-notification-title">
+                  <h4>최근 (11)</h4>
+                </div>
+                <div class="top-notification-items">
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다</span>
+                      <span class="date">2일전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1달전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1년전</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="top-notification-action clearfix">
+                  <a href="#" class="more"><i class="icon-line-plus"></i> 모두보기</a>
+                </div>
+              </div>
+            </div>
+            <div id="top-search">
+              <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+              <form action="search.html" method="get">
+                <input type="text" name="q" class="search form-control" value="" placeholder="검색어를 입력하세요">
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-sm-3 clearfix bottommargin-sm">
+          <div class="list-group">
+            <a href="profile.html" class="list-group-item clearfix active">Profile <i class="icon-user pull-right"></i></a>
+            <a href="password.html" class="list-group-item clearfix">Password <i class="icon-key pull-right"></i></a>
+            <a href="settings.html" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
+            <a href="#" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
+          </div>
+        </div>
+        <div class="mypage col-sm-9">
+          <img src="/lib/js-canvas/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="width: 84px;">
+          <div class="heading-block noborder info">
+            <h3>모랩</h3>
+            <span>
+              <span><i class="icon-heart3"></i> 0</span>
+              <span><i class="icon-star3"></i> 사업장 회원</span>
+            </span>
+          </div>
+
+          <div class="clear"></div>
+            
+          <div class="user">
+            <ul class="nav nav-tabs boot-tabs">
+              <li><a href="#user1" data-toggle="tab">팔로워</a></li>
+              <li><a href="#user2" data-toggle="tab">팔로잉</a></li>
+              <li><a href="#user3" data-toggle="tab">포스트</a></li>
+              <li><a href="#user4" data-toggle="tab">알림</a></li>
+              <li><a href="#user5" data-toggle="tab">좋아요</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="user1">
+                <div class="ulist">
+                  <ol class="commentlist clearfix">
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩</div>
+                          <div class="comment-reply-link">
+                            <span class="button button-small button-border">팔로잉</span>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩</div>
+                          <div class="comment-reply-link">
+                            <a class="button button-small" href="#">팔로우</a>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                  </ol>
+                  <div class="ulist-more">
+                    <a href="#" class="btn btn-default btn-block">
+                      <i class="icon-line-plus"></i>
+                      더보기
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="user2">
+                <div class="ulist">
+                  <ol class="commentlist clearfix">
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩</div>
+                          <div class="comment-reply-link">
+                            <span class="button button-small button-border">팔로잉</span>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩</div>
+                          <div class="comment-reply-link">
+                            <a class="button button-small" href="#">팔로우</a>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                  </ol>
+                  <div class="ulist-more">
+                    <a href="#" class="btn btn-default btn-block">
+                      <i class="icon-line-plus"></i>
+                      더보기
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="user3">
+                <div class="vlist">
+                  <div id="posts" class="vlist-content portfolio grid-container portfolio-2 portfolio-masonry clearfix">
+
+                    <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item TRAVEL ACCOMMODATION VACATION_SPOT INTERIOR AERIAL">
+                      <div class="portfolio-image">
+                        <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+                          <div class="flexslider">
+                            <div class="slider-wrap">
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt="Morning Dew"></a></div>
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt="Morning Dew"></a></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item ACCOMMODATION VACATION_SPOT INTERIOR ETC">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/7.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                     <article class="portfolio-item TRAVEL REAL_ESTATE ACCOMMODATION INTERIOR AERIAL">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item TRAVEL RESTAURANT AERIAL ETC">
+                      <div class="portfolio-image">
+                        <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+                          <div class="flexslider">
+                            <div class="slider-wrap">
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-2.jpg" alt="Morning Dew"></a></div>
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-3.jpg" alt="Morning Dew"></a></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                  </div>
+
+                  <div id="load-next-posts" class="vlist-more center">
+                    <a href="ajax_list.html?v=2" class="btn btn-default btn-block">
+                      <i class="icon-line-plus"></i>
+                      더보기
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="user4">
+                <div class="ulist">
+                  <ol class="commentlist clearfix">
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩<span>2017-09-18</span></div>
+                          <p>내용입니다.</p>
+                          <div class="comment-reply-link">
+                            <a class="button button-small" href="#">채팅</a>
+                            <a class="button button-small button-red" href="#">삭제</a>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                    <li class="comment">
+                      <div class="comment-wrap clearfix">
+                        <div class="comment-meta">
+                          <div class="comment-author vcard">
+                            <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                          </div>
+                        </div>
+                        <div class="comment-content clearfix">
+                          <div class="comment-author">모랩<span>2017-09-18</span></div>
+                          <p>내용입니다.</p>
+                          <div class="comment-reply-link">
+                            <a class="button button-small button-red" href="#">삭제</a>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </li>
+                  </ol>
+                  <div class="ulist-more">
+                    <a href="#" class="btn btn-default btn-block">
+                      <i class="icon-line-plus"></i>
+                      더보기
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="user5">
+                <div class="vlist">
+                  <div id="likeposts" class="vlist-content portfolio grid-container portfolio-2 portfolio-masonry clearfix">
+
+                    <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item TRAVEL ACCOMMODATION VACATION_SPOT INTERIOR AERIAL">
+                      <div class="portfolio-image">
+                        <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+                          <div class="flexslider">
+                            <div class="slider-wrap">
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt="Morning Dew"></a></div>
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt="Morning Dew"></a></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item ACCOMMODATION VACATION_SPOT INTERIOR ETC">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/7.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                     <article class="portfolio-item TRAVEL REAL_ESTATE ACCOMMODATION INTERIOR AERIAL">
+                      <div class="portfolio-image">
+                        <a href="ajax_view.html" class="ajax-link">
+                          <img src="/lib/js-canvas/images/portfolio/masonry/3/1.jpg" alt="Open Imagination">
+                        </a>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                    <article class="portfolio-item TRAVEL RESTAURANT AERIAL ETC">
+                      <div class="portfolio-image">
+                        <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+                          <div class="flexslider">
+                            <div class="slider-wrap">
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-2.jpg" alt="Morning Dew"></a></div>
+                              <div class="slide"><a href="ajax_view.html" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-3.jpg" alt="Morning Dew"></a></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="portfolio-desc">
+                        <span class="author"><a href="/users/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span>
+                        <h3><a href="ajax_view.html" class="ajax-link">전북 전주시 덕진구 백제대로 567</a></h3>
+                        <span class="info clearfix">
+                          <span class="date">2017-09-12</span>
+                          <span class="heart"><i class="icon-heart3"></i> 0</span>
+                          <span class="comment"><i class="icon-comments"></i> 10</span>
+                        </span>
+                      </div>
+                    </article>
+
+                  </div>
+
+                  <div id="load-next-likeposts" class="vlist-more center">
+                    <a href="ajax_list.html?v=2" class="btn btn-default btn-block">
+                      <i class="icon-line-plus"></i>
+                      더보기
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="footer">
+    <div id="copyrights">
+      <div class="container clearfix">
+        <div class="logo"><img src="/images/logo.png" alt=""></div>
+        <div class="menu">
+          <div class="copyrights-menu copyright-links clearfix">
+            <a href="#">메뉴1</a>
+            <a href="#">메뉴2</a>
+            <a href="#">메뉴3</a>
+            <a href="#">메뉴4</a>
+            <a href="#">메뉴5</a>
+          </div>
+          <div class="clearfix">
+            <a href="#" class="social-icon si-small si-borderless si-facebook">
+              <i class="icon-facebook"></i>
+              <i class="icon-facebook"></i>
+            </a>
+            <a href="#" class="social-icon si-small si-borderless si-instagram">
+              <i class="icon-instagram"></i>
+              <i class="icon-instagram"></i>
+            </a>
+          </div>
+        </div>
+        <div class="Copyrights">
+          Copyrights &copy; 2017 All Rights Reserved by Vgram Inc.
+        </div>
+      </div>
+    </div>
+
+  </footer>
+</div>
+
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/functions-custom.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/components/typehead.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+
+<!-- Page -->
+<script>
+// 팔로워 더보기
+$('#user1 .ulist-more a').on('click', function(e) {
+  var $html = '<li class="comment"> <div class="comment-wrap clearfix"> <div class="comment-meta"> <div class="comment-author vcard"> <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60"></span> </div></div><div class="comment-content clearfix"> <div class="comment-author">모랩</div><div class="comment-reply-link"> <a class="button button-small" href="#">팔로우</a> </div></div><div class="clear"></div></div></li>';
+
+  $('#user1 .ulist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
+  window.setTimeout(function() {
+    $('#user1 .commentlist').append($html);
+    $('#user1 .ulist .loading').remove();
+  }, 500);
+
+  e.preventDefault();
+});
+
+// 팔로잉 더보기
+$('#user2 .ulist-more a').on('click', function(e) {
+  var $html = '<li class="comment"> <div class="comment-wrap clearfix"> <div class="comment-meta"> <div class="comment-author vcard"> <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60"></span> </div></div><div class="comment-content clearfix"> <div class="comment-author">모랩</div><div class="comment-reply-link"> <a class="button button-small" href="#">팔로우</a> </div></div><div class="clear"></div></div></li>';
+
+  $('#user2 .ulist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
+  window.setTimeout(function() {
+    $('#user2 .commentlist').append($html);
+    $('#user2 .ulist .loading').remove();
+  }, 500);
+
+  e.preventDefault();
+});
+
+// 알림 더보기
+$('#user4 .ulist-more a').on('click', function(e) {
+  var $html = '<li class="comment"> <div class="comment-wrap clearfix"> <div class="comment-meta"> <div class="comment-author vcard"> <span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60"/></span> </div></div><div class="comment-content clearfix"> <div class="comment-author">모랩<span>2017-09-18</span></div><p>내용입니다.</p><div class="comment-reply-link"> <a class="button button-small" href="#">채팅</a> <a class="button button-small button-red" href="#">삭제</a> </div></div><div class="clear"></div></div></li>';
+
+  $('#user4 .ulist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
+  window.setTimeout(function() {
+    $('#user4 .commentlist').append($html);
+    $('#user4 .ulist .loading').remove();
+  }, 500);
+
+  e.preventDefault();
+});
+
+// Masonry 활성화
+$('.user .nav a[data-toggle="tab"]').click(function(e) {
+  $('.flexslider').resize(); // 리스트 갱신 버그 처리
+  
+  // posts 활성화
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-map-complete') !== 'true' ) {
+    $(this).attr('data-map-complete', 'true');
+    window.setTimeout(function() {
+      (function() {
+        var $container = $('#posts');
+        $('.flexslider').resize();
+        $container.isotope();
+        $container.infinitescroll({
+          loading: {
+            finishedMsg: '<i class="icon-line-check"></i>',
+            msgText: '<i class="icon-line-loader icon-spin"></i>',
+            img: "/lib/js-canvas/images/preloader-dark.gif",
+            speed: 'normal'
+          },
+          state: {
+            isDone: false
+          },
+          nextSelector: "#load-next-posts a",
+          navSelector: "#load-next-posts",
+          itemSelector: "article.portfolio-item",
+          behavior: 'portfolioinfiniteitemsloader'
+        },
+        function( newElements ) {
+          $container.isotope( 'appended', $( newElements ) );
+          var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+          SEMICOLON.widget.loadFlexSlider();
+          SEMICOLON.portfolio.arrange();
+        });
+      })();
+    }, 500);
+  }
+
+  // likeposts 활성화
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 4 && $(this).attr('data-map-complete') !== 'true' ) {
+    $(this).attr('data-map-complete', 'true');
+    window.setTimeout(function() {
+      (function() {
+        var $container = $('#likeposts');
+        $('.flexslider').resize();
+        $container.isotope();
+        $container.infinitescroll({
+          loading: {
+            finishedMsg: '<i class="icon-line-check"></i>',
+            msgText: '<i class="icon-line-loader icon-spin"></i>',
+            img: "/lib/js-canvas/images/preloader-dark.gif",
+            speed: 'normal'
+          },
+          state: {
+            isDone: false
+          },
+          nextSelector: "#load-next-likeposts a",
+          navSelector: "#load-next-likeposts",
+          itemSelector: "article.portfolio-item",
+          behavior: 'portfolioinfiniteitemsloader'
+        },
+        function( newElements ) {
+          $container.isotope( 'appended', $( newElements ) );
+          var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+          SEMICOLON.widget.loadFlexSlider();
+          SEMICOLON.portfolio.arrange();
+        });
+      })();
+    }, 500);
+  }
+});
+</script>
+<!--// Page -->
+
+</body>
+</html>

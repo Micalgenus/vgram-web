@@ -127,10 +127,10 @@
         </div>
       </div>
     </section>
-    <section id="vlist" class="vlist">
+    <section id="list" class="vlist">
       <div class="container clearfix">
         <div class="vlist-menu-wrapper clearfix">
-          <div id="portfolio-filter" class="vlist-menu portfolio-filter" data-container="#portfolio">
+          <div class="vlist-menu portfolio-filter" data-container="#vlist">
             <div class="vlist-menu-item activeFilter"><a href="#" data-filter="*"><i class="icon-line2-grid"></i>모두보기</a></div>
             <div class="vlist-menu-item"><a href="#" data-filter=".NORMAL"><i class="icon-line2-folder"></i>일반</a></div>
             <div class="vlist-menu-item"><a href="#" data-filter=".TRAVEL"><i class="icon-line2-compass"></i>여행</a></div>
@@ -144,7 +144,7 @@
           </div>
         </div>
 
-        <div id="portfolio" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+        <div id="vlist" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
 
           <article class="portfolio-item NORMAL REAL_ESTATE RESTAURANT INTERIOR AERIAL ETC">
             <div class="portfolio-image">
@@ -243,7 +243,7 @@
 
         </div>
 
-        <div id="load-next-posts" class="vlist-more center">
+        <div id="load-next-vlist" class="vlist-more center">
           <a href="ajax_list.html?v=2" class="btn btn-default btn-block">
             <i class="icon-line-plus"></i>
             더보기
@@ -296,31 +296,31 @@
 
 <!-- Page -->
 <script type="text/javascript">
-  // Masonry
-  (function() {
-    var $container = $('#portfolio');
-    $container.infinitescroll({
-      loading: {
-        finishedMsg: '<i class="icon-line-check"></i>',
-        msgText: '<i class="icon-line-loader icon-spin"></i>',
-        img: "/lib/js-canvas/images/preloader-dark.gif",
-        speed: 'normal'
-      },
-      state: {
-        isDone: false
-      },
-      nextSelector: "#load-next-posts a",
-      navSelector: "#load-next-posts",
-      itemSelector: "article.portfolio-item",
-      behavior: 'portfolioinfiniteitemsloader'
+// Masonry
+(function() {
+  var $container = $('#vlist');
+  $container.infinitescroll({
+    loading: {
+      finishedMsg: '<i class="icon-line-check"></i>',
+      msgText: '<i class="icon-line-loader icon-spin"></i>',
+      img: "/lib/js-canvas/images/preloader-dark.gif",
+      speed: 'normal'
     },
-    function( newElements ) {
-      $container.isotope( 'appended', $( newElements ) );
-      var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
-      SEMICOLON.widget.loadFlexSlider();
-      SEMICOLON.portfolio.arrange();
-    });
-  })();
+    state: {
+      isDone: false
+    },
+    nextSelector: "#load-next-vlist a",
+    navSelector: "#load-next-vlist",
+    itemSelector: "article.portfolio-item",
+    behavior: 'portfolioinfiniteitemsloader'
+  },
+  function( newElements ) {
+    $container.isotope( 'appended', $( newElements ) );
+    var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+    SEMICOLON.widget.loadFlexSlider();
+    SEMICOLON.portfolio.arrange();
+  });
+})();
 </script>
 <!--// Page -->
 
