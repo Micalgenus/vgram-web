@@ -564,8 +564,8 @@ $('.user .nav a[data-toggle="tab"]').click(function(e) {
   $('.flexslider').resize(); // 리스트 갱신 버그 처리
   
   // posts 활성화
-  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-map-complete') !== 'true' ) {
-    $(this).attr('data-map-complete', 'true');
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-complete') !== 'true' ) {
+    $(this).attr('data-complete', 'true');
     window.setTimeout(function() {
       (function() {
         var $container = $('#posts');
@@ -597,8 +597,8 @@ $('.user .nav a[data-toggle="tab"]').click(function(e) {
   }
 
   // likeposts 활성화
-  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 4 && $(this).attr('data-map-complete') !== 'true' ) {
-    $(this).attr('data-map-complete', 'true');
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 4 && $(this).attr('data-complete') !== 'true' ) {
+    $(this).attr('data-complete', 'true');
     window.setTimeout(function() {
       (function() {
         var $container = $('#likeposts');

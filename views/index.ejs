@@ -1,190 +1,123 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-
-
 <head>
    <% include static/head.ejs %>
 </head>
-
-
-
-<body class="stretched side-push-panel">
-
+<body id="index" class="stretched no-transition no-smooth-scroll">
 
 <div id="wrapper" class="clearfix">
-
-
-
-
-
-
-   <!-- HEADER -->
-   <% include addon/header.ejs %>
-
-
-
-
-
-
-   <!-- Slider
-        ============================================= -->
-   <section id="slider" class="boxed-slider">
-
+  <% include addon/header.ejs %>
+  <main>
+    <section id="slider">
       <div class="container clearfix">
-
-         <div class="fslider" data-easing="easeInQuad">
-            <div class="flexslider">
-               <div class="slider-wrap">
-                  <div class="slide" data-thumb="/lib/js-canvas/images/slider/boxed/thumbs/2.jpg">
-                     <a href="#">
-                        <img src="/lib/js-canvas/images/slider/boxed/2.jpg" alt="Slide 2">
-                        <div class="flex-caption slider-caption-bg">Responsive Ready Design</div>
-                     </a>
-                  </div>
-                  <div class="slide" data-thumb="/lib/js-canvas/images/slider/boxed/thumbs/3.jpg">
-                     <a href="#">
-                        <img src="/lib/js-canvas/images/slider/boxed/3.jpg" alt="Slide 3">
-                        <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-top-left">Retina Graphics Display</div>
-                     </a>
-                  </div>
-                  <div class="slide" data-thumb="/lib/js-canvas/images/slider/boxed/thumbs/4.jpg">
-                     <a href="#">
-                        <img src="/lib/js-canvas/images/slider/boxed/4.jpg" alt="Slide 4">
-                        <div class="flex-caption slider-caption-bg slider-caption-top-right">Bootstrap 3+ Compatible</div>
-                     </a>
-                  </div>
-                  <div class="slide" data-thumb="/lib/js-canvas/images/slider/boxed/thumbs/5.jpg">
-                     <a href="#">
-                        <img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt="Slide 5">
-                        <div class="flex-caption slider-caption-bg slider-caption-bg-light slider-caption-bottom-right">eCommerce Design Included</div>
-                     </a>
-                  </div>
-               </div>
+        <div class="fslider" data-easing="easeInQuad">
+          <div class="flexslider">
+            <div class="slider-wrap">
+              <div class="slide">
+                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/2.jpg" alt=""></a>
+              </div>
+              <div class="slide">
+                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/3.jpg" alt=""></a>
+              </div>
+              <div class="slide">
+                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/4.jpg" alt=""></a>
+              </div>
+              <div class="slide">
+                <a href="#"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></a>
+              </div>
             </div>
-         </div>
-
+          </div>
+        </div>
       </div>
-   </section>
-
-
-
-
-
-
-
-   <section id="content">
-
-      <div class="content-wrap">
-
-         <div class="promo promo-border promo-full bottommargin">
-            <div class="container clearfix">
-               <h3>세상과의 소통 <span>Vgram</span>에서 시작합니다.<span>Vgram.co.kr</span></h3>
-               <span> Vgram과 함께 하실 사업자 분들의 연락을 기다리고 있습니다.</span>
-               <a href="/auth/login" class="button button-xlarge button-rounded">회원가입</a>
-            </div>
-         </div>
-
-         <div class="container clearfix">
-
-
-
-
-
-            <!-- Portfolio Filter
-                 ============================================= -->
-            <ul id="portfolio-filter" class="portfolio-filter clearfix" data-container="#portfolio">
-
-              <li class="activeFilter"><a href="#" data-filter="*">모두보기</a></li>
-              <% for (i in value.placeType) { %>
-                <li><a href="#" data-filter=".<%= i %>"><%= __("placeType")[i] %></a></li>
-              <% } %>
-
-            </ul><!-- #portfolio-filter end -->
-
-            <!-- <div id="portfolio-shuffle" class="portfolio-shuffle" data-container="#portfolio">
-               <i class="icon-random"></i>
-            </div> -->
-            <div class="clear"></div>
-
-
-
-
-
-            <!-- Portfolio Items
-     ============================================= -->
-            <div id="portfolio" class="portfolio grid-container portfolio-3 portfolio-masonry clearfix">
-               <article class="portfolio-item" style="padding:0"></article>
-            </div><!-- #portfolio end -->
-
-
-
-
-         </div>
-
+    </section>
+    <section id="promotion">
+      <div class="container clearfix">
+        <div class="promo promo-light">
+          <h3>세상과의 소통 <span>Vgram</span> 에서 시작합니다. <span>Vgram.co.kr</span></h3>
+          <span>Vgram 과 함께 하실 사업자 분들의 연락을 기다리고 있습니다.</span>
+          <a class="button button-dark button-large button-rounded" href="/auth/login">회원가입</a>
+        </div>
       </div>
-   </section><!-- #content end -->
-   </section>  <!-- content section -->
-</div>  <!-- wrapper.clearfix -->
+    </section>
+    <section id="list" class="vlist">
+      <div class="container clearfix">
+        <div class="vlist-menu-wrapper clearfix">
+          <div class="vlist-menu portfolio-filter" data-container="#vlist">
+            <div class="vlist-menu-item activeFilter"><a href="#" data-filter="*"><i class="icon-line2-grid"></i>모두보기</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".NORMAL"><i class="icon-line2-folder"></i>일반</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".TRAVEL"><i class="icon-line2-compass"></i>여행</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".REAL_ESTATE"><i class="icon-line2-home"></i>방/부동산</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".ACCOMMODATION"><i class="icon-line2-calendar"></i>숙박</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".VACATION_SPOT"><i class="icon-line2-direction"></i>휴양지</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".RESTAURANT"><i class="icon-line2-cup"></i>레스토랑</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".INTERIOR"><i class="icon-line2-wrench"></i>인테리어</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".AERIAL"><i class="icon-line2-plane"></i>항공</a></div>
+            <div class="vlist-menu-item"><a href="#" data-filter=".ETC"><i class="icon-line2-ban"></i>기타</a></div>
+          </div>
+        </div>
 
+        <div id="vlist" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
+          <article class="portfolio-item" style="padding:0"></article>
+        </div>
 
-<div id="load-next-posts" class="center">
-  <a href="/post/html/2" class="button button-full button-dark button-rounded">Load more...</a>
+        <div id="load-next-vlist" class="vlist-more center">
+          <a href="/post/html/2" class="btn btn-default btn-block">
+            <i class="icon-line-plus"></i>
+            더보기
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <% include addon/footer.ejs %>
 </div>
 
-<footer>
-   <!-- FOOTER -->
-   <% include addon/footer.ejs %>
-</footer>
-
-
-
-
+<div id="gotoTop" class="icon-angle-up"></div>
 
 <!-- LOAD JAVASCRIPT -->
-   <% include static/js.ejs %>
+<% include static/js.ejs %>
 
-<div id="gotoTop" class="icon-angle-up"></div>
-<script>
-   jQuery(function($) {
-
-			var $container = $('#portfolio');
-
-			$container.infinitescroll({
-				loading: {
-					finishedMsg: '<i class="icon-line-check"></i>',
-					msgText: '<i class="icon-line-loader icon-spin"></i>',
-					img: "images/preloader-dark.gif",
-					speed: 'normal'
-				},
-				state: {
-					isDone: false
-				},
-				nextSelector: "#load-next-posts a",
-				navSelector: "#load-next-posts",
-				itemSelector: "article.portfolio-item",
-				behavior: 'portfolioinfiniteitemsloader'
-			},
-			function( newElements ) {
-				$container.isotope( 'appended', $( newElements ) );
-				var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
-				SEMICOLON.widget.loadFlexSlider();
+<!-- Page -->
+<script type="text/javascript">
+// Masonry
+(function() {
+  var $container = $('#vlist');
+  $container.infinitescroll({
+    loading: {
+      finishedMsg: '<i class="icon-line-check"></i>',
+      msgText: '<i class="icon-line-loader icon-spin"></i>',
+      img: "/lib/js-canvas/images/preloader-dark.gif",
+      speed: 'normal'
+    },
+    state: {
+      isDone: false
+    },
+    nextSelector: "#load-next-vlist a",
+    navSelector: "#load-next-vlist",
+    itemSelector: "article.portfolio-item",
+    behavior: 'portfolioinfiniteitemsloader'
+  },
+  function( newElements ) {
+    $container.isotope( 'appended', $( newElements ) );
+    var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
+    SEMICOLON.widget.loadFlexSlider();
+    SEMICOLON.portfolio.arrange();
+  });
+  $.ajax({
+    url: "/post/html/1",
+    success: function(data) {
+      $container.append(data);
+      
+      var t = setTimeout( function(){ 
+        SEMICOLON.widget.loadFlexSlider();
         SEMICOLON.portfolio.arrange();
-			});
-
-      $.ajax({
-        url: "/post/html/1",
-        success: function(data) {
-          $container.append(data);
-          
-				  var t = setTimeout( function(){ 
-            SEMICOLON.widget.loadFlexSlider();
-            SEMICOLON.portfolio.arrange();
-            $container.isotope('layout');
-          }, 2000 );
-        }
-      });
-   });
+        $container.isotope('layout');
+      }, 1000 );
+    }
+  });
+})();
 </script>
+<!--// Page -->
+
 </body>
 </html>

@@ -1,105 +1,82 @@
-<!-- Header
-           ============================================= -->
-<header id="header" class="sticky-header">
-
+<header id="header">
   <div id="header-wrap">
-
     <div class="container clearfix">
-
       <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-
-      <!-- Logo
-              ============================================= -->
-      <div id="logo" ronterLink="/">
-        <a href="/" class="standard-logo">
-          <img src="/images/logo_vgram.png" alt="vgram Logo">
-        </a>
-        <a href="/" class="retina-logo">
-          <img src="/images/logo_vgram@2x.png" alt="vgram Logo">
-        </a>
+      <div id="logo">
+        <a href="/"><img src="/images/logo.png" alt="Vgram"></a>
       </div>
-
-      <!-- Primary Navigation
-              ============================================= -->
-      <nav id="primary-menu" class="mobile-menu-off-canvas">
-
+      <nav id="primary-menu">
         <ul>
-          <li>
-            <a href="/">
-              <div><strong>리스트로 보기</strong></div>
-            </a>
-          </li>
-          <li>
-            <a href="/post/map">
-              <div><strong>지도로 보기</strong></div>
-            </a>
-            <!-- <ul>
-              <li>
-                <a href="/post/room">
-                  <div><i class="icon-stack"></i>방 정보 목록조회</div>
-                </a>
-              </li>
-            </ul> -->
-          </li>
-          <li>
-            <a href="/post/new">
-              <div><strong>NEW</strong></div>
-            </a>
-          </li>
-          <!-- <li>
-            <a href="/consultingListInfo">
-              <div><strong>채팅</strong></div>
-            </a>
-            <ul>
-              <li>
-                <a href="/post/new">
-                  <div><i class="icon-stack"></i>질문하기</div>
-                </a>
-              </li>
-            </ul>
-          </li> -->
+          <li class="current"><a href="/"><div>리스트로 보기</div></a></li>
+          <li><a href="/post/map"><div>지도로 보기</div></a></li>
+          <li><a href="/post/new"><div>NEW</div></a></li>
+          <li><a href="/message"><div>채팅</div></a></li>
         </ul>
-
-        <!-- Top Cart
-						============================================= -->
-        <div id="top-cart">
-          <% if (logined) { %>
-            <a href="/user/<%= userIdx %>">
-              <i class="icon-user"></i><!--<span>5</span>-->
-            </a>
-          <% } else { %>
-            <a href="/auth/login">
-              <i class="icon-user"></i>
-            </a>
-          <% } %>
-            <!--<div class="top-cart-content">-->
-
-            <div class="top-cart-items">
-
-
+        <div class="quick-menu">
+          <div id="top-account">
+            <% if (logined) { %>
+              <a href="/user/<%= userIdx %>">
+                <i class="icon-user"></i>
+              </a>
+            <% } else { %>
+              <a href="/auth/login">
+                <i class="icon-user"></i>
+              </a>
+            <% } %>
+          </div>
+          <div id="top-notification">
+            <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>3</span></a>
+            <div class="top-notification-content">
+              <div class="top-notification-title">
+                <h4>최근 (11)</h4>
+              </div>
+              <div class="top-notification-items">
+                <div class="top-notification-item clearfix">
+                  <a href="#">
+                    <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                    <span class="info">내용입니다내용입니다내용입니다내용입니다</span>
+                    <span class="date"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></span>
+                  </a>
+                </div>
+                <div class="top-notification-item clearfix">
+                  <a href="#">
+                    <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                    <span class="info">내용입니다</span>
+                    <span class="date">2일전</span>
+                  </a>
+                </div>
+                <div class="top-notification-item clearfix">
+                  <a href="#">
+                    <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                    <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                    <span class="date">1달전</span>
+                  </a>
+                </div>
+                <div class="top-notification-item clearfix">
+                  <a href="#">
+                    <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                    <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                    <span class="date">1년전</span>
+                  </a>
+                </div>
+              </div>
+              <div class="top-notification-action clearfix">
+                <a href="#" class="more"><i class="icon-line-plus"></i> 모두보기</a>
+              </div>
             </div>
-              <!--</div>-->
+          </div>
+          <div id="top-search">
+            <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+            <form>
+              <input type="text" name="q" class="search form-control" value="" placeholder="검색어를 입력하세요">
+            </form>
+          </div>
         </div>
-        <!-- #top-cart end -->
-
-        <!-- Top Search
-						============================================= -->
-        <div id="top-search">
-          <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-          <form>
-            <input type="text" name="q" class="form-control typeahead" value="" placeholder="Type &amp; Hit Enter..">
-          </form>
-        </div>
-        <!-- #top-search end -->
-
       </nav>
-      <!-- #primary-menu end -->
-
     </div>
-
   </div>
-
 </header>
+
 <!-- #header end -->
 
 <!--<script>-->

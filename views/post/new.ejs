@@ -1,731 +1,605 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <% include ../static/head.ejs %>
-  <style>
-
-    .right_head {
-      float: right;
-    }
-
-    .add_file label {
-      width: 100%;
-    }
-
-    .add_info {
-      margin-top: 20px;
-    }
-
-    .btn input[type="file"] {
-      position: absolute;
-      top: -9999999;
-      filter: alpha(opacity=0);
-      opacity: 0;
-      width: 0;
-      height: 0;
-      outline: none;
-      cursor: inherit;
-    }
-
-    .upload1_2 {
-      width: 100%;
-      height: 136px;
-      display: table;
-      text-align: center;
-      background-image: url('/images/plus.png');
-      border: dashed 2px;
-      background-size: 142px;
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-
-    .upload1_2 h4 {
-      display: table-cell;
-      vertical-align: bottom;
-      padding-bottom: 15px;
-    }
-
-    .map_wrap {
-      position: relative;
-      width: 100%;
-      height: 300px;
-    }
-
-    .title {
-      font-weight: bold;
-      display: block;
-    }
-
-    .hAddr {
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      border-radius: 2px;
-      background: #fff;
-      background: rgba(255, 255, 255, 0.8);
-      z-index: 1;
-      padding: 5px;
-    }
-
-    #centerAddr {
-      display: block;
-      margin-top: 2px;
-      font-weight: normal;
-    }
-
-    .bAddr {
-      padding: 5px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-  </style>
-
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-
-  <meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b0838fb3a11b23c5d23479ac25aa2ae&libraries=services"></script>
-
 </head>
+<body id="sub" class="stretched no-transition no-smooth-scroll">
 
-<body>
-
-  <!-- HEADER -->
+<div id="wrapper" class="clearfix">
   <% include ../addon/header.ejs %>
+  <main>
+<!--<span class="btn btn-success fileinput-button">-->
+<!--<i class="glyphicon glyphicon-plus"></i>-->
+<!--<span>Add files...</span>-->
+<!--<input type="file" />-->
+<!--</span>-->
 
-  <section id="content">
-
-    <div class="content-wrap">
-
-      <div class="container clearfix">
-
-
-        <!-- Post Content
-        ============================================= -->
-        <div class="nobottommargin clearfix">
-
-          <h4 style="margin-bottom: 0px;">
-            Upload VR Gallery
-            <div class="right_head">
-              <!--<span class="btn btn-success fileinput-button">-->
-              <!--<i class="glyphicon glyphicon-plus"></i>-->
-              <!--<span>Add files...</span>-->
-              <!--<input type="file" />-->
-              <!--</span>-->
-
-              <!-- <button type="submit" class="btn btn-primary start">
-                <i class="glyphicon glyphicon-upload"></i>
-                <span>Start upload</span>
-              </button> -->
-            </div>
-          </h4>
-
-          <div class="clear"></div>
-
-          <div class="tabs side-tabs nobottommargin clearfix" id="tab-6">
-
-            <ul class="tab-nav tab-nav2 clearfix" style="margin-top: 15px;">
-              <li><a href="#tabs-21"><i class="icon-home2"></i>VR Image</a></li>
-              <li><a href="#tabs-22">Normal Image</a></li>
-              <li><a href="#tabs-23">부가 정보</a></li>
-              <!--<li class="hidden-phone"><a href="#tabs-24">Aenean lacinia</a></li>-->
-            </ul>
-
-            <div class="tab-container">
-
-              <div class="tab-content clearfix" id="tabs-21">
-                <!-- The file upload form used as target for the file upload widget -->
-                <form id="fileupload" method="POST" action="<%= mediaUrl %>/convert/vtour" enctype="multipart/form-data" style="margin-top: -13px;">
-                  <!-- Redirect browsers with JavaScript disabled to the origin page -->
-                  <!-- <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript> -->
-                  <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-                  <div class="row fileupload-buttonbar">
-                    <div class="col-sm-12">
-
-                      <input type="hidden" name="postID" value="1" />
-
-                      <button type="submit" class="btn btn-primary start" style="display:none">
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Start upload</span>
-                      </button>
-
-                      <div class="col_full">
-                        <!-- The fileinput-button span is used to style the file input field as button -->
-                        <label class="btn btn-success fileinput-button" style="width: 100%;">
-                          <i class="glyphicon glyphicon-plus"></i>
-                          <span>Add files...</span>
-                          <input type="file" name="vr_images" multiple data-sequential-uploads="true">
-                        </label>
-
-                      </div>
-                      <!-- <button type="reset" class="btn btn-warning cancel"> -->
-                      <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
-                      <!-- <span>Cancel upload</span> -->
-                      <!-- </button> -->
-                      <!-- <button type="button" class="btn btn-danger delete"> -->
-                      <!-- <i class="glyphicon glyphicon-trash"></i> -->
-                      <!-- <span>Delete</span> -->
-                      <!-- </button> -->
-                      <!-- <input type="checkbox" class="toggle"> -->
-                      <!-- The global file processing state -->
-                      <span class="fileupload-process"></span>
-                    </div>
-                    <!-- The global progress state -->
-                    <!--<div class="col-lg-5 fileupload-progress fade">-->
-                    <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
-                    <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
-                    <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
-                    <!--<div class="progress-extended">&nbsp;</div>-->
-                    <!--</div>-->
-                  </div>
-
-
-                  <div class="col_full">
-                    <div class="upload1_2" id="upload1">
-                      <h4><span>drop here! </span></h4>
-                    </div>
-                  </div>
-
-
-                  <!-- The table listing the files available for upload/download -->
-                  <table role="presentation" class="table table-striped">
-                    <tbody class="files"></tbody>
-                  </table>
-                </form>
-
-
+<!-- <button type="submit" class="btn btn-primary start">
+<i class="glyphicon glyphicon-upload"></i>
+<span>Start upload</span>
+</button> -->
+    <div class="container">
+      <div class="vwrite">
+        <ul class="nav nav-tabs boot-tabs">
+          <li class="active"><a href="#tabs-21" data-toggle="tab">VR</a></li>
+          <li><a href="#tabs-22" data-toggle="tab">이미지</a></li>
+          <li><a href="#tabs-23" data-toggle="tab">부가정보</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="tabs-21">
+            <h4>VR 이미지</h4>
+            <!-- The file upload form used as target for the file upload widget -->
+            <form id="fileupload" method="POST" action="<%= mediaUrl %>/convert/vtour" enctype="multipart/form-data">
+              <!-- Redirect browsers with JavaScript disabled to the origin page -->
+              <!-- <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript> -->
+              <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+              <div class="upload1_2 dropzone" id="upload1">
+                <h4><span>파일을 드래그해서 넣어주세요</span></h4>
               </div>
+              <div class="row fileupload-buttonbar">
 
-              <div class="tab-content clearfix" id="tabs-22">
+                <div class="col-sm-12">
 
-                <form id="fileupload2" method="POST" action="<%= mediaUrl %>/convert/images" enctype="multipart/form-data" style="margin-top: -13px;">
-                  <!-- Redirect browsers with JavaScript disabled to the origin page -->
-                  <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
-                  <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-                  <div class="row fileupload-buttonbar">
-                    <div class="col-sm-12">
+                  <input type="hidden" name="postID" value="1" />
 
-                      <input type="hidden" name="postID" value="1" />
+                  <button type="submit" class="btn btn-primary start" style="display:none">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start upload</span>
+                  </button>
 
-                      <button type="submit" class="btn btn-primary start" style="display:none">
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Start upload</span>
-                      </button>
+                  <div class="file">
+                    <!-- The fileinput-button span is used to style the file input field as button -->
+                    <label class="btn btn-block btn-primary">
+                      파일 직접 추가
+                      <input type="file" name="vr_images" multiple data-sequential-uploads="true" style="display: none;">
+                    </label>
 
-                      <div class="col_full">
-                        <!-- The fileinput-button span is used to style the file input field as button -->
-                        <label class="btn btn-success fileinput-button" style="width: 100%;">
-                          <i class="glyphicon glyphicon-plus"></i>
-                          <span>Add files...</span>
-                          <input type="file" name="normal_images" multiple data-sequential-uploads="true">
-                        </label>
-
-                      </div>
-                      <!-- <button type="reset" class="btn btn-warning cancel"> -->
-                      <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
-                      <!-- <span>Cancel upload</span> -->
-                      <!-- </button> -->
-                      <!-- <button type="button" class="btn btn-danger delete"> -->
-                      <!-- <i class="glyphicon glyphicon-trash"></i> -->
-                      <!-- <span>Delete</span> -->
-                      <!-- </button> -->
-                      <!-- <input type="checkbox" class="toggle"> -->
-                      <!-- The global file processing state -->
-                      <span class="fileupload-process"></span>
-                    </div>
-                    <!-- The global progress state -->
-                    <!--<div class="col-lg-5 fileupload-progress fade">-->
-                    <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
-                    <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
-                    <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
-                    <!--<div class="progress-extended">&nbsp;</div>-->
-                    <!--</div>-->
                   </div>
-
-                  <div class="col_full">
-                    <div class="upload1_2" id="upload2">
-                      <h4><span>Drop here</span></h4>
-                    </div>
-                  </div>
-
-
-
-                  <!-- The table listing the files available for upload/download -->
-                  <table role="presentation" class="table table-striped">
-                    <tbody class="files"></tbody>
-                  </table>
-                </form>
-
-
-              </div>
-
-
-              <div class="tab-content clearfix" id="tabs-23">
-
-                <div class="col-sm-6">
-
-                  <div class="map_wrap">
-                    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-                    <!--<div class="hAddr">-->
-                    <!--<span class="title">지도중심기준 행정동 주소정보</span>-->
-                    <!--<span id="centerAddr"></span>-->
-                    <!--</div>-->
-                  </div>
-
-                  <p id="result"></p>
-
-                  <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-                  <input type="text" id="sample5_address" name="address1" placeholder="주소" readonly>
-                  <input type="text" id="address2" name="address2" placeholder="상세주소 입력">
-                  <input type="hidden" id="lat" name="lat" />
-                  <input type="hidden" id="lng" name="lng" />
-
+                  <!-- <button type="reset" class="btn btn-warning cancel"> -->
+                  <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
+                  <!-- <span>Cancel upload</span> -->
+                  <!-- </button> -->
+                  <!-- <button type="button" class="btn btn-danger delete"> -->
+                  <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                  <!-- <span>Delete</span> -->
+                  <!-- </button> -->
+                  <!-- <input type="checkbox" class="toggle"> -->
+                  <!-- The global file processing state -->
+                  <span class="fileupload-process"></span>
                 </div>
-
-                <div class="col-sm-6">
-                  <!--<label for="comment">Comment</label>-->
-                  <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
-
-                    <div class="form-process"></div>
-
-                    <div class="col_full">
-                      <label for="post_status">공개 여부</label>
-                      <select id="post_status" name="post_status" class="sm-form-control">
-                        <option value="publish">공개</option>
-                        <option value="private">비공개</option>
-                      </select>
-                    </div>
-
-                    <div class="col_full">
-                      <label for="category">카테고리</label>
-                      <select id="category" name="category" class="sm-form-control">
-                        <% for (i in value.placeType) { %>
-                          <option value="<%= i %>"><%= __("placeType")[i] %></option>
-                        <% } %>
-                      </select>
-                    </div>
-
-                    <div class="col_full">
-                      <label for="title">제목</label>
-                      <input type="text" name="title" id="title" class="sm-form-control" required/>
-                    </div>
-
-                    <div id="summernote"></div>
-
-                    <div class="col_full">
-                      <button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit" style="float:right;">글작성</button>
-                    </div>
-
-                    <div class="clear"></div>
-
-                  </form>
-
-
-                </div>
-
-                <!--<textarea style="width: 100%; height: 100px; margin-top: 20px;" placeholder="please write something here"></textarea>-->
+                <!-- The global progress state -->
+                <!--<div class="col-lg-5 fileupload-progress fade">-->
+                <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
+                <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
+                <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
+                <!--<div class="progress-extended">&nbsp;</div>-->
+                <!--</div>-->
               </div>
 
-
-              <!--<div class="tab-content clearfix" id="tabs-24">-->
-              <!--<div class="add_file">-->
-              <!--<label class="btn-bs-file btn btn-lg btn-success">-->
-              <!--Add files-->
-              <!--<input type="file" />-->
-              <!--<i class="glyphicon glyphicon-plus"></i>-->
-              <!--</label>-->
-              <!--</div>-->
-              <!--</div>-->
-
+              <!-- The table listing the files available for upload/download -->
+              <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+              </table>
+            </form>
+            <div class="write-button">
+              <a href="#tabs-22" class="button button-small">다음</a>
             </div>
-
-
-
           </div>
+          <div class="tab-pane fade" id="tabs-22">
+            <h4>일반 이미지</h4>
+            <form id="fileupload2" method="POST" action="<%= mediaUrl %>/convert/images" enctype="multipart/form-data">
+              <!-- Redirect browsers with JavaScript disabled to the origin page -->
+              <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
+              <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+              <div class="upload1_2 dropzone" id="upload2">
+                <h4><span>파일을 드래그해서 넣어주세요</span></h4>
+              </div>
+              <div class="row fileupload-buttonbar">
+                <div class="col-sm-12">
+
+                  <input type="hidden" name="postID" value="1" />
+
+                  <button type="submit" class="btn btn-primary start" style="display:none">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start upload</span>
+                  </button>
+
+                  <div class="file">
+                    <label class="btn btn-block btn-primary">파일 직접 추가 <input type="file" name="normal_images" multiple data-sequential-uploads="true" style="display: none;"></label>
+                  </div>
+                  <!-- <button type="reset" class="btn btn-warning cancel"> -->
+                  <!-- <i class="glyphicon glyphicon-ban-circle"></i> -->
+                  <!-- <span>Cancel upload</span> -->
+                  <!-- </button> -->
+                  <!-- <button type="button" class="btn btn-danger delete"> -->
+                  <!-- <i class="glyphicon glyphicon-trash"></i> -->
+                  <!-- <span>Delete</span> -->
+                  <!-- </button> -->
+                  <!-- <input type="checkbox" class="toggle"> -->
+                  <!-- The global file processing state -->
+                  <span class="fileupload-process"></span>
+                </div>
+                <!-- The global progress state -->
+                <!--<div class="col-lg-5 fileupload-progress fade">-->
+                <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
+                <!--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">-->
+                <!--<div class="progress-bar progress-bar-success" style="width:0%;"></div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; The extended global progress state &ndash;&gt;-->
+                <!--<div class="progress-extended">&nbsp;</div>-->
+                <!--</div>-->
+              </div>
+
+              <!-- The table listing the files available for upload/download -->
+              <table role="presentation" class="table table-striped">
+                <tbody class="files"></tbody>
+              </table>
+            </form>
+            <div class="write-button">
+              <a href="#tabs-21" class="button button-leaf button-small">이전</a>
+              <a href="#tabs-23" class="button button-small">다음</a>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tabs-23">
+            <h4>부가정보</h4>
+            <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
+              <div class="info clearfix">
+                <div class="col_half">
+                  <div id="daum-map"></div>
+                  <div class="col_full clearfix address">
+                    <button type="button" onclick="sample5_execDaumPostcode()">주소검색</button>
+                    <input type="text" id="sample5_address" name="address1" class="sm-form-control" placeholder="주소" readonly>
+                    <input type="text" id="address2" name="address2" class="sm-form-control" placeholder="상세주소 입력">
+                    <input type="hidden" id="lat" name="lat" />
+                    <input type="hidden" id="lng" name="lng" />
+                  </div>
+                </div>
+                <div class="col_half col_last">
+                  <div class="col_full">
+                    <label for="post_status">공개여부</label>
+                    <select id="post_status" name="post_status" class="sm-form-control">
+                      <option value="publish">공개</option>
+                      <option value="private">비공개</option>
+                    </select>
+                  </div>
+                  <div class="col_full">
+                    <label for="category">카테고리</label>
+                    <select id="category" name="category" class="sm-form-control">
+                      <% for (i in value.placeType) { %>
+                        <option value="<%= i %>"><%= __("placeType")[i] %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                  <div class="col_full">
+                    <label for="title">제목</label>
+                    <input type="text" name="title" id="title" class="sm-form-control" required/>
+                  </div>
+                </div>
+              </div>
+              <div class="col_full">
+                <div id="summernote"></div>
+              </div>
+              <div class="write-button">
+                <a href="#tabs-22" class="button button-leaf button-small">이전</a>
+                <button type="submit" id="template-contactform-submit" name="template-contactform-submit" class="button button-small">완료</button>
+              </div>
+            </form>
+          </div>
+          <!--<div class="tab-content clearfix" id="tabs-24">-->
+          <!--<div class="add_file">-->
+          <!--<label class="btn-bs-file btn btn-lg btn-success">-->
+          <!--Add files-->
+          <!--<input type="file" />-->
+          <!--<i class="glyphicon glyphicon-plus"></i>-->
+          <!--</label>-->
+          <!--</div>-->
+          <!--</div>-->
         </div>
-
-
       </div>
     </div>
-  </section>
+  </main>
+  <% include ../addon/footer.ejs %>
+</div>
+
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- LOAD JAVASCRIPT -->
+<% include ../static/js.ejs %>
 
 
-  <!-- NO FOOTER -->
-  <% //include ../addon/footer.ejs %>
-
-  <!-- LOAD JAVASCRIPT -->
-  <% include ../static/js.ejs %>
-
-  <!-- The template to display files available for upload -->
-  <script id="template-upload" type="text/x-tmpl">
-    {% for (var i=0, file; file=o.files[i]; i++) { %}
-      <tr class="template-upload fade">
-        <td>
-          <span class="preview"></span>
-        </td>
-        <td>
-          <p class="name">{%=file.name%}</p>
-          <strong class="error text-danger"></strong>
-        </td>
-        <td>
-          <p class="size">Processing...</p>
-          <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-          </div>
-        </td>
-        <td>
-          {% if (!i && !o.options.autoUpload) { %}
-            <button class="btn btn-primary start" disabled style="display:none">
-              <i class="glyphicon glyphicon-upload"></i>
-              <span>Start</span>
-            </button>
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td>
+        <span class="preview"></span>
+      </td>
+      <td>
+        <p class="name">{%=file.name%}</p>
+        <strong class="error text-danger"></strong>
+      </td>
+      <td>
+        <p class="size">Processing...</p>
+        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+        </div>
+      </td>
+      <td>
+        {% if (!i && !o.options.autoUpload) { %}
+          <button class="btn btn-primary start" disabled style="display:none">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start</span>
+          </button>
+        {% } %}
+        {% if (!i) { %}
+          <button class="btn btn-warning cancel">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel</span>
+          </button>
+        {% } %}
+      </td>
+    </tr>
+  {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+      <td>
+        <span class="preview">
+          {% if (file.thumbnailUrl) { %}
+            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
           {% } %}
-          {% if (!i) { %}
-            <button class="btn btn-warning cancel">
-              <i class="glyphicon glyphicon-ban-circle"></i>
-              <span>Cancel</span>
-            </button>
-          {% } %}
-        </td>
-      </tr>
-    {% } %}
-  </script>
-  <!-- The template to display files available for download -->
-  <script id="template-download" type="text/x-tmpl">
-    {% for (var i=0, file; file=o.files[i]; i++) { %}
-      <tr class="template-download fade">
-        <td>
-          <span class="preview">
-            {% if (file.thumbnailUrl) { %}
-              <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-            {% } %}
-          </span>
-        </td>
-        <td>
-          <p class="name">
-            {% if (file.url) { %}
-              <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a>
-            {% } else { %}
-              <span>{%=file.name%}</span>
-            {% } %}
-          </p>
-          {% if (file.error) { %}
-            <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-          {% } %}
-        </td>
-        <td>
-          <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-          {% if (file.deleteUrl) { %}
-            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials)
-              { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
-              <i class="glyphicon glyphicon-trash"></i>
-              <span>Delete</span>
-            </button>
-            <input type="checkbox" name="delete" value="1" class="toggle">
+        </span>
+      </td>
+      <td>
+        <p class="name">
+          {% if (file.url) { %}
+            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a>
           {% } else { %}
-            <button class="btn btn-warning cancel">
-              <i class="glyphicon glyphicon-ban-circle"></i>
-              <span>Cancel</span>
-            </button>
+            <span>{%=file.name%}</span>
           {% } %}
-        </td>
-      </tr>
-    {% } %}
-  </script>
+        </p>
+        {% if (file.error) { %}
+          <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+        {% } %}
+      </td>
+      <td>
+        <span class="size">{%=o.formatFileSize(file.size)%}</span>
+      </td>
+      <td>
+        {% if (file.deleteUrl) { %}
+          <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials)
+            { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+            <i class="glyphicon glyphicon-trash"></i>
+            <span>Delete</span>
+          </button>
+          <input type="checkbox" name="delete" value="1" class="toggle">
+        {% } else { %}
+          <button class="btn btn-warning cancel">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel</span>
+          </button>
+        {% } %}
+      </td>
+    </tr>
+  {% } %}
+</script>
 
-  <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-  <script src="/components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-  <!-- The Templates plugin is included to render the upload/download listings -->
-  <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
-  <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-  <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-  <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-  <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-  <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <!-- blueimp Gallery script -->
-  <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-  <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-  <script src="/components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-  <!-- The basic File Upload plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload.js"></script>
-  <!-- The File Upload processing plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
-  <!-- The File Upload image preview & resize plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
-  <!-- The File Upload audio preview plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-audio.js"></script>
-  <!-- The File Upload video preview plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-video.js"></script>
-  <!-- The File Upload validation plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
-  <!-- The File Upload user interface plugin -->
-  <script src="/components/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
-  <!-- The main application script -->
-  <script src="/js/file-upload.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- blueimp Gallery script -->
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="/components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="/components/blueimp-file-upload/js/jquery.fileupload-ui.js"></script>
+<!-- The main application script -->
+<script src="/js/file-upload.js"></script>
 
-  <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
-  <!--[if (gte IE 8)&(lt IE 10)]>
-  <script src="/components/blueimp-file-upload/js/cors/jquery.xdr-transport.js"></script>
-  <![endif]-->
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="/components/blueimp-file-upload/js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
 
+<!--다음 맵-->
+<script>
+  var mapContainer = document.getElementById('daum-map'), // 지도를 표시할 div
+    mapOption = {
+      center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+      level: 4 // 지도의 확대 레벨
+    };
 
+  // 지도를 생성합니다
+  var map = new daum.maps.Map(mapContainer, mapOption);
 
-  <!--다음 맵-->
-  <script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-      mapOption = {
-        center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
-      };
+  // 주소-좌표 변환 객체를 생성합니다
+  var geocoder = new daum.maps.services.Geocoder();
 
-    // 지도를 생성합니다
-    var map = new daum.maps.Map(mapContainer, mapOption);
+  //   var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+  //    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new daum.maps.services.Geocoder();
+  var marker = new daum.maps.Marker({
+    position: new daum.maps.LatLng(37.537187, 127.005476),
+    map: map
+  }),
+    infowindow = new daum.maps.InfoWindow({ zindex: 1 });
 
-    //   var marker = new daum.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-    //    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+  var createMarkerContent = function (result) {
+    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
-    var marker = new daum.maps.Marker({
-      position: new daum.maps.LatLng(37.537187, 127.005476),
-      map: map
-    }),
-      infowindow = new daum.maps.InfoWindow({ zindex: 1 });
+    return '<div class="bAddr">' + detailAddr + '</div>';
+  }
+  //   // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+  //   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
-    var createMarkerContent = function (result) {
-      var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-      detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+  // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+  daum.maps.event.addListener(map, 'click', function (mouseEvent) {
+    searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
+      if (status === daum.maps.services.Status.OK) {
 
-      return '<div class="bAddr">' + detailAddr + '</div>';
-    }
-    //   // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-    //   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+        // 클릭한 위도, 경도 정보를 가져옵니다
+        var latlng = mouseEvent.latLng;
 
-    // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-    daum.maps.event.addListener(map, 'click', function (mouseEvent) {
-      searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-        if (status === daum.maps.services.Status.OK) {
+        var message = '위도 :  ' + latlng.getLat();
+        message += '<br>경도 : ' + latlng.getLng();
 
-          // 클릭한 위도, 경도 정보를 가져옵니다
-          var latlng = mouseEvent.latLng;
+        // var resultDiv = document.getElementById('result');
+        // resultDiv.innerHTML = message ;
 
-          var message = '위도 :  ' + latlng.getLat();
-          message += '<br>경도 : ' + latlng.getLng();
+        document.getElementById("lat").value = latlng.getLat();
+        document.getElementById("lng").value = latlng.getLng();
 
-          // var resultDiv = document.getElementById('result');
-          // resultDiv.innerHTML = message ;
+        // 마커를 클릭한 위치에 표시합니다
+        marker.setPosition(mouseEvent.latLng);
+        marker.setMap(map);
 
-          document.getElementById("lat").value = latlng.getLat();
-          document.getElementById("lng").value = latlng.getLng();
+        let address = result[0].address.address_name;
+        document.getElementById("sample5_address").value = address;
 
-          // 마커를 클릭한 위치에 표시합니다
-          marker.setPosition(mouseEvent.latLng);
-          marker.setMap(map);
+        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+        infowindow.setContent(createMarkerContent(result));
+        infowindow.open(map, marker);
+      }
+    });
+  });
 
-          let address = result[0].address.address_name;
-          document.getElementById("sample5_address").value = address;
+  function sample5_execDaumPostcode() {
+    new daum.Postcode({
+      oncomplete: function (data) {
+        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+        var fullAddr = data.address; // 최종 주소 변수
+        var extraAddr = ''; // 조합형 주소 변수
 
-          // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-          infowindow.setContent(createMarkerContent(result));
-          infowindow.open(map, marker);
+        // 기본 주소가 도로명 타입일때 조합한다.
+        if (data.addressType === 'R') {
+          //법정동명이 있을 경우 추가한다.
+          if (data.bname !== '') {
+            extraAddr += data.bname;
+          }
+          // 건물명이 있을 경우 추가한다.
+          if (data.buildingName !== '') {
+            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+          }
+          // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+          fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
         }
+
+        // 주소 정보를 해당 필드에 넣는다.
+        document.getElementById("sample5_address").value = fullAddr;
+
+
+        // 주소로 좌표를 검색
+        geocoder.addressSearch(data.address, function (result, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === daum.maps.services.Status.OK) {
+            // 해당 주소에 대한 좌표를 받아서
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+            //          // 지도를 보여준다.
+            //          map.relayout();
+            // 지도 중심을 변경한다.
+            map.setCenter(coords);
+            // 마커를 결과값으로 받은 위치로 옮긴다.
+            marker.setPosition(coords);
+
+            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+            infowindow.setContent(createMarkerContent(result));
+            infowindow.open(map, marker);
+          }
+        });
+      }
+    }).open();
+  }
+
+  //   // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+  //   daum.maps.event.addListener(map, 'idle', function() {
+  //    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+  //   });
+  //
+  //   function searchAddrFromCoords(coords, callback) {
+  //    // 좌표로 행정동 주소 정보를 요청합니다
+  //    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+  //   }
+
+  function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+  }
+  //
+  //   // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+  //   function displayCenterInfo(result, status) {
+  //    if (status === daum.maps.services.Status.OK) {
+  //     var infoDiv = document.getElementById('centerAddr');
+  //     infoDiv.innerHTML = result[0].address_name;
+  //    }
+  //   }
+
+</script>
+
+<script>
+  jQuery(function ($) {
+
+    $(document).ready(function() {
+      $('#summernote').summernote({
+        height: 200,
+        lang: 'ko-KR'
       });
+
     });
 
-    function sample5_execDaumPostcode() {
-      new daum.Postcode({
-        oncomplete: function (data) {
-          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          var fullAddr = data.address; // 최종 주소 변수
-          var extraAddr = ''; // 조합형 주소 변수
+    var uploading = false;
 
-          // 기본 주소가 도로명 타입일때 조합한다.
-          if (data.addressType === 'R') {
-            //법정동명이 있을 경우 추가한다.
-            if (data.bname !== '') {
-              extraAddr += data.bname;
-            }
-            // 건물명이 있을 경우 추가한다.
-            if (data.buildingName !== '') {
-              extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-            fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
-          }
+    $('#tabs-23 button.button-blue').click(function () {
 
-          // 주소 정보를 해당 필드에 넣는다.
-          document.getElementById("sample5_address").value = fullAddr;
-
-
-          // 주소로 좌표를 검색
-          geocoder.addressSearch(data.address, function (result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === daum.maps.services.Status.OK) {
-              // 해당 주소에 대한 좌표를 받아서
-              var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-              //          // 지도를 보여준다.
-              //          map.relayout();
-              // 지도 중심을 변경한다.
-              map.setCenter(coords);
-              // 마커를 결과값으로 받은 위치로 옮긴다.
-              marker.setPosition(coords);
-
-              // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-              infowindow.setContent(createMarkerContent(result));
-              infowindow.open(map, marker);
-            }
-          });
-        }
-      }).open();
-    }
-
-    //   // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-    //   daum.maps.event.addListener(map, 'idle', function() {
-    //    searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-    //   });
-    //
-    //   function searchAddrFromCoords(coords, callback) {
-    //    // 좌표로 행정동 주소 정보를 요청합니다
-    //    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-    //   }
-
-    function searchDetailAddrFromCoords(coords, callback) {
-      // 좌표로 법정동 상세 주소 정보를 요청합니다
-      geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-    }
-    //
-    //   // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-    //   function displayCenterInfo(result, status) {
-    //    if (status === daum.maps.services.Status.OK) {
-    //     var infoDiv = document.getElementById('centerAddr');
-    //     infoDiv.innerHTML = result[0].address_name;
-    //    }
-    //   }
-
-  </script>
-
-  <script>
-    jQuery(function ($) {
-
-      $(document).ready(function() {
-        $('#summernote').summernote({
-          height: 150,
-          lang: 'ko-KR'
-        });
-
-      });
-
-      var uploading = false;
-
-      $('#tabs-23 button.button-blue').click(function () {
-
-        if (uploading) {
-          alert('waiting for upload...');
-          return false;
-        }
-
-        uploading = true;
-
-        if ($('#fileupload .template-upload').length == 0) {
-          alert('please vrimage upload');
-          uploading = false;
-          return false;
-        }
-
-        if ($('#fileupload2 .template-upload').length == 0) {
-          alert('please normal image upload');
-          uploading = false;
-          return false;
-        }
-
-        if (!$('#lat').val() || !$('#lat').val() || !$('#sample5_address').val()) {
-          alert('please select address');
-          uploading = false;
-          return false;
-        }
-
-        if (!$("#title").val()) {
-          alert('please write title');
-          uploading = false;
-          return false;
-        }
-
-        if ($('#summernote').summernote('isEmpty')) {
-          alert('please write content');
-          uploading = false;
-          return false;
-        }
-
-
-        const address1 = $("#sample5_address").val();
-        const address2 = $("#address2").val();
-        const lat = $("#lat").val();
-        const lng = $("#lng").val();
-
-        const post_status = $("#post_status").val();
-        const category = $("#category").val();
-        const title = $("#title").val();
-        const content = $('#summernote').summernote('code');
-
-        $.post({
-          url: location.href,
-          data: {
-            address1: address1,
-            address2: address2,
-            lat: lat,
-            lng: lng,
-
-            post_status: post_status,
-            category: category,
-            title: title,
-            content: content
-          },
-          success: function (result) {
-            // change postId
-            const postId = result.ID;
-            $('input[name="postID"]').val(postId);
-
-            // submit images
-            $('#fileupload button[type="submit"]').click();   // vr image
-            $('#fileupload2 button[type="submit"]').click();    // normal image
-
-            var stopInterval = function(interval) {
-              clearInterval(interval);
-            }
-
-            var t = setInterval(function() {
-              if ($('#fileupload .template-upload').length == 0 && $('#fileupload2 .template-upload').length == 0) {
-                uploading = false;
-                alert('upload success !');
-                stopInterval(t);
-                location.reload();
-              }
-            }, 500);
-          },
-          error: function (error) {
-            uploading = false;
-            alert(error);
-          }
-        });
-
+      if (uploading) {
+        alert('waiting for upload...');
         return false;
-      });
-    });
+      }
 
-  </script>
+      uploading = true;
+
+      if ($('#fileupload .template-upload').length == 0) {
+        alert('please vrimage upload');
+        uploading = false;
+        return false;
+      }
+
+      if ($('#fileupload2 .template-upload').length == 0) {
+        alert('please normal image upload');
+        uploading = false;
+        return false;
+      }
+
+      if (!$('#lat').val() || !$('#lat').val() || !$('#sample5_address').val()) {
+        alert('please select address');
+        uploading = false;
+        return false;
+      }
+
+      if (!$("#title").val()) {
+        alert('please write title');
+        uploading = false;
+        return false;
+      }
+
+      if ($('#summernote').summernote('isEmpty')) {
+        alert('please write content');
+        uploading = false;
+        return false;
+      }
+
+
+      const address1 = $("#sample5_address").val();
+      const address2 = $("#address2").val();
+      const lat = $("#lat").val();
+      const lng = $("#lng").val();
+
+      const post_status = $("#post_status").val();
+      const category = $("#category").val();
+      const title = $("#title").val();
+      const content = $('#summernote').summernote('code');
+
+      $.post({
+        url: location.href,
+        data: {
+          address1: address1,
+          address2: address2,
+          lat: lat,
+          lng: lng,
+
+          post_status: post_status,
+          category: category,
+          title: title,
+          content: content
+        },
+        success: function (result) {
+          // change postId
+          const postId = result.ID;
+          $('input[name="postID"]').val(postId);
+
+          // submit images
+          $('#fileupload button[type="submit"]').click();   // vr image
+          $('#fileupload2 button[type="submit"]').click();    // normal image
+
+          var stopInterval = function(interval) {
+            clearInterval(interval);
+          }
+
+          var t = setInterval(function() {
+            if ($('#fileupload .template-upload').length == 0 && $('#fileupload2 .template-upload').length == 0) {
+              uploading = false;
+              alert('upload success !');
+              stopInterval(t);
+              location.reload();
+            }
+          }, 500);
+        },
+        error: function (error) {
+          uploading = false;
+          alert(error);
+        }
+      });
+
+      return false;
+    });
+  });
+</script>
+
+<!-- Page -->
+<script>
+// 탭 클릭시
+$('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
+  /* VR 이미지 업로드 안됐을 때 */
+  // if (VR 없을 때 조건) {
+  alert('VR 이미지를 업로드해주세요');
+  $(this).blur();
+  // return false;
+  // }
+
+  $(window).scrollTop(0);
+
+  // 다음 맵 갱신
+  if ( $(this).index('.vwrite .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-complete') !== 'true' ) {
+    $(this).attr('data-complete', 'true');
+
+    window.setTimeout(function() {
+      map.relayout();
+    }, 500);
+  }
+});
+
+// 이전, 다음 trigger
+$('.vwrite .write-button a').click(function(e) {
+  $('.vwrite .nav a[href="' + $(this).attr('href') + '"]').trigger('click');
+});
+</script>
+<!--// Page -->
 
 </body>
-
 </html>

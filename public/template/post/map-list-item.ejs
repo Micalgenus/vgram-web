@@ -1,42 +1,23 @@
 <% var vrimages = JSON.parse(post.thumbnail_image_path)[0].vrimages %>
-<article class="portfolio-item pf-graphics pf-illustrations" data-id="<%= post.ID %>">
-    <div class="portfolio-image">
-        <div class="fslider" data-arrows="false">
-          <div class="flexslider">
-             <!-- thumb.jpg를 미리보기로 -->
-              <div class="slider-wrap">
-                <% for (var i = 0; i < vrimages.length; i++) { %>
-                <div class="slide"><a href="portfolio-single-gallery.html"><img src="<%= mediaUrl %>/<%= vrimages[i].thumb %>" alt="Shake It"></a></div>
-                 <% } %>
-              </div>
-          </div>
-        </div>
-       <!-- thumb.jpg가 pano_f.jpg임 -->
-        <div class="portfolio-overlay" data-lightbox="gallery">
+<article class="portfolio-item <%= post.post_type %>" data-id="<%= post.ID %>">
+  <div class="portfolio-image">
+    <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+      <div class="flexslider">
+        <div class="slider-wrap">
           <% for (var i = 0; i < vrimages.length; i++) { %>
-            <% if (i == 0) { %>
-              <a href="<%= [mediaUrl, post.media[i].file_path, post.media[i].file_name].join("/") %>" class="left-icon" data-lightbox="gallery-item"><i class="icon-line-stack-2"></i></a>
-            <% } else { %>
-              <a href="<%= [mediaUrl, post.media[i].file_path, post.media[i].file_name].join("/") %>" class="hidden" data-lightbox="gallery-item"></a>
-            <% } %>
+          <div class="slide"><a href="/post/<%= post.ID %>" class="ajax-link"><img src="<%= mediaUrl %>/<%= vrimages[i].thumb %>" alt=""></a></div>
           <% } %>
-          <!-- <a href="/lib/js-canvas/images/portfolio/full/1.jpg" class="right-icon"><i class="icon-line-ellipsis"></i></a> -->
         </div>
+      </div>
     </div>
-
-    <div class="testimonial">
-        <div class="testi-image">
-          <a href="/user/<%= post.user.ID %>"><img src="<%= post.user.profile_image_path %>" alt="Customer Testimonails"></a>
-        </div>
-        <div class="testi-meat"><p style=" margin-bottom:0px;"><%= post.user.nickname %></p></div>
-        <div class="clear"></div>
-        <div class="portfolio-desc">
-          <h3><a href="/post/<%= post.ID %>"><%= post.title %></a></h3>
-        </div>
-      <ul class="entry-meta clearfix">
-        <li><i class="icon-line-heart"></i><span><%= post.LikeUsers.length %></span></li>
-        <li><i class="icon-calendar3"></i><%= new Date(post.createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></li>
-        <li><i class="icon-comments"></i><%= post.Comments.length %></li>
-      </ul>
-    </div>
-  </article>
+  </div>
+  <div class="portfolio-desc">
+    <span class="author"><a href="/user/<%= post.user.ID %>"><img src="<%= post.user.profile_image_path %>" alt=""> <%= post.user.nickname %></a></span>
+    <h3><a href="/post/<%= post.ID %>" class="ajax-link"><%= post.title %></a></h3>
+    <span class="info clearfix">
+      <span class="date"><%= new Date(post.createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></span>
+      <span class="heart"><i class="icon-heart3"></i> <%= post.LikeUsers.length %></span>
+      <span class="comment"><i class="icon-comments"></i> <%= post.Comments.length %></span>
+    </span>
+  </div>
+</article>

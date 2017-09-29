@@ -1,71 +1,7 @@
 <div class="list-group">
-  <a href="/user/change" class="list-group-item clearfix">Profile <i class="icon-user pull-right"></i></a>
-  <a href="#" class="list-group-item clearfix">비밀번호 변경 <i class="icon-laptop2 pull-right"></i></a>
-  <a href="#" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
-  <a href="/auth/logout" class="list-group-item clearfix">Logout<i class="icon-line2-logout pull-right"></i></a>
+  <a href="/user/change" class="list-group-item clearfix active">Profile <i class="icon-user pull-right"></i></a>
+  <a href="/html/password.html" class="list-group-item clearfix">Password <i class="icon-key pull-right"></i></a>
+  <a href="/html/settings.html" class="list-group-item clearfix">Settings <i class="icon-cog pull-right"></i></a>
+  <a href="/message/<%= memberIdx %>" class="list-group-item clearfix">Message <i class="icon-cog pull-right"></i></a>
+  <a href="/auth/logout" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
 </div>
-
-
-
-<div class="fancy-title topmargin title-border">
-  <h4>About Me</h4>
-</div>
-
-<p>
-  <%= about %>
-</p>
-
-<div class="fancy-title topmargin title-border">
-  <h4>Social Profiles</h4>
-</div>
-
-<% if (sns.website) { %>
-  <a href="<%= sns.website %>" target="_blank" class="social-icon si-colored si-delicious" title="Facebook">
-    <i class="icon-home"></i>
-    <i class="icon-home"></i>
-  </a>
-<% } %>
-
-<% if (sns.facebook) { %>
-  <a href="<%= sns.facebook %>" target="_blank" class="social-icon si-colored si-facebook" title="Facebook">
-    <i class="icon-facebook"></i>
-    <i class="icon-facebook"></i>
-  </a>
-<% } %>
-
-<% if (sns.instagram) { %>
-  <a href="<%= sns.instagram %>" target="_blank" class="social-icon si-colored si-instagram" title="instagram">
-    <i class="icon-instagram"></i>
-    <i class="icon-instagram"></i>
-  </a>
-<% } %>
-
-<% if (sns.twitter) { %>
-  <a href="<%= sns.twitter %>" target="_blank" class="social-icon si-colored si-twitter" title="instagram">
-    <i class="icon-twitter"></i>
-    <i class="icon-twitter"></i>
-  </a>
-<% } %>
-
-<!--kakaotalk-->
-<!-- <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
-      <a id="kakao-link-btn" href="javascript:sendLink()">
-         <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
-      </a>
-   </span> -->
-
-
-<!--band-->
-<!-- <span href="#" data-lightbox="inline">
-       <script type="text/javascript">
-         new ShareBand.makeButton({"lang": "ko", "type": "d"});
-       </script>
-     </span> -->
-
-
-
-<!--url share-->
-<!-- <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
-        <i class="icon-delicious"></i>
-        <i class="icon-delicious"></i>
-</span> -->

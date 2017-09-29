@@ -22,7 +22,8 @@ var web = {
   redirectController: require('./controllers/web/redirect'),
   userController: require('./controllers/web/view-user'),
   testController: require('./controllers/web/test'),
-  postController: require('./controllers/web/view-post')
+  postController: require('./controllers/web/view-post'),
+  messageController: require('./controllers/web/message')
 };
 
 var api = {
@@ -133,6 +134,7 @@ module.exports = function (app) {
   web.publicRoute = express.Router();
   web.postRoute = express.Router();
   web.testRoute = express.Router();
+  web.messageRoute = express.Router();
 
   api.defaultRoute = express.Router();
   api.publicRoute = express.Router();
@@ -424,6 +426,14 @@ module.exports = function (app) {
   //=========================
   // web.rootRoute.use('/map', web.mapRoute);
 
+
+  //=========================
+  // web - Message Routes
+  //=========================
+  web.rootRoute.use('/message', web.messageRoute);
+
+  web.messageRoute.get('/', requireWebAuth, loginCheck, init, web.messageController.viewChat);
+  web.messageRoute.get('/:userIdx', requireWebAuth, loginCheck, init, web.messageController.viewChatByMember);
 
 
   //=========================

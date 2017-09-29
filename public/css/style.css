@@ -379,6 +379,9 @@ body.top-search-open #top-notification {
 .nav {
   margin-bottom: 30px !important; }
 
+.si-share {
+  padding-left: 0; }
+
 .button,
 .social-icon {
   border-radius: 4px; }
@@ -498,6 +501,21 @@ body.top-search-open #top-notification {
 
 @media (max-width: 479px) {
   .address input, .address button {
+    width: 100%; } }
+
+.profile .address input:nth-of-type(1) {
+  float: left;
+  width: 100px; }
+
+.profile .address input:nth-of-type(2),
+.profile .address input:nth-of-type(3) {
+  width: calc(50% - 100px); }
+
+@media (max-width: 479px) {
+  .profile .address input:nth-of-type(1), .profile .address button {
+    width: 50%; }
+  .profile .address input:nth-of-type(2),
+  .profile .address input:nth-of-type(3) {
     width: 100%; } }
 
 /* Index */
@@ -642,6 +660,16 @@ body#sub-full #footer {
             transform-origin: 50% 50%; }
   .clist .commentlist .comment-author span {
     font-style: normal; }
+  .clist .commentlist .comment-reply-link {
+    top: 2px;
+    width: auto;
+    height: auto; }
+    .clist .commentlist .comment-reply-link .button {
+      width: 60px;
+      margin: 0 2px;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center; }
 
 .clist .clist-more a {
   padding: 10px;
@@ -873,7 +901,7 @@ body#sub-full #footer {
 
 .vwrite table tbody.files td {
   width: 25%;
-  padding: 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
   vertical-align: middle; }
   .vwrite table tbody.files td * {
@@ -885,6 +913,7 @@ body#sub-full #footer {
   .vwrite table tbody.files td:nth-of-type(3) {
     text-align: center; }
   .vwrite table tbody.files td:nth-of-type(4) {
+    padding-right: 10px;
     text-align: right; }
 
 .vwrite #daum-map {
@@ -905,7 +934,8 @@ body#sub-full #footer {
     z-index: 10;
     width: 35%;
     height: calc(100% - 60px); }
-    #map-container .map #google-map {
+    #map-container .map #google-map,
+    #map-container .map #map {
       width: 100%;
       height: 100%; }
   #map-container .vlist {
@@ -954,6 +984,18 @@ body#sub-full #footer {
 .heading-block.info > span i {
   margin: -3px 0 0;
   vertical-align: middle; }
+
+.heading-block.info .panel-default {
+  clear: both;
+  margin: 20px 0 0; }
+  .heading-block.info .panel-default .author-content {
+    margin-bottom: 10px; }
+  .heading-block.info .panel-default .si-share {
+    clear: both;
+    text-align: right; }
+    .heading-block.info .panel-default .si-share .social-icon {
+      display: inline-block;
+      float: none; }
 
 /* 유저정보 */
 @media (max-width: 479px) {

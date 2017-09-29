@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <% include ../static/head.ejs %>
 </head>
+<body id="sub" class="stretched no-transition no-smooth-scroll">
 
-<body class="stretched">
-  <!-- HEADER -->
+<div id="wrapper" class="clearfix">
   <% include ../addon/header.ejs %>
+  <main>
+    <div id="login-container"></div>
+  </main>
+  <% include ../addon/footer.ejs %>
+</div>
 
-    <!-- CONTENT -->
-    <div class="content-wrap">
-      <div id="login-container" class="container clearfix">
-      </div>
-    </div>
-    <!-- END / CONTENT -->
+<div id="gotoTop" class="icon-angle-up"></div>
 
-    <!-- FOOTER -->
-    <% include ../addon/footer.ejs %>
+<!-- LOAD JAVASCRIPT -->
+<% include ../static/js.ejs %>
 
-      <!-- LOAD JAVASCRIPT -->
-      <% include ../static/js.ejs %>
-        <script>
-          var lock = new Auth0Lock(
-            '<%= AUTH0_CLIENT_ID %>',
-            '<%= AUTH0_DOMAIN %>',
-            {
-              auth: {
-                redirectUrl: '<%= AUTH0_CALLBACK_URL %>',
-                responseType: 'code',
-                params: {
-                  scope: 'openid name email picture ID'
-                },
-              },
-              container: 'login-container',
-              additionalSignUpFields: [
-                {
-                  name: "nickname",
-                  placeholder: "Enter your nick name",
-                  validator: function(nickname) {
-                    return {
-                      valid: nickname.length >= 6,
-                      hint: "Must have 6 or more chars" // optional
-                    };
-                  }
-                }, {
-                  type: "select",
-                  name: "member_type",
-                  placeholder: "choose your member type",
-                  options: [
-                    { value: "PUBLIC", label: "일반 회원" },
-                    { value: "BUSINESS", label: "사업주 회원" }
-                  ],
+<!-- Page -->
+<script type="text/javascript">
+  var lock = new Auth0Lock(
+    '<%= AUTH0_CLIENT_ID %>',
+    '<%= AUTH0_DOMAIN %>',
+    {
+      language: 'ko',
+      theme: {
+        logo: '/images/login.png',
+        primaryColor: '#3498db'
+      },
+      languageDictionary: {
+        emailInputPlaceholder: "이메일 (ex: id@gmail.com)",
+        title: "Vgram"
+      },
+
+      auth: {
+        redirectUrl: '<%= AUTH0_CALLBACK_URL %>',
+        responseType: 'code',
+        params: {
+          scope: 'openid name email picture ID'
+        },
+      },
+      container: 'login-container',
+      additionalSignUpFields: [
+        {
+          name: "nickname",
+          placeholder: "닉네임 입력 (필수)",
+          validator: function(nickname) {
+            return {
+              valid: nickname.length >= 6,
+              hint: "닉네임은 6글자 이상입니다" // optional
+            };
+          }
+        }, {
+          type: "select",
+          name: "member_type",
+          placeholder: "회원 종류 선택 (필수)",
+          options: [
+            { value: "PUBLIC", label: "일반 회원" },
+            { value: "BUSINESS", label: "사업주 회원" }
+          ],
 //                  options: function(cb) {                               // required
 //                    // obtain options, in case of error you call cb with the error in the
 //                    // first arg instead of null
@@ -62,12 +70,13 @@
 //                    // first arg instead of null
 //                    cb(null, prefill);
 //                  },
-                }
-              ]
-            });
+        }
+      ]
+    });
 
-          lock.show();
-        </script>
+  lock.show();
+</script>
+<!--// Page -->
+
 </body>
-
 </html>

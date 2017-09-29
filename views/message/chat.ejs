@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <% include ../static/head.ejs %>
+   <link rel="stylesheet" href="/css/chat.css" type="text/css" />
+</head>
+<body id="index" class="stretched no-transition no-smooth-scroll">
+
+<div id="wrapper" class="clearfix">
+  <% include ../addon/header.ejs %>
+  <main>
+    <div class="container">
+      <div class="row clearfix">
+
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+      
+        <!-- Firechat -->
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+        <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
+      
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+      
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-storage.js"></script>
+      
+        <script>
+          // Initialize Firebase
+          // TODO: Replace with your project's customized code snippet
+          var config = {
+            apiKey: "AIzaSyDycRGYGxEGmudxc8py7c0yPiaORwmz8Kk",
+            authDomain: "cozyhouzz-531c2.firebaseapp.com",
+            databaseURL: "https://cozyhouzz-531c2.firebaseio.com/",
+            storageBucket: "cozyhouzz-531c2.appspot.com",
+            messagingSenderId: "922421781014",
+          };
+      
+          firebase.initializeApp(config);
+        </script>
+
+        <div id="firechat-wrapper"></div>
+
+        <script>
+          function initChat(user) {
+            firebase.auth().signInWithCustomToken('<%= token %>').catch(function (error) {
+              console.log(error);
+            })
+            // Get a Firebase Database ref
+            var chatRef = firebase.database().ref("chat");
+
+            // Create a Firechat instance
+            var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+            // Set the Firechat user
+            chat.setUser(user.uid, user.displayName);
+          }
+          
+          var user = {
+            uid: <%= userIdx %>,
+            displayName: '<%= nickname %>'
+          }
+
+          initChat(user);
+        </script>
+      </div>
+    </div>
+  </main>
+  <% include ../addon/footer.ejs %>
+</div>
+
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<!-- LOAD JAVASCRIPT -->
+<% include ../static/js.ejs %>
+
+</body>
+</html>

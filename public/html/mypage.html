@@ -106,7 +106,7 @@
             <a href="#" class="list-group-item clearfix">Logout <i class="icon-line2-logout pull-right"></i></a>
           </div>
         </div>
-        <div class="mypage col-sm-9">
+        <div class="col-sm-9">
           <img src="/lib/js-canvas/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="width: 84px;">
           <div class="heading-block noborder info">
             <h3>모랩</h3>
@@ -114,13 +114,38 @@
               <span><i class="icon-heart3"></i> 0</span>
               <span><i class="icon-star3"></i> 사업장 회원</span>
             </span>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="author-content">
+                  내용입니다.
+                </div>
+                <div class="si-share noborder">
+                  <a href="#" class="social-icon si-colored si-small si-website">
+                    <i class="icon-website"></i>
+                    <i class="icon-website"></i>
+                  </a>
+                  <a href="#" class="social-icon si-colored si-small si-facebook">
+                    <i class="icon-facebook"></i>
+                    <i class="icon-facebook"></i>
+                  </a>
+                  <a href="#" class="social-icon si-colored si-small si-instagram">
+                    <i class="icon-instagram"></i>
+                    <i class="icon-instagram"></i>
+                  </a>
+                  <a href="#" class="social-icon si-colored si-small si-blog">
+                    <i class="icon-blog"></i>
+                    <i class="icon-blog"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="clear"></div>
             
           <div class="user">
             <ul class="nav nav-tabs boot-tabs">
-              <li><a href="#user1" data-toggle="tab">팔로워</a></li>
+              <li class="active"><a href="#user1" data-toggle="tab">팔로워</a></li>
               <li><a href="#user2" data-toggle="tab">팔로잉</a></li>
               <li><a href="#user3" data-toggle="tab">포스트</a></li>
               <li><a href="#user4" data-toggle="tab">알림</a></li>
@@ -574,8 +599,8 @@ $('.user .nav a[data-toggle="tab"]').click(function(e) {
   $('.flexslider').resize(); // 리스트 갱신 버그 처리
   
   // posts 활성화
-  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-map-complete') !== 'true' ) {
-    $(this).attr('data-map-complete', 'true');
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-complete') !== 'true' ) {
+    $(this).attr('data-complete', 'true');
     window.setTimeout(function() {
       (function() {
         var $container = $('#posts');
@@ -607,8 +632,8 @@ $('.user .nav a[data-toggle="tab"]').click(function(e) {
   }
 
   // likeposts 활성화
-  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 4 && $(this).attr('data-map-complete') !== 'true' ) {
-    $(this).attr('data-map-complete', 'true');
+  if ( $(this).index('.user .nav a[data-toggle="tab"]') === 4 && $(this).attr('data-complete') !== 'true' ) {
+    $(this).attr('data-complete', 'true');
     window.setTimeout(function() {
       (function() {
         var $container = $('#likeposts');
