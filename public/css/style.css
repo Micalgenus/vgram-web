@@ -386,6 +386,9 @@ body.top-search-open #top-notification {
 .social-icon {
   border-radius: 4px; }
 
+.si-rounded {
+  border-radius: 50%; }
+
 .button:hover {
   background-color: #3498db; }
 
@@ -460,12 +463,30 @@ body.top-search-open #top-notification {
   font-size: 0; }
 
 .si-blog {
-  background-color: #3dd037; }
+  background-color: #00ce38; }
 
 .icon-blog {
   width: 30px;
   height: 30px;
   background: url("/images/social_blog.png") 0 0 no-repeat;
+  background-size: 30px 30px;
+  font-size: 0; }
+
+.si-band {
+  position: relative;
+  background-color: #3dd037; }
+  .si-band a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    opacity: 0.01; }
+
+.icon-band {
+  width: 30px;
+  height: 30px;
+  background: url("/images/social_band.png") 0 0 no-repeat;
   background-size: 30px 30px;
   font-size: 0; }
 
@@ -985,9 +1006,19 @@ body#sub-full #footer {
   margin: -3px 0 0;
   vertical-align: middle; }
 
+.heading-block.info .contact {
+  clear: both;
+  margin: 15px 0 0;
+  text-align: center; }
+  .heading-block.info .contact .social-icon {
+    display: inline-block;
+    float: none; }
+    .heading-block.info .contact .social-icon:hover {
+      background-color: rgba(0, 0, 0, 0.05) !important; }
+
 .heading-block.info .panel-default {
   clear: both;
-  margin: 20px 0 0; }
+  margin: 15px 0 0; }
   .heading-block.info .panel-default .author-content {
     margin-bottom: 10px; }
   .heading-block.info .panel-default .si-share {
