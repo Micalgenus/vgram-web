@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /**
  * Created by KIMSEONHO on 2016-11-12.
  * setting sequelize test database, in tests/data folder.

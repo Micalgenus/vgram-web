@@ -44,7 +44,7 @@ models.sequelize.sync({ logging: logger.debug, force: overwrite }).then(function
      let setTestDatabase = require('../modules/setTestDatabase');
      let testDB = require('../tests/data');
 
-      return setTestDatabase(testDB);    // test DB
+     return setTestDatabase(testDB);    // test DB
    }
 }).catch(function(err) {
   logger.error(err + ' on sequelize.sync error');

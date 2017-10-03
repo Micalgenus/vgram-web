@@ -347,7 +347,8 @@ exports.checkUser = function (req, res, next) {
           "website": "",
           "facebook": "",
           "instagram": "",
-          "blog_naver": ""
+          "blog": "",
+          "twitter": ""
         }
       }
     };
@@ -381,7 +382,8 @@ exports.checkUser = function (req, res, next) {
                 "website": "",
                 "facebook": "",
                 "instagram": "",
-                "blog_naver": ""
+                "blog": "",
+                "twitter": ""
               }
             },
             app_metadata: {

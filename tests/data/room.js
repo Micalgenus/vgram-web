@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -168,7 +170,7 @@ var testOptions = [
    ["internet", "washer", "bed", "desk", "refrigerator"]
 ];
 
-for (i = 0; i < 30; i++) {  // ROOM 관련 test 데이터 30개 생성
+for (let i = 0; i < 30; i++) {  // ROOM 관련 test 데이터 30개 생성
    var tmp = {
       ID: i + 1,
       post_id: i + 1,

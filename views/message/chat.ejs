@@ -14,22 +14,26 @@
 
         <!-- jQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-      
+
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-      
+
         <!-- Firechat -->
         <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
         <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
-      
+
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-      
+
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-storage.js"></script>
-      
+
+        <script src="lib/ejs.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+        <script src="js/firechat-ui.js"></script>
+
         <script>
           // Initialize Firebase
           // TODO: Replace with your project's customized code snippet
@@ -40,7 +44,7 @@
             storageBucket: "cozyhouzz-531c2.appspot.com",
             messagingSenderId: "922421781014",
           };
-      
+
           firebase.initializeApp(config);
         </script>
 
@@ -58,9 +62,11 @@
             var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
 
             // Set the Firechat user
-            chat.setUser(user.uid, user.displayName);
+            chat.setUser(user.uid, user.displayName, function(user) {
+              chat.resumeSession();
+            });
           }
-          
+
           var user = {
             uid: <%= userIdx %>,
             displayName: '<%= nickname %>'

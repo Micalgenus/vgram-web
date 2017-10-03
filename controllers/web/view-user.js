@@ -59,7 +59,7 @@ exports.viewChangeProfile = function (req, res) {
 
       let sns = u.meta_value.sns || {};
 
-      return res.render('member/change', {
+      return res.render('user/change', {
         ENV: req.env,
         logined: req.user.logined,
         userIdx: req.user.ID,
@@ -96,7 +96,7 @@ exports.viewChangeProfile = function (req, res) {
 exports.viewProfile = function (req, res) {
 
   // let userIdx = req.user.ID;
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   var business_type,
     registered_number,
@@ -135,7 +135,7 @@ exports.viewProfile = function (req, res) {
 
       let sns = u.meta_value.sns || {};
 
-      return res.render('member/mypage', {
+      return res.render('user/mypage', {
         ENV: req.env,
         logined: req.user.logined,
         userIdx: req.user.ID,
@@ -150,7 +150,6 @@ exports.viewProfile = function (req, res) {
 
         myPage: myPage,
 
-        memberIdx: u.ID,
         nickname: u.nickname,
         member_type: u.member_type,
         userLikeCount: c.length,
@@ -174,7 +173,7 @@ exports.viewProfile = function (req, res) {
 
 exports.getFollower = function (req, res) {
   // id->target에서 id추출
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   return User.findAll({
     include: [{
@@ -191,7 +190,7 @@ exports.getFollower = function (req, res) {
 
 exports.getFollowing = function (req, res) {
   // id->target에서 target추출
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   return User.findOne({
     include: [{
@@ -207,7 +206,7 @@ exports.getFollowing = function (req, res) {
 }
 
 exports.getPosts = function (req, res) {
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   return Post.findAll({
     include: [{
@@ -229,7 +228,7 @@ exports.getPosts = function (req, res) {
 }
 
 // exports.getReplies = function (req, res) {
-//   let userIdx = req.params.memberIdx;
+//   let userIdx = req.params.userIdx;
 //
 //   return Comment.findAll({
 //     include: [{
@@ -244,7 +243,7 @@ exports.getPosts = function (req, res) {
 // }
 
 exports.getNotice = function (req, res) {
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   return User.findOne({
     where: {
@@ -293,7 +292,7 @@ exports.getNotice = function (req, res) {
 }
 
 exports.getLikeposts = function (req, res) {
-  let userIdx = req.params.memberIdx;
+  let userIdx = req.params.userIdx;
 
   return User.findOne({
     include: [{
@@ -340,7 +339,8 @@ exports.change = function (req, res, next) {
     website: req.body.website,
     facebook: req.body.facebook,
     instagram: req.body.instagram,
-    twitter: req.body.twitter
+    twitter: req.body.twitter,
+    blog: req.body.blog
   };
 
   return authController.getAdminToken().then(function (token) {
@@ -355,7 +355,7 @@ exports.change = function (req, res, next) {
           telephone: phone,
           phone_number: phone,
           profile_image_path: profile_src,
-          locale: req.user.user_metadata.locale,
+          locale: "ko-kr" || req.user.user_metadata.locale,
           registered_number: registered_number,
           address: address,
           sns: sns,
@@ -395,26 +395,32 @@ exports.change = function (req, res, next) {
 
         req.user.tokenType = 'Bearer';
 
-        req.user.profile = {
-          "email_verified": body.email_verified,
-          "email": body.email,
-          "user_metadata": body.user_metadata,
-          "clientID": req.user.clientID,
-          "updated_at": body.updated_at,
-          "name": body.name,
-          "picture": body.picture,
-          "user_id": body.user_id,
-          "nickname": body.nickname,
-          "identities": body.identities,
-          "created_at": body.created_at,
-          "persistent": body.persistent,
-          "app_metadata": req.user.app_metadata,
-          "roles": req.user.app_metadata.roles,
-          "user_status": req.user.app_metadata.user_status,
-          "point": req.user.app_metadata.point,
-          "ID": req.user.app_metadata.ID,
-          "sub": req.user.sub,
-        };
+        console.log(body);
+        console.log(u);
+
+        req.user.profile = body;
+
+
+        // req.user.profile = {
+        //   "email_verified": body.email_verified,
+        //   "email": body.email,
+        //   "user_metadata": body.user_metadata,
+        //   "clientID": req.user.clientID,
+        //   "updated_at": body.updated_at,
+        //   "name": body.name,
+        //   "picture": body.picture,
+        //   "user_id": body.user_id,
+        //   "nickname": body.nickname,
+        //   "identities": body.identities,
+        //   "created_at": body.created_at,
+        //   "persistent": body.persistent,
+        //   "app_metadata": req.user.app_metadata,
+        //   "roles": req.user.app_metadata.roles,
+        //   "user_status": req.user.app_metadata.user_status,
+        //   "point": req.user.app_metadata.point,
+        //   "ID": req.user.app_metadata.ID,
+        //   "sub": req.user.sub,
+        // };
 
         return next();
       });

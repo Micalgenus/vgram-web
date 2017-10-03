@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -22,8 +24,8 @@ var testContent = [
    "가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하",
    '<pre><code class="js hljs javascript">Project.belongsToMany(User, {through: <span class="hljs-string">UserProject</span>})User.belongsToMany(Project, {through: <span class="hljs-string">UserProject</span>});</code></pre>'];
 
-for (i = 0; i < postData.length; i++) {  // comment 관련 test 데이터 30개 생성
-   for(j = 0; j < userData.length; j++) {
+for (let i = 0; i < postData.length; i++) {  // comment 관련 test 데이터 30개 생성
+   for(let j = 0; j < userData.length; j++) {
       var comment = {
          post_id: postData[i].ID,
          user_id: userData[j].ID,

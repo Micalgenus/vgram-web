@@ -102,6 +102,9 @@ const auth0Login = new Auth0Strategy(auth0options, (accessToken, refreshToken, e
       profile: profile._json
    }
 
+   console.log("profile");
+   console.log(profile._json);
+
    return done(null, result);
 });
 

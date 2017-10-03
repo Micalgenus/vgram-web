@@ -296,17 +296,17 @@ module.exports = function (app) {
   web.userRoute.post('/change', requireWebAuth, init, web.userController.change, web.authController.setToken, web.redirectController.redirectChange);
 
   // 회원정보 조회
-  web.userRoute.get('/:memberIdx([0-9]+)', requireWebAuth, init, web.userController.viewProfile);
+  web.userRoute.get('/:userIdx([0-9]+)', requireWebAuth, init, web.userController.viewProfile);
 
   web.userRoute.delete('/delete', requireWebAuth, loginCheck, web.userController.delete);
 
   // member정보를 json형식으로 출력
-  web.userRoute.get('/:memberIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
-  // web.userRoute.get('/:memberIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/notice', requireWebAuth, init, web.userController.getNotice);
-  web.userRoute.get('/:memberIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
+  web.userRoute.get('/:userIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
+  web.userRoute.get('/:userIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);
+  web.userRoute.get('/:userIdx([0-9]+)/json/posts', requireWebAuth, init, web.userController.getPosts);
+  // web.userRoute.get('/:userIdx([0-9]+)/json/replies', requireWebAuth, init, web.userController.getReplies);
+  web.userRoute.get('/:userIdx([0-9]+)/json/notice', requireWebAuth, init, web.userController.getNotice);
+  web.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
   //=========================
   // api - Member Routes
@@ -327,18 +327,18 @@ module.exports = function (app) {
   // api.userRoute.post('/modifyInfo', requireAPIAuth, api.authController.modifyInfo);
 
   // View publicRoute userRoute profile route
-  // userRouteAPI.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
-  //userRouteView.get('/:memberIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  // userRouteAPI.get('/:userIdx([0-9]+)', requireAuth, UserController.viewProfile);
+  //userRouteView.get('/:userIdx([0-9]+)', requireAuth, UserController.viewProfile);
 
   // Update userRoute profile route   <- 일반 회원와 사업주 회원을 같이 처리하자
-  // userRouteAPI.put('/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, authRouteController.login);
-  //  userRouteView.get('/update/:memberIdx([0-9]+)', requireAuth, UserController.updateProfile);
+  // userRouteAPI.put('/:userIdx([0-9]+)', requireAuth, UserController.updateProfile, requireLogin, authRouteController.login);
+  //  userRouteView.get('/update/:userIdx([0-9]+)', requireAuth, UserController.updateProfile);
 
   // View business userRoute profile route
-  // userRouteRoutes.get('/biz/:memberIdx', requireAuth, UserController.viewBizProfile);
+  // userRouteRoutes.get('/biz/:userIdx', requireAuth, UserController.viewBizProfile);
 
   // update business userRoute profile route - 이미지 업로드 기능을 추가해야함.
-  // userRouteRoutes.put('/biz/:memberIdx', requireAuth, bizImageUpload, UserController.updateBizProfile);
+  // userRouteRoutes.put('/biz/:userIdx', requireAuth, bizImageUpload, UserController.updateBizProfile);
 
 
   //=========================

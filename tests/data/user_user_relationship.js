@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -60,9 +62,9 @@ let relationdata = [
     //    }
 ]
 // relationdata = _.map(userData, function (user, i) {
-  
+
 //     for (var user of userData) {
-        
+
 //         return {
 //             user_id: user.ID,
 //             user_target_id: user.ID+1
@@ -72,22 +74,24 @@ let relationdata = [
 //         // }
 //     }
 // });
-for (var i = 1; i <= userData.length; i++) {
-    for (var j = 1; j <= userData.length; j++) {
-        if(j % 3 ==0)
-            continue;
+for (var i = 0; i < userData.length; i++) {
+    for (var j = 0; j < userData.length; j++) {
+        if (j % 3 == 0 || i === j) {
+          continue;
+        }
+
         var tmp = {
-            user_id: i,
-            user_target_id: j
+            user_id: userData[i].ID,
+            user_target_id: userData[j].ID
         };
         // tmp.likerelationship.push({
         //     user_id: i,
         //     post_id: j
         // });
-        
+
         relationdata.push(tmp);
     }
-    
+
 }
 
 module.exports = relationdata;

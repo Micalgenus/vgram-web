@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -77,24 +79,24 @@ let likerelationship = [
 //     }
 // });
 
-for (var i = 1; i <= userData.length; i++) {
-    for (var j = 1; j <= postData.length; j++) {
-        if(i%3==0)
-            continue;
-        if (j%3==0)
-            continue;
+for (var i = 0; i < userData.length; i++) {
+    for (var j = 0; j < postData.length; j++) {
+        if (i%3==0 || j%3==0 || userData[i].ID === postData[j].user_id) {
+          continue;
+        }
+
         var tmp = {
-            user_id: i,
-            post_id: j
+            user_id: userData[i].ID,
+            post_id: postData[j].ID
         };
         // tmp.likerelationship.push({
         //     user_id: i,
         //     post_id: j
         // });
-        
+
         likerelationship.push(tmp);
     }
-    
+
 }
 
 module.exports = likerelationship;

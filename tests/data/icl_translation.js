@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -123,7 +125,7 @@ var data = [
    // }
 ];
 
-for (i = 0; i < 30; i++) {  // room 관련 test 데이터 30개 생성
+for (let i = 0; i < 30; i++) {  // room 관련 test 데이터 30개 생성
    var tmp = {
       ID: i + 1,
       element_id: i + 1,
@@ -136,7 +138,7 @@ for (i = 0; i < 30; i++) {  // room 관련 test 데이터 30개 생성
    data[i] = tmp;
 }
 
-for (i = 30; i < 34; i++) {  // post(공지사항, 이벤트) 관련 test 데이터 4개 생성
+for (let i = 30; i < 34; i++) {  // post(공지사항, 이벤트) 관련 test 데이터 4개 생성
    var tmp = {
       ID: i + 1,
       element_id: i + 1,

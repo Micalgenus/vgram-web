@@ -16,8 +16,11 @@
           <% include ./right-side.ejs %>
         </div>
         <div class="profile col-sm-9">
-          <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
-            <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="width: 84px;">
+          <!--<form class="nobottommargin" id="template-contactform" name="template-contactform" method="post">-->
+
+            <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin"
+                 alt="Avatar" style="width: 84px;">
+
             <div class="heading-block noborder info">
               <h3><%= nickname %></h3>
               <span>
@@ -28,79 +31,88 @@
 
             <div class="clear"></div>
 
-            <% if(member_type!='PUBLIC'){ %>
-              <!-- 사업장 -->
-              <div class="col_one_third">
-                <label>프로필 사진</label>
-                <div>
-                  <div class="kv-avatar center-block text-center">
-                    <label class="button button-small nomargin">등록<input id="profile" name="profile" type="file" class="file-loading" style="display: none;"></label>
-                    <input id="profile_src" name="profile_src" type="hidden" value="<%= profile_image_path %>" />
-                    <button type="button" class="button button-small button-red nomargin">삭제</button>
-                  </div>
+            <div class="col_one_third">
+              <label>프로필 사진</label>
+              <div>
+                <div class="kv-avatar center-block text-center">
+                  <!--<label for="profile" class="button button-small nomargin">등록</label>-->
+                  <input id="profile" name="profile" type="file" class="file-loading"">
+                  <input id="profile_src" name="profile_src" type="hidden" value="<%= profile_image_path %>"/>
+                  <!--<button type="button" class="button button-small button-red nomargin">삭제</button>-->
+                  <!--<label class="button button-small nomargin">등록<input type="file" style="display: none;"></label>-->
+                  <!--<button type="button" class="button button-small button-red nomargin">삭제</button>-->
                 </div>
               </div>
+            </div>
 
-              <div class="col_one_third">
-                <label for="nickname">닉네임</label>
-                <input type="text" id="nickname" name="nickname" value="<%= nickname %>" class="sm-form-control required show-error-msg" />
+            <div class="col_one_third">
+              <label for="nickname">닉네임</label>
+              <input type="text" id="nickname" name="nickname" value="<%= nickname %>"
+                     class="sm-form-control required show-error-msg"/>
+            </div>
+
+            <div class="col_one_third col_last">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone" name="phone" value="<%= phone %>" class="sm-form-control show-error-msg"/>
+            </div>
+
+            <div class="clear"></div>
+
+            <% if (member_type != 'PUBLIC') { %>
+            <!-- 사업장 -->
+            <div class="col_one_third">
+              <label for="template-contactform-service">업종</label>
+              <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
+                <option value="">-- Select One --</option>
+                <option value="Wordpress">Wordpress</option>
+                <option value="PHP / MySQL">PHP / MySQL</option>
+                <option value="HTML5 / CSS3">HTML5 / CSS3</option>
+                <option value="Graphic Design">Graphic Design</option>
+              </select>
+            </div>
+
+            <div class="col_one_third">
+              <label for="registered_number">사업자 등록번호*</label>
+              <input type="text" id="registered_number" name="registered_number" value="<%= registered_number %>"
+                     class="sm-form-control required show-error-msg"/>
+            </div>
+
+            <div class="col_one_third col_last">
+              <label for="template-contactform-email">대표명*</label>
+              <input type="email" id="template-contactform-email" name="template-contactform-email" value=""
+                     class="required email sm-form-control"/>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col_full clearfix address">
+              <label>주소</label>
+              <div>
+                <button type="button" onclick="sample4_execDaumPostcode()">주소검색</button>
+                <input type="text" id="sample4_postcode" class="sm-form-control" name="post_code"
+                       value="<%= post_code %>" placeholder="우편번호" readonly>
+                <input type="text" id="sample4_roadAddress" class="sm-form-control" name="addr1" value="<%= addr1 %>"
+                       placeholder="도로명주소" readonly>
+                <input type="text" id="sample4_jibunAddress" class="sm-form-control" name="addr2" value="<%= addr2 %>"
+                       placeholder="지번주소">
+                <span id="guide" style="color:#999"></span>
               </div>
-
-              <div class="col_one_third col_last">
-                <label for="phone">Phone</label>
-                <input type="text" id="phone" name="phone" value="<%= phone %>" class="sm-form-control show-error-msg" />
-              </div>
-
-              <div class="clear"></div>
-
-              <div class="col_one_third">
-                <label for="template-contactform-service">업종</label>
-                <select id="template-contactform-service" name="template-contactform-service" class="sm-form-control">
-                  <option value="">-- Select One --</option>
-                  <option value="Wordpress">Wordpress</option>
-                  <option value="PHP / MySQL">PHP / MySQL</option>
-                  <option value="HTML5 / CSS3">HTML5 / CSS3</option>
-                  <option value="Graphic Design">Graphic Design</option>
-                </select>
-              </div>
-
-              <div class="col_one_third">
-                <label for="registered_number">사업자 등록번호*</label>
-                <input type="text" id="registered_number" name="registered_number" value="<%= registered_number %>" class="sm-form-control required show-error-msg" />
-              </div>
-
-              <div class="col_one_third col_last">
-                <label for="template-contactform-email">대표명*</label>
-                <input type="email" id="template-contactform-email" name="template-contactform-email" value="" class="required email sm-form-control" />
-              </div>
-
-              <div class="clear"></div>
-
-              <div class="col_full clearfix address">
-                <label>주소</label>
-                <div>
-                  <button type="button" onclick="sample4_execDaumPostcode()">주소검색</button>
-                  <input type="text" id="sample4_postcode" class="sm-form-control" name="post_code" value="<%= post_code %>" placeholder="우편번호" readonly>
-                  <input type="text" id="sample4_roadAddress" class="sm-form-control" name="addr1" value="<%= addr1 %>" placeholder="도로명주소" readonly>
-                  <input type="text" id="sample4_jibunAddress" class="sm-form-control" name="addr2" value="<%= addr2 %>" placeholder="지번주소">
-                  <span id="guide" style="color:#999"></span>
-                </div>
-              </div>
-              <!--// 사업장 -->
+            </div>
+            <!--// 사업장 -->
             <% } %>
 
             <!-- 일반 -->
             <div class="col_half">
-              <label>프로필 사진</label>
-              <div>
-                <label class="button button-small nomargin">등록<input type="file" style="display: none;"></label>
-                <button type="button" class="button button-small button-red nomargin">삭제</button>
-              </div>
+              <label>닉네임</label>
+              <input type="text" class="sm-form-control">
             </div>
 
             <div class="col_half col_last">
-              <label>닉네임</label>
-              <input type="text" class="sm-form-control">
+              <label>성별</label>
+              <select class="sm-form-control">
+                <option>남</option>
+                <option>여</option>
+              </select>
             </div>
 
             <div class="clear"></div>
@@ -111,35 +123,34 @@
             </div>
 
             <div class="col_half col_last">
-              <label>성별</label>
-              <select class="sm-form-control">
-                <option></option>
-              </select>
+              <label for="website">WEBSITE</label>
+              <input type="text" id="website" name="website" value="<%= sns.website %>" class="sm-form-control"/>
             </div>
 
             <div class="clear"></div>
             <!--// 일반 -->
 
             <div class="col_half">
-              <label for="website">WEBSITE</label>
-              <input type="text" id="website" name="website" value="<%= sns.website %>" class="sm-form-control" />
+              <label for="facebook">FACEBOOK</label>
+              <input type="email" id="facebook" name="facebook" value="<%= sns.facebook %>"
+                     class="email sm-form-control"/>
             </div>
 
             <div class="col_half col_last">
-              <label for="facebook">FACEBOOK</label>
-              <input type="email" id="facebook" name="facebook" value="<%= sns.facebook %>" class="email sm-form-control" />
+              <label for="instagram">INSTAGRAM</label>
+              <input type="text" id="instagram" name="instagram" value="<%= sns.instagram %>" class="sm-form-control"/>
             </div>
 
             <div class="clear"></div>
 
             <div class="col_half">
-              <label for="instagram">INSTAGRAM</label>
-              <input type="text" id="instagram" name="instagram" value="<%= sns.instagram %>" class="sm-form-control" />
+              <label for="blog">BLOG</label>
+              <input type="text" id="blog" name="blog" value="<%= sns.blog %>" class="sm-form-control"/>
             </div>
 
             <div class="col_half col_last">
               <label for="twitter">TWITTER</label>
-              <input type="text" id="twitter" name="twitter" value="<%= sns.twitter %>" class="sm-form-control" />
+              <input type="text" id="twitter" name="twitter" value="<%= sns.twitter %>" class="sm-form-control"/>
             </div>
 
             <div class="clear"></div>
@@ -152,39 +163,47 @@
             <div class="clear"></div>
 
             <div class="center">
-              <button type="button" id="template-contactform-submit" name="template-contactform-submit" class="button button-small button-red">계정삭제</button>
-              <button type="submit" id="template-contactform-submit" name="template-contactform-submit" class="button button-small">완료</button>
+              <button type="button" id="template-contactform-submit" name="template-contactform-submit"
+                      class="button button-small button-red">계정삭제
+              </button>
+              <button type="submit" id="template-contactform-submit" name="template-contactform-submit"
+                      class="button button-small">완료
+              </button>
             </div>
 
-<!--<a href="#myModal1"  data-lightbox="inline" class="button button-large button-rounded">Trigger Modal</a>-->
+            <!--<a href="#myModal1"  data-lightbox="inline" class="button button-large button-rounded">Trigger Modal</a>-->
 
-<!--<div id="cropModal" style="display:none;">-->
-<!--&lt;!&ndash; crop 이미지 &ndash;&gt;-->
-<!--<img id="cropImg" />-->
-<!--&lt;!&ndash; 버튼들 &ndash;&gt;-->
-<!--<button class="button button-3d button-rounded button-red" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">취소</button>-->
-<!--<button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">확인</button>-->
-<!--</div>-->
-<!--<div class="modal-on-load" data-target="#myModal1"></div>-->
+            <!--<div id="cropModal" style="display:none;">-->
+            <!--&lt;!&ndash; crop 이미지 &ndash;&gt;-->
+            <!--<img id="cropImg" />-->
+            <!--&lt;!&ndash; 버튼들 &ndash;&gt;-->
+            <!--<button class="button button-3d button-rounded button-red" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">취소</button>-->
+            <!--<button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">확인</button>-->
+            <!--</div>-->
+            <!--<div class="modal-on-load" data-target="#myModal1"></div>-->
 
-<!-- 모달 폼 -->
-<div class="mfp-hide" id="cropModal">
-  <div class="block divcenter">
-    <div class="center" style="width: 500px; height: 500px;">
-      <div id="crop-InnerModal" style="width: 500px; height: 500px; position: fixed; left: 33%;">
-        <!-- crop 이미지 -->
-        <img id="cropImg" />
-        <!-- 버튼들 -->
-        <button class="button button-3d button-rounded button-red" type="submit" id="template-contactform-submit" name="template-contactform-submit"
-          value="submit">취소</button>
-        <button class="button button-3d button-rounded button-blue" type="submit" id="template-contactform-submit" name="template-contactform-submit"
-          value="submit">확인</button>
-      </div>
-    </div>
+            <!-- 모달 폼 -->
+            <div class="mfp-hide" id="cropModal">
+              <div class="block divcenter">
+                <div class="center" style="width: 500px; height: 500px;">
+                  <div id="crop-InnerModal" style="width: 500px; height: 500px; position: fixed; left: 33%;">
+                    <!-- crop 이미지 -->
+                    <img id="cropImg"/>
+                    <!-- 버튼들 -->
+                    <button class="button button-3d button-rounded button-red" type="button"
+                            id="template-contactform-submit" name="template-contactform-submit"
+                            value="submit">취소
+                    </button>
+                    <button class="button button-3d button-rounded button-blue" type="button"
+                            id="template-contactform-submit" name="template-contactform-submit"
+                            value="submit">확인
+                    </button>
+                  </div>
+                </div>
 
-  </div>
-</div>
-          </form>
+              </div>
+            </div>
+          <!--</form>-->
         </div>
       </div>
     </div>
@@ -222,11 +241,11 @@
 <!--});-->
 <!--</script>-->
 
-<link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css" />
+<link rel="stylesheet" href="/lib/js-canvas/css/components/bs-filestyle.css" type="text/css"/>
 <script type="text/javascript" src="/lib/js-canvas/js/components/bs-filestyle.js"></script>
 
 <!-- Cropper JS -->
-<link rel="stylesheet" href="/lib/cropperjs/cropper.css" />
+<link rel="stylesheet" href="/lib/cropperjs/cropper.css"/>
 <script src="/lib/cropperjs/cropper.js"></script>
 
 <script>
@@ -286,28 +305,60 @@
   var $profileImg = $("#profile");
   var $cropInnerModal = $('#crop-InnerModal');
   var cropper;
-  var orgFileBase;
+  var orgFileBase, originalURL;
+  <% if (profile_image_path) { %>
+  var profile_image_path = '<%= profile_image_path %>';
+  <% } else { %>
+  var profile_image_path = 'undefined';
+  <% } %>
 
-  $profileImg.fileinput({
+  var fileinputOption = {
     overwriteInitial: true,
     showClose: false,
     showCaption: false,
     browseOnZoneClick: true,
-    browseLabel: 'browse',
-    removeLabel: 'remove',
+    browseLabel: '등록',
+    removeLabel: '삭제',
     browseIcon: '<i class="icon-folder-open"></i>',
     removeIcon: '<i class="icon-remove"></i>',
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors-1',
     msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img src="<%= mediaUrl %>/<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',
-    layoutTemplates: { main2: '{preview} {remove} {browse}' },
+    <!--defaultPreviewContent: '<img src="<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',-->
+//    layoutTemplates: {main2: '{preview} {remove} {browse}'},
+    layoutTemplates: {main2: '{browse} {remove}'},
     allowedFileTypes: ['image'],
     allowedFileExtensions: ["jpg", "png"]
-  });
+  };
+
+  if (profile_image_path) {
+    fileinputOption.showRemove = true;
+    fileinputOption.initialPreview = [profile_image_path];
+
+    $(".img-thumbnail.img-circle").click((event, target) => {
+
+      if (originalURL || profile_image_path) {
+        $.magnificPopup.open({
+          items: {
+            src: $("#cropModal"),
+            type: 'inline',
+            mainClass: 'mfp-no-margins mfp-fade',
+            closeBtnInside: false,
+            fixedContentPos: true,
+            overflowY: 'scroll',
+            modal: true
+          }
+        });
+
+        createCropView(originalURL || profile_image_path);
+      }
+    });
+  }
+
+  $profileImg.fileinput(fileinputOption);
 
   $profileImg.on('change', function (event, numFiles, label) {
-    var originalURL;
+    originalURL;
     var file = document.querySelector('input[type=file]').files[0];
     var reader = new FileReader();
 
@@ -322,24 +373,19 @@
       // preview.src = window.URL.createObjectURL(base64StringToBlob(base64));
       originalURL = window.URL.createObjectURL(base64StringToBlob(base64));
 
-      $(".file-preview-thumbnails .file-preview-frame").click((event, target) => {
-        console.log("clicked");
-
-        $.magnificPopup.open({
-          items: {
-            src: $("#cropModal"),
-            type: 'inline',
-            mainClass: 'mfp-no-margins mfp-fade',
-            closeBtnInside: false,
-            fixedContentPos: true,
-            overflowY: 'scroll',
-            modal: true
-          }
-        });
-
-        createCropView(originalURL);
+      $.magnificPopup.open({
+        items: {
+          src: $("#cropModal"),
+          type: 'inline',
+          mainClass: 'mfp-no-margins mfp-fade',
+          closeBtnInside: false,
+          fixedContentPos: true,
+          overflowY: 'scroll',
+          modal: true
+        }
       });
 
+      createCropView(originalURL);
     }, false);
 
     reader.onerror = function (error) {
@@ -403,9 +449,9 @@
 
   // profile image crop 성공
   $cropInnerModal.find('button.button-blue').click(function () {
-    var preview = document.querySelector('.file-preview img');
+    var preview = document.querySelector('.img-thumbnail.img-circle');
 
-    let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
+    let croppedDataURL = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL();
     preview.src = window.URL.createObjectURL(base64StringToBlob(croppedDataURL));
 
     $.magnificPopup.close();
@@ -424,7 +470,7 @@
       var blobData;
 
       if (cropper) {
-        let croppedDataURL = cropper.getCroppedCanvas({ width: 150, height: 150 }).toDataURL();
+        let croppedDataURL = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL();
         blobData = base64StringToBlob(croppedDataURL);
       } else if (orgFileBase) {
         blobData = base64StringToBlob(orgFileBase);
@@ -439,7 +485,7 @@
         type: 'POST',
         url: '<%= mediaUrl %>/convert/profile',
         data: fd,
-        headers: { authorization: $.cookie("authorization"), },
+        headers: {authorization: $.cookie("authorization"),},
         processData: false,
         contentType: false
       }).done(function (data) {
@@ -461,7 +507,7 @@
       $.ajax({
         type: 'DELETE',
         url: '/user/delete',
-        headers: { authorization: $.cookie("authorization"), },
+        headers: {authorization: $.cookie("authorization"),},
       }).done(function (data) {
         if (data == 'OK') location.href = '/auth/logout';
       });

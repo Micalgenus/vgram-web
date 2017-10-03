@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Created by KIMSEONHO on 2016-09-02.
  */
@@ -791,7 +793,7 @@ var testThumbnails = [];
 /**
  * VR 이미지 포함 글 thumbnail 정보 생성
  */
-for (i = 0; i < mediaData.length; i++) {     // testVRThumbnails 제작
+for (let i = 0; i < mediaData.length; i++) {     // testVRThumbnails 제작
    if (_.eq(mediaData[i].type, "VTOUR")) {
       var tmp = {};
       tmp.ID = mediaData[i].ID;
@@ -814,7 +816,7 @@ for (i = 0; i < mediaData.length; i++) {     // testVRThumbnails 제작
 /**
  * 이벤트, 공지사항 관련 글 thumbnail 정보 생성
  */
-for (i = 0; i < mediaData.length; i++) {     // testThumbnails 제작
+for (let i = 0; i < mediaData.length; i++) {     // testThumbnails 제작
    if (_.eq(mediaData[i].type, "NORMAL_IMAGE")) {
       var tmp = {};
       tmp.ID = mediaData[i].ID;
@@ -830,7 +832,7 @@ for (i = 0; i < mediaData.length; i++) {     // testThumbnails 제작
 /**
  * VR 이미지 포함 글 thumbnail 정보 post에 입력
  */
-for (i = 0; i < 30; i++) {  // POST 관련 test 데이터 30개 생성
+for (let i = 0; i < 30; i++) {  // POST 관련 test 데이터 30개 생성
    data[i].content = '<p style="text-align: center; ">'+addressData[i].addr2+'</p><p style="text-align: center; ">' +
       '<br />VGram에 오신것을 환영합니다!! VGram에 오신것을 환영합니다!! </p>';
    data[i].title = addressData[0].addr1;
@@ -845,7 +847,7 @@ for (i = 0; i < 30; i++) {  // POST 관련 test 데이터 30개 생성
 /**
  * 이벤트, 공지사항 관련 글 thumbnail 정보 post에 입력
  */
-for (i = 30; i < data.length; i++) {
+for (let i = 30; i < data.length; i++) {
    data[i].thumbnail_image_path = testThumbnails;
    data[i].meta_value.image_slider_order = [];
 
