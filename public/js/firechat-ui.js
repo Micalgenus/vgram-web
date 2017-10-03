@@ -61,7 +61,7 @@ this["FirechatDefaultTemplates"]["templates/prompt-alert.html"] = function (obj)
   var __t, __p = '', __e = _.escape;
 
   obj.message = __e(message);
-  __p += new EJS({url: '/template/firechat/prompt-alert.html'}).render(obj);
+  __p += new EJS({url: '/template/firechat/prompt-alert.ejs'}).render(obj);
 
   return __p;
 };
@@ -93,7 +93,7 @@ this["FirechatDefaultTemplates"]["templates/prompt-invite-private.html"] = funct
 
   obj.userName = __e(obj.userName);
   obj.roomName = __e(obj.roomName);
-  __p += new EJS({url: '/template/firechat/prompt-invite-private.html'}).render(obj);
+  __p += new EJS({url: '/template/firechat/prompt-invite-private.ejs'}).render(obj);
 
   return __p;
 };
@@ -127,7 +127,7 @@ this["FirechatDefaultTemplates"]["templates/prompt.html"] = function (obj) {
   var __t, __p = '', __e = _.escape;
 
   obj.title = __e(obj.title);
-  obj.content = ((__t = ( content )) == null ? '' : __t);
+  obj.content = ((__t = ( obj.content )) == null ? '' : __t);
   __p += new EJS({url: '/template/firechat/prompt.ejs'}).render(obj);
 
   return __p;

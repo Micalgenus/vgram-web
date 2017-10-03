@@ -61,6 +61,10 @@
             // Create a Firechat instance
             var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
 
+            chat.on("room-enter", function(room, b) {
+              $("#chat_intro").css("display", "none");
+            });
+
             // Set the Firechat user
             chat.setUser(user.uid, user.displayName, function(user) {
               chat.resumeSession();
