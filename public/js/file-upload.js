@@ -29,12 +29,17 @@ $(function () {
         beforeSend: function (xhr) {
             setHeader(xhr);
         },
+      added: function (e, data) {
+          $(data.context).find(".edit").click(function() {
+            $(".edit-modal-lg").modal();
+          });
+      },
         done: function (e, data) {
             $vrImageUpload.find('.template-upload').remove();
         },
         fail: function (e, data) {
             alert('vr images upload fail');
-        },
+        }
     });
 
     $normalImageUpload.fileupload({
@@ -44,6 +49,11 @@ $(function () {
         beforeSend: function (xhr) {
             setHeader(xhr);
         },
+      added: function (e, data) {
+        $(data.context).find(".edit").click(function() {
+          $(".edit-modal-lg").modal();
+        });
+      },
         done: function (e, data) {
             $normalImageUpload.find('.template-upload').remove();
         },

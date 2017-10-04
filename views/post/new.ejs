@@ -4,22 +4,25 @@
   <% include ../static/head.ejs %>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b0838fb3a11b23c5d23479ac25aa2ae&libraries=services"></script>
+  <style>
+    .modal-dialog,
+    .modal-content {
+      /* 80% of window height */
+      height: 80%;
+    }
+
+    .modal-body {
+      /* 100% = dialog height, 120px = header + footer */
+      max-height: calc(100% - 120px);
+      overflow-y: scroll;
+    }
+  </style>
 </head>
 <body id="sub" class="stretched no-transition no-smooth-scroll">
 
 <div id="wrapper" class="clearfix">
   <% include ../addon/header.ejs %>
   <main>
-<!--<span class="btn btn-success fileinput-button">-->
-<!--<i class="glyphicon glyphicon-plus"></i>-->
-<!--<span>Add files...</span>-->
-<!--<input type="file" />-->
-<!--</span>-->
-
-<!-- <button type="submit" class="btn btn-primary start">
-<i class="glyphicon glyphicon-upload"></i>
-<span>Start upload</span>
-</button> -->
     <div class="container">
       <div class="vwrite">
         <ul class="nav nav-tabs boot-tabs">
@@ -210,6 +213,36 @@
 <!-- LOAD JAVASCRIPT -->
 <% include ../static/js.ejs %>
 
+<!-- Edit Modal -->
+<div class="modal fade edit-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-body">
+      <div class="modal-content">
+        <!--<div class="modal-header">-->
+          <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+          <!--<h4 class="modal-title" id="myModalLabel">Edit Image Heading</h4>-->
+        <!--</div>-->
+        <div class="modal-body">
+          <div class="placeholder">
+            <div id="container">
+              <span id="placeholder">Loading...</span>
+            </div>
+          </div>
+          <div id="properties">
+            <div class="col_half">
+              <p>Brightness</p>
+              <div id="brightness_slider"></div>
+            </div>
+            <div class="col_half">
+              <p>Contrast</p>
+              <div id="contrast_slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
@@ -230,17 +263,17 @@
       </td>
       <td>
         {% if (!i && !o.options.autoUpload) { %}
-          <button class="btn btn-primary start" disabled style="display:none">
-            <i class="glyphicon glyphicon-upload"></i>
-            <span>Start</span>
-          </button>
         {% } %}
         {% if (!i) { %}
-          <button class="btn btn-warning cancel">
+        {% } %}
+          <button type="button" class="btn btn-primary edit">
+            <i class="glyphicon"></i>
+            <span>Edit</span>
+          </button>
+          <button type="button" class="btn btn-warning cancel">
             <i class="glyphicon glyphicon-ban-circle"></i>
             <span>Cancel</span>
           </button>
-        {% } %}
       </td>
     </tr>
   {% } %}
@@ -600,6 +633,9 @@ $('.vwrite .write-button a').click(function(e) {
 });
 </script>
 <!--// Page -->
+
+<script type="text/javascript" src="/lib/glfx.min.js"></script>
+<script type="text/javascript" src="/js/edit-image.js"></script>
 
 </body>
 </html>
