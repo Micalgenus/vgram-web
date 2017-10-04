@@ -47,7 +47,7 @@
     "express-jwt": "^0.3.2",
     "express-jwt-authz": "^1.0.0",
     "firebase": "^4.3.1",
-    "firebase-admin": "^5.2.1",
+    "firebase-admin": "^5.4.1",
     "fs-promise": "^0.5.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.1",
@@ -66,6 +66,7 @@
     "multer": "^1.2.1",
     "mysql": "^2.11.1",
     "node-md5": "0.0.1",
+    "oauth": "^0.9.15",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0",
     "passport-jwt": "^2.1.0",
@@ -76,6 +77,7 @@
     "request-promise": "^4.2.1",
     "sequelize": "^3.29.0",
     "serve-favicon": "^2.3.2",
+    "sqlite3": "^3.1.13",
     "xss": "^0.3.4"
   },
   "devDependencies": {

@@ -62,10 +62,13 @@ gulp.task('compress-script', function (cb) {
 gulp.task('nodemon', function (debug, inspect, overwrite) {
    var execDebugMap = {
       js: 'node --debug-brk'
-   }
+   };
+
+   var args = [];
 
    if (process.env.NODE_ENV === 'development') {
-    livereload.listen();
+    args.push("--trace-deprecation");
+     livereload.listen();
   }
 
   if(debug || inspect) {
@@ -83,6 +86,7 @@ gulp.task('nodemon', function (debug, inspect, overwrite) {
      execMap: debug ? execDebugMap : {},
     script: './bin/www.js',
     ext: 'js coffee ejs',
+    args: args,
     env: {
        'NODE_ENV': process.env.NODE_ENV === 'production' ? 'production' : 'development',
        'OVERWRITE': overwrite
