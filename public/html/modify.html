@@ -38,6 +38,7 @@
             <li><a href="index.html"><div>리스트로 보기</div></a></li>
             <li><a href="map.html"><div>지도로 보기</div></a></li>
             <li class="current"><a href="write.html"><div>NEW</div></a></li>
+            <li><a href="chat.html"><div>채팅</div></a></li>
           </ul>
           <div class="quick-menu">
             <div id="top-account">
@@ -130,6 +131,7 @@
                       </div>
                     </td>
                     <td>
+                      <button class="btn btn-small btn-info edit">수정</button>
                       <button class="btn btn-small btn-danger delete">삭제</button>
                     </td>
                   </tr>
@@ -291,6 +293,36 @@
             </form>
           </div>
         </div>
+
+        <link rel="stylesheet" href="/lib/js-canvas/css/components/ion.rangeslider.css" type="text/css" />
+
+        <div id="modifyImage" class="white-popup mfp-hide">
+          <h4>이미지 보정</h4>
+          <div class="col_full">
+            <img src="/lib/js-canvas/images/wedding/12.jpg" alt="Image" style="max-width: 100%;">
+          </div>
+
+          <div class="col_half">
+            <label><i class="icon-line-sun"></i> 밝기</label>
+            <div>
+              <input class="range">
+            </div>
+          </div>
+
+          <div class="col_half col_last">
+            <label><i class="icon-adjust"></i> 선명도</label>
+            <div>
+              <input class="range">
+            </div>
+          </div>
+
+          <div class="clear"></div>
+
+          <div class="center">
+            <button class="button button-small button-red cancel">취소</button>
+            <button class="button button-small">적용</button>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -340,6 +372,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b0838fb3a11b23c5d23479ac25aa2ae&libraries=services"></script>
 <script type="text/javascript" src="/components/summernote/dist/summernote.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/components/rangeslider.min.js"></script>
 <script>
 // 탭 클릭시
 $('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
@@ -374,6 +407,23 @@ $('.vwrite .write-button a').click(function(e) {
 $('#summernote').summernote({
   height: 200,
   lang: 'ko-KR'
+});
+
+// 이미지 보정
+$('button.edit').magnificPopup({
+  items: {
+      src: '#modifyImage',
+      type: 'inline'
+  }
+});
+$(".range").ionRangeSlider({
+  min: 0,
+  max: 100,
+  from: 50
+});
+$('#modifyImage button.cancel').click(function(e) {
+  $.magnificPopup.close();
+  e.preventDefault();
 });
 </script>
 <!--// Page -->

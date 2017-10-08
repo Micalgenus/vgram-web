@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="" />
+  <meta name="author" content="Vgram" />
+  <meta name="keywords" content="" />
+
+  <title>Vgram</title>
+
+  <link rel="icon" href="/images/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/images/touch-icon-iphone.png" />
+
+  <link href="http://fonts.googleapis.com/css?family=Noto+Sans|Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/style.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/font-icons.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/responsive.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/colors.css" type="text/css" />
+  <link rel="stylesheet" href="/lib/js-canvas/css/magnific-popup.css" type="text/css" />
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+</head>
+<body id="sub" class="stretched no-transition no-smooth-scroll">
+
+<div id="wrapper" class="clearfix">
+  <header id="header">
+    <div id="header-wrap">
+      <div class="container clearfix">
+        <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+        <div id="logo">
+          <a href="index.html"><img src="/images/logo.png" alt="Vgram"></a>
+        </div>
+        <nav id="primary-menu">
+          <ul>
+            <li><a href="index.html"><div>리스트로 보기</div></a></li>
+            <li><a href="map.html"><div>지도로 보기</div></a></li>
+            <li><a href="write.html"><div>NEW</div></a></li>
+            <li class="current"><a href="chat.html"><div>채팅</div></a></li>
+          </ul>
+          <div class="quick-menu">
+            <div id="top-account">
+              <a href="login.html"><i class="icon-user"></i></a>
+            </div>
+            <div id="top-notification">
+              <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>3</span></a>
+              <div class="top-notification-content">
+                <div class="top-notification-title">
+                  <h4>최근 (11)</h4>
+                </div>
+                <div class="top-notification-items">
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date"><img src="/lib/js-canvas/images/slider/boxed/5.jpg" alt=""></span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다</span>
+                      <span class="date">2일전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1달전</span>
+                    </a>
+                  </div>
+                  <div class="top-notification-item clearfix">
+                    <a href="#">
+                      <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
+                      <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
+                      <span class="date">1년전</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="top-notification-action clearfix">
+                  <a href="#" class="more"><i class="icon-line-plus"></i> 모두보기</a>
+                </div>
+              </div>
+            </div>
+            <div id="top-search">
+              <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+              <form action="search.html" method="get">
+                <input type="text" name="q" class="search form-control" value="" placeholder="검색어를 입력하세요">
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+      <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+      <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css">
+      <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-storage.js"></script>
+      <!-- <script src="/lib/ejs.min.js"></script> -->
+      <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+      <!-- <script src="/js/firechat-ui.js"></script> -->
+      <script>
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+          apiKey: "AIzaSyDycRGYGxEGmudxc8py7c0yPiaORwmz8Kk",
+          authDomain: "cozyhouzz-531c2.firebaseapp.com",
+          databaseURL: "https://cozyhouzz-531c2.firebaseio.com/",
+          storageBucket: "cozyhouzz-531c2.appspot.com",
+          messagingSenderId: "922421781014",
+        };
+        firebase.initializeApp(config);
+      </script>
+
+      <div id="firechat-wrapper">
+        <div id="firechat" class="full">
+          <div id="firechat-tabs" class="clearfix">
+            <ul id="firechat-tab-list" class="nav nav-tabs clearfix">
+              <li data-room-id="-KvWzUhEcLmfUObslSZp" class="active" style="width: 1170px;">
+                <a href="#-KvWzUhEcLmfUObslSZp" data-toggle="firechat-tab" title="hello?">hello?</a>
+              </li>
+              <li style="width: 1170px;" data-room-id="-KvU2kNdQ__II6pC0jH4">
+                <a title="고객2" href="#-KvU2kNdQ__II6pC0jH4" data-toggle="firechat-tab">고객2</a>
+              </li>
+            </ul>
+            <div id="firechat-tab-content" class="tab-content">
+              <div id="-KvWzUhEcLmfUObslSZp" data-room-id="-KvWzUhEcLmfUObslSZp" class="tab-pane active">
+                <div class="tab-pane-menu clearfix">
+                  <div class="firechat-dropdown twofifth">
+                    <a data-event="firechat-user-room-list-btn" class="full btn firechat-dropdown-toggle" data-toggle="firechat-dropdown" href="#" data-target="firechat-room-user-list--KvWzUhEcLmfUObslSZp">
+                      <span class="icon user-group"></span> In Room
+                      <span class="caret"></span>
+                    </a>
+                    <div class="firechat-dropdown-menu" role="menu">
+                      <ul id="firechat-room-user-list--KvWzUhEcLmfUObslSZp" class="full">
+                        <li data-user-id="5" data-user-name="모랩">
+                          <a href="#!" class="clearfix">
+                           <span class="left twothird clipped" title="모랩">모랩</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="firechat-dropdown twofifth">
+                    <a data-event="firechat-user-search-btn" class="full btn firechat-dropdown-toggle" data-toggle="firechat-dropdown" href="#">
+                      <span class="icon plus">+</span>
+                       Invite
+                      <span class="caret"></span>
+                    </a>
+                    <div class="firechat-dropdown-menu" role="menu">
+                      <div class="firechat-dropdown-header aligncenter clearfix">
+                        <div class="search-wrapper">
+                          <span class="icon search"></span>
+                          <input type="text" data-event="firechat-user-search" data-template="templates/room-user-search-list-item.html" data-target="firechat-room-user-search--KvWzUhEcLmfUObslSZp" data-controls="firechat-room-user-search-controls--KvWzUhEcLmfUObslSZp" class="center fivesixth">
+                        </div>
+                      </div>
+                      <ul id="firechat-room-user-search--KvWzUhEcLmfUObslSZp">
+                        <li data-user-id="5" data-user-name="모랩">
+                          <a href="#!" class="clearfix">
+                           <span class="left fourfifth clipped" title="모랩">모랩</span>
+                          </a>
+                        </li>
+                      </ul>
+                      <div class="firechat-dropdown-footer aligncenter clearfix">
+                        <div id="firechat-room-user-search-controls--KvWzUhEcLmfUObslSZp" class="clearfix">
+                          <span class="quarter"></span>
+                          <button type="button" class="btn half disabled" data-event="firechat-user-search" data-template="templates/room-user-search-list-item.html" data-target="firechat-room-user-search--KvWzUhEcLmfUObslSZp" data-controls="firechat-room-user-search-controls--KvWzUhEcLmfUObslSZp" data-toggle="firechat-pagination-next" disabled="disabled">Next</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a href="#!" data-event="firechat-close-tab" class="icon close right" title="Leave Room"></a>
+                </div>
+                <div class="clearfix">
+                  <div id="firechat-messages-KvWzUhEcLmfUObslSZp" class="chat">
+                    <div class="message message-default " data-message-id="-KvWzZ6FntGFzXF5yJV6" data-user-id="10" data-user-name="운영자입니당" data-class="firechat-message">
+                      <div class="clearfix">
+                        <label class="fourfifth">
+                          <strong class="name" title="운영자입니당">운영자입니당</strong>
+                          <em>(8:28pm)</em>:
+                        </label>
+                        <label class="fifth alignright">
+                          <a href="#!" data-event="firechat-user-chat" class="icon user-chat" title="Invite to Private Chat">&nbsp;</a>
+                          <a href="#!" data-event="firechat-user-mute-toggle" class="icon user-mute" title="Mute User">&nbsp;</a>
+                        </label>
+                      </div>
+                      <div class="clearfix message-content">
+                        안녕하세요 ~~~~~~~~ 테스트입니다~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ㅁ너ㅗㅇ래ㅕㅁㄶ오랴ㅕ몬애ㅑ롬냐ㅕㅇ로ㅑㅕㅁㄴ오랴ㅕㅁ농랴하이요하이요하이요하이요하이요하이요하...
+                      </div>
+                    </div>
+                    <div class="message message-default  message-self " data-message-id="-KvjYwclBbeDx8hCahGh" data-user-id="5" data-user-name="모랩" data-class="firechat-message">
+                      <div class="clearfix">
+                        <label class="fourfifth">
+                          <strong class="name" title="모랩">모랩</strong>
+                          <em>(11:42am)</em>:
+                        </label>
+                      </div>
+                      <div class="clearfix message-content">
+                        11
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix">
+                  <textarea id="textarea-KvWzUhEcLmfUObslSZp" placeholder="대화를 입력하세요"></textarea>
+                </div>
+              </div>
+              <div id="chat_intro" style="display: none;">
+                <img src="/images/logo_vgram_original.png" class="col_half">
+                <img src="/images/parallax/parallax-1.jpg" class="col_half">
+              </div>
+            </div>
+          </div>
+          <div id="firechat-footer" class="clearfix"></div>
+        </div>
+      </div>
+      <script>
+        function initChat(user) {
+          firebase.auth().signInWithCustomToken('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJ1dnBTUHV4R3BmaGVobk0zMHZOVlA3ajdZNkUzIiwiaWF0IjoxNTA3MzM0MDg5LCJleHAiOjE1MDczMzc2ODksImF1ZCI6Imh0dHBzOi8vaWRlbnRpdHl0b29sa2l0Lmdvb2dsZWFwaXMuY29tL2dvb2dsZS5pZGVudGl0eS5pZGVudGl0eXRvb2xraXQudjEuSWRlbnRpdHlUb29sa2l0IiwiaXNzIjoiZmlyZWJhc2UtYWRtaW5zZGstdnd5dmJAY296eWhvdXp6LTUzMWMyLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZmlyZWJhc2UtYWRtaW5zZGstdnd5dmJAY296eWhvdXp6LTUzMWMyLmlhbS5nc2VydmljZWFjY291bnQuY29tIn0.Q6MsfHnPL7AhA_zgZgHaeqwaFvO5GZBrZSYFppQwFyYZt-kPyMRfuKF1snvMrW-IlAg0ltRlA_SqC-bCnwcKAt21qPgHaHJZuAVqHjJSZYOMP_nM8R7C8h57l5PLHWZwa7RfR4uI-ytuVNo8OeQwqAeqGWYzFs2v82voJ6HqfpGChoH9tZAdyk5nveXquyp5wJ9ZPkbOotOi7Wdzuh59Fxf3EknN0-x6A07kA1SzoFFeYHIN2318UR83T_Q4vWlLX5u0KGL5fSWj_qEujIDRGpwvmv_yP9hhngoQdvLS795ZabL3umDCC_Nz-uHvPXtX5l1EHNVO_UzGRQS-g-BlcQ').catch(function (error) {
+            console.log(error);
+          })
+          // Get a Firebase Database ref
+          var chatRef = firebase.database().ref("chat");
+        
+          // Create a Firechat instance
+          var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+        
+          chat.on("room-enter", function(room, b) {
+            $("#chat_intro").css("display", "none");
+          });
+        
+          // Set the Firechat user
+          chat.setUser(user.uid, user.displayName, function(user) {
+            chat.resumeSession();
+          });
+        }
+        
+        var user = {
+          uid: 5,
+          displayName: '모랩'
+        }
+        
+        initChat(user);
+      </script>
+    </div>
+  </main>
+  <footer id="footer">
+    <div id="copyrights">
+      <div class="container clearfix">
+        <div class="logo"><img src="/images/logo.png" alt=""></div>
+        <div class="menu">
+          <div class="copyrights-menu copyright-links clearfix">
+            <a href="#">메뉴1</a>
+            <a href="#">메뉴2</a>
+            <a href="#">메뉴3</a>
+            <a href="#">메뉴4</a>
+            <a href="#">메뉴5</a>
+          </div>
+          <div class="clearfix">
+            <a href="#" class="social-icon si-small si-borderless si-facebook">
+              <i class="icon-facebook"></i>
+              <i class="icon-facebook"></i>
+            </a>
+            <a href="#" class="social-icon si-small si-borderless si-instagram">
+              <i class="icon-instagram"></i>
+              <i class="icon-instagram"></i>
+            </a>
+          </div>
+        </div>
+        <div class="Copyrights">
+          Copyrights &copy; 2017 All Rights Reserved by Vgram Inc.
+        </div>
+      </div>
+    </div>
+
+  </footer>
+</div>
+
+<div id="gotoTop" class="icon-angle-up"></div>
+
+<script type="text/javascript" src="/lib/js-canvas/js/jquery.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/plugins.js"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/functions-custom.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=014de490d063bd961797f35eae91704b"></script>
+<script type="text/javascript" src="/lib/js-canvas/js/components/typehead.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+
+<!-- Page -->
+<!--// Page -->
+
+</body>
+</html>

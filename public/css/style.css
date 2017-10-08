@@ -1,5 +1,11 @@
 @charset "UTF-8";
-/* Variables */
+/*
+  CSS 작성 팁 :
+  기본적인 UI는 템플릿 요소 혹은 해당 라이브러리 요소를 최대한 사용하고 부족한 부분을 CSS로 보완하는 방식으로 작업합니다
+  보완하는 스타일 요소는 CSS의 우선순위 룰을 생각하여 템플릿 스타일보다 우선시하어 적용시키면 되겠습니다 (https://opentutorials.org/module/484/4149)
+  템플릿 요소나 라이브러리 요소가 없는 경우 검색을 통하여 비슷한 샘플을 찾고 크롬 개발자 도구를 이용하여 해당 요소들의 CSS 스타일을 직접 가져온 후 커스터마이징 하는 방법을 추천합니다 (Bootstrap, Material Design, Google Search)
+*/
+/* Variables (주요 속성에 대한 변수화) */
 /* Extend  */
 .noto, body, #header #primary-menu ul > li > a, #header #primary-menu .quick-menu #top-search form input, h1, h2, h3, h4, h5, h6, .clist .commentlist .comment-author span, .vview .vview-info .entry-meta li, .ulist .commentlist .comment-author span {
   font-family: 'Noto Sans', sans-serif; }
@@ -20,7 +26,7 @@
   100% {
     opacity: 1; } }
 
-/* Default */
+/* Default (기본 요소 스타일) */
 html {
   overflow-y: scroll;
   height: 100% !important; }
@@ -62,7 +68,7 @@ input[type=text]::-ms-clear {
     padding-top: 40px;
     min-height: calc(100% - 60px); } }
 
-/* Layout */
+/* Layout (레이아웃 스타일) */
 #header .container {
   line-height: 0; }
 
@@ -376,9 +382,6 @@ body.top-search-open #top-notification {
 .social-icon:hover i:first-child {
   margin-top: 0 !important; }
 
-.nav {
-  margin-bottom: 30px !important; }
-
 .si-share {
   padding-left: 0; }
 
@@ -503,43 +506,13 @@ body.top-search-open #top-notification {
   font-family: "lined-icons";
   content: "\e078"; }
 
-.address input {
-  float: left;
-  width: calc(50% - 50px); }
+.nav {
+  margin-bottom: 30px !important; }
 
-.address button {
-  float: left;
-  width: 100px;
-  height: 41px;
-  display: inline-block;
-  background-color: #fff;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  border: 1px solid #3498db;
-  color: #3498db;
-  font-size: 14px;
+.nav-tabs > li.active > a {
   font-weight: bold; }
 
-@media (max-width: 479px) {
-  .address input, .address button {
-    width: 100%; } }
-
-.profile .address input:nth-of-type(1) {
-  float: left;
-  width: 100px; }
-
-.profile .address input:nth-of-type(2),
-.profile .address input:nth-of-type(3) {
-  width: calc(50% - 100px); }
-
-@media (max-width: 479px) {
-  .profile .address input:nth-of-type(1), .profile .address button {
-    width: 50%; }
-  .profile .address input:nth-of-type(2),
-  .profile .address input:nth-of-type(3) {
-    width: 100%; } }
-
-/* Index */
+/* Index (메인) */
 body#index section {
   margin-bottom: 50px; }
   @media (max-width: 991px) {
@@ -575,7 +548,7 @@ body#index #promotion .promo {
       height: 34px;
       line-height: 34px; } }
 
-/* Sub - Full page (without footer) */
+/* Sub - 푸터 없는 풀페이지 (지도로 보기용)  */
 body#sub-full #wrapper {
   height: 100%; }
 
@@ -626,6 +599,10 @@ body#sub-full #footer {
     padding: 0;
     height: 41px;
     border-radius: 0; }
+  .white-popup#modifyImage {
+    max-width: 800px; }
+    .white-popup#modifyImage .col_full, .white-popup#modifyImage .col_half {
+      margin-bottom: 20px !important; }
 
 #popup {
   top: 0;
@@ -669,6 +646,43 @@ body#sub-full #footer {
             transform: scale(0.7);
     -webkit-transform-origin: 100% 50%;
             transform-origin: 100% 50%; } }
+
+/* 주소검색 */
+.address input {
+  float: left;
+  width: calc(50% - 50px); }
+
+.address button {
+  float: left;
+  width: 100px;
+  height: 41px;
+  display: inline-block;
+  background-color: #fff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 1px solid #3498db;
+  color: #3498db;
+  font-size: 14px;
+  font-weight: bold; }
+
+@media (max-width: 479px) {
+  .address input, .address button {
+    width: 100%; } }
+
+.profile .address input:nth-of-type(1) {
+  float: left;
+  width: 100px; }
+
+.profile .address input:nth-of-type(2),
+.profile .address input:nth-of-type(3) {
+  width: calc(50% - 100px); }
+
+@media (max-width: 479px) {
+  .profile .address input:nth-of-type(1), .profile .address button {
+    width: 50%; }
+  .profile .address input:nth-of-type(2),
+  .profile .address input:nth-of-type(3) {
+    width: 100%; } }
 
 /* 댓글 */
 .clist .commentlist {
@@ -899,50 +913,54 @@ body#sub-full #footer {
     margin-bottom: 20px; }
 
 /* VR 쓰기 */
-.vwrite .write-button {
-  text-align: center; }
-
-.vwrite .dropzone {
-  display: table-cell;
-  width: 9999px;
-  height: 300px;
-  border: 3px dashed #ddd;
-  border-radius: 10px;
-  vertical-align: middle;
-  text-align: center; }
-  @media (max-width: 991px) {
-    .vwrite .dropzone {
-      display: none; } }
-
-.vwrite .file {
-  margin: 10px 0 30px; }
-
-.vwrite table {
-  border-callapse: collapse; }
-
-.vwrite table tbody.files td {
-  width: 25%;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  vertical-align: middle; }
-  .vwrite table tbody.files td * {
-    margin: 0; }
-  .vwrite table tbody.files td:nth-of-type(1) {
+.vwrite {
+  position: relative; }
+  .vwrite .write-button {
     text-align: center; }
-  .vwrite table tbody.files td:nth-of-type(2) {
-    text-align: left; }
-  .vwrite table tbody.files td:nth-of-type(3) {
+    @media (min-width: 992px) {
+      .vwrite .write-button {
+        position: absolute;
+        right: 0;
+        top: -5px; } }
+  .vwrite .dropzone {
+    display: table-cell;
+    width: 9999px;
+    height: 300px;
+    border: 3px dashed #ddd;
+    border-radius: 10px;
+    vertical-align: middle;
     text-align: center; }
-  .vwrite table tbody.files td:nth-of-type(4) {
-    padding-right: 10px;
-    text-align: right; }
-
-.vwrite #daum-map {
-  overflow: hidden;
-  width: 100%;
-  height: 217px;
-  margin-bottom: 10px;
-  border-radius: 10px; }
+    @media (max-width: 991px) {
+      .vwrite .dropzone {
+        display: none; } }
+  .vwrite .file {
+    margin: 10px 0 30px; }
+  .vwrite table {
+    border-callapse: collapse; }
+  .vwrite table tbody.files td {
+    width: 25%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle; }
+    .vwrite table tbody.files td * {
+      margin: 0; }
+    .vwrite table tbody.files td:nth-of-type(1) {
+      text-align: center; }
+    .vwrite table tbody.files td:nth-of-type(2) {
+      text-align: left; }
+    .vwrite table tbody.files td:nth-of-type(3) {
+      text-align: center; }
+    .vwrite table tbody.files td:nth-of-type(4) {
+      padding-right: 10px;
+      text-align: right; }
+      .vwrite table tbody.files td:nth-of-type(4) button {
+        margin: 3px 0; }
+  .vwrite #daum-map {
+    overflow: hidden;
+    width: 100%;
+    height: 217px;
+    margin-bottom: 10px;
+    border-radius: 10px; }
 
 /* 지도로 보기 */
 #map-container {
@@ -998,7 +1016,7 @@ body#sub-full #footer {
       width: 100%;
       height: auto; } }
 
-/* 프로필*/
+/* 유저정보 상단 */
 .heading-block.info > span span {
   margin-right: 15px; }
 
@@ -1028,6 +1046,7 @@ body#sub-full #footer {
       display: inline-block;
       float: none; }
 
+/* 프로필*/
 /* 유저정보 */
 @media (max-width: 479px) {
   .user .nav > li {
@@ -1079,3 +1098,123 @@ body#sub-full #footer {
     -webkit-box-shadow: none;
             box-shadow: none;
     border-color: #3498db; }
+
+/* 채팅 */
+#firechat div#firechat-tabs {
+  height: auto; }
+
+#firechat .nav.nav-tabs li a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  background-color: transparent;
+  color: #3498db;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal; }
+  #firechat .nav.nav-tabs li a:hover {
+    border-color: #eeeeee #eeeeee #dddddd;
+    background-color: #eeeeee;
+    color: #222; }
+
+#firechat .nav.nav-tabs li.active a {
+  color: #555555;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-bottom-color: transparent;
+  cursor: default;
+  font-weight: bold; }
+
+#firechat div.tab-pane-menu {
+  margin-bottom: 20px;
+  border: none; }
+  #firechat div.tab-pane-menu .firechat-dropdown:first-child {
+    margin-left: 0; }
+  #firechat div.tab-pane-menu .btn {
+    height: 37px;
+    color: #333;
+    background-color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px; }
+    #firechat div.tab-pane-menu .btn .icon {
+      margin-top: 1px;
+      vertical-align: middle; }
+  #firechat div.tab-pane-menu .close {
+    margin-top: 15px; }
+
+#firechat div.firechat-dropdown-menu ul {
+  overflow-y: auto; }
+  #firechat div.firechat-dropdown-menu ul li a {
+    padding: 5px 10px; }
+  #firechat div.firechat-dropdown-menu ul .icon {
+    margin-left: 5px; }
+
+#firechat div.chat {
+  margin-bottom: 0;
+  padding: 20px 10px;
+  background-color: #F5F5F5;
+  border-radius: 0;
+  border: none !important; }
+
+#firechat .message.message-default {
+  background-color: #fcf8e3 !important;
+  margin-right: 300px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none; }
+  @media (max-width: 991px) {
+    #firechat .message.message-default {
+      margin-right: 50px; } }
+  #firechat .message.message-default label {
+    margin-bottom: 5px;
+    font-weight: normal;
+    color: #333; }
+    #firechat .message.message-default label em {
+      font-style: normal;
+      color: #999; }
+
+#firechat .message.message-default.message-self {
+  background-color: #d9edf7 !important;
+  margin-right: 0px;
+  margin-left: 300px;
+  color: #3498db; }
+  @media (max-width: 991px) {
+    #firechat .message.message-default.message-self {
+      margin-left: 50px; } }
+
+#firechat textarea {
+  padding: 9px 10px !important;
+  border-radius: 0 !important; }
+
+#firechat div.prompt .prompt-header {
+  background-color: #F5F5F5;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  font-size: 16px;
+  color: #444; }
+
+#firechat div.prompt .prompt-body p {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #444; }
+
+#firechat div.prompt .prompt-body strong {
+  font-size: 16px;
+  color: #3498db; }

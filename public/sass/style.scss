@@ -1,7 +1,16 @@
-/* Variables */
-$pc: 'min-width: 992px';
-$tm: 'max-width: 991px'; // Tablet + Mobile
-$mobile: 'max-width: 479px';
+/*
+  CSS 작성 팁 :
+  기본적인 UI는 템플릿 요소 혹은 해당 라이브러리 요소를 최대한 사용하고 부족한 부분을 CSS로 보완하는 방식으로 작업합니다
+  보완하는 스타일 요소는 CSS의 우선순위 룰을 생각하여 템플릿 스타일보다 우선시하어 적용시키면 되겠습니다 (https://opentutorials.org/module/484/4149)
+  템플릿 요소나 라이브러리 요소가 없는 경우 검색을 통하여 비슷한 샘플을 찾고 크롬 개발자 도구를 이용하여 해당 요소들의 CSS 스타일을 직접 가져온 후 커스터마이징 하는 방법을 추천합니다 (Bootstrap, Material Design, Google Search)
+*/
+
+
+
+/* Variables (주요 속성에 대한 변수화) */
+$pc: 'min-width: 992px'; // PC 버전 미디어 쿼리
+$tm: 'max-width: 991px'; // Tablet + Mobile 미디어 쿼리
+$mobile: 'max-width: 479px'; // 모바일 버전 미디어 쿼리
 $color: #3498db; // 주색상 (푸른색)
 $weak: #999; // 흐린 글씨
 $border-color: #F5F5F5; // 회색선
@@ -10,20 +19,20 @@ $box-color: #F5F5F5; // 회색박스
 
 
 /* Extend  */
-.noto {font-family: 'Noto Sans', sans-serif;}
-.box-shadow {box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);}
+.noto {font-family: 'Noto Sans', sans-serif;} // 본고딕 적용
+.box-shadow {box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);} // 박스 쉐도우 필요시
 
 
 
 /* Animation */
-@keyframes fadeIn {
+@keyframes fadeIn { // fade in animation (fade out 등은 템플릿에서 제공하고 있음)
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
 
 
 
-/* Default */
+/* Default (기본 요소 스타일) */
 html {
   overflow-y: scroll;
   height: 100% !important;
@@ -65,7 +74,7 @@ body#sub main {
 
 
 
-/* Layout */
+/* Layout (레이아웃 스타일) */
 
 // 헤더
 #header {
@@ -409,7 +418,6 @@ h1, h2, h3, h4, h5, h6 {@extend .noto;}
   transition: none !important;
 }
 .social-icon:hover i:first-child {margin-top: 0 !important;}
-.nav {margin-bottom: 30px !important;}
 
 // 버튼
 .si-share {padding-left: 0;}
@@ -493,49 +501,12 @@ h1, h2, h3, h4, h5, h6 {@extend .noto;}
   content: "\e078";
 }
 
-// 주소검색
-.address {
-  input {
-    float: left;
-    width: calc(50% - 50px);
-  }
-  button {
-    float: left;
-    width: 100px;
-    height: 41px;
-    display: inline-block;
-    background-color: #fff;
-    box-shadow: none;
-    border: 1px solid $color;
-    color: $color;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  @media ($mobile) {
-    input, button {width: 100%;}
-  }
-}
-.profile .address {
-  input:nth-of-type(1) {
-    float: left;
-    width: 100px;
-  }
-  input:nth-of-type(2),
-  input:nth-of-type(3) {
-    width: calc(50% - 100px);
-  }
-  @media ($mobile) {
-    input:nth-of-type(1), button {width: 50%;}
-    input:nth-of-type(2),
-    input:nth-of-type(3) {
-      width: 100%;
-    }
-  }
-}
+.nav {margin-bottom: 30px !important;}
+.nav-tabs > li.active > a{font-weight: bold;}
 
 
 
-/* Index */
+/* Index (메인) */
 body#index {
   section {
     margin-bottom: 50px;
@@ -576,7 +547,7 @@ body#index {
 
 
 
-/* Sub - Full page (without footer) */
+/* Sub - 푸터 없는 풀페이지 (지도로 보기용)  */
 body#sub-full {
   #wrapper {height: 100%;}
   main {
@@ -632,6 +603,10 @@ body#sub-full {
       border-radius: 0;
     }
   }
+  &#modifyImage {
+    max-width: 800px;
+    .col_full, .col_half {margin-bottom: 20px !important;}
+  }
 }
 #popup {
   top: 0;
@@ -680,6 +655,48 @@ body#sub-full {
     .flex-next {
       transform: scale(0.7);
       transform-origin: 100% 50%;
+    }
+  }
+}
+
+
+
+/* 주소검색 */
+.address {
+  input {
+    float: left;
+    width: calc(50% - 50px);
+  }
+  button {
+    float: left;
+    width: 100px;
+    height: 41px;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: none;
+    border: 1px solid $color;
+    color: $color;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  @media ($mobile) {
+    input, button {width: 100%;}
+  }
+}
+.profile .address {
+  input:nth-of-type(1) {
+    float: left;
+    width: 100px;
+  }
+  input:nth-of-type(2),
+  input:nth-of-type(3) {
+    width: calc(50% - 100px);
+  }
+  @media ($mobile) {
+    input:nth-of-type(1), button {width: 50%;}
+    input:nth-of-type(2),
+    input:nth-of-type(3) {
+      width: 100%;
     }
   }
 }
@@ -959,7 +976,15 @@ body#sub-full {
 
 /* VR 쓰기 */
 .vwrite {
-  .write-button {text-align: center;}
+  position: relative;
+  .write-button {
+    text-align: center;
+    @media ($pc) {
+      position: absolute;
+      right: 0;
+      top: -5px;
+    }
+  }
   .dropzone {
     display:table-cell;
     width: 9999px;
@@ -993,6 +1018,7 @@ body#sub-full {
       &:nth-of-type(4) {
         padding-right: 10px;
         text-align: right;
+        button {margin: 3px 0;}
       }
     }
   }
@@ -1068,10 +1094,7 @@ body#sub-full {
 
 
 
-/* 프로필*/
-.profile {
-
-}
+/* 유저정보 상단 */
 .heading-block.info {
   > span {
     span {margin-right: 15px;}
@@ -1105,6 +1128,13 @@ body#sub-full {
       }
     }
   }
+}
+
+
+
+/* 프로필*/
+.profile {
+
 }
 
 
@@ -1167,6 +1197,138 @@ body#sub-full {
       background-color: #fff;
       box-shadow: none;
       border-color: $color;
+    }
+  }
+}
+
+
+
+/* 채팅 */
+#firechat {
+  div#firechat-tabs {
+    height: auto;
+  }
+  .nav.nav-tabs li a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: transparent;
+    color: $color;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    &:hover {
+      border-color: #eeeeee #eeeeee #dddddd;
+      background-color: #eeeeee;
+      color: #222;
+    }
+  }
+  .nav.nav-tabs li.active a {
+    color: #555555;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+    font-weight: bold;
+  }
+  div.tab-pane-menu {
+    margin-bottom: 20px;
+    border: none;
+    .firechat-dropdown:first-child {margin-left: 0;}
+    .btn {
+      height: 37px;
+      color: #333;
+      background-color: #fff;
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      .icon {
+        margin-top: 1px;
+        vertical-align: middle;
+      }
+    }
+    .close {margin-top: 15px;}
+  }
+  div.firechat-dropdown-menu ul {
+    overflow-y: auto;
+    li a {
+      padding: 5px 10px;
+    }
+    .icon {margin-left: 5px;}
+  } 
+  div.chat {
+    margin-bottom: 0;
+    padding: 20px 10px;
+    background-color: $box-color;
+    border-radius: 0;
+    border: none !important;
+  }
+  .message.message-default {
+    background-color: #fcf8e3 !important;
+    margin-right: 300px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    @media ($tm) {
+      margin-right: 50px;
+    }
+    label {
+      margin-bottom: 5px;
+      font-weight: normal;
+      color: #333;
+      em {
+        font-style: normal;
+        color: $weak;
+      }
+    }
+  }
+  .message.message-default.message-self {
+    background-color: #d9edf7 !important;
+    margin-right: 0px;
+    margin-left: 300px;
+    @media ($tm) {
+      margin-left: 50px;
+    }
+    color: $color;
+  }
+  textarea {
+    padding: 9px 10px !important;
+    border-radius: 0 !important;
+  }
+  div.prompt {
+    .prompt-header {
+      background-color: $box-color;
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+      font-size: 16px;
+      color: #444;
+    }
+    .prompt-body {
+      p {
+        margin: 20px 0;
+        font-size: 16px;
+        color: #444;
+      }
+      strong {
+        font-size: 16px;
+        color: $color;
+      }
     }
   }
 }
