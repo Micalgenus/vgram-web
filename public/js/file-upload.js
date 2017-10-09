@@ -30,9 +30,20 @@ $(function () {
             setHeader(xhr);
         },
       added: function (e, data) {
-          $(data.context).find(".edit").click(function() {
-            $(".edit-modal-lg").modal();
-          });
+        $(data.context).find("button.edit").magnificPopup({
+          items: {
+            src: '#modifyImage',
+            type: 'inline'
+          },
+          callback: {
+            elementParse: function (item) {
+
+            }
+          }
+        });
+          // $(data.context).find("button.edit").click(function() {
+          //   $(".edit-modal-lg").modal();
+          // });
       },
         done: function (e, data) {
             $vrImageUpload.find('.template-upload').remove();
@@ -50,9 +61,20 @@ $(function () {
             setHeader(xhr);
         },
       added: function (e, data) {
-        $(data.context).find(".edit").click(function() {
-          $(".edit-modal-lg").modal();
+        $(data.context).find("button.edit").magnificPopup({
+          items: {
+            src: '#modifyImage',
+            type: 'inline'
+          },
+          callback: {
+            elementParse: function (item) {
+
+            }
+          }
         });
+        // $(data.context).find("button.edit").click(function() {
+        //   $(".edit-modal-lg").modal();
+        // });
       },
         done: function (e, data) {
             $normalImageUpload.find('.template-upload').remove();

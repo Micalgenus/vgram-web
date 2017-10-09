@@ -326,6 +326,36 @@ exports.createPostInfoView = function (req, res) {
   });
 };
 
+exports.modifyPostInfoView = function (req, res) {
+
+  // if (!req.user.logined) {
+  //   req.flash('msg', "requiredLogin");
+  //   // return res.redirect('/post/room');
+  //   return res.redirect('back');
+  // }
+
+  // 기본적으로 user의 기본언어 선택사항을 따라가고,
+  // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
+  return res.render('post/modify', {
+    ENV: req.env,
+    logined: req.user.logined,
+    userIdx: req.ID,
+    title: "createPostInfoView",
+    msg: req.msg,
+    update: false,
+    mediaUrl: config.mediaUrl,
+
+    value: {
+      placeType: value.placeType,
+      room: value.room,
+      floors: value.floors,
+      postStatus: value.postStatus,
+      postType: value.postType,
+      lang: req.lang
+    }
+  });
+};
+
 exports.viewPostInfoView = function (req, res) {
 
   let postIdx = req.params.postIdx;

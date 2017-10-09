@@ -8,7 +8,6 @@ function Filter(name, func, init, update, imageFile) {
   this.update = update;
   this.imageFile = imageFile;
   this.sliders = [];
-  this.nubs = [];
   init.call(this);
 }
 
@@ -40,14 +39,14 @@ for (var file in images) {
   loadCount++;
 }
 
-$(window).load(init);
-
-function init() {
+function init(selector) {
   // Count the images as they load and only initialize when they are all loaded
   if (++initCount < loadCount) return;
 
   // Try to get a WebGL canvas
-  var placeholder = document.getElementById('placeholder');
+  // var placeholder = el;
+  var placeholder = $('#edit_placeholder')[0];
+
   try {
     canvas = fx.canvas();
   } catch (e) {
@@ -66,7 +65,7 @@ function init() {
   var filter = filters["Adjust"][0];
   var image = images[filter.imageFile || '/images/image.jpg'];
   texture = image.texture;
-  $('#container').css({width: texture._.width, height: texture._.height});
+  // $('#container').css({width: texture._.width, height: texture._.height});
   canvas.draw(image.texture).update();
 
 // Add a row for each slider
@@ -79,7 +78,7 @@ function init() {
       };
     })(filter, slider);
 
-    $('#' + slider.name + '_slider').ionRangeSlider({
+    $('.' + slider.name + '_slider').ionRangeSlider({
       onUpdate: onchange,
       onChange: onchange,
       min: slider.min,
