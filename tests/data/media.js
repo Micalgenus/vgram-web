@@ -321,5 +321,409 @@ module.exports = [
          preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
          mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
       }
-   }
+   },
+
+    //2017.09.25 김석원 노멀 이미지 추가
+    {
+        ID: 15,
+        user_id: 5,
+        group: "4s9df41a3z97dt",
+        type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+        createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+        file_path: "medias/images/sinho0689@gmail.com",
+        file_name: "sample1.jpg",    // 원본 이미지 경로
+        meta_value: {     // thumb,
+           mimetype: 'image/jpeg',
+           size: 192342356,
+           desktop_dir: "desktop",
+           mobile_dir: "mobile",
+           original_dir: "original"
+           // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+           // thumb: "360x240_201606281846_thumb.jpg"
+        }
+     },
+     {
+      ID: 16,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample2.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 17,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample3.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 18,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample4.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 19,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample5.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 20,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample6.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 21,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample7.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 22,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample8.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 23,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample9.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 24,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample10.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 25,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample11.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 26,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample12.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 27,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample13.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 28,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample14.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 29,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample15.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   {
+      ID: 30,
+      user_id: 5,
+      group: "4s9df41a3z97dt",
+      type: "NORMAL_IMAGE",   // mimetype 형식으로 기록
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/images/sinho0689@gmail.com",
+      file_name: "sample16.jpg",    // 원본 이미지 경로
+      meta_value: {     // thumb,
+         mimetype: 'image/jpeg',
+         size: 192342356,
+         desktop_dir: "desktop",
+         mobile_dir: "mobile",
+         original_dir: "original"
+         // 일반 이미지는 이미지서버에서 thumb를 자동변환하여 전송할 예정임.
+         // thumb: "360x240_201606281846_thumb.jpg"
+      }
+   },
+   //브이투어 타일 없음 ...ㅠㅠ
+  
+   {
+      ID: 31,
+      user_id: 5,
+      group: "4s9df41a3zsscf7dt",
+      type: "VTOUR",       // tour형으로 변환된 vr이미지
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/vtours/sinho0689@gmail.com/vtour",
+      file_name: "tour.xml",    // xml 경로가 저장된다
+      meta_value: {
+         tiles: [
+            {
+               ID: 15,  // media.ID
+               dir_name: "vr1.tiles"
+            },
+            {
+               ID: 16,
+               dir_name: "vr2.tiles"
+            },
+            {
+               ID: 17,
+               dir_name: "vr3.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+      }
+   },
+   {
+      ID: 32,
+      user_id: 5,
+      group: "4s9df41a3zsscf7dt",
+      type: "VTOUR",       // tour형으로 변환된 vr이미지
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/vtours/sinho0689@gmail.com/vtour1",
+      file_name: "tour.xml",    // xml 경로가 저장된다
+      meta_value: {
+         tiles: [
+            {
+               ID: 18,  // media.ID
+               dir_name: "vr4.tiles"
+            },
+            {
+               ID: 19,
+               dir_name: "vr5.tiles"
+            },
+            {
+               ID: 20,
+               dir_name: "vr6.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+      }
+   },
+   {
+      ID: 33,
+      user_id: 5,
+      group: "4s9df41a3zsscf7dt",
+      type: "VTOUR",       // tour형으로 변환된 vr이미지
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/vtours/sinho0689@gmail.com/vtour2",
+      file_name: "tour.xml",    // xml 경로가 저장된다
+      meta_value: {
+         tiles: [
+            {
+               ID: 21,  // media.ID
+               dir_name: "vr7.tiles"
+            },
+            {
+               ID: 22,
+               dir_name: "vr8.tiles"
+            },
+            {
+               ID: 23,
+               dir_name: "vr9.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+      }
+   },
+   {
+      ID: 34,
+      user_id: 5,
+      group: "4s9df41a3zsscf7dt",
+      type: "VTOUR",       // tour형으로 변환된 vr이미지
+      createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      file_path: "medias/vtours/sinho0689@gmail.com/vtour3",
+      file_name: "tour.xml",    // xml 경로가 저장된다
+      meta_value: {
+         tiles: [
+            {
+               ID: 24,  // media.ID
+               dir_name: "vr10.tiles"
+            },
+            {
+               ID: 25,
+               dir_name: "vr11.tiles"
+            },
+            {
+               ID: 26,
+               dir_name: "vr12.tiles"
+            }
+         ],
+         thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+         preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+         mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+      }
+   },
 ]
