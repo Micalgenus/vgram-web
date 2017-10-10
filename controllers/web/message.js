@@ -7,8 +7,7 @@ const firebase = require('./firebase');
 
 exports.viewChat = function (req, res) {
 
-  const targetIdx = req.flash('messageIdx')[0];
-  console.log(targetIdx);
+  const targetId = req.flash('messageId')[0] || -1;
 
   return User.findOne({
     where: {
@@ -24,6 +23,8 @@ exports.viewChat = function (req, res) {
         title: 'viewChat',
         msg: req.msg,
 
+        targetId: targetId,
+
         token: token
       });
     });
@@ -32,14 +33,14 @@ exports.viewChat = function (req, res) {
 
 exports.viewChatByMember = function (req, res) {
 
-  const targetIdx = req.params.userIdx;
+  const targetId = req.params.userId;
 
-  if (targetIdx == req.user.ID)
+  if (targetId == req.user.ID)
     return res.redirect('/message');
 
   return User.findOne({
     where: {
-      ID: targetIdx,
+      ID: targetId,
     }
   }).then(function (u) {
     if (!u) {
@@ -47,7 +48,24 @@ exports.viewChatByMember = function (req, res) {
       return res.redirect('back');
     }
 
-    req.flash('messageIdx', targetIdx);
+    // create Room and invite user
+
+    // var firebaseRef = firebase.database().ref("firechat");
+    // var chat = new Firechat(firebaseRef);
+    // chat.setUser(userId, userName, function(user) {
+    //   chat.resumeSession();
+    // });
+
+    req.flash('messageId', targetId);
     return res.redirect('/message');
+  });
+}
+
+exports.inviteUserToRoom = function (req, res) {
+  const targetId = req.params.userId;
+  const roomId = req.params.roomId;
+
+  return firebase.inviteUserToRoom(targetId, roomId).then(function () {
+    return res.send('OK');
   });
 }

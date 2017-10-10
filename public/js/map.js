@@ -498,6 +498,7 @@ var MapData = (function() {
        * @return {map} 생성된 맵 객체
        */
       function initMap(ID, lat, lng) {
+        console.log(lat, lng);
         return new google.maps.Map(document.getElementById(ID), {
           zoom: 15,
           center: {lat: lat, lng: lng}

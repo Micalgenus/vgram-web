@@ -308,6 +308,8 @@ module.exports = function (app) {
   web.userRoute.get('/:userIdx([0-9]+)/json/notice', requireWebAuth, init, web.userController.getNotice);
   web.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
+  web.userRoute.get('/json/list/:userIdxList(\[[0-9,]+\])', requireWebAuth, init, web.userController.getUserList);
+  
   //=========================
   // api - Member Routes
   //=========================
@@ -437,7 +439,8 @@ module.exports = function (app) {
   web.rootRoute.use('/message', web.messageRoute);
 
   web.messageRoute.get('/', requireWebAuth, loginCheck, init, web.messageController.viewChat);
-  web.messageRoute.get('/:userIdx', requireWebAuth, loginCheck, init, web.messageController.viewChatByMember);
+  web.messageRoute.get('/:userId', requireWebAuth, loginCheck, init, web.messageController.viewChatByMember);
+  web.messageRoute.post('/:userId/:roomId', requireWebAuth, init, web.messageController.inviteUserToRoom);
 
 
   //=========================
