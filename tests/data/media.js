@@ -613,9 +613,249 @@ module.exports = [
       }
    },
    //브이투어 타일 없음 ...ㅠㅠ
+   {
+    ID: 31,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr1.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr1.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 32,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr2.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr2.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 33,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr3.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr3.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 34,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr4.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr4.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 35,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr5.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr5.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 36,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr6.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr6.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 37,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr7.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr7.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 9,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr8.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr8.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 39,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr9.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr9.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 40,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr10.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr10.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 41,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr11.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr11.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
+ {
+    ID: 42,
+    user_id: 5,
+    group: "4s9df41a3zsscf7dt",
+    type: "VR_IMAGE",
+    createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    file_path: "medias/vrimages/sinho0689@gmail.com",
+    file_name: "vr12.jpg",    // 원본 이미지가 저장된다
+    meta_value: {     // thumb,
+       mimetype: 'image/jpeg',
+       size: 14588725,
+       encoding: "7bit",
+       real_file_name: "vr12.jpg",    // 원본 이미지가 저장된다
+
+       // tile_dir_name: "SAM_100_0075.tiles",
+       // thumbnail_image_name: "thumb.jpg",// 단일면 이미지
+       // preview_image_name: "preview.jpg",// 세로형 이미지(각 면->하나의 이미지)
+       // mobile_dir_name: "mobile"  // 모바일용 이미지 저장 폴더 이름
+    }
+ },
   
    {
-      ID: 31,
+      ID: 43,
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
@@ -625,15 +865,15 @@ module.exports = [
       meta_value: {
          tiles: [
             {
-               ID: 15,  // media.ID
+               ID: 31,  // media.ID
                dir_name: "vr1.tiles"
             },
             {
-               ID: 16,
+               ID: 32,
                dir_name: "vr2.tiles"
             },
             {
-               ID: 17,
+               ID: 33,
                dir_name: "vr3.tiles"
             }
          ],
@@ -643,7 +883,7 @@ module.exports = [
       }
    },
    {
-      ID: 32,
+      ID: 44,
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
@@ -653,15 +893,15 @@ module.exports = [
       meta_value: {
          tiles: [
             {
-               ID: 18,  // media.ID
+               ID: 34,  // media.ID
                dir_name: "vr4.tiles"
             },
             {
-               ID: 19,
+               ID: 35,
                dir_name: "vr5.tiles"
             },
             {
-               ID: 20,
+               ID: 36,
                dir_name: "vr6.tiles"
             }
          ],
@@ -671,7 +911,7 @@ module.exports = [
       }
    },
    {
-      ID: 33,
+      ID: 45,
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
@@ -681,15 +921,15 @@ module.exports = [
       meta_value: {
          tiles: [
             {
-               ID: 21,  // media.ID
+               ID: 37,  // media.ID
                dir_name: "vr7.tiles"
             },
             {
-               ID: 22,
+               ID: 38,
                dir_name: "vr8.tiles"
             },
             {
-               ID: 23,
+               ID: 39,
                dir_name: "vr9.tiles"
             }
          ],
@@ -699,7 +939,7 @@ module.exports = [
       }
    },
    {
-      ID: 34,
+      ID: 46,
       user_id: 5,
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
@@ -709,15 +949,15 @@ module.exports = [
       meta_value: {
          tiles: [
             {
-               ID: 24,  // media.ID
+               ID: 40,  // media.ID
                dir_name: "vr10.tiles"
             },
             {
-               ID: 25,
+               ID: 41,
                dir_name: "vr11.tiles"
             },
             {
-               ID: 26,
+               ID: 42,
                dir_name: "vr12.tiles"
             }
          ],
