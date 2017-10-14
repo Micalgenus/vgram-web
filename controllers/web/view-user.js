@@ -78,6 +78,7 @@ exports.viewChangeProfile = function (req, res) {
         phone: u.telephone,
         member_type: u.member_type,
         profile_image_path: u.profile_image_path,
+        targetIdx: req.user.ID,
 
         registered_number: u.meta_value.registered_number,
         post_code: u.meta_value.address.post_code,
@@ -154,6 +155,7 @@ exports.viewProfile = function (req, res) {
         member_type: u.member_type,
         userLikeCount: c.length,
         profile_image_path: u.profile_image_path,
+        targetIdx: u.ID,
 
         sns: sns,
 
@@ -316,6 +318,21 @@ exports.getLikeposts = function (req, res) {
     ]
   }).then(function (user) {
     return res.send(user.LikePosts);
+  });
+}
+
+exports.getUserList = function (req, res) {
+  let userIdxList = JSON.parse(req.params.userIdxList);
+
+  return User.findAll({
+    where: {
+      ID: {
+        $in: userIdxList
+      }
+    },
+    attributes: ['nickname'],
+  }).then(function (users) {
+    return res.send(users);
   });
 }
 
