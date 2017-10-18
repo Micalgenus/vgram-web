@@ -362,6 +362,9 @@ module.exports = function (app) {
   // index list
   web.postRoute.get('/html/:roomListPage([0-9]+)', web.postController.postHtmlList);
 
+  // post info를 popup형을 위해 ajax로 받음
+  web.postRoute.get('/ajax/:postId([0-9]+)', requireWebAuth, web.postController.postAjaxView);
+
   // comment
   web.postRoute.post('/comment/new/:postIdx([0-9]+)', requireWebAuth, web.postController.createPostComment);
 

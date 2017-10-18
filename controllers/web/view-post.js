@@ -12,6 +12,7 @@ const Media = models.media;
 
 const moment = require("moment");
 const _ = require("lodash");
+const xss = require("xss");
 
 const config = require("../../config/main");
 const value = require('../../utils/staticValue');
@@ -294,6 +295,49 @@ exports.postHtmlList = function (req, res) {  // Method 이름 바꾸기, 뭐하
     });
   });
 };
+
+/* ajax view */
+exports.postAjaxView = function (req, res) {
+
+  const postId = req.params.postId;
+  return getPostInfo(postId, req.device.type).then(function (info) {
+    return res.render('post/ajax_post', {
+      ENV: req.env,
+      logined: req.user.logined,
+      userIdx: req.user.ID,
+      title: "viewPostInfoView",
+      msg: req.msg,
+      mediaUrl: config.mediaUrl,
+      domainUrl: config.host,
+
+      // post: info.post,
+      postID: info.post.ID,
+      postTitle: info.post.title,
+      postType: info.post.post_type,
+      createdAt: info.post.createdAt,
+      comments: info.comments,
+      commentCount: info.commentCount,
+
+      content: info.post.content,
+      // content: xss(info.post.content),
+
+      user: info.post.user,
+      about: xss(info.post.user.about),
+
+      images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
+
+      email: info.post.user.email,
+      nickname: info.post.user.nickname,
+      phone: info.post.user.telephone,
+      memberType: info.post.user.member_type,
+
+      myPost: req.user.logined && info.post.user.ID == req.user.ID,
+
+      lat: info.positions[0].lat,
+      lng: info.positions[0].lng,
+    });
+  });
+}
 
 /* view */
 exports.createPostInfoView = function (req, res) {

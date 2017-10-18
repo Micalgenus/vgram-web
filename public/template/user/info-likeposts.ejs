@@ -6,15 +6,15 @@
         <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
           <div class="flexslider">
             <div class="slider-wrap">
-              <div class="slide"><a href="/post/<%= data[i].ID %>"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt=""></a></div>
-              <div class="slide"><a href="/post/<%= data[i].ID %>"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt=""></a></div>
+              <div class="slide"><a href="/post/ajax/<%= data[i].ID %>" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt=""></a></div>
+              <div class="slide"><a href="/post/ajax/<%= data[i].ID %>" class="ajax-link"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt=""></a></div>
             </div>
           </div>
         </div>
       </div>
       <div class="portfolio-desc">
-        <span class="author"><a href="#"><img src="<%= data[i].user.profile_image_path %>" alt=""> <%= data[i].user.nickname %></a></span>
-        <h3><a href="/html/ajax_view.html" class="ajax-link"><%= data[i].title %></a></h3>
+        <span class="author"><a href="/user/<%= data[i].user.ID %>"><img src="<%= data[i].user.profile_image_path %>" alt=""> <%= data[i].user.nickname %></a></span>
+        <h3><a href="/post/<%= data[i].ID %>"><%= data[i].title %></a></h3>
         <span class="info clearfix">
           <span class="date"><%= new Date(data[i].createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></span>
           <span class="heart"><i class="icon-heart3"></i> <%= data[i].LikeUsers.length %></span>

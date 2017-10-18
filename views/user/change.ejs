@@ -16,7 +16,7 @@
           <% include ./right-side.ejs %>
         </div>
         <div class="profile col-sm-9">
-          <!--<form class="nobottommargin" id="template-contactform" name="template-contactform" method="post">-->
+          <form class="nobottommargin" id="change-form" name="template-contactform" method="post">
 
             <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin"
                  alt="Avatar" style="width: 84px;">
@@ -36,7 +36,7 @@
               <div>
                 <div class="kv-avatar center-block text-center">
                   <!--<label for="profile" class="button button-small nomargin">등록</label>-->
-                  <input id="profile" name="profile" type="file" class="file-loading"">
+                  <input id="profile" name="profile" type="file" class="file-loading">
                   <input id="profile_src" name="profile_src" type="hidden" value="<%= profile_image_path %>"/>
                   <!--<button type="button" class="button button-small button-red nomargin">삭제</button>-->
                   <!--<label class="button button-small nomargin">등록<input type="file" style="display: none;"></label>-->
@@ -163,12 +163,8 @@
             <div class="clear"></div>
 
             <div class="center">
-              <button type="button" id="template-contactform-submit" name="template-contactform-submit"
-                      class="button button-small button-red">계정삭제
-              </button>
-              <button type="submit" id="template-contactform-submit" name="template-contactform-submit"
-                      class="button button-small">완료
-              </button>
+              <button type="button" id="delete-user-button" name="delete-user-button" class="button button-small button-red">계정삭제</button>
+              <button type="submit" id="change-info-button" name="change-info-button" class="button button-small">완료</button>
             </div>
 
             <!--<a href="#myModal1"  data-lightbox="inline" class="button button-large button-rounded">Trigger Modal</a>-->
@@ -189,21 +185,17 @@
                   <div id="crop-InnerModal">
                     <!-- crop 이미지 -->
                     <img id="cropImg"/>
+                    <!-- filename -->
+                    <input type="hidden" disabled="disabled" id="profilename" />
                     <!-- 버튼들 -->
-                    <button class="button button-small button-red" type="button"
-                            id="template-contactform-submit" name="template-contactform-submit"
-                            value="submit">취소
-                    </button>
-                    <button class="button button-small" type="button"
-                            id="template-contactform-submit" name="template-contactform-submit"
-                            value="submit">확인
-                    </button>
+                    <button class="button button-small button-red" type="button" id="crop-cancel-button" name="crop-cancel-button" value="submit">취소</button>
+                    <button class="button button-small" type="button" id="crop-ok-button" name="crop-ok-button" value="submit">확인</button>
                   </div>
                 </div>
 
               </div>
             </div>
-          <!--</form>-->
+          </form>
         </div>
       </div>
     </div>
@@ -306,10 +298,10 @@
   var $cropInnerModal = $('#crop-InnerModal');
   var cropper;
   var orgFileBase, originalURL;
-  <% if (profile_image_path) { %>
-  var profile_image_path = '<%= profile_image_path %>';
-  <% } else { %>
   var profile_image_path = 'undefined';
+
+  <% if (profile_image_path) { %>
+    profile_image_path = '<%= profile_image_path %>';
   <% } %>
 
   var fileinputOption = {
@@ -324,9 +316,9 @@
     removeTitle: 'Cancel or reset changes',
     elErrorContainer: '#kv-avatar-errors-1',
     msgErrorClass: 'alert alert-block alert-danger',
-    <!--defaultPreviewContent: '<img src="<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',-->
-//    layoutTemplates: {main2: '{preview} {remove} {browse}'},
-    layoutTemplates: {main2: '{browse} {remove}'},
+    // defaultPreviewContent: '<img src="<%= profile_image_path %>" alt="Your Avatar" style="width:160px">',
+    layoutTemplates: {main2: '{preview} {remove} {browse}'},
+    // layoutTemplates: {main2: '{browse} {remove}'},
     allowedFileTypes: ['image'],
     allowedFileExtensions: ["jpg", "png"]
   };
@@ -336,6 +328,8 @@
     fileinputOption.initialPreview = [profile_image_path];
 
     $(".img-thumbnail.img-circle").click((event, target) => {
+      
+      if (!$('#crop-InnerModal').find('#cropImg').attr('src')) return false;
 
       if (originalURL || profile_image_path) {
         $.magnificPopup.open({
@@ -356,6 +350,8 @@
   }
 
   $profileImg.fileinput(fileinputOption);
+
+  $('.file-preview').hide();
 
   $profileImg.on('change', function (event, numFiles, label) {
     originalURL;
@@ -448,7 +444,7 @@
   }
 
   // profile image crop 성공
-  $cropInnerModal.find('button.button-blue').click(function () {
+  $cropInnerModal.find('#crop-ok-button').click(function () {
     var preview = document.querySelector('.img-thumbnail.img-circle');
 
     let croppedDataURL = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL();
@@ -458,15 +454,14 @@
   });
 
   // profile image crop 취소
-  $cropInnerModal.find('button.button-red').click(function () {
+  $cropInnerModal.find('#crop-cancel-button').click(function () {
     // alert('취소');
     $.magnificPopup.close();
   });
 
   // 전송
-  $('button.button-green').click(function () {
-
-    if ($('.file-preview-frame img').attr('src')) {
+  $('#change-info-button').click(function () {
+    if ($('#crop-InnerModal').find('#cropImg').attr('src')) {
       var blobData;
 
       if (cropper) {
@@ -491,7 +486,7 @@
       }).done(function (data) {
         $profile_src = $('#profile_src');
         $profile_src.attr('value', data.url);
-        // console.log($profile_src.attr('value'));
+        console.log($profile_src.attr('value'));
         $('form#change-form').submit();
       });
     } else {
@@ -501,8 +496,8 @@
     return false;
   });
 
-  // 취소
-  $('button.button-amber').click(function () {
+  // 계정 삭제
+  $('#delete-user-button').click(function () {
     if (confirm("삭제하시겠습니까?")) {
       $.ajax({
         type: 'DELETE',
