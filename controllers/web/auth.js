@@ -236,7 +236,8 @@ exports.setToken = function (req, res, next) {
   // cdn.auth0.com/js/lock/10.18.0/lock.min.js:9 Set-Cookie header is ignored in response from
   // url: http://localhost:3000/auth/login-callback?code=fKx9Jp018uW-K1cT.
   // Cookie length should be less than or equal to 4096 characters.
-  res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
+  res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
+  // res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
   res.cookie('access_token', req.user.accessToken);
   res.cookie('user_profile_token', userToken);
 
