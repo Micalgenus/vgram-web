@@ -301,10 +301,13 @@ exports.postAjaxView = function (req, res) {
 
   const postId = req.params.postId;
   return getPostInfo(postId, req.device.type).then(function (info) {
+    const user_meta_value = JSON.parse(info.post.user.meta_value);
+
     return res.render('post/ajax_post', {
       ENV: req.env,
       logined: req.user.logined,
       userIdx: req.user.ID,
+      userAuthId: req.user.sub,
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,
@@ -325,13 +328,14 @@ exports.postAjaxView = function (req, res) {
       about: xss(info.post.user.about),
 
       images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
+      sns: user_meta_value.sns || {},
 
       email: info.post.user.email,
       nickname: info.post.user.nickname,
       phone: info.post.user.telephone,
       memberType: info.post.user.member_type,
 
-      myPost: req.user.logined && info.post.user.ID == req.user.ID,
+      myPost: req.user.logined && (info.post.user.ID == req.user.ID),
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
@@ -354,6 +358,7 @@ exports.createPostInfoView = function (req, res) {
     ENV: req.env,
     logined: req.user.logined,
     userIdx: req.ID,
+    userAuthId: req.user.sub,
     title: "createPostInfoView",
     msg: req.msg,
     update: false,
@@ -384,6 +389,7 @@ exports.modifyPostInfoView = function (req, res) {
     ENV: req.env,
     logined: req.user.logined,
     userIdx: req.ID,
+    userAuthId: req.user.sub,
     title: "createPostInfoView",
     msg: req.msg,
     update: false,
@@ -422,6 +428,7 @@ exports.viewPostInfoView = function (req, res) {
       ENV: req.env,
       logined: req.user.logined,
       userIdx: req.user.ID,
+      userAuthId: req.user.sub,
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,

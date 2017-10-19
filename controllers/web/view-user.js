@@ -63,6 +63,7 @@ exports.viewChangeProfile = function (req, res) {
         ENV: req.env,
         logined: req.user.logined,
         userIdx: req.user.ID,
+        userAuthId: req.user.sub,
         title: 'viewChangeProfile',
         msg: req.msg,
 
@@ -140,6 +141,7 @@ exports.viewProfile = function (req, res) {
         ENV: req.env,
         logined: req.user.logined,
         userIdx: req.user.ID,
+        userAuthId: req.user.sub,
         title: 'userDetailView',
         msg: req.msg,
         mediaUrl: config.mediaUrl,
@@ -326,7 +328,7 @@ exports.getUserList = function (req, res) {
 
   return User.findAll({
     where: {
-      ID: {
+      auth0_user_id: {
         $in: userIdxList
       }
     },
@@ -411,12 +413,10 @@ exports.change = function (req, res, next) {
       }).then(function (u) {
 
         req.user.tokenType = 'Bearer';
-
-        console.log(body);
-        console.log(u);
-
         req.user.profile = body;
 
+        req.user.profile.ID = req.user.app_metadata.ID;
+        req.user.profile.sub = req.user.sub;
 
         // req.user.profile = {
         //   "email_verified": body.email_verified,

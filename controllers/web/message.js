@@ -19,6 +19,7 @@ exports.viewChat = function (req, res) {
         ENV: req.env,
         logined: req.user.logined,
         userIdx: req.user.ID,
+        userAuthId: req.user.sub,
         nickname: u.nickname,
         title: 'viewChat',
         msg: req.msg,
@@ -56,7 +57,7 @@ exports.viewChatByMember = function (req, res) {
     //   chat.resumeSession();
     // });
 
-    req.flash('messageId', targetId);
+    req.flash('messageId', u.auth0_user_id);
     return res.redirect('/message');
   });
 }

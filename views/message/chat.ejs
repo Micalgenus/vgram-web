@@ -51,7 +51,7 @@
       <script>
 
         var user = {
-          uid: <%= userIdx %>,
+          uid: '<%= userAuthId %>',
           displayName: '<%= nickname %>'
         }
 
@@ -68,7 +68,7 @@
 
           $.ajax({
             method: 'GET',
-            url: '/user/json/list/[' + users.join(',') + ']',
+            url: '/user/json/list/' + JSON.stringify(users) ,
             success: function(result) {
               users = [];
               for (var i = 0; i < result.length; i++) {
@@ -114,7 +114,7 @@
                 var room = list[key];
                 var roomSize = Object.keys(room.authorizedUsers).length;
                 if (room.authorizedUsers && room.authorizedUsers[user.uid] && roomSize == 2) {
-                  if (room.authorizedUsers[<%= targetId %>]) {
+                  if (room.authorizedUsers['<%= targetId %>']) {
                     // enter room
                     setTimeout(function() {
                       chatAPI.enterRoom(key);
@@ -130,9 +130,9 @@
                   chatAPI.enterRoom(roomId);
                   $.ajax({
                     method: 'POST',
-                    url: ['/message', <%= targetId %>, roomId].join('/'),
+                    url: ['/message', '<%= targetId %>', roomId].join('/'),
                     success: function(result) {
-                      setRoomTitle(roomId, {<%= targetId %>: true});
+                      setRoomTitle(roomId, {'<%= targetId %>': true});
                     }
                   });
                 });

@@ -41,6 +41,7 @@ exports.loginView = function (req, res, next) {
   return res.render('auth/login', {
     ENV: req.env,
     logined: req.user.logined,
+    userAuthId: null,
     title: 'loginView',
     msg: req.msg,
     AUTH0_DOMAIN: config.auth0.DOMAIN,
@@ -90,6 +91,7 @@ exports.signupView = function (req, res) {
   return res.render('auth/signup', {
     ENV: req.env,
     logined: req.user.logined,
+    userAuthId: null,
     title: 'registerView',
     msg: req.msg,
 
