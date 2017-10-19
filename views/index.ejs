@@ -106,21 +106,20 @@
   $.ajax({
     url: "/post/html/1",
     success: function(data) {
-      
       var t = setTimeout( function(){
-        $('#vlist').append(data);
-        
-        // $container.isotope( 'appended', $( data ) );
-        // var t = setTimeout( function(){ $('#vlist').isotope('layout'); }, 1000 );
-        SEMICOLON.widget.loadFlexSlider();
-        SEMICOLON.portfolio.arrange();
-        $('#vlist').isotope('layout');
 
-        // $container.append(data);
-        // SEMICOLON.widget.loadFlexSlider();
-        // SEMICOLON.portfolio.arrange();
-        // $container.isotope('layout');
-      }, 1000 );
+        var $data = $(data).find('article');
+        
+        for (var i = 0; i < $data.prevObject.length; i += 2) {
+          let article = $data.prevObject[i];
+        
+          $container.append(article).isotope( 'appended', $( article ) );
+          SEMICOLON.widget.loadFlexSlider();
+          SEMICOLON.portfolio.arrange();
+        }
+
+        $container.isotope('layout');
+      }, 500 );
     }
   });
 })();
