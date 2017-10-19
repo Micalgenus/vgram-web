@@ -114,26 +114,36 @@
           <%= user.about %>
         </div>
         <div class="si-share noborder">
-          <a href="#" class="social-icon si-colored si-small si-website">
-            <i class="icon-website"></i>
-            <i class="icon-website"></i>
-          </a>
-          <a href="#" class="social-icon si-colored si-small si-facebook">
-            <i class="icon-facebook"></i>
-            <i class="icon-facebook"></i>
-          </a>
-          <a href="#" class="social-icon si-colored si-small si-instagram">
-            <i class="icon-instagram"></i>
-            <i class="icon-instagram"></i>
-          </a>
-          <a href="#" class="social-icon si-colored si-small si-blog">
-            <i class="icon-blog"></i>
-            <i class="icon-blog"></i>
-          </a>
-          <a href="#" class="social-icon si-colored si-small si-twitter">
-            <i class="icon-twitter"></i>
-            <i class="icon-twitter"></i>
-          </a>
+          <% if (sns.website) { %>
+            <a href="<%= sns.website %>" class="social-icon si-colored si-small si-website">
+              <i class="icon-website"></i>
+              <i class="icon-website"></i>
+            </a>
+          <% } %>
+          <% if (sns.facebook) { %>
+            <a href="<%= sns.facebook %>" class="social-icon si-colored si-small si-facebook">
+              <i class="icon-facebook"></i>
+              <i class="icon-facebook"></i>
+            </a>
+          <% } %>
+          <% if (sns.instagram) { %>
+            <a href="<%= sns.instagram %>" class="social-icon si-colored si-small si-instagram">
+              <i class="icon-instagram"></i>
+              <i class="icon-instagram"></i>
+            </a>
+          <% } %>
+          <% if (sns.blog) { %>
+            <a href="<%= sns.blog %>" class="social-icon si-colored si-small si-blog">
+              <i class="icon-blog"></i>
+              <i class="icon-blog"></i>
+            </a>
+          <% } %>
+          <% if (sns.twitter) { %>
+            <a href="<%= sns.twitter %>" class="social-icon si-colored si-small si-twitter">
+              <i class="icon-twitter"></i>
+              <i class="icon-twitter"></i>
+            </a>
+          <% } %>
         </div>
       </div>
     </div>
@@ -185,7 +195,7 @@
 
     <div class="line"></div>
 
-    <div class="vlist">
+    <!-- <div class="vlist">
       <h4>관련 게시물</h4>
 
       <div id="vlist-ajax" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
@@ -293,7 +303,7 @@
           더보기
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- Page -->
   <script>
