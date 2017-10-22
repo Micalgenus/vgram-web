@@ -17,3 +17,8 @@ exports.redirectChange = function(req, res) {
 exports.redirectBizList = function(req, res) {
   return res.redirect('/biz/1');
 }
+
+exports.redirectLogout = function(req, res) {
+  // Change페이지로 Redirect
+  return res.redirect('/auth/logout');
+}

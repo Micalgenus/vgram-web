@@ -521,3 +521,45 @@ exports.delete = function (req, res) {
 
   });
 }
+/*id랑 기존비밀번호를 로그인시켜서 로그인하면 변경하고 로그인에 실패하면 컷트 시킬것*/
+exports.changePassword = function (req, res, next) {
+
+  return authController.getAdminToken().then(function (token) {
+
+    let args = {
+      method: 'PATCH',
+      uri: config.auth0.IDENTIFIER + 'users/' + req.user.sub,
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      json: {
+        password: req.body.newpassword,
+        connection: 'Username-Password-Authentication',
+
+      },
+
+    };
+    /*request promis*/
+    return requestp(args).then(function (body) {
+      return next();
+    }).catch(next);
+
+
+  });
+
+  //새 비밀번호를 잘못 입력했을때
+}
+
+
+
+exports.viewPassword = function (req, res) {
+  return res.render('user/password', {
+    ENV: req.env,
+    logined: req.user.logined,
+    userIdx: req.user.ID,
+    title: 'viewPassword',
+    msg: req.msg,
+  })
+}
