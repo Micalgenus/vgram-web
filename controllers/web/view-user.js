@@ -374,7 +374,7 @@ exports.change = function (req, res, next) {
           telephone: phone,
           phone_number: phone,
           profile_image_path: profile_src,
-          locale: "ko-kr" || req.user.user_metadata.locale,
+          locale: "ko-kr" || req.user.profile.user_metadata.locale,
           registered_number: registered_number,
           address: address,
           sns: sns,
@@ -412,8 +412,11 @@ exports.change = function (req, res, next) {
         }
       }).then(function (u) {
 
-        req.user.tokenType = 'Bearer';
+        // req.user.tokenType = 'Bearer';
         req.user.profile = body;
+
+        console.log("profile - body");
+        console.log(body);
 
         req.user.profile.ID = req.user.app_metadata.ID;
         req.user.profile.sub = req.user.sub;

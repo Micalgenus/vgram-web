@@ -81,7 +81,13 @@ const jwtWebLogin = new JwtStrategy(jwtOptions, function (req, payload, done) {
       });
    }
 
-   payload.logined = true;
+  let profile_token = req.cookies['user_profile_token'];
+   if (profile_token) {
+     let profile = genToken.decodedToken(profile_token);
+     payload.profile = profile;
+   }
+
+  payload.logined = true;
    return done(null, payload);
 });
 
