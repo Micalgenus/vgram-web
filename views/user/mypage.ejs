@@ -13,10 +13,14 @@
       <div class="row clearfix">
         <div class="col-sm-3 clearfix bottommargin-sm">
           <% if(myPage) { %>
-          <% include ./right-side.ejs %>
+            <% include ./right-side.ejs %>
           <% } %>
         </div>
-        <div class="mypage col-sm-9">
+        <% if(myPage) { %>
+          <div class="mypage col-sm-9">
+        <% } else { %>
+          <div class="mypage col-sm-full">
+        <% } %>
           <img src="<%= profile_image_path %>" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="width: 84px;">
           <div class="heading-block noborder info">
             <h3><%= nickname %></h3>
@@ -47,7 +51,7 @@
                 <i class="icon-print"></i>
               </a>
             </div>
-            <div class="panel panel-default">
+            <!-- <div class="panel panel-default">
               <div class="panel-body">
                 <div class="author-content">
                   <%= about %>
@@ -75,7 +79,7 @@
                   </a>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- // 연락처, 자기소개, SNS 하드코딩 -->
             <div class="panel panel-default">
               <div class="panel-body">
