@@ -1,0 +1,7 @@
+<div class="top-notification-item clearfix">
+  <a href="#">
+    <span class="photo"><img src="<%= data.data.post.user.profile_image_path %>" alt=""></span>
+    <span class="info"><%= data.data.post.title %>글을 남기셨습니다.</span>
+    <span class="date"><%= moment(data.data.post.createdAt).fromNow() %></span>
+  </a>
+</div>
