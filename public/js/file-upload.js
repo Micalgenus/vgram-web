@@ -13,74 +13,89 @@
 
 $(function () {
 
-    var setHeader = function (xhr) {
-        xhr.setRequestHeader('Authorization', $.cookie('authorization'));
-    };
+  var setHeader = function (xhr) {
+    xhr.setRequestHeader('Authorization', $.cookie('authorization'));
+  };
 
-    // Initialize the jQuery File Upload widget:
+  // Initialize the jQuery File Upload widget:
 
-    let $vrImageUpload = $('#fileupload');
-    let $normalImageUpload = $('#fileupload2');
+  let $vrImageUpload = $('#fileupload');
+  let $normalImageUpload = $('#fileupload2');
 
-    $vrImageUpload.fileupload({
-        type: 'POST',
-        dropZone: $('#upload1'),
-        singleFileUploads: false,
-        beforeSend: function (xhr) {
-            setHeader(xhr);
+  let vrImagesList = null;
+  let normalImagesList = null;
+
+  $vrImageUpload.fileupload({
+    type: 'POST',
+    dropZone: $('#upload1'),
+    singleFileUploads: true,
+    beforeSend: function (xhr) {
+      setHeader(xhr);
+    },
+    added: function (e, data) {
+      $(data.context).find("button.edit").magnificPopup({
+        items: {
+          src: '#modifyImage',
+          type: 'inline'
         },
-      added: function (e, data) {
-        $(data.context).find("button.edit").magnificPopup({
-          items: {
-            src: '#modifyImage',
-            type: 'inline'
-          },
-          callback: {
-            elementParse: function (item) {
+        callback: {
+          elementParse: function (item) {
 
-            }
           }
-        });
-          // $(data.context).find("button.edit").click(function() {
-          //   $(".edit-modal-lg").modal();
-          // });
-      },
-        done: function (e, data) {
-            $vrImageUpload.find('.template-upload').remove();
-        },
-        fail: function (e, data) {
-            alert('vr images upload fail');
         }
-    });
+      });
 
-    $normalImageUpload.fileupload({
-        type: 'POST',
-        dropZone: $('#upload2'),
-        singleFileUploads: false,
-        beforeSend: function (xhr) {
-            setHeader(xhr);
+      if (vrImagesList == null) {
+        vrImagesList = data;
+      } else {
+        vrImagesList.context.push(data.context[0]);
+        vrImagesList.files.push(data.files[0]);
+
+        $(data.context).find('button.start').off('submit').prop("disabled", true);
+      }
+    },
+    done: function (e, data) {
+      $vrImageUpload.find('.template-upload').remove();
+    },
+    fail: function (e, data) {
+      alert('vr images upload fail');
+    }
+  });
+
+  $normalImageUpload.fileupload({
+    type: 'POST',
+    dropZone: $('#upload2'),
+    singleFileUploads: false,
+    beforeSend: function (xhr) {
+      setHeader(xhr);
+    },
+    added: function (e, data) {
+      $(data.context).find("button.edit").magnificPopup({
+        items: {
+          src: '#modifyImage',
+          type: 'inline'
         },
-      added: function (e, data) {
-        $(data.context).find("button.edit").magnificPopup({
-          items: {
-            src: '#modifyImage',
-            type: 'inline'
-          },
-          callback: {
-            elementParse: function (item) {
+        callback: {
+          elementParse: function (item) {
 
-            }
           }
-        });
-        // $(data.context).find("button.edit").click(function() {
-        //   $(".edit-modal-lg").modal();
-        // });
-      },
-        done: function (e, data) {
-            $normalImageUpload.find('.template-upload').remove();
-        },
-        fail: function (e, data) {
-            alert('normal images upload fail');
-        },
-    });
+        }
+      });
+      
+      if (normalImagesList == null) {
+        normalImagesList = data;
+      } else {
+        normalImagesList.context.push(data.context[0]);
+        normalImagesList.files.push(data.files[0]);
+
+        $(data.context).find('button.start').off('submit').prop("disabled", true);
+      }
+    },
+    done: function (e, data) {
+      $normalImageUpload.find('.template-upload').remove();
+    },
+    fail: function (e, data) {
+      alert('normal images upload fail');
+    },
+  });
 });

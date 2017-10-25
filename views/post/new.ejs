@@ -26,12 +26,12 @@
     <div class="container">
       <div class="vwrite">
         <ul class="nav nav-tabs boot-tabs">
-          <li class="active"><a href="#tabs-21" data-toggle="tab">VR</a></li>
-          <li><a href="#tabs-22" data-toggle="tab">이미지</a></li>
-          <li><a href="#tabs-23" data-toggle="tab">부가정보</a></li>
+          <li class="active"><a href="#vr" data-toggle="tab">VR</a></li>
+          <li><a href="#normal" data-toggle="tab">이미지</a></li>
+          <li><a href="#info" data-toggle="tab">부가정보</a></li>
         </ul>
         <div class="tab-content">
-          <div class="tab-pane fade in active" id="tabs-21">
+          <div class="tab-pane fade in active" id="vr">
             <h4>VR 이미지
               <button class="btn btn-small btn-info edit">수정</button>
             </h4>
@@ -91,10 +91,10 @@
               </table>
             </form>
             <div class="write-button">
-              <a href="#tabs-22" class="button button-small">다음</a>
+              <a href="#normal" class="button button-small">다음</a>
             </div>
           </div>
-          <div class="tab-pane fade" id="tabs-22">
+          <div class="tab-pane fade" id="normal">
             <h4>일반 이미지</h4>
             <form id="fileupload2" method="POST" action="<%= mediaUrl %>/convert/images" enctype="multipart/form-data">
               <!-- Redirect browsers with JavaScript disabled to the origin page -->
@@ -145,13 +145,13 @@
               </table>
             </form>
             <div class="write-button">
-              <a href="#tabs-21" class="button button-leaf button-small">이전</a>
-              <a href="#tabs-23" class="button button-small">다음</a>
+              <a href="#vr" class="button button-leaf button-small">이전</a>
+              <a href="#info" class="button button-small">다음</a>
             </div>
           </div>
-          <div class="tab-pane fade" id="tabs-23">
+          <div class="tab-pane fade" id="info">
             <h4>부가정보</h4>
-            <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post">
+            <!-- <form class="nobottommargin" id="template-contactform" name="template-contactform" action="include/sendemail.php" method="post"> -->
               <div class="info clearfix">
                 <div class="col_half">
                   <div id="daum-map"></div>
@@ -189,10 +189,10 @@
                 <div id="summernote"></div>
               </div>
               <div class="write-button">
-                <a href="#tabs-22" class="button button-leaf button-small">이전</a>
+                <a href="#normal" class="button button-leaf button-small">이전</a>
                 <button type="submit" id="template-contactform-submit" name="template-contactform-submit" class="button button-small">완료</button>
               </div>
-            </form>
+            <!-- </form> -->
           </div>
           <!--<div class="tab-content clearfix" id="tabs-24">-->
           <!--<div class="add_file">-->
@@ -295,6 +295,10 @@
       </td>
       <td>
         {% if (!i && !o.options.autoUpload) { %}
+          <button class="btn btn-primary start hidden" disabled>
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start</span>
+          </button>
         {% } %}
         {% if (!i) { %}
         {% } %}
@@ -540,7 +544,7 @@
 
     var uploading = false;
 
-    $('#tabs-23 button.button-blue').click(function () {
+    $('#info button').click(function () {
 
       if (uploading) {
         alert('waiting for upload...');
@@ -549,18 +553,18 @@
 
       uploading = true;
 
-      if ($('#fileupload .template-upload').length == 0) {
-        alert('please vrimage upload');
+      if (!checkVRimages()) {
+        alert('VR 이미지를 업로드해주세요');
         uploading = false;
         return false;
       }
 
-      if ($('#fileupload2 .template-upload').length == 0) {
-        alert('please normal image upload');
+      if (!checkNormalImages()) {
+        alert('일반 이미지를 업로드해주세요');
         uploading = false;
         return false;
       }
-
+      
       if (!$('#lat').val() || !$('#lat').val() || !$('#sample5_address').val()) {
         alert('please select address');
         uploading = false;
@@ -578,7 +582,6 @@
         uploading = false;
         return false;
       }
-
 
       const address1 = $("#sample5_address").val();
       const address2 = $("#address2").val();
@@ -609,15 +612,15 @@
           $('input[name="postID"]').val(postId);
 
           // submit images
-          $('#fileupload button[type="submit"]').click();   // vr image
-          $('#fileupload2 button[type="submit"]').click();    // normal image
+          $('#fileupload button.start').click();   // vr image
+          $('#fileupload2 button.start').click();    // normal image
 
           var stopInterval = function(interval) {
             clearInterval(interval);
           }
 
           var t = setInterval(function() {
-            if ($('#fileupload .template-upload').length == 0 && $('#fileupload2 .template-upload').length == 0) {
+            if (!checkVRimages() && !checkNormalImages()) {
               uploading = false;
               alert('upload success !');
               stopInterval(t);
@@ -634,49 +637,67 @@
       return false;
     });
   });
+
+  function checkVRimages() {
+    if ($('#fileupload .template-upload').length == 0) return false;
+    return true;
+  }
+
+  function checkNormalImages() {
+    if ($('#fileupload2 .template-upload').length == 0) return false;
+    return true;
+  }
+
+  // 탭 클릭시
+  $('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
+    const $nowTab = $('.nav .active a');
+
+    /* VR 이미지 업로드 안됐을 때 */
+    if ($nowTab.attr('href') == '#vr') {
+      if (!checkVRimages()) {
+        alert('VR 이미지를 업로드해주세요');
+        $(this).blur();
+        return false;
+      }
+    } else if ($nowTab.attr('href') == '#normal') {
+      if (!checkNormalImages()) {
+        alert('일반 이미지를 업로드해주세요');
+        $(this).blur();
+        return false;
+      }
+    }
+
+    $(window).scrollTop(0);
+
+    // 다음 맵 갱신
+    if ( $(this).index('.vwrite .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-complete') !== 'true' ) {
+      $(this).attr('data-complete', 'true');
+
+      window.setTimeout(function() {
+        map.relayout();
+      }, 500);
+    }
+  });
+
+  // 이전, 다음 trigger
+  $('.vwrite .write-button a').click(function(e) {
+    $('.vwrite .nav a[href="' + $(this).attr('href') + '"]').trigger('click');
+  });
+
+  // 이미지 보정
+  $('button.edit').magnificPopup({
+    items: {
+        src: '#modifyImage',
+        type: 'inline'
+    }
+  });
+  $('#modifyImage button.cancel').click(function(e) {
+    $.magnificPopup.close();
+    e.preventDefault();
+  });
+
 </script>
 
-<!-- Page -->
-<script>
-// 탭 클릭시
-$('.vwrite .nav a[data-toggle="tab"]').click(function(e) {
-  /* VR 이미지 업로드 안됐을 때 */
-  // if (VR 없을 때 조건) {
-  alert('VR 이미지를 업로드해주세요');
-  $(this).blur();
-  // return false;
-  // }
-
-  $(window).scrollTop(0);
-
-  // 다음 맵 갱신
-  if ( $(this).index('.vwrite .nav a[data-toggle="tab"]') === 2 && $(this).attr('data-complete') !== 'true' ) {
-    $(this).attr('data-complete', 'true');
-
-    window.setTimeout(function() {
-      map.relayout();
-    }, 500);
-  }
-});
-
-// 이전, 다음 trigger
-$('.vwrite .write-button a').click(function(e) {
-  $('.vwrite .nav a[href="' + $(this).attr('href') + '"]').trigger('click');
-});
-
-// 이미지 보정
-$('button.edit').magnificPopup({
-  items: {
-      src: '#modifyImage',
-      type: 'inline'
-  }
-});
-$('#modifyImage button.cancel').click(function(e) {
-  $.magnificPopup.close();
-  e.preventDefault();
-});
-</script>
-<!--// Page -->
 
 <script type="text/javascript" src="/lib/glfx.min.js"></script>
 <script type="text/javascript" src="/js/edit-image.js"></script>
