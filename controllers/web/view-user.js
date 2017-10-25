@@ -183,9 +183,21 @@ exports.getFollower = function (req, res) {
     include: [{
       model: User,
       as: 'Subscribes',
+      // include: [{
+      //   model: User,
+      //   as: 'Subscribes',
+      //   where: {
+      //     ID: {
+      //       $like: models.sequelize.col('user.ID'),
+      //     }
+      //   },
+      //   attributes: ['ID'],
+      //   require: false, // 여기가 안먹음 (outer join 으로 하려는데 안됨)
+      // }],
       where: {
-        ID: userIdx
-      }
+        ID: userIdx,
+      },
+      attributes: ['ID'],
     }],
   }).then(function (u) {
     return res.send(u);
@@ -199,7 +211,7 @@ exports.getFollowing = function (req, res) {
   return User.findOne({
     include: [{
       model: User,
-      as: 'Subscribes'
+      as: 'Subscribes',
     }],
     where: {
       ID: userIdx
@@ -231,21 +243,6 @@ exports.getPosts = function (req, res) {
   });
 }
 
-// exports.getReplies = function (req, res) {
-//   let userIdx = req.params.userIdx;
-//
-//   return Comment.findAll({
-//     include: [{
-//       model: User
-//     }],
-//     where: {
-//       user_id: userIdx
-//     }
-//   }).then(function (comments) {
-//     return res.send(comments);
-//   });
-// }
-
 exports.getNotice = function (req, res) {
   let userIdx = req.params.userIdx;
 
@@ -257,42 +254,6 @@ exports.getNotice = function (req, res) {
     if (u) return res.send(u.auth0_user_id);
     return res.send({});
   });
-
-  // return Firebase.getAdminAuthToken().then(function (token) {
-  // return Firebase.getNotificationByUserIdx(userIdx).then(function (data) {
-
-  // let result = [];
-  // let promises = [];
-
-  // for (var key in data) {
-  //   let d = data[key];
-  //   switch (d.type) {
-  //     case 'POST.CREATE':
-  //       promises.push(postController.getPostInfo(d.post.ID).then(function (post) {
-  //         if (post) {
-  //           post.type = d.type;
-  //           post.key = key;
-  //           result.push(post);
-  //         } else {
-  //           Firebase.deleteNotificationByDate(key, userIdx).then(function (post) {
-  //             console.log('delete post');
-  //           });
-  //         }
-  //       }));
-  //       break;
-
-  //     default:
-  //       console.log('d.tpye error', d.type);
-  //   }
-  // }
-
-  // return Promise.all(promises).then(function () {
-  //   return res.send(result);
-  // });
-
-  // return res.send(token);
-  // });
-  // });
 }
 
 exports.getLikeposts = function (req, res) {
@@ -414,9 +375,6 @@ exports.change = function (req, res, next) {
 
         // req.user.tokenType = 'Bearer';
         req.user.profile = body;
-
-        console.log("profile - body");
-        console.log(body);
 
         req.user.profile.ID = req.user.app_metadata.ID;
         req.user.profile.sub = req.user.sub;
@@ -562,6 +520,7 @@ exports.viewPassword = function (req, res) {
     ENV: req.env,
     logined: req.user.logined,
     userIdx: req.user.ID,
+    userAuthId: req.user.sub,
     title: 'viewPassword',
     msg: req.msg,
   })

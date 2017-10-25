@@ -1,7 +1,20 @@
-<div class="top-notification-item clearfix">
-  <a href="#">
-    <span class="photo"><img src="/lib/js-canvas/images/shop/small/1.jpg" alt=""></span>
-    <span class="info">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다</span>
-    <span class="date">1년전</span>
-  </a>
-</div>
+<li class="comment">
+  <div class="comment-wrap clearfix">
+    <div class="comment-meta">
+      <div class="comment-author vcard">
+        <span class="comment-avatar clearfix"><img alt="" src="<%= data.data.post.user.profile_image_path %>" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+      </div>
+    </div>
+    <div class="comment-content clearfix">
+      <div class="comment-author"><%= data.data.post.user.nickname %>
+        <span><%= moment(data.data.post.createdAt).fromNow() %></span>
+      </div>
+      <p><%= data.data.post.title %>글을 남기셨습니다.</p>
+      <div class="comment-reply-link">
+        <a class="button button-small" href="/message/<%= data.data.post.user.ID %>">채팅</a>
+        <a class="button button-small button-red" href="#">삭제</a>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</li>

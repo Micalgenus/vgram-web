@@ -1,33 +1,37 @@
 <div class="vlist">
   <div id="posts" class="vlist-content portfolio grid-container portfolio-2 portfolio-masonry clearfix">
+    
     <% for (var i = 0; i < data.length; i++) { %>
-    <article class="portfolio-item TRAVEL ACCOMMODATION VACATION_SPOT INTERIOR AERIAL" data-id="<%= data[i].ID %>">
-      <div class="portfolio-image">
-        <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
-          <div class="flexslider">
-            <div class="slider-wrap">
-              <div class="slide"><a href="/post/<%= data[i].ID %>"><img src="/lib/js-canvas/images/portfolio/masonry/3/6.jpg" alt=""></a></div>
-              <div class="slide"><a href="/post/<%= data[i].ID %>"><img src="/lib/js-canvas/images/portfolio/masonry/3/6-1.jpg" alt=""></a></div>
+      <article class="portfolio-item <%= data[i].post_type %>" data-id="<%= data[i].ID %>">
+        <% var images = JSON.parse(data[i].thumbnail_image_path)[0].vrimages %>
+        <div class="portfolio-image">
+          <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
+            <div class="flexslider">
+              <div class="slider-wrap">
+                <% for (var j = 0; j < images.length; j++) { %>
+                  <div class="slide"><a href="/post/ajax/<%= data[i].ID %>" class="ajax-link"><img src="<%= mediaUrl %>/<%= images[j].thumb %>" alt=""></a></div>
+                <% } %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="portfolio-desc">
-        <span class="author"><a href="#"><img src="<%= data[i].user.profile_image_path %>" alt=""> <%= data[i].user.nickname %></a></span>
-        <h3><a href="/html/ajax_view.html" class="ajax-link"><%= data[i].title %></a></h3>
-        <span class="info clearfix">
-          <span class="date"><%= new Date(data[i].createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></span>
-          <span class="heart"><i class="icon-heart3"></i> <%= data[i].LikeUsers.length %></span>
-          <span class="comment"><i class="icon-comments"></i> <%= data[i].Comments.length %></span>
-        </span>
-      </div>
-    </article>
+        <div class="portfolio-desc">
+          <span class="author"><a href="/user/<%= data[i].user.ID %>"><img src="<%= data[i].user.profile_image_path %>" alt=""> <%= data[i].user.nickname %></a></span>
+          <h3><a href="/post/<%= data[i].ID %>"><%= data[i].title %></a></h3>
+          <span class="info clearfix">
+            <span class="date"><%= new Date(data[i].createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></span>
+            <span class="heart"><i class="icon-heart3"></i> <%= data[i].LikeUsers.length %></span>
+            <span class="comment"><i class="icon-comments"></i> <%= data[i].Comments.length %></span>
+          </span>
+        </div>
+      </article>
     <% } %>
   </div>
-  <div id="load-next-posts" class="vlist-more center">
+  <!-- <div id="load-next-posts" class="vlist-more center">
     <a href="/html/ajax_list.html?v=2" class="btn btn-default btn-block">
       <i class="icon-line-plus"></i>
       더보기
     </a>
-  </div>
+  </div> -->
 </div>
+
