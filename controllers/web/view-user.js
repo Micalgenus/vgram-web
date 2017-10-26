@@ -376,7 +376,7 @@ exports.change = function (req, res, next) {
         // req.user.tokenType = 'Bearer';
         req.user.profile = body;
 
-        req.user.profile.ID = req.user.app_metadata.ID;
+        req.user.profile.ID = req.user.ID;
         req.user.profile.sub = req.user.sub;
 
         // req.user.profile = {
