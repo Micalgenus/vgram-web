@@ -19,7 +19,7 @@
               <ul class="entry-meta">
                 <li><%= moment(createdAt).fromNow() %></li>
                 <li><%= postType %></li>
-                <li><i class="icon-heart3"></i> 0</li>
+                <li><i class="icon-heart3"></i> <%= LikeUsers.length %></li>
                 <li><i class="icon-comments"></i> <%= commentCount %></li>
               </ul>
               <div class="si-share noborder">
@@ -51,12 +51,12 @@
                   <h4>공유하기</h4>
                   <div class="col_full clearfix">
                     <label>URL</label>
-                    <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://locahost:3000/post/embed">
+                    <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://localhost:3000/post/<%= postID %>">
                     <button class="button button-small" data-clipboard-target="#copy-url">복사</button>
                   </div>
                   <div class="col_full clearfix">
                     <label>EMBED TAG</label>
-                    <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://locahost:3000/post/embed" width="100%" height="500"></embed>'>
+                    <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://localhost:3000/post/embed/<%= postID %>" width="100%" height="500"></embed>'>
                     <button class="button button-small" data-clipboard-target="#copy-embed">
                       복사
                     </button>
@@ -72,7 +72,8 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane fade in active" id="vr-image1">
-                    <img src="/lib/js-canvas/images/wedding/12.jpg" alt="Image">
+                    <div id="pano" style="width:100%;height:600px;">
+                    </div>
                   </div>
                   <div class="tab-pane fade" id="vr-image2">
                     <div class="fslider flex-thumb-grid grid-6 bottommargin-sm" data-arrows="false" data-animation="fade" data-thumbs="true">
@@ -99,7 +100,7 @@
                 </div>
               </div>
               <div class="entry-content">
-                내용입니다
+                <%- content %>
               </div>
             </div>
           </div>
@@ -261,12 +262,12 @@
               </li>
               <% } %>
             </ol>
-            <div class="clist-more">
+            <!-- <div class="clist-more">
               <a href="#" class="btn btn-default btn-block">
                 <i class="icon-line-plus"></i>
                 더보기
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -371,9 +372,9 @@
 <!-- /.modal -->
 
 
-        <div class="line"></div>
+        <!-- <div class="line"></div> -->
 
-        <div class="vlist">
+        <!-- <div class="vlist">
           <h4>관련 게시물</h4>
 
           <div id="vlist" class="vlist-content portfolio grid-container portfolio-3 portfolio-masonry clearfix">
@@ -481,7 +482,7 @@
               더보기
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </main>
@@ -697,6 +698,24 @@
       });
     });
   });
+</script>
+
+<script src="/lib/krpano-1.19-pr6-viewer/krpano-tour.js"></script>
+
+<!-- vtour 1개?? -->
+<script>
+  <% if (vtour.length != 0) { %>
+  const VRImages = {
+    baseDir: "<%= vtour[0].file_path %>",
+    xmlName: "<%= vtour[0].file_name %>"
+  };
+
+  embedpano({
+    swf: "/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
+    xml: ['<%= mediaUrl %>', VRImages.baseDir, VRImages.xmlName].join('/'),
+    target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true
+  });
+  <% } %>
 </script>
 <!--// Page -->
 

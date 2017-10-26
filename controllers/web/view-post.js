@@ -41,6 +41,7 @@ let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
       }]
     }, {
       model: Media,
+      require:false,
     }],
     where: {
       ID: ID
@@ -50,6 +51,8 @@ let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
     ]
   }).then(function (p) {
     if (!p) return null;
+
+    console.log(ID);
 
     let positions = p.icl_translation.coordinates;
     let likeCount = p.LikeUsers.length;
@@ -263,11 +266,11 @@ exports.postHtmlList = function (req, res) {  // Method 이름 바꾸기, 뭐하
       as: 'LikeUsers'
     }, {
       model: Media,
-      where: {
-        type: {
-          $in: ["NORMAL_IMAGE"]
-        }
-      }
+      // where: {
+      //   type: {
+      //     $in: ["NORMAL_IMAGE"]
+      //   }
+      // },
     }],
     limit: count,
     offset: index,
@@ -321,6 +324,8 @@ exports.postAjaxView = function (req, res) {
       comments: info.comments,
       commentCount: info.commentCount,
 
+      LikeUsers: info.post.LikeUsers,
+      
       content: info.post.content,
       // content: xss(info.post.content),
 
@@ -339,6 +344,8 @@ exports.postAjaxView = function (req, res) {
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
+
+      vtour: info.vtour,
     });
   });
 }
@@ -411,18 +418,8 @@ exports.viewPostInfoView = function (req, res) {
   let postIdx = req.params.postIdx;
 
   return getPostInfo(postIdx, req.device.type).then(function (info) {
-    // info {
-    //   post: p,
-    //   positions: positions,
-    //   likeCount: likeCount,
-    //
-    //   comments: p.Comments,
-    //   commentCount: commentCount,
-    //
-    //   vtour: VTOUR,
-    //   normal: NORMAL,
-    //   vrimage: VRIMAGE,
-    // }
+    
+    if (info == null) return res.redirect('/');
 
     return res.render('post/detail', {
       ENV: req.env,
@@ -442,6 +439,10 @@ exports.viewPostInfoView = function (req, res) {
       comments: info.comments,
       commentCount: info.commentCount,
 
+      LikeUsers: info.post.LikeUsers,
+
+      content: info.post.content,
+
       images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
 
       email: info.post.user.email,
@@ -453,6 +454,8 @@ exports.viewPostInfoView = function (req, res) {
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
+
+      vtour: info.vtour,
     });
   });
 
@@ -461,7 +464,7 @@ exports.viewPostInfoView = function (req, res) {
 exports.embedPost = function (req, res) {
   //id를 가져와서 다른 이미지를 보여주는 로직 구현이 필요
   res.render('embed/krpano', {
-    ENV: env,
+    ENV: req.env,
     title: 'embedView',
     msg: req.msg
   });

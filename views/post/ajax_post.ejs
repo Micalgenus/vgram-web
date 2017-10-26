@@ -12,7 +12,7 @@
               <%= postType %>
             <!-- <a href="#">인테리어</a>, <a href="#">휴양지</a> -->
           </li>
-          <li><i class="icon-heart3"></i> 0</li>
+          <li><i class="icon-heart3"></i> <%= LikeUsers.length %></li>
           <li><i class="icon-comments"></i> <%= commentCount %></li>
         </ul>
         <div class="si-share noborder">
@@ -44,12 +44,12 @@
             <h4>공유하기</h4>
             <div class="col_full clearfix">
               <label>URL</label>
-              <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://www.naver.com/">
+              <input id="copy-url" class="sm-form-control" type="text" readonly="readonly" value="http://localhost:3000/post/<%= postID %>">
               <button class="button button-small" data-clipboard-target="#copy-url">복사</button>
             </div>
             <div class="col_full clearfix">
               <label>EMBED TAG</label>
-              <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://www.naver.com/" width="100%" height="500"></embed>'>
+              <input id="copy-embed" class="sm-form-control" type="text" readonly="readonly" value='<embed src="http://localhost:3000/post/embed/<%= postID %>" width="100%" height="500"></embed>'>
               <button class="button button-small" data-clipboard-target="#copy-embed">
                 복사
               </button>
@@ -65,7 +65,8 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade in active" id="vr-image1">
-              <img src="/lib/js-canvas/images/wedding/12.jpg" alt="Image">
+              <div id="pano" style="width:100%;height:600px;">
+              </div>
             </div>
             <div class="tab-pane fade" id="vr-image2">
               <div class="fslider flex-thumb-grid grid-6 bottommargin-sm" data-arrows="false" data-animation="fade" data-thumbs="true">
@@ -184,12 +185,12 @@
             </li>
           <% } %>
         </ol>
-        <div class="clist-more">
+        <!-- <div class="clist-more">
           <a href="#" class="btn btn-default btn-block">
             <i class="icon-line-plus"></i>
             더보기
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -305,102 +306,192 @@
       </div>
     </div> -->
   </div>
-  <!-- Page -->
-  <script>
-    // URL 공유
-    $('a.copy-link').magnificPopup({
-      type: 'inline',
-      closeBtnInside: true,
-      preloader: false
-    });
+<!-- Page -->
 
-    // 이미지 컨텐츠 lightbox
-    SEMICOLON.widget.loadFlexSlider();
-    $('.vr-image .slider-wrap').magnificPopup({
-      delegate: 'a',
-      type: 'image',
-      mainClass: 'mfp-img-mobile',
-      gallery: {
-        enabled: true,
-        navigateByImgClick: true,
-        preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-      }
-    });
-
-    // 다음 맵
-    var container = document.getElementById('daum-map');
-    var options = {
-      center: new daum.maps.LatLng(<%= lat %>, <%= lng %>),
-      draggable: false,
-      level: 3
-    };
-    var map = new daum.maps.Map(container, options);
-    var markerPosition = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
-    var marker = new daum.maps.Marker({
-      position: markerPosition
-    });
-    marker.setMap(map);
-    var iwContent = 
-      '<div style="padding:5px;">\
-        <%= postTitle %><br>\
-        <a href="http://map.daum.net/link/map/<%= postTitle %>,<%= lat %>, <%= lng %>" style="color:blue" target="_blank">큰지도보기</a>\
-        <a href="http://map.daum.net/link/to/<%= postTitle %>,<%= lat %>, <%= lng %>" style="color:blue" target="_blank">길찾기</a>\
-      </div>',
-      iwPosition = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
-    var infowindow = new daum.maps.InfoWindow({
-      position: iwPosition,
-      content: iwContent
-    });
-    infowindow.open(map, marker);
-
-    // 다음 로드뷰
-    var roadviewContainer = document.getElementById('daum-roadview');
-    var roadview = new daum.maps.Roadview(roadviewContainer);
-    var roadviewClient = new daum.maps.RoadviewClient();
-    var position = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
-    roadviewClient.getNearestPanoId(position, 50, function (panoId) {
-      roadview.setPanoId(panoId, position);
-    });
-
-    // 댓글 더보기
-    $('#popup .clist-more a').on('click', function(e) {
-      var $html = '<li class="comment"><div class="comment-wrap clearfix"><div class="comment-meta"><div class="comment-author vcard"><span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span></div></div><div class="comment-content clearfix"><div class="comment-author">모랩<span>2017-09-18</span></div><p>댓글입니다.</p></div><div class="clear"></div></div></li>';
-
-      $('#popup .clist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
-      window.setTimeout(function() {
-        $('#popup .commentlist').append($html);
-        $('#popup .clist .loading').remove();
-      }, 500);
-
-      e.preventDefault();
-    });
-
-    // Masonry
-    (function() {
-      var $container = $('#vlist-ajax');
-      $container.isotope();
-      $container.infinitescroll({
-        loading: {
-          finishedMsg: '<i class="icon-line-check"></i>',
-          msgText: '<i class="icon-line-loader icon-spin"></i>',
-          img: "/lib/js-canvas/images/preloader-dark.gif",
-          speed: 'normal'
+<script>
+  jQuery(function ($) {
+    $('#deletePost').click(function () {
+      $.ajax({
+        type: 'DELETE',
+        url: '/post/delete/<%= postID %>',
+        success: function (data) {
+          if (data == "OK") {
+            alert("삭제되었습니다.");
+            location.reload();
+          }
         },
-        state: {
-          isDone: false
-        },
-        nextSelector: "#load-next-vlist-ajax a",
-        navSelector: "#load-next-vlist-ajax",
-        itemSelector: "article.portfolio-item",
-        behavior: 'portfolioinfiniteitemsloader'
-      },
-      function( newElements ) {
-        $container.isotope( 'appended', $( newElements ) );
-        var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
-        SEMICOLON.widget.loadFlexSlider();
-        SEMICOLON.portfolio.arrange();
+        error: function (error) {
+          alert(error.responseJSON.errorMsg);
+        }
       });
-    })();
-  </script>
+    });
+
+    $('#modifyPost').click(function () {
+      location.href = '/post/modify/<%= postID %>';
+    });
+
+    $('#updatePost').click(function () {
+      $.ajax({
+        type: 'PUT',
+        url: '/post/re-enroll/<%= postID %>',
+        success: function (data) {
+          if (data == "OK") {
+            alert("재등록 하였습니다.");
+            location.reload();
+          } else if (data == "other") {
+            alert("다른 회원의 게시글 입니다.");
+          }
+
+          else {
+            alert(data);
+          }
+        },
+        error: function (error) {
+          alert(error);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  jQuery(function($) {
+    $('#commentform button').click(function() {
+      const comment = $('#commentform textarea').val();
+      $.ajax({
+        method: 'POST',
+        url: '/post/comment/new/<%= postID %>',
+        data: {
+          comment: comment,
+        },
+        success: function(result) {
+
+          $('#commentform textarea').val('');
+
+          var $commentlist = $('.commentlist');
+          
+          $commentlist.prepend(new EJS({url: '/template/post/comment.ejs'}).render({ comment: comment, user: result.user, createdAt: result.createdAt }));
+        }
+      });
+
+      return false;
+    });
+  });
+</script>
+
+<script src="/lib/krpano-1.19-pr6-viewer/krpano-tour.js"></script>
+
+<script>
+  // URL 공유
+  $('a.copy-link').magnificPopup({
+    type: 'inline',
+    closeBtnInside: true,
+    preloader: false
+  });
+
+  // 이미지 컨텐츠 lightbox
+  SEMICOLON.widget.loadFlexSlider();
+  $('.vr-image .slider-wrap').magnificPopup({
+    delegate: 'a',
+    type: 'image',
+    mainClass: 'mfp-img-mobile',
+    gallery: {
+      enabled: true,
+      navigateByImgClick: true,
+      preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+    }
+  });
+  
+
+  // 댓글 더보기
+  $('#popup .clist-more a').on('click', function(e) {
+    var $html = '<li class="comment"><div class="comment-wrap clearfix"><div class="comment-meta"><div class="comment-author vcard"><span class="comment-avatar clearfix"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span></div></div><div class="comment-content clearfix"><div class="comment-author">모랩<span>2017-09-18</span></div><p>댓글입니다.</p></div><div class="clear"></div></div></li>';
+
+    $('#popup .clist').append('<div class="loading"><div><i class="icon-line-loader icon-spin"></i></div></div>');
+    window.setTimeout(function() {
+      $('#popup .commentlist').append($html);
+      $('#popup .clist .loading').remove();
+    }, 500);
+
+    e.preventDefault();
+  });
+
+  // Masonry
+  (function() {
+    var $container = $('#vlist-ajax');
+    $container.isotope();
+    $container.infinitescroll({
+      loading: {
+        finishedMsg: '<i class="icon-line-check"></i>',
+        msgText: '<i class="icon-line-loader icon-spin"></i>',
+        img: "/lib/js-canvas/images/preloader-dark.gif",
+        speed: 'normal'
+      },
+      state: {
+        isDone: false
+      },
+      nextSelector: "#load-next-vlist-ajax a",
+      navSelector: "#load-next-vlist-ajax",
+      itemSelector: "article.portfolio-item",
+      behavior: 'portfolioinfiniteitemsloader'
+    },
+    function( newElements ) {
+      $container.isotope( 'appended', $( newElements ) );
+      var t = setTimeout( function(){ $container.isotope('layout'); }, 2000 );
+      SEMICOLON.widget.loadFlexSlider();
+      SEMICOLON.portfolio.arrange();
+    });
+  })();
+
+  
+  <% if (vtour.length != 0) { %>
+    const VRImages = {
+      baseDir: "<%= vtour[0].file_path %>",
+      xmlName: "<%= vtour[0].file_name %>"
+    };
+    
+    embedpano({
+      swf: "/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
+      xml: ['<%= mediaUrl %>', VRImages.baseDir, VRImages.xmlName].join('/'),
+      target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true
+    });
+  <% } %>
+
+
+  // 다음 맵
+  var container = document.getElementById('daum-map');
+  var options = {
+    center: new daum.maps.LatLng(<%= lat %>, <%= lng %>),
+    draggable: false,
+    level: 3
+  };
+  var map = new daum.maps.Map(container, options);
+  var markerPosition = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
+  var marker = new daum.maps.Marker({
+    position: markerPosition
+  });
+  marker.setMap(map);
+  var iwContent = 
+    '<div style="padding:5px;">\
+      <%= postTitle %><br>\
+      <a href="http://map.daum.net/link/map/<%= postTitle %>,<%= lat %>, <%= lng %>" style="color:blue" target="_blank">큰지도보기</a>\
+      <a href="http://map.daum.net/link/to/<%= postTitle %>,<%= lat %>, <%= lng %>" style="color:blue" target="_blank">길찾기</a>\
+    </div>',
+    iwPosition = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
+  var infowindow = new daum.maps.InfoWindow({
+    position: iwPosition,
+    content: iwContent
+  });
+  infowindow.open(map, marker);
+
+  // 다음 로드뷰
+  var roadviewContainer = document.getElementById('daum-roadview');
+  var roadview = new daum.maps.Roadview(roadviewContainer);
+  var roadviewClient = new daum.maps.RoadviewClient();
+  var position = new daum.maps.LatLng(<%= lat %>, <%= lng %>);
+  roadviewClient.getNearestPanoId(position, 50, function (panoId) {
+    roadview.setPanoId(panoId, position);
+  });
+</script>
   <!--// Page -->
 </div>
