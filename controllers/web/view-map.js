@@ -19,7 +19,7 @@ exports.postInfoListView = function (req, res) {
     logined: req.user.logined,
     userIdx: req.ID,
     userAuthId: req.user.sub,
-    title: "postInfoListView",     // locale과 매칭되는 변수명을 적어야함.
+    title: "mapView",     // locale과 매칭되는 변수명을 적어야함.
     msg: req.msg,
     lat: value.mapLocationCenter.lat,
     lng: value.mapLocationCenter.lng,

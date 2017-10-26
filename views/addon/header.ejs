@@ -8,10 +8,20 @@
       </div>
       <nav id="primary-menu">
         <ul>
-          <li class="current"><a href="/"><div>리스트로 보기</div></a></li>
-          <li><a href="/post/map"><div>지도로 보기</div></a></li>
-          <li><a href="/post/new"><div>NEW</div></a></li>
-          <li><a href="/message"><div>채팅</div></a></li>
+        <%
+          var menu = 'main';
+          if (typeof(title) !== 'undefined') {
+            switch (title) {
+              case 'mapView': menu = 'map'; break;
+              case 'createPostInfoView': menu = 'new'; break;
+              case 'viewChat': menu = 'chat'; break;
+            }
+          }
+        %>
+          <li<% if (menu == 'main') {  %> class="current"<% } %>><a href="/"><div>리스트로 보기</div></a></li>
+          <li<% if (menu == 'map') {  %> class="current"<% } %>><a href="/post/map"><div>지도로 보기</div></a></li>
+          <li<% if (menu == 'new') {  %> class="current"<% } %>><a href="/post/new"><div>NEW</div></a></li>
+          <li<% if (menu == 'chat') {  %> class="current"<% } %>><a href="/message"><div>채팅</div></a></li>
         </ul>
         <div class="quick-menu">
           <div id="top-account">
@@ -27,10 +37,10 @@
           </div>
           <% if (logined) { %>
             <div id="top-notification">
-              <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>3</span></a>
+              <a href="#" id="top-notification-trigger"><i class="icon-bell-alt"></i><span>0</span></a>
               <div class="top-notification-content">
                 <div class="top-notification-title">
-                  <h4>최근 (11)</h4>
+                  <h4>최근 (<span>0</span>)</h4>
                 </div>
                 <div class="top-notification-items">
                 </div>
@@ -78,6 +88,8 @@
 
 <script>
   const userAuthId = '<%= userAuthId %>';
+
+  let count = 0;
   firebase.database().ref(['/notification', userAuthId].join('/')).on('child_added', function(snapshot) {
 
     let data = snapshot.val();
@@ -99,7 +111,12 @@
       url: url,
       success: function(result) {
         if (!jQuery.isEmptyObject(result)) {
-          $('.top-notification-items').prepend(new EJS({url: template}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
+          if (count < 10) {
+            $('.top-notification-items').prepend(new EJS({url: template}).render({data: result, mediaUrl: "<%= mediaUrl %>"}));
+          }
+          count++;
+          $('#top-notification-trigger > span').html(count);
+          $('.top-notification-title > h4 > span').html(count);
         }
       }
     });
