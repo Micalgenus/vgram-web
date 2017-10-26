@@ -60,9 +60,13 @@ exports.notificationCreatePost = function (user, post) {
       }
     }],
   }).then(function (users) {
-    return users.forEach(function (u) {
+
+    for (var i = 0; i < users.length; i++) {
+      const u = users[i];
+
       const userAuthId = u.auth0_user_id;
-      return firebase.auth().signInWithEmailAndPassword(firebaseUserEmail, firebaseUserPassword).catch(error => {
+
+      firebase.auth().signInWithEmailAndPassword(firebaseUserEmail, firebaseUserPassword).catch(error => {
         console.log('Error while authenticating:', error);
       }).then(loginObject => {
         if (loginObject) {
@@ -76,7 +80,7 @@ exports.notificationCreatePost = function (user, post) {
           console.log('Oops, something went wrong while authenticating:', loginObject);
         }
       });
-    });
+    }
   });
 };
 
