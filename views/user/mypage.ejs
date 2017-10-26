@@ -30,9 +30,12 @@
             </span>
             <!-- 연락처, 자기소개, SNS 하드코딩 -->
             <div class="contact clearfix">
-              <a title="Chat" class="social-icon si-light si-rounded si-chat-3" href="/message/<%= targetIdx %>">
-                <i class="icon-chat-3"></i>
-                <i class="icon-chat-3"></i>
+              <a href="/message/<%= targetIdx %>">
+                <div title="Chat" class="social-icon si-light si-rounded si-chat-3">
+                  <i class="icon-chat-3"></i>
+                  <i class="icon-chat-3"></i>
+                </div>
+                <span>채팅하기</span>
               </a>
               <a title="Tel" class="social-icon si-light si-rounded si-call" href="#">
                 <i class="icon-call"></i>
@@ -81,6 +84,7 @@
               </div>
             </div> -->
             <!-- // 연락처, 자기소개, SNS 하드코딩 -->
+            <% if (about || sns.website || sns.facebook || sns.instagram || sns.twitter) { %>
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="author-content">
@@ -114,28 +118,29 @@
                       <i class="icon-twitter"></i>
                     </a>
                   <% } %>
-<!--kakaotalk-->
-<!-- <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
-      <a id="kakao-link-btn" href="javascript:sendLink()">
-         <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
-      </a>
-   </span> -->
+                  <!--kakaotalk-->
+                  <!-- <span href="#"  data-lightbox="inline" class="social-icon si-colored" title="Kakaotalk">
+                    <a id="kakao-link-btn" href="javascript:sendLink()">
+                      <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 40px;"/>
+                    </a>
+                  </span> -->
 
-<!--band-->
-<!-- <span href="#" data-lightbox="inline">
-       <script type="text/javascript">
-         new ShareBand.makeButton({"lang": "ko", "type": "d"});
-       </script>
-     </span> -->
+                  <!--band-->
+                  <!-- <span href="#" data-lightbox="inline">
+                    <script type="text/javascript">
+                      new ShareBand.makeButton({"lang": "ko", "type": "d"});
+                    </script>
+                  </span> -->
 
-<!--url share-->
-<!-- <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
-        <i class="icon-delicious"></i>
-        <i class="icon-delicious"></i>
-</span> -->
+                  <!--url share-->
+                  <!-- <span href="#myModal2" data-lightbox="inline" class="social-icon si-colored si-delicious">
+                    <i class="icon-delicious"></i>
+                    <i class="icon-delicious"></i>
+                  </span> -->
                 </div>
               </div>
             </div>
+            <% } %>
           </div>
 
           <div class="clear"></div>
