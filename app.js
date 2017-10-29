@@ -127,8 +127,10 @@ if (app.get('env') === 'development') {
 }
 
 const router = require('./frontRouter');
+const apiRouter = require('./frontApiRouter');
 
 // Import routes to be served
 router(app);
+apiRouter(app);
 
 module.exports = app;

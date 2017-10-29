@@ -41,7 +41,11 @@ exports.login = function (req, res, next) {
 //    });
 // }
 
+exports.setToken = function (req, res, next) {
+}
 
+exports.checkUser = function (req, res, next) {
+}
 
 //------------------------------------------
 //  로그아웃
@@ -53,6 +57,15 @@ exports.logout = function (req, res, next) {
 // 회원가입
 //------------------------------------------
 exports.register = function (req, res, next) {
+}
+
+/**
+ * 회원탈퇴
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.quit = function (req, res, next) {
 }
 // exports.register = function(req, res, next) {
 

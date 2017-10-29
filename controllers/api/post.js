@@ -92,6 +92,22 @@ let getPostInfo = function (ID) {
 
 exports.getPostInfo = getPostInfo;
 
+exports.createPostComment = function(req, res, next) {
+
+};
+
+exports.deletePostComment = function(req, res, next) {
+
+};
+
+exports.modifyPostComment = function(req, res, next) {
+
+};
+
+exports.reEnrollPost = function(req, res, next) {
+
+};
+
 //공지사항 출력
 exports.viewNotice = function (req, res) {
 }
@@ -167,6 +183,7 @@ exports.getPostInfoByIdx = function (req, res, next) {
     });
   });
 }
+
 exports.searchPost = function (req, res, next) {
 
   // 페이지 정보 확인

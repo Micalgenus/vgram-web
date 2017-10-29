@@ -10,6 +10,8 @@ const genToken = require("../../utils/genToken");
 const models = require('../../models');
 const User = models.user;
 
+const auth = require("../core/auth");
+
 const value = require('../../utils/staticValue'),
   message = value.statusMessage;
 
@@ -211,90 +213,33 @@ exports.quit = function (req, res, next) {
 
 }
 
-exports.setToken = function (req, res, next) {
+exports.setToken = auth.setToken;
 
-  // {
-  //    accessToken: accessToken,
-  //    idToken: extraParams.id_token,
-  //    tokenType: extraParams.token_type,
-  //    expiresIn: extraParams.expires_in,
-  //    profile: profile
-  // }
-
-  // delete unused property to reduce cookie character
-  req.user.profile = _.omit(req.user.profile,
-    ['given_name', 'family_name', 'picture_large', 'context', 'age_range', 'devices',
-      'favorite_teams', 'name_format']);  // 페이스북 불필요 prop 삭제
-
-  let userToken = genToken.generateToken(req.user.profile); // passport에서 받은 object
-
-  // header와 cookies에 id_token을 붙여서 전송
-  res.clearCookie('authorization');
-  res.clearCookie('access_token');
-  res.clearCookie('user_profile_token');
-
-  // cdn.auth0.com/js/lock/10.18.0/lock.min.js:9 Set-Cookie header is ignored in response from
-  // url: http://localhost:3000/auth/login-callback?code=fKx9Jp018uW-K1cT.
-  // Cookie length should be less than or equal to 4096 characters.
-  // res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
-  res.cookie('authorization', [req.user.tokenType, req.user.idToken].join(" "));
-  res.cookie('access_token', req.user.accessToken);
-  res.cookie('user_profile_token', userToken);
-
-  // console.log(req.user);
-  // return res.send(req.user);
-
-  return next();
-}
-
-function getAdminToken() {
-  var options = {
-    method: 'POST',
-    url: config.auth0.ISSUER + 'oauth/token',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: {
-      grant_type: 'client_credentials',
-      client_id: config.auth0.CLIENT_ID,
-      client_secret: config.auth0.CLIENT_SECRET,
-      audience: config.auth0.IDENTIFIER
-    },
-    json: true
-  };
-
-  return requestp(options).then(function (body) {
-    return body.access_token;
-  });
-}
-
-exports.getAdminToken = getAdminToken;
-
-function getLastId(page, token) {
-  var options = {
-    method: 'GET',
-    uri: config.auth0.IDENTIFIER + 'users',
-    qs: {
-      per_page: 1,
-      page: page,
-      sort: 'created_at:-1',
-    },
-    json: true,
-
-    headers: {
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-  };
-
-  return requestp(options).then(function (body) {
-    if (body[0] && body[0].app_metadata && body[0].app_metadata.ID) return body[0].app_metadata.ID;
-    return getLastId(page + 1, token).then(function (id) {
-      return id
-    });
-  });
-}
+// function getLastId(page, token) {
+//   var options = {
+//     method: 'GET',
+//     uri: config.auth0.IDENTIFIER + 'users',
+//     qs: {
+//       per_page: 1,
+//       page: page,
+//       sort: 'created_at:-1',
+//     },
+//     json: true,
+//
+//     headers: {
+//       'Authorization': 'Bearer ' + token,
+//       'Content-Type': 'application/json',
+//       'Accept': 'application/json'
+//     },
+//   };
+//
+//   return requestp(options).then(function (body) {
+//     if (body[0] && body[0].app_metadata && body[0].app_metadata.ID) return body[0].app_metadata.ID;
+//     return getLastId(page + 1, token).then(function (id) {
+//       return id
+//     });
+//   });
+// }
 
 exports.checkUser = function (req, res, next) {
 
@@ -359,7 +304,7 @@ exports.checkUser = function (req, res, next) {
       userInfo.ID = newUser.ID;
       // req.user.profile.ID = newUser.ID;
 
-      return getAdminToken().then((token) => {
+      return auth.getAdminToken().then((token) => {
         let options = {
           method: 'PATCH',
           uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
