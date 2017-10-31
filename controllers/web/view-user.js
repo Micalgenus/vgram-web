@@ -14,6 +14,9 @@ const Comment = models.comment;
 const value = require('../../utils/staticValue');
 
 const authController = require('./auth.js');
+
+
+const auth = require("../core/auth");
 const config = require('../../config/main');
 
 const request = require('request');
@@ -325,7 +328,7 @@ exports.change = function (req, res, next) {
     blog: req.body.blog
   };
 
-  return authController.getAdminToken().then(function (token) {
+  return auth.getAdminToken().then(function (token) {
 
     let args = {
       method: 'PATCH',
@@ -377,7 +380,7 @@ exports.change = function (req, res, next) {
         }
       }).then(function (u) {
 
-        // req.user.tokenType = 'Bearer';
+        req.user.tokenType = 'Bearer';
         req.user.profile = body;
 
         req.user.profile.ID = req.user.ID;
@@ -459,7 +462,7 @@ exports.change = function (req, res, next) {
 
 exports.delete = function (req, res) {
 
-  return authController.getAdminToken().then(function (token) {
+  return auth.getAdminToken().then(function (token) {
 
     let args = {
       method: 'DELETE',
@@ -489,7 +492,7 @@ exports.delete = function (req, res) {
 /*id랑 기존비밀번호를 로그인시켜서 로그인하면 변경하고 로그인에 실패하면 컷트 시킬것*/
 exports.changePassword = function (req, res, next) {
 
-  return authController.getAdminToken().then(function (token) {
+  return auth.getAdminToken().then(function (token) {
 
     let args = {
       method: 'PATCH',
