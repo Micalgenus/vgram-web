@@ -82,6 +82,7 @@ exports.viewChangeProfile = function (req, res) {
         targetIdx: req.user.ID,
 
         registered_number: u.meta_value.registered_number,
+        business_name: u.meta_value.business_name,
         post_code: u.meta_value.address.post_code,
         addr1: u.meta_value.address.addr1,
         addr2: u.meta_value.address.addr2,
@@ -314,6 +315,7 @@ exports.change = function (req, res, next) {
   };
   const profile_src = req.body.profile_src;
   const about = req.body.about;
+  const business_name = req.body.business_name;
 
   const sns = {
     website: req.body.website,
@@ -337,6 +339,7 @@ exports.change = function (req, res, next) {
           profile_image_path: profile_src,
           locale: "ko-kr" || req.user.profile.user_metadata.locale,
           registered_number: registered_number,
+          business_name: business_name,
           address: address,
           sns: sns,
           about: about
@@ -358,6 +361,7 @@ exports.change = function (req, res, next) {
         profile_image_path: profile_src,
         meta_value: {
           registered_number: registered_number,
+          business_name: business_name,
           address: address,
           sns: sns,
           point: 0,

@@ -78,9 +78,9 @@
             </div>
 
             <div class="col_one_third col_last">
-              <label for="template-contactform-email">대표명*</label>
-              <input type="email" id="template-contactform-email" name="template-contactform-email" value=""
-                     class="required email sm-form-control"/>
+              <label for="business_name">대표명*</label>
+              <input type="text" id="business_name" name="business_name" value="<%= business_name %>"
+                     class="required sm-form-control"/>
             </div>
 
             <div class="clear"></div>
@@ -102,12 +102,12 @@
             <% } %>
 
             <!-- 일반 -->
-            <div class="col_half">
+            <!-- <div class="col_half">
               <label>닉네임</label>
               <input type="text" class="sm-form-control">
-            </div>
+            </div> -->
 
-            <div class="col_half col_last">
+            <div class="col_half">
               <label>성별</label>
               <select class="sm-form-control">
                 <option>남</option>
@@ -115,12 +115,10 @@
               </select>
             </div>
 
-            <div class="clear"></div>
-
-            <div class="col_half">
+            <!-- <div class="col_half">
               <label>PHONE</label>
               <input type="text" class="sm-form-control">
-            </div>
+            </div> -->
 
             <div class="col_half col_last">
               <label for="website">WEBSITE</label>
