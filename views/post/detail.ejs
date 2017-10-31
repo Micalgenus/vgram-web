@@ -19,8 +19,8 @@
               <ul class="entry-meta">
                 <li><%= moment(createdAt).fromNow() %></li>
                 <li><%= postType %></li>
-                <li><i class="icon-heart3"></i> <%= LikeUsers.length %></li>
-                <li><i class="icon-comments"></i> <%= commentCount %></li>
+                <li><i class="icon-heart3"> <span><%= LikeUsers.length %></span></i></li>
+                <li><i class="icon-comments"> <span><%= commentCount %></span></i> </li>
               </ul>
               <div class="si-share noborder">
                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent('https://' + domainUrl + '/post/' + postID + '&src=sdkpreparse') %>" class="social-icon si-colored si-small si-facebook fb-xfbml-parse-ignore">
@@ -79,12 +79,14 @@
                     <div class="fslider flex-thumb-grid grid-6 bottommargin-sm" data-arrows="false" data-animation="fade" data-thumbs="true">
                       <div class="flexslider">
                         <div class="slider-wrap">
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/11.jpg"><a href="/lib/js-canvas/images/wedding/11.jpg"><img src="/lib/js-canvas/images/wedding/11.jpg" alt="Image"></a></div>
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/15.jpg"><a href="/lib/js-canvas/images/wedding/15.jpg"><img src="/lib/js-canvas/images/wedding/15.jpg" alt="Image"></a></div>
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/21.jpg"><a href="/lib/js-canvas/images/wedding/21.jpg"><img src="/lib/js-canvas/images/wedding/21.jpg" alt="Image"></a></div>
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/23.jpg"><a href="/lib/js-canvas/images/wedding/23.jpg"><img src="/lib/js-canvas/images/wedding/23.jpg" alt="Image"></a></div>
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/26.jpg"><a href="/lib/js-canvas/images/wedding/26.jpg"><img src="/lib/js-canvas/images/wedding/26.jpg" alt="Image"></a></div>
-                          <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/27.jpg"><a href="/lib/js-canvas/images/wedding/27.jpg"><img src="/lib/js-canvas/images/wedding/27.jpg" alt="Image"></a></div>
+                          <% for (var i = 0; i < normal.length; i++) { %>
+                            <% var image = [mediaUrl, normal[i].file_path, normal[i].file_name].join('/'); %>
+                            <div class="slide" data-thumb="<%= image %>">
+                              <a href="<%= image %>">
+                                <img src="<%= image %>" alt="Image">
+                              </a>
+                            </div>
+                          <% } %>
                         </div>
                       </div>
                     </div>
@@ -170,7 +172,7 @@
             </div>
             <div class="panel-body">
               <div class="author-content">
-                내용입니다.
+                <%= about %>
 
                             <!--<a href="#">-->
                               <!--<div class="member_option" style="float:right;">-->
@@ -204,22 +206,30 @@
                             <!--</a>-->
               </div>
               <div class="si-share noborder">
-                <a href="#" class="social-icon si-colored si-small si-website">
-                  <i class="icon-website"></i>
-                  <i class="icon-website"></i>
-                </a>
-                <a href="#" class="social-icon si-colored si-small si-facebook">
-                  <i class="icon-facebook"></i>
-                  <i class="icon-facebook"></i>
-                </a>
-                <a href="#" class="social-icon si-colored si-small si-instagram">
-                  <i class="icon-instagram"></i>
-                  <i class="icon-instagram"></i>
-                </a>
-                <a href="#" class="social-icon si-colored si-small si-blog">
-                  <i class="icon-blog"></i>
-                  <i class="icon-blog"></i>
-                </a>
+                <% if (sns.website) { %>
+                  <a href="<%= sns.website %>" class="social-icon si-colored si-small si-website">
+                    <i class="icon-website"></i>
+                    <i class="icon-website"></i>
+                  </a>
+                <% } %>
+                <% if (sns.facebook) { %>
+                  <a href="<%= sns.facebook %>" class="social-icon si-colored si-small si-facebook">
+                    <i class="icon-facebook"></i>
+                    <i class="icon-facebook"></i>
+                  </a>
+                <% } %>
+                <% if (sns.instagram) { %>
+                  <a href="<%= sns.instagram %>" class="social-icon si-colored si-small si-instagram">
+                    <i class="icon-instagram"></i>
+                    <i class="icon-instagram"></i>
+                  </a>
+                <% } %>
+                <% if (sns.twitter) { %>
+                  <a href="<%= sns.twitter %>" class="social-icon si-colored si-small si-blog">
+                    <i class="icon-blog"></i>
+                    <i class="icon-blog"></i>
+                  </a>
+                <% } %>
               </div>
             </div>
           </div>
@@ -247,15 +257,17 @@
                 <div class="comment-wrap clearfix">
                   <div class="comment-meta">
                     <div class="comment-author vcard">
-                      <span class="comment-avatar clearfix"><img alt="" src="<%= mediaUrl + comments[i].user.profile_image_path %>" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
+                      <span class="comment-avatar clearfix"><img alt="" src="<%= comments[i].user.profile_image_path %>" class="avatar avatar-60 photo avatar-default" height="60" width="60" /></span>
                     </div>
                   </div>
                   <div class="comment-content clearfix">
                     <div class="comment-author"><a href="#"><%= comments[i].user.nickname %></a><span><%= moment(comments[i].createdAt).fromNow() %></span></div>
                     <p><%= comments[i].content %></p>
-                    <div class="comment-reply-link">
-                      <a class="button button-small button-red" href="#">삭제</a>
-                    </div>
+                    <% if (comments[i].user.ID == userIdx)  { %>
+                      <div class="comment-reply-link">
+                        <a class="button button-small button-red" href="#">삭제</a>
+                      </div>
+                    <% } %>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -699,6 +711,40 @@
     });
   });
 </script>
+
+<script>
+
+  var commentCount = <%= commentCount %>;
+
+  jQuery(function($) {
+    $('#commentform button').click(function() {
+      const comment = $('#commentform textarea').val();
+      $.ajax({
+        method: 'POST',
+        url: '/post/comment/new/<%= postID %>',
+        data: {
+          comment: comment,
+        },
+        success: function(result) {
+
+          $('#commentform textarea').val('');
+
+          var $commentlist = $('.commentlist');
+          
+          $commentlist.prepend(new EJS({url: '/template/post/comment.ejs'}).render({ comment: comment, user: result.user, createdAt: result.createdAt }));
+
+          commentCount++;
+          $('#comments-title span').html(commentCount);
+          $('.icon-comments span').html(commentCount);
+
+        }
+      });
+
+      return false;
+    });
+  });
+</script>
+
 
 <script src="/lib/krpano-1.19-pr6-viewer/krpano-tour.js"></script>
 

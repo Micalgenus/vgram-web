@@ -41,7 +41,7 @@ let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
       }]
     }, {
       model: Media,
-      require:false,
+      require: false,
     }],
     where: {
       ID: ID
@@ -325,7 +325,7 @@ exports.postAjaxView = function (req, res) {
       commentCount: info.commentCount,
 
       LikeUsers: info.post.LikeUsers,
-      
+
       content: info.post.content,
       // content: xss(info.post.content),
 
@@ -345,6 +345,7 @@ exports.postAjaxView = function (req, res) {
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
 
+      normal: info.normal,
       vtour: info.vtour,
     });
   });
@@ -418,7 +419,7 @@ exports.viewPostInfoView = function (req, res) {
   let postIdx = req.params.postIdx;
 
   return getPostInfo(postIdx, req.device.type).then(function (info) {
-    
+
     if (info == null) return res.redirect('/');
 
     return res.render('post/detail', {
@@ -445,16 +446,19 @@ exports.viewPostInfoView = function (req, res) {
 
       images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
 
+      about: info.post.user.about,
       email: info.post.user.email,
       nickname: info.post.user.nickname,
       phone: info.post.user.telephone,
       memberType: info.post.user.member_type,
+      sns: info.post.user.meta_value.sns || {},
 
       myPost: req.user.logined && info.post.user.ID == req.user.ID,
 
       lat: info.positions[0].lat,
       lng: info.positions[0].lng,
 
+      normal: info.normal,
       vtour: info.vtour,
     });
   });

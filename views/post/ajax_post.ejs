@@ -12,8 +12,8 @@
               <%= postType %>
             <!-- <a href="#">인테리어</a>, <a href="#">휴양지</a> -->
           </li>
-          <li><i class="icon-heart3"></i> <%= LikeUsers.length %></li>
-          <li><i class="icon-comments"></i> <%= commentCount %></li>
+          <li><i class="icon-heart3"> <span><%= LikeUsers.length %></span></i></li>
+          <li><i class="icon-comments"> <span><%= commentCount %></span></i> </li>
         </ul>
         <div class="si-share noborder">
           <a href="#" class="social-icon si-colored si-small si-facebook">
@@ -72,12 +72,14 @@
               <div class="fslider flex-thumb-grid grid-6 bottommargin-sm" data-arrows="false" data-animation="fade" data-thumbs="true">
                 <div class="flexslider">
                   <div class="slider-wrap">
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/11.jpg"><a href="/lib/js-canvas/images/wedding/11.jpg"><img src="/lib/js-canvas/images/wedding/11.jpg" alt="Image"></a></div>
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/15.jpg"><a href="/lib/js-canvas/images/wedding/15.jpg"><img src="/lib/js-canvas/images/wedding/15.jpg" alt="Image"></a></div>
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/21.jpg"><a href="/lib/js-canvas/images/wedding/21.jpg"><img src="/lib/js-canvas/images/wedding/21.jpg" alt="Image"></a></div>
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/23.jpg"><a href="/lib/js-canvas/images/wedding/23.jpg"><img src="/lib/js-canvas/images/wedding/23.jpg" alt="Image"></a></div>
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/26.jpg"><a href="/lib/js-canvas/images/wedding/26.jpg"><img src="/lib/js-canvas/images/wedding/26.jpg" alt="Image"></a></div>
-                    <div class="slide" data-thumb="/lib/js-canvas/images/wedding/thumb/27.jpg"><a href="/lib/js-canvas/images/wedding/27.jpg"><img src="/lib/js-canvas/images/wedding/27.jpg" alt="Image"></a></div>
+                    <% for (var i = 0; i < normal.length; i++) { %>
+                      <% var image = [mediaUrl, normal[i].file_path, normal[i].file_name].join('/'); %>
+                      <div class="slide" data-thumb="<%= image %>">
+                        <a href="<%= image %>">
+                          <img src="<%= image %>" alt="Image">
+                        </a>
+                      </div>
+                    <% } %>
                   </div>
                 </div>
               </div>
@@ -174,7 +176,7 @@
                 <div class="comment-content clearfix">
                   <div class="comment-author"><a href="/user/<%= comments[i].user.ID %>"><%= comments[i].user.nickname %></a><span><%= moment(comments[i].createdAt).fromNow() %></span></div>
                   <p><%= comments[i].content %></p>
-                  <% if (false) { %>
+                  <% if (comments[i].user.ID == userIdx)  { %>
                     <div class="comment-reply-link">
                       <a class="button button-small button-red" href="#">삭제</a>
                     </div>
@@ -355,6 +357,9 @@
 </script>
 
 <script>
+
+  var commentCount = <%= commentCount %>;
+
   jQuery(function($) {
     $('#commentform button').click(function() {
       const comment = $('#commentform textarea').val();
@@ -371,6 +376,11 @@
           var $commentlist = $('.commentlist');
           
           $commentlist.prepend(new EJS({url: '/template/post/comment.ejs'}).render({ comment: comment, user: result.user, createdAt: result.createdAt }));
+
+          commentCount++;
+          $('#popup #comments-title span').html(commentCount);
+          $('#popup .icon-comments span').html(commentCount);
+
         }
       });
 
