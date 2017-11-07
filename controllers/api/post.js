@@ -29,7 +29,8 @@ var log = require('console-log-level')({
 
 exports.getPostInfo = function (req, res, next) {
   return postCore.getPostInfo(req.params.postIdx).then(function (post) {
-    return res.json(post);
+    if (post) return res.json(post);
+    return res.status(404).json(post);
   });
 };
 
@@ -45,20 +46,8 @@ exports.createPostComment = function (req, res, next) {
     content: comment,
     createdAt: createdAt
   }).then(function (c) {
-    return User.findOne({
-      where: {
-        ID: userIdx
-      }
-    }).then(function (u) {
-      return res.json({
-        user: u,
-        createdAt: createdAt,
-        comment: comment,
-        mediaUrl: config.mediaUrl
-      });
-    });
+    return res.json(c);
   });
-
 };
 
 exports.deletePostComment = function (req, res, next) {
@@ -221,7 +210,10 @@ exports.createPostInfo = function (req, res, next) {
               translation_group_id: translation.ID
             }, { transaction: t }).then(function (addr) {
               Firebase.notificationCreatePost(req.user, post);
-              return res.json({ ID: post.ID });
+
+              return postCore.getPostInfo(post.ID).then(function(p) {
+                return res.json(p);                
+              });
             });
           });
         });
