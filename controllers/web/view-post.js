@@ -18,7 +18,7 @@ const config = require("../../config/main");
 const value = require('../../utils/staticValue');
 const genToken = require("../../utils/genToken");
 
-const Firebase = require('./firebase');
+const Firebase = require('../core/firebase');
 
 /* action */
 let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
@@ -180,22 +180,25 @@ exports.deletePost = function (req, res) {
 
   return Post.findOne({
     where: {
-      Id: postIdx
+      $and: {
+        ID: postIdx,
+        user_id: req.user.ID
+      }
     }
   }).then(function (p) {
-    if (p.user_id == req.user.ID) {
-      return Post.destroy({
-        where: {
-          ID: postIdx
-        }
-      }).then(function (p) {
-        return res.send("OK");
+    if (!p) {
+      return res.status(400).json({
+        errorMsg: '다른 회원입니다.',
+        statusCode: -1
       });
     }
 
-    return res.status(400).json({
-      errorMsg: '다른 회원입니다.',
-      statusCode: -1
+    return Post.destroy({
+      where: {
+        ID: postIdx
+      }
+    }).then(function (p) {
+      return res.json({ result: "OK" });
     });
   });
 }
@@ -210,8 +213,10 @@ exports.reEnrollPost = function (req, res) {
 
   return Post.update(updateData, {
     where: {
-      ID: postIdx,
-      user_id: req.user.ID
+      $and: {
+        ID: postIdx,
+        user_id: req.user.ID
+      }
     }
   }).then(function (p) {
     if (p[0]) return res.send('OK');
@@ -248,7 +253,7 @@ exports.getPostInfoJson = function (req, res) {
   });
 }
 
-exports.postHtmlList = function (req, res) {  // Method 이름 바꾸기, 뭐하는건지 모르겠음
+exports.getPostList = function (req, res) {  // Method 이름 바꾸기, 뭐하는건지 모르겠음
 
   let page = req.params.roomListPage;
   let count = 6;

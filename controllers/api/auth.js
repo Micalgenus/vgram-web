@@ -4,14 +4,14 @@
 "use strict";
 
 const crypto = require('crypto'),
-      models = require('../../models'),
-      user = models.user,
-      moment = require("moment"),
-      _ = require('lodash'),
-      mailgun = require('../../config/mailgun'),
-      mailchimp = require('../../config/mailchimp'),
-      config = require('../../config/main'),
-      genToken = require("../../utils/genToken");
+  models = require('../../models'),
+  user = models.user,
+  moment = require("moment"),
+  _ = require('lodash'),
+  mailgun = require('../../config/mailgun'),
+  mailchimp = require('../../config/mailchimp'),
+  config = require('../../config/main'),
+  genToken = require("../../utils/genToken");
 
 
 /**
@@ -42,9 +42,158 @@ exports.login = function (req, res, next) {
 // }
 
 exports.setToken = function (req, res, next) {
+  // delete unused property to reduce cookie character
+  req.user.profile = _.omit(req.user.profile,
+    ['given_name', 'family_name', 'picture_large', 'context', 'age_range', 'devices',
+      'favorite_teams', 'name_format']);  // 페이스북 불필요 prop 삭제
+
+  let userToken = genToken.generateToken(req.user.profile); // passport에서 받은 object
+
+  // header와 cookies에 id_token을 붙여서 전송
+  res.clearCookie('authorization');
+  res.clearCookie('access_token');
+  res.clearCookie('user_profile_token');
+
+  // cdn.auth0.com/js/lock/10.18.0/lock.min.js:9 Set-Cookie header is ignored in response from
+  // url: http://localhost:3000/auth/login-callback?code=fKx9Jp018uW-K1cT.
+  // Cookie length should be less than or equal to 4096 characters.
+  // res.cookie('authorization', [req.user.tokenType, userToken].join(" "));
+
+  let token = null;
+  if (req.user.idToken) {
+    token = [req.user.tokenType, req.user.idToken].join(" ");
+  } else {
+    token = [req.user.tokenType, userToken].join(" ");
+  }
+
+  res.cookie('authorization', token);
+  res.cookie('access_token', req.user.accessToken);
+  res.cookie('user_profile_token', userToken);
+
+  return res.json({
+    token: token
+  });
 }
 
 exports.checkUser = function (req, res, next) {
+  return User.findOne({
+    where: {
+      auth0_user_id: req.user.profile.user_id
+    }
+  }).then(function (u) {
+    // exist user(기존 회원 로그인)
+    if (u) return next();
+
+    let info = req.user.profile;
+
+    /**
+     * ID/PWD 방식의 경우 user_metadata, app_metadata가 있으나
+     * SNS 연동 방식의 경우 두 정보가 없기 때문에 예외처리가 필요하다
+     * 자세한 user object 정보는 auth0 tester client로 확인이 가능함
+     * 각 회원가입방법별로 object 모양이 다르기 때문에 SNS 로그인 기능 추가 지원시
+     * 코드수정, 예외처리가 중요할 것 같다
+     * SNS 로그인의 경우 전화번호, 국가, 취미, 친구목록, 성별등 다양한 정보가 나오기 때문에
+     * 향후 기능 연동이 가능 할 것 같다.
+     * https://manage.auth0.com/#/connections/database
+     * https://manage.auth0.com/#/connections/social
+     */
+    let userInfo = {
+      email: info.email,
+      member_type: info.app_metadata ? (info.app_metadata.roles[0] || value.memberType.PUBLIC) : value.memberType.PUBLIC,
+      nickname: info.user_metadata ? (info.user_metadata.nickname || info.nickname) : info.nickname,
+      user_status: info.app_metadata ? (info.app_metadata.user_status || 1) : 1,  // -1 : 탈퇴요청, 0 : 휴면, 1 : 활성
+      telephone: "",
+      createdAt: moment(info.created_at).format('YYYY-MM-DD'),
+      auth0_user_id: info.user_id,
+      locale: info.user_metadata ? info.user_metadata.locale : value.langCode["ko-kr"].codes[1],   // ko-kr
+      profile_image_path: info.user_metadata ? info.user_metadata.profile_image_path : info.picture,
+      updatedAt: moment(info.updated_at).format('YYYY-MM-DD'),
+      meta_value: {
+        registered_number: "",
+        address: {
+          post_code: "",
+          addr1: "",
+          addr2: "",
+          detail: "",
+          extra_info: ""
+        },
+        point: 0,
+        user_name: "",
+        owner_name: "",
+        business_type: "",
+        comment: "",
+        phone_number: "",
+        sns: {
+          "website": "",
+          "facebook": "",
+          "instagram": "",
+          "blog": "",
+          "twitter": ""
+        }
+      }
+    };
+    return User.create(userInfo).then(function (newUser) {
+      userInfo.ID = newUser.ID;
+      // req.user.profile.ID = newUser.ID;
+
+      return auth.getAdminToken().then((token) => {
+        let options = {
+          method: 'PATCH',
+          uri: config.auth0.IDENTIFIER + 'users/' + info.user_id,
+          json: {
+            user_metadata: {
+              nickname: userInfo.nickname,
+              telephone: userInfo.telephone,
+              profile_image_path: info.picture,
+              locale: userInfo.locale,
+              registered_number: userInfo.meta_value.registered_number,
+              address: {
+                post_code: userInfo.meta_value.address.post_code,
+                addr1: userInfo.meta_value.address.addr1,
+                addr2: userInfo.meta_value.address.addr2,
+                detail: userInfo.meta_value.address.detail,
+                extra_info: userInfo.meta_value.address.extra_info
+              },
+              username: userInfo.meta_value.user_name,
+              business_type: userInfo.meta_value.business_type,
+              comment: "",
+              phone_number: userInfo.meta_value.telephone,
+              sns: {
+                "website": "",
+                "facebook": "",
+                "instagram": "",
+                "blog": "",
+                "twitter": ""
+              }
+            },
+            app_metadata: {
+              roles: [
+                userInfo.member_type
+              ],
+              user_status: userInfo.user_status,
+              updated_at: userInfo.updatedAt,
+              point: userInfo.meta_value.point,
+              owner_name: userInfo.meta_value.owner_name,
+              ID: userInfo.ID,
+            }
+          },
+
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+        };
+
+        return requestp(options).then(function (body) {
+          req.user.profile.ID = body.app_metadata.ID;
+          return models.Sequelize.Promise.resolve();
+        });
+      });
+    });
+  }).then((newUser) => {
+    return next();
+  }).catch(next);
 }
 
 //------------------------------------------

@@ -1,6 +1,10 @@
 <% for (var i = 0; i < post.length; i++) { %>
   <article class="portfolio-item <%= post[i].post_type %>" data-id="<%= post[i].ID %>">
-    <% var images = JSON.parse(post[i].thumbnail_image_path)[0].vrimages %>
+    <% if (JSON.parse(post[i].thumbnail_image_path)) { %>
+      <% var images = JSON.parse(post[i].thumbnail_image_path)[0].vrimages %>
+    <% } else { %>
+      <% var images = [] %>
+    <% } %>
     <div class="portfolio-image">
       <div class="fslider" data-arrows="false" data-speed="400" data-pause="4000">
         <div class="flexslider">

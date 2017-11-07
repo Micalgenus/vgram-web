@@ -23,7 +23,7 @@ const request = require('request');
 const requestp = require('request-promise');
 const xss = require('xss');
 
-const Firebase = require('./firebase');
+const Firebase = require('../core/firebase');
 const postController = require('./view-post');
 
 const logger = require("../../utils/logger");
@@ -85,7 +85,7 @@ exports.viewChangeProfile = function (req, res) {
         targetIdx: req.user.ID,
 
         registered_number: u.meta_value.registered_number,
-        business_name: u.meta_value.business_name,
+        owner_name: u.meta_value.owner_name,
         post_code: u.meta_value.address.post_code,
         addr1: u.meta_value.address.addr1,
         addr2: u.meta_value.address.addr2,
@@ -318,7 +318,7 @@ exports.change = function (req, res, next) {
   };
   const profile_src = req.body.profile_src;
   const about = req.body.about;
-  const business_name = req.body.business_name;
+  const owner_name = req.body.owner_name;
 
   const sns = {
     website: req.body.website,
@@ -342,7 +342,7 @@ exports.change = function (req, res, next) {
           profile_image_path: profile_src,
           locale: "ko-kr" || req.user.profile.user_metadata.locale,
           registered_number: registered_number,
-          business_name: business_name,
+          owner_name: owner_name,
           address: address,
           sns: sns,
           about: about
@@ -364,7 +364,7 @@ exports.change = function (req, res, next) {
         profile_image_path: profile_src,
         meta_value: {
           registered_number: registered_number,
-          business_name: business_name,
+          owner_name: owner_name,
           address: address,
           sns: sns,
           point: 0,
@@ -523,12 +523,42 @@ exports.changePassword = function (req, res, next) {
 
 
 exports.viewPassword = function (req, res) {
-  return res.render('user/password', {
-    ENV: req.env,
-    logined: req.user.logined,
-    userIdx: req.user.ID,
-    userAuthId: req.user.sub,
-    title: 'viewPassword',
-    msg: req.msg,
-  })
+  let auth0_user_id = req.user.sub;
+
+  return User.findOne({
+    where: {
+      auth0_user_id: auth0_user_id
+    }
+  }).then(function (u) {
+    if (!u) return res.redirect('/');
+
+    return User.findAll({
+      include: [{
+        model: User,
+        as: 'Subscribes',
+        where: {
+          auth0_user_id: auth0_user_id
+        }
+      }],
+    }).then(function (c) {
+
+      return res.render('user/password', {
+        ENV: req.env,
+        logined: req.user.logined,
+        userIdx: req.user.ID,
+        userAuthId: req.user.sub,
+        title: 'viewPassword',
+        msg: req.msg,
+
+        value: {
+          memberType: value.memberType,
+          lang: req.lang
+        },
+
+        nickname: u.nickname,
+        member_type: u.member_type,
+        userLikeCount: c.length,
+      })
+    });
+  });
 }

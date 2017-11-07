@@ -6,9 +6,6 @@
 const models = require('../../models');
 const Post = models.post;
 const User = models.user;
-const Translation = models.icl_translation;
-const Coordinate = models.coordinate;
-const Address = models.address;
 const Comment = models.comment;
 const Media = models.media;
 const Post_Media_relationship = models.post_media_relationship;
@@ -16,6 +13,10 @@ const Post_Media_relationship = models.post_media_relationship;
 const _ = require('lodash');
 const moment = require("moment");
 const path = require("path");
+
+
+const postCore = require('../core/post');
+const Firebase = require('../core/firebase');
 
 const config = require("../../config/main");
 var log = require('console-log-level')({
@@ -25,87 +26,69 @@ var log = require('console-log-level')({
   level: config.logLevel
 });
 
-let getPostInfo = function (ID) {
-  return Post.findOne({
-    include: [{
-      model: User,
-    }, {
-      model: Translation,
-      include: [{
-        model: Coordinate,
-      }]
-    }, {
-      model: User,
-      as: 'LikeUsers'
-    }, {
-      model: Comment,
-      as: 'Comments',
-      include: [{
-        model: User,
-      }]
-    }, {
-      model: Media,
-    }],
+
+exports.getPostInfo = function (req, res, next) {
+  return postCore.getPostInfo(req.params.postIdx).then(function (post) {
+    return res.json(post);
+  });
+};
+
+exports.createPostComment = function (req, res, next) {
+  var postIdx = req.params.postIdx;
+  var comment = req.body.comment;
+  var userIdx = req.user.ID;
+  var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+
+  return Comment.create({
+    post_id: postIdx,
+    user_id: userIdx,
+    content: comment,
+    createdAt: createdAt
+  }).then(function (c) {
+    return User.findOne({
+      where: {
+        ID: userIdx
+      }
+    }).then(function (u) {
+      return res.json({
+        user: u,
+        createdAt: createdAt,
+        comment: comment,
+        mediaUrl: config.mediaUrl
+      });
+    });
+  });
+
+};
+
+exports.deletePostComment = function (req, res, next) {
+
+};
+
+exports.modifyPostComment = function (req, res, next) {
+
+};
+
+exports.reEnrollPost = function (req, res, next) {
+  var postIdx = req.params.postIdx;
+
+  let updateData = {
+    createdAt: moment().format('YYYY-MM-DD HH:mm:ss')
+  }
+
+  return Post.update(updateData, {
     where: {
-      ID: ID
-    },
-    order: [
-      [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
-    ]
-  }).then(function (p) {
-    let positions = p.icl_translation.coordinates;
-    let likeCount = p.LikeUsers.length;
-    let commentCount = p.Comments.length;
-
-    let VTOUR = [];
-    let NORMAL = [];
-    let VRIMAGE = [];
-
-    for (var i in p.media) {
-      switch (p.media[i].type) {
-        case 'VTOUR':
-          VTOUR.push(p.media[i]);
-          break;
-        case 'NORMAL_IMAGE':
-          NORMAL.push(p.media[i]);
-          break;
-        case 'VR_IMAGE':
-          VRIMAGE.push(p.media[i]);
-          break;
+      $and: {
+        ID: postIdx,
+        user_id: req.user.ID
       }
     }
-
-    return {
-      post: p,
-      positions: positions,
-      likeCount: likeCount,
-
-      comments: p.Comments,
-      commentCount: commentCount,
-
-      vtour: VTOUR,
-      normal: NORMAL,
-      vrimage: VRIMAGE
-    }
+  }).then(function (p) {
+    if (p[0]) return res.json({ result: 'OK' });
+    return res.json({ result: 'other' });
+  }).catch(function (err) {
+    return res.send(err);
   });
-}
-
-exports.getPostInfo = getPostInfo;
-
-exports.createPostComment = function(req, res, next) {
-
-};
-
-exports.deletePostComment = function(req, res, next) {
-
-};
-
-exports.modifyPostComment = function(req, res, next) {
-
-};
-
-exports.reEnrollPost = function(req, res, next) {
-
 };
 
 //공지사항 출력
@@ -149,26 +132,140 @@ exports.viewNotice = function (req, res) {
 
 exports.getPostList = function (req, res, next) {
 
+  let page = req.params.postListIdx;
+  let count = 6;
+  let index = count * (page - 1);
+
+  return Post.findAll({
+    include: [{
+      model: User
+    }, {
+      model: Comment,
+      as: 'Comments',
+      attributes: ["ID", "post_id"]  // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
+    }, {
+      model: User,
+      as: 'LikeUsers',
+      attributes: ["ID"]
+    }, {
+      model: Media,
+    }],
+    limit: count,
+    offset: index,
+    order: [
+      ['createdAt', 'DESC'],
+      ['ID', 'DESC']
+    ],
+    where: {
+      post_type: {
+        $notIn: ['NOTICE', 'EVENT']
+      }
+    }
+  }).then(function (p) {
+    if (!p) return res.status(404).json({});
+
+    // device별 path 변환
+    for (let post of p) {
+      for (let media of post.media) {
+        media.file_path = media.getDevicePath(req.device.type);
+      }
+    }
+
+    return res.json(p);
+  });
 }
 
 exports.viewPost = function (req, res, next) {
 }
 
 exports.createPostInfo = function (req, res, next) {
+  let profile = genToken.decodedToken(req.cookies['user_profile_token']);
 
+  return models.sequelize.transaction(function (t) {
+    return Post.create({
+      user_id: req.user.ID,
+      title: req.body.title,
+      content: req.body.content,
+      post_status: req.body.post_status,
+      post_type: req.body.category,
+      locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
+      meta_value: {
+        written_device: '' // mobile??
+      }
+    }, { transaction: t }).then(function (post) {
+      return Translation.create({
+        element_id: post.ID,
+        // element_type: "post", // ??
+        group_id: 0,
+        language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+      }, { transaction: t }).then(function (translation) {
+        return Translation.update({
+          group_id: translation.ID
+        }, { where: { ID: translation.ID }, transaction: t }).then(function () {
+          return Coordinate.create({
+            translation_group_id: translation.ID,
+            // region_code:
+            lat: req.body.lat,
+            lng: req.body.lng,
+          }, { transaction: t }).then(function (coordinate) {
+            return Address.create({
+              translation_id: translation.ID,
+              coordinate_id: coordinate.ID,
+              // post_code:
+              // region_code:
+              addr1: req.body.address1,
+              addr2: req.body.address1,
+              detail: req.body.address2,
+              // extra_info:
+              locale: translation.language_code,
+              translation_group_id: translation.ID
+            }, { transaction: t }).then(function (addr) {
+              Firebase.notificationCreatePost(req.user, post);
+              return res.json({ ID: post.ID });
+            });
+          });
+        });
+      });
+    });
+  });
 }
 
 exports.modifyPostInfo = function (req, res, next) {
 
 }
 exports.deletePost = function (req, res, next) {
+  var postIdx = req.params.postIdx;
+
+  return Post.findOne({
+    where: {
+      $and: {
+        ID: postIdx,
+        user_id: req.user.ID
+      }
+    }
+  }).then(function (p) {
+    if (!p) {
+      return res.status(400).json({
+        errorMsg: '다른 회원입니다.',
+        statusCode: -1
+      });
+    }
+
+    return Post.destroy({
+      where: {
+        ID: postIdx
+      }
+    }).then(function (p) {
+      return res.json({ result: "OK" });
+    });
+  });
 
 }
 exports.getPostInfoByIdx = function (req, res, next) {
   var idx = req.params.postIdx;
 
-  return getPostInfo(idx).then(function (d) {
-    return res.send({
+  return postCore.getPostInfo(idx).then(function (d) {
+    return res.json({
       postId: d.post.ID,
 
       likeUserCount: d.post.LikeUsers.length,
@@ -415,14 +512,14 @@ exports.createVRImageVtourInfo = function (req, res, next) {
     return Post.update({
       thumbnail_image_path: post_thumb_image_path,
     }, {
-      where: {
-        ID: vrJSON.postID
-      }
-    }).then(() => {
-      res.status(200).json({
-        statusCode: 1
+        where: {
+          ID: vrJSON.postID
+        }
+      }).then(() => {
+        res.status(200).json({
+          statusCode: 1
+        });
       });
-    });
   }).catch(next);
 }
 

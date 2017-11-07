@@ -288,6 +288,7 @@ exports.checkUser = function (req, res, next) {
         },
         point: 0,
         user_name: "",
+        owner_name: "",
         business_type: "",
         comment: "",
         phone_number: "",
@@ -341,6 +342,7 @@ exports.checkUser = function (req, res, next) {
               user_status: userInfo.user_status,
               updated_at: userInfo.updatedAt,
               point: userInfo.meta_value.point,
+              owner_name: userInfo.meta_value.owner_name,
               ID: userInfo.ID,
             }
           },

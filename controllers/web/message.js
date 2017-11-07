@@ -3,7 +3,7 @@
 const models = require('../../models');
 const User = models.user;
 
-const firebase = require('./firebase');
+const Firebase = require('../core/firebase');
 
 exports.viewChat = function (req, res) {
 
@@ -14,7 +14,7 @@ exports.viewChat = function (req, res) {
       ID: req.user.ID,
     }
   }).then(function (u) {
-    return firebase.getAdminAuthToken().then(function (token) {
+    return Firebase.getAdminAuthToken().then(function (token) {
       return res.render('message/chat', {
         ENV: req.env,
         logined: req.user.logined,
@@ -49,14 +49,6 @@ exports.viewChatByMember = function (req, res) {
       return res.redirect('back');
     }
 
-    // create Room and invite user
-
-    // var firebaseRef = firebase.database().ref("firechat");
-    // var chat = new Firechat(firebaseRef);
-    // chat.setUser(userId, userName, function(user) {
-    //   chat.resumeSession();
-    // });
-
     req.flash('messageId', u.auth0_user_id);
     return res.redirect('/message');
   });
@@ -66,7 +58,7 @@ exports.inviteUserToRoom = function (req, res) {
   const targetId = req.params.userId;
   const roomId = req.params.roomId;
 
-  return firebase.inviteUserToRoom(targetId, roomId).then(function () {
+  return Firebase.inviteUserToRoom(targetId, roomId).then(function () {
     return res.send('OK');
   });
 }
