@@ -162,7 +162,7 @@ module.exports = function (app) {
 
   api.userRoute.get('/:userIdx', requireApiAuth, api.userController.getUserInfoByIdx); // 만듬
 
-  api.userRoute.put('/:userIdx', api.userController.modifyUserInfoByIdx);
+  api.userRoute.put('/:userIdx', api.userController.modifyUserInfoByIdx, api.authController.setToken); // 테스트 필요
 
   //비밀번호 변경
   api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword);
@@ -199,7 +199,7 @@ module.exports = function (app) {
   api.postRoute.post('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.createPostComment); // 만듬?
 
   // delete comment
-  api.postRoute.post('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment);
+  api.postRoute.delete('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment); // 만듬
 
   // modify comment
   api.postRoute.put('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.modifyPostComment);

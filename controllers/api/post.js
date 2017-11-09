@@ -6,6 +6,9 @@
 const models = require('../../models');
 const Post = models.post;
 const User = models.user;
+const Translation = models.icl_translation;
+const Coordinate = models.coordinate;
+const Address = models.address;
 const Comment = models.comment;
 const Media = models.media;
 const Post_Media_relationship = models.post_media_relationship;
@@ -14,9 +17,10 @@ const _ = require('lodash');
 const moment = require("moment");
 const path = require("path");
 
-
 const postCore = require('../core/post');
 const Firebase = require('../core/firebase');
+
+const genToken = require("../../utils/genToken");
 
 const config = require("../../config/main");
 var log = require('console-log-level')({
@@ -51,7 +55,35 @@ exports.createPostComment = function (req, res, next) {
 };
 
 exports.deletePostComment = function (req, res, next) {
+  var postIdx = req.params.postIdx;
+  var commentIdx = req.params.commentIdx;
+  var userIdx = req.user.ID;
 
+  return Comment.findOne({
+    where: {
+      $and: {
+        ID: commentIdx,
+        post_id: postIdx,
+        user_id: userIdx,
+      }
+    }
+  }).then(function (c) {
+    if (!c) {
+      return res.status(404).json({ result: 'error' });
+    }
+
+    return Comment.destroy({
+      where: {
+        $and: {
+          ID: commentIdx,
+          post_id: postIdx,
+          user_id: userIdx,
+        }
+      }
+    }).then(function () {
+      return res.json({ result: 'OK' });
+    });
+  });
 };
 
 exports.modifyPostComment = function (req, res, next) {
@@ -74,7 +106,7 @@ exports.reEnrollPost = function (req, res, next) {
     }
   }).then(function (p) {
     if (p[0]) return res.json({ result: 'OK' });
-    return res.json({ result: 'other' });
+    return res.status(404).json({ result: 'other' });
   }).catch(function (err) {
     return res.send(err);
   });
@@ -170,6 +202,8 @@ exports.viewPost = function (req, res, next) {
 exports.createPostInfo = function (req, res, next) {
   let profile = genToken.decodedToken(req.cookies['user_profile_token']);
 
+  var postId = null;
+
   return models.sequelize.transaction(function (t) {
     return Post.create({
       user_id: req.user.ID,
@@ -210,14 +244,15 @@ exports.createPostInfo = function (req, res, next) {
               translation_group_id: translation.ID
             }, { transaction: t }).then(function (addr) {
               Firebase.notificationCreatePost(req.user, post);
-
-              return postCore.getPostInfo(post.ID).then(function(p) {
-                return res.json(p);                
-              });
+              postId = post.ID;
             });
           });
         });
       });
+    });
+  }).then(function() {
+    return postCore.getPostInfo(postId).then(function (p) {
+      return res.json(p);
     });
   });
 }
