@@ -165,14 +165,14 @@ module.exports = function (app) {
   api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword);
 
   // member정보를 json형식으로 출력
-  api.userRoute.get('/:userIdx([0-9]+)/json/follower', requireApiAuth, init, api.userController.getFollower); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/json/following', requireApiAuth, init, api.userController.getFollowing); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/json/posts', requireApiAuth, init, api.userController.getPosts); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/follower', requireApiAuth, init, api.userController.getFollower); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/following', requireApiAuth, init, api.userController.getFollowing); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/posts', requireApiAuth, init, api.userController.getPosts); // 만듬?
   // api.userRoute.get('/:userIdx([0-9]+)/json/replies', requireApiAuth, init, api.userController.getReplies);
-  api.userRoute.get('/:userIdx([0-9]+)/json/notice', requireApiAuth, init, api.userController.getNotice); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireApiAuth, init, api.userController.getLikeposts); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/notice', requireApiAuth, init, api.userController.getNotice); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/likeposts', requireApiAuth, init, api.userController.getLikeposts); // 만듬?
 
-  api.userRoute.get('/json/list/:userIdxList(\[[0-9,]+\])', requireApiAuth, init, api.userController.getUserList); // 만듬?
+  api.userRoute.get('/list/:userIdxList(\[[0-9,]+\])', requireApiAuth, init, api.userController.getUserList); // 만듬?
 
 
   //=========================
