@@ -138,13 +138,15 @@ exports.getFollower = function (req, res, next) {
       attributes: ['ID'],
     }],
   }).then(function (u) {
-    if (!u) {
-      return res.status(404).json({
+    if (u.length!=0) {
+      return res.status(200).json(u);
+      
+    }
+    
+    return res.status(404).json({
         errorMsg: 'follower doesn\'t exist',
         statusCode: -1
       });
-    }
-    return res.status(200).json(u);
   });
 }
 
