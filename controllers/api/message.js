@@ -33,9 +33,9 @@ exports.viewChatByMember = function (req, res) {
 
 exports.inviteUserToRoom = function (req, res) {
   const targetId = req.params.userId;
-  const roomId = req.params.roomId;
+  const chatRoomId = req.params.chatRoomId;
 
-  return firebase.inviteUserToRoom(targetId, roomId).then(function () {
+  return firebase.inviteUserToRoom(targetId, chatRoomId).then(function () {
     return res.send('OK');
   });
 }

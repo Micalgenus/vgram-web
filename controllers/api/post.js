@@ -34,7 +34,10 @@ var log = require('console-log-level')({
 exports.getPostInfo = function (req, res, next) {
   return postCore.getPostInfo(req.params.postIdx).then(function (post) {
     if (post) return res.json(post);
-    return res.status(404).json(post);
+    return res.status(404).json({
+      errorMsg: 'post doesn\'t exist',
+      statusCode: -1
+    });
   });
 };
 
@@ -59,17 +62,58 @@ exports.deletePostComment = function (req, res, next) {
   var commentIdx = req.params.commentIdx;
   var userIdx = req.user.ID;
 
+  // userIdx가 존재하지 않는 경우(로그인 안된경우)
+  if (!userIdx) {
+    return res.status(401).json({
+      errorMsg: 'please login.',
+      statusCode: -1
+    });
+  }
+
+  // postIdx 존재하지 않는 경우
+  if (!postIdx) {
+    return res.status(404).json({
+      errorMsg: 'please enter postIdx.',
+      statusCode: -2
+    });
+  }
+
+  // commentIdx 존재하지 않는 경우
+  if (!commentIdx) {
+    return res.status(404).json({
+      errorMsg: 'please enter commentIdx.',
+      statusCode: -3
+    });
+  }
+
   return Comment.findOne({
     where: {
       $and: {
         ID: commentIdx,
-        post_id: postIdx,
-        user_id: userIdx,
       }
     }
   }).then(function (c) {
     if (!c) {
-      return res.status(404).json({ result: 'error' });
+      return res.status(404).json({
+        errorMsg: 'comment doesn\'t exist',
+        statusCode: -4
+      });
+    }
+
+    // 다른 게시글의 번호
+    if (c.post_id != postIdx) {
+      return res.status(404).json({
+        errorMsg: 'postIdx dosn\'t match',
+        statusCode: -5
+      });
+    }
+
+    // 다른사람이 작성한 댓글
+    if (c.user_id != userIdx) {
+      return res.status(401).json({
+        errorMsg: 'userIdx dosn\'t match',
+        statusCode: -6
+      });
     }
 
     return Comment.destroy({
@@ -81,17 +125,36 @@ exports.deletePostComment = function (req, res, next) {
         }
       }
     }).then(function () {
-      return res.json({ result: 'OK' });
+      return res.status(200).json({
+        statusCode: 0
+      });
+    }).catch(function () {
+      return res.status(400).json({
+        errorMsg: 'failed to delete comment.',
+        statusCode: -7
+      });
     });
   });
 };
 
-exports.modifyPostComment = function (req, res, next) {
-
-};
-
 exports.reEnrollPost = function (req, res, next) {
   var postIdx = req.params.postIdx;
+
+  // userIdx가 존재하지 않는 경우(로그인 안된경우)
+  if (!req.user.ID) {
+    return res.status(401).json({
+      errorMsg: 'please login.',
+      statusCode: -1
+    });
+  }
+
+  // postIdx 존재하지 않는 경우
+  if (!postIdx) {
+    return res.status(404).json({
+      errorMsg: 'please enter postIdx.',
+      statusCode: -2
+    });
+  }
 
   let updateData = {
     createdAt: moment().format('YYYY-MM-DD HH:mm:ss')
@@ -105,10 +168,49 @@ exports.reEnrollPost = function (req, res, next) {
       }
     }
   }).then(function (p) {
-    if (p[0]) return res.json({ result: 'OK' });
-    return res.status(404).json({ result: 'other' });
+    // 변경 성공
+    if (p[0]) {
+      return res.status(200).json({
+        statusCode: 0
+      });
+    }
+
+    return Post.findOne({
+      where: {
+        ID: postIdx
+      }
+    }).then(function(p) {
+      // 게시글 존재하지 않음
+      if (!p) {
+        return res.status(400).json({
+          errorMsg: 'post doesn\'t exist',
+          statusCode: -3
+        });
+      }
+
+      // 다른 회원의 게시글
+      if (p.user_id != req.user.ID) {
+        return res.status(400).json({
+          errorMsg: 'userIdx dosn\'t match',
+          statusCode: -4
+        });
+      }
+
+      return res.status(400).json({
+        errorMsg: 'failed to re enroll post.',
+        statusCode: -5
+      });
+    }).catch(function() {
+      return res.status(400).json({
+        errorMsg: 'failed to re enroll post.',
+        statusCode: -6
+      });
+    });
   }).catch(function (err) {
-    return res.send(err);
+    return res.status(400).json({
+      errorMsg: 'failed to re enroll post.',
+      statusCode: -7
+    });
   });
 };
 
@@ -183,7 +285,10 @@ exports.getPostList = function (req, res, next) {
       }
     }
   }).then(function (p) {
-    if (!p) return res.status(404).json({});
+    if (!p) return res.status(404).json({
+      errorMsg: 'overhead postlist',
+      statusCode: -1
+    });
 
     // device별 path 변환
     for (let post of p) {
@@ -250,7 +355,7 @@ exports.createPostInfo = function (req, res, next) {
         });
       });
     });
-  }).then(function() {
+  }).then(function () {
     return postCore.getPostInfo(postId).then(function (p) {
       return res.json(p);
     });
@@ -263,18 +368,42 @@ exports.modifyPostInfo = function (req, res, next) {
 exports.deletePost = function (req, res, next) {
   var postIdx = req.params.postIdx;
 
+  // 유저 로그인 안됨
+  if (!req.user.ID) {
+    return res.status(401).json({
+      errorMsg: 'please login.',
+      statusCode: -1
+    });
+  }
+
+  // 게시글 번호 받지 않음
+  if (!postIdx) {
+    return res.status(404).json({
+      errorMsg: 'please enter postIdx.',
+      statusCode: -2
+    });
+  }
+
   return Post.findOne({
     where: {
       $and: {
-        ID: postIdx,
-        user_id: req.user.ID
+        ID: postIdx
       }
     }
   }).then(function (p) {
+    // 게시글 존재 하지 않음
     if (!p) {
-      return res.status(400).json({
-        errorMsg: '다른 회원입니다.',
-        statusCode: -1
+      return res.status(404).json({
+        errorMsg: 'post doesn\'t exist',
+        statusCode: -3
+      });
+    }
+
+    // 다른사람의 게시글
+    if (p.user_id != req.user.ID) {
+      return res.status(404).json({
+        errorMsg: 'userIdx dosn\'t match',
+        statusCode: -4
       });
     }
 
@@ -283,7 +412,14 @@ exports.deletePost = function (req, res, next) {
         ID: postIdx
       }
     }).then(function (p) {
-      return res.json({ result: "OK" });
+      return res.status(200).json({
+        statusCode: 0
+      });
+    }).catch(function () {
+      return res.status(400).json({
+        errorMsg: 'failed to delete post.',
+        statusCode: -5
+      });
     });
   });
 

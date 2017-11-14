@@ -132,9 +132,6 @@ module.exports = function (app) {
 
   // Logout route: logout은 token을 삭제하기만 하면 됨
 
-  // Registration route
-  api.authRoute.post('/signup', api.authController.register);
-
   // Registration View route
   // web.authRoute.get('/signup', requireApiAuth, init, web.authController.signup, web.redirectController.redirectMain);
 
@@ -145,11 +142,11 @@ module.exports = function (app) {
   api.authRoute.get('/quit', api.authController.quit);
 
   // Forgot password
-  api.authRoute.post('/forgot-password', api.authController.forgotPassword);
+  api.authRoute.post('/forgot-password', api.authController.forgotPassword);  // 2순위
   // authRouteView.get('/forgot-password', authRouteController.register);
 
   // Password reset request route (generate/send token)
-  api.authRoute.post('/reset-password/:token', api.authController.verifyToken);
+  api.authRoute.post('/reset-password/:token', api.authController.verifyToken);  // 2순위
   // authRouteView.get('/reset-password/:token', authRouteController.verifyToken);
 
 
@@ -168,14 +165,14 @@ module.exports = function (app) {
   api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword);
 
   // member정보를 json형식으로 출력
-  api.userRoute.get('/:userIdx([0-9]+)/json/follower', requireApiAuth, init, api.userController.getFollower);
-  api.userRoute.get('/:userIdx([0-9]+)/json/following', requireApiAuth, init, api.userController.getFollowing);
-  api.userRoute.get('/:userIdx([0-9]+)/json/posts', requireApiAuth, init, api.userController.getPosts);
+  api.userRoute.get('/:userIdx([0-9]+)/json/follower', requireApiAuth, init, api.userController.getFollower); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/json/following', requireApiAuth, init, api.userController.getFollowing); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/json/posts', requireApiAuth, init, api.userController.getPosts); // 만듬?
   // api.userRoute.get('/:userIdx([0-9]+)/json/replies', requireApiAuth, init, api.userController.getReplies);
-  api.userRoute.get('/:userIdx([0-9]+)/json/notice', requireApiAuth, init, api.userController.getNotice);
-  api.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireApiAuth, init, api.userController.getLikeposts);
+  api.userRoute.get('/:userIdx([0-9]+)/json/notice', requireApiAuth, init, api.userController.getNotice); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireApiAuth, init, api.userController.getLikeposts); // 만듬?
 
-  api.userRoute.get('/json/list/:userIdxList', requireApiAuth, init, api.userController.getUserList);
+  api.userRoute.get('/json/list/:userIdxList(\[[0-9,]+\])', requireApiAuth, init, api.userController.getUserList); // 만듬?
 
 
   //=========================
@@ -201,9 +198,6 @@ module.exports = function (app) {
   // delete comment
   api.postRoute.delete('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment); // 만듬
 
-  // modify comment
-  api.postRoute.put('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.modifyPostComment);
-
   // delete post
   api.postRoute.delete('/:postIdx([0-9]+)', requireApiAuth, api.postController.deletePost); // 만듬
 
@@ -211,11 +205,11 @@ module.exports = function (app) {
   api.postRoute.put('/re-enroll/:postIdx([0-9]+)', requireApiAuth, api.postController.reEnrollPost); // 만듬
 
   // search post
-  api.postRoute.get('/search', api.postController.searchPost);
+  api.postRoute.get('/search', api.postController.searchPost);  // 2순위
 
   //media, attached 정보 저장(image-server에서 이용함)
-  api.postRoute.post('/images', requireApiAuth, api.postController.createNormalImageInfo);
-  api.postRoute.post('/vtour', requireApiAuth, api.postController.createVRImageVtourInfo);
+  api.postRoute.post('/images', requireApiAuth, api.postController.createNormalImageInfo); // 만듬
+  api.postRoute.post('/vtour', requireApiAuth, api.postController.createVRImageVtourInfo); // 만듬
 
   //=========================
   // api - Map Info Routes
@@ -234,7 +228,7 @@ module.exports = function (app) {
   api.postRoute.use('/room', api.roomRoute);
 
   //룸세부정보 출력
-  api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);
+  // api.roomRoute.get('/:roomInfoIdx', api.postController.viewRoomDetail);
 
 
   //=========================
@@ -243,6 +237,6 @@ module.exports = function (app) {
   api.rootRoute.use('/message', api.messageRoute);
 
   api.messageRoute.get('/:userId', requireApiAuth, init, api.messageController.viewChatByMember);
-  api.messageRoute.post('/:userId/:roomId', requireApiAuth, init, api.messageController.inviteUserToRoom);
+  api.messageRoute.post('/:userId/:chatRoomId', requireApiAuth, init, api.messageController.inviteUserToRoom);
 
 };
