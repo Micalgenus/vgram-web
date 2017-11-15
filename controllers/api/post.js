@@ -285,7 +285,7 @@ exports.getPostList = function (req, res, next) {
       }
     }
   }).then(function (p) {
-    if (!p) return res.status(404).json({
+    if (p.length==0) return res.status(404).json({
       errorMsg: 'overhead postlist',
       statusCode: -1
     });
