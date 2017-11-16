@@ -102,14 +102,15 @@ const auth0options = {
 const auth0Login = new Auth0Strategy(auth0options, (accessToken, refreshToken, extraParams, profile, done) => {
    var result = {
       accessToken: accessToken,
+      refreshToken: refreshToken,
       idToken: extraParams.id_token,
       tokenType: extraParams.token_type,
       expiresIn: extraParams.expires_in,
       profile: profile._json
    }
 
-   console.log("profile");
-   console.log(profile._json);
+   // console.log("profile");
+   // console.log(profile._json);
 
    return done(null, result);
 });

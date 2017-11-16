@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="portfolio-desc">
-      <span class="author"><a href="/user/<%= post[i].user.ID %>"><img src="<%= post[i].user.profile_image_path %>" alt=""> <%= post[i].user.nickname %></a></span>
+      <span class="author"><a href="/user/<%= post[i].user.ID %>"><img src="<%= mediaUrl %>/<%= post[i].user.profile_image_path %>" alt=""> <%= post[i].user.nickname %></a></span>
       <h3><a href="/post/<%= post[i].ID %>"><%= post[i].title %></a></h3>
       <span class="info clearfix">
         <span class="date"><%= new Date(post[i].createdAt).toLocaleDateString("ko-KR", {year: 'numeric', month: '2-digit', day: '2-digit'}) %></span>

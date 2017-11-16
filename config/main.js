@@ -21,7 +21,7 @@ var config = {
       "database": "cozyhouzz",
       "host": "api.cozyhouzz.co.kr",    // The host of the relational database.
       "hostName": "api.cozyhouzz.co.kr",    // actual hostname for resource hosting,
-      "mediaUrl": "http://image.vgram.kr",     // 미디어/이미지 서버 URL
+      "mediaUrl": "http://media.vgram.kr",     // 미디어/이미지 서버 URL
       "dialect": "mysql",
       "pool": {
          "max": 50,
