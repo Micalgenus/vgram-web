@@ -2,9 +2,12 @@
 const models = require('../../models');
 const User = models.user;
 
+const authCore = require('../core/auth');
 const Firebase = require('../core/firebase');
 
 const config = require('../../config/main');
+
+const request = require('request');
 
 exports.getAllUserInfo = function (req, res, next) {
 }
@@ -29,7 +32,6 @@ exports.getUserInfoByIdx = function (req, res, next) {
 }
 
 exports.modifyUserInfoByIdx = function (req, res, next) {
-
   const email = req.user.email;
   const id = req.user.ID;
 
@@ -53,7 +55,7 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
     blog: req.body.blog
   };
 
-  return auth.getAdminToken().then(function (token) {
+  return authCore.getAdminToken().then(function (token) {
 
     let args = {
       method: 'PATCH',
@@ -138,15 +140,15 @@ exports.getFollower = function (req, res, next) {
       attributes: ['ID'],
     }],
   }).then(function (u) {
-    if (u.length!=0) {
+    if (u.length != 0) {
       return res.status(200).json(u);
-      
+
     }
-    
+
     return res.status(404).json({
-        errorMsg: 'follower doesn\'t exist',
-        statusCode: -1
-      });
+      errorMsg: 'follower doesn\'t exist',
+      statusCode: -1
+    });
   });
 }
 
