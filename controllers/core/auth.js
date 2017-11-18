@@ -9,7 +9,7 @@ const _ = require('lodash');
 const config = require('../../config/main');
 const genToken = require("../../utils/genToken");
 
-exports.getAdminToken = function() {
+exports.getAdminToken = function () {
   var options = {
     method: 'POST',
     url: config.auth0.ISSUER + 'oauth/token',

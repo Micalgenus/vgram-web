@@ -3,15 +3,21 @@
  */
 "use strict";
 
+const models = require('../../models');
+const User = models.user;
+
 const crypto = require('crypto'),
-  models = require('../../models'),
-  user = models.user,
   moment = require("moment"),
   _ = require('lodash'),
-  mailgun = require('../../config/mailgun'),
+  requestp = require('request-promise');
+
+const  mailgun = require('../../config/mailgun'),
   mailchimp = require('../../config/mailchimp'),
   config = require('../../config/main'),
   genToken = require("../../utils/genToken");
+
+  
+const authCore = require('../core/auth');
 
 
 /**
@@ -215,6 +221,38 @@ exports.register = function (req, res, next) {
  * @param next
  */
 exports.quit = function (req, res, next) {
+
+  let auth0_id = req.user.sub;
+
+  return authCore.getAdminToken().then((token) => {
+    let options = {
+      method: 'DELETE',
+      uri: config.auth0.IDENTIFIER + 'users/' + auth0_id,
+
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    };
+
+    return requestp(options).then(function (body) {
+      return User.destroy({
+        where: {
+          auth0_user_id: auth0_id
+        }
+      }).then(function () {
+        return res.status(200).json({
+          statusCode: 0
+        });
+      }).catch(function () {
+        return res.status(400).json({
+          errorMsg: 'error',
+          statusCode: -1
+        });
+      });
+    });
+  });
 }
 // exports.register = function(req, res, next) {
 

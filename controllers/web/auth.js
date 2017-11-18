@@ -274,7 +274,7 @@ exports.checkUser = function (req, res, next) {
       telephone: "",
       createdAt: moment(info.created_at).format('YYYY-MM-DD'),
       auth0_user_id: info.user_id,
-      locale: info.user_metadata ? info.user_metadata.locale : value.langCode["ko-kr"].codes[1],   // ko-kr
+      locale: (info.user_metadata && info.user_metadata.locale) ? info.user_metadata.locale : value.langCode["ko-kr"].codes[1],   // ko-kr
       profile_image_path: info.user_metadata ? info.user_metadata.profile_image_path : info.picture,
       updatedAt: moment(info.updated_at).format('YYYY-MM-DD'),
       meta_value: {
@@ -357,6 +357,9 @@ exports.checkUser = function (req, res, next) {
         return requestp(options).then(function (body) {
           req.user.profile.ID = body.app_metadata.ID;
           return models.Sequelize.Promise.resolve();
+          req.user.profile.user_metadata = body.user_metadata;
+          req.user.profile.app_metadata = body.app_metadata;
+
         });
       });
     });

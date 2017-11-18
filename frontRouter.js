@@ -158,7 +158,7 @@ module.exports = function (app) {
     res.render('index', {
       ENV: env,
       logined: req.user.logined,
-      userIdx: req.ID,
+      userIdx: req.user.ID,
       userAuthId: req.user.sub,
       title: 'main',
       msg: req.msg,

@@ -139,7 +139,7 @@ module.exports = function (app) {
   // web.authRoute.post('/signup', requireApiAuth, init, web.authController.signup, web.authController.register, web.redirectController.redirectMain);
 
   //탈퇴 라우터
-  api.authRoute.get('/quit', api.authController.quit);
+  api.authRoute.delete('/quit', requireApiAuth, api.authController.quit); // 만듬
 
   // Forgot password
   api.authRoute.post('/forgot-password', api.authController.forgotPassword);  // 2순위
