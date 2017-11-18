@@ -92,7 +92,7 @@ exports.viewChangeProfile = function (req, res) {
 
         sns: sns,
 
-        about: u.meta_value.about
+        comment: u.meta_value.comment
       });
     });
 
@@ -165,7 +165,7 @@ exports.viewProfile = function (req, res) {
 
         sns: sns,
 
-        about: xss(u.meta_value.about)
+        comment: xss(u.meta_value.comment)
         // email: req.user.email,
         // phone: req.user.telephone,
         // business_type: business_type,
@@ -317,7 +317,7 @@ exports.change = function (req, res, next) {
     addr2: req.body.addr2
   };
   const profile_src = req.body.profile_src;
-  const about = req.body.about;
+  const comment = req.body.comment;
   const owner_name = req.body.owner_name;
 
   const sns = {
@@ -345,7 +345,7 @@ exports.change = function (req, res, next) {
           owner_name: owner_name,
           address: address,
           sns: sns,
-          about: about
+          comment: comment
         },
       },
 
@@ -369,7 +369,7 @@ exports.change = function (req, res, next) {
           sns: sns,
           point: 0,
           phone_number: "",
-          about: about
+          comment: comment
         }
       };
 

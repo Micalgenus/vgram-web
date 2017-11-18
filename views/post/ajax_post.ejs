@@ -110,11 +110,11 @@
 
     <div class="vview-author-info panel panel-default">
       <div class="panel-heading clearfix">
-        <h3 class="panel-title">Posted by <span><a href="/user/5"><img src="http://localhost:3001/users/sinho0689@gmail.com/zrss85pYUt5u08Au0SxBy6TdTzTmbWQT.png" alt="Avatar"> 모랩</a></span></h3>
+        <h3 class="panel-title">Posted by <span><a href="/user/<%= user.ID %>"><img src="<%= user.profile_image_path %>" alt="Avatar"> <%= nickname %></a></span></h3>
       </div>
       <div class="panel-body">
         <div class="author-content">
-          <%= user.about %>
+          <%- comment %>
         </div>
         <div class="si-share noborder">
           <% if (sns.website) { %>

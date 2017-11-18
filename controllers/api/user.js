@@ -44,7 +44,7 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
     addr2: req.body.addr2
   };
   const profile_src = req.body.profile_src;
-  const about = req.body.about;
+  const comment = req.body.comment;
   const owner_name = req.body.owner_name;
 
   const sns = {
@@ -72,7 +72,7 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
           owner_name: owner_name,
           address: address,
           sns: sns,
-          about: about
+          comment: comment
         },
       },
 
@@ -96,7 +96,7 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
           sns: sns,
           point: 0,
           phone_number: "",
-          about: about
+          comment: comment
         }
       };
 

@@ -309,7 +309,7 @@ exports.postAjaxView = function (req, res) {
 
   const postId = req.params.postId;
   return getPostInfo(postId, req.device.type).then(function (info) {
-    const user_meta_value = JSON.parse(info.post.user.meta_value);
+    info.post.user.meta_value = JSON.parse(info.post.user.meta_value);
 
     return res.render('post/ajax_post', {
       ENV: req.env,
@@ -335,10 +335,10 @@ exports.postAjaxView = function (req, res) {
       // content: xss(info.post.content),
 
       user: info.post.user,
-      about: xss(info.post.user.about),
+      comment: xss(info.post.user.meta_value.comment),
 
       images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
-      sns: user_meta_value.sns || {},
+      sns: info.post.user.meta_value.sns || {},
 
       email: info.post.user.email,
       nickname: info.post.user.nickname,
@@ -426,7 +426,7 @@ exports.viewPostInfoView = function (req, res) {
   return getPostInfo(postIdx, req.device.type).then(function (info) {
 
     if (info == null) return res.redirect('/');
-
+    
     return res.render('post/detail', {
       ENV: req.env,
       logined: req.user.logined,
@@ -451,7 +451,7 @@ exports.viewPostInfoView = function (req, res) {
 
       images: JSON.parse(info.post.thumbnail_image_path)[0].vrimages,
 
-      about: info.post.user.about,
+      comment: info.post.user.meta_value.comment,
       email: info.post.user.email,
       nickname: info.post.user.nickname,
       phone: info.post.user.telephone,
