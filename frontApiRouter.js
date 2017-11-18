@@ -53,15 +53,16 @@ const requireAuth0Login = passport.authenticate('auth0', { session: false, failu
 const checkScopes = jwtAuthz(['read:messages']);
 
 const init = function (req, res, next) {
-  req.msg = req.flash('error')[0] || req.flash('msg')[0] || req.flash('success')[0];
-  // req.msg = req.flash();
   req.env = process.env.NODE_ENV || "development";
   req.lang = req.getLocale();
   req.ID = req.user ? (req.user.logined ? req.user.ID : null) : null;
 
   if (!req.user.logined) {
     req.msg = 'login please';
-    return res.redirect('back');
+    return res.status(401).json({
+      errorMsg: 'Unauthorized',
+      statusCode: -1
+    });
   }
 
   if (_.isEmpty(req.msg)) {
