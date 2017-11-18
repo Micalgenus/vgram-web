@@ -265,7 +265,7 @@ exports.getPostList = function (req, res, next) {
     }, {
       model: Comment,
       as: 'Comments',
-      attributes: ["ID", "post_id"]  // comment count 조회를 COUNT() 대신 comment.length로 하기 위해서
+      // attributes: ["ID", "post_id"]
     }, {
       model: User,
       as: 'LikeUsers',
