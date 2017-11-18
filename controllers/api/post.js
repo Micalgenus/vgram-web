@@ -124,9 +124,9 @@ exports.deletePostComment = function (req, res, next) {
           user_id: userIdx,
         }
       }
-    }).then(function () {
+    }).then(function (numOfDeletedRow) {
       return res.status(200).json({
-        statusCode: 0
+        statusCode: numOfDeletedRow
       });
     }).catch(function () {
       return res.status(400).json({
@@ -315,7 +315,7 @@ exports.createPostInfo = function (req, res, next) {
       title: req.body.title,
       content: req.body.content,
       post_status: req.body.post_status,
-      post_type: req.body.category,
+      post_type: req.body.post_type,
       locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
       meta_value: {
         written_device: '' // mobile??
@@ -341,9 +341,9 @@ exports.createPostInfo = function (req, res, next) {
               coordinate_id: coordinate.ID,
               // post_code:
               // region_code:
-              addr1: req.body.address1,
-              addr2: req.body.address1,
-              detail: req.body.address2,
+              addr1: req.body.addr1 || req.body.addr2,
+              addr2: req.body.addr2 || req.body.addr1,
+              detail: req.body.detail || req.body.addr1 || req.body.addr2,
               // extra_info:
               locale: translation.language_code,
               translation_group_id: translation.ID
