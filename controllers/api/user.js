@@ -1,6 +1,8 @@
 "use strict";
 const models = require('../../models');
 const User = models.user;
+const Post = models.post;
+const Comment = models.comment;
 
 const authCore = require('../core/auth');
 const Firebase = require('../core/firebase');
@@ -27,7 +29,10 @@ exports.getUserInfoByIdx = function (req, res, next) {
 
     u.meta_value = JSON.parse(u.meta_value);
 
-    return res.json(u);
+    return res.status(200).json({
+      user: u,
+      statusCode: 0
+    });
   });
 }
 
@@ -54,6 +59,13 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
     twitter: req.body.twitter,
     blog: req.body.blog
   };
+
+  if (!id) {
+    return res.status(404).json({
+      errorMsg: 'please login.',
+      statusCode: -1
+    });
+  }
 
   return authCore.getAdminToken().then(function (token) {
 
@@ -84,6 +96,13 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
     }
 
     return request(args, function (e, r, body) {
+
+      if (e) {
+        return res.status(400).json({
+          errorMsg: 'user info update error',
+          statusCode: -2
+        });
+      }
 
       let userData = {
         nickname: nickname,

@@ -160,7 +160,7 @@ module.exports = function (app) {
 
   api.userRoute.get('/:userIdx', requireApiAuth, api.userController.getUserInfoByIdx); // 만듬
 
-  api.userRoute.put('/:userIdx', requireApiAuth,api.userController.modifyUserInfoByIdx, api.authController.setToken); // 테스트 필요
+  api.userRoute.put('/', requireApiAuth,api.userController.modifyUserInfoByIdx, api.authController.setToken); // 테스트 필요
 
   //비밀번호 변경
   api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword);

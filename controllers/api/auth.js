@@ -241,14 +241,21 @@ exports.quit = function (req, res, next) {
         where: {
           auth0_user_id: auth0_id
         }
-      }).then(function () {
+      }).then(function (numOfDeletedRow) {
+        if (numOfDeletedRow == 0) {
+          return res.status(404).json({
+            errorMsg: 'user doesn\'t exist',
+            statusCode: -1
+          });
+        }
+
         return res.status(200).json({
-          statusCode: 0
+          statusCode: numOfDeletedRow
         });
       }).catch(function () {
         return res.status(400).json({
           errorMsg: 'error',
-          statusCode: -1
+          statusCode: -2
         });
       });
     });

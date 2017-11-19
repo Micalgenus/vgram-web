@@ -47,14 +47,26 @@ exports.createPostComment = function (req, res, next) {
   var userIdx = req.user.ID;
   var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
-  return Comment.create({
-    post_id: postIdx,
-    user_id: userIdx,
-    content: comment,
-    createdAt: createdAt
-  }).then(function (c) {
-    return res.json(c);
-  });
+  return Post.findOne({
+    where: {
+      ID: postIdx
+    }
+  }).then(function (p) {
+    if (!p) {
+      return res.status(404).json({
+        errorMsg: 'post doesn\'t exist',
+        statusCode: -1
+      });
+    }
+    return Comment.create({
+      post_id: postIdx,
+      user_id: userIdx,
+      content: comment,
+      createdAt: createdAt
+    }).then(function (c) {
+      return res.json(c);
+    });
+  })
 };
 
 exports.deletePostComment = function (req, res, next) {
@@ -70,22 +82,6 @@ exports.deletePostComment = function (req, res, next) {
     });
   }
 
-  // postIdx 존재하지 않는 경우
-  if (!postIdx) {
-    return res.status(404).json({
-      errorMsg: 'please enter postIdx.',
-      statusCode: -2
-    });
-  }
-
-  // commentIdx 존재하지 않는 경우
-  if (!commentIdx) {
-    return res.status(404).json({
-      errorMsg: 'please enter commentIdx.',
-      statusCode: -3
-    });
-  }
-
   return Comment.findOne({
     where: {
       $and: {
@@ -96,7 +92,7 @@ exports.deletePostComment = function (req, res, next) {
     if (!c) {
       return res.status(404).json({
         errorMsg: 'comment doesn\'t exist',
-        statusCode: -4
+        statusCode: -2
       });
     }
 
@@ -104,7 +100,7 @@ exports.deletePostComment = function (req, res, next) {
     if (c.post_id != postIdx) {
       return res.status(404).json({
         errorMsg: 'postIdx dosn\'t match',
-        statusCode: -5
+        statusCode: -3
       });
     }
 
@@ -112,7 +108,7 @@ exports.deletePostComment = function (req, res, next) {
     if (c.user_id != userIdx) {
       return res.status(401).json({
         errorMsg: 'userIdx dosn\'t match',
-        statusCode: -6
+        statusCode: -4
       });
     }
 
@@ -131,7 +127,7 @@ exports.deletePostComment = function (req, res, next) {
     }).catch(function () {
       return res.status(400).json({
         errorMsg: 'failed to delete comment.',
-        statusCode: -7
+        statusCode: -5
       });
     });
   });
@@ -179,7 +175,7 @@ exports.reEnrollPost = function (req, res, next) {
       where: {
         ID: postIdx
       }
-    }).then(function(p) {
+    }).then(function (p) {
       // 게시글 존재하지 않음
       if (!p) {
         return res.status(400).json({
@@ -200,7 +196,7 @@ exports.reEnrollPost = function (req, res, next) {
         errorMsg: 'failed to re enroll post.',
         statusCode: -5
       });
-    }).catch(function() {
+    }).catch(function () {
       return res.status(400).json({
         errorMsg: 'failed to re enroll post.',
         statusCode: -6
@@ -285,7 +281,7 @@ exports.getPostList = function (req, res, next) {
       }
     }
   }).then(function (p) {
-    if (p.length==0) return res.status(404).json({
+    if (p.length == 0) return res.status(404).json({
       errorMsg: 'overhead postlist',
       statusCode: -1
     });
