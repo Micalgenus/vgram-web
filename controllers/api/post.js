@@ -359,7 +359,153 @@ exports.createPostInfo = function (req, res, next) {
 }
 
 exports.modifyPostInfo = function (req, res, next) {
+  let profile = genToken.decodedToken(req.cookies['user_profile_token']);
 
+  if (!req.body.title) {
+    return res.status(400).json({
+      errorMsg: 'title doesn\'t exist',
+      statusCode: -1
+    });
+  }
+
+  if (!req.body.content) {
+    return res.status(400).json({
+      errorMsg: 'content doesn\'t exist',
+      statusCode: -2
+    });
+  }
+
+  if (!req.body.post_status) {
+    return res.status(400).json({
+      errorMsg: 'post_status doesn\'t exist',
+      statusCode: -3
+    });
+  }
+
+  if (!req.body.post_type) {
+    return res.status(400).json({
+      errorMsg: 'post_type doesn\'t exist',
+      statusCode: -4
+    });
+  }
+
+  if (!req.body.lat) {
+    return res.status(400).json({
+      errorMsg: 'lat doesn\'t exist',
+      statusCode: -5
+    });
+  }
+
+  if (!req.body.lng) {
+    return res.status(400).json({
+      errorMsg: 'lng doesn\'t exist',
+      statusCode: -6
+    });
+  }
+
+  if (!req.body.address1) {
+    return res.status(400).json({
+      errorMsg: 'address1 doesn\'t exist',
+      statusCode: -7
+    });
+  }
+
+  if (!req.body.address2) {
+    return res.status(400).json({
+      errorMsg: 'address2 doesn\'t exist',
+      statusCode: -8
+    });
+  }
+
+  return Post.findOne({
+    where: {
+      ID: req.params.postId
+    }
+  }).then(function (p) {
+    if (!p) {
+      return res.status(404).json({
+        errorMsg: 'post doesn\'t exist',
+        statusCode: -9
+      });
+    }
+
+    if (p.user_id != req.user.ID) {
+      return res.status(401).json({
+        errorMsg: 'userIdx dosn\'t match',
+        statusCode: -10
+      });
+    }
+
+    return models.sequelize.transaction(function (t) {
+      return Post.update({
+        title: req.body.title,
+        content: req.body.content,
+        post_status: req.body.post_status,
+        post_type: req.body.post_type,
+        locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
+        meta_value: {
+          written_device: ''
+        }
+      }, { where: { ID: req.params.postId }, transaction: t }).then(function (post) {
+
+        return Translation.update({
+          language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+        }, { where: { element_id: req.params.postId }, transaction: t }).then(function () {
+          return Translation.findOne({
+            where: {
+              element_id: req.params.postId
+            },
+            transaction: t
+          }).then(function (translation) {
+            return Coordinate.update({
+              lat: req.body.lat,
+              lng: req.body.lng,
+            }, { where: { translation_group_id: translation.ID }, transaction: t }).then(function () {
+              return Coordinate.findOne({
+                where: {
+                  translation_group_id: translation.ID
+                },
+                transaction: t
+              }).then(function (coordinate) {
+                return Address.update({
+                  addr1: req.body.address1,
+                  addr2: req.body.address1,
+                  detail: req.body.address2,
+                }, { where: { coordinate_id: coordinate.ID }, transaction: t }).then(function (address) {
+                  // Firebase.notificationCreatePost(req.user, post); // -> update로 변경해야함
+                  return res.status(200).json({
+                    ID: req.params.postId,
+                    title: req.body.title,
+                    content: req.body.content,
+                    post_status: req.body.post_status,
+                    post_type: req.body.post_type,
+                    locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
+                    meta_value: {
+                      written_device: ''
+                    },
+
+                    language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+
+                    lat: req.body.lat,
+                    lng: req.body.lng,
+
+                    addr1: req.body.address1,
+                    addr2: req.body.address1,
+                    detail: req.body.address2,
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    }).catch(function (err) {
+      return res.status(400).json({
+        errorMsg: 'post update error',
+        statusCode: -11
+      });
+    });
+  });
 }
 exports.deletePost = function (req, res, next) {
   var postIdx = req.params.postIdx;
@@ -397,7 +543,7 @@ exports.deletePost = function (req, res, next) {
 
     // 다른사람의 게시글
     if (p.user_id != req.user.ID) {
-      return res.status(404).json({
+      return res.status(401).json({
         errorMsg: 'userIdx dosn\'t match',
         statusCode: -4
       });

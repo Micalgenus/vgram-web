@@ -103,7 +103,7 @@ exports.createPostInfo = function (req, res, next) {
       title: req.body.title,
       content: req.body.content,
       post_status: req.body.post_status,
-      post_type: req.body.category,
+      post_type: req.body.post_type,
       locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
       meta_value: {
         written_device: 'web'
@@ -401,9 +401,9 @@ exports.modifyPostInfoView = function (req, res) {
   return res.render('post/modify', {
     ENV: req.env,
     logined: req.user.logined,
-    userIdx: req.ID,
+    userIdx: req.user.ID,
     userAuthId: req.user.sub,
-    title: "createPostInfoView",
+    title: "modifyPostInfoView",
     msg: req.msg,
     update: false,
     mediaUrl: config.mediaUrl,
@@ -419,6 +419,81 @@ exports.modifyPostInfoView = function (req, res) {
   });
 };
 
+exports.modifyPostInfo = function (req, res) {
+  let profile = genToken.decodedToken(req.cookies['user_profile_token']);
+
+  return Post.findOne({
+    where: {
+      ID: req.params.postId
+    }
+  }).then(function (p) {
+    if (!p) {
+      return res.status(404).json({
+        errorMsg: 'post doesn\'t exist',
+        statusCode: -1
+      });
+    }
+
+    if (p.user_id != req.user.ID) {
+      return res.status(401).json({
+        errorMsg: 'userIdx dosn\'t match',
+        statusCode: -2
+      });
+    }
+
+    return models.sequelize.transaction(function (t) {
+      return Post.update({
+        title: req.body.title,
+        content: req.body.content,
+        post_status: req.body.post_status,
+        post_type: req.body.post_type,
+        locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
+        meta_value: {
+          written_device: 'web'
+        }
+      }, { where: { ID: req.params.postId }, transaction: t }).then(function (post) {
+
+        return Translation.update({
+          language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+        }, { where: { element_id: req.params.postId }, transaction: t }).then(function () {
+          return Translation.findOne({
+            where: {
+              element_id: req.params.postId
+            },
+            transaction: t
+          }).then(function (translation) {
+            return Coordinate.update({
+              lat: req.body.lat,
+              lng: req.body.lng,
+            }, { where: { translation_group_id: translation.ID }, transaction: t }).then(function () {
+              return Coordinate.findOne({
+                where: {
+                  translation_group_id: translation.ID
+                },
+                transaction: t
+              }).then(function (coordinate) {
+                return Address.update({
+                  addr1: req.body.address1,
+                  addr2: req.body.address1,
+                  detail: req.body.address2,
+                }, { where: { coordinate_id: coordinate.ID }, transaction: t }).then(function (address) {
+                  // Firebase.notificationCreatePost(req.user, post); // -> update로 변경해야함
+                  return res.send({ ID: post.ID });
+                });
+              });
+            });
+          });
+        });
+      });
+    }).catch(function (err) {
+      return res.status(400).json({
+        errorMsg: 'post update error',
+        statusCode: -3
+      });
+    });
+  });
+}
+
 exports.viewPostInfoView = function (req, res) {
 
   let postIdx = req.params.postIdx;
@@ -426,7 +501,7 @@ exports.viewPostInfoView = function (req, res) {
   return getPostInfo(postIdx, req.device.type).then(function (info) {
 
     if (info == null) return res.redirect('/');
-    
+
     return res.render('post/detail', {
       ENV: req.env,
       logined: req.user.logined,
