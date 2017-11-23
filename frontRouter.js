@@ -357,8 +357,8 @@ module.exports = function (app) {
   web.postRoute.post('/new', requireWebAuth, loginCheck, web.postController.createPostInfo);
 
   // create new Room Info from authenticated userRoute
-  web.postRoute.get('/change/:postIdx([0-9]+)', requireWebAuth, init, web.postController.modifyPostInfoView);
-
+  web.postRoute.get('/change/:postId([0-9]+)', requireWebAuth, init, web.postController.modifyPostInfoView);
+  web.postRoute.put('/change/:postId([0-9]+)', requireWebAuth, init, web.postController.modifyPostInfo);
 
   // post info를 json로 받음
   web.postRoute.get('/info/:postIdx([0-9]+)', requireWebAuth, web.postController.getPostInfoJson);
