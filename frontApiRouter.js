@@ -140,7 +140,7 @@ module.exports = function (app) {
   // web.authRoute.post('/signup', requireApiAuth, init, web.authController.signup, web.authController.register, web.redirectController.redirectMain);
 
   //탈퇴 라우터
-  api.authRoute.delete('/quit', requireApiAuth, api.authController.quit); // 만듬
+  api.authRoute.delete('/quit', requireApiAuth, api.authController.quit); 
 
   // Forgot password
   api.authRoute.post('/forgot-password', api.authController.forgotPassword);  // 2순위
@@ -158,22 +158,22 @@ module.exports = function (app) {
   // Set userRoute routes as a subgroup/middleware to api.rootRoute
   api.rootRoute.use('/user', api.userRoute);
 
-  api.userRoute.get('/:userIdx', requireApiAuth, api.userController.getUserInfoByIdx); // 만듬
+  api.userRoute.get('/:userIdx', requireApiAuth, api.userController.getUserInfoByIdx); 
 
   api.userRoute.put('/', requireApiAuth,api.userController.modifyUserInfoByIdx, api.authController.setToken); // 테스트 필요
 
   //비밀번호 변경
-  api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword);
+  api.userRoute.put('/change-password', requireApiAuth, init, api.userController.changePassword); // 2순위
 
   // member정보를 json형식으로 출력
-  api.userRoute.get('/:userIdx([0-9]+)/follower', requireApiAuth, init, api.userController.getFollower); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/following', requireApiAuth, init, api.userController.getFollowing); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/posts', requireApiAuth, init, api.userController.getPosts); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/follower', requireApiAuth, init, api.userController.getFollower); 
+  api.userRoute.get('/:userIdx([0-9]+)/following', requireApiAuth, init, api.userController.getFollowing); 
+  api.userRoute.get('/:userIdx([0-9]+)/posts', requireApiAuth, init, api.userController.getPosts); 
   // api.userRoute.get('/:userIdx([0-9]+)/json/replies', requireApiAuth, init, api.userController.getReplies);
-  api.userRoute.get('/:userIdx([0-9]+)/notice', requireApiAuth, init, api.userController.getNotice); // 만듬?
-  api.userRoute.get('/:userIdx([0-9]+)/likeposts', requireApiAuth, init, api.userController.getLikeposts); // 만듬?
+  api.userRoute.get('/:userIdx([0-9]+)/notice', requireApiAuth, init, api.userController.getNotice);
+  api.userRoute.get('/:userIdx([0-9]+)/likeposts', requireApiAuth, init, api.userController.getLikeposts); 
 
-  api.userRoute.get('/list/:userIdxList(\[[0-9,]+\])', requireApiAuth, init, api.userController.getUserList); // 만듬?
+  api.userRoute.get('/list/:userIdxList(\[[0-9,]+\])', requireApiAuth, init, api.userController.getUserList); 
 
 
   //=========================
@@ -182,28 +182,28 @@ module.exports = function (app) {
   api.rootRoute.use('/post', api.postRoute);
 
   // post info를 json로 받음
-  api.postRoute.get('/:postIdx([0-9]+)', requireApiAuth, api.postController.getPostInfo); // 만듬
+  api.postRoute.get('/:postIdx([0-9]+)', requireApiAuth, api.postController.getPostInfo); 
 
   // post info list를 json로 받음
-  api.postRoute.get('/list/:postListIdx([0-9]+)', requireApiAuth, api.postController.getPostList); // 만듬
+  api.postRoute.get('/list/:postListIdx([0-9]+)', requireApiAuth, api.postController.getPostList);
 
   // create new Post Info from authenticated userRoute
-  api.postRoute.post('/', requireApiAuth, api.postController.createPostInfo); // 만듬?
+  api.postRoute.post('/', requireApiAuth, api.postController.createPostInfo); 
 
   // modify Post Info from authenticated userRoute
-  api.postRoute.put('/:postIdx([0-9]+)', requireApiAuth, init, api.postController.modifyPostInfo);
+  api.postRoute.put('/:postIdx([0-9]+)', requireApiAuth, init, api.postController.modifyPostInfo); //만듬
 
   // add comment
-  api.postRoute.post('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.createPostComment); // 만듬?
+  api.postRoute.post('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.createPostComment); 
 
   // delete comment
-  api.postRoute.delete('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment); // 만듬
+  api.postRoute.delete('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment); 
 
   // delete post
-  api.postRoute.delete('/:postIdx([0-9]+)', requireApiAuth, api.postController.deletePost); // 만듬
+  api.postRoute.delete('/:postIdx([0-9]+)', requireApiAuth, api.postController.deletePost); 
 
   // re enroll post - 재게시하기
-  api.postRoute.put('/re-enroll/:postIdx([0-9]+)', requireApiAuth, api.postController.reEnrollPost); // 만듬
+  api.postRoute.put('/re-enroll/:postIdx([0-9]+)', requireApiAuth, api.postController.reEnrollPost); 
 
   // search post
   api.postRoute.get('/search', api.postController.searchPost);  // 2순위
