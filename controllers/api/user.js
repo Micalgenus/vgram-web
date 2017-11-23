@@ -138,9 +138,6 @@ exports.modifyUserInfoByIdx = function (req, res, next) {
   });
 }
 
-exports.deleteUser = function (req, res, next) {
-}
-
 exports.changePassword = function (req, res, next) {
 }
 
@@ -161,7 +158,6 @@ exports.getFollower = function (req, res, next) {
   }).then(function (u) {
     if (u.length != 0) {
       return res.status(200).json(u);
-
     }
 
     return res.status(404).json({
@@ -213,7 +209,8 @@ exports.getPosts = function (req, res, next) {
     },
     order: [['createdAt', 'DESC']]
   }).then(function (posts) {
-    if (!posts) {
+    
+    if (posts.length == 0) {
       return res.status(404).json({
         errorMsg: 'posts doesn\'t exist',
         statusCode: -1
