@@ -50,7 +50,7 @@ exports.getPostComment = function (req, res, next) {
   return Comment.findAll({
     include: [{
       model: User,
-      attributes: ["ID", "nickname"]
+      attributes: ["ID", "nickname", "profile_image_path"]
     }],
     where: {
       post_id: postIdx,
