@@ -296,6 +296,14 @@ exports.getPostList = function (req, res, next) {
       for (let media of post.media) {
         media.file_path = media.getDevicePath(req.device.type);
       }
+
+      post.thumbnail_image_path = JSON.parse(post.thumbnail_image_path);
+
+      let images = [];
+      for (let image of post.thumbnail_image_path[0].vrimages) {
+        images.push([config.mediaUrl, image.thumb].join('/'));
+      }
+      post.thumbnail_image_path = images;
     }
 
     return res.json(p);
