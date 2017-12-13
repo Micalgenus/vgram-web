@@ -194,7 +194,7 @@ module.exports = function (app) {
   api.postRoute.put('/:postIdx([0-9]+)', requireApiAuth, init, api.postController.modifyPostInfo); //만듬
 
   // get all comments
-  api.postRoute.get('/:postIdx([0-9]+)/comment/:commentListIdx([0-9]+)', requireApiAuth, api.postController.getPostComment); 
+  api.postRoute.get('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.getPostComment); 
   
   // add comment
   api.postRoute.post('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.createPostComment); 
