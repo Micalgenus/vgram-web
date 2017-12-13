@@ -252,7 +252,7 @@ exports.viewNotice = function (req, res) {
 exports.getPostList = function (req, res, next) {
 
   let page = req.params.postListIdx;
-  let count = 6;
+  let count = req.query.count | 6;
   let index = count * (page - 1);
 
   return Post.findAll({
