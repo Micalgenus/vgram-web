@@ -262,6 +262,11 @@ exports.getPostList = function (req, res, next) {
       model: Comment,
       as: 'Comments',
       // attributes: ["ID", "post_id"]
+
+      include: [{
+        model: User,
+        attributes: ["ID", "nickname"]
+      }]
     }, {
       model: User,
       as: 'LikeUsers',
