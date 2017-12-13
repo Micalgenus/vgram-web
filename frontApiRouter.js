@@ -193,9 +193,12 @@ module.exports = function (app) {
   // modify Post Info from authenticated userRoute
   api.postRoute.put('/:postIdx([0-9]+)', requireApiAuth, init, api.postController.modifyPostInfo); //만듬
 
+  // get all comments
+  api.postRoute.get('/:postIdx([0-9]+)/comment/:commentListIdx([0-9]+)', requireApiAuth, api.postController.getPostComment); 
+  
   // add comment
   api.postRoute.post('/:postIdx([0-9]+)/comment', requireApiAuth, api.postController.createPostComment); 
-
+  
   // delete comment
   api.postRoute.delete('/:postIdx([0-9]+)/comment/:commentIdx([0-9]+)', requireApiAuth, api.postController.deletePostComment); 
 

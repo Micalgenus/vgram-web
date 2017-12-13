@@ -41,6 +41,32 @@ exports.getPostInfo = function (req, res, next) {
   });
 };
 
+exports.getPostComment = function (req, res, next) {
+
+  let postIdx = req.params.postIdx;
+  let page = req.params.commentListIdx;
+  let count = req.query.count | 6;
+  let index = count * (page - 1);
+  return Comment.findAll({
+    include: [{
+      model: User,
+      attributes: ["ID", "nickname"]
+    }],
+    where: {
+      post_id: postIdx,
+    },
+    limit: count,
+    offset: index,
+  }).then(function (c) {
+    if (c.length == 0) return res.status(404).json({
+      errorMsg: 'overhead comment list',
+      statusCode: -1
+    });
+
+    return res.status(200).json(c);
+  });
+}
+
 exports.createPostComment = function (req, res, next) {
   var postIdx = req.params.postIdx;
   var comment = req.body.comment;
