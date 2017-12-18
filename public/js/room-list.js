@@ -2,29 +2,29 @@ var filter = (function() {
 
   var address = (function() {
 
-    var bestPictures = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: './map/json/address/init',
-      remote: {
-        url: './map/json/address/%QUERY',
-        wildcard: '%QUERY'
-      }
-    });
+    // var bestPictures = new Bloodhound({
+    //   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    //   queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //   prefetch: './map/json/address/init',
+    //   remote: {
+    //     url: './map/json/address/%QUERY',
+    //     wildcard: '%QUERY'
+    //   }
+    // });
 
-    $('.typeahead').typeahead(null, {
-      name: 'best-pictures',
-      display: 'addr1',
-      source: bestPictures,
-      templates: {
-        empty: [
-          '<div class="empty-message">',
-            'unable to find any Best Picture winners that match the current query',
-          '</div>'
-        ].join('\n'),
-        suggestion: Handlebars.compile('<div><strong>{{icl_translation.post.room.ID}}</strong> – {{addr1}}</div>')
-      }
-    });
+    // $('.typeahead').typeahead(null, {
+    //   name: 'best-pictures',
+    //   display: 'addr1',
+    //   source: bestPictures,
+    //   templates: {
+    //     empty: [
+    //       '<div class="empty-message">',
+    //         'unable to find any Best Picture winners that match the current query',
+    //       '</div>'
+    //     ].join('\n'),
+    //     suggestion: Handlebars.compile('<div><strong>{{icl_translation.post.room.ID}}</strong> – {{addr1}}</div>')
+    //   }
+    // });
 
     var $root = $('#room #address');
 
