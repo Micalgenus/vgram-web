@@ -1,73 +1,107 @@
 {
-   "app": {
-      "name": "아늑한집"
-   },
-   "404PageNotFound": "페이지를 찾을 수 없습니다.",
-   "createPostComplete": "글 작성이 성공하였습니다.",
-   "editPostComplete": "글 수정이 완료되었습니다.",
-   "deletePostComplete": "글 수정이 완료되었습니다.",
-   "failToCreatePost": "글 작성이 실패하였습니다.",
-   "troubleInServer": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
-   "requiredLogin": "로그인 정보가 없습니다. 로그인을 해주세요!",
-   "cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
-   "quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
-   "couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
-   "invalidInput": "올바르지 않은 입력입니다.",
-   "loggedOut": "로그아웃 되었습니다",
-   "completedRegister": "회원가입이 완료되었습니다",
-
-
-   "title": {
-      "main": "아늑한집 Cozyhouzz에 오신 것을 환영합니다~",
-      "createPostView": "글 정보 입력",
-      "createRoomInfoView": "방 정보 입력",
-      "updateRoomInfoView": "방 정보 수정",
-      "roomInfoDetailView": "방 정보 상세보기",
-      "roomInfoListView": "방 정보 목록",
-      "loginView": "로그인",
-      "registerView": "회원가입",
-      "embedView": "Cozyhouzz - Embed",
-      "userDetailView": "회원 정보 상세보기"
-   },
-   "placeType": {
-      "NORMAL": "일반",
-      "TRAVEL": "여행",
-      "REAL_ESTATE": "방/부동산",
-      "ACCOMMODATION": "숙박",
-      "VACATION_SPOT": "휴양지",
-      "RESTAURANT": "레스토랑",
-      "INTERIOR": "인테리어",
-      "AERIAL": "항공",
-      "ETC": "기타"
-   },
-   "businessType": {
-      "HOTEL": "호텔",
-      "ESTATE_AGENT": "공인중개사",
-      "LANDLORD": "건물주"
-   },
-   "roomContractCondition": {
+  "app": {
+    "name": "vgram"
+  },
+  "404PageNotFound": "페이지를 찾을 수 없습니다.",
+  "createPostComplete": "글 작성이 성공하였습니다.",
+  "editPostComplete": "글 수정이 완료되었습니다.",
+  "deletePostComplete": "글 수정이 완료되었습니다.",
+  "failToCreatePost": "글 작성이 실패하였습니다.",
+  "troubleInServer": "죄송합니다. 서버에 문제가 발생하였습니다.. ㅠㅠ",
+  "requiredLogin": "로그인 정보가 없습니다. 로그인을 해주세요!",
+  "cannotFindUser": "입력하신 e-mail(ID)를 찾을 수 없습니다.",
+  "quitORNotActivatedUser": "이미 탈퇴하였거나 휴면계정입니다. 휴면계정 해지신청이 필요합니다.",
+  "couldNotVerified": "로그인이 실패하였습니다. 비밀번호를 다시 확인해주세요",
+  "invalidInput": "올바르지 않은 입력입니다.",
+  "loggedOut": "로그아웃 되었습니다",
+  "completedRegister": "회원가입이 완료되었습니다",
+  "alreadyExistMember": "이미 존재하는 회원입니다",
+  "word": {
+    "option": "옵션"
+  },
+  "title": {
+    "main": "Welcome to VR Instant Photogram",
+    "createPostView": "글 정보 입력",
+    "createRoomInfoView": "방 정보 입력",
+    "updateRoomInfoView": "방 정보 수정",
+    "roomInfoDetailView": "방 정보 상세보기",
+    "roomInfoListView": "방 정보 목록",
+    "loginView": "로그인",
+    "registerView": "회원가입",
+    "embedView": "Vgram - Embed",
+    "userDetailView": "회원 정보 상세보기"
+  },
+  "placeType": {
+    "NORMAL": "일반",
+    "TRAVEL": "여행",
+    "REAL_ESTATE": "방/부동산",
+    "ACCOMMODATION": "숙박",
+    "VACATION_SPOT": "휴양지",
+    "RESTAURANT": "레스토랑",
+    "INTERIOR": "인테리어",
+    "AERIAL": "항공",
+    "ETC": "기타"
+  },
+  "businessType": {
+    "HOTEL": "호텔",
+    "ESTATE_AGENT": "공인중개사",
+    "LANDLORD": "건물주"
+  },
+  "room": {
+    "shortTerm": "단기계약여부",
+    "contractCondition": {
       "MONTHLY": "월세",
       "ANNUALLY": "연세",
-      "LEASE": "전세"
-   },
-   "floors": {
-      "Bx": "지하",
-      "Bh": "반지하",
-      "1F": "1층",
-      "2F": "2층",
-      "3F": "3층",
-      "4F": "4층",
-      "5F": "5층",
-      "6F": "6층",
-      "7xF": "7층 이상",
-      "rooftop": "옥탑"
-   },
-   "postStatus": {
-      "PUBLISH": "검색시 공개",
-      "PRIVATE": "비공개"
-   },
-   "lang": {
-      "ko": "한국어",
-      "en": "영어"
-   }
+      "LEASE": "전세",
+      "SELL": "판매"
+    },
+    "options": {
+      "internet": "인터넷",
+      "TV": "TV",
+      "washer": "세탁기",
+      "airConditioner": "에어컨",
+      "bed": "침대",
+      "desk": "책상",
+      "closet": "옷장",
+      "refrigerator": "냉장고",
+      "gasRange": "가스레인지",
+      "microwave": "전자레인지",
+      "shoeCloset": "신발장"
+    },
+    "parking": "주차가능여부",
+    "elevator": "엘리베이터유무",
+    "heatingType": {
+      "nightElectronic": "심야전기",
+      "cityGas": "도시가스"
+    }
+  },
+  "unit": {
+    "pyeong": "평"
+  },
+  "floors": {
+    "Bx": "지하",
+    "Bh": "반지하",
+    "1F": "1층",
+    "2F": "2층",
+    "3F": "3층",
+    "4F": "4층",
+    "5F": "5층",
+    "6F": "6층",
+    "7xF": "7층 이상",
+    "rooftop": "옥탑"
+  },
+  "postStatus": {
+    "PUBLISH": "공개",
+    "PRIVATE": "비공개"
+  },
+  "lang": {
+    "ko": "한국어",
+    "en": "영어"
+  },
+  "alreadyLogined": "alreadyLogined",
+  "memberType": {
+    "ADMIN": "관리자",
+    "PUBLIC": "일반 회원",
+    "BUSINESS": "사업주 회원"
+  }
 }
