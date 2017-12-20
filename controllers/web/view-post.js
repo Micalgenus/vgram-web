@@ -319,7 +319,6 @@ exports.postAjaxView = function (req, res) {
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,
-      domainUrl: config.host,
 
       // post: info.post,
       postID: info.post.ID,
@@ -510,7 +509,6 @@ exports.viewPostInfoView = function (req, res) {
       title: "viewPostInfoView",
       msg: req.msg,
       mediaUrl: config.mediaUrl,
-      domainUrl: config.host,
 
       post: info.post,
       postID: info.post.ID,
