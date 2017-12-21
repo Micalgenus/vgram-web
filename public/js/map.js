@@ -163,8 +163,10 @@ var ListData = (function() {
       $(document).scroll(function() {
         if ($page == 1) $scroll = 0;
 
-        if($(window).scrollTop() + $(window).innerHeight() >= $(document).innerHeight() && $(window).scrollTop() > $scroll) {
-          $scroll = $(window).scrollTop();
+        let scrollTemp = $(window).scrollTop() + $(window).innerHeight();
+
+        if(scrollTemp >= $(document).innerHeight() && scrollTemp > $scroll) {
+          $scroll = scrollTemp;
           $page++;
           data.filterReload(true);
         }
