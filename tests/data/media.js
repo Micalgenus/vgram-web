@@ -860,21 +860,21 @@ module.exports = [
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
       createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      file_path: "medias/vtours/sinho0689@gmail.com/vtour",
+      file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
          tiles: [
             {
-               ID: 31,  // media.ID
-               dir_name: "vr1.tiles"
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
             },
             {
-               ID: 32,
-               dir_name: "vr2.tiles"
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
             },
             {
-               ID: 33,
-               dir_name: "vr3.tiles"
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
             }
          ],
          thumbnail_image_name: "thumb.jpg",// 단일면 이미지
@@ -888,21 +888,21 @@ module.exports = [
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
       createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      file_path: "medias/vtours/sinho0689@gmail.com/vtour1",
+      file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
          tiles: [
             {
-               ID: 34,  // media.ID
-               dir_name: "vr4.tiles"
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
             },
             {
-               ID: 35,
-               dir_name: "vr5.tiles"
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
             },
             {
-               ID: 36,
-               dir_name: "vr6.tiles"
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
             }
          ],
          thumbnail_image_name: "thumb.jpg",// 단일면 이미지
@@ -916,21 +916,21 @@ module.exports = [
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
       createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      file_path: "medias/vtours/sinho0689@gmail.com/vtour2",
+      file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
          tiles: [
             {
-               ID: 37,  // media.ID
-               dir_name: "vr7.tiles"
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
             },
             {
-               ID: 38,
-               dir_name: "vr8.tiles"
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
             },
             {
-               ID: 39,
-               dir_name: "vr9.tiles"
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
             }
          ],
          thumbnail_image_name: "thumb.jpg",// 단일면 이미지
@@ -944,21 +944,21 @@ module.exports = [
       group: "4s9df41a3zsscf7dt",
       type: "VTOUR",       // tour형으로 변환된 vr이미지
       createdAt: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-      file_path: "medias/vtours/sinho0689@gmail.com/vtour3",
+      file_path: "medias/vtours/sinho0689@gmail.com/201705310103",
       file_name: "tour.xml",    // xml 경로가 저장된다
       meta_value: {
          tiles: [
             {
-               ID: 40,  // media.ID
-               dir_name: "vr10.tiles"
+               ID: 7,  // media.ID
+               dir_name: "SAM_100_0073.tiles"
             },
             {
-               ID: 41,
-               dir_name: "vr11.tiles"
+               ID: 8,
+               dir_name: "SAM_100_0074.tiles"
             },
             {
-               ID: 42,
-               dir_name: "vr12.tiles"
+               ID: 9,
+               dir_name: "SAM_100_0075.tiles"
             }
          ],
          thumbnail_image_name: "thumb.jpg",// 단일면 이미지
