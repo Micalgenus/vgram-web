@@ -8,9 +8,9 @@ const Comment = models.comment;
 const Translation = models.icl_translation;
 const Address = models.address;
 const Media = models.media;
-
 // const Room = models.room;
 
+const config = require("../../config/main");
 const value = require('../../utils/staticValue');
 
 exports.postInfoListView = function (req, res) {
@@ -19,6 +19,7 @@ exports.postInfoListView = function (req, res) {
     logined: req.user.logined,
     userIdx: req.ID,
     userAuthId: req.user.sub,
+    mediaUrl: config.mediaUrl,
     title: "mapView",     // locale과 매칭되는 변수명을 적어야함.
     msg: req.msg,
     lat: value.mapLocationCenter.lat,

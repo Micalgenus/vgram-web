@@ -97,6 +97,8 @@ $('#map-container .control button').on('click', function(e) {
 <script type="text/javascript" src="/js/room-list.js"></script>
 <script type="text/javascript">
   function initMap() {
+
+    roomList.init('<%= mediaUrl %>');
     var lat, lng;
     var options = {
       enableHighAccuracy: true,
