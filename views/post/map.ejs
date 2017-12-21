@@ -98,17 +98,22 @@ $('#map-container .control button').on('click', function(e) {
 <script type="text/javascript">
   function initMap() {
     var lat, lng;
-    var is_safari = navigator.vendor &&
-      navigator.vendor.indexOf('Apple') > -1 &&
-      navigator.userAgent && !navigator.userAgent.match('CriOS');
-    roomList.init("<%= mediaUrl %>");
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
 
-    if (!is_safari && navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
         lat = position.coords.latitude;
         lng = position.coords.longitude;
         roomList.drawRoom(lat, lng);
-      });
+      }, function (err) {
+        lat = <%= lat %>;
+        lng = <%= lng %>;
+        roomList.drawRoom(lat, lng);
+      }, options);
     } else {
       lat = <%= lat %>;
       lng = <%= lng %>;
