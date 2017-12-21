@@ -45,31 +45,33 @@ var ListData = (function() {
         clear();
         for (var i in displayArray) appendRoot(make(displayArray[i]));
         // root.isotope('layout');
-        var t = setTimeout( function(){
-          $("#load-next-vlist a").attr("href", '/post/html/2'); // url 변경
-          $container.isotope('layout');
-          $container.infinitescroll({
-            loading: {
-              finishedMsg: '<i class="icon-line-check"></i>',
-              msgText: '<i class="icon-line-loader icon-spin"></i>',
-              img: "/lib/js-canvas/images/preloader-dark.gif",
-              speed: 'normal'
-            },
-            state: {
-              isDestroy: false
-            },
-            nextSelector: "#load-next-vlist a",
-            navSelector: "#load-next-vlist",
-            itemSelector: "article.portfolio-item"
-          }, function( newElements ) {
-            $container.isotope( 'appended', $( newElements ) );
-            var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
-            SEMICOLON.widget.loadFlexSlider();
-            SEMICOLON.portfolio.arrange();
-          });
-        }, 1000 );
+        // var t = setTimeout( function(){
+        //   $("#load-next-vlist a").attr("href", '/post/html/2'); // url 변경
+        //   $container.isotope('layout');
+        //   $container.infinitescroll({
+        //     loading: {
+        //       finishedMsg: '<i class="icon-line-check"></i>',
+        //       msgText: '<i class="icon-line-loader icon-spin"></i>',
+        //       img: "/lib/js-canvas/images/preloader-dark.gif",
+        //       speed: 'normal'
+        //     },
+        //     state: {
+        //       isDestroy: false
+        //     },
+        //     nextSelector: "#load-next-vlist a",
+        //     navSelector: "#load-next-vlist",
+        //     itemSelector: "article.portfolio-item"
+        //   }, function( newElements ) {
+        //     $container.isotope( 'appended', $( newElements ) );
+        //     var t = setTimeout( function(){ $container.isotope('layout'); }, 1000 );
+        //     SEMICOLON.widget.loadFlexSlider();
+        //     SEMICOLON.portfolio.arrange();
+        //   });
+        // }, 1000 );
 				SEMICOLON.widget.loadFlexSlider();
         SEMICOLON.portfolio.arrange();
+        
+        console.log('displayArray', displayArray);
       };
 
       function appendRoot(data) {
@@ -98,7 +100,7 @@ var ListData = (function() {
           // let start = pagination.getPageSize() * (pagination.getPage() - 1);
           let start = 0;
           if (!reset) {
-            $('#left_area').scrollTop(0);
+            $('map-container').scrollTop(0);
             display.pagination.setPage(1);
           }
           
@@ -146,7 +148,7 @@ var ListData = (function() {
       var $filter = function(list){ return list; };
       var $makeLocations = function(list){ return list; };
       var $page = 1;
-      let $pageSize = 10;
+      let $pageSize = 6;
 
       /**
        * @desc  페이지 클릭 시 발생 이벤트
@@ -158,11 +160,11 @@ var ListData = (function() {
         display.displayReload($make, $filter, $makeLocations);
       };
 
-      $('#left_area').scroll(function() {
+      $(document).scroll(function() {
         if ($page == 1) $scroll = 0;
 
-        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight && $(this).scrollTop() > $scroll) {
-          $scroll = $(this).scrollTop();
+        if($(window).scrollTop() + $(window).innerHeight() >= $(document).innerHeight() && $(window).scrollTop() > $scroll) {
+          $scroll = $(window).scrollTop();
           $page++;
           data.filterReload(true);
         }
