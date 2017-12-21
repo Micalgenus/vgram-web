@@ -419,7 +419,7 @@ module.exports = function (app) {
 
   web.mapRoute.get('/', requireWebAuth, init, web.mapController.postInfoListView);
 
-  web.mapRoute.get('/json/list/:postIdxList(\[[0-9,]+\])', web.mapController.postInfoListJson);
+  web.mapRoute.get('/json/list/:postIdxList', web.mapController.postInfoListJson);
 
   web.mapRoute.get('/json/locations/:east/:west/:south/:north', web.mapController.getPostLocations);
 
