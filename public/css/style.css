@@ -1237,3 +1237,14 @@ body#sub-full #footer {
 #firechat div.prompt .prompt-body strong {
   font-size: 16px;
   color: #3498db; }
+
+#vr-image2 .slider-wrap a {
+  text-align: center;
+}
+
+#vr-image2 .slider-wrap a > img {
+  height: 600px;
+  max-width: 100%;
+  width: auto;
+  margin: auto;
+}

@@ -71,7 +71,7 @@ var ListData = (function() {
 				SEMICOLON.widget.loadFlexSlider();
         SEMICOLON.portfolio.arrange();
         
-        console.log('displayArray', displayArray);
+        // console.log('displayArray', displayArray);
       };
 
       function appendRoot(data) {
