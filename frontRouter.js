@@ -312,7 +312,7 @@ module.exports = function (app) {
   web.userRoute.get('/:userIdx([0-9]+)/json/notice', requireWebAuth, init, web.userController.getNotice);
   web.userRoute.get('/:userIdx([0-9]+)/json/likeposts', requireWebAuth, init, web.userController.getLikeposts);
 
-  web.userRoute.get('/json/list/:userIdxList(\[[0-9,]+\])', requireWebAuth, init, web.userController.getUserList);
+  web.userRoute.get('/json/list/:userIdxList', requireWebAuth, init, web.userController.getUserList);
 
   // //=========================
   // // api - Member Routes
