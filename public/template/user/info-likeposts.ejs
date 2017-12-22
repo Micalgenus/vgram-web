@@ -9,7 +9,6 @@
             <div class="flexslider">
               <div class="slider-wrap">
                 <% var size = images ? images.length :  0; %>
-                <% console.log(size); %>
                 <% for (var j = 0; j < size; j++) { %>
                   <div class="slide"><a href="/post/ajax/<%= data[i].ID %>" class="ajax-link"><img src="<%= mediaUrl %>/<%= images[j].thumb %>" alt=""></a></div>
                 <% } %>
