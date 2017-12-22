@@ -201,7 +201,8 @@ canvas {
       position: absolute !important;
       right: 15px !important;
       top: 0 !important;
-      width: calc(100% - 30px); }
+      /* width: calc(100% - 30px);  */
+    }
       #wrapper #header #primary-menu .quick-menu #top-account,
       #wrapper #header #primary-menu .quick-menu #top-notification,
       #wrapper #header #primary-menu .quick-menu #top-search {
