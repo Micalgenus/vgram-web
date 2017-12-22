@@ -304,6 +304,9 @@ module.exports = function (app) {
   web.userRoute.get('/password', requireWebAuth, init, web.userController.viewPassword);
   web.userRoute.post('/change-password', requireWebAuth, init, web.userController.changePassword, web.redirectController.redirectLogout);
 
+  // setting
+  web.userRoute.get('/setting', requireWebAuth, init, web.userController.viewSetting);
+
   // member정보를 json형식으로 출력
   web.userRoute.get('/:userIdx([0-9]+)/json/follower', requireWebAuth, init, web.userController.getFollower);
   web.userRoute.get('/:userIdx([0-9]+)/json/following', requireWebAuth, init, web.userController.getFollowing);

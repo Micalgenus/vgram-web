@@ -555,6 +555,7 @@ exports.viewPassword = function (req, res) {
           lang: req.lang
         },
 
+        profile_image_path: u.profile_image_path,
         nickname: u.nickname,
         member_type: u.member_type,
         userLikeCount: c.length,
@@ -562,3 +563,45 @@ exports.viewPassword = function (req, res) {
     });
   });
 }
+
+exports.viewSetting = function (req, res) {
+  let auth0_user_id = req.user.sub;
+
+  return User.findOne({
+    where: {
+      auth0_user_id: auth0_user_id
+    }
+  }).then(function (u) {
+    if (!u) return res.redirect('/');
+
+    return User.findAll({
+      include: [{
+        model: User,
+        as: 'Subscribes',
+        where: {
+          auth0_user_id: auth0_user_id
+        }
+      }],
+    }).then(function (c) {
+
+      return res.render('user/setting', {
+        ENV: req.env,
+        logined: req.user.logined,
+        userIdx: req.user.ID,
+        userAuthId: req.user.sub,
+        title: 'viewSetting',
+        msg: req.msg,
+
+        value: {
+          memberType: value.memberType,
+          lang: req.lang
+        },
+
+        profile_image_path: u.profile_image_path,
+        nickname: u.nickname,
+        member_type: u.member_type,
+        userLikeCount: c.length,
+      })
+    });
+  });
+};
