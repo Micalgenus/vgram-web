@@ -490,12 +490,17 @@
           if (status === daum.maps.services.Status.OK) {
             // 해당 주소에 대한 좌표를 받아서
             var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-            //          // 지도를 보여준다.
-            //          map.relayout();
+
+            document.getElementById("lat").value = coords.getLat();
+            document.getElementById("lng").value = coords.getLng();
+
             // 지도 중심을 변경한다.
             map.setCenter(coords);
             // 마커를 결과값으로 받은 위치로 옮긴다.
             marker.setPosition(coords);
+
+            let address = result[0].address.address_name;
+            document.getElementById("sample5_address").value = address;
 
             // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
             infowindow.setContent(createMarkerContent(result));
@@ -544,7 +549,7 @@
 
     var uploading = false;
 
-    $('#info button').click(function () {
+    $('#info button#template-contactform-submit').click(function () {
 
       if (uploading) {
         alert('waiting for upload...');
