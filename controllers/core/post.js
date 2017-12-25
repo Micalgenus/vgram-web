@@ -7,6 +7,7 @@ const Translation = models.icl_translation;
 const Coordinate = models.coordinate;
 const Comment = models.comment;
 const Media = models.media;
+const Address = models.address;
 
 exports.getPostInfo = function (ID) {
   return Post.findOne({
@@ -16,6 +17,9 @@ exports.getPostInfo = function (ID) {
       model: Translation,
       include: [{
         model: Coordinate,
+        include: [{
+          model: Address
+        }]
       }]
     }, {
       model: User,

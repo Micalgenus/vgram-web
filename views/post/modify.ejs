@@ -179,31 +179,32 @@
                   <div id="daum-map"></div>
                   <div class="col_full clearfix address">
                     <button type="button" onclick="sample5_execDaumPostcode()">주소검색</button>
-                    <input type="text" id="sample5_address" name="address1" class="sm-form-control" placeholder="주소" readonly>
-                    <input type="text" id="address2" name="address2" class="sm-form-control" placeholder="상세주소 입력">
-                    <input type="hidden" id="lat" name="lat" />
-                    <input type="hidden" id="lng" name="lng" />
+                    <input type="text" id="sample5_address" name="address1" class="sm-form-control" placeholder="주소" value="<%= address1 %>" readonly>
+                    <input type="text" id="address2" name="address2" class="sm-form-control" value="<%= address2 %>" placeholder="상세주소 입력">
+                    <input type="hidden" id="lat" name="lat" value="<%=lat%>"/>
+                    <input type="hidden" id="lng" name="lng" value="<%=lng%>"/>
                   </div>
                 </div>
                 <div class="col_half col_last">
                   <div class="col_full">
                     <label for="post_status">공개여부</label>
                     <select id="post_status" name="post_status" class="sm-form-control">
-                      <option value="publish">공개</option>
-                      <option value="private">비공개</option>
+                      <option value="publish" <% if (post_status == "publish") { %>selected="selected"<% } %>>공개</option>
+                      <option value="private" <% if (post_status == "private") { %>selected="selected"<% } %>>비공개</option>
                     </select>
                   </div>
                   <div class="col_full">
                     <label for="post_type">카테고리</label>
+                    <%= postType %>
                     <select id="post_type" name="post_type" class="sm-form-control">
                       <% for (i in value.placeType) { %>
-                        <option value="<%= i %>"><%= __("placeType")[i] %></option>
+                        <option value="<%= i %>" <% if (postType == i) { %>selected="selected"<% } %>><%= __("placeType")[i] %></option>
                       <% } %>
                     </select>
                   </div>
                   <div class="col_full">
                     <label for="title">제목</label>
-                    <input type="text" name="title" id="title" class="sm-form-control" required/>
+                    <input type="text" name="title" id="title" class="sm-form-control" value="<%= postTitle %>" required/>
                   </div>
                 </div>
               </div>
@@ -211,7 +212,6 @@
                 <div id="summernote"></div>
               </div>
               <div class="write-button">
-                <a href="#normal" class="button button-leaf button-small">이전</a>
                 <button type="submit" id="template-contactform-submit" name="template-contactform-submit" class="button button-small">완료</button>
               </div>
             <!-- </form> -->
@@ -299,7 +299,7 @@
       $('#summernote').summernote({
         height: 200,
         lang: 'ko-KR'
-      });
+      }).summernote('code', '<%- content %>');
 
     });
 
@@ -372,7 +372,7 @@
 
   var mapContainer = document.getElementById('daum-map'), // 지도를 표시할 div
     mapOption = {
-      center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+      center: new daum.maps.LatLng(<%= lat %>, <%= lng %>), // 지도의 중심좌표
       level: 4 // 지도의 확대 레벨
     };
 
@@ -386,7 +386,7 @@
   //    infowindow = new daum.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
   var marker = new daum.maps.Marker({
-    position: new daum.maps.LatLng(37.537187, 127.005476),
+    position: new daum.maps.LatLng(<%= lat %>, <%= lng %>),
     map: map
   }),
     infowindow = new daum.maps.InfoWindow({ zindex: 1 });

@@ -19,80 +19,85 @@ const value = require('../../utils/staticValue');
 const genToken = require("../../utils/genToken");
 
 const Firebase = require('../core/firebase');
+const PostCore = require('../core/post');
 
 /* action */
-let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
-  return Post.findOne({
-    include: [{
-      model: User,
-    }, {
-      model: Translation,
-      include: [{
-        model: Coordinate,
-      }]
-    }, {
-      model: User,
-      as: 'LikeUsers'
-    }, {
-      model: Comment,
-      as: 'Comments',
-      include: [{
-        model: User,
-      }]
-    }, {
-      model: Media,
-      require: false,
-    }],
-    where: {
-      ID: ID
-    },
-    order: [
-      [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
-    ]
-  }).then(function (p) {
-    if (!p) return null;
+let getPostInfo = PostCore.getPostInfo;
+// let getPostInfo = function (ID, device) {  // API쪽으로 옮기자
+//   return Post.findOne({
+//     include: [{
+//       model: User,
+//     }, {
+//       model: Translation,
+//       include: [{
+//         model: Coordinate,
+//         include: [{
+//           model: Address
+//         }]
+//       }]
+//     }, {
+//       model: User,
+//       as: 'LikeUsers'
+//     }, {
+//       model: Comment,
+//       as: 'Comments',
+//       include: [{
+//         model: User,
+//       }]
+//     }, {
+//       model: Media,
+//       require: false,
+//     }],
+//     where: {
+//       ID: ID
+//     },
+//     order: [
+//       [{ model: Comment, as: 'Comments' }, 'createdAt', 'DESC']
+//     ]
+//   }).then(function (p) {
+//     if (!p) return null;
 
-    console.log(ID);
+//     console.log(ID);
 
-    let positions = p.icl_translation.coordinates;
-    let likeCount = p.LikeUsers.length;
-    let commentCount = p.Comments.length;
+//     let positions = p.icl_translation.coordinates;
+//     let likeCount = p.LikeUsers.length;
+//     let commentCount = p.Comments.length;
 
-    let VTOUR = [];
-    let NORMAL = [];
-    let VRIMAGE = [];
+//     let VTOUR = [];
+//     let NORMAL = [];
+//     let VRIMAGE = [];
 
-    for (var i in p.media) {
-      switch (p.media[i].type) {
-        case 'VTOUR':
-          VTOUR.push(p.media[i]);
-          break;
-        case 'NORMAL_IMAGE':
-          p.media[i].file_path = p.media[i].getDevicePath(device);
-          NORMAL.push(p.media[i]);
-          break;
-        case 'VR_IMAGE':
-          VRIMAGE.push(p.media[i]);
-          break;
-      }
-    }
+//     for (var i in p.media) {
+//       switch (p.media[i].type) {
+//         case 'VTOUR':
+//           VTOUR.push(p.media[i]);
+//           break;
+//         case 'NORMAL_IMAGE':
+//           p.media[i].file_path = p.media[i].getDevicePath(device);
+//           NORMAL.push(p.media[i]);
+//           break;
+//         case 'VR_IMAGE':
+//           VRIMAGE.push(p.media[i]);
+//           break;
+//       }
+//     }
 
-    return {
-      post: p,
-      positions: positions,
-      likeCount: likeCount,
+//     return {
+//       post: p,
+//       positions: positions,
+//       likeCount: likeCount,
 
-      comments: p.Comments,
-      commentCount: commentCount,
+//       comments: p.Comments,
+//       commentCount: commentCount,
 
-      vtour: VTOUR,
-      normal: NORMAL,
-      vrimage: VRIMAGE
-    }
-  });
-}
+//       vtour: VTOUR,
+//       normal: NORMAL,
+//       vrimage: VRIMAGE
+//     }
+//   });
+// }
 
-exports.getPostInfo = getPostInfo;
+// exports.getPostInfo = getPostInfo;
 
 exports.createPostInfo = function (req, res, next) {
   let profile = genToken.decodedToken(req.cookies['user_profile_token']);
@@ -389,32 +394,45 @@ exports.createPostInfoView = function (req, res) {
 
 exports.modifyPostInfoView = function (req, res) {
 
-  // if (!req.user.logined) {
-  //   req.flash('msg', "requiredLogin");
-  //   // return res.redirect('/post/room');
-  //   return res.redirect('back');
-  // }
+  let postIdx = req.params.postId;
 
-  // 기본적으로 user의 기본언어 선택사항을 따라가고,
-  // 향후에 글 작성시 언어를 선택할 수 있도록 하자.
-  return res.render('post/modify', {
-    ENV: req.env,
-    logined: req.user.logined,
-    userIdx: req.user.ID,
-    userAuthId: req.user.sub,
-    title: "modifyPostInfoView",
-    msg: req.msg,
-    update: false,
-    mediaUrl: config.mediaUrl,
+  return getPostInfo(postIdx, req.device.type).then(function (info) {
 
-    value: {
-      placeType: value.placeType,
-      room: value.room,
-      floors: value.floors,
-      postStatus: value.postStatus,
-      postType: value.postType,
-      lang: req.lang
-    }
+    if (info == null) return res.redirect('/');
+
+    return res.render('post/modify', {
+      ENV: req.env,
+      logined: req.user.logined,
+      userIdx: req.user.ID,
+      userAuthId: req.user.sub,
+      title: "modifyPostInfoView",
+      msg: req.msg,
+      mediaUrl: config.mediaUrl,
+
+      value: {
+        placeType: value.placeType,
+        room: value.room,
+        floors: value.floors,
+        postStatus: value.postStatus,
+        postType: value.postType,
+        lang: req.lang
+      },
+
+      post: info.post,
+      post_status: info.post.post_status,
+      postTitle: info.post.title,
+      postType: info.post.post_type,
+      createdAt: info.post.createdAt,
+
+      address1: info.post.icl_translation.coordinates[0].addresses[0].addr1,
+      address2: info.post.icl_translation.coordinates[0].addresses[0].addr2,
+
+      content: info.post.content,
+      // content: info.post.content.replace("\"", "\\\""),
+
+      lat: info.positions[0].lat,
+      lng: info.positions[0].lng,
+    });
   });
 };
 
