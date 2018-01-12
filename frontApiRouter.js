@@ -129,7 +129,7 @@ module.exports = function (app) {
   // api.authRoute.post('/info', api.authController.info);
 
   // Login route
-  api.authRoute.post('/login-callback', requireAuth0Login, init, api.authController.checkUser, api.authController.setToken); // 테스트 필요
+  api.authRoute.get('/login-callback', requireAuth0Login, init, api.authController.checkUser, api.authController.setToken); // 테스트 필요
 
   // Logout route: logout은 token을 삭제하기만 하면 됨
 
