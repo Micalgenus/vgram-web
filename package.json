@@ -1,5 +1,5 @@
 {
-  "name": "cozyhouzz",
+  "name": "vgram-web",
   "version": "0.0.1",
   "private": true,
   "main": "./bin/www.js",
@@ -9,6 +9,7 @@
     "server:dev:overwrite": "gulp --overwrite",
     "server:dev:debug": "gulp --debug",
     "server:dev:debug-overwrite": "gulp --debug --overwrite",
+    "server:dev:pm2": "cross-env PORT=3000 NODE_ENV=development pm2 start ./bin/www.js -i max --name='vgram-web'",
     "test": "npm run test-unit && npm run test-integration",
     "test-unit": "./node_modules/.bin/mocha tests/unit/*.test.js",
     "test-integration": "./node_modules/.bin/mocha test/sintegration/*.test.js",
@@ -113,7 +114,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kincjf/cozyhouzz-web.git"
+    "url": "git+https://github.com/kincjf/vgram-web.git"
   },
   "contributors": [
     "Seonho Kim <sinho0689@gmail.com>"
@@ -126,7 +127,7 @@
   "author": "Seonho Kim",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kincjf/cozyhouzz-web/issues"
+    "url": "https://github.com/kincjf/vgram-web/issues"
   },
-  "homepage": "http://cozyhouzz.co.kr"
+  "homepage": "http://vgram.kr"
 }
