@@ -80,7 +80,8 @@
                       <div class="flexslider">
                         <div class="slider-wrap">
                           <% for (var i = 0; i < normal.length; i++) { %>
-                            <% var image = [mediaUrl, normal[i].file_path, normal[i].file_name].join('/'); %>
+                            <% var type = "desktop"; %>
+                            <% var image = [mediaUrl, normal[i].file_path, type, normal[i].file_name].join('/'); %>
                             <div class="slide" data-thumb="<%= image %>">
                               <a href="<%= image %>">
                                 <img src="<%= image %>" alt="Image">
