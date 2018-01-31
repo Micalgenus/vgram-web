@@ -10,7 +10,7 @@
         <div class="flexslider">
           <div class="slider-wrap">
             <% for (var j = 0; j < images.length; j++) { %>
-              <div class="slide"><a href="/post/ajax/<%= post[i].ID %>" class="ajax-link"><img src="<%= (mediaUrl + images[j].thumb).replace(/([^:]\/)\/+/g, "$1"); %>" alt=""></a></div>
+              <div class="slide"><a href="/post/ajax/<%= post[i].ID %>" class="ajax-link"><img src="<%= [mediaUrl, images[j].thumb].join('/').replace(/([^:]\/)\/+/g, "$1"); %>" alt=""></a></div>
             <% } %>
           </div>
         </div>
