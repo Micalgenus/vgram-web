@@ -74,7 +74,7 @@
                   <div class="slider-wrap">
                     <% for (var i = 0; i < normal.length; i++) { %>
                       <% var type = "desktop"; %>
-                      <% var image = [mediaUrl, normal[i].file_path, type, normal[i].file_name].join('/'); %>
+                      <% var image = [mediaUrl, normal[i].file_path, type, normal[i].file_name].join('/').replace(/([^:]\/)\/+/g, "$1"); %>
                       <div class="slide" data-thumb="<%= image %>">
                         <a href="<%= image %>">
                           <img src="<%= image %>" alt="Image">
