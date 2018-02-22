@@ -759,7 +759,7 @@
 
   embedpano({
     swf: "/lib/krpano-1.19-pr6-viewer/krpano-tour.swf",
-    xml: ['<%= mediaUrl %>', VRImages.baseDir, VRImages.xmlName].join('/'),
+    xml: ['<%= mediaUrl %>', VRImages.baseDir, VRImages.xmlName].join('/').replace(/([^:]\/)\/+/g, "$1"),
     target: "pano", html5: "auto", mobilescale: 1.0, passQueryParameters: true
   });
   <% } %>

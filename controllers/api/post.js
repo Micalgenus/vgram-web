@@ -340,7 +340,8 @@ exports.viewPost = function (req, res, next) {
 }
 
 exports.createPostInfo = function (req, res, next) {
-  let profile = genToken.decodedToken(req.cookies['user_profile_token']);
+  // let profile = genToken.decodedToken(req.cookies['user_profile_token']);
+  let profile = "ko-kr";
 
   var postId = null;
 
@@ -351,7 +352,8 @@ exports.createPostInfo = function (req, res, next) {
       content: req.body.content,
       post_status: req.body.post_status,
       post_type: req.body.post_type,
-      locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
+      locale: profile,
+      // locale: profile.user_metadata.locale || profile.locale.toLowerCase(),
       meta_value: {
         written_device: '' // mobile??
       }
@@ -360,7 +362,8 @@ exports.createPostInfo = function (req, res, next) {
         element_id: post.ID,
         // element_type: "post", // ??
         group_id: 0,
-        language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
+        language_code: profile,
+        // language_code: profile.user_metadata.locale || profile.locale.toLowerCase(),
       }, { transaction: t }).then(function (translation) {
         return Translation.update({
           group_id: translation.ID
